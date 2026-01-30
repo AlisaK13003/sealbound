@@ -1,41 +1,42 @@
-# Normalize EOL for all files that Git considers text files.
+# Normalize EOL for all text files
 * text=auto eol=lf
 
-# Git LFS Tracking (Assets)
+# Treat common Godot text formats as text (diffable/mergeable)
+*.gd     text eol=lf
+*.tscn   text eol=lf
+*.tres   text eol=lf
+*.cfg    text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+
+# Git LFS Tracking (binary assets)
 
 # 3D Models
-*.fbx filter=lfs diff=lfs merge=lfs -text
+*.fbx  filter=lfs diff=lfs merge=lfs -text
 *.gltf filter=lfs diff=lfs merge=lfs -text
-*.glb filter=lfs diff=lfs merge=lfs -text
+*.glb  filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
-*.obj filter=lfs diff=lfs merge=lfs -text
+*.obj  filter=lfs diff=lfs merge=lfs -text
 
-# Images
-*.png filter=lfs diff=lfs merge=lfs -text
-*.svg filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
+# Images (keep SVG out of LFS)
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
 *.jpeg filter=lfs diff=lfs merge=lfs -text
-*.gif filter=lfs diff=lfs merge=lfs -text
-*.tga filter=lfs diff=lfs merge=lfs -text
+*.gif  filter=lfs diff=lfs merge=lfs -text
+*.tga  filter=lfs diff=lfs merge=lfs -text
 *.webp filter=lfs diff=lfs merge=lfs -text
-*.exr filter=lfs diff=lfs merge=lfs -text
-*.hdr filter=lfs diff=lfs merge=lfs -text
-*.dds filter=lfs diff=lfs merge=lfs -text
+*.exr  filter=lfs diff=lfs merge=lfs -text
+*.hdr  filter=lfs diff=lfs merge=lfs -text
+*.dds  filter=lfs diff=lfs merge=lfs -text
 
 # Audio
-*.mp3 filter=lfs diff=lfs merge=lfs -text
-*.wav filter=lfs diff=lfs merge=lfs -text
-*.ogg filter=lfs diff=lfs merge=lfs -text
+*.wav  filter=lfs diff=lfs merge=lfs -text
+*.ogg  filter=lfs diff=lfs merge=lfs -text
+*.mp3  filter=lfs diff=lfs merge=lfs -text
 
-# Font & Icon
-*.ttf filter=lfs diff=lfs merge=lfs -text
-*.otf filter=lfs diff=lfs merge=lfs -text
-*.ico filter=lfs diff=lfs merge=lfs -text
+# Fonts & icons
+*.ttf  filter=lfs diff=lfs merge=lfs -text
+*.otf  filter=lfs diff=lfs merge=lfs -text
+*.ico  filter=lfs diff=lfs merge=lfs -text
 
-# Godot LFS Specific
-*.scn filter=lfs diff=lfs merge=lfs -text
-*.res filter=lfs diff=lfs merge=lfs -text
-*.material filter=lfs diff=lfs merge=lfs -text
-*.anim filter=lfs diff=lfs merge=lfs -text
-*.mesh filter=lfs diff=lfs merge=lfs -text
-*.lmbake filter=lfs diff=lfs merge=lfs -text
