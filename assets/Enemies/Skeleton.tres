@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="enemy_combatant" format=3 uid="uid://8dpmbbkwh8si"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/moves.gd" id="1_jguxn"]
+[ext_resource type="Script" uid="uid://cqq1sj1x4ol6d" path="res://assets/Scripts/combat_enemy.gd" id="2_dpvc4"]
+[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="2_hxegi"]
+
+[sub_resource type="Resource" id="Resource_0mjcf"]
+script = ExtResource("1_jguxn")
+move_name = "Head Bash"
+attack_power = 1
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_ytgt1"]
+script = ExtResource("1_jguxn")
+move_name = "Swing Sword"
+attack_power = 2
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[resource]
+script = ExtResource("2_dpvc4")
+enemy_sprite = ExtResource("2_hxegi")
+enemy_name = "Skeleton"
+enemy_moves = Array[ExtResource("1_jguxn")]([SubResource("Resource_0mjcf"), SubResource("Resource_ytgt1")])
+metadata/_custom_type_script = "uid://cqq1sj1x4ol6d"

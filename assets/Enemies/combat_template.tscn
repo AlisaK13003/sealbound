@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://k6v7sgnkrssa"]
+
+[node name="CombatTemplate" type="Node2D" unique_id=887450904]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=660185589]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=390508545]
+offset_left = -12.0
+offset_top = -13.0
+offset_right = 9.0
+offset_bottom = 14.0
