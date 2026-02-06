@@ -1,21 +1,10 @@
 [gd_scene format=3 uid="uid://dn7pbr6ccxfbx"]
 
-[ext_resource type="Texture2D" uid="uid://b0el85ib6l0r1" path="res://icon.svg" id="1_aupxa"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
+[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_cavrc"]
+[ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="2_0glpd"]
 
 [node name="Playground" type="Node2D" unique_id=724564567]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1097281158]
+[node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(236, 135)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=784952479]
-position = Vector2(3.8146973e-06, -5.9604645e-08)
-scale = Vector2(2.5, 2.5)
-shape = SubResource("CircleShape2D_vom5j")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1073109666]
-texture_filter = 1
-position = Vector2(-1.7881393e-07, 0)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_aupxa")
+script = ExtResource("2_0glpd")
