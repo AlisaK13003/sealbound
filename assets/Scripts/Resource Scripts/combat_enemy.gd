@@ -1,6 +1,6 @@
 extends Resource
 
-class_name enemy_combatant
+class_name EnemyCombatant
 
 # stores information regarding enemies present in combat
 
@@ -8,3 +8,4 @@ class_name enemy_combatant
 @export var enemy_name : String
 @export var enemy_stats : stats
 @export var enemy_moves : Array[moves]
+var enemy_position : int

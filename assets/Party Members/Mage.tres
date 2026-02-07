@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="PartyMember" format=3 uid="uid://dnq8yvjyls8j0"]
+
+[ext_resource type="Resource" uid="uid://bn2e8y15yvhmt" path="res://assets/Party Members/Equipment/bangle.tres" id="1_1sfvn"]
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_hgtu5"]
+[ext_resource type="Script" uid="uid://bhyscht26l0dl" path="res://assets/Scripts/Resource Scripts/PartyMember_Controller.gd" id="2_fgkb1"]
+[ext_resource type="Resource" uid="uid://booha8i75nhea" path="res://assets/Party Members/Weapons/staff.tres" id="2_lu8iw"]
+[ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="4_wnc8l"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_2lu08"]
+
+[sub_resource type="Resource" id="Resource_o1cas"]
+script = ExtResource("1_hgtu5")
+move_name = "Swing"
+move_description = "Swing Swing Swing"
+attack_power = 2
+status_conditions = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_t0iy1"]
+script = ExtResource("5_2lu08")
+max_health = 314
+health = 314
+strength = 20
+speed = 4
+altered_speed = null
+luck = 14
+evasion = 1
+magic = 19
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("2_fgkb1")
+member_name = "Mage"
+player_sprite = ExtResource("4_wnc8l")
+move_list = Array[ExtResource("1_hgtu5")]([SubResource("Resource_o1cas")])
+player_stats = SubResource("Resource_t0iy1")
+current_equipped_weapon = ExtResource("2_lu8iw")
+current_equipped_armor = ExtResource("1_1sfvn")
+current_battle_position = 2
+metadata/_custom_type_script = "uid://bhyscht26l0dl"

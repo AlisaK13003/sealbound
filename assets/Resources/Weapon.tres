@@ -1,0 +1,8 @@
+[gd_resource type="Resource" format=3 uid="uid://xsmgn7o48tl3"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_r7g4l"]
+
+[resource]
+script = ExtResource("1_r7g4l")
+elemental_affinity = null
+status_conditions = null

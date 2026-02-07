@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dlaenno426j3d"]
+
+[ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_1oib3"]
+[ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="2_qumfu"]
+[ext_resource type="Texture2D" uid="uid://ceicki2gyqvpl" path="res://assets/Party Members/Sprites/Temp_Party_3.tres" id="3_xxlqi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hse47"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_51ljn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ktx"]
+
+[node name="CombatParty" type="Node2D" unique_id=957309874]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=996161155]
+shape = SubResource("RectangleShape2D_hse47")
+
+[node name="Party_Member_1" type="Sprite2D" parent="CollisionShape2D" unique_id=1673829822]
+texture = ExtResource("1_1oib3")
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="CollisionShape2D" unique_id=914914065]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1766973149]
+position = Vector2(-48, 0)
+shape = SubResource("RectangleShape2D_51ljn")
+
+[node name="Party_Member_2" type="Sprite2D" parent="CollisionShape2D2" unique_id=730578455]
+texture = ExtResource("2_qumfu")
+flip_h = true
+
+[node name="Area2D2" type="Area2D" parent="CollisionShape2D2" unique_id=936649602]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=663548000]
+position = Vector2(48, 0)
+shape = SubResource("RectangleShape2D_d0ktx")
+
+[node name="Party_Member_3" type="Sprite2D" parent="CollisionShape2D3" unique_id=1137121663]
+texture = ExtResource("3_xxlqi")
+flip_h = true
+
+[node name="Area2D3" type="Area2D" parent="CollisionShape2D3" unique_id=1940663082]
