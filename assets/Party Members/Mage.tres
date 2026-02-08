@@ -21,7 +21,6 @@ max_health = 314
 health = 314
 strength = 20
 speed = 4
-altered_speed = null
 luck = 14
 evasion = 1
 magic = 19

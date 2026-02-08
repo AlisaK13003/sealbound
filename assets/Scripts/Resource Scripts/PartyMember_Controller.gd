@@ -17,6 +17,23 @@ class_name PartyMember
 
 @export_enum("Front", "Middle", "Back") var current_battle_position
 
-# Damage = base_strength * (weapon_attack / 10)
-# var variance = randf_range(0.9, 1.1) # 90% to 110% damage
-# final_damage = int(final_damage * variance)
+var is_dead: bool
+
+func calculate_damage():
+	var damage = (player_stats.strength + (current_equipped_weapon.weapon_attack))
+	var variance = randf_range(0.9, 1.1)
+	var final_damage = int(damage * variance)
+	
+	print("Planning to deal " + str(final_damage))
+	
+	return final_damage
+	
+func take_damage(damage_to_take):
+	var damage = damage_to_take - (player_stats.defense + current_equipped_armor.equipment_stats.defense)
+	player_stats.health -= damage
+	if player_stats.health <= 0:
+		is_dead = true 
+		
+func heal_member(amount_to_heal):
+	player_stats.health += amount_to_heal
+	is_dead = false

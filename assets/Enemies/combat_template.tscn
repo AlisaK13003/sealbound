@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://k6v7sgnkrssa"]
 
-[node name="CombatTemplate" type="Node2D" unique_id=887450904]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6nvfj"]
+size = Vector2(19, 25)
+
+[node name="CombatTemplate" type="Node2D" unique_id=887450904 groups=["enemy_battle_guy"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=660185589]
 
@@ -9,3 +12,9 @@ offset_left = -12.0
 offset_top = -13.0
 offset_right = 9.0
 offset_bottom = 14.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=588173920]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=605704375]
+position = Vector2(-1.5, 0.5)
+shape = SubResource("RectangleShape2D_6nvfj")

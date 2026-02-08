@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="enemy_combatant" format=3 uid="uid://co4l4raig4as"]
+[gd_resource type="Resource" script_class="EnemyCombatant" format=3 uid="uid://co4l4raig4as"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_is6al"]
 [ext_resource type="Texture2D" uid="uid://bucmvixa6qkvp" path="res://assets/Enemies/Enemy_Sprites/Generic_Monster.tres" id="2_dqi5h"]
