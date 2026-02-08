@@ -243,7 +243,8 @@ func enemy_turn(cur_enemy: int):
 			party_2.take_damage(enemy_damage)
 		2:
 			party_3.take_damage(enemy_damage)
-			
+	
+# basic debug buttons, may or may not break flow when used to kill a party member
 func _on_button_button_down():
 	party_1.take_damage(50)
 	party_2.take_damage(50)
@@ -254,6 +255,7 @@ func _on_button_2_button_down():
 	party_2.heal_member(50)
 	party_3.heal_member(50)
 
+# logic to handle when mouse is released
 func _unhandled_input(event):
 	if event is InputEventMouseButton and not event.pressed:
 		if is_dragging:
@@ -262,11 +264,13 @@ func _unhandled_input(event):
 			else:
 				mouse_released()
 
+# when mouse is released on an enemy
 func lock_selection(enemy):
 	is_dragging = false
 	selected_target = enemy
 	action_taken.emit()
 
+# basic logic to handle player releasing mouse
 func mouse_released():
 	if is_dragging:
 		is_dragging = false
@@ -274,6 +278,7 @@ func mouse_released():
 		party_member_2.get_node("Line").visible = false
 		party_member_1.get_node("Line").visible = false
 
+# determine if the currently selected combatant is a player
 func determine_can_move(entity):
 	var thing = active_turn_orders.get(0).combatant
 	var not_enemy_turn : bool = thing is PartyMember
@@ -285,6 +290,7 @@ func determine_can_move(entity):
 			can_move = false
 	return can_move
 
+# handles the area2d on the combat party when user hovers over them and drags with the mouse
 func _on_back_party_entered(viewport, event, shape_idx):
 	var can_move = determine_can_move(party_3)
 	if event is InputEventMouseButton and can_move:
@@ -309,6 +315,7 @@ func _on_front_party_entered(viewport, event, shape_idx):
 				party_member_1.get_node("Line").visible = true
 				is_dragging = true
 
+# when player hovers over enemy set them as the selected enemy
 func _on_any_enemy_entered(enemy_node):
 	current_hovered_enemy = enemy_node
 
