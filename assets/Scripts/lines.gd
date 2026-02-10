@@ -2,7 +2,6 @@ extends Line2D
 
 var curve = Curve2D.new()
 
-
 func _process(delta):
 	var start_pos = Vector2.ZERO
 	var target_pos = get_local_mouse_position()

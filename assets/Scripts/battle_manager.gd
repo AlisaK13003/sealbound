@@ -220,6 +220,7 @@ func mouse_released():
 		for node in party_nodes:
 			node.get_node("Line").visible = false
 
+# logic to handle when mouse is released
 func _unhandled_input(event):
 	if event is InputEventMouseButton and not event.pressed:
 		if battle_state["is_dragging"]:
@@ -228,6 +229,7 @@ func _unhandled_input(event):
 			else:
 				mouse_released()
 
+# when mouse is released on an enemy
 func lock_selection(enemy):
 	battle_state["is_dragging"] = false
 	battle_state["selected_target"] = enemy
