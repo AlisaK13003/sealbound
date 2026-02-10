@@ -5,12 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://k6v7sgnkrssa" path="res://assets/Enemies/combat_template.tscn" id="2_4nxry"]
 [ext_resource type="Texture2D" uid="uid://df656xf1xtprp" path="res://assets/tile sheets/Tilemap_color1.png" id="2_736ul"]
 [ext_resource type="Resource" uid="uid://ch4nrh2ol6pv0" path="res://assets/Enemies/Encounters/testing.tres" id="2_cim36"]
-[ext_resource type="Resource" uid="uid://cxaai1suqnom2" path="res://assets/Party Members/Dwarf.tres" id="2_nh6mi"]
 [ext_resource type="PackedScene" uid="uid://dlaenno426j3d" path="res://assets/Party Members/Combat_Party.tscn" id="2_uvjbv"]
 [ext_resource type="Texture2D" uid="uid://drceqtu0002km" path="res://assets/tile sheets/Tilemap_color2.png" id="3_apksh"]
-[ext_resource type="Resource" uid="uid://dnq8yvjyls8j0" path="res://assets/Party Members/Mage.tres" id="3_cim36"]
 [ext_resource type="Texture2D" uid="uid://biij44dv42owx" path="res://assets/tile sheets/Tilemap_color3.png" id="4_eaoxq"]
-[ext_resource type="Resource" uid="uid://c8nnglq46tjqr" path="res://assets/Party Members/Paladin.tres" id="4_gxsq3"]
 [ext_resource type="Texture2D" uid="uid://dohbcdb5vykbf" path="res://assets/tile sheets/Tilemap_color4.png" id="5_0th6d"]
 [ext_resource type="Texture2D" uid="uid://c3h554c0bsrcr" path="res://assets/tile sheets/Tilemap_color5.png" id="6_4nxry"]
 [ext_resource type="Texture2D" uid="uid://d1xl35fleuqdf" path="res://assets/tile sheets/Water Background color.png" id="7_uvjbv"]
@@ -3319,16 +3316,9 @@ texture = ExtResource("7_uvjbv")
 [sub_resource type="TileSet" id="TileSet_eaoxq"]
 sources/0 = SubResource("TileSetAtlasSource_apksh")
 
-[node name="Background" type="Node2D" unique_id=631817478 node_paths=PackedStringArray("party", "party_1_label", "party_2_label", "party_3_label", "enemy_list", "enemy_enclosure")]
+[node name="Background" type="Node2D" unique_id=631817478 node_paths=PackedStringArray("enemy_list", "enemy_enclosure")]
 script = ExtResource("1_0th6d")
-party = NodePath("CombatParty")
 current_encounter = ExtResource("2_cim36")
-party_1 = ExtResource("2_nh6mi")
-party_2 = ExtResource("3_cim36")
-party_3 = ExtResource("4_gxsq3")
-party_1_label = NodePath("Camera2D/HUD/HBoxContainer/VBoxContainer")
-party_2_label = NodePath("Camera2D/HUD/HBoxContainer/VBoxContainer2")
-party_3_label = NodePath("Camera2D/HUD/HBoxContainer/VBoxContainer3")
 enemy_list = [NodePath("Enemy_Enclosure/Enemy1"), NodePath("Enemy_Enclosure/Enemy2"), NodePath("Enemy_Enclosure/Enemy3"), NodePath("Enemy_Enclosure/Enemy4"), NodePath("Enemy_Enclosure/Enemy5"), NodePath("Enemy_Enclosure/Enemy 6"), NodePath("Enemy_Enclosure/Enemy 7"), NodePath("Enemy_Enclosure/Enemy 8"), NodePath("Enemy_Enclosure/Enemy 9")]
 enemy_enclosure = NodePath("Enemy_Enclosure")
 
@@ -3481,9 +3471,9 @@ position = Vector2(600, 235)
 z_index = 10
 position = Vector2(570, 235)
 
-[connection signal="input_event" from="CombatParty/Back/Area2D2" to="." method="_on_back_party_entered"]
-[connection signal="input_event" from="CombatParty/Middle/Area2D" to="." method="_on_middle_party_entered"]
-[connection signal="input_event" from="CombatParty/Front/Area2D3" to="." method="_on_front_party_entered"]
+[connection signal="input_event" from="CombatParty/Back/Mouse_Spot" to="." method="_on_back_party_entered"]
+[connection signal="input_event" from="CombatParty/Middle/Mouse_Spot" to="." method="_on_middle_party_entered"]
+[connection signal="input_event" from="CombatParty/Front/Mouse_Spot" to="." method="_on_front_party_entered"]
 [connection signal="button_down" from="Camera2D/HUD/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="Camera2D/HUD/Button2" to="." method="_on_button_2_button_down"]
 

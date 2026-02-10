@@ -22,9 +22,9 @@ position = Vector2(-48, 0)
 texture = ExtResource("2_qumfu")
 flip_h = true
 
-[node name="Area2D2" type="Area2D" parent="Back" unique_id=936649602]
+[node name="Mouse_Spot" type="Area2D" parent="Back" unique_id=936649602]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Back/Area2D2" unique_id=537697625]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Back/Mouse_Spot" unique_id=537697625]
 shape = SubResource("RectangleShape2D_xxlqi")
 
 [node name="Selection_Arrow" type="Sprite2D" parent="Back" unique_id=48069209]
@@ -54,9 +54,9 @@ texture = ExtResource("4_hse47")
 texture = ExtResource("1_1oib3")
 flip_h = true
 
-[node name="Area2D" type="Area2D" parent="Middle" unique_id=914914065]
+[node name="Mouse_Spot" type="Area2D" parent="Middle" unique_id=914914065]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Middle/Area2D" unique_id=549214531]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Middle/Mouse_Spot" unique_id=549214531]
 shape = SubResource("RectangleShape2D_2xjcr")
 
 [node name="Selection_Arrow" type="Sprite2D" parent="Middle" unique_id=1140628662]
@@ -88,9 +88,9 @@ position = Vector2(48, 0)
 texture = ExtResource("3_xxlqi")
 flip_h = true
 
-[node name="Area2D3" type="Area2D" parent="Front" unique_id=1940663082]
+[node name="Mouse_Spot" type="Area2D" parent="Front" unique_id=1940663082]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Front/Area2D3" unique_id=329656518]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Front/Mouse_Spot" unique_id=329656518]
 shape = SubResource("RectangleShape2D_sk3s5")
 
 [node name="Selection_Arrow" type="Sprite2D" parent="Front" unique_id=1130785094]

@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bn2e8y15yvhmt" path="res://assets/Party Members/Equipment/bangle.tres" id="1_ixtcw"]
 [ext_resource type="Resource" uid="uid://dhftm6o04bqia" path="res://assets/Party Members/Weapons/sword.tres" id="2_732vw"]
 [ext_resource type="Script" uid="uid://bhyscht26l0dl" path="res://assets/Scripts/Resource Scripts/PartyMember_Controller.gd" id="2_noaan"]
-[ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="4_xnkdl"]
+[ext_resource type="Texture2D" uid="uid://3be0lkc1qn12" path="res://assets/Party Members/Sprites/FMC_Side_Profile.tres" id="4_ixtcw"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_r627t"]
 
 [sub_resource type="Resource" id="Resource_lswx3"]
@@ -27,7 +27,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 [resource]
 script = ExtResource("2_noaan")
 member_name = "Solaire"
-player_sprite = ExtResource("4_xnkdl")
+player_sprite = ExtResource("4_ixtcw")
 move_list = Array[ExtResource("1_a05ir")]([SubResource("Resource_lswx3")])
 player_stats = SubResource("Resource_w518n")
 current_equipped_weapon = ExtResource("2_732vw")
