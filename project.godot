@@ -24,11 +24,16 @@ Global="*uid://c8yegl8nrw5mx"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[gui]
+
+theme/custom_font="uid://bdo3ltjiapoqo"
 
 [physics]
 

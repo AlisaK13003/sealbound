@@ -7,5 +7,5 @@
 
 [resource]
 script = ExtResource("2_vmwmg")
-enemy_list = Array[ExtResource("1_yjsrq")]([ExtResource("2_bt271"), ExtResource("2_bt271"), ExtResource("2_bt271"), ExtResource("2_bt271"), ExtResource("3_5f88u"), ExtResource("3_5f88u"), ExtResource("3_5f88u"), ExtResource("3_5f88u"), ExtResource("3_5f88u")])
+enemy_list = Array[ExtResource("1_yjsrq")]([ExtResource("2_bt271"), ExtResource("2_bt271"), ExtResource("3_5f88u"), ExtResource("3_5f88u"), ExtResource("3_5f88u")])
 metadata/_custom_type_script = "uid://buaub6176yuvw"

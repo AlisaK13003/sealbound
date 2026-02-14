@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://8s56j846scx8"]
+
+[ext_resource type="Script" uid="uid://033coyo7hs65" path="res://assets/Scripts/player_card.gd" id="1_1wood"]
+[ext_resource type="Texture2D" uid="uid://b4bu00m71ahn7" path="res://assets/Party Members/Sprites/FMC_Portrair.tres" id="1_ktvcy"]
+[ext_resource type="Texture2D" uid="uid://vf5ciieh06or" path="res://assets/Sprites/Skill Card.png" id="2_l6jh7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6jh7"]
+size = Vector2(63.33332, 110)
+
+[node name="PlayerCard" type="Control" unique_id=617464844]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_1wood")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=116890563]
+layout_mode = 0
+offset_right = 175.0
+offset_bottom = 76.0
+color = Color(0.8812871, 0.62700677, 0.3762064, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect" unique_id=2107068770]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 33.0
+offset_bottom = 48.0
+color = Color(0.5019608, 0.49803922, 1, 1)
+
+[node name="Party_Sprite" type="Sprite2D" parent="." unique_id=845022821]
+unique_name_in_owner = true
+position = Vector2(19, 27)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_ktvcy")
+
+[node name="Party_Name" type="Label" parent="." unique_id=412615038]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 57.0
+offset_right = 60.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Name: "
+
+[node name="Skill_Cards" type="HBoxContainer" parent="." unique_id=1968314147]
+unique_name_in_owner = true
+z_index = 2
+custom_minimum_size = Vector2(146.29, 110.725)
+layout_mode = 0
+offset_left = 36.0
+offset_top = 4.0
+offset_right = 358.49997
+offset_bottom = 114.725006
+scale = Vector2(0.4, 0.4)
+theme_override_constants/separation = 17
+alignment = 1
+
+[node name="Skill_1" type="TextureRect" parent="Skill_Cards" unique_id=1630047450]
+layout_mode = 2
+texture = ExtResource("2_l6jh7")
+
+[node name="Area2D" type="Area2D" parent="Skill_Cards/Skill_1" unique_id=1850698121]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skill_Cards/Skill_1/Area2D" unique_id=78519067]
+position = Vector2(31.666656, 54.999996)
+shape = SubResource("RectangleShape2D_l6jh7")
+
+[node name="Label" type="Label" parent="Skill_Cards/Skill_1" unique_id=1924502211]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.666668
+offset_right = 56.666656
+offset_bottom = 26.666668
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Skill_2" type="TextureRect" parent="Skill_Cards" unique_id=2135427567]
+layout_mode = 2
+texture = ExtResource("2_l6jh7")
+
+[node name="Area2D" type="Area2D" parent="Skill_Cards/Skill_2" unique_id=2002934834]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skill_Cards/Skill_2/Area2D" unique_id=1055106603]
+position = Vector2(31.666656, 54.999996)
+shape = SubResource("RectangleShape2D_l6jh7")
+
+[node name="Label" type="Label" parent="Skill_Cards/Skill_2" unique_id=1845025528]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.666668
+offset_right = 56.666656
+offset_bottom = 26.666668
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Skill_3" type="TextureRect" parent="Skill_Cards" unique_id=1266792469]
+layout_mode = 2
+texture = ExtResource("2_l6jh7")
+
+[node name="Area2D" type="Area2D" parent="Skill_Cards/Skill_3" unique_id=1166318366]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skill_Cards/Skill_3/Area2D" unique_id=1219917569]
+position = Vector2(31.666656, 54.999996)
+shape = SubResource("RectangleShape2D_l6jh7")
+
+[node name="Label" type="Label" parent="Skill_Cards/Skill_3" unique_id=547703449]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.666668
+offset_right = 56.666656
+offset_bottom = 26.666668
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Ultimate" type="TextureRect" parent="Skill_Cards" unique_id=1074087621]
+layout_mode = 2
+texture = ExtResource("2_l6jh7")
+
+[node name="Area2D" type="Area2D" parent="Skill_Cards/Ultimate" unique_id=1195945518]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skill_Cards/Ultimate/Area2D" unique_id=1940435298]
+position = Vector2(31.666656, 54.999996)
+shape = SubResource("RectangleShape2D_l6jh7")
+
+[node name="Label" type="Label" parent="Skill_Cards/Ultimate" unique_id=447226439]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.666668
+offset_right = 56.666656
+offset_bottom = 26.666668
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 2

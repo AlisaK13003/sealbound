@@ -3,6 +3,7 @@ class_name moves
 
 @export var move_name: String
 @export var move_description : String
+@export var move_sprite : Texture2D
 @export var attack_power: int
 @export var priority: int
 @export var magic_cost: int

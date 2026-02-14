@@ -19,5 +19,4 @@ func calculate_damage():
 	var damage = enemy_stats.strength
 	var variance = randf_range(0.9, 1.1)
 	var final_damage = int(damage * variance)
-		
 	return final_damage

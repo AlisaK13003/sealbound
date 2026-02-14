@@ -3,11 +3,24 @@ extends Node
 # Global Variables / signals
 # --------------------------------------------------------------------------------
 
-@export var party_members : Array[PartyMember]
-var party_nodes : Array[CollisionShape2D]
-@export var party_labels : Array[VBoxContainer]
+# Used to randomize enemy starting position
+var number = [0, 1, 2, 3, 4]
 
-var number = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+# Holds the stats for a member
+@export var party_members : Array[PartyMember]
+
+# Is the displayed member, holds health bar, sprite, has combat_member.gd attached
+var party_nodes : Array[CollisionShape2D]
+
+# Holds the player cards at the bottom, has player_card.gd attached
+var party_cards : Array[Control] = []
+
+@export var HUD : Control
+
+@export var current_encounter : encounters
+
+# Stores the displayed enemy nodes, has enemy_unit.gd attached
+@export var enemy_enclosure : Node2D
 
 var battle_state = {
 	"is_dragging": false,
@@ -19,10 +32,6 @@ var battle_state = {
 
 var party_has_won: bool = false
 
-@export var current_encounter : encounters
-@export var enemy_list : Array[Node2D]
-@export var enemy_enclosure : Node2D
-
 var turn_orders : Array[TurnStorage] = []
 var active_turn_orders : Array[TurnStorage] = []
 var active_enemies_data : Array = []
@@ -31,6 +40,18 @@ signal action_taken
 
 # Helper Functions / Classes
 # --------------------------------------------------------------------------------
+
+class PartyCardStorage:
+	var belongs_to_member : int
+	var party_sprite : Texture2D
+	var party_name : Label
+	var skill_cards : HBoxContainer
+	func _init(_belongs_to_member, _party_sprite, _party_name, _skill_cards, name):
+		belongs_to_member = _belongs_to_member
+		party_sprite = _party_sprite
+		party_name = _party_name
+		skill_cards = _skill_cards
+		party_name.text = name
 
 # class to store party / enemies in relation to their speed
 class TurnStorage:
@@ -76,28 +97,24 @@ func determine_can_move(entity):
 	return can_move
 
 func _on_button_button_down():
-	party_members[0].take_damage(50)
-	party_members[1].take_damage(50)
-	party_members[2].take_damage(50)
+	for member in party_members:
+		member.take_damage(50)
 
 func _on_button_2_button_down():
-	party_members[0].heal_member(50)
-	party_members[1].heal_member(50)
-	party_members[2].heal_member(50)
+	for member in party_members:
+		member.heal_member(50)
 
 func _update_ui(current_health: int, cur_player: int):
-	party_labels[cur_player].get_node("HBoxContainer").get_child(1).text = str(current_health) + " / " + str(party_members[cur_player].player_stats.max_health)
-	if party_members[cur_player].player_stats.health == 0:
-		party_nodes[cur_player].get_node("X").visible = true
-	else:
-		party_nodes[cur_player].get_node("X").visible = false
+	party_nodes[cur_player].update_health(current_health, party_members[cur_player].player_stats.max_health)
 
+func _update_enemy_ui(enemy_health: int):
+	battle_state["selected_target"].get_node("PBar").value = enemy_health
 # Main Battle Loop
 # --------------------------------------------------------------------------------
 
 func _ready():
 	number.shuffle()
-	
+		
 	var party = $CombatParty
 	
 	party_nodes.append(party.get_node("Front"))
@@ -105,38 +122,30 @@ func _ready():
 	party_nodes.append(party.get_node("Back"))
 	
 	for i in range(party_members.size()):
-		party_labels[i].get_child(0).text = party_members[i].member_name
+		party_cards.append(HUD.get_node("Player_Cards").get_child(i))
+		party_cards[i].setup(party_members[i], i)
 		party_members[i].player_stats.health_changed.connect(_update_ui.bind(i))
 		party_members[i].player_stats.speed_changed.connect(turn_priority.bind(turn_orders))
-		_update_ui(party_members[i].player_stats.health, i)
 		party_members[i].current_battle_position = i
 		turn_orders.append(TurnStorage.new(party_members[i], (party_members[i].player_stats.altered_speed + party_members[i].player_stats.speed)))
 		party_nodes[i].get_node("Mouse_Spot").input_event.connect(_on_party_input_event.bind(i))
-
-	party.get_node("Front").get_node("Party_Member").texture = party_members[0].player_sprite
-	party.get_node("Middle").get_node("Party_Member").texture = party_members[1].player_sprite
-	party.get_node("Back").get_node("Party_Member").texture = party_members[2].player_sprite
 	
 	active_enemies_data.clear()
 	
-	for node in enemy_list:
-		node.visible = false
-		node.get_node("ColorRect").visible = false
-	
-	for i in range(enemy_list.size()):
+	for i in range(enemy_enclosure.get_child_count()):
+		enemy_enclosure.get_child(i).setup_enemy(current_encounter.enemy_list[number[i]])
+		enemy_enclosure.get_child(i).visible = true
+		enemy_enclosure.get_child(i).set_meta("data_index", i)
+		
+	for i in range(enemy_enclosure.get_child_count()):
 		if current_encounter.enemy_list.size() >= i:
 			var new_enemy = current_encounter.enemy_list[i].duplicate(true)
 			active_enemies_data.append(new_enemy)
 			new_enemy.enemy_position = i
-			
-			var visual_node = enemy_list[number[i]]
-			visual_node.visible = true
-			visual_node.get_node("Sprite2D").texture = new_enemy.enemy_sprite
-			
-			visual_node.set_meta("data_index", i)
 		
 	for enemy in active_enemies_data:
 		turn_orders.append(TurnStorage.new(enemy, (enemy.enemy_stats.speed + enemy.enemy_stats.altered_speed)))
+		enemy.enemy_stats.health_changed.connect(_update_enemy_ui.bind())
 	
 	for i in range(enemy_enclosure.get_child_count()):
 		var enemy_area = enemy_enclosure.get_child(i).get_node("Area2D")

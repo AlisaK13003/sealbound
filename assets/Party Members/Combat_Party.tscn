@@ -1,62 +1,104 @@
 [gd_scene format=3 uid="uid://dlaenno426j3d"]
 
 [ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_1oib3"]
+[ext_resource type="Texture2D" uid="uid://3be0lkc1qn12" path="res://assets/Party Members/Sprites/FMC_Side_Profile.tres" id="1_2xjcr"]
+[ext_resource type="Script" uid="uid://bx1i8s2a5v4pj" path="res://assets/Scripts/combat_member.gd" id="1_sk3s5"]
 [ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="2_qumfu"]
 [ext_resource type="Texture2D" uid="uid://1s0fb875q0xk" path="res://assets/Sprites/Selection_Arrow.png" id="2_xxlqi"]
-[ext_resource type="Texture2D" uid="uid://ceicki2gyqvpl" path="res://assets/Party Members/Sprites/Temp_Party_3.tres" id="3_xxlqi"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_hse47"]
+[ext_resource type="Texture2D" uid="uid://dm11igl44d1wo" path="res://assets/Sprites/Under2.png" id="5_2xjcr"]
 [ext_resource type="Script" uid="uid://cmtjt1dh1vg4r" path="res://assets/Scripts/lines.gd" id="5_xxlqi"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxlqi"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xjcr"]
+[ext_resource type="Texture2D" uid="uid://ckp4b42u2n044" path="res://assets/Sprites/Over2.png" id="6_sk3s5"]
+[ext_resource type="Texture2D" uid="uid://d3s7u27amcakt" path="res://assets/Sprites/bar.png" id="7_pf4v6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sk3s5"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xjcr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxlqi"]
+
 [node name="CombatParty" type="Node2D" unique_id=957309874]
 
-[node name="Back" type="CollisionShape2D" parent="." unique_id=1766973149]
-position = Vector2(-48, 0)
+[node name="Front" type="CollisionShape2D" parent="." unique_id=663548000]
+position = Vector2(90, 0)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_sk3s5")
 
-[node name="Party_Member" type="Sprite2D" parent="Back" unique_id=730578455]
-texture = ExtResource("2_qumfu")
-flip_h = true
+[node name="Party_Member" type="Sprite2D" parent="Front" unique_id=1137121663]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_2xjcr")
 
-[node name="Mouse_Spot" type="Area2D" parent="Back" unique_id=936649602]
+[node name="Mouse_Spot" type="Area2D" parent="Front" unique_id=1940663082]
+scale = Vector2(1.5, 1.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Back/Mouse_Spot" unique_id=537697625]
-shape = SubResource("RectangleShape2D_xxlqi")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Front/Mouse_Spot" unique_id=329656518]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_sk3s5")
 
-[node name="Selection_Arrow" type="Sprite2D" parent="Back" unique_id=48069209]
+[node name="Selection_Arrow" type="Sprite2D" parent="Front" unique_id=1130785094]
 visible = false
 position = Vector2(0, -30)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xxlqi")
 
-[node name="Line" type="Line2D" parent="Back" unique_id=193005508]
+[node name="Line" type="Line2D" parent="Front" unique_id=1679348917]
 visible = false
 position = Vector2(0, -30)
+points = PackedVector2Array(0, 0)
 width = 5.0
 script = ExtResource("5_xxlqi")
 
-[node name="Sprite2D" type="Sprite2D" parent="Back/Line" unique_id=1005331369]
+[node name="Sprite2D" type="Sprite2D" parent="Front/Line" unique_id=1333026359]
 rotation = 1.5707964
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xxlqi")
 
-[node name="X" type="Sprite2D" parent="Back" unique_id=1789287152]
+[node name="X" type="Sprite2D" parent="Front" unique_id=1740769650]
 visible = false
 texture = ExtResource("4_hse47")
 
+[node name="PBar" type="TextureProgressBar" parent="Front" unique_id=2113110442]
+offset_left = -7.999999
+offset_top = 22.666666
+offset_right = 24.0
+offset_bottom = 39.84487
+scale = Vector2(1.0329057, 0.6466664)
+value = 100.0
+texture_under = ExtResource("5_2xjcr")
+texture_over = ExtResource("6_sk3s5")
+texture_progress = ExtResource("7_pf4v6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Health_Num" type="Label" parent="Front/PBar" unique_id=591446264]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.17808577
+anchor_top = -0.14285718
+anchor_right = -0.17808577
+anchor_bottom = -0.14285718
+offset_left = -10.796042
+offset_top = 2.4540293
+offset_right = 1.7993479
+offset_bottom = 11.454029
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/font_size = 6
+text = "314"
+metadata/_edit_use_anchors_ = true
+
 [node name="Middle" type="CollisionShape2D" parent="." unique_id=996161155]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_sk3s5")
 
 [node name="Party_Member" type="Sprite2D" parent="Middle" unique_id=1673829822]
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_1oib3")
 flip_h = true
 
 [node name="Mouse_Spot" type="Area2D" parent="Middle" unique_id=914914065]
+scale = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Middle/Mouse_Spot" unique_id=549214531]
+scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_2xjcr")
 
 [node name="Selection_Arrow" type="Sprite2D" parent="Middle" unique_id=1140628662]
@@ -81,36 +123,96 @@ texture = ExtResource("2_xxlqi")
 visible = false
 texture = ExtResource("4_hse47")
 
-[node name="Front" type="CollisionShape2D" parent="." unique_id=663548000]
-position = Vector2(48, 0)
+[node name="PBar" type="TextureProgressBar" parent="Middle" unique_id=1630971858]
+offset_left = -12.0
+offset_top = 22.666666
+offset_right = 20.0
+offset_bottom = 39.84487
+scale = Vector2(1.0329057, 0.6466664)
+value = 100.0
+texture_under = ExtResource("5_2xjcr")
+texture_over = ExtResource("6_sk3s5")
+texture_progress = ExtResource("7_pf4v6")
+metadata/_edit_use_anchors_ = true
 
-[node name="Party_Member" type="Sprite2D" parent="Front" unique_id=1137121663]
-texture = ExtResource("3_xxlqi")
+[node name="Health_Num" type="Label" parent="Middle/PBar" unique_id=1306966651]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.17808577
+anchor_top = -0.14285718
+anchor_right = -0.17808577
+anchor_bottom = -0.14285718
+offset_left = -10.796042
+offset_top = 2.4540293
+offset_right = 1.7993479
+offset_bottom = 11.454029
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/font_size = 6
+text = "314"
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="CollisionShape2D" parent="." unique_id=1766973149]
+position = Vector2(-90, 0)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_sk3s5")
+
+[node name="Party_Member" type="Sprite2D" parent="Back" unique_id=730578455]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_qumfu")
 flip_h = true
 
-[node name="Mouse_Spot" type="Area2D" parent="Front" unique_id=1940663082]
+[node name="Mouse_Spot" type="Area2D" parent="Back" unique_id=936649602]
+scale = Vector2(1.5, 1.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Front/Mouse_Spot" unique_id=329656518]
-shape = SubResource("RectangleShape2D_sk3s5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Back/Mouse_Spot" unique_id=537697625]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_xxlqi")
 
-[node name="Selection_Arrow" type="Sprite2D" parent="Front" unique_id=1130785094]
+[node name="Selection_Arrow" type="Sprite2D" parent="Back" unique_id=48069209]
 visible = false
 position = Vector2(0, -30)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xxlqi")
 
-[node name="Line" type="Line2D" parent="Front" unique_id=1679348917]
+[node name="Line" type="Line2D" parent="Back" unique_id=193005508]
 visible = false
 position = Vector2(0, -30)
-points = PackedVector2Array(0, 0)
 width = 5.0
 script = ExtResource("5_xxlqi")
 
-[node name="Sprite2D" type="Sprite2D" parent="Front/Line" unique_id=1333026359]
+[node name="Sprite2D" type="Sprite2D" parent="Back/Line" unique_id=1005331369]
 rotation = 1.5707964
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xxlqi")
 
-[node name="X" type="Sprite2D" parent="Front" unique_id=1740769650]
+[node name="X" type="Sprite2D" parent="Back" unique_id=1789287152]
 visible = false
 texture = ExtResource("4_hse47")
+
+[node name="PBar" type="TextureProgressBar" parent="Back" unique_id=1022558242]
+offset_left = -12.0
+offset_top = 22.666666
+offset_right = 20.0
+offset_bottom = 39.84487
+scale = Vector2(1.0329057, 0.6466664)
+value = 100.0
+texture_under = ExtResource("5_2xjcr")
+texture_over = ExtResource("6_sk3s5")
+texture_progress = ExtResource("7_pf4v6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Health_Num" type="Label" parent="Back/PBar" unique_id=294825534]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.17808577
+anchor_top = -0.14285718
+anchor_right = -0.17808577
+anchor_bottom = -0.14285718
+offset_left = -10.796042
+offset_top = 2.4540293
+offset_right = 1.7993479
+offset_bottom = 11.454029
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/font_size = 6
+text = "314"
+metadata/_edit_use_anchors_ = true
