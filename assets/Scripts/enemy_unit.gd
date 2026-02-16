@@ -10,3 +10,7 @@ func setup_enemy(enemy: EnemyCombatant):
 	health_bar.max_value = enemy.enemy_stats.max_health
 	health_bar.value = enemy.enemy_stats.health
 	white_box.visible = false
+	enemy.enemy_stats.health_changed.connect(update_health.bind())
+	
+func update_health(current):
+	health_bar.value = current

@@ -11,9 +11,7 @@ class_name EnemyCombatant
 var enemy_position : int
 
 func take_damage(damage_to_take):
-	print("Previous health: " + str(enemy_stats.health))
 	enemy_stats.health -= clamp(damage_to_take, 0, enemy_stats.health)
-	print("Current health: " + str(enemy_stats.health))
 	
 func calculate_damage():
 	var damage = enemy_stats.strength

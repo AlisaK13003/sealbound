@@ -11,6 +11,7 @@
 script = ExtResource("1_quril")
 move_name = "Swing"
 move_description = "Swingy swing swing"
+energy_cost = 1
 status_conditions = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 

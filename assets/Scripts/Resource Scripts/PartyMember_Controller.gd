@@ -19,12 +19,17 @@ class_name PartyMember
 
 var is_dead: bool
 
+func use_move(move):
+	var damage = player_stats.strength * move.attack_power
+	var variance = randf_range(0.9, 1.1)
+	var final_damage = int(damage * variance)
+	
+	return final_damage
+
 func calculate_damage():
 	var damage = (player_stats.strength + (current_equipped_weapon.weapon_attack))
 	var variance = randf_range(0.9, 1.1)
 	var final_damage = int(damage * variance)
-	
-	print("Planning to deal " + str(final_damage))
 	
 	return final_damage
 	

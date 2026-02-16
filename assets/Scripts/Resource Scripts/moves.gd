@@ -8,6 +8,7 @@ class_name moves
 @export var priority: int
 @export var magic_cost: int
 @export var does_aoe_damage: bool
+@export var energy_cost : int
 
 @export var elemental_affinity : Elements 
 @export_enum("Sleep", "Shock", "Poision", "Burn", "Freeze") var status_conditions

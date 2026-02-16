@@ -3323,6 +3323,7 @@ sources/0 = SubResource("TileSetAtlasSource_apksh")
 
 [node name="Background" type="Node2D" unique_id=631817478 node_paths=PackedStringArray("HUD", "enemy_enclosure")]
 script = ExtResource("1_0th6d")
+energy_count = 3
 party_members = Array[ExtResource("2_gxsq3")]([ExtResource("2_nh6mi"), ExtResource("3_cim36"), ExtResource("4_gxsq3")])
 HUD = NodePath("Camera2D/Hud")
 current_encounter = ExtResource("2_cim36")
