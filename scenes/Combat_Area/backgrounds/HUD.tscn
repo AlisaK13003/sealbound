@@ -124,3 +124,12 @@ value = 96.0
 texture_under = ExtResource("5_mcorn")
 texture_over = ExtResource("6_rqlds")
 texture_progress = ExtResource("7_p67k6")
+
+[node name="GO" type="Button" parent="." unique_id=1354073207]
+top_level = true
+layout_mode = 0
+offset_left = 537.0
+offset_top = -47.0
+offset_right = 570.0
+offset_bottom = -16.0
+text = "GO"

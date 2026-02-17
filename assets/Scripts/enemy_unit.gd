@@ -4,6 +4,7 @@ extends Node2D
 @onready var white_box = $ColorRect
 @onready var mouse_area = $Area2D
 @onready var health_bar = $PBar
+@onready var planned_damage_label = $"Planned Damage"
 
 func setup_enemy(enemy: EnemyCombatant):
 	enemy_sprite.texture = enemy.enemy_sprite
@@ -14,3 +15,10 @@ func setup_enemy(enemy: EnemyCombatant):
 	
 func update_health(current):
 	health_bar.value = current
+
+func update_planned_damage(planned_damage):
+	var damage_to_take = int(planned_damage_label.text) + planned_damage
+	planned_damage_label.text = str(damage_to_take)
+	
+func reset_ui():
+	planned_damage_label.text = ""

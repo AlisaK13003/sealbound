@@ -36,3 +36,10 @@ value = 100.0
 texture_under = ExtResource("1_jesrt")
 texture_over = ExtResource("2_251y2")
 texture_progress = ExtResource("3_w4jhg")
+
+[node name="Planned Damage" type="Label" parent="." unique_id=1527482330]
+offset_left = -22.285715
+offset_top = -36.57143
+offset_right = 17.714285
+offset_bottom = -13.57143
+horizontal_alignment = 1
