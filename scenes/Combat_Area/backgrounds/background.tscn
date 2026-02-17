@@ -3343,7 +3343,6 @@ offset_left = 224.0
 offset_top = 281.0
 offset_right = 224.0
 offset_bottom = 281.0
-mouse_filter = 1
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=216867823]
 visible = false

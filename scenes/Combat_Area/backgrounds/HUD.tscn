@@ -10,11 +10,15 @@
 
 [node name="Hud" type="Control" unique_id=145574082]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_top = -0.25
+anchor_right = 0.41300002
+anchor_bottom = 0.19500001
+offset_top = 270.0
+offset_right = 46.039978
+offset_bottom = -101.600006
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Player_Cards" type="HBoxContainer" parent="." unique_id=1900661992]
 layout_mode = 0
@@ -50,7 +54,7 @@ offset_right = 796.0
 offset_bottom = -199.0
 text = "HEAL EVERYONE"
 
-[node name="Label" type="Label" parent="." unique_id=1203859538]
+[node name="Where" type="Label" parent="." unique_id=1203859538]
 layout_mode = 0
 offset_top = -258.0
 offset_right = 182.0
@@ -125,11 +129,19 @@ texture_under = ExtResource("5_mcorn")
 texture_over = ExtResource("6_rqlds")
 texture_progress = ExtResource("7_p67k6")
 
+[node name="CANCEL" type="Button" parent="." unique_id=1353154893]
+layout_mode = 0
+offset_left = 583.0
+offset_top = 40.0
+offset_right = 657.0
+offset_bottom = 65.0
+text = "CANCEL"
+
 [node name="GO" type="Button" parent="." unique_id=1354073207]
 top_level = true
 layout_mode = 0
-offset_left = 537.0
-offset_top = -47.0
-offset_right = 570.0
-offset_bottom = -16.0
+offset_left = 803.0
+offset_top = 276.0
+offset_right = 835.0
+offset_bottom = 307.0
 text = "GO"

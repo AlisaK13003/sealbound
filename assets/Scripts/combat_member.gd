@@ -7,6 +7,7 @@ extends CollisionShape2D
 @onready var line = $Line
 @onready var p_bar = $PBar
 @onready var health_text = $PBar/Health_Num
+var stored_member
 var highlight_shader
 
 var battle_state = {
@@ -16,6 +17,7 @@ var battle_state = {
 }
 
 func setup(member: PartyMember):
+	stored_member = member
 	party_sprite.texture = member.player_sprite
 	highlight_shader = party_sprite.material.duplicate()
 	party_sprite.material = null
@@ -33,15 +35,20 @@ func update_state():
 		death_x.visible = true
 		party_sprite.material = null
 		line.visible = false
-	elif battle_state["has_acted"]:
+	if battle_state["has_acted"]:
 		party_sprite.material = null
 		line.visible = false
-	elif battle_state["waiting_to_perform"]:
+	if battle_state["waiting_to_perform"]:
 		party_sprite.material = highlight_shader
 		line.visible = false
 	else:
 		party_sprite.material = null
 		line.visible = false
+
+func reset_states():
+	battle_state["is_dead"] = false
+	battle_state["has_acted"] = false
+	battle_state["waiting_to_perform"] = false
 
 func disable():
 	visible = false

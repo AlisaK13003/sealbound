@@ -30,6 +30,8 @@ var party_cards : Array[Control] = []
 # On screen display
 @export var HUD : Control
 @onready var GO_button = HUD.get_node("GO")
+@onready var CANCEL_button = HUD.get_node("CANCEL")
+@onready var location_label = HUD.get_node("Where")
 
 # Holds the information regarding 
 @export var current_encounter : encounters
@@ -52,10 +54,8 @@ var turn_orders : Array[TurnStorage] = []
 # Stores all alive enemies
 var active_enemies_data : Array = []
 
-signal action_taken
 signal choice_made(result)
 signal card_selected(chosen_card)
-signal turn_end
 
 # Helper Functions / Classes
 # --------------------------------------------------------------------------------
@@ -129,10 +129,16 @@ func reset_battle():
 	selected_member[0] = -1
 	selected_member[1] = 0
 	selected_card = null
+	energy_count = 3
 	for node in party_nodes:
-		node.battle_state["has_acted"] = false
+		if node.battle_state["is_dead"]:
+			continue
+		node.reset_states()
+		node.update_state()
 	for card in party_cards:
 		card.has_acted = false
+	for enemy in enemy_enclosure.get_children():
+		enemy.reset_ui()
 
 # Main Battle Loop
 # --------------------------------------------------------------------------------
@@ -147,6 +153,8 @@ func _ready():
 	party_nodes.append(party.get_node("Back"))
 	
 	GO_button.button_down.connect(_handle_go_button)
+	CANCEL_button.button_down.connect(_handle_cancel_button)
+	location_label.text = Global.current_location
 	
 	# Sets up each party member in scene
 	for i in range(party_members.size()):
@@ -196,9 +204,7 @@ func start_combat():
 		# Create enemy turns
 		for i in range(active_enemies_data.size()):
 			enemy_turn(i)
-			
-			enemy_enclosure.get_child(i).reset_ui()
-			
+
 			var selected_player
 			
 			# Randomly attack an alive party member
@@ -237,10 +243,28 @@ func start_combat():
 		turn_orders = []
 
 func player_turn():	
-	var chosen_card
 	# Wait for input from all alive members
-	while planned_action_count < alive_members_count:
+	while true:
+		if planned_action_count > alive_members_count:
+			var result = await choice_made
+			
+			if result[0] == "GO":
+				reset_battle()
+				return
+			elif result[0] == "RESET":
+				reset_battle()
+				continue
+			else :
+				continue
+		
 		var outcome = await choice_made
+		if outcome[0] == "RESET":
+			reset_battle()
+			continue
+		
+		if outcome[0] == "GO":
+			reset_battle()
+			return
 		
 		# Handle player choosing to not attack
 		if outcome[0] == "CANCELLED":
@@ -254,13 +278,18 @@ func player_turn():
 		elif outcome[0] == "BASIC ATTACK":
 			# Ensure selected enemy is valid
 			if battle_state["selected_target"].has_meta("data_index"):
-				party_nodes[selected_member[0]].battle_state["waiting_to_perform"] = false
-				party_nodes[selected_member[0]].battle_state["has_acted"] = true
-				party_nodes[selected_member[0]].update_state()
 				var data_idx = battle_state["selected_target"].get_meta("data_index")
 				var target_data = active_enemies_data[data_idx]
 				
-				enemy_enclosure.get_child(data_idx).update_planned_damage(party_members[selected_member[0]].calculate_damage())
+				if not enemy_enclosure.get_child(data_idx).update_planned_damage(party_members[selected_member[0]].calculate_damage()):
+					party_nodes[selected_member[0]].reset_states()
+					party_nodes[selected_member[0]].update_state()
+					party_cards[selected_member[0]].has_acted = false
+					selected_member[0] = -1
+					continue
+				party_nodes[selected_member[0]].battle_state["waiting_to_perform"] = false
+				party_nodes[selected_member[0]].battle_state["has_acted"] = true
+				party_nodes[selected_member[0]].update_state()
 				
 				turn_orders.append(TurnStorage.new(party_members[selected_member[0]], target_data, (party_members[selected_member[0]].player_stats.speed + party_members[selected_member[0]].player_stats.altered_speed), null))
 				planned_action_count += 1
@@ -269,38 +298,38 @@ func player_turn():
 			continue
 			
 		# Player selected a card
-		elif outcome[0] == "CHOSE CARD" and party_members[selected_member[0]].player_stats.health > 0:
+		elif outcome[0] == "CHOSE CARD":
 			var clicked_card = outcome[1]
 			
-			# Ensure that the selected card is valid
-			if clicked_card.selected_move == null:
-				if selected_card != null:
-					party_nodes[selected_card.belongs_to_party_num].battle_state["waiting_to_perform"] = false
-					party_nodes[selected_card.belongs_to_party_num].update_state()
-				selected_member[0] = -1; selected_member[1] = 0
-				selected_card = null
+			if party_members[clicked_card.belongs_to_party_num].player_stats.health <= 0:
 				continue
 			# Ensure that the player hasn't acted yet
-			if clicked_card.has_acted:
+			elif clicked_card.has_acted:
 				continue
-
+			
 			# If player selects the same card twice
 			if selected_card == clicked_card:
-				party_nodes[selected_card.belongs_to_party_num].battle_state["waiting_to_perform"] = false
+				party_nodes[selected_card.belongs_to_party_num].reset_states()
 				party_nodes[selected_card.belongs_to_party_num].update_state()
+				energy_count += party_members[selected_member[0]].move_list[selected_card.selected_move].energy_cost
 				selected_member[0] = -1; selected_member[1] = 0
 				selected_card = null
+				continue
+				
+			if selected_member[0] != -1:
+				if party_members[selected_member[0]].move_list[clicked_card.selected_move].energy_cost > energy_count:
+					continue
 				
 			# Clicked a different card
-			else:
-				if selected_card != null:
-					party_nodes[selected_card.belongs_to_party_num].battle_state["waiting_to_perform"] = false
-					party_nodes[selected_card.belongs_to_party_num].update_state()
-				party_nodes[clicked_card.belongs_to_party_num].battle_state["waiting_to_perform"] = true
-				party_nodes[clicked_card.belongs_to_party_num].update_state()
-				selected_member[0] = clicked_card.belongs_to_party_num
-				selected_member[1] = 1
-				selected_card = clicked_card
+			if selected_card != null:
+				party_nodes[selected_card.belongs_to_party_num].reset_states()
+				party_nodes[selected_card.belongs_to_party_num].update_state()
+			energy_count -= party_members[selected_member[0]].move_list[clicked_card.selected_move].energy_cost
+			party_nodes[clicked_card.belongs_to_party_num].battle_state["waiting_to_perform"] = true
+			party_nodes[clicked_card.belongs_to_party_num].update_state()
+			selected_member[0] = clicked_card.belongs_to_party_num
+			selected_member[1] = 1
+			selected_card = clicked_card
 				
 		# Player attacked an enemy using a card
 		elif outcome[0] == "CARD ATTACK":
@@ -321,13 +350,10 @@ func player_turn():
 				party_nodes[selected_member[0]].battle_state["has_acted"] = true
 				party_nodes[selected_member[0]].battle_state["waiting_to_perform"] = false
 				party_nodes[selected_member[0]].update_state()
-				
+
 				selected_member[0] = -1; selected_member[1] = 0
 				planned_action_count += 1
-			selected_card = null
-	
-	await turn_end
-	
+			selected_card = null	
 	reset_battle()
 	
 func enemy_turn(cur_enemy: int):
@@ -342,7 +368,7 @@ func enemy_turn(cur_enemy: int):
 # --------------------------------------------------------------------------------
 
 # For when the player hovers mouses over a player to read attack
-func _on_party_input_event(viewport, event, shape_idx, cur_party: int, card):	
+func _on_party_input_event(_viewport, event, _shape_idx, cur_party: int, card):	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not card.has_acted and party_members[cur_party].player_stats.health > 0:
 			if event.pressed and (selected_member[0] == cur_party or selected_member[0] == -1):
@@ -390,4 +416,7 @@ func _on_any_enemy_exited(enemy_node):
 		battle_state["hovered_enemy"] = null
 
 func _handle_go_button():
-	turn_end.emit()
+	choice_made.emit(["GO", null])
+
+func _handle_cancel_button():
+	choice_made.emit(["RESET", null])

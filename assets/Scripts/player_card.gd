@@ -21,7 +21,7 @@ func setup(member_data: PartyMember, cur_party: int):
 		skill_container.get_child(j).get_node("Label").text = member_data.move_list[j].move_name
 		skill_container.get_child(j).get_node("Area2D").input_event.connect(player_select_move.bind(cur_party, j))
 
-func player_select_move(viewport, event, shape_idx, cur_party: int, _selected_move: int):
+func player_select_move(_viewport, event, _shape_idx, _cur_party: int, _selected_move: int):
 	if event is InputEventMouseButton and event.pressed and not has_acted:
 		if selected_move == _selected_move:
 			selected_move = null
