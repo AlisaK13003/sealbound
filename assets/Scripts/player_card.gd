@@ -6,10 +6,7 @@ extends Control
 var belongs_to_party_num : int 
 var has_acted : bool = false
 
-var selected_move:
-	set(value):
-		selected_move = value
-		move_selected.emit()
+var selected_move = null
 		
 signal move_selected(value, party_num)
 
@@ -24,6 +21,8 @@ func setup(member_data: PartyMember, cur_party: int):
 func player_select_move(_viewport, event, _shape_idx, _cur_party: int, _selected_move: int):
 	if event is InputEventMouseButton and event.pressed and not has_acted:
 		if selected_move == _selected_move:
+			print("MOVES: ", selected_move, _selected_move)
 			selected_move = null
 		else:
 			selected_move = _selected_move
+		move_selected.emit()
