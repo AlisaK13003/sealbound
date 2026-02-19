@@ -26,6 +26,10 @@ func use_move(move):
 	
 	return final_damage
 
+func use_item(item):
+	var heal_amount = item.amount_to_heal_or_deal
+	heal_member(heal_amount)
+
 func calculate_damage():
 	var damage = (player_stats.strength + (current_equipped_weapon.weapon_attack))
 	var variance = randf_range(0.9, 1.1)
@@ -40,5 +44,5 @@ func take_damage(damage_to_take):
 		is_dead = true 
 		
 func heal_member(amount_to_heal):
-	player_stats.health += amount_to_heal
+	player_stats.health += clamp(amount_to_heal, 0, player_stats.max_health)
 	is_dead = false

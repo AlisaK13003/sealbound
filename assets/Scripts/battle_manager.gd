@@ -21,7 +21,7 @@ var current_energy_cost: int
 
 # Holds the stats for a member
 @export var party_members : Array[PartyMember]
-
+@export var item_list : Array[Items]
 # Is the displayed member, holds health bar, sprite, has combat_member.gd attached
 var party_nodes : Array[CollisionShape2D]
 
@@ -33,6 +33,7 @@ var party_cards : Array[Control] = []
 @onready var GO_button = HUD.get_node("GO")
 @onready var CANCEL_button = HUD.get_node("CANCEL")
 @onready var location_label = HUD.get_node("Where")
+@onready var item_storage = HUD.get_node("ITEM").get_child(0)
 
 # Holds the information regarding 
 @export var current_encounter : encounters
@@ -111,6 +112,7 @@ func deselect_all_units():
 		node.get_node("Line").visible = false
 
 func _on_card_move_selected(card):
+	selected_member[0] = card.belongs_to_party_num
 	choice_made.emit(["CHOSE CARD", card])
 
 func check_if_dead(thing):
@@ -145,12 +147,13 @@ func reset_battle():
 		enemy.reset_ui()
 
 func update_energy_display(start_energy, energy_differential, inc_or_dec : bool):
-	for i in range(energy_display.get_child_count()):
+	for i in range(energy_display.get_child_count() - 1):
 		if inc_or_dec:
 			if i > start_energy and i < energy_differential + start_energy:
 				energy_display.get_child(i + 1).value = 100
 		elif not inc_or_dec:
-			if i >= start_energy and i < start_energy + energy_differential:
+			if i <= start_energy and i > start_energy - energy_differential:
+				print("Current i value: ", i)
 				energy_display.get_child(i + 1).value = 0
 # Main Battle Loop
 # --------------------------------------------------------------------------------
@@ -168,6 +171,12 @@ func _ready():
 	CANCEL_button.button_down.connect(_handle_cancel_button)
 	location_label.text = Global.current_location
 	
+	for i in range(3):
+		if item_list.get(i) != null:
+			item_storage.get_child(i).setup(item_list[i], i)
+		for member in party_nodes:
+			pass
+	
 	# Sets up each party member in scene
 	for i in range(party_members.size()):
 		party_cards.append(HUD.get_node("Player_Cards").get_child(i))
@@ -184,15 +193,13 @@ func _ready():
 	
 	# Sets up each enemy in scene
 	for i in range(enemy_enclosure.get_child_count()):
-		enemy_enclosure.get_child(i).setup_enemy(current_encounter.enemy_list[number[i]])
-		enemy_enclosure.get_child(i).visible = true
-		enemy_enclosure.get_child(i).set_meta("data_index", i)
-		
 		if current_encounter.enemy_list.size() >= i:
 			var new_enemy = current_encounter.enemy_list[i].duplicate(true)
 			active_enemies_data.append(new_enemy)
+			enemy_enclosure.get_child(i).setup_enemy(active_enemies_data.get(i))
+			enemy_enclosure.get_child(i).visible = true
+			enemy_enclosure.get_child(i).set_meta("data_index", i)
 			new_enemy.enemy_position = i
-			enemy_enclosure.get_child(i).setup_enemy(new_enemy)
 	
 		var enemy_area = enemy_enclosure.get_child(i).get_node("Area2D")
 		enemy_area.mouse_entered.connect(_on_any_enemy_entered.bind(enemy_enclosure.get_child(i)))
@@ -303,6 +310,7 @@ func player_turn():
 				party_nodes[selected_member[0]].update_state()
 				
 				turn_orders.append(TurnStorage.new(party_members[selected_member[0]], target_data, (party_members[selected_member[0]].player_stats.speed + party_members[selected_member[0]].player_stats.altered_speed), null))
+				enemy_enclosure.get_child(data_idx).get_node("Sprite2D2").visible = true
 				planned_action_count += 1
 			battle_state["selected_target"] = null
 			selected_member[0] = -1
@@ -311,14 +319,16 @@ func player_turn():
 		# Player selected a card
 		elif outcome[0] == "CHOSE CARD":
 			var clicked_card = outcome[1]
-			
+
 			if party_members[clicked_card.belongs_to_party_num].player_stats.health <= 0:
 				continue
 			# Ensure that the player hasn't acted yet
 			elif clicked_card.has_acted:
 				continue
-			elif clicked_card.selected_move != null and (current_energy_cost - party_members[selected_member[0]].move_list[clicked_card.selected_move].energy_cost) > 0:
+			
+			elif clicked_card.selected_move != null and (energy_count - party_members[selected_member[0]].move_list[clicked_card.selected_move].energy_cost) > 0:
 				continue
+				
 			# If player selects the same card twice
 			if selected_card == clicked_card:
 				if selected_card.selected_move == clicked_card.selected_move:

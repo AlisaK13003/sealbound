@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://8s56j846scx8" path="res://scenes/Combat_Area/backgrounds/Player_Card.tscn" id="1_ithtv"]
 [ext_resource type="Texture2D" uid="uid://dm11igl44d1wo" path="res://assets/Sprites/Under2.png" id="2_0ekwg"]
+[ext_resource type="PackedScene" uid="uid://de1mjwisbs4p" path="res://assets/Party Members/Items/Item.tscn" id="2_rqlds"]
 [ext_resource type="Texture2D" uid="uid://ckp4b42u2n044" path="res://assets/Sprites/Over2.png" id="3_7lxwa"]
 [ext_resource type="Texture2D" uid="uid://d3s7u27amcakt" path="res://assets/Sprites/bar.png" id="4_5iww5"]
 [ext_resource type="Texture2D" uid="uid://hppsd84yucl8" path="res://assets/Sprites/Orb_Under.png" id="5_mcorn"]
@@ -69,12 +70,34 @@ offset_right = 619.0
 offset_bottom = -227.0
 text = "Settings"
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1238153238]
+[node name="ITEM" type="ColorRect" parent="." unique_id=1238153238]
 layout_mode = 0
 offset_left = -2.0
 offset_top = -231.0
 offset_right = 180.0
 offset_bottom = -191.0
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ITEM" unique_id=1888252439]
+layout_mode = 0
+offset_left = 16.0
+offset_top = -2.0
+offset_right = 116.0
+offset_bottom = 38.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Item" parent="ITEM/HBoxContainer" unique_id=462362574 instance=ExtResource("2_rqlds")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Item2" parent="ITEM/HBoxContainer" unique_id=1521603393 instance=ExtResource("2_rqlds")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Item3" parent="ITEM/HBoxContainer" unique_id=1697907640 instance=ExtResource("2_rqlds")]
+layout_mode = 2
+mouse_filter = 1
 
 [node name="Label2" type="Label" parent="." unique_id=1372896909]
 layout_mode = 0

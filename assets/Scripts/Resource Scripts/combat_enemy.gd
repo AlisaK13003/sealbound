@@ -10,6 +10,10 @@ class_name EnemyCombatant
 @export var enemy_moves : Array[moves]
 var enemy_position : int
 
+func use_item(item: Items):
+	var damage = item.amount_to_heal_or_deal
+	take_damage(damage)
+
 func take_damage(damage_to_take):
 	enemy_stats.health -= clamp(damage_to_take, 0, enemy_stats.health)
 	

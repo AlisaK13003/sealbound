@@ -7,3 +7,5 @@ var party_slot_2 : PartyMember
 var party_slot_3 : PartyMember
 
 var current_location: String = "[Forest Dungeon: Floor 1]"
+
+var item_list : Array[Items]

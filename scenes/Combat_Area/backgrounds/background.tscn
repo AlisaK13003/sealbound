@@ -14,8 +14,11 @@
 [ext_resource type="Resource" uid="uid://c8nnglq46tjqr" path="res://assets/Party Members/Paladin.tres" id="4_gxsq3"]
 [ext_resource type="Texture2D" uid="uid://dohbcdb5vykbf" path="res://assets/tile sheets/Tilemap_color4.png" id="5_0th6d"]
 [ext_resource type="Texture2D" uid="uid://c3h554c0bsrcr" path="res://assets/tile sheets/Tilemap_color5.png" id="6_4nxry"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="6_q1mex"]
+[ext_resource type="Resource" uid="uid://cyv4eigql7v1s" path="res://assets/Party Members/Items/Explosive_Potion.tres" id="7_ntnw8"]
 [ext_resource type="Texture2D" uid="uid://d1xl35fleuqdf" path="res://assets/tile sheets/Water Background color.png" id="7_uvjbv"]
 [ext_resource type="PackedScene" uid="uid://c8apktpuelfxg" path="res://scenes/Combat_Area/backgrounds/HUD.tscn" id="8_20iy5"]
+[ext_resource type="Resource" uid="uid://c55uxn3goekom" path="res://assets/Party Members/Items/Potion.tres" id="8_a0qsk"]
 [ext_resource type="Texture2D" uid="uid://dgehswecgxson" path="res://assets/tile sheets/monsters.png" id="8_apksh"]
 [ext_resource type="Texture2D" uid="uid://blwwqj855maws" path="res://assets/tile sheets/rogues.png" id="9_eaoxq"]
 
@@ -3325,11 +3328,12 @@ sources/0 = SubResource("TileSetAtlasSource_apksh")
 script = ExtResource("1_0th6d")
 energy_count = 3
 party_members = Array[ExtResource("2_gxsq3")]([ExtResource("2_nh6mi"), ExtResource("3_cim36"), ExtResource("4_gxsq3")])
+item_list = Array[ExtResource("6_q1mex")]([ExtResource("7_ntnw8"), ExtResource("8_a0qsk"), ExtResource("7_ntnw8")])
 HUD = NodePath("Camera2D/Hud")
 current_encounter = ExtResource("2_cim36")
 enemy_enclosure = NodePath("Enemy_Enclosure")
 
-[node name="CombatParty" parent="." unique_id=957309874 instance=ExtResource("2_uvjbv")]
+[node name="CombatParty" parent="." unique_id=957309874 groups=["player_battle_guy"] instance=ExtResource("2_uvjbv")]
 z_index = 16
 position = Vector2(362.785, 194)
 
@@ -3371,20 +3375,20 @@ position = Vector2(179, 0)
 
 [node name="Enemy1" parent="Enemy_Enclosure" unique_id=1560359208 instance=ExtResource("2_4nxry")]
 z_index = 10
-position = Vector2(450, 203)
+position = Vector2(400, 203)
 
 [node name="Enemy2" parent="Enemy_Enclosure" unique_id=1379494824 instance=ExtResource("2_4nxry")]
 z_index = 10
-position = Vector2(500, 203)
+position = Vector2(450, 203)
 
 [node name="Enemy3" parent="Enemy_Enclosure" unique_id=887450904 instance=ExtResource("2_4nxry")]
 z_index = 10
-position = Vector2(550, 203)
+position = Vector2(500, 203)
 
 [node name="Enemy4" parent="Enemy_Enclosure" unique_id=1872573870 instance=ExtResource("2_4nxry")]
 z_index = 10
-position = Vector2(500, 133)
+position = Vector2(550, 203)
 
 [node name="Enemy5" parent="Enemy_Enclosure" unique_id=1722577316 instance=ExtResource("2_4nxry")]
 z_index = 10
-position = Vector2(550, 133)
+position = Vector2(600, 203)

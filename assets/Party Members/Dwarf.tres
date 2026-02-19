@@ -16,6 +16,15 @@ energy_cost = 1
 status_conditions = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
+[sub_resource type="Resource" id="Resource_ixtcw"]
+script = ExtResource("1_a05ir")
+move_name = "FIRE BALL"
+move_description = "SHOOT A FIRE BALL"
+attack_power = 50
+energy_cost = 2
+status_conditions = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [sub_resource type="Resource" id="Resource_w518n"]
 script = ExtResource("5_r627t")
 max_health = 314
@@ -29,7 +38,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 script = ExtResource("2_noaan")
 member_name = "Solaire"
 player_sprite = ExtResource("4_ixtcw")
-move_list = Array[ExtResource("1_a05ir")]([SubResource("Resource_lswx3")])
+move_list = Array[ExtResource("1_a05ir")]([SubResource("Resource_lswx3"), SubResource("Resource_ixtcw")])
 player_stats = SubResource("Resource_w518n")
 current_equipped_weapon = ExtResource("2_732vw")
 current_equipped_armor = ExtResource("1_ixtcw")

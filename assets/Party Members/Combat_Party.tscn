@@ -54,7 +54,7 @@ material = SubResource("ShaderMaterial_pf4v6")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_2xjcr")
 
-[node name="Mouse_Spot" type="Area2D" parent="Front" unique_id=1940663082]
+[node name="Mouse_Spot" type="Area2D" parent="Front" unique_id=1940663082 groups=["player_battle_guy"]]
 scale = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Front/Mouse_Spot" unique_id=329656518]
@@ -124,7 +124,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_1oib3")
 flip_h = true
 
-[node name="Mouse_Spot" type="Area2D" parent="Middle" unique_id=914914065]
+[node name="Mouse_Spot" type="Area2D" parent="Middle" unique_id=914914065 groups=["player_battle_guy"]]
 scale = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Middle/Mouse_Spot" unique_id=549214531]
@@ -195,7 +195,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_qumfu")
 flip_h = true
 
-[node name="Mouse_Spot" type="Area2D" parent="Back" unique_id=936649602]
+[node name="Mouse_Spot" type="Area2D" parent="Back" unique_id=936649602 groups=["player_battle_guy"]]
 scale = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Back/Mouse_Spot" unique_id=537697625]

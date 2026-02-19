@@ -5,7 +5,11 @@ extends Node2D
 @onready var mouse_area = $Area2D
 @onready var health_bar = $PBar
 @onready var planned_damage_label = $"Planned Damage"
+@onready var selection_circle = $Sprite2D2
 var stored_enemy : EnemyCombatant
+var battle_parent
+var selected_item
+var where_is_item
 
 func setup_enemy(enemy: EnemyCombatant):
 	stored_enemy = enemy
@@ -14,6 +18,24 @@ func setup_enemy(enemy: EnemyCombatant):
 	health_bar.value = enemy.enemy_stats.health
 	white_box.visible = false
 	enemy.enemy_stats.health_changed.connect(update_health.bind())
+	mouse_area.area_entered.connect(mouse_entered)
+	mouse_area.area_exited.connect(mouse_exited)
+	battle_parent = self.get_parent().get_parent()
+	
+func mouse_entered(area):
+	var parent = area.get_parent()
+	selected_item = parent.held_item
+	where_is_item = parent.where_is_item
+	
+func mouse_exited(area):
+	selected_item = null
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and not event.pressed and selected_item != null:
+		if selected_item.does_what == 1:
+			battle_parent.active_enemies_data[stored_enemy.enemy_position].use_item(selected_item)
+			battle_parent.item_storage.get_child(where_is_item).visible = false
+			selected_item = null
 	
 func update_health(current):
 	health_bar.value = current
@@ -31,3 +53,4 @@ func update_planned_damage(planned_damage):
 	
 func reset_ui():
 	planned_damage_label.text = ""
+	selection_circle.visible = false
