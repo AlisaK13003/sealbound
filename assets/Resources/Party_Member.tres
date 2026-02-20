@@ -1,0 +1,6 @@
+[gd_resource type="Resource" format=3 uid="uid://dqgm2tosdsn4u"]
+
+[ext_resource type="Script" uid="uid://bhyscht26l0dl" path="res://assets/Scripts/Resource Scripts/PartyMember_Controller.gd" id="1_xub7b"]
+
+[resource]
+script = ExtResource("1_xub7b")

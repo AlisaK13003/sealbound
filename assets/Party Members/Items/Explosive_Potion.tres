@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://cyv4eigql7v1s"]
+
+[ext_resource type="Texture2D" uid="uid://uc8s4l4axt0b" path="res://assets/Sprites/Fire.png" id="1_xaw1e"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_xm3fl"]
+
+[resource]
+script = ExtResource("1_xm3fl")
+item_name = "Explosive Potion"
+item_description = "BOOM"
+item_sprite = ExtResource("1_xaw1e")
+does_what = 1
+amount_to_heal_or_deal = 100
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

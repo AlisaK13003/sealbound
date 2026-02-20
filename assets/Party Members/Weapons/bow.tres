@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="weapon" format=3 uid="uid://7oymknjcd6i3"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_c3de3"]
+
+[resource]
+script = ExtResource("1_c3de3")
+weapon_name = "Bow"
+weapon_description = "Pull back the drawstring and fire, nothing to it"
+weapon_attack = 2
+attack_accuracy = 100
+status_conditions = null
+metadata/_custom_type_script = "uid://c8pcj6siqledr"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="enemy_combatant" format=3 uid="uid://c7o6trtso0akl"]
+
+[ext_resource type="Script" uid="uid://cqq1sj1x4ol6d" path="res://assets/Scripts/Resource Scripts/combat_enemy.gd" id="1_4w2u2"]
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_qfux2"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_4cxo0"]
+
+[sub_resource type="Resource" id="Resource_8bhhf"]
+script = ExtResource("2_4cxo0")
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_4w2u2")
+enemy_stats = SubResource("Resource_8bhhf")

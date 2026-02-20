@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://de1mjwisbs4p"]
+
+[ext_resource type="Script" uid="uid://cp1omjk08tymu" path="res://assets/Scripts/Resource Scripts/item_setup.gd" id="1_e138o"]
+[ext_resource type="Texture2D" uid="uid://uc8s4l4axt0b" path="res://assets/Sprites/Fire.png" id="1_y4kxu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e138o"]
+size = Vector2(41, 37)
+
+[node name="Item" type="Control" unique_id=462362574]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e138o")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=658322464]
+layout_mode = 0
+offset_top = -5.0
+offset_right = 40.0
+offset_bottom = 35.0
+texture = ExtResource("1_y4kxu")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1151152253]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1141162535]
+position = Vector2(20.5, 21.5)
+shape = SubResource("RectangleShape2D_e138o")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

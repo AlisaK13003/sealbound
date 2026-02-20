@@ -1,0 +1,6 @@
+[gd_resource type="Resource" format=3 uid="uid://c74b7gvs6ffnp"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_nh7l8"]
+
+[resource]
+script = ExtResource("1_nh7l8")

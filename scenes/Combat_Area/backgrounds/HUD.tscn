@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://c8apktpuelfxg"]
+
+[ext_resource type="PackedScene" uid="uid://8s56j846scx8" path="res://scenes/Combat_Area/backgrounds/Player_Card.tscn" id="1_ithtv"]
+[ext_resource type="Texture2D" uid="uid://dm11igl44d1wo" path="res://assets/Sprites/Under2.png" id="2_0ekwg"]
+[ext_resource type="PackedScene" uid="uid://de1mjwisbs4p" path="res://assets/Party Members/Items/Item.tscn" id="2_rqlds"]
+[ext_resource type="Texture2D" uid="uid://ckp4b42u2n044" path="res://assets/Sprites/Over2.png" id="3_7lxwa"]
+[ext_resource type="Texture2D" uid="uid://d3s7u27amcakt" path="res://assets/Sprites/bar.png" id="4_5iww5"]
+[ext_resource type="Texture2D" uid="uid://hppsd84yucl8" path="res://assets/Sprites/Orb_Under.png" id="5_mcorn"]
+[ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="6_rqlds"]
+[ext_resource type="Texture2D" uid="uid://bq8v5o5otsror" path="res://assets/Sprites/Orb_Bar.png" id="7_p67k6"]
+
+[node name="Hud" type="Control" unique_id=145574082]
+layout_mode = 3
+anchor_top = -0.25
+anchor_right = 0.41300002
+anchor_bottom = 0.19500001
+offset_top = 270.0
+offset_right = 46.039978
+offset_bottom = -101.600006
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Player_Cards" type="HBoxContainer" parent="." unique_id=1900661992]
+layout_mode = 0
+offset_left = 27.0
+offset_top = -10.0
+offset_right = 397.0
+offset_bottom = 140.0
+theme_override_constants/separation = 185
+alignment = 1
+
+[node name="PlayerCard" parent="Player_Cards" unique_id=617464844 instance=ExtResource("1_ithtv")]
+layout_mode = 2
+
+[node name="PlayerCard2" parent="Player_Cards" unique_id=1256773680 instance=ExtResource("1_ithtv")]
+layout_mode = 2
+
+[node name="PlayerCard3" parent="Player_Cards" unique_id=1497321732 instance=ExtResource("1_ithtv")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=1227995577]
+layout_mode = 0
+offset_left = 651.0
+offset_top = -271.0
+offset_right = 788.0
+offset_bottom = -240.0
+text = "HURT EVERYONE"
+
+[node name="Button2" type="Button" parent="." unique_id=795740308]
+layout_mode = 0
+offset_left = 657.0
+offset_top = -230.0
+offset_right = 796.0
+offset_bottom = -199.0
+text = "HEAL EVERYONE"
+
+[node name="Where" type="Label" parent="." unique_id=1203859538]
+layout_mode = 0
+offset_top = -258.0
+offset_right = 182.0
+offset_bottom = -235.0
+text = "[dungeon name / floor] "
+
+[node name="Button3" type="Button" parent="." unique_id=771007759]
+layout_mode = 0
+offset_left = 531.0
+offset_top = -258.0
+offset_right = 619.0
+offset_bottom = -227.0
+text = "Settings"
+
+[node name="ITEM" type="ColorRect" parent="." unique_id=1238153238]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -231.0
+offset_right = 180.0
+offset_bottom = -191.0
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ITEM" unique_id=1888252439]
+layout_mode = 0
+offset_left = 16.0
+offset_top = -2.0
+offset_right = 116.0
+offset_bottom = 38.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Item" parent="ITEM/HBoxContainer" unique_id=462362574 instance=ExtResource("2_rqlds")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Item2" parent="ITEM/HBoxContainer" unique_id=1521603393 instance=ExtResource("2_rqlds")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Item3" parent="ITEM/HBoxContainer" unique_id=1697907640 instance=ExtResource("2_rqlds")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1372896909]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 67.0
+offset_right = 364.0
+offset_bottom = 84.0
+text = "Teamwork Attack:"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1603867191]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 67.0
+offset_right = 407.0
+offset_bottom = 107.0
+scale = Vector2(6.265265, 1)
+value = 67.0
+texture_under = ExtResource("2_0ekwg")
+texture_over = ExtResource("3_7lxwa")
+texture_progress = ExtResource("4_5iww5")
+
+[node name="Energy_Holder" type="HBoxContainer" parent="." unique_id=1162674622]
+layout_mode = 0
+offset_left = 27.0
+offset_top = -41.0
+offset_right = 213.0
+offset_bottom = -1.0
+scale = Vector2(0.8, 0.8)
+
+[node name="Label3" type="Label" parent="Energy_Holder" unique_id=1070667369]
+layout_mode = 2
+text = "Energy: "
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="Energy_Holder" unique_id=306458304]
+layout_mode = 2
+value = 96.0
+texture_under = ExtResource("5_mcorn")
+texture_over = ExtResource("6_rqlds")
+texture_progress = ExtResource("7_p67k6")
+
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="Energy_Holder" unique_id=541990353]
+layout_mode = 2
+value = 96.0
+texture_under = ExtResource("5_mcorn")
+texture_over = ExtResource("6_rqlds")
+texture_progress = ExtResource("7_p67k6")
+
+[node name="TextureProgressBar4" type="TextureProgressBar" parent="Energy_Holder" unique_id=430631166]
+layout_mode = 2
+value = 96.0
+texture_under = ExtResource("5_mcorn")
+texture_over = ExtResource("6_rqlds")
+texture_progress = ExtResource("7_p67k6")
+
+[node name="CANCEL" type="Button" parent="." unique_id=1353154893]
+layout_mode = 0
+offset_left = 583.0
+offset_top = 40.0
+offset_right = 657.0
+offset_bottom = 65.0
+text = "CANCEL"
+
+[node name="GO" type="Button" parent="." unique_id=1354073207]
+top_level = true
+layout_mode = 0
+offset_left = 803.0
+offset_top = 276.0
+offset_right = 835.0
+offset_bottom = 307.0
+text = "GO"

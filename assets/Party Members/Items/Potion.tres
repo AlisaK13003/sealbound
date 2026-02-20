@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://c55uxn3goekom"]
+
+[ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_0rxqs"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_eifqm"]
+
+[resource]
+script = ExtResource("1_eifqm")
+item_name = "Potion"
+item_description = "Heals a party member by something"
+item_sprite = ExtResource("1_0rxqs")
+does_what = 2
+amount_to_heal_or_deal = 100
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
