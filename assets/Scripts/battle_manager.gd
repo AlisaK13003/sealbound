@@ -153,7 +153,6 @@ func update_energy_display(start_energy, energy_differential, inc_or_dec : bool)
 				energy_display.get_child(i + 1).value = 100
 		elif not inc_or_dec:
 			if i <= start_energy and i > start_energy - energy_differential:
-				print("Current i value: ", i)
 				energy_display.get_child(i + 1).value = 0
 # Main Battle Loop
 # --------------------------------------------------------------------------------
@@ -225,7 +224,7 @@ func start_combat():
 			enemy_turn(i)
 
 			var selected_player
-			
+			print("HELLO")
 			# Randomly attack an alive party member
 			# PLACEHOLDER
 			while true:
@@ -238,7 +237,7 @@ func start_combat():
 		
 		# Sort every combat member based on speed
 		turn_priority(turn_orders)
-		
+		print("\n")
 		turn_orders = turn_orders.duplicate()
 			
 		# Loop while there are still combatants waiting to attack
@@ -299,12 +298,15 @@ func player_turn():
 				var data_idx = battle_state["selected_target"].get_meta("data_index")
 				var target_data = active_enemies_data[data_idx]
 				
+				# Ensure the enemy isn't already dead
 				if not enemy_enclosure.get_child(data_idx).update_planned_damage(party_members[selected_member[0]].calculate_damage()):
 					party_nodes[selected_member[0]].reset_states()
 					party_nodes[selected_member[0]].update_state()
 					party_cards[selected_member[0]].has_acted = false
 					selected_member[0] = -1
 					continue
+					
+				# Reset the player
 				party_nodes[selected_member[0]].battle_state["waiting_to_perform"] = false
 				party_nodes[selected_member[0]].battle_state["has_acted"] = true
 				party_nodes[selected_member[0]].update_state()
@@ -319,16 +321,23 @@ func player_turn():
 		# Player selected a card
 		elif outcome[0] == "CHOSE CARD":
 			var clicked_card = outcome[1]
-
+			
 			if party_members[clicked_card.belongs_to_party_num].player_stats.health <= 0:
 				continue
+				
 			# Ensure that the player hasn't acted yet
 			elif clicked_card.has_acted:
 				continue
-			
-			elif clicked_card.selected_move != null and (energy_count - party_members[selected_member[0]].move_list[clicked_card.selected_move].energy_cost) > 0:
+			elif energy_count == 0:
 				continue
-				
+			
+			# Ensure that enough energy is stored before selecting a move
+			elif selected_member[0] != -1 and clicked_card.selected_move != null:
+				if (energy_count - party_members[selected_member[0]].move_list[clicked_card.selected_move].energy_cost) < 0:
+					selected_member[0] = -1; selected_member[1] = 0
+					clicked_card.selected_move = null
+					continue
+			
 			# If player selects the same card twice
 			if selected_card == clicked_card:
 				if selected_card.selected_move == clicked_card.selected_move:

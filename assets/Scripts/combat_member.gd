@@ -34,7 +34,7 @@ func mouse_entered(area):
 	selected_item = parent.held_item
 	where_is_item = parent.where_is_item
 	
-func mouse_exited(area):
+func mouse_exited(_area):
 	selected_item = null
 
 func _unhandled_input(event):

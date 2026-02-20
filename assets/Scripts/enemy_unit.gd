@@ -27,7 +27,7 @@ func mouse_entered(area):
 	selected_item = parent.held_item
 	where_is_item = parent.where_is_item
 	
-func mouse_exited(area):
+func mouse_exited(_area):
 	selected_item = null
 
 func _unhandled_input(event):
@@ -39,7 +39,13 @@ func _unhandled_input(event):
 	
 func update_health(current):
 	health_bar.value = current
-
+	if current == 0:
+		self.visible = false
+		
+		for i in range(battle_parent.active_enemies_data.size()):
+			if battle_parent.active_enemies_data.get(i) == stored_enemy:
+				battle_parent.active_enemies_data.remove_at(i)
+				return
 func update_planned_damage(planned_damage):
 	
 	var current_health = stored_enemy.enemy_stats.health - int(planned_damage_label.text)
