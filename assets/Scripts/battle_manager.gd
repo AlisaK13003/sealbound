@@ -54,7 +54,7 @@ var party_has_won: bool = false
 var turn_orders : Array[TurnStorage] = []
 
 # Stores all alive enemies
-var active_enemies_data : Array = []
+var active_enemies_data = {}
 
 signal choice_made(result)
 
@@ -119,6 +119,7 @@ func check_if_dead(thing):
 	if thing is EnemyCombatant:
 		if check_if_enemy_is_dead(enemy_enclosure.get_child(thing.enemy_position), thing):
 			turn_orders.remove_at(0)
+			active_enemies_data.erase(thing.get_instance_id())
 			
 	if thing is PartyMember and thing.player_stats.health <= 0:
 		alive_members_count -= 1
@@ -193,9 +194,10 @@ func _ready():
 	# Sets up each enemy in scene
 	for i in range(enemy_enclosure.get_child_count()):
 		if current_encounter.enemy_list.size() >= i:
+			var enemy_node = enemy_enclosure.get_child(i)
 			var new_enemy = current_encounter.enemy_list[i].duplicate(true)
-			active_enemies_data.append(new_enemy)
-			enemy_enclosure.get_child(i).setup_enemy(active_enemies_data.get(i))
+			active_enemies_data[enemy_node.get_instance_id()] = new_enemy
+			enemy_enclosure.get_child(i).setup_enemy(active_enemies_data[enemy_node.get_instance_id()])
 			enemy_enclosure.get_child(i).visible = true
 			enemy_enclosure.get_child(i).set_meta("data_index", i)
 			new_enemy.enemy_position = i
@@ -220,11 +222,11 @@ func start_combat():
 		await player_turn()
 		
 		# Create enemy turns
-		for i in range(active_enemies_data.size()):
-			enemy_turn(i)
+		for enemy in active_enemies_data.values():
+			enemy_turn(enemy)
 
 			var selected_player
-			print("HELLO")
+
 			# Randomly attack an alive party member
 			# PLACEHOLDER
 			while true:
@@ -233,7 +235,7 @@ func start_combat():
 					break
 			
 			# Add enemy to turn order list
-			turn_orders.append(TurnStorage.new(active_enemies_data[i], party_members[selected_player], (active_enemies_data[i].enemy_stats.speed + active_enemies_data[i].enemy_stats.altered_speed), null))
+			turn_orders.append(TurnStorage.new(enemy, party_members[selected_player], (enemy.enemy_stats.speed + enemy.enemy_stats.altered_speed), null))
 		
 		# Sort every combat member based on speed
 		turn_priority(turn_orders)
@@ -295,11 +297,13 @@ func player_turn():
 		elif outcome[0] == "BASIC ATTACK":
 			# Ensure selected enemy is valid
 			if battle_state["selected_target"].has_meta("data_index"):
-				var data_idx = battle_state["selected_target"].get_meta("data_index")
+				var data_idx = enemy_enclosure.get_child(battle_state["selected_target"].get_meta("data_index")).get_instance_id()
 				var target_data = active_enemies_data[data_idx]
 				
+				var index = battle_state["selected_target"].get_meta("data_index")
+				
 				# Ensure the enemy isn't already dead
-				if not enemy_enclosure.get_child(data_idx).update_planned_damage(party_members[selected_member[0]].calculate_damage()):
+				if not enemy_enclosure.get_child(index).update_planned_damage(party_members[selected_member[0]].calculate_damage()):
 					party_nodes[selected_member[0]].reset_states()
 					party_nodes[selected_member[0]].update_state()
 					party_cards[selected_member[0]].has_acted = false
@@ -312,7 +316,7 @@ func player_turn():
 				party_nodes[selected_member[0]].update_state()
 				
 				turn_orders.append(TurnStorage.new(party_members[selected_member[0]], target_data, (party_members[selected_member[0]].player_stats.speed + party_members[selected_member[0]].player_stats.altered_speed), null))
-				enemy_enclosure.get_child(data_idx).get_node("Sprite2D2").visible = true
+				enemy_enclosure.get_child(index).get_node("Sprite2D2").visible = true
 				planned_action_count += 1
 			battle_state["selected_target"] = null
 			selected_member[0] = -1
@@ -362,9 +366,9 @@ func player_turn():
 		# Player attacked an enemy using a card
 		elif outcome[0] == "CARD ATTACK":
 			if battle_state["selected_target"].has_meta("data_index"):
-				var data_idx = battle_state["selected_target"].get_meta("data_index")
+				var data_idx = enemy_enclosure.get_child(battle_state["selected_target"].get_meta("data_index")).get_instance_id()
 				var target_data = active_enemies_data[data_idx]
-				
+								
 				var move_to_perform = null
 				
 				# Check if the card has a valid move index before accessing the array
@@ -387,11 +391,10 @@ func player_turn():
 			selected_card = null	
 	reset_battle()
 	
-func enemy_turn(cur_enemy: int):
-	var enemy_data = current_encounter.enemy_list.get(cur_enemy)
-	if enemy_data.enemy_stats.health <= 0:
+func enemy_turn(cur_enemy):
+	if cur_enemy.enemy_stats.health <= 0:
 		return
-	var enemy_damage = enemy_data.calculate_damage()
+	var enemy_damage = cur_enemy.calculate_damage()
 	var random_party_member = randi_range(0, 2)
 	party_members[random_party_member].take_damage(enemy_damage)
 

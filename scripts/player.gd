@@ -6,9 +6,8 @@ var move_speed : float = 100.0
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	var direction : Vector2 = Vector2.ZERO
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -17,5 +16,5 @@ func _process(delta: float) -> void:
 	velocity = direction * move_speed
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	move_and_slide()

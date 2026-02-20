@@ -2,9 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_cavrc"]
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="2_0glpd"]
+[ext_resource type="PackedScene" uid="uid://cobhlimte4psu" path="res://scenes/Dungeon/Enemies/Overworld_Enemy_Template.tscn" id="3_0glpd"]
+[ext_resource type="Resource" uid="uid://co4l4raig4as" path="res://assets/Enemies/Generic_Monster.tres" id="4_bwdrk"]
+[ext_resource type="Resource" uid="uid://ch4nrh2ol6pv0" path="res://assets/Enemies/Encounters/testing.tres" id="5_bwdrk"]
 
 [node name="Playground" type="Node2D" unique_id=724564567]
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(236, 135)
 script = ExtResource("2_0glpd")
+
+[node name="OverworldEnemyTemplate" parent="." unique_id=640357848 instance=ExtResource("3_0glpd")]
+position = Vector2(296, 114)
+enemy_information = ExtResource("4_bwdrk")
+set_encounter = ExtResource("5_bwdrk")

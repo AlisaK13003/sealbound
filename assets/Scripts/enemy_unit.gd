@@ -33,7 +33,7 @@ func mouse_exited(_area):
 func _unhandled_input(event):
 	if event is InputEventMouseButton and not event.pressed and selected_item != null:
 		if selected_item.does_what == 1:
-			battle_parent.active_enemies_data[stored_enemy.enemy_position].use_item(selected_item)
+			battle_parent.active_enemies_data[battle_parent.enemy_enclosure.get_child(stored_enemy.enemy_position).get_instance_id()].use_item(selected_item)
 			battle_parent.item_storage.get_child(where_is_item).visible = false
 			selected_item = null
 	

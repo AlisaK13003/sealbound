@@ -3340,7 +3340,8 @@ position = Vector2(362.785, 194)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=324397385]
 z_index = 100
 offset = Vector2(532.175, 192.945)
-zoom = Vector2(3.055, 3.055)
+zoom = Vector2(3, 3)
+limit_enabled = false
 
 [node name="Hud" parent="Camera2D" unique_id=145574082 instance=ExtResource("8_20iy5")]
 offset_left = 224.0
