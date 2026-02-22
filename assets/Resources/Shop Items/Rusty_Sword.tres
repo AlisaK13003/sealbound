@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="shop_item" format=3 uid="uid://8hykacfnmnk6"]
+
+[ext_resource type="Script" uid="uid://xehjdtb8f6vn" path="res://assets/Scripts/Resource Scripts/shop_item.gd" id="1_5bbcr"]
+[ext_resource type="Resource" uid="uid://dhftm6o04bqia" path="res://assets/Party Members/Weapons/sword.tres" id="2_2s2hx"]
+
+[resource]
+script = ExtResource("1_5bbcr")
+buy_price = 100
+item_type = 4
+weapon_thing = ExtResource("2_2s2hx")
+metadata/_custom_type_script = "uid://xehjdtb8f6vn"

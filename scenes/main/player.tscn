@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cw2kwy7c22qh7"]
 
 [ext_resource type="Texture2D" uid="uid://b0el85ib6l0r1" path="res://icon.svg" id="1_3y00o"]
+[ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause_Menu.tscn" id="2_tpytq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
 
@@ -26,3 +27,12 @@ texture = ExtResource("1_3y00o")
 shape = SubResource("RectangleShape2D_3y00o")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1983470381]
+
+[node name="PauseMenu" parent="." unique_id=569257666 instance=ExtResource("2_tpytq")]
+visible = false
+z_index = 100
+offset_left = -65.00001
+offset_top = -157.0
+offset_right = -65.00001
+offset_bottom = -157.0
+scale = Vector2(1.57, 1.57)

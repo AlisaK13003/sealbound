@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://d2uwb21vjxvyl"]
+
+[ext_resource type="Script" uid="uid://g6j6r35it0lb" path="res://assets/Scripts/Pause_Menu.gd" id="1_6a6ya"]
+[ext_resource type="PackedScene" uid="uid://dvo0w3xlg0f5s" path="res://assets/Resources/Pause_Menu_Option.tscn" id="2_vjpsr"]
+[ext_resource type="PackedScene" uid="uid://bxbe4s8gtmk7f" path="res://assets/Resources/Pause Menu/Item Menu/Items_ Menu.tscn" id="3_0hfbc"]
+[ext_resource type="PackedScene" uid="uid://cpa28f8vmbub2" path="res://assets/Resources/Pause Menu/Party Menu/Party_Menu_.tscn" id="3_8ocdr"]
+[ext_resource type="PackedScene" uid="uid://dv7w3jr2b60ts" path="res://assets/Resources/Pause Menu/Skills Menu/Skills_Menu.tscn" id="4_qffmw"]
+[ext_resource type="PackedScene" uid="uid://c15yeiolqmy63" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Menu.tscn" id="5_o57t2"]
+[ext_resource type="PackedScene" uid="uid://bueo7m313ndrv" path="res://assets/Resources/Pause Menu/Bond Menu/Bond_Menu.tscn" id="7_68nh3"]
+[ext_resource type="PackedScene" uid="uid://cq0wehm0dm6yb" path="res://assets/Resources/Pause Menu/Enemy Intel/Enemy_Intel_Menu.tscn" id="8_djh7v"]
+[ext_resource type="PackedScene" uid="uid://vu351201k44" path="res://assets/Resources/Pause Menu/Journal Menu/Journal_Menu.tscn" id="9_sjmh0"]
+[ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_mqkyk"]
+[ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
+
+[node name="PauseMenu" type="Control" unique_id=569257666]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_6a6ya")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
+position = Vector2(37, 95)
+zoom = Vector2(2, 2)
+
+[node name="Initial_Menu" type="Control" parent="." unique_id=1700268886]
+anchors_preset = 0
+offset_left = -344.0
+offset_right = -304.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Initial_Menu" unique_id=942161223]
+layout_mode = 0
+offset_top = -136.0
+offset_right = 40.0
+offset_bottom = 280.0
+theme_override_constants/separation = 35
+
+[node name="Party" parent="Initial_Menu/VBoxContainer" unique_id=473307797 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Party"
+
+[node name="Skills" parent="Initial_Menu/VBoxContainer" unique_id=118002456 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Skills"
+
+[node name="Equipment" parent="Initial_Menu/VBoxContainer" unique_id=105981787 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Equip"
+
+[node name="Inventory" parent="Initial_Menu/VBoxContainer" unique_id=114698438 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Inventory"
+
+[node name="Bond" parent="Initial_Menu/VBoxContainer" unique_id=2106770861 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Bond"
+
+[node name="Enemy Intel" parent="Initial_Menu/VBoxContainer" unique_id=491931082 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Enemy Intel"
+
+[node name="Journal" parent="Initial_Menu/VBoxContainer" unique_id=304271723 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Journal"
+
+[node name="Save _ Load" parent="Initial_Menu/VBoxContainer" unique_id=1967936739 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "Save / Load"
+
+[node name="System" parent="Initial_Menu/VBoxContainer" unique_id=1391818663 instance=ExtResource("2_vjpsr")]
+layout_mode = 2
+selection_name = "System"
+
+[node name="Sub_Menus" type="Control" parent="." unique_id=201055189]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="PartyMenu" parent="Sub_Menus" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
+visible = false
+layout_mode = 1
+
+[node name="SkillsMenu" parent="Sub_Menus" unique_id=824969245 instance=ExtResource("4_qffmw")]
+visible = false
+layout_mode = 1
+
+[node name="EquipmentMenu" parent="Sub_Menus" unique_id=1214371089 instance=ExtResource("5_o57t2")]
+visible = false
+layout_mode = 1
+
+[node name="ItemsMenu" parent="Sub_Menus" unique_id=1671049951 node_paths=PackedStringArray("menu_parent") instance=ExtResource("3_0hfbc")]
+visible = false
+layout_mode = 1
+menu_parent = NodePath("../..")
+
+[node name="BondMenu" parent="Sub_Menus" unique_id=1832381352 instance=ExtResource("7_68nh3")]
+visible = false
+layout_mode = 1
+
+[node name="EnemyIntelMenu" parent="Sub_Menus" unique_id=1554089330 instance=ExtResource("8_djh7v")]
+visible = false
+layout_mode = 1
+
+[node name="JournalMenu" parent="Sub_Menus" unique_id=1744445820 instance=ExtResource("9_sjmh0")]
+visible = false
+layout_mode = 1
+
+[node name="SaveLoadMenu" parent="Sub_Menus" unique_id=1676534613 instance=ExtResource("10_mqkyk")]
+visible = false
+layout_mode = 1
+
+[node name="SystemMenu" parent="Sub_Menus" unique_id=893803557 instance=ExtResource("11_35xr2")]
+visible = false
+layout_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1415938794]
+z_index = -2
+layout_mode = 0
+offset_left = -443.0
+offset_top = -171.0
+offset_right = 511.0
+offset_bottom = 363.0
+mouse_filter = 1
+color = Color(1, 0.30980393, 1, 1)

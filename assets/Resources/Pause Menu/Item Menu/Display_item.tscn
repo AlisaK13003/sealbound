@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b68eb1ua0thtt"]
+
+[ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_cn63v"]
+[ext_resource type="Script" uid="uid://bxedysd0u2jl6" path="res://assets/Resources/Pause Menu/Item Menu/display_item.gd" id="1_e2cpd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2cpd"]
+size = Vector2(349, 52)
+
+[node name="DisplayItem" type="Control" unique_id=2106233664 node_paths=PackedStringArray("item_name", "item_sprite")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+mouse_filter = 1
+script = ExtResource("1_e2cpd")
+item_name = NodePath("HBoxContainer/Label")
+item_sprite = NodePath("HBoxContainer/TextureRect")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1825522464]
+layout_mode = 0
+offset_left = -176.0
+offset_top = -26.0
+offset_right = 174.0
+offset_bottom = 27.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1242087735]
+layout_mode = 2
+texture = ExtResource("1_cn63v")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=495771260]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "EXPLOSIVE POTION"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=26812116]
+z_index = -1
+layout_mode = 0
+offset_left = -176.0
+offset_top = -26.0
+offset_right = 175.0
+offset_bottom = 27.0
+mouse_filter = 1
+color = Color(1, 1, 0.35686275, 1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1270893799]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1046601492]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_e2cpd")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

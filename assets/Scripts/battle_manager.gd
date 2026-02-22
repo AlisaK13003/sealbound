@@ -118,12 +118,10 @@ func _on_card_move_selected(card):
 func check_if_dead(thing):
 	if thing is EnemyCombatant:
 		if check_if_enemy_is_dead(enemy_enclosure.get_child(thing.enemy_position), thing):
-			turn_orders.remove_at(0)
-			active_enemies_data.erase(thing.get_instance_id())
+			active_enemies_data.erase(active_enemies_data.find_key(thing))
 			
 	if thing is PartyMember and thing.player_stats.health <= 0:
 		alive_members_count -= 1
-		turn_orders.remove_at(0)
 
 func reset_battle():
 	# Reset at the end of each turn
@@ -219,6 +217,10 @@ func start_combat():
 			get_tree().quit()
 			return 
 		
+		if active_enemies_data.size() == 0:
+			battle_state["party_has_won"] = true
+			continue
+		
 		await player_turn()
 		
 		# Create enemy turns
@@ -236,6 +238,7 @@ func start_combat():
 			
 			# Add enemy to turn order list
 			turn_orders.append(TurnStorage.new(enemy, party_members[selected_player], (enemy.enemy_stats.speed + enemy.enemy_stats.altered_speed), null))
+		
 		
 		# Sort every combat member based on speed
 		turn_priority(turn_orders)
