@@ -2,6 +2,7 @@ extends Resource
 class_name equipment
 
 @export var equipment_name : String
+@export var equipment_description : String
 
 @export var equipment_stats : stats
 

@@ -1,7 +1,6 @@
 extends Control
 
 @onready var item_container = $VBoxContainer
-@onready var color_rect = $ColorRect
 @onready var party_cards = $Party_Cards
 var item_scene = preload("res://assets/Resources/Pause Menu/Item Menu/Display_item.tscn")
 var start_range = 0
@@ -12,14 +11,16 @@ var selected_item = 0
 @export var menu_parent : Control
 
 func _ready():
+	Global.save_loaded.connect(_on_game_start)
+
+func _on_game_start():
 	Global.item_list_updated.connect(update_item_menu)
-	
 	for item in Global.item_list:
 		var new_item = item_scene.instantiate()
 		new_item.setup(item)
 		new_item.item_clicked.connect(display_item_clicked)
 		item_container.add_child(new_item)
-	
+		
 	setup_party_card(Global.party_slot_1, 0)
 	setup_party_card(Global.party_slot_2, 1)
 	setup_party_card(Global.party_slot_3, 2)
@@ -38,7 +39,6 @@ func _input(event):
 		return
 	
 	if menu_parent.current_menu == "Inventory":
-		print("HIASD")
 		if event.is_action_pressed("Mouse Scroll Down"):
 			update_display(1)
 			
@@ -53,14 +53,14 @@ func update_display(change_range_by: int):
 		start_range = clamp(start_range + change_range_by, 0, Global.item_list.size() - 7)
 		end_range = clamp(end_range + change_range_by, start_range + 7, Global.item_list.size())
 	selected_item = clamp(selected_item + change_range_by, 0, Global.item_list.size() - 1)
-	
+
 	for i in range(Global.item_list.size()):
 		if item_container.get_child(i) == null:
 			return
 		if i == selected_item:
-			item_container.get_child(i).get_node("ColorRect").color = Color.AQUAMARINE
+			item_container.get_child(i).change_color(Color.AQUAMARINE)
 		else:
-			item_container.get_child(i).get_node("ColorRect").color = Color.YELLOW
+			item_container.get_child(i).change_color(Color.YELLOW)
 		
 		if i >= start_range and i < end_range:
 			item_container.get_child(i).visible = true

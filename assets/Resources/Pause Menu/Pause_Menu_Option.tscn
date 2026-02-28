@@ -3,7 +3,15 @@
 [ext_resource type="Script" uid="uid://c2175o12b44o8" path="res://assets/Scripts/Resource Scripts/Pause_Menu_Node.gd" id="1_yujxi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvnee"]
-size = Vector2(62, 27)
+size = Vector2(128, 27)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yujxi"]
+bg_color = Color(0.68353164, 0.5946988, 0.29923603, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 1
 
 [node name="PauseMenuOption" type="Control" unique_id=473307797]
 layout_mode = 3
@@ -18,18 +26,18 @@ script = ExtResource("1_yujxi")
 [node name="Area2D" type="Area2D" parent="." unique_id=1034876918]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=599841537]
-position = Vector2(1, -3.5)
+position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_rvnee")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1618885264]
+[node name="Panel" type="Panel" parent="." unique_id=713518588]
 layout_mode = 0
 offset_left = -65.0
 offset_top = -17.0
 offset_right = 64.0
 offset_bottom = 11.0
-mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_yujxi")
 
-[node name="Label" type="Label" parent="ColorRect" unique_id=1703527409]
+[node name="Label" type="Label" parent="Panel" unique_id=1703527409]
 layout_mode = 0
 offset_right = 129.0
 offset_bottom = 28.0

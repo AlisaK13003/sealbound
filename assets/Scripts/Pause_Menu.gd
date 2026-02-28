@@ -5,6 +5,11 @@ extends Control
 
 @onready var sub_menus = $Sub_Menus
 
+@onready var clock = $Timer
+@onready var money_label = $Money
+
+@onready var party_cards = $Party_Cards
+
 var selected_option : int = 0
 
 var current_menu = " "
@@ -23,13 +28,31 @@ var menu_choices = {
 	"System": 8
 }
 
+var time: float = 0
+
 func _ready():
+	Global.save_loaded.connect(_on_game_start)
+
+func _on_game_start():
 	for child in start_menu.get_children():
 		child.option_selected.connect(menu_swap)
 		child.option_hovered.connect(change_selection)
 	
+	money_label.text = str(Global.money)
+
+	for card in range(party_cards.get_child_count()):
+		var current_card = party_cards.get_child(card)
+		var current_member = Global.party_list.get(card)
+		current_card.get_node("TextureRect").texture = current_member.player_sprite
+		current_card.get_node("Name").text = current_member.member_name
+		current_card.get_node("Level").text = "Level: " + str(current_member.level)
+		current_card.get_node("Health").text = "Health: " + str(current_member.player_stats.health)
+
 	change_selection(-1)
-	
+
+func _physics_process(_delta):
+	clock.text = (str(Global.play_time_hours)) + ":" + ("%02d" % Global.play_time_minutes) + ":" + ("%02d" % Global.play_time_seconds)
+
 func _input(event):
 	if not in_sub_menu:
 		if event.is_action_pressed("Mouse Scroll Down"):
@@ -47,20 +70,22 @@ func _input(event):
 	if event.is_action_pressed("Cancel"):
 		if in_sub_menu:
 			menu_swap(-2)
+		clock.text = str(Global.play_time_seconds)
+		
 
 func change_selection(option):
 	if not in_sub_menu:
 		for child in start_menu.get_children():
-			child.get_node("ColorRect").color = Color.WHITE
+			child.change_color(Color.BISQUE)
 		
 		if not option is String and option != -1:
 			selected_option = option
 			
 		if option is String:
-			start_menu.get_child(menu_choices[option]).get_node("ColorRect").color = Color.ANTIQUE_WHITE
+			start_menu.get_child(menu_choices[option]).change_color(Color.BURLYWOOD)
 			selected_option = menu_choices[option]
 		else:
-			start_menu.get_child(selected_option).get_node("ColorRect").color = Color.ANTIQUE_WHITE
+			start_menu.get_child(selected_option).change_color(Color.BURLYWOOD)
 
 func menu_swap(selected_option_):
 	for child in sub_menus.get_children():
@@ -87,18 +112,3 @@ func menu_swap(selected_option_):
 		if selected_option == 3:
 			sub_menus.get_child(selected_option).update_display(0)
 	
-# func _physics_process(_delta):
-	#var space_state = get_world_2d().direct_space_state
-	#var mouse_pos = get_global_mouse_position()
-	#
-	#var query = PhysicsPointQueryParameters2D.new()
-	#query.position = mouse_pos
-	#query.collide_with_areas = true
-	#
-	#var result = space_state.intersect_point(query)
-	#
-	#if result.size() > 0:
-		#var top_area = result[0].collider
-		#print("Hovering over: ", top_area.name)
-	#else:
-		#print("Hovering over nothing")

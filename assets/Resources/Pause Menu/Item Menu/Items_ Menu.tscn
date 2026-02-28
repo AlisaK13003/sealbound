@@ -3,6 +3,17 @@
 [ext_resource type="Script" uid="uid://dsv8bokxttjyr" path="res://assets/Resources/Pause Menu/Item Menu/item_menu_controller.gd" id="1_rt5t2"]
 [ext_resource type="PackedScene" uid="uid://ccsfuxkxopgyv" path="res://assets/Resources/Pause Menu/Item Menu/Inventory_Party_Card.tscn" id="2_rt5t2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt5t2"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
 [node name="Control" type="Control" unique_id=904784301]
 layout_mode = 3
 anchors_preset = 15
@@ -16,22 +27,12 @@ script = ExtResource("1_rt5t2")
 position = Vector2(37, 95)
 zoom = Vector2(2, 2)
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1989885431]
-z_index = -2
-layout_mode = 0
-offset_left = -443.0
-offset_top = -89.0
-offset_right = 511.0
-offset_bottom = 363.0
-mouse_filter = 1
-color = Color(1, 0.30980393, 1, 1)
-
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=842037469]
 layout_mode = 0
-offset_left = 155.0
-offset_top = 231.0
-offset_right = 458.0
-offset_bottom = 322.0
+offset_left = 79.0
+offset_top = 180.0
+offset_right = 382.0
+offset_bottom = 271.0
 
 [node name="Label" type="Label" parent="ColorRect2" unique_id=1341870660]
 layout_mode = 0
@@ -46,20 +47,20 @@ autowrap_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=306520551]
 layout_mode = 0
-offset_left = 300.0
-offset_top = 4.0
-offset_right = 483.0
-offset_bottom = 304.0
+offset_left = 189.99998
+offset_top = -48.000008
+offset_right = 373.0
+offset_bottom = 252.0
 scale = Vector2(0.58, 0.58)
 theme_override_constants/separation = 60
 alignment = 1
 
 [node name="Party_Cards" type="VBoxContainer" parent="." unique_id=364274392]
 layout_mode = 0
-offset_left = -378.0
-offset_top = 91.0
-offset_right = -250.0
-offset_bottom = 99.0
+offset_left = -306.0
+offset_top = 7.0
+offset_right = -178.0
+offset_bottom = 107.0
 theme_override_constants/separation = 50
 
 [node name="InventoryPartyCard" parent="Party_Cards" unique_id=1868970746 instance=ExtResource("2_rt5t2")]
@@ -70,3 +71,19 @@ layout_mode = 2
 
 [node name="InventoryPartyCard3" parent="Party_Cards" unique_id=1751777467 instance=ExtResource("2_rt5t2")]
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=535627006]
+z_index = -2
+layout_mode = 0
+offset_left = -344.0
+offset_top = -119.0
+offset_right = 611.0
+offset_bottom = 414.0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_rt5t2")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=174184933]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

@@ -21,8 +21,14 @@
 [ext_resource type="Resource" uid="uid://7oymknjcd6i3" path="res://assets/Party Members/Weapons/bow.tres" id="11_si8qq"]
 [ext_resource type="Resource" uid="uid://booha8i75nhea" path="res://assets/Party Members/Weapons/staff.tres" id="12_xtt7h"]
 [ext_resource type="Resource" uid="uid://dhftm6o04bqia" path="res://assets/Party Members/Weapons/sword.tres" id="13_y5t6s"]
+[ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Quests/Quest Board.tscn" id="22_px3xr"]
 
 [node name="Playground" type="Node2D" unique_id=724564567]
+
+[node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("22_px3xr")]
+z_index = 1
+position = Vector2(509, 363)
+scale = Vector2(2, 2)
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(236, 135)

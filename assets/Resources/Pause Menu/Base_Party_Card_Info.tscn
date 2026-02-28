@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cwogyg7mocf2x"]
+
+[ext_resource type="Texture2D" uid="uid://b4bu00m71ahn7" path="res://assets/Party Members/Sprites/FMC_Portrair.tres" id="1_vc6h0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vc6h0"]
+bg_color = Color(0.53087056, 0.5387075, 0.9947117, 1)
+skew = Vector2(0.08, 0)
+shadow_color = Color(0.43529412, 0, 0, 0.6)
+shadow_size = 4
+
+[node name="BasePartyCardInfo" type="Control" unique_id=988666486]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=546091195]
+layout_mode = 0
+offset_left = -79.0
+offset_top = -105.0
+offset_right = 230.0
+offset_bottom = 360.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_vc6h0")
+stretch_mode = 1
+
+[node name="Name" type="Label" parent="." unique_id=162984964]
+layout_mode = 0
+offset_left = -77.0
+offset_top = -80.0
+offset_right = -29.0
+offset_bottom = -63.0
+rotation = 1.5707964
+text = "Name"
+
+[node name="Level" type="Label" parent="." unique_id=770445150]
+layout_mode = 0
+offset_left = -73.0
+offset_top = 116.0
+offset_right = -25.0
+offset_bottom = 133.0
+text = "Level"
+
+[node name="Health" type="Label" parent="." unique_id=720876764]
+layout_mode = 0
+offset_left = -73.0
+offset_top = 134.0
+offset_right = -12.0
+offset_bottom = 151.0
+text = "Health"
+
+[node name="Panel" type="Panel" parent="." unique_id=366528710]
+z_index = -1
+layout_mode = 0
+offset_left = -74.0
+offset_top = -94.0
+offset_right = 71.0
+offset_bottom = 113.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vc6h0")
+
+[node name="Level_Up" type="TextureProgressBar" parent="." unique_id=1350016137]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

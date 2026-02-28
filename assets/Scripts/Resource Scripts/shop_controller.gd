@@ -15,7 +15,6 @@ var shop_item_scene = preload("res://assets/Resources/Shop_Stock_Node.tscn")
 var can_open_shop : bool = false
 
 func _ready():
-	Global.money = 2000
 	for item in shop_stock:
 		var item_display = shop_item_scene.instantiate()
 		item_selection.add_child(item_display)

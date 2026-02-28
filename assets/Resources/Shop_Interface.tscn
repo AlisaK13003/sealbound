@@ -47,16 +47,18 @@ texture = ExtResource("2_47o24")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1745810625]
 layout_mode = 0
-offset_left = 613.0
+offset_left = 467.5
 offset_top = 4.0
 offset_right = 690.0
 offset_bottom = 44.0
 theme_override_constants/separation = 4
+alignment = 2
 
 [node name="Total_Currency" type="Label" parent="HBoxContainer" unique_id=343933536]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.4117647, 1, 1)
-text = "5000"
+text = "0"
+horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1982332349]
 layout_mode = 2

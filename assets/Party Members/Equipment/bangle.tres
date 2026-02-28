@@ -11,5 +11,6 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 [resource]
 script = ExtResource("1_scu43")
 equipment_name = "Bangle"
+equipment_description = "Could be used to reflect bullet?"
 equipment_stats = SubResource("Resource_3yam2")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

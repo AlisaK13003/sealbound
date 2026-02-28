@@ -6,6 +6,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2cpd"]
 size = Vector2(349, 52)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2cpd"]
+bg_color = Color(0.7176471, 0.65882355, 0.44313726, 1)
+border_color = Color(0.6183839, 0.83676624, 0.9447376, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="DisplayItem" type="Control" unique_id=2106233664 node_paths=PackedStringArray("item_name", "item_sprite")]
 layout_mode = 3
 anchors_preset = 15
@@ -33,24 +42,25 @@ stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer" unique_id=495771260]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "EXPLOSIVE POTION"
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=26812116]
-z_index = -1
-layout_mode = 0
-offset_left = -176.0
-offset_top = -26.0
-offset_right = 175.0
-offset_bottom = 27.0
-mouse_filter = 1
-color = Color(1, 1, 0.35686275, 1)
-
 [node name="Area2D" type="Area2D" parent="." unique_id=1270893799]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1046601492]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_e2cpd")
+
+[node name="Panel" type="Panel" parent="." unique_id=1169399607]
+z_index = -1
+layout_mode = 0
+offset_left = -176.0
+offset_top = -26.0
+offset_right = 174.0
+offset_bottom = 26.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2cpd")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

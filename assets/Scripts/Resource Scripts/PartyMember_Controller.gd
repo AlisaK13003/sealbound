@@ -3,6 +3,8 @@ class_name PartyMember
 
 @export var member_name : String
 
+@export var level : int
+
 @export var player_sprite : Texture2D
 
 @export var move_list : Array[moves]
@@ -18,6 +20,21 @@ class_name PartyMember
 @export_enum("Front", "Middle", "Back") var current_battle_position
 
 var is_dead: bool
+
+func get_save_stats():
+	return {
+		"path": resource_path,
+		"level": level,
+		"current_health": player_stats.health,
+		"current_equipped_weapon": current_equipped_weapon.resource_path,
+		"current_equipped_armor": current_equipped_armor.resource_path
+	}
+
+func load_save_data(data):
+	level = data["level"]
+	player_stats.health = data["current_health"]
+	current_equipped_armor = load(data["current_equipped_armor"])
+	current_equipped_weapon = load(data["current_equipped_weapon"])
 
 func use_move(move):
 	var damage = player_stats.strength * move.attack_power
