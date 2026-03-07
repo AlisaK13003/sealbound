@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://c15yeiolqmy63"]
+
+[ext_resource type="PackedScene" uid="uid://ccsfuxkxopgyv" path="res://assets/Resources/Pause Menu/Item Menu/Inventory_Party_Card.tscn" id="1_xvltf"]
+[ext_resource type="PackedScene" uid="uid://dvo0w3xlg0f5s" path="res://assets/Resources/Pause Menu/Pause_Menu_Option.tscn" id="2_7nkdk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7krcb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6c37x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nkdk"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
+[node name="EquipmentMenu" type="Control" unique_id=1214371089]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1403855403]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 197.0
+offset_right = 338.0
+offset_bottom = 288.0
+
+[node name="Label" type="Label" parent="ColorRect2" unique_id=2051075773]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 296.0
+offset_bottom = 83.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "This thing heals a party member by a certain amount that I do not know"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Weapons" type="VBoxContainer" parent="." unique_id=534066551]
+layout_mode = 0
+offset_left = 179.99998
+offset_top = -30.000004
+offset_right = 363.0
+offset_bottom = 270.0
+scale = Vector2(0.58, 0.58)
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Armor" type="VBoxContainer" parent="." unique_id=848947295]
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = -30.0
+offset_right = 363.0
+offset_bottom = 270.0
+scale = Vector2(0.58, 0.58)
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Party_Cards" type="VBoxContainer" parent="." unique_id=1254660798]
+layout_mode = 0
+offset_left = -322.0
+offset_top = 16.0
+offset_right = -194.0
+offset_bottom = 116.0
+theme_override_constants/separation = 50
+
+[node name="InventoryPartyCard" parent="Party_Cards" unique_id=1868970746 instance=ExtResource("1_xvltf")]
+layout_mode = 2
+
+[node name="InventoryPartyCard2" parent="Party_Cards" unique_id=538531120 instance=ExtResource("1_xvltf")]
+layout_mode = 2
+
+[node name="InventoryPartyCard3" parent="Party_Cards" unique_id=1941454346 instance=ExtResource("1_xvltf")]
+layout_mode = 2
+
+[node name="Sub_menus" type="HBoxContainer" parent="." unique_id=563794659]
+layout_mode = 0
+offset_left = 114.0
+offset_top = -46.0
+offset_right = 264.0
+offset_bottom = -6.0
+theme_override_constants/separation = 150
+
+[node name="Party" parent="Sub_menus" unique_id=473307797 instance=ExtResource("2_7nkdk")]
+layout_mode = 2
+selection_name = "Weapons"
+
+[node name="Panel" parent="Sub_menus/Party" index="1" unique_id=713518588]
+theme_override_styles/panel = SubResource("StyleBoxFlat_7krcb")
+
+[node name="Label" parent="Sub_menus/Party/Panel" index="0" unique_id=1703527409]
+text = "Weapons"
+
+[node name="Skills" parent="Sub_menus" unique_id=941745032 instance=ExtResource("2_7nkdk")]
+layout_mode = 2
+selection_name = "Armor"
+
+[node name="Panel" parent="Sub_menus/Skills" index="1" unique_id=713518588]
+theme_override_styles/panel = SubResource("StyleBoxFlat_6c37x")
+
+[node name="Label" parent="Sub_menus/Skills/Panel" index="0" unique_id=1703527409]
+text = "Armor"
+
+[node name="Panel" type="Panel" parent="." unique_id=617083705]
+z_index = -2
+layout_mode = 0
+offset_left = -344.0
+offset_top = -119.0
+offset_right = 611.0
+offset_bottom = 414.0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_7nkdk")
+
+[editable path="Sub_menus/Party"]
+[editable path="Sub_menus/Skills"]

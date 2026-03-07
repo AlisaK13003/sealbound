@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cobhlimte4psu"]
+
+[ext_resource type="Script" uid="uid://c5vq4yex8me3j" path="res://assets/Scripts/Overworld_Enemy.gd" id="1_eigpo"]
+[ext_resource type="Texture2D" uid="uid://bucmvixa6qkvp" path="res://assets/Enemies/Enemy_Sprites/Generic_Monster.tres" id="2_eigpo"]
+[ext_resource type="Resource" uid="uid://co4l4raig4as" path="res://assets/Enemies/Generic_Monster.tres" id="2_kwbv2"]
+[ext_resource type="Resource" uid="uid://ch4nrh2ol6pv0" path="res://assets/Enemies/Encounters/testing.tres" id="3_ahxq2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eigpo"]
+size = Vector2(22, 18)
+
+[node name="OverworldEnemyTemplate" type="Node2D" unique_id=640357848]
+script = ExtResource("1_eigpo")
+enemy_information = ExtResource("2_kwbv2")
+set_encounter = ExtResource("3_ahxq2")
+
+[node name="Enemy_Sprite" type="Sprite2D" parent="." unique_id=1340181408]
+position = Vector2(2, -1.5)
+scale = Vector2(3, 3)
+texture = ExtResource("2_eigpo")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1606926289]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=491292618]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_eigpo")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

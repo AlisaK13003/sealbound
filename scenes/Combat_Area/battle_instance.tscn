@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dmbidxi1sirve"]
+
+[sub_resource type="Theme" id="Theme_gorj7"]
+default_font_size = 33
+
+[node name="BattleInstance" type="Node2D" unique_id=193451738]
+
+[node name="Label" type="Label" parent="." unique_id=1217566723]
+z_index = 1
+offset_left = 1783.0
+offset_top = 441.0
+offset_right = 2736.0
+offset_bottom = 871.0
+theme = SubResource("Theme_gorj7")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Enemy Health"
+
+[node name="Label" type="Label" parent="Label" unique_id=1375175267]
+z_index = 1
+layout_mode = 0
+offset_left = -1555.0
+offset_top = -51.0
+offset_right = -602.0
+offset_bottom = 379.0
+theme = SubResource("Theme_gorj7")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Party Health"
+
+[node name="Label" type="Label" parent="Label/Label" unique_id=1254933294]
+z_index = 1
+layout_mode = 0
+offset_left = 949.0
+offset_top = -375.0
+offset_right = 1902.0
+offset_bottom = 55.0
+theme = SubResource("Theme_gorj7")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "TEST"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=338276011]
+offset_right = 2759.0
+offset_bottom = 1504.0

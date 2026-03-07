@@ -2,9 +2,51 @@
 
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_cavrc"]
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="2_0glpd"]
+[ext_resource type="PackedScene" uid="uid://cobhlimte4psu" path="res://scenes/Dungeon/Enemies/Overworld_Enemy_Template.tscn" id="3_0glpd"]
+[ext_resource type="Resource" uid="uid://cyv4eigql7v1s" path="res://assets/Party Members/Items/Explosive_Potion.tres" id="3_oqlsb"]
+[ext_resource type="PackedScene" uid="uid://dfird1yjtwtku" path="res://assets/Resources/Shop Dude.tscn" id="4_bwdrk"]
+[ext_resource type="Resource" uid="uid://c55uxn3goekom" path="res://assets/Party Members/Items/Potion.tres" id="4_hbw74"]
+[ext_resource type="Resource" uid="uid://cxaai1suqnom2" path="res://assets/Party Members/Dwarf.tres" id="4_ow75l"]
+[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="5_efq0f"]
+[ext_resource type="Resource" uid="uid://dnq8yvjyls8j0" path="res://assets/Party Members/Mage.tres" id="5_hbw74"]
+[ext_resource type="Script" uid="uid://xehjdtb8f6vn" path="res://assets/Scripts/Resource Scripts/shop_item.gd" id="6_eweap"]
+[ext_resource type="Resource" uid="uid://c8nnglq46tjqr" path="res://assets/Party Members/Paladin.tres" id="6_px3xr"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="7_4tlwk"]
+[ext_resource type="Resource" uid="uid://c1r18jklwj3m8" path="res://assets/Resources/Shop Items/Health_Potion.tres" id="7_fupg4"]
+[ext_resource type="Resource" uid="uid://8hykacfnmnk6" path="res://assets/Resources/Shop Items/Rusty_Sword.tres" id="8_fx8xp"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="8_g3gee"]
+[ext_resource type="Resource" uid="uid://bn2e8y15yvhmt" path="res://assets/Party Members/Equipment/bangle.tres" id="9_2ac3m"]
+[ext_resource type="Resource" uid="uid://dv4h861dfycfw" path="res://assets/Resources/Shop Items/Rusty_Bangle.tres" id="9_oqlsb"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_o0hwp"]
+[ext_resource type="Resource" uid="uid://7oymknjcd6i3" path="res://assets/Party Members/Weapons/bow.tres" id="11_si8qq"]
+[ext_resource type="Resource" uid="uid://booha8i75nhea" path="res://assets/Party Members/Weapons/staff.tres" id="12_xtt7h"]
+[ext_resource type="Resource" uid="uid://dhftm6o04bqia" path="res://assets/Party Members/Weapons/sword.tres" id="13_y5t6s"]
+[ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Quests/Quest Board.tscn" id="22_px3xr"]
 
 [node name="Playground" type="Node2D" unique_id=724564567]
+
+[node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("22_px3xr")]
+z_index = 1
+position = Vector2(509, 363)
+scale = Vector2(2, 2)
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(236, 135)
 script = ExtResource("2_0glpd")
+item_to_add = ExtResource("3_oqlsb")
+item_to_add2 = ExtResource("4_hbw74")
+money = 5000
+party_slot_1 = ExtResource("4_ow75l")
+party_slot_2 = ExtResource("5_hbw74")
+party_slot_3 = ExtResource("6_px3xr")
+item_list = Array[ExtResource("7_4tlwk")]([null, null, null, null])
+equipment_list = Array[ExtResource("8_g3gee")]([ExtResource("9_2ac3m"), ExtResource("9_2ac3m"), ExtResource("9_2ac3m")])
+weapon_list = Array[ExtResource("10_o0hwp")]([ExtResource("11_si8qq"), ExtResource("12_xtt7h"), ExtResource("13_y5t6s")])
+
+[node name="OverworldEnemyTemplate" parent="." unique_id=640357848 instance=ExtResource("3_0glpd")]
+position = Vector2(315, 114)
+
+[node name="ShopDude" parent="." unique_id=1899411687 instance=ExtResource("4_bwdrk")]
+position = Vector2(39, 54)
+shop_owner = ExtResource("5_efq0f")
+shop_stock = Array[ExtResource("6_eweap")]([ExtResource("7_fupg4"), ExtResource("7_fupg4"), ExtResource("7_fupg4"), ExtResource("8_fx8xp"), ExtResource("9_oqlsb"), ExtResource("8_fx8xp")])

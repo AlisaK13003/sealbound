@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="encounters" format=3 uid="uid://ch4nrh2ol6pv0"]
+
+[ext_resource type="Script" uid="uid://cqq1sj1x4ol6d" path="res://assets/Scripts/Resource Scripts/combat_enemy.gd" id="1_yjsrq"]
+[ext_resource type="Resource" uid="uid://co4l4raig4as" path="res://assets/Enemies/Generic_Monster.tres" id="2_bt271"]
+[ext_resource type="Script" uid="uid://buaub6176yuvw" path="res://assets/Scripts/Resource Scripts/enncounter_creation.gd" id="2_vmwmg"]
+[ext_resource type="Resource" uid="uid://8dpmbbkwh8si" path="res://assets/Enemies/Skeleton.tres" id="3_5f88u"]
+
+[resource]
+script = ExtResource("2_vmwmg")
+enemy_list = Array[ExtResource("1_yjsrq")]([ExtResource("2_bt271"), ExtResource("2_bt271"), ExtResource("3_5f88u"), ExtResource("3_5f88u"), ExtResource("3_5f88u")])
+metadata/_custom_type_script = "uid://buaub6176yuvw"

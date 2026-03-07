@@ -1,24 +1,23 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: check-merge-conflict
-      - id: check-yaml
+	rev: v5.0.0
+	hooks:
+	  - id: end-of-file-fixer
+	  - id: trailing-whitespace
+	  - id: check-merge-conflict
+	  - id: check-yaml
 
   - repo: local
-    hooks:
-      - id: gdformat
-        name: gdformat (format GDScript)
-        entry: gdformat
-        language: system
-        files: \.gd$
-        args: ["--check"]
+	hooks:
+	  - id: gdformat
+		name: gdformat (format GDScript)
+		entry: gdformat
+		language: system
+		files: \.gd$
+		args: ["--check"]
 
-      - id: gdlint
-        name: gdlint (lint GDScript)
-        entry: gdlint
-        language: system
-        files: \.gd$
-
+	  - id: gdlint
+		name: gdlint (lint GDScript)
+		entry: gdlint
+		language: system
+		files: \.gd$

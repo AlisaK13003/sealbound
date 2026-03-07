@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3 uid="uid://c3tcj2oowfmto"]
+
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="1_4gkmh"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_il3ee"]
+
+[sub_resource type="Resource" id="Resource_huc5k"]
+script = ExtResource("1_4gkmh")
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_il3ee")
+equipment_stats = SubResource("Resource_huc5k")

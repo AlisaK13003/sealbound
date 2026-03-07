@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b8ftp6nfs07fk"]
+
+[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="2_47o24"]
+[ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="3_e47ti"]
+
+[node name="ShopInterface" type="Control" unique_id=1487542661]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=190406827]
+layout_mode = 0
+offset_right = 696.0
+offset_bottom = 383.0
+mouse_filter = 1
+
+[node name="Item_Selection" type="VBoxContainer" parent="." unique_id=1935556515]
+layout_mode = 0
+offset_right = 651.0
+offset_bottom = 395.0
+theme_override_constants/separation = 35
+
+[node name="VScrollBar" type="VScrollBar" parent="." unique_id=1836659626]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 4.0
+offset_right = 448.0
+offset_bottom = 185.0
+mouse_filter = 1
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1356730647]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 164.0
+mouse_filter = 1
+color = Color(1, 0.5137255, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect2" unique_id=1358944470]
+position = Vector2(63.000008, 80.00001)
+scale = Vector2(3.65625, 4.21875)
+texture = ExtResource("2_47o24")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1745810625]
+layout_mode = 0
+offset_left = 467.5
+offset_top = 4.0
+offset_right = 690.0
+offset_bottom = 44.0
+theme_override_constants/separation = 4
+alignment = 2
+
+[node name="Total_Currency" type="Label" parent="HBoxContainer" unique_id=343933536]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4117647, 1, 1)
+text = "0"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1982332349]
+layout_mode = 2
+texture = ExtResource("3_e47ti")
+stretch_mode = 2

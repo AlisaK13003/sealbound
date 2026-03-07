@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dfird1yjtwtku"]
+
+[ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="1_pskkx"]
+[ext_resource type="Texture2D" uid="uid://bucmvixa6qkvp" path="res://assets/Enemies/Enemy_Sprites/Generic_Monster.tres" id="2_hjkeh"]
+[ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="3_hjkeh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iq71j"]
+radius = 137.13132
+
+[node name="ShopDude" type="Node2D" unique_id=1899411687]
+script = ExtResource("1_pskkx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=744675171]
+texture = ExtResource("2_hjkeh")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1917332749]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=613979756]
+shape = SubResource("CircleShape2D_iq71j")
+
+[node name="ShopInterface" parent="." unique_id=1487542661 instance=ExtResource("3_hjkeh")]
+visible = false
+offset_left = -679.0
+offset_top = -314.0
+offset_right = -679.0
+offset_bottom = -314.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

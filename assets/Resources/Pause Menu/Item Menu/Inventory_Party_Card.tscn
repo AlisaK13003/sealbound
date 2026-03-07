@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ccsfuxkxopgyv"]
+
+[ext_resource type="Texture2D" uid="uid://b4bu00m71ahn7" path="res://assets/Party Members/Sprites/FMC_Portrair.tres" id="1_io7xb"]
+
+[node name="InventoryPartyCard" type="Control" unique_id=1868970746]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite" type="TextureRect" parent="." unique_id=1310163242]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 38.0
+offset_bottom = 50.0
+texture = ExtResource("1_io7xb")
+expand_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1805305341]
+z_index = -1
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 48.0
+
+[node name="Name" type="Label" parent="." unique_id=1794088915]
+layout_mode = 0
+offset_left = 38.0
+offset_right = 100.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Party "
+
+[node name="Health" type="Label" parent="." unique_id=234984869]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 29.0
+offset_right = 111.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HWALTH"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="shop_item" format=3 uid="uid://dv4h861dfycfw"]
+
+[ext_resource type="Script" uid="uid://xehjdtb8f6vn" path="res://assets/Scripts/Resource Scripts/shop_item.gd" id="1_ahpp3"]
+[ext_resource type="Resource" uid="uid://bn2e8y15yvhmt" path="res://assets/Party Members/Equipment/bangle.tres" id="1_hk1uo"]
+
+[resource]
+script = ExtResource("1_ahpp3")
+buy_price = 75
+item_type = 2
+equipment_thing = ExtResource("1_hk1uo")
+metadata/_custom_type_script = "uid://xehjdtb8f6vn"
