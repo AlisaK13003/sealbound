@@ -22,6 +22,11 @@
 [ext_resource type="Resource" uid="uid://booha8i75nhea" path="res://assets/Party Members/Weapons/staff.tres" id="12_xtt7h"]
 [ext_resource type="Resource" uid="uid://dhftm6o04bqia" path="res://assets/Party Members/Weapons/sword.tres" id="13_y5t6s"]
 [ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Quests/Quest Board.tscn" id="22_px3xr"]
+[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="23_4tlwk"]
+[ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="23_g3gee"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="25_2ac3m"]
+[ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="26_o0hwp"]
+[ext_resource type="PackedScene" uid="uid://xoqrkremn3la" path="res://assets/Resources/Interactables/Rest_Spot.tscn" id="27_si8qq"]
 
 [node name="Playground" type="Node2D" unique_id=724564567]
 
@@ -31,7 +36,7 @@ position = Vector2(509, 363)
 scale = Vector2(2, 2)
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
-position = Vector2(236, 135)
+position = Vector2(873, -471)
 script = ExtResource("2_0glpd")
 item_to_add = ExtResource("3_oqlsb")
 item_to_add2 = ExtResource("4_hbw74")
@@ -50,3 +55,56 @@ position = Vector2(315, 114)
 position = Vector2(39, 54)
 shop_owner = ExtResource("5_efq0f")
 shop_stock = Array[ExtResource("6_eweap")]([ExtResource("7_fupg4"), ExtResource("7_fupg4"), ExtResource("7_fupg4"), ExtResource("8_fx8xp"), ExtResource("9_oqlsb"), ExtResource("8_fx8xp")])
+
+[node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("23_g3gee")]
+position = Vector2(389, -97)
+node_names = {
+NodePath("Potion_Shop"): 0,
+NodePath("Weapon_Shop"): 1,
+NodePath("Infirmary"): 2,
+NodePath("Library"): 3
+}
+
+[node name="Potion_Shop" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("23_4tlwk")]
+location_name = "Potion Shop"
+connected_to_places = Array[int]([1, 3])
+template_sprite = ExtResource("25_2ac3m")
+
+[node name="Weapon_Shop" parent="VillageLocationContainer" unique_id=593921860 instance=ExtResource("23_4tlwk")]
+position = Vector2(962, -32)
+location_name = "Weapon Shop"
+connected_to_places = Array[int]([0, 2])
+template_sprite = ExtResource("25_2ac3m")
+
+[node name="Library" parent="VillageLocationContainer" unique_id=1968444447 instance=ExtResource("23_4tlwk")]
+position = Vector2(883, -639)
+location_name = "Library"
+connected_to_places = Array[int]([1, 3, 4])
+template_sprite = ExtResource("25_2ac3m")
+
+[node name="Infirmary" parent="VillageLocationContainer" unique_id=289897999 instance=ExtResource("23_4tlwk")]
+position = Vector2(32, -645)
+location_name = "Infirmary"
+connected_to_places = Array[int]([0, 2, 4])
+template_sprite = ExtResource("25_2ac3m")
+
+[node name="Infirmary2" parent="VillageLocationContainer" unique_id=1362791037 instance=ExtResource("23_4tlwk")]
+position = Vector2(440, -900)
+location_name = "Infirmary 2"
+connected_to_places = Array[int]([3, 2, 5])
+template_sprite = ExtResource("25_2ac3m")
+
+[node name="Infirmary3" parent="VillageLocationContainer" unique_id=1471958950 instance=ExtResource("23_4tlwk")]
+position = Vector2(-229, -906)
+location_name = "Infirmary 3"
+connected_to_places = Array[int]([4])
+template_sprite = ExtResource("25_2ac3m")
+
+[node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("26_o0hwp")]
+position = Vector2(400, -529)
+dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dialogue.json"
+location_container = NodePath("../VillageLocationContainer")
+path_points = Array[Vector2]([Vector2(0, 5), Vector2(5, 3), Vector2(3, 1)])
+
+[node name="RestSpot" parent="." unique_id=1301228429 instance=ExtResource("27_si8qq")]
+position = Vector2(850, -272)

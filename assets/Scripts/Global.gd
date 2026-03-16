@@ -2,6 +2,17 @@ extends Node
 
 const SAVE_PATH = "user://save_game.dat"
 
+var spawn_location
+
+var current_day: int
+var current_year: int
+var time_since_last_update: float
+var seconds_since_day_started: float
+
+var time_scale: int = 60
+
+signal time_updated
+
 var running_time: float
 var play_time_seconds: int
 var play_time_minutes: int
@@ -90,14 +101,34 @@ func _physics_process(delta):
 	
 func update_time():
 	play_time_seconds += 1
+	seconds_since_day_started += 1
 	
+	if (seconds_since_day_started * time_scale) - time_since_last_update >= 300:
+		time_updated.emit(false)
+		time_since_last_update = (seconds_since_day_started * time_scale)
 	if play_time_seconds == 60:
 		play_time_minutes += 1
 		play_time_seconds = 0
+		time_since_last_update = 0
 	if play_time_minutes == 60:
 		play_time_hours += 1
 		play_time_minutes = 0
+
+func player_advanced_day(did_they_pass_out):
+	current_day += 1
 	
+	if current_day == 366:
+		current_year += 1
+		current_day = 0
+	
+	time_since_last_update = 0
+	seconds_since_day_started = 0
+	
+	time_updated.emit(true)
+	
+	if did_they_pass_out:
+		spawn_location = null
+
 func load_save():
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("No save file found.")

@@ -1,13 +1,13 @@
 class_name Player extends CharacterBody2D
 
-@onready var pause_menu = $PauseMenu
+@onready var pause_menu = $CanvasLayer/PauseMenu
 
 @export var item_to_add : Items
 @export var item_to_add2 : Items
 
 var in_menu : bool = false
 
-var move_speed : float = 100.0
+var move_speed : float = 300.0
 
 # -------------------------------------------
 # TEMPORARY GLOBAL SETUP

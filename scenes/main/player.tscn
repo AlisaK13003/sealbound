@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b0el85ib6l0r1" path="res://icon.svg" id="1_3y00o"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="2_tpytq"]
+[ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
 
@@ -28,11 +29,30 @@ shape = SubResource("RectangleShape2D_3y00o")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1983470381]
 
-[node name="PauseMenu" parent="." unique_id=569257666 instance=ExtResource("2_tpytq")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
+offset = Vector2(430.455, 0)
+transform = Transform2D(1, 0, 0, 1, 430.455, 0)
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
 visible = false
 z_index = 100
-offset_left = -65.00001
-offset_top = -157.0
-offset_right = -65.00001
-offset_bottom = -157.0
+offset_left = 422.54498
+offset_top = 423.99994
+offset_right = 422.54492
+offset_bottom = 424.0
 scale = Vector2(1.57, 1.57)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]
+offset_left = 1029.545
+offset_top = 90.0
+offset_right = 1245.545
+offset_bottom = 185.25
+theme_override_font_sizes/font_size = 28
+text = "Day 0 Year 0
+06:00
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_2gs60")
+metadata/_edit_use_anchors_ = true
