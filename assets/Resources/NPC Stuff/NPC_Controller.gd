@@ -4,11 +4,13 @@ extends Node2D
 
 var dialogue_data: Dictionary
 
-
 @export var location_container: Node2D
 @export var speed: float = 300.0
 
 @export var path_points: Array[Vector2] = []
+
+@export var schedule: Array[npc_schedule]
+
 var path_nodes: Array[Vector2]
 var currently_exploring_path_num: int = 0
 var walking: bool = false
@@ -24,13 +26,14 @@ var player_just_stopped_talking_to_me: bool = false
 @onready var dialogue_box : Control = $CanvasLayer/DialogueWindow
 
 func _ready():
+	Global.time_updated.connect(navigate)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
 		return
 
 	dialogue_data = load_json_file(dialogue_path)
 	if dialogue_data:
-		print("Successfully loaded JSON data:", dialogue_data)
+		print("Successfully loaded JSON data:")
 
 func load_json_file(path: String) -> Dictionary:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
@@ -48,23 +51,29 @@ func load_json_file(path: String) -> Dictionary:
 	else:
 		return {}	
 
-func setup_navigation():
+func navigate():
+	for navigation in schedule:
+		if Global.current_weather != navigation.weather_conditions:
+			print("weather doesn't match")
+		elif Global.current_day % navigation.repeats_every_x_days != 0:
+			print("Can't happen")
+		elif Global.current_hour == navigation.what_hour and Global.current_minute == navigation.what_minute:
+			print("GOOD TO GO")
+			setup_navigation(navigation)
+
+func setup_navigation(active_schedule: npc_schedule):
 	if currently_exploring_path_num >= path_points.size():
 		return
 	
-	var path_ids = location_container.get_path_between(int(path_points[currently_exploring_path_num].x), int(path_points[currently_exploring_path_num].y))
+	var path_ids = location_container.get_path_between(active_schedule.start_location, active_schedule.end_location)
 		
 	for vertex_id in path_ids:
 		var target_node = location_container.get_child(vertex_id)
 		var target_pos = target_node.location_position[2] 
 		path_nodes.append(target_pos)
-	
-	if path_nodes.size() > 0:
-		global_position = location_container.get_child(path_points[currently_exploring_path_num].x).location_position[2]
-		path_nodes.pop_front() 
 
 func _process(delta):
-	if not walking or path_nodes.is_empty():
+	if path_nodes.is_empty():
 		return 
 		
 	if player_is_speaking_to_me:
@@ -86,7 +95,7 @@ func _process(delta):
 		path_nodes.pop_front() 
 
 func _on_button_button_down():
-	setup_navigation()
+	# setup_navigation()
 	walking = true
 	currently_exploring_path_num += 1
 

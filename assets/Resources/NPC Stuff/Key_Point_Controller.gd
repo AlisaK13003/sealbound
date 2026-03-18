@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var location_name: String
+@export var location_name: Global.locations
 @onready var location_position: Transform2D = Transform2D(0.0, global_position)
 @onready var matrix_index: int = self.get_index()
 @export var connected_to_places: Array[int]
@@ -10,4 +10,3 @@ extends Node2D
 
 func _ready():
 	spriteNode.texture = template_sprite
-	labelNode.text = location_name

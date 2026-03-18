@@ -1,7 +1,5 @@
 extends Node2D
 
-@export var node_names : Dictionary = {}
-
 @onready var node_count = get_child_count()
 
 var dist_matrix : PackedFloat32Array
@@ -48,7 +46,9 @@ func run_floyd_warshall():
 					
 
 # This helper function reconstructs the list of node IDs for the NPC to follow
-func get_path_between(start_id: int, end_id: int) -> Array[int]:
+func get_path_between(start_spot: Global.locations, end_spot: Global.locations) -> Array[int]:
+	var start_id = start_spot
+	var end_id = end_spot
 	if next_matrix[start_id * node_count + end_id] == -1:
 		return [] # No path exists
 	

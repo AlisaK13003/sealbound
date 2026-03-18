@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://7jwvgi6jqs1l"]
+
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_30cqv"]
+[ext_resource type="Texture2D" uid="uid://pjt33cyqd3pu" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Flower.tres" id="1_olyoe"]
+
+[resource]
+script = ExtResource("1_30cqv")
+item_name = "Flower"
+item_qualities = 8
+item_texture = ExtResource("1_olyoe")
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"

@@ -1,17 +1,13 @@
-extends Node
+extends Node2D
 
 const SAVE_PATH = "user://save_game.dat"
 
 var spawn_location
 
-var current_day: int
-var current_year: int
-var time_since_last_update: float
-var seconds_since_day_started: float
+var current_weather : weather = weather.Normal
 
-var time_scale: int = 60
-
-signal time_updated
+var temp_canvas_layer: CanvasLayer
+var mouse_texture: TextureRect
 
 var running_time: float
 var play_time_seconds: int
@@ -25,6 +21,8 @@ var player_saves : Array[String]
 var entire_party : Array[PartyMember]
 
 var money : int
+
+var village_inventory: Array[inventory_items]
 
 @onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
 @onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
@@ -64,8 +62,20 @@ enum Progression_Flags {
 }
 
 enum locations {
-	PLACE_1,
-	PLACE_2
+	Potion_Shop,
+	Weapon_Shop,
+	Library,
+	Infirmary,
+	Infirmay2,
+	Infirmary3,
+}
+
+enum weather {
+	Normal,
+	Sunny,
+	Rainy,
+	Windy,
+	Snowy,
 }
 
 var progression_state = {
@@ -93,18 +103,41 @@ func can_take_quest(quest_: quest):
 	return true
 
 func _physics_process(delta):
-	# Global.play_time_seconds += delta
+	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
+
 	running_time += delta
 	if floor(running_time) == 1:
 		update_time()
 		running_time = 0
-	
+
+# This variable could be replaced with a check based on seconds in the day
+var am_or_pm: bool
+var current_day: int
+var current_year: int
+var current_hour: int = 6
+var current_minute: int
+var time_since_last_update: float
+var seconds_since_day_started: float
+
+var time_scale: int = 60
+
+signal time_updated
+
 func update_time():
 	play_time_seconds += 1
 	seconds_since_day_started += 1
 	
 	if (seconds_since_day_started * time_scale) - time_since_last_update >= 300:
-		time_updated.emit(false)
+		time_updated.emit()
+		current_minute += 5
+		if current_minute >= 60:
+			current_minute -= 60
+			current_hour += 1
+			if current_hour % 12 == 1:
+				am_or_pm = true
+			elif am_or_pm and current_hour % 12 == 0:
+				Global.player_advanced_day(true)
+				am_or_pm = false
 		time_since_last_update = (seconds_since_day_started * time_scale)
 	if play_time_seconds == 60:
 		play_time_minutes += 1
@@ -121,10 +154,13 @@ func player_advanced_day(did_they_pass_out):
 		current_year += 1
 		current_day = 0
 	
+	current_hour = 6
+	current_minute = 0
+	
 	time_since_last_update = 0
 	seconds_since_day_started = 0
 	
-	time_updated.emit(true)
+	time_updated.emit()
 	
 	if did_they_pass_out:
 		spawn_location = null
@@ -180,7 +216,6 @@ func load_save_data():
 	else:
 		print("Parse Error: ", json.get_error_message())
 	
-
 func get_save_data() -> Dictionary:
 	var save_dict = {
 		"money": money,
@@ -248,6 +283,20 @@ func remove_item(item_index):
 	item_list_updated.emit(item_index, null)
 
 func _ready():
+	village_inventory.resize(40)
+	var temp = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp.tres")
+	var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
+	for i in range(40):
+		if i % 2 == 0:
+			village_inventory[i] = temp.duplicate(true)
+		else:
+			village_inventory[i] = temp2.duplicate(true)
+
+	temp_canvas_layer = CanvasLayer.new()
+	add_child(temp_canvas_layer)
+	mouse_texture = TextureRect.new()
+	
+	temp_canvas_layer.add_child(mouse_texture)
 	for flag in Progression_Flags.values():
 		progression_state[flag] = false
 
