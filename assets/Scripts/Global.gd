@@ -1,50 +1,28 @@
 extends Node2D
 
-const SAVE_PATH = "user://save_game.dat"
+# When these gain more functionality they will be added to their own areas
+# --------------------------------------------------------------------------------------------------
 
 var spawn_location
 
 var current_weather : weather = weather.Normal
 
-var temp_canvas_layer: CanvasLayer
-var mouse_texture: TextureRect
-
-var running_time: float
-var play_time_seconds: int
-var play_time_minutes: int
-var play_time_hours: int
-
-var active_quest_list: Array[quest]
-
-var player_saves : Array[String]
-
 var entire_party : Array[PartyMember]
 
 var money : int
 
-var village_inventory: Array[inventory_items]
+var current_location: String = "[Forest Dungeon: Floor 1]"
+var previous_coordinates : Vector2
+
+var current_encounter : encounters
+
+var is_in_menu: bool = false
 
 @onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
 @onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
 @onready var party_slot_3 : PartyMember = load("res://assets/Party Members/Paladin.tres")
 
 @onready var party_list = [party_slot_1, party_slot_2, party_slot_3]
-
-var current_location: String = "[Forest Dungeon: Floor 1]"
-var previous_coordinates : Vector2
-
-var item_list : Array[Items]
-var equipment_list : Array[equipment]
-var weapon_list : Array[weapon]
-
-var current_encounter : encounters
-
-var is_in_menu: bool = false
-
-signal item_list_updated(index, item)
-signal equipment_list_updated(index, equipment_)
-signal weapon_list_updated(index, weapon_)
-signal save_loaded
 
 enum Progression_Flags {
 	SEAL_1,
@@ -93,22 +71,13 @@ var progression_state = {
 	"QUEST_5": false
 }
 
-func can_take_quest(quest_: quest):
-	if quest_.unlock_seal_requirement.size() == 0:
-		return true
-		
-	for index in quest_.unlock_seal_requirement:
-		if progression_state[index] == false:
-			return false
-	return true
+# Time related stuff
+# --------------------------------------------------------------------------------------------------
 
-func _physics_process(delta):
-	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
-
-	running_time += delta
-	if floor(running_time) == 1:
-		update_time()
-		running_time = 0
+var running_time: float
+var play_time_seconds: int
+var play_time_minutes: int
+var play_time_hours: int
 
 # This variable could be replaced with a check based on seconds in the day
 var am_or_pm: bool
@@ -122,6 +91,15 @@ var seconds_since_day_started: float
 var time_scale: int = 60
 
 signal time_updated
+
+# Updates the current time
+func _physics_process(delta):
+	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
+
+	running_time += delta
+	if floor(running_time) == 1:
+		update_time()
+		running_time = 0
 
 func update_time():
 	play_time_seconds += 1
@@ -164,6 +142,13 @@ func player_advanced_day(did_they_pass_out):
 	
 	if did_they_pass_out:
 		spawn_location = null
+
+# Save data manager
+# --------------------------------------------------------------------------------------------------
+
+const SAVE_PATH = "user://save_game.dat"
+var player_saves : Array[String]
+signal save_loaded
 
 func load_save():
 	if not FileAccess.file_exists(SAVE_PATH):
@@ -258,6 +243,19 @@ func create_save(content):
 	else:
 		print("Error: Could not open file for writing: ", FileAccess.get_open_error())
 
+# Getters and Setters for inventory
+# --------------------------------------------------------------------------------------------------
+
+var village_inventory: Array[inventory_items]
+
+var item_list : Array[Items]
+var equipment_list : Array[equipment]
+var weapon_list : Array[weapon]
+
+signal item_list_updated(index, item)
+signal equipment_list_updated(index, equipment_)
+signal weapon_list_updated(index, weapon_)
+
 func add_armor(armor: equipment):
 	equipment_list.append(armor)
 	equipment_list_updated.emit(-1, armor)
@@ -282,7 +280,12 @@ func remove_item(item_index):
 	item_list.remove_at(item_index)
 	item_list_updated.emit(item_index, null)
 
+# --------------------------------------------------------------------------------------------------
+var temp_canvas_layer: CanvasLayer
+var mouse_texture: TextureRect
+
 func _ready():
+	# Temporarily populates the inventory
 	village_inventory.resize(40)
 	var temp = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp.tres")
 	var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
@@ -300,6 +303,11 @@ func _ready():
 	for flag in Progression_Flags.values():
 		progression_state[flag] = false
 
+# Quest System
+# --------------------------------------------------------------------------------------------------
+
+var active_quest_list: Array[quest]
+
 func unlock(flag: Progression_Flags) -> bool:
 	return progression_state.get(flag, false)
 
@@ -313,3 +321,14 @@ func has_all_requirements(req_list: Array[Progression_Flags]) -> bool:
 		if not is_unlocked(flag):
 			return false
 	return true
+
+func can_take_quest(quest_: quest):
+	if quest_.unlock_seal_requirement.size() == 0:
+		return true
+		
+	for index in quest_.unlock_seal_requirement:
+		if progression_state[index] == false:
+			return false
+	return true
+
+# --------------------------------------------------------------------------------------------------

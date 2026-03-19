@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var node_count = get_child_count()
-
 var dist_matrix : PackedFloat32Array
 var next_matrix: PackedFloat32Array
+
+@onready var node_count = get_child_count()
 
 func _ready():
 	create_adjacency_matrix()
@@ -14,7 +14,6 @@ func create_adjacency_matrix():
 	next_matrix.resize(node_count * node_count)
 	for i in range(node_count):
 		var current_child = get_child(i)
-		print(current_child.location_name, ": ", current_child.location_position[2])
 		for j in range(node_count):
 			var distance_to_place: float = INF
 			var next_idf: float = -1
@@ -38,19 +37,16 @@ func run_floyd_warshall():
 				var kj = k * n + j
 				var ij = i * n + j
 				
-				# If path through k is shorter than current path
 				if dist_matrix[ik] + dist_matrix[kj] < dist_matrix[ij]:
 					dist_matrix[ij] = dist_matrix[ik] + dist_matrix[kj]
-					# Update the path to go through the same first step as i to k
 					next_matrix[ij] = next_matrix[ik]
 					
-
-# This helper function reconstructs the list of node IDs for the NPC to follow
+# Given start location and end location, returns path to traverse to get between them
 func get_path_between(start_spot: Global.locations, end_spot: Global.locations) -> Array[int]:
 	var start_id = start_spot
 	var end_id = end_spot
 	if next_matrix[start_id * node_count + end_id] == -1:
-		return [] # No path exists
+		return []
 	
 	var path: Array[int] = [start_id]
 	while start_id != end_id:

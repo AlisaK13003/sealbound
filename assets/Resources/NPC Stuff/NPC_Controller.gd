@@ -1,18 +1,8 @@
 extends Node2D
 
-@export_file("*.json") var dialogue_path: String
-
 var dialogue_data: Dictionary
 
-@export var location_container: Node2D
-@export var speed: float = 300.0
-
-@export var path_points: Array[Vector2] = []
-
-@export var schedule: Array[npc_schedule]
-
 var path_nodes: Array[Vector2]
-var currently_exploring_path_num: int = 0
 var walking: bool = false
 
 var running_time: float = 0
@@ -25,6 +15,11 @@ var player_just_stopped_talking_to_me: bool = false
 @onready var check_player_in_range: Area2D = $Player_In_Range
 @onready var dialogue_box : Control = $CanvasLayer/DialogueWindow
 
+@export_file("*.json") var dialogue_path: String
+@export var location_container: Node2D
+@export var speed: float = 300.0
+@export var schedule: Array[npc_schedule]
+
 func _ready():
 	Global.time_updated.connect(navigate)
 	if dialogue_path.is_empty():
@@ -35,43 +30,9 @@ func _ready():
 	if dialogue_data:
 		print("Successfully loaded JSON data:")
 
-func load_json_file(path: String) -> Dictionary:
-	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
-	if FileAccess.get_open_error() != OK:
-		return {}
-
-	var json_text: String = file.get_as_text()
-	file.close()
-
-	var parse_result: Variant = JSON.parse_string(json_text)
-	if parse_result is Dictionary:
-		return parse_result as Dictionary
-	elif parse_result is Array:
-		return { "data": parse_result } 
-	else:
-		return {}	
-
-func navigate():
-	for navigation in schedule:
-		if Global.current_weather != navigation.weather_conditions:
-			print("weather doesn't match")
-		elif Global.current_day % navigation.repeats_every_x_days != 0:
-			print("Can't happen")
-		elif Global.current_hour == navigation.what_hour and Global.current_minute == navigation.what_minute:
-			print("GOOD TO GO")
-			setup_navigation(navigation)
-
-func setup_navigation(active_schedule: npc_schedule):
-	if currently_exploring_path_num >= path_points.size():
-		return
-	
-	var path_ids = location_container.get_path_between(active_schedule.start_location, active_schedule.end_location)
-		
-	for vertex_id in path_ids:
-		var target_node = location_container.get_child(vertex_id)
-		var target_pos = target_node.location_position[2] 
-		path_nodes.append(target_pos)
-
+# If there is no schedule to execute, or if player is talking, do nothing
+# If player stopped talking, wait 3 seconds till they start going again 
+# Otherwise have the npc move towards their destination
 func _process(delta):
 	if path_nodes.is_empty():
 		return 
@@ -94,19 +55,46 @@ func _process(delta):
 		global_position = current_target
 		path_nodes.pop_front() 
 
-func _on_button_button_down():
-	# setup_navigation()
-	walking = true
-	currently_exploring_path_num += 1
+# Loads the NPCs dialogue "tree" into memory
+func load_json_file(path: String) -> Dictionary:
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	if FileAccess.get_open_error() != OK:
+		return {}
 
-func _on_npc_clickable_input_event(_viewport, event, _shape_idx):
-	if player_in_range:
-		if event.is_action_pressed("Mouse_Right_Click"):
-			player_is_speaking_to_me = true
-			Global.is_in_menu = true
-			dialogue_box.visible = true
-			dialogue_box.start_talking(dialogue_data["scene1"].duplicate(true), 0)
+	var json_text: String = file.get_as_text()
+	file.close()
 
+	var parse_result: Variant = JSON.parse_string(json_text)
+	if parse_result is Dictionary:
+		return parse_result as Dictionary
+	elif parse_result is Array:
+		return { "data": parse_result } 
+	else:
+		return {}	
+
+# Is called by a signal in global that emits every time the clock updates
+# Checks if there is a schedule that can be executed, if yes, send them on their merry way
+func navigate():
+	for navigation in schedule:
+		if Global.current_weather != navigation.weather_conditions:
+			print("weather doesn't match")
+		elif Global.current_day % navigation.repeats_every_x_days != 0:
+			print("Can't happen")
+		elif Global.current_hour == navigation.what_hour and Global.current_minute == navigation.what_minute:
+			print("GOOD TO GO")
+			setup_navigation(navigation)
+
+# Given the start and end location specified in the schedule, return the path of points needed to traverse to get there
+func setup_navigation(active_schedule: npc_schedule):
+	var path_ids = location_container.get_path_between(active_schedule.start_location, active_schedule.end_location)
+		
+	for vertex_id in path_ids:
+		var target_node = location_container.get_child(vertex_id)
+		var target_pos = target_node.location_position[2] 
+		path_nodes.append(target_pos)
+
+# This shouldn't really exist (the cancel operation), only does for testing purposes
+# Currently only makes it so when you press cancel (x) it closes the dialogue box
 func _input(event):
 	if player_is_speaking_to_me and player_in_range:
 		if event.is_action_pressed("Cancel"):
@@ -115,7 +103,19 @@ func _input(event):
 			Global.is_in_menu = false
 			dialogue_box.visible = false
 			dialogue_box.clear_text_box()
-			
+
+# Upon click, start dialogue
+# Will be set up so different dialogue happens depending on state, not there yet
+# Currently just specify which scene and it'll go through that set till conclusion and repeat
+func _on_npc_clickable_input_event(_viewport, event, _shape_idx):
+	if player_in_range:
+		if event.is_action_pressed("Mouse_Right_Click"):
+			player_is_speaking_to_me = true
+			Global.is_in_menu = true
+			dialogue_box.visible = true
+			dialogue_box.start_talking(dialogue_data["scene1"].duplicate(true), 0)
+
+# Determines if the player is in range to talk with NPC
 func _on_player_in_range_area_entered(area):
 	if area.is_in_group("Overworld_Player"):
 		player_in_range = true

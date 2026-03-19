@@ -99,7 +99,6 @@ template_sprite = ExtResource("25_2ac3m")
 position = Vector2(400, -529)
 dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dialogue.json"
 location_container = NodePath("../VillageLocationContainer")
-path_points = Array[Vector2]([Vector2(0, 5), Vector2(5, 3), Vector2(3, 1)])
 schedule = Array[ExtResource("27_xtt7h")]([SubResource("Resource_y5t6s"), SubResource("Resource_xtt7h"), SubResource("Resource_5cvtu")])
 
 [node name="RestSpot" parent="." unique_id=1301228429 instance=ExtResource("27_si8qq")]

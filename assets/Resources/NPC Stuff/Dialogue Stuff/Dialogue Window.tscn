@@ -41,6 +41,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Choice_1" type="Panel" parent="Choice_Container" unique_id=755508573]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
@@ -62,6 +63,7 @@ position = Vector2(204, 70)
 shape = SubResource("RectangleShape2D_dv674")
 
 [node name="Choice_2" type="Panel" parent="Choice_Container" unique_id=1807167385]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
@@ -83,6 +85,7 @@ position = Vector2(203, 69)
 shape = SubResource("RectangleShape2D_rcv02")
 
 [node name="Choice_3" type="Panel" parent="Choice_Container" unique_id=1507059715]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1

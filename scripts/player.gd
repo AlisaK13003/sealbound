@@ -1,14 +1,13 @@
 class_name Player extends CharacterBody2D
 
+var in_menu : bool = false
+var move_speed : float = 300.0
+
 @onready var pause_menu = $CanvasLayer/PauseMenu
 @onready var full_inventory = $CanvasLayer/VillageInventory
 
 @export var item_to_add : Items
 @export var item_to_add2 : Items
-
-var in_menu : bool = false
-
-var move_speed : float = 300.0
 
 func _ready() -> void:
 	Global.load_save_data()
