@@ -3,14 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_cavrc"]
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="2_0glpd"]
 [ext_resource type="PackedScene" uid="uid://cobhlimte4psu" path="res://scenes/Dungeon/Enemies/Overworld_Enemy_Template.tscn" id="3_0glpd"]
-[ext_resource type="Resource" uid="uid://cyv4eigql7v1s" path="res://assets/Party Members/Items/Explosive_Potion.tres" id="3_oqlsb"]
 [ext_resource type="PackedScene" uid="uid://dfird1yjtwtku" path="res://assets/Resources/Shop Dude.tscn" id="4_bwdrk"]
-[ext_resource type="Resource" uid="uid://c55uxn3goekom" path="res://assets/Party Members/Items/Potion.tres" id="4_hbw74"]
 [ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="5_efq0f"]
 [ext_resource type="Script" uid="uid://xehjdtb8f6vn" path="res://assets/Scripts/Resource Scripts/shop_item.gd" id="6_eweap"]
 [ext_resource type="Resource" uid="uid://c1r18jklwj3m8" path="res://assets/Resources/Shop Items/Health_Potion.tres" id="7_fupg4"]
 [ext_resource type="Resource" uid="uid://8hykacfnmnk6" path="res://assets/Resources/Shop Items/Rusty_Sword.tres" id="8_fx8xp"]
 [ext_resource type="Resource" uid="uid://dv4h861dfycfw" path="res://assets/Resources/Shop Items/Rusty_Bangle.tres" id="9_oqlsb"]
+[ext_resource type="PackedScene" uid="uid://brqfybqxi6qey" path="res://assets/Resources/Interactables/Farming/Farming_Plot.tscn" id="19_mcr4y"]
 [ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Quests/Quest Board.tscn" id="22_px3xr"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="23_4tlwk"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="23_g3gee"]
@@ -47,8 +46,6 @@ scale = Vector2(2, 2)
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(873, -471)
 script = ExtResource("2_0glpd")
-item_to_add = ExtResource("3_oqlsb")
-item_to_add2 = ExtResource("4_hbw74")
 
 [node name="OverworldEnemyTemplate" parent="." unique_id=640357848 instance=ExtResource("3_0glpd")]
 position = Vector2(315, 114)
@@ -103,3 +100,10 @@ schedule = Array[ExtResource("27_xtt7h")]([SubResource("Resource_y5t6s"), SubRes
 
 [node name="RestSpot" parent="." unique_id=1301228429 instance=ExtResource("27_si8qq")]
 position = Vector2(850, -272)
+
+[node name="FarmingPlot" parent="." unique_id=1583771397 instance=ExtResource("19_mcr4y")]
+position = Vector2(1397, -479)
+width = 5
+height = 5
+horizontal_separation = 40
+vertical_separation = 40

@@ -8,4 +8,5 @@ script = ExtResource("1_30cqv")
 item_name = "Flower"
 item_qualities = 8
 item_texture = ExtResource("1_olyoe")
+over_the_head_texture = ExtResource("1_olyoe")
 metadata/_custom_type_script = "uid://dopm2iiu5evk5"

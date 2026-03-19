@@ -27,8 +27,6 @@ func _ready():
 		return
 
 	dialogue_data = load_json_file(dialogue_path)
-	if dialogue_data:
-		print("Successfully loaded JSON data:")
 
 # If there is no schedule to execute, or if player is talking, do nothing
 # If player stopped talking, wait 3 seconds till they start going again 
@@ -81,7 +79,6 @@ func navigate():
 		elif Global.current_day % navigation.repeats_every_x_days != 0:
 			print("Can't happen")
 		elif Global.current_hour == navigation.what_hour and Global.current_minute == navigation.what_minute:
-			print("GOOD TO GO")
 			setup_navigation(navigation)
 
 # Given the start and end location specified in the schedule, return the path of points needed to traverse to get there

@@ -18,6 +18,12 @@ var current_encounter : encounters
 
 var is_in_menu: bool = false
 
+var planted_crops: Array[crops]
+
+var player_head_sprite: Texture2D
+var holding_item: inventory_items
+var item_is_in_slot: int
+
 @onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
 @onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
 @onready var party_slot_3 : PartyMember = load("res://assets/Party Members/Paladin.tres")
@@ -81,8 +87,8 @@ var play_time_hours: int
 
 # This variable could be replaced with a check based on seconds in the day
 var am_or_pm: bool
-var current_day: int
-var current_year: int
+var current_day: int = 0
+var current_year: int = 0
 var current_hour: int = 6
 var current_minute: int
 var time_since_last_update: float
@@ -198,6 +204,7 @@ func load_save_data():
 		for key in data["progression_state"]:
 			progression_state[int(key)] = data["progression_state"][key]
 		save_loaded.emit()
+		time_updated.emit()
 	else:
 		print("Parse Error: ", json.get_error_message())
 	
@@ -255,6 +262,25 @@ var weapon_list : Array[weapon]
 signal item_list_updated(index, item)
 signal equipment_list_updated(index, equipment_)
 signal weapon_list_updated(index, weapon_)
+signal inventory_updated(slot_that_was_updated)
+
+func added_to_inventory(added_thing: inventory_items, where_was_it_added):
+	village_inventory[where_was_it_added] = added_thing
+	inventory_updated.emit(where_was_it_added)
+
+func add_to_first_open_slot(added_thing: inventory_items):
+	for slot in range(village_inventory.size()):
+		if village_inventory[slot] == null:
+			added_to_inventory(added_thing, slot)
+			return true
+	return false
+
+func remove_from_inventory(removed_at):
+	if village_inventory[removed_at] != null and holding_item.item_name == village_inventory[removed_at].item_name:
+		holding_item = null
+		Global.player_head_sprite = null
+	village_inventory[removed_at] = null
+	inventory_updated.emit(removed_at)
 
 func add_armor(armor: equipment):
 	equipment_list.append(armor)
@@ -288,13 +314,15 @@ func _ready():
 	# Temporarily populates the inventory
 	village_inventory.resize(40)
 	var temp = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp.tres")
-	var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
+	# var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
+	var temp3 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
 	for i in range(40):
-		if i % 2 == 0:
+		if i % 3 == 0:
+			village_inventory[i] = temp3.duplicate(true)
+		elif i % 2 == 0:
 			village_inventory[i] = temp.duplicate(true)
 		else:
-			village_inventory[i] = temp2.duplicate(true)
-
+			village_inventory[i] = null
 	temp_canvas_layer = CanvasLayer.new()
 	add_child(temp_canvas_layer)
 	mouse_texture = TextureRect.new()
@@ -302,6 +330,7 @@ func _ready():
 	temp_canvas_layer.add_child(mouse_texture)
 	for flag in Progression_Flags.values():
 		progression_state[flag] = false
+	time_updated.emit()
 
 # Quest System
 # --------------------------------------------------------------------------------------------------

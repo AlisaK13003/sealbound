@@ -5,9 +5,7 @@ var move_speed : float = 300.0
 
 @onready var pause_menu = $CanvasLayer/PauseMenu
 @onready var full_inventory = $CanvasLayer/VillageInventory
-
-@export var item_to_add : Items
-@export var item_to_add2 : Items
+@onready var over_the_head_sprite = $OvertheHead
 
 func _ready() -> void:
 	Global.load_save_data()
@@ -22,6 +20,11 @@ func _process(_delta: float) -> void:
 		
 	velocity = direction * move_speed
 	
+	if Global.player_head_sprite != null:
+		over_the_head_sprite.texture = Global.player_head_sprite
+	else:
+		over_the_head_sprite.texture = null
+	
 func _input(event):
 	if event.is_action_pressed("Pause"):
 		if Global.is_in_menu:
@@ -34,9 +37,9 @@ func _input(event):
 			in_menu = false
 	if not in_menu:
 		if event.is_action_pressed("Mouse Scroll Up"):
-			full_inventory.update_selection(1)
-		if event.is_action_pressed("Mouse Scroll Down"):
 			full_inventory.update_selection(-1)
+		if event.is_action_pressed("Mouse Scroll Down"):
+			full_inventory.update_selection(1)
 	
 func _physics_process(_delta):
 	move_and_slide()

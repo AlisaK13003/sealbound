@@ -16,16 +16,17 @@ var holding_item
 var stylebox : StyleBoxFlat
 
 func _ready():
-	update_selection(0)
 	for child in range(inventory_grid.get_child_count()):
 		inventory_grid.get_child(child)._setup(child, self)
+	Global.inventory_updated.connect(update_inventory_slot)
+	update_selection(0)
 
 # Handles making the full inventory visible
 func manage_visibility(make_visible):
 	# Makes full inventory visible, and unselects all slots
 	if make_visible:
 		inventory_grid.get_child(selected_item).change_color(Color.AQUA)
-
+				
 		for slot in inventory_grid.get_children():
 			slot.visible = true
 			slot.change_color(Color.SKY_BLUE)
@@ -36,8 +37,7 @@ func manage_visibility(make_visible):
 		if holding_item != null:
 			for slot in range(Global.village_inventory.size()):
 				if Global.village_inventory[slot] != null:
-					Global.village_inventory[slot] = holding_item
-					inventory_grid.get_child(selected_item).update_held_item(holding_item)
+					Global.added_to_inventory(holding_item, slot)
 					holding_item = null
 					break
 		# Hides everything but the selected row
@@ -47,37 +47,33 @@ func manage_visibility(make_visible):
 			else:
 				inventory_grid.get_child(i).visible = false
 		inventory_grid.get_child(selected_item).change_color(Color.AQUA)
+		if inventory_grid.get_child(selected_item).held_item != null:
+			Global.holding_item = holding_item
+			Global.player_head_sprite = inventory_grid.get_child(selected_item).held_item.over_the_head_texture if inventory_grid.get_child(selected_item).held_item.over_the_head_texture != null else null
+		Global.item_is_in_slot = selected_item
 		full_inventory_visible = false
 		Global.mouse_texture.texture = null
 
 # Handles moving items around in your inventory
 func swap_items(new_selected_item):
-	# If placing the item back down in the same spot
-	if new_selected_item == selected_item:
-		inventory_grid.get_child(selected_item).update_held_item(Global.village_inventory[selected_item])
-		Global.mouse_texture.texture = null
-		holding_item = null
-		return
-
 	# Slot selected to place item in
 	var child_to_be_swapped_with = inventory_grid.get_child(new_selected_item)
 	
 	# If placing the item in an empty slot
 	if child_to_be_swapped_with.held_item == null:
-		Global.village_inventory[new_selected_item] = Global.village_inventory[selected_item]
-		child_to_be_swapped_with.update_held_item(holding_item)
+		Global.added_to_inventory(holding_item, new_selected_item)
 		holding_item = null
 		Global.mouse_texture.texture = null
 		return
-	
 	# Otherwise, just replace stored item what's held then hold that one
+
 	Global.village_inventory[new_selected_item] = holding_item
 	holding_item = child_to_be_swapped_with.held_item
 
 	child_to_be_swapped_with.update_held_item(Global.village_inventory[new_selected_item])
 	
-	Global.mouse_texture.texture = null
 	Global.mouse_texture.texture = holding_item.item_texture
+	Global.holding_item = holding_item
 	
 	selected_item = new_selected_item
 
@@ -98,6 +94,12 @@ func update_selection(by_amount):
 		for child in inventory_grid.get_children():
 			child.change_color(Color.SKY_BLUE)
 		inventory_grid.get_child(selected_item).change_color(Color.AQUA)
+		if inventory_grid.get_child(selected_item).held_item != null:
+			Global.player_head_sprite = inventory_grid.get_child(selected_item).held_item.over_the_head_texture if inventory_grid.get_child(selected_item).held_item.over_the_head_texture != null else null
+		else:
+			Global.player_head_sprite = null
+		Global.holding_item = inventory_grid.get_child(selected_item).held_item
+		Global.item_is_in_slot = selected_item
 		return
 	
 	# If cycling from 0 to 9
@@ -111,5 +113,22 @@ func update_selection(by_amount):
 	for i in range(inventory_grid.get_child_count()):
 		if i >= (10 * selected_row) and i <= (10 * (selected_row + 1)) and i == selected_item:
 			inventory_grid.get_child(i).change_color(Color.AQUA)
+			if inventory_grid.get_child(selected_item).held_item != null:
+				Global.player_head_sprite = inventory_grid.get_child(selected_item).held_item.over_the_head_texture if inventory_grid.get_child(selected_item).held_item.over_the_head_texture != null else null
+			else:
+				Global.player_head_sprite = null
+			Global.holding_item = inventory_grid.get_child(selected_item).held_item
+			Global.item_is_in_slot = selected_item
+
 		else:
 			inventory_grid.get_child(i).change_color(Color.SKY_BLUE)
+
+func update_inventory_slot(slot_to_update):
+	var child_to_update = inventory_grid.get_child(slot_to_update)
+	if child_to_update.held_item == Global.village_inventory[slot_to_update]:
+		child_to_update.held_item = null
+		child_to_update.holding_item = false
+	if Global.village_inventory[slot_to_update] == null:
+		child_to_update.empty_cell()
+	else:
+		child_to_update.update_held_item(Global.village_inventory[slot_to_update])
