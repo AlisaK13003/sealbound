@@ -1,8 +1,78 @@
 [gd_scene format=3 uid="uid://bojyx7lfmc8nh"]
 
 [ext_resource type="Script" uid="uid://brv4lipjr0ppq" path="res://GUI/dialogue_system/scripts/dialogue_system.gd" id="1_7r5wx"]
+[ext_resource type="Texture2D" uid="uid://cui3bx0x5sv5u" path="res://GUI/dialogue_system/sprites/text-bubble.png" id="2_icgm8"]
+[ext_resource type="FontFile" uid="uid://bpnykjvtqplb2" path="res://GUI/fonts/Abaddon Light.ttf" id="3_drgf3"]
+[ext_resource type="FontFile" uid="uid://7p0i4a7thmg4" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_mcufe"]
+
+[sub_resource type="Gradient" id="Gradient_p5aig"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nnx0c"]
+gradient = SubResource("Gradient_p5aig")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vk0xy"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_icgm8")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
 layer = 0
 script = ExtResource("1_7r5wx")
+
+[node name="DialogueUI" type="Control" parent="." unique_id=1754308096]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="DialogueUI" unique_id=1590567647]
+modulate = Color(0, 0, 0, 0.5686275)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -581.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_nnx0c")
+
+[node name="PanelContainer" type="PanelContainer" parent="DialogueUI" unique_id=666478895]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1582.0
+offset_top = -344.0
+offset_right = -47.0
+offset_bottom = -47.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_vk0xy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueUI/PanelContainer" unique_id=353447785]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.4392157, 0.39607844, 0.32156864, 1)
+theme_override_fonts/normal_font = ExtResource("3_drgf3")
+theme_override_fonts/bold_font = ExtResource("4_mcufe")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/bold_font_size = 60
+bbcode_enabled = true
+text = "Example [b]Text![/b]!
+[wave]wavy text wooo[/wave]
+[shake][color=orangered]shaky orange red text wooo [/color][/shake]"
+scroll_active = false

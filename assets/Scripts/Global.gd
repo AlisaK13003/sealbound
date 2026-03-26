@@ -313,9 +313,9 @@ var mouse_texture: TextureRect
 func _ready():
 	# Temporarily populates the inventory
 	village_inventory.resize(40)
-	var temp = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp.tres")
+	var temp = load("res://assets/Resources/Interactables/VillageInventory/temp.tres")
 	# var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
-	var temp3 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
+	var temp3 = load("res://assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
 	for i in range(40):
 		if i % 3 == 0:
 			village_inventory[i] = temp3.duplicate(true)

@@ -6,7 +6,7 @@ var player_can_plant_or_harvest: bool = false
 var harvestable: bool = false
 
 @onready var texture_rect = $TextureRect
-@onready var default_texture = load("D:/sealbound/assets/Resources/Interactables/Farming/Crops/Start.png")
+@onready var default_texture = load("res://assets/Resources/Interactables/Farming/Crops/Start.png")
 
 # If a crop should be growing here, check it's progress on load
 func _setup(current_slot):

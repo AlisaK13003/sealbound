@@ -6,7 +6,7 @@ extends Node2D
 @export var horizontal_separation: int
 @export var vertical_separation: int
 
-@onready var tile_resource = load("D:/sealbound/assets/Resources/Interactables/Farming/Farming_Tile.tscn")
+@onready var tile_resource = load("res://assets/Resources/Interactables/Farming/Farming_Tile.tscn")
 
 # Sets up a grid of farming plots
 func _ready():
