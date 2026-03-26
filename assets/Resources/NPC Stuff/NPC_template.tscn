@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bts05athym3op"]
+
+[ext_resource type="Texture2D" uid="uid://ddd05gm3ml6pk" path="res://assets/Party Members/Sprites/MMC_Side_Profile.tres" id="1_5l30s"]
+[ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_7u671"]
+[ext_resource type="PackedScene" uid="uid://d7fa44rh6bg4" path="res://assets/Resources/NPC Stuff/Dialogue Stuff/Dialogue Window.tscn" id="3_34504"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
+size = Vector2(71, 132)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
+radius = 245.58908
+
+[node name="NpcTemplate" type="Node2D" unique_id=823861237]
+script = ExtResource("1_7u671")
+
+[node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC_Clickable" unique_id=2012646422]
+position = Vector2(0.5, 9)
+shape = SubResource("RectangleShape2D_7u671")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=575912758]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_5l30s")
+
+[node name="Button" type="Button" parent="." unique_id=1661342217]
+offset_left = -56.0
+offset_top = 78.0
+offset_right = 60.0
+offset_bottom = 103.0
+text = "Go to next "
+
+[node name="Player_In_Range" type="Area2D" parent="." unique_id=289574461]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=1695977954]
+shape = SubResource("CircleShape2D_ilmyp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=798121461]
+
+[node name="DialogueWindow" parent="CanvasLayer" unique_id=780289822 instance=ExtResource("3_34504")]
+visible = false
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 5.0
+offset_bottom = 2.0
+
+[connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]
+[connection signal="body_exited" from="NPC_Clickable" to="." method="_on_npc_clickable_body_exited"]
+[connection signal="input_event" from="NPC_Clickable" to="." method="_on_npc_clickable_input_event"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="area_entered" from="Player_In_Range" to="." method="_on_player_in_range_area_entered"]
+[connection signal="area_exited" from="Player_In_Range" to="." method="_on_player_in_range_area_exited"]
+[connection signal="body_entered" from="Player_In_Range" to="." method="_on_player_in_range_body_entered"]
+[connection signal="body_exited" from="Player_In_Range" to="." method="_on_player_in_range_body_exited"]

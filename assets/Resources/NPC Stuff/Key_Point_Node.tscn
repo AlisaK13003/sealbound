@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://duovfa16f56cl"]
+
+[ext_resource type="Script" uid="uid://c1ynlvknul2j7" path="res://assets/Resources/NPC Stuff/Key_Point_Controller.gd" id="1_pn5lm"]
+
+[node name="KeyPointNode" type="Node2D" unique_id=1976910115]
+script = ExtResource("1_pn5lm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1451457750]
+
+[node name="Label" type="Label" parent="." unique_id=1921815706]
+offset_left = -39.0
+offset_top = 11.0
+offset_right = 40.0
+offset_bottom = 28.0
