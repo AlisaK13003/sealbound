@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bojyx7lfmc8nh"]
+
+[ext_resource type="Script" uid="uid://brv4lipjr0ppq" path="res://GUI/dialogue_system/scripts/dialogue_system.gd" id="1_7r5wx"]
+
+[node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
+process_mode = 3
+layer = 0
+script = ExtResource("1_7r5wx")
