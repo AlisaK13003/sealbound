@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="crops" format=3 uid="uid://bhib2ioebvcf0"]
+
+[ext_resource type="Script" uid="uid://b307onseekm44" path="res://assets/Resources/Interactables/Farming/Crops/Crop_Controller.gd" id="1_f4tax"]
+[ext_resource type="Texture2D" uid="uid://bcmuw6q3q8fs" path="res://assets/Resources/Interactables/Farming/Crops/Planted.png" id="1_lndfl"]
+[ext_resource type="Texture2D" uid="uid://8u8fqekf2rx7" path="res://assets/Resources/Interactables/Farming/Crops/First Stage.png" id="2_mjr5k"]
+[ext_resource type="Texture2D" uid="uid://bl0ks756yps38" path="res://assets/Resources/Interactables/Farming/Crops/Second Stage.png" id="3_3kknh"]
+[ext_resource type="Texture2D" uid="uid://bi47bfybiko75" path="res://assets/Resources/Interactables/Farming/Crops/Fully Grown.png" id="4_mjr5k"]
+
+[resource]
+script = ExtResource("1_f4tax")
+crop_name = "Potato"
+time_for_crop_to_grow = 10
+growth_stages = {
+ExtResource("1_lndfl"): 0,
+ExtResource("2_mjr5k"): 1,
+ExtResource("3_3kknh"): 6,
+ExtResource("4_mjr5k"): 10
+}
+path_to_inventory_item = "D:/sealbound/assets/Resources/Interactables/VillageInventory/Seed_Pack.tres"
+metadata/_custom_type_script = "uid://b307onseekm44"

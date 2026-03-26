@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://coypf00axxmjs"]
+
+[ext_resource type="PackedScene" uid="uid://b8i5b8ktl5ddl" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory_Node.tscn" id="1_38vtq"]
+[ext_resource type="Script" uid="uid://cg03vewdpi1ir" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory_Controller.gd" id="1_ki54h"]
+
+[node name="VillageInventory" type="Control" unique_id=1392521463]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ki54h")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1351651128]
+layout_mode = 0
+offset_right = 710.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 48
+theme_override_constants/v_separation = 48
+columns = 10
+
+[node name="InventoryNode" parent="GridContainer" unique_id=1046914791 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode2" parent="GridContainer" unique_id=1467177853 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode3" parent="GridContainer" unique_id=1225860017 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode4" parent="GridContainer" unique_id=1997825934 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode5" parent="GridContainer" unique_id=1780720579 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode6" parent="GridContainer" unique_id=232490939 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode7" parent="GridContainer" unique_id=562132916 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode8" parent="GridContainer" unique_id=1700380579 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode9" parent="GridContainer" unique_id=1739450029 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode10" parent="GridContainer" unique_id=1818771731 instance=ExtResource("1_38vtq")]
+layout_mode = 2
+
+[node name="InventoryNode11" parent="GridContainer" unique_id=1825880150 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode12" parent="GridContainer" unique_id=1982014035 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode13" parent="GridContainer" unique_id=1132956964 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode14" parent="GridContainer" unique_id=439867637 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode15" parent="GridContainer" unique_id=975623502 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode16" parent="GridContainer" unique_id=924873365 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode17" parent="GridContainer" unique_id=927489346 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode18" parent="GridContainer" unique_id=2027861826 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode19" parent="GridContainer" unique_id=952219280 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode20" parent="GridContainer" unique_id=1593736853 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode21" parent="GridContainer" unique_id=1137168074 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode22" parent="GridContainer" unique_id=1135147982 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode23" parent="GridContainer" unique_id=540227259 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode24" parent="GridContainer" unique_id=1652249200 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode25" parent="GridContainer" unique_id=1361246783 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode26" parent="GridContainer" unique_id=1695275873 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode27" parent="GridContainer" unique_id=879225371 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode28" parent="GridContainer" unique_id=175646071 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode29" parent="GridContainer" unique_id=984184599 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode30" parent="GridContainer" unique_id=1574653060 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode31" parent="GridContainer" unique_id=54266343 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode32" parent="GridContainer" unique_id=1924134031 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode33" parent="GridContainer" unique_id=1122621960 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode34" parent="GridContainer" unique_id=2103792808 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode35" parent="GridContainer" unique_id=723915665 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode36" parent="GridContainer" unique_id=344291843 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode37" parent="GridContainer" unique_id=1472589108 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode38" parent="GridContainer" unique_id=827091310 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode39" parent="GridContainer" unique_id=760225943 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="InventoryNode40" parent="GridContainer" unique_id=1408083178 instance=ExtResource("1_38vtq")]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=918269933]
+visible = false
+layout_mode = 0
+offset_left = 1689.0
+offset_top = 997.0
+offset_right = 1904.0
+offset_bottom = 1061.0
+theme_override_font_sizes/font_size = 21
+text = "Settings"

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://qdtw7wxshme7"]
+
+[ext_resource type="Script" uid="uid://563ctmxwes0m" path="res://assets/Resources/NPC Stuff/Village_Location_Controller.gd" id="1_pmmc4"]
+
+[node name="VillageLocationContainer" type="Node2D" unique_id=364046489]
+script = ExtResource("1_pmmc4")

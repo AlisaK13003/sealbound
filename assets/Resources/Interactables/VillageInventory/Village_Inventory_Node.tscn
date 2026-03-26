@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b8i5b8ktl5ddl"]
+
+[ext_resource type="Texture2D" uid="uid://pjt33cyqd3pu" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Flower.tres" id="1_3sggq"]
+[ext_resource type="Script" uid="uid://bhoprdqynxsf1" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory_Node_Controller.gd" id="1_yqt46"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_in1iw"]
+bg_color = Color(0.33333334, 0.6117647, 0.92941177, 0.42745098)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3sggq"]
+size = Vector2(40, 40)
+
+[node name="InventoryNode" type="Control" unique_id=1046914791]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_yqt46")
+
+[node name="Panel" type="Panel" parent="." unique_id=1092281570]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_in1iw")
+
+[node name="Label" type="Label" parent="Panel" unique_id=215566722]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 17.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1763389645]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 38.0
+offset_bottom = 38.0
+texture = ExtResource("1_3sggq")
+expand_mode = 2
+
+[node name="Area2D" type="Area2D" parent="." unique_id=153590555]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1403644237]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_3sggq")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

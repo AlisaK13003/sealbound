@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://brqfybqxi6qey"]
+
+[ext_resource type="Script" uid="uid://4poy4kmshnyu" path="res://assets/Resources/Interactables/Farming/Farming_Plot_Controller.gd" id="1_q6uvh"]
+
+[node name="FarmingPlot" type="Node2D" unique_id=1583771397]
+z_index = -10
+script = ExtResource("1_q6uvh")
