@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://xoqrkremn3la"]
+
+[ext_resource type="Script" uid="uid://row8sq5heevb" path="res://assets/Resources/Interactables/Resting.gd" id="1_m56pm"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="2_4q26h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tt3dk"]
+size = Vector2(38, 34)
+
+[node name="RestSpot" type="Node2D" unique_id=1301228429]
+script = ExtResource("1_m56pm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=326838132]
+texture = ExtResource("2_4q26h")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=260905774]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1525404621]
+shape = SubResource("RectangleShape2D_tt3dk")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

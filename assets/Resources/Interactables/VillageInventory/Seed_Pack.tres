@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://dtvm1qvjfiaih"]
+
+[ext_resource type="Texture2D" uid="uid://dl0i3y5sqode4" path="res://assets/Resources/Interactables/Farming/Potato Sack.png" id="1_1da1a"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_6d8fy"]
+
+[resource]
+script = ExtResource("1_6d8fy")
+item_name = "Potato"
+item_qualities = 2
+item_texture = ExtResource("1_1da1a")
+over_the_head_texture = ExtResource("1_1da1a")
+item_resource_path = "D:/sealbound/assets/Resources/Interactables/Farming/Crops/Potato.tres"
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"
