@@ -1,38 +1,17 @@
 class_name Player extends CharacterBody2D
 
-@onready var pause_menu = $PauseMenu
-
-@export var item_to_add : Items
-@export var item_to_add2 : Items
-
 var in_menu : bool = false
+var move_speed : float = 300.0
 
-var move_speed : float = 100.0
+@onready var pause_menu = $CanvasLayer/PauseMenu
+@onready var full_inventory = $CanvasLayer/VillageInventory
+@onready var over_the_head_sprite = $OvertheHead
 
-# -------------------------------------------
-# TEMPORARY GLOBAL SETUP
-
-@export var entire_party : Array[PartyMember]
-
-@export var money : int
-
-@export var party_slot_1 : PartyMember
-@export var party_slot_2 : PartyMember
-@export var party_slot_3 : PartyMember
-
-@export var item_list : Array[Items]
-@export var equipment_list : Array[equipment]
-@export var weapon_list : Array[weapon]
-
-# -------------------------------------------
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.load_save_data()
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Global.is_in_menu or in_menu:
+	if Global.is_in_menu:
 		velocity = Vector2.ZERO
 		return
 	var direction : Vector2 = Vector2.ZERO
@@ -41,21 +20,26 @@ func _process(_delta: float) -> void:
 		
 	velocity = direction * move_speed
 	
+	if Global.player_head_sprite != null:
+		over_the_head_sprite.texture = Global.player_head_sprite
+	else:
+		over_the_head_sprite.texture = null
 	
 func _input(event):
-	if event.is_action_pressed("Open Menu"):
-		Global.add_item(item_to_add)
-		Global.add_item(item_to_add2)
-
 	if event.is_action_pressed("Pause"):
 		if Global.is_in_menu:
 			return
 		if not in_menu:
-			pause_menu.visible = true
+			full_inventory.manage_visibility(true)
 			in_menu = true
 		else:
-			pause_menu.visible = false
+			full_inventory.manage_visibility(false)
 			in_menu = false
-			
+	if not in_menu:
+		if event.is_action_pressed("Mouse Scroll Up"):
+			full_inventory.update_selection(-1)
+		if event.is_action_pressed("Mouse Scroll Down"):
+			full_inventory.update_selection(1)
+	
 func _physics_process(_delta):
 	move_and_slide()

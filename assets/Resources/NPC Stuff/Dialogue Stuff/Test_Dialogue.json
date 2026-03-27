@@ -1,0 +1,27 @@
+{
+  "scene1": [
+	{
+	  "speaker": "Villager Girl",
+	  "text": "Can you hear me at all?",
+	  "portrait": "player_neutral"
+	},
+	{
+	  "speaker": "FEMC",
+	  "text": "Greetings! Need a quest?",
+	  "portrait": "npc_happy",
+	  "choices": ["Barely", "Not Really", "Who are you?"]
+	},
+	{
+		"speaker": "Villager Girl",
+		"text": ["Okay, that's... better than before.", "That's okay. Just look at me when I talk.\nWe'll figure it out.", "Right- Sorry."]
+	},
+	{
+		"speaker": "Sera",
+		"text": "My name is Sera"
+	},
+	{
+		"speaker": "Sera",
+		"text": "I found you out in the woods near... the aftermath"
+	}
+  ]
+}
