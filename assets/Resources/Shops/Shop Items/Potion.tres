@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://bs1i1s05n3qrg"]
+
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_iuqi2"]
+[ext_resource type="Texture2D" uid="uid://cp5wwcww3wfaa" path="res://assets/Sprites/sprite1.png" id="1_s55qq"]
+
+[resource]
+script = ExtResource("1_iuqi2")
+item_name = "Potion"
+item_qualities = 4
+item_texture = ExtResource("1_s55qq")
+over_the_head_texture = ExtResource("1_s55qq")
+item_resource_path = "res://assets/Resources/Shops/Shop Items/Potion.tres"
+sell_price = 15
+buy_price = 20
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"

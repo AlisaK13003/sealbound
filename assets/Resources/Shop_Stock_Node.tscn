@@ -3,6 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_yoqm0"]
 [ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="2_rjk3y"]
 [ext_resource type="Script" uid="uid://cjqh42o2573e0" path="res://assets/Scripts/item_node_controller.gd" id="3_rjk3y"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_w7jkq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjk3y"]
+bg_color = Color(0.31617358, 0.6343342, 0.84533614, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoqm0"]
 size = Vector2(299, 33)
@@ -17,22 +25,20 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("3_rjk3y")
 
+[node name="Panel" type="Panel" parent="." unique_id=2048483705]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 1.0
+offset_right = 438.0
+offset_bottom = 34.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rjk3y")
+
 [node name="Area2D" type="Area2D" parent="." unique_id=1867032586]
 position = Vector2(379, 11)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=157628256]
 position = Vector2(-90.5, 6.5)
 shape = SubResource("RectangleShape2D_yoqm0")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1950530233]
-show_behind_parent = true
-layout_mode = 0
-offset_left = 140.0
-offset_top = 1.0
-offset_right = 436.0
-offset_bottom = 34.0
-mouse_filter = 1
-color = Color(0.47058824, 1, 1, 1)
 
 [node name="Sprite-Name" type="HBoxContainer" parent="." unique_id=267500735]
 layout_mode = 0
@@ -69,5 +75,14 @@ text = "50"
 layout_mode = 2
 texture = ExtResource("2_rjk3y")
 stretch_mode = 2
+
+[node name="Out Of Stock" type="TextureRect" parent="." unique_id=1713999918]
+visible = false
+layout_mode = 0
+offset_left = 140.0
+offset_top = 1.0
+offset_right = 438.0
+offset_bottom = 33.0
+texture = ExtResource("4_w7jkq")
 
 [connection signal="mouse_entered" from="Area2D" to="Area2D" method="_on_mouse_entered"]

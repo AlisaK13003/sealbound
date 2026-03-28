@@ -1,49 +1,40 @@
 [gd_scene format=3 uid="uid://b8ftp6nfs07fk"]
 
-[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="2_47o24"]
+[ext_resource type="Texture2D" uid="uid://uujsrpi2qjno" path="res://assets/Sprites/Left Arrow.png" id="3_48wme"]
 [ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="3_e47ti"]
+[ext_resource type="Texture2D" uid="uid://chcotnqwviuhf" path="res://assets/Sprites/Right ARROW.png" id="4_j2x6r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nvga"]
+bg_color = Color(0.6777796, 0.5062379, 0.8739849, 1)
 
 [node name="ShopInterface" type="Control" unique_id=1487542661]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 525.0
+offset_top = 318.0
+offset_right = 525.0
+offset_bottom = 318.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 mouse_filter = 1
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=190406827]
+[node name="Panel" type="Panel" parent="." unique_id=1042850209]
 layout_mode = 0
-offset_right = 696.0
-offset_bottom = 383.0
-mouse_filter = 1
+offset_right = 694.0
+offset_bottom = 322.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1nvga")
 
 [node name="Item_Selection" type="VBoxContainer" parent="." unique_id=1935556515]
 layout_mode = 0
-offset_right = 651.0
-offset_bottom = 395.0
+offset_left = 111.0
+offset_top = 3.0
+offset_right = 133.5
+offset_bottom = 108.0
 theme_override_constants/separation = 35
-
-[node name="VScrollBar" type="VScrollBar" parent="." unique_id=1836659626]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 4.0
-offset_right = 448.0
-offset_bottom = 185.0
-mouse_filter = 1
-
-[node name="ColorRect2" type="ColorRect" parent="." unique_id=1356730647]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 164.0
-mouse_filter = 1
-color = Color(1, 0.5137255, 1, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ColorRect2" unique_id=1358944470]
-position = Vector2(63.000008, 80.00001)
-scale = Vector2(3.65625, 4.21875)
-texture = ExtResource("2_47o24")
+alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1745810625]
 layout_mode = 0
@@ -64,3 +55,58 @@ horizontal_alignment = 2
 layout_mode = 2
 texture = ExtResource("3_e47ti")
 stretch_mode = 2
+
+[node name="Control" type="Control" parent="." unique_id=542304258]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control" unique_id=299615169]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 66.0
+offset_right = 691.0
+offset_bottom = 106.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer2" unique_id=1098106842]
+layout_mode = 2
+texture = ExtResource("3_48wme")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer2" unique_id=1203752599]
+custom_minimum_size = Vector2(45.205, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "1"
+horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Control/HBoxContainer2" unique_id=204078518]
+layout_mode = 2
+texture = ExtResource("4_j2x6r")
+
+[node name="Panel2" type="Panel" parent="Control" unique_id=918466966]
+layout_mode = 0
+offset_left = 564.5
+offset_top = 116.5
+offset_right = 691.0
+offset_bottom = 156.5
+
+[node name="Label" type="Label" parent="Control/Panel2" unique_id=516826369]
+layout_mode = 0
+offset_right = 124.5
+offset_bottom = 41.5
+theme_override_font_sizes/font_size = 22
+text = "BUY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Purchase_Total" type="Label" parent="Control" unique_id=732201402]
+custom_minimum_size = Vector2(120.075, 0)
+layout_mode = 0
+offset_left = 568.0
+offset_top = 40.0
+offset_right = 688.075
+offset_bottom = 57.0
+horizontal_alignment = 2

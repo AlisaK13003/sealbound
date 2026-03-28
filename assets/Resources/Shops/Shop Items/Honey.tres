@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://cq4t8y7a232hb"]
+
+[ext_resource type="Texture2D" uid="uid://2aowksf7dpn8" path="res://assets/Sprites/sprite3.png" id="1_60ltp"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_jj4yx"]
+
+[resource]
+script = ExtResource("1_jj4yx")
+item_name = "Honey"
+item_qualities = 4
+item_texture = ExtResource("1_60ltp")
+over_the_head_texture = ExtResource("1_60ltp")
+item_resource_path = "res://assets/Resources/Shops/Shop Items/Honey.tres"
+sell_price = 10
+buy_price = 15
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"

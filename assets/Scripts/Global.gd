@@ -263,6 +263,11 @@ signal item_list_updated(index, item)
 signal equipment_list_updated(index, equipment_)
 signal weapon_list_updated(index, weapon_)
 signal inventory_updated(slot_that_was_updated)
+signal purse_updated
+
+func spent_or_obtained_money(amount):
+	money = money + amount
+	purse_updated.emit()
 
 func added_to_inventory(added_thing: inventory_items, where_was_it_added):
 	village_inventory[where_was_it_added] = added_thing
@@ -273,6 +278,7 @@ func add_to_first_open_slot(added_thing: inventory_items):
 		if village_inventory[slot] == null:
 			added_to_inventory(added_thing, slot)
 			return true
+	print("SENT TO STORAGE")
 	return false
 
 func remove_from_inventory(removed_at):
