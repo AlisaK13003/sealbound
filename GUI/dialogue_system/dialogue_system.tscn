@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="2_icgm8"]
 [ext_resource type="FontFile" uid="uid://bpnykjvtqplb2" path="res://GUI/fonts/Abaddon Light.ttf" id="3_drgf3"]
 [ext_resource type="FontFile" uid="uid://7p0i4a7thmg4" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_mcufe"]
+[ext_resource type="Texture2D" uid="uid://eeophdwyxpcr" path="res://npc/sprites/portraits/npc_portraits.png" id="5_drgf3"]
 
 [sub_resource type="Gradient" id="Gradient_drgf3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -35,6 +36,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 3.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -78,10 +83,10 @@ scroll_active = false
 
 [node name="NameLabel" type="Label" parent="Control" unique_id=1254259597]
 layout_mode = 0
-offset_left = 443.0
-offset_top = 603.0
-offset_right = 545.0
-offset_bottom = 657.0
+offset_left = 472.0
+offset_top = 604.0
+offset_right = 577.0
+offset_bottom = 658.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -96,3 +101,19 @@ theme_override_font_sizes/font_size = 48
 text = "NAME"
 
 [node name="PortraitSprite" type="Sprite2D" parent="Control" unique_id=124550008]
+position = Vector2(241, 796.99994)
+scale = Vector2(1.2240059, 1.2240059)
+texture = ExtResource("5_drgf3")
+hframes = 4
+frame = 1
+region_enabled = true
+region_rect = Rect2(414, 612, 1308, 402)
+
+[node name="Timer" type="Timer" parent="Control" unique_id=672850845]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control" unique_id=524168825]
+
+[node name="PanelContainer2" type="PanelContainer" parent="Control" unique_id=1199778026]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
