@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://cicg7e0lnhocn"]
+
+[ext_resource type="PackedScene" uid="uid://b8i5b8ktl5ddl" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory_Node.tscn" id="1_8hn1q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hn1q"]
+
+[node name="SellMenu" type="Control" unique_id=1745746423]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=223056821]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -6.0
+offset_right = 478.0
+offset_bottom = 190.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8hn1q")
+
+[node name="GridContainer" type="GridContainer" parent="Panel" unique_id=2032790012]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 715.0
+offset_bottom = 150.0
+theme_override_constants/h_separation = 48
+theme_override_constants/v_separation = 48
+columns = 10
+
+[node name="InventoryNode" parent="Panel/GridContainer" unique_id=1046914791 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode2" parent="Panel/GridContainer" unique_id=1116306212 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode3" parent="Panel/GridContainer" unique_id=1292287043 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode4" parent="Panel/GridContainer" unique_id=804850120 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode5" parent="Panel/GridContainer" unique_id=506954872 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode6" parent="Panel/GridContainer" unique_id=1553752025 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode7" parent="Panel/GridContainer" unique_id=1441277475 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode8" parent="Panel/GridContainer" unique_id=1016839684 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode9" parent="Panel/GridContainer" unique_id=1972708356 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode10" parent="Panel/GridContainer" unique_id=96068412 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode11" parent="Panel/GridContainer" unique_id=1583983185 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode12" parent="Panel/GridContainer" unique_id=654103915 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode13" parent="Panel/GridContainer" unique_id=170313286 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode14" parent="Panel/GridContainer" unique_id=872858598 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode15" parent="Panel/GridContainer" unique_id=1053407191 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode16" parent="Panel/GridContainer" unique_id=1472586846 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode17" parent="Panel/GridContainer" unique_id=1256934709 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode18" parent="Panel/GridContainer" unique_id=211857668 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode19" parent="Panel/GridContainer" unique_id=635794891 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode20" parent="Panel/GridContainer" unique_id=858098981 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode21" parent="Panel/GridContainer" unique_id=1058539875 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode22" parent="Panel/GridContainer" unique_id=816197479 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode23" parent="Panel/GridContainer" unique_id=996116395 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode24" parent="Panel/GridContainer" unique_id=623612638 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode25" parent="Panel/GridContainer" unique_id=1777875960 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode26" parent="Panel/GridContainer" unique_id=1992803990 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode27" parent="Panel/GridContainer" unique_id=426130776 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode28" parent="Panel/GridContainer" unique_id=228663113 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode29" parent="Panel/GridContainer" unique_id=641421518 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode30" parent="Panel/GridContainer" unique_id=1527537125 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode31" parent="Panel/GridContainer" unique_id=488046655 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode32" parent="Panel/GridContainer" unique_id=1957484252 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode33" parent="Panel/GridContainer" unique_id=22500422 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode34" parent="Panel/GridContainer" unique_id=1459313816 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode35" parent="Panel/GridContainer" unique_id=123710836 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode36" parent="Panel/GridContainer" unique_id=1158763634 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode37" parent="Panel/GridContainer" unique_id=951840248 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode38" parent="Panel/GridContainer" unique_id=1933003813 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode39" parent="Panel/GridContainer" unique_id=652298424 instance=ExtResource("1_8hn1q")]
+layout_mode = 2
+
+[node name="InventoryNode40" parent="Panel/GridContainer" unique_id=275775075 instance=ExtResource("1_8hn1q")]
+layout_mode = 2

@@ -35,7 +35,7 @@ func _input(event):
 		else:
 			full_inventory.manage_visibility(false)
 			in_menu = false
-	if not in_menu:
+	if not Global.is_in_menu:
 		if event.is_action_pressed("Mouse Scroll Up"):
 			full_inventory.update_selection(-1)
 		if event.is_action_pressed("Mouse Scroll Down"):

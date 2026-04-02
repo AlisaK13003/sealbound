@@ -253,6 +253,13 @@ func create_save(content):
 # Getters and Setters for inventory
 # --------------------------------------------------------------------------------------------------
 
+enum item_stack_limit {
+	Potion = 1,
+	Crop = 8, 
+	Food = 8,
+	Weapons = 1
+}
+
 var village_inventory: Array[inventory_items]
 
 var item_list : Array[Items]
@@ -270,10 +277,39 @@ func spent_or_obtained_money(amount):
 	purse_updated.emit()
 
 func added_to_inventory(added_thing: inventory_items, where_was_it_added):
-	village_inventory[where_was_it_added] = added_thing
+	var temp = 0
+	var amount_that_can_be_added = added_thing.stack_amount
+	
+	if village_inventory[where_was_it_added] != null and village_inventory[where_was_it_added].amount_held >= amount_that_can_be_added:
+		return added_thing
+	
+	for i in range(added_thing.amount_held):
+		if added_thing.amount_held == 0:
+			village_inventory[where_was_it_added].amount_held = temp
+			inventory_updated.emit(where_was_it_added)
+			return
+		if village_inventory[where_was_it_added] != null and village_inventory[where_was_it_added].item_resource_path == added_thing.item_resource_path:
+			if village_inventory[where_was_it_added].amount_held + 1 <= amount_that_can_be_added:
+				village_inventory[where_was_it_added].amount_held += 1
+				added_thing.amount_held -= 1
+			else:
+				village_inventory[where_was_it_added] = added_thing
+				village_inventory[where_was_it_added].amount_held = amount_that_can_be_added
+				inventory_updated.emit(where_was_it_added)
+				return added_thing
+		else:
+			village_inventory[where_was_it_added] = added_thing
+			village_inventory[where_was_it_added].amount_held = added_thing.amount_held
+			break
 	inventory_updated.emit(where_was_it_added)
 
 func add_to_first_open_slot(added_thing: inventory_items):
+	for slot in range(village_inventory.size()):
+		if village_inventory[slot] == null:
+			continue
+		if village_inventory[slot].item_resource_path == added_thing.item_resource_path and village_inventory[slot].amount_held < village_inventory[slot].stack_amount:
+			added_to_inventory(added_thing, slot)
+			return true
 	for slot in range(village_inventory.size()):
 		if village_inventory[slot] == null:
 			added_to_inventory(added_thing, slot)
@@ -324,11 +360,9 @@ func _ready():
 	var temp3 = load("res://assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
 	for i in range(40):
 		if i % 3 == 0:
-			village_inventory[i] = temp3.duplicate(true)
+			added_to_inventory(temp3.duplicate(true), i)
 		elif i % 2 == 0:
-			village_inventory[i] = temp.duplicate(true)
-		else:
-			village_inventory[i] = null
+			add_to_first_open_slot(temp.duplicate(true))
 	temp_canvas_layer = CanvasLayer.new()
 	add_child(temp_canvas_layer)
 	mouse_texture = TextureRect.new()

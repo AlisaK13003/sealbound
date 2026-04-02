@@ -12,4 +12,5 @@ over_the_head_texture = ExtResource("1_60ltp")
 item_resource_path = "res://assets/Resources/Shops/Shop Items/Honey.tres"
 sell_price = 10
 buy_price = 15
+stack_amount = 4
 metadata/_custom_type_script = "uid://dopm2iiu5evk5"

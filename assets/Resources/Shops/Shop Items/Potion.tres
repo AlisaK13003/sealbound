@@ -12,4 +12,5 @@ over_the_head_texture = ExtResource("1_s55qq")
 item_resource_path = "res://assets/Resources/Shops/Shop Items/Potion.tres"
 sell_price = 15
 buy_price = 20
+stack_amount = 1
 metadata/_custom_type_script = "uid://dopm2iiu5evk5"

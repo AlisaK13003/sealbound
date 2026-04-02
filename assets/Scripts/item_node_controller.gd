@@ -18,7 +18,7 @@ var out_of_stock: bool = false
 func setup(thingy: inventory_items):
 	what_item_am_i = thingy
 	item_name_label.text = thingy.item_name
-	item_cost_label.text = str(thingy.buy_price)
+	item_cost_label.text = str(thingy.buy_price) + "g"
 	item_sprite.texture = thingy.item_texture
 	
 func _ready():
@@ -31,7 +31,7 @@ func _ready():
 	else:
 		stylebox = StyleBoxFlat.new()
 		
-	attached_panel.add_theme_stylebox_override("panel", stylebox)
+	# attached_panel.add_theme_stylebox_override("panel", stylebox)
 
 func item_out_of_stock():
 	out_of_stock = true

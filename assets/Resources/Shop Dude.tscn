@@ -21,11 +21,13 @@ shape = SubResource("CircleShape2D_iq71j")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=307229092]
 
-[node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 instance=ExtResource("3_hjkeh")]
+[node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 node_paths=PackedStringArray("parent") instance=ExtResource("3_hjkeh")]
+visible = false
 offset_left = 225.0
 offset_top = 168.0
 offset_right = 225.0
 offset_bottom = 168.0
+parent = NodePath("../..")
 metadata/_edit_use_anchors_ = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

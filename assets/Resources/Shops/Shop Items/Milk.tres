@@ -12,4 +12,5 @@ over_the_head_texture = ExtResource("1_ps8kc")
 item_resource_path = "res://assets/Resources/Shops/Shop Items/Milk.tres"
 sell_price = 5
 buy_price = 10
+stack_amount = 4
 metadata/_custom_type_script = "uid://dopm2iiu5evk5"
