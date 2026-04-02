@@ -1,11 +1,28 @@
 [gd_scene format=3 uid="uid://burh3u2q2axjg"]
 
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_yoqm0"]
-[ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="2_rjk3y"]
 [ext_resource type="Script" uid="uid://cjqh42o2573e0" path="res://assets/Scripts/item_node_controller.gd" id="3_rjk3y"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_w7jkq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjk3y"]
+bg_color = Color(0.6784314, 0.5058824, 0.8745098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoqm0"]
 size = Vector2(299, 33)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjk3y"]
+font_color = Color(0, 0, 0.4117647, 1)
+outline_size = 1
+outline_color = Color(1, 0.15294118, 1, 1)
 
 [node name="ShopStockNode" type="Control" unique_id=146171556]
 layout_mode = 3
@@ -17,6 +34,14 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("3_rjk3y")
 
+[node name="Panel" type="Panel" parent="." unique_id=2048483705]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 1.0
+offset_right = 438.0
+offset_bottom = 34.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rjk3y")
+
 [node name="Area2D" type="Area2D" parent="." unique_id=1867032586]
 position = Vector2(379, 11)
 
@@ -24,21 +49,12 @@ position = Vector2(379, 11)
 position = Vector2(-90.5, 6.5)
 shape = SubResource("RectangleShape2D_yoqm0")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1950530233]
-show_behind_parent = true
-layout_mode = 0
-offset_left = 140.0
-offset_top = 1.0
-offset_right = 436.0
-offset_bottom = 34.0
-mouse_filter = 1
-color = Color(0.47058824, 1, 1, 1)
-
 [node name="Sprite-Name" type="HBoxContainer" parent="." unique_id=267500735]
 layout_mode = 0
-offset_left = 136.0
-offset_right = 304.0
-offset_bottom = 40.0
+offset_left = 140.0
+offset_top = -3.0
+offset_right = 308.0
+offset_bottom = 37.0
 theme_override_constants/separation = 4
 
 [node name="Item_Sprite2" type="TextureRect" parent="Sprite-Name" unique_id=747303217]
@@ -64,10 +80,15 @@ alignment = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.33333334, 1, 1)
 text = "50"
+label_settings = SubResource("LabelSettings_rjk3y")
 
-[node name="TextureRect" type="TextureRect" parent="Cost-Currency" unique_id=1683797974]
-layout_mode = 2
-texture = ExtResource("2_rjk3y")
-stretch_mode = 2
+[node name="Out Of Stock" type="TextureRect" parent="." unique_id=1713999918]
+visible = false
+layout_mode = 0
+offset_left = 140.0
+offset_top = 1.0
+offset_right = 438.0
+offset_bottom = 33.0
+texture = ExtResource("4_w7jkq")
 
 [connection signal="mouse_entered" from="Area2D" to="Area2D" method="_on_mouse_entered"]

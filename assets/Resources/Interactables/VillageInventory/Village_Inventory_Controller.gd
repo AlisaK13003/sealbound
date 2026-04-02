@@ -61,12 +61,25 @@ func swap_items(new_selected_item):
 	
 	# If placing the item in an empty slot
 	if child_to_be_swapped_with.held_item == null:
-		Global.added_to_inventory(holding_item, new_selected_item)
+		Global.village_inventory[new_selected_item] = null
+		var retval = Global.added_to_inventory(holding_item, new_selected_item)
+		if retval != null:
+			holding_item = retval
+			return
 		holding_item = null
 		Global.mouse_texture.texture = null
 		return
 	# Otherwise, just replace stored item what's held then hold that one
 
+	if child_to_be_swapped_with.held_item.item_resource_path == Global.village_inventory[new_selected_item].item_resource_path:
+		var retval = Global.added_to_inventory(holding_item, new_selected_item)
+		if retval != null:
+			holding_item = retval
+			return
+		holding_item = null
+		Global.mouse_texture.texture = null
+		return
+		
 	Global.village_inventory[new_selected_item] = holding_item
 	holding_item = child_to_be_swapped_with.held_item
 

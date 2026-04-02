@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://bmmuhdhwof7yn"]
+
+[ext_resource type="Texture2D" uid="uid://cboarqyho7gpf" path="res://assets/Sprites/sprite4.png" id="1_js4wf"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_lu4t6"]
+
+[resource]
+script = ExtResource("1_lu4t6")
+item_name = "Milk Bread"
+item_qualities = 4
+item_texture = ExtResource("1_js4wf")
+over_the_head_texture = ExtResource("1_js4wf")
+item_resource_path = "res://assets/Resources/Shops/Shop Items/Honey_Bread.tres"
+sell_price = 20
+buy_price = 50
+stack_amount = 4
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"

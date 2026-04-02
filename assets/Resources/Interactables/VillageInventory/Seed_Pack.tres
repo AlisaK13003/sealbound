@@ -10,4 +10,5 @@ item_qualities = 2
 item_texture = ExtResource("1_1da1a")
 over_the_head_texture = ExtResource("1_1da1a")
 item_resource_path = "D:/sealbound/assets/Resources/Interactables/Farming/Crops/Potato.tres"
+stack_amount = 8
 metadata/_custom_type_script = "uid://dopm2iiu5evk5"

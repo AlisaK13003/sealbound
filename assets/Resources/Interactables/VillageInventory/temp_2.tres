@@ -8,4 +8,5 @@ script = ExtResource("1_ai4bn")
 item_name = "Flower2.0"
 item_qualities = 8
 item_texture = ExtResource("1_wx6t6")
+stack_amount = 8
 metadata/_custom_type_script = "uid://dopm2iiu5evk5"

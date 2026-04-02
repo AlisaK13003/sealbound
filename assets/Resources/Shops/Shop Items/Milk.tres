@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://dtm4nljpv0hkd"]
+
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_cd7dp"]
+[ext_resource type="Texture2D" uid="uid://cm7fyvw4fljo1" path="res://assets/Sprites/sprite2.png" id="1_ps8kc"]
+
+[resource]
+script = ExtResource("1_cd7dp")
+item_name = "Milk"
+item_qualities = 4
+item_texture = ExtResource("1_ps8kc")
+over_the_head_texture = ExtResource("1_ps8kc")
+item_resource_path = "res://assets/Resources/Shops/Shop Items/Milk.tres"
+sell_price = 5
+buy_price = 10
+stack_amount = 4
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"
