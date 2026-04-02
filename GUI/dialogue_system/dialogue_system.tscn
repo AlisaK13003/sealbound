@@ -76,11 +76,23 @@ bbcode_enabled = true
 text = "example text"
 scroll_active = false
 
-[node name="Label" type="Label" parent="Control" unique_id=1254259597]
+[node name="NameLabel" type="Label" parent="Control" unique_id=1254259597]
 layout_mode = 0
-offset_left = 468.0
-offset_top = 601.0
-offset_right = 570.0
-offset_bottom = 655.0
+offset_left = 443.0
+offset_top = 603.0
+offset_right = 545.0
+offset_bottom = 657.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/paragraph_spacing = 3
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("4_mcufe")
 theme_override_font_sizes/font_size = 48
 text = "NAME"
+
+[node name="PortraitSprite" type="Sprite2D" parent="Control" unique_id=124550008]
