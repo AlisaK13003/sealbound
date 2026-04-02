@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dedetwkxc8v4o"
-path="res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"
+uid="uid://boqcvjmxofrim"
+path="res://.godot/imported/Kaela_portraits.png-016249d7d36afc533afd7c4feb0936ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/dialogue_box.png"
-dest_files=["res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"]
+source_file="res://npc/sprites/portraits/Kaela_portraits.png"
+dest_files=["res://.godot/imported/Kaela_portraits.png-016249d7d36afc533afd7c4feb0936ab.ctex"]
 
 [params]
 

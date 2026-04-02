@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://8hykacfnmnk6" path="res://assets/Resources/Shop Items/Rusty_Sword.tres" id="8_fx8xp"]
 [ext_resource type="Resource" uid="uid://dv4h861dfycfw" path="res://assets/Resources/Shop Items/Rusty_Bangle.tres" id="9_oqlsb"]
 [ext_resource type="PackedScene" uid="uid://brqfybqxi6qey" path="res://assets/Resources/Interactables/Farming/Farming_Plot.tscn" id="19_mcr4y"]
-[ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Quests/Quest Board.tscn" id="22_px3xr"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="23_4tlwk"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="23_g3gee"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="25_2ac3m"]
@@ -37,11 +36,6 @@ end_location = 2
 metadata/_custom_type_script = "uid://dg2ixqi7x7dn6"
 
 [node name="Playground" type="Node2D" unique_id=724564567]
-
-[node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("22_px3xr")]
-z_index = 1
-position = Vector2(509, 363)
-scale = Vector2(2, 2)
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(873, -471)
