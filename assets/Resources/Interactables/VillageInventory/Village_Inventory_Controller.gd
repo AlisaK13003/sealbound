@@ -69,9 +69,22 @@ func swap_items(new_selected_item):
 		holding_item = null
 		Global.mouse_texture.texture = null
 		return
+	
 	# Otherwise, just replace stored item what's held then hold that one
+	if child_to_be_swapped_with.held_item.item_resource_path == holding_item.item_resource_path:
+		var amount_already_present = Global.village_inventory[new_selected_item].amount_held
+		if amount_already_present == Global.village_inventory[new_selected_item].stack_amount:
+			var temp = amount_already_present - holding_item.amount_held
+			holding_item.amount_held += temp
+			Global.remove_from_inventory_n_times(new_selected_item, temp)
+			return
+		elif holding_item.amount_held == child_to_be_swapped_with.held_item.stack_amount:
+			var temp = holding_item.amount_held - Global.village_inventory[new_selected_item].amount_held 
+			holding_item.amount_held -= temp
+			Global.village_inventory[new_selected_item].amount_held = Global.village_inventory[new_selected_item].stack_amount
+			Global.inventory_updated.emit(new_selected_item)
+			return
 
-	if child_to_be_swapped_with.held_item.item_resource_path == Global.village_inventory[new_selected_item].item_resource_path:
 		var retval = Global.added_to_inventory(holding_item, new_selected_item)
 		if retval != null:
 			holding_item = retval

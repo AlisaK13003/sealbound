@@ -62,9 +62,10 @@ func empty_cell():
 	item_count_label.text = "0x"
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
-	#if event.is_action_pressed("Mouse_Right_Click"):
-		#print("I am number ", slot_number)
 	if event.is_action_pressed("Mouse_Left_Click"):
+		if Global.is_in_menu:
+			node_parent.open_sell_menu.emit(held_item, slot_number)
+			return
 		if not node_parent.full_inventory_visible:
 			node_parent.change_selection(slot_number)
 		else:
@@ -76,4 +77,29 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 				held_item.amount_held = Global.village_inventory[slot_number].amount_held
 				node_parent.holding_item = held_item
 				Global.mouse_texture.texture = held_item.item_texture
+				Global.remove_from_inventory(slot_number)
 				empty_cell()
+	if event.is_action_pressed("Mouse_Right_Click"):
+		if node_parent.holding_item != null:
+			if held_item == null:
+				if node_parent.holding_item.amount_held == 1:
+					Global.added_just_one_item(node_parent.holding_item, slot_number)
+					Global.mouse_texture.texture = null
+					node_parent.holding_item = null
+					return
+				else:
+					node_parent.holding_item.amount_held -= 1
+					Global.added_just_one_item(node_parent.holding_item.duplicate(true), slot_number)
+					if node_parent.holding_item.amount_held == 0:
+						Global.mouse_texture.texture = null
+						node_parent.holding_item = null
+					return
+			if held_item.item_resource_path != node_parent.holding_item.item_resource_path or held_item.amount_held == held_item.stack_amount:
+				return
+			else:
+				Global.added_just_one_item(node_parent.holding_item, slot_number)
+				node_parent.holding_item.amount_held -= 1
+				if node_parent.holding_item.amount_held == 0:
+					Global.mouse_texture.texture = null
+					node_parent.holding_item = null
+					return
