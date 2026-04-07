@@ -22,7 +22,7 @@ func _ready():
 # message will contain a singular scene, scene_to_pick tells you what scene to choose
 # message contains 4 things as of now, speaker, text, portrait, choices
 # 	Portrait is not set up, could be set up either by: storing portrait as a filepath to load it from or just the filename and parsing to file 
-func start_talking(message, scene_to_pick: int):
+func start_talking(message, _scene_to_pick: int):
 	$Control.visible = true
 	
 	var message_to_display

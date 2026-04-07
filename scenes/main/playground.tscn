@@ -23,7 +23,7 @@
 [sub_resource type="Resource" id="Resource_vytcs"]
 script = ExtResource("6_8212i")
 item = ExtResource("7_vytcs")
-quantity = 15
+quantity = 10
 metadata/_custom_type_script = "uid://clipbmas30q6p"
 
 [sub_resource type="Resource" id="Resource_mcr4y"]
@@ -74,6 +74,7 @@ position = Vector2(315, 114)
 [node name="ShopDude" parent="." unique_id=1899411687 instance=ExtResource("4_bwdrk")]
 position = Vector2(40, 54)
 shop_stock = Array[ExtResource("6_8212i")]([SubResource("Resource_vytcs"), SubResource("Resource_mcr4y"), SubResource("Resource_ow75l"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74")])
+shop_sell_node_color = Color(0.6770483, 0.29464298, 0.65132797, 1)
 
 [node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("23_g3gee")]
 position = Vector2(389, -97)

@@ -5,14 +5,18 @@ class_name shop_controller
 @export var shop_stock: Array[custom_shop_item]
 
 @onready var shop_ui = $CanvasLayer/ShopInterface
-@onready var item_selection = shop_ui.get_node("Item_Selection")
-@onready var currency_display = shop_ui.get_node("HBoxContainer").get_node("Total_Currency")
+@onready var item_selection = shop_ui.get_node("Buy Menu/Item_Selection")
+@onready var currency_display = shop_ui.get_node("Money Counter/HBoxContainer/Total_Currency")
 
 var shop_item_scene = preload("res://assets/Resources/Shop_Stock_Node.tscn")
 
 var can_open_shop : bool = false
  
 signal shop_populated
+
+@export var shop_sell_node_color: Color
+
+@export var test_sell_menu : bool
 
 func _ready():
 	Global.money = 1000
