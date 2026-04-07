@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="drop_tables" format=3 uid="uid://bx5abqeb5pdfd"]
+
+[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="1_rcktc"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_si5pv"]
+
+[sub_resource type="Resource" id="Resource_fj5je"]
+script = ExtResource("1_si5pv")
+item_qualities = null
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"
+
+[resource]
+script = ExtResource("1_rcktc")
+coin_drop_range = Vector2(100, 700)
+bond_drop_range = Vector2(100, 1000)
+items_to_drop = Array[ExtResource("1_si5pv")]([SubResource("Resource_fj5je"), null])

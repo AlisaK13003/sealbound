@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dedetwkxc8v4o"
-path="res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"
+uid="uid://dx2nwbbwer6we"
+path="res://.godot/imported/Lyra_portraits.png-18b7f5183995790b6c4bddf4e6e2f829.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/dialogue_box.png"
-dest_files=["res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"]
+source_file="res://npc/sprites/portraits/Lyra_portraits.png"
+dest_files=["res://.godot/imported/Lyra_portraits.png-18b7f5183995790b6c4bddf4e6e2f829.ctex"]
 
 [params]
 

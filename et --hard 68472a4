@@ -1,0 +1,58 @@
+[33m3d205ef[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdialogue[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/dialogue[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m fix absolute paths
+[33m3c8023e[m Merge remote-tracking branch 'origin/main' into dialogue
+[33m68472a4[m wip: save before pulling main
+[33m8984880[m Merge pull request #6 from AlisaK13003/Calendar-Integration
+[33m76c493c[m[33m ([m[1;31morigin/Calendar-Integration[m[33m)[m Revert "Merge pull request #5 from AlisaK13003/level-design"
+[33m7622b8d[m Merge pull request #5 from AlisaK13003/level-design
+[33m3587349[m[33m ([m[1;31morigin/level-design[m[33m)[m cleaned up paths
+[33m9e54990[m heartwyrm push sorry gang 2
+[33mcdad057[m heartwyrm push sorry gang
+[33m0943e76[m Farming
+[33mc92752c[m Cleanup
+[33m0470635[m NPC Scheduling + Stuff that should have it's own branch whoops
+[33m93d2f04[m Wibbly Wobbly Timey Wimey
+[33m14a4e9b[m Merge pull request #4 from AlisaK13003/menu_testing
+[33m8b15a0d[m Modified Pause Menu Basic Quest Board     Created quest resources Made it so player can't move while in menus Basic Save / Load system
+[33m59df334[m Pause menu with multiple menus, only semi working one is inventory where it displays the 3 active party members and let's you scroll through the items. Plans for adding key items tab within inventory as well as the ability to use the items on party members in the menu
+[33mb25e758[m Created a basic shop menu allowing player to buy stuff, currently does not add those items to the inventory Pause menu with multiple menus, only semi working one is inventory where it displays the 3 active party members and let's you scroll through the items. Plans for adding key items tab within inventory as well as the ability to use the items on party members in the menu
+[33me344551[m Basic Shop
+[33m4e01d08[m Basic overworld enemy encounter
+[33m51d29b3[m Merge pull request #3 from AlisaK13003/feature/playerMovement_AK
+[33m468c3f7[m[33m ([m[1;31morigin/feature/playerMovement_AK[m[33m)[m Merge branch 'test_battle_scene' into feature/playerMovement_AK
+[33m66993e0[m Moves / Items
+[33m271ae0b[m Items and Selection Circle
+[33mf16787f[m Fixed bugs with previous push
+[33ma57d857[m Continued HUD Improvements
+[33me11b2c5[m Comments, fun stuff
+[33m6f9aab5[m Updated Battle
+[33m2c6fd4e[m Progression towards new battle hud
+[33mb39a43b[m Progression towards new battle hud
+[33m07c7e91[m Fixed resource mix up
+[33mb85294e[m Merge branch 'test_battle_scene' of https://github.com/AlisaK13003/sealbound into test_battle_scene
+[33m53e9729[m .
+[33mc4fc142[m Partial refactoring of battle script
+[33m4db6ea3[m Update battle_manager.gd
+[33mfe0d0a9[m Updated line.gd
+[33m63b80ae[m Combat "functions"
+[33m20608c5[m Battle works
+[33m33c1391[m Basic Battle #3
+[33m876e306[m Basic Battle #3
+[33ma2f233d[m Merge pull request #1 from AlisaK13003/feature/playerMovement_AK
+[33m7e280b8[m Fixed CODEOWNERS file
+[33mfaa3d3e[m Setup to allow automatic pr notifications
+[33m8bd3c37[m[33m ([m[1;32mfeature/playerMovement_AK[m[33m)[m player movement and input mapping
+[33mc65857f[m[33m ([m[1;31morigin/test_battle_scene[m[33m)[m Basic setup for battle #2
+[33m398019a[m Basic setup for battle
+[33mf7154e0[m adjusted project settings, added player node
+[33m9e73e87[m Initial battle scene setup
+[33m8bc1646[m Update README.md
+[33m97cf84c[m Keep SVGs out of Git LFS
+[33ma64936a[m remove ci
+[33m05ff5de[m ci
+[33mb0137b9[m ci
+[33mf82a710[m ci
+[33mdbb4d3c[m ci
+[33m0b63ef8[m Workflow fixed lol
+[33m5300d3c[m Added new scence
+[33md5a62de[m Readme file
+[33ma35fccd[m init

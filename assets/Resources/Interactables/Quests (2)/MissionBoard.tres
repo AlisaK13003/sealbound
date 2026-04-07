@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bfmfqtbi4afjp"]
+
+[ext_resource type="Texture2D" uid="uid://cnujfa84305w7" path="res://assets/Resources/Interactables/Quests (2)/Mission_board.png" id="1_365yv"]
+
+[resource]
+atlas = ExtResource("1_365yv")
+region = Rect2(36, 132, 384, 294)

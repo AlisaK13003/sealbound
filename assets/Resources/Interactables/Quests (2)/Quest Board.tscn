@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bmyel7npdb8dh"]
+
+[ext_resource type="Script" uid="uid://b8nt2jtdphg81" path="res://assets/Resources/Interactables/Quests (2)/quest_board_controller.gd" id="1_xib73"]
+[ext_resource type="Script" uid="uid://darc2xqjtdyk6" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="2_sm35h"]
+[ext_resource type="Resource" uid="uid://scqlm76m0up0" path="res://assets/Resources/Interactables/Quests (2)/Quest Objects/kill stuff.tres" id="3_j56dg"]
+[ext_resource type="PackedScene" uid="uid://cumvpqxhdbqn8" path="res://assets/Resources/Interactables/Quests (2)/Quest_UI.tscn" id="4_tm2sl"]
+[ext_resource type="Texture2D" uid="uid://bfmfqtbi4afjp" path="res://assets/Resources/Interactables/Quests (2)/MissionBoard.tres" id="5_h1qg2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulf6e"]
+size = Vector2(67, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t8y7u"]
+radius = 57.004234
+
+[node name="QuestBoard" type="Node2D" unique_id=1065708173]
+script = ExtResource("1_xib73")
+stored_quests = Array[ExtResource("2_sm35h")]([ExtResource("3_j56dg")])
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1202505987]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1337692366]
+position = Vector2(1.5, -8)
+shape = SubResource("RectangleShape2D_ulf6e")
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=781367688]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=406557706]
+position = Vector2(0, 19.305)
+shape = SubResource("CircleShape2D_t8y7u")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1928255509]
+scale = Vector2(2.75, 2.75)
+transform = Transform2D(2.75, 0, 0, 2.75, 0, 0)
+
+[node name="QuestUi" parent="CanvasLayer" unique_id=490027118 node_paths=PackedStringArray("parent") instance=ExtResource("4_tm2sl")]
+offset_left = 223.63635
+offset_top = 146.90909
+offset_right = 223.63623
+offset_bottom = 146.90906
+parent = NodePath("../..")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1356818265]
+offset_left = -34.0
+offset_top = -30.0
+offset_right = 35.224487
+offset_bottom = 23.0
+texture = ExtResource("5_h1qg2")
+expand_mode = 3
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
+[connection signal="input_event" from="Area2D2" to="." method="_on_area_2d_2_input_event"]

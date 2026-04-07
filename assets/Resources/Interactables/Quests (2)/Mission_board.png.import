@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dedetwkxc8v4o"
-path="res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"
+uid="uid://cnujfa84305w7"
+path="res://.godot/imported/Mission_board.png-6843aaf7617e3e47403489e06bfa7c9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/dialogue_box.png"
-dest_files=["res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"]
+source_file="res://assets/Resources/Interactables/Quests (2)/Mission_board.png"
+dest_files=["res://.godot/imported/Mission_board.png-6843aaf7617e3e47403489e06bfa7c9d.ctex"]
 
 [params]
 

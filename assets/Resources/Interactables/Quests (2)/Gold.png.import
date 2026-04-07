@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dedetwkxc8v4o"
-path="res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"
+uid="uid://dggadw7mbuiqp"
+path="res://.godot/imported/Gold.png-c8590875aeb39dbda48827065ae6d308.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/dialogue_box.png"
-dest_files=["res://.godot/imported/dialogue_box.png-9122d6ab98a5fd06ab0691840c6e96fc.ctex"]
+source_file="res://assets/Resources/Interactables/Quests (2)/Gold.png"
+dest_files=["res://.godot/imported/Gold.png-c8590875aeb39dbda48827065ae6d308.ctex"]
 
 [params]
 

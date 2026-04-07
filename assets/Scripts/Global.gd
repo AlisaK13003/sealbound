@@ -54,6 +54,13 @@ enum locations {
 	Infirmary3,
 }
 
+enum dungeon_location {
+	Dungeon1_1F,
+	Dungeon1_2F,
+	Dungeon1_3F,
+	Dungeon1_4F,
+}
+
 enum weather {
 	Normal,
 	Sunny,

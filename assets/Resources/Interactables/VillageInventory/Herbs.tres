@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://baih1ktep5aea"]
+
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_4tnw3"]
+[ext_resource type="Texture2D" uid="uid://cliy0fkqkdkv" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Flower_2.tres" id="1_li3k5"]
+
+[resource]
+script = ExtResource("1_4tnw3")
+item_name = "Herbs"
+item_qualities = 12
+item_texture = ExtResource("1_li3k5")
+over_the_head_texture = ExtResource("1_li3k5")
+item_resource_path = "res://assets/Resources/Interactables/VillageInventory/Herbs.tres"
+sell_price = 4
+buy_price = 4
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"
