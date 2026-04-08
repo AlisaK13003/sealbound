@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3y00o"]
-size = Vector2(48, 48)
+size = Vector2(52, 52)
 
 [node name="Player" type="CharacterBody2D" unique_id=355956441 groups=["Overworld_Player"]]
 

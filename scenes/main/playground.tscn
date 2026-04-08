@@ -59,6 +59,8 @@ start_location = 4
 end_location = 2
 metadata/_custom_type_script = "uid://dg2ixqi7x7dn6"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtqqb"]
+
 [node name="Playground" type="Node2D" unique_id=724564567]
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
@@ -124,3 +126,10 @@ width = 5
 height = 5
 horizontal_separation = 40
 vertical_separation = 40
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1785780637]
+position = Vector2(-213, -12)
+scale = Vector2(-8.7188, 9.984964)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=12727457]
+shape = SubResource("RectangleShape2D_vtqqb")
