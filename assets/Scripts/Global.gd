@@ -24,6 +24,8 @@ var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
 
+var accepted_quest_list: Array[quests]
+
 @onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
 @onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
 @onready var party_slot_3 : PartyMember = load("res://assets/Party Members/Paladin.tres")
@@ -60,6 +62,8 @@ enum dungeon_location {
 	Dungeon1_3F,
 	Dungeon1_4F,
 }
+
+var dungeon : Array[String]= ["Dungeon1_1F", "Dungeon1_2F", "Dungeon1_3F", "Dungeon1_4F"]
 
 enum weather {
 	Normal,
@@ -384,15 +388,19 @@ func _ready():
 	var temp = load("res://assets/Resources/Interactables/VillageInventory/temp.tres")
 	# var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
 	var temp3 = load("res://assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
-	var temp4 = load("res://assets/Resources/Shops/Shop Items/Milk.tres")
+	var temp4 = load("res://assets/Resources/Interactables/Shops/Shop Items/Milk.tres")
 	for i in range(40):
 		if i % 3 == 0:
 			added_to_inventory(temp4.duplicate(true), i)
 		elif i % 2 == 0:
 			add_to_first_open_slot(temp.duplicate(true))
 	temp_canvas_layer = CanvasLayer.new()
+	temp_canvas_layer.layer = 100
 	add_child(temp_canvas_layer)
 	mouse_texture = TextureRect.new()
+	# Maybe replace with this
+	#     Input.set_custom_mouse_cursor(item_texture, Input.CURSOR_ARROW, Vector2(16, 16))
+	mouse_texture.top_level = true
 	
 	temp_canvas_layer.add_child(mouse_texture)
 	for flag in Progression_Flags.values():

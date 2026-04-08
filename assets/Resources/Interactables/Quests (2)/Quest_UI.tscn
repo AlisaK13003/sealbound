@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dk8ow86fqnj83" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_2.tres" id="4_lsis7"]
 [ext_resource type="Texture2D" uid="uid://cwfvkw21sg7c7" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_3.tres" id="5_schd3"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gctrq"]
+size = Vector2(555, 296)
+
 [node name="QuestUi" type="Control" unique_id=490027118]
 layout_mode = 3
 anchors_preset = 15
@@ -13,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_qwsrt")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1700042292]
@@ -77,3 +81,22 @@ texture = ExtResource("5_schd3")
 [node name="MissionPaper11" type="Sprite2D" parent="." unique_id=880486587]
 position = Vector2(312, 113)
 texture = ExtResource("3_qwsrt")
+
+[node name="VScrollBar" type="VScrollBar" parent="." unique_id=122661650]
+layout_mode = 0
+offset_left = 330.0
+offset_top = -84.0
+offset_right = 338.0
+offset_bottom = 168.0
+step = 1.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1649746297]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1722646443]
+position = Vector2(95.5, 40)
+shape = SubResource("RectangleShape2D_gctrq")
+
+[connection signal="scrolling" from="VScrollBar" to="." method="_on_v_scroll_bar_scrolling"]
+[connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

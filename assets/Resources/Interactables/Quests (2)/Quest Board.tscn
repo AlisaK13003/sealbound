@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://bmyel7npdb8dh"]
 
 [ext_resource type="Script" uid="uid://b8nt2jtdphg81" path="res://assets/Resources/Interactables/Quests (2)/quest_board_controller.gd" id="1_xib73"]
-[ext_resource type="Script" uid="uid://darc2xqjtdyk6" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="2_sm35h"]
-[ext_resource type="Resource" uid="uid://scqlm76m0up0" path="res://assets/Resources/Interactables/Quests (2)/Quest Objects/kill stuff.tres" id="3_j56dg"]
 [ext_resource type="PackedScene" uid="uid://cumvpqxhdbqn8" path="res://assets/Resources/Interactables/Quests (2)/Quest_UI.tscn" id="4_tm2sl"]
 [ext_resource type="Texture2D" uid="uid://bfmfqtbi4afjp" path="res://assets/Resources/Interactables/Quests (2)/MissionBoard.tres" id="5_h1qg2"]
 
@@ -14,7 +12,6 @@ radius = 57.004234
 
 [node name="QuestBoard" type="Node2D" unique_id=1065708173]
 script = ExtResource("1_xib73")
-stored_quests = Array[ExtResource("2_sm35h")]([ExtResource("3_j56dg")])
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1202505987]
 
@@ -37,6 +34,7 @@ offset_left = 223.63635
 offset_top = 146.90909
 offset_right = 223.63623
 offset_bottom = 146.90906
+mouse_filter = 1
 parent = NodePath("../..")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1356818265]

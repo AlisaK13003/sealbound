@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ccond57fltreb" path="res://assets/Resources/Interactables/Quests (2)/quest_node_controller.gd" id="1_umtdc"]
 [ext_resource type="Texture2D" uid="uid://dggadw7mbuiqp" path="res://assets/Resources/Interactables/Quests (2)/Gold.png" id="2_6svtd"]
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="3_j5gla"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_g3gxy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbq0"]
 bg_color = Color(0.32792747, 0.24988261, 0.087906934, 1)
@@ -50,6 +51,7 @@ offset_left = -97.0
 offset_top = -18.0
 offset_right = 343.0
 offset_bottom = -16.0
+mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
 [node name="Quest Rewards" type="HBoxContainer" parent="." unique_id=725312938]
@@ -101,5 +103,14 @@ text = "- sera"
 [node name="QuestLocation" type="Label" parent="VBoxContainer" unique_id=1447489564]
 layout_mode = 2
 text = "Forest Dungeon, 7g"
+
+[node name="Am_I_Accepted" type="TextureRect" parent="." unique_id=968134524]
+visible = false
+layout_mode = 0
+offset_left = 307.0
+offset_top = -12.0
+offset_right = 339.0
+offset_bottom = 21.0
+texture = ExtResource("4_g3gxy")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -22,6 +22,8 @@ func _input(event):
 	if event.is_action_pressed("Pause"):
 		Global.is_in_menu = false
 		gui.visible = false
+		for quest_ in Global.accepted_quest_list:
+			print(quest_.quest_name)
 
 func _on_area_2d_2_body_entered(body):
 	if body is Player:

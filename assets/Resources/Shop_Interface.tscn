@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://b8ftp6nfs07fk"]
 
-[ext_resource type="Script" uid="uid://bxyc62npjpgik" path="res://assets/Resources/Shops/shop_ui_controller.gd" id="1_j2x6r"]
+[ext_resource type="Script" uid="uid://bxyc62npjpgik" path="res://assets/Resources/Interactables/Shops/shop_ui_controller.gd" id="1_j2x6r"]
 [ext_resource type="StyleBox" uid="uid://m10eq6a7soo1" path="res://assets/Sprites/Shop_Panel_Style.tres" id="2_w6nt2"]
 [ext_resource type="Texture2D" uid="uid://uujsrpi2qjno" path="res://assets/Sprites/Left Arrow.png" id="3_48wme"]
 [ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="3_e47ti"]
 [ext_resource type="Texture2D" uid="uid://cp5wwcww3wfaa" path="res://assets/Sprites/sprite1.png" id="3_j2x6r"]
 [ext_resource type="Texture2D" uid="uid://chcotnqwviuhf" path="res://assets/Sprites/Right ARROW.png" id="4_j2x6r"]
 [ext_resource type="Texture2D" uid="uid://d0017lkvoxv23" path="res://assets/Sprites/Temp_Shop_Owner.tres" id="6_1nvga"]
-[ext_resource type="PackedScene" uid="uid://cicg7e0lnhocn" path="res://assets/Resources/Shops/Sell_Menu.tscn" id="7_umvbw"]
+[ext_resource type="PackedScene" uid="uid://cicg7e0lnhocn" path="res://assets/Resources/Interactables/Shops/Sell_Menu.tscn" id="7_umvbw"]
 
 [sub_resource type="Theme" id="Theme_xtc3w"]
 
