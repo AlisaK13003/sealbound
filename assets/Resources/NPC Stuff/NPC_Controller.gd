@@ -13,7 +13,6 @@ var player_just_stopped_talking_to_me: bool = false
 
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
-@onready var dialogue_box : Control = $CanvasLayer/DialogueWindow
 
 @export_file("*.json") var dialogue_path: String
 @export var location_container: Node2D
@@ -27,6 +26,10 @@ func _ready():
 		return
 
 	dialogue_data = load_json_file(dialogue_path)
+	if DialogueSystem != null and DialogueSystem.has_signal("dialogue_closed"):
+		var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
+		if not DialogueSystem.dialogue_closed.is_connected(dialogue_closed_callback):
+			DialogueSystem.dialogue_closed.connect(dialogue_closed_callback)
 
 # If there is no schedule to execute, or if player is talking, do nothing
 # If player stopped talking, wait 3 seconds till they start going again 
@@ -93,13 +96,16 @@ func setup_navigation(active_schedule: npc_schedule):
 # This shouldn't really exist (the cancel operation), only does for testing purposes
 # Currently only makes it so when you press cancel (x) it closes the dialogue box
 func _input(event):
-	if player_is_speaking_to_me and player_in_range:
+	if not player_in_range:
+		return
+
+	if player_is_speaking_to_me:
 		if event.is_action_pressed("Cancel"):
-			player_is_speaking_to_me = false
-			player_just_stopped_talking_to_me = true
-			Global.is_in_menu = false
-			dialogue_box.visible = false
-			dialogue_box.clear_text_box()
+			end_dialogue()
+		return
+
+	if event.is_action_pressed("Confirm") or event.is_action_pressed("Mouse_Right_Click"):
+		begin_dialogue()
 
 # Upon click, start dialogue
 # Will be set up so different dialogue happens depending on state, not there yet
@@ -107,10 +113,32 @@ func _input(event):
 func _on_npc_clickable_input_event(_viewport, event, _shape_idx):
 	if player_in_range:
 		if event.is_action_pressed("Mouse_Right_Click"):
-			player_is_speaking_to_me = true
-			Global.is_in_menu = true
-			dialogue_box.visible = true
-			dialogue_box.start_talking(dialogue_data["scene1"].duplicate(true), 0)
+			begin_dialogue()
+
+func begin_dialogue() -> void:
+	if player_is_speaking_to_me:
+		return
+
+	player_is_speaking_to_me = true
+	Global.is_in_menu = true
+
+	if DialogueSystem != null and DialogueSystem.has_method("show_dialog"):
+		DialogueSystem.show_dialog()
+
+func end_dialogue() -> void:
+	if not player_is_speaking_to_me:
+		return
+
+	if DialogueSystem != null and DialogueSystem.has_method("hide_dialog"):
+		DialogueSystem.hide_dialog()
+
+func _on_dialogue_system_dialogue_closed() -> void:
+	if not player_is_speaking_to_me:
+		return
+
+	player_is_speaking_to_me = false
+	player_just_stopped_talking_to_me = true
+	Global.is_in_menu = false
 
 # Determines if the player is in range to talk with NPC
 func _on_player_in_range_area_entered(area):
@@ -120,3 +148,23 @@ func _on_player_in_range_area_entered(area):
 func _on_player_in_range_area_exited(area):
 	if area.is_in_group("Overworld_Player"):
 		player_in_range = false
+
+func _on_player_in_range_body_entered(body):
+	if body.is_in_group("Overworld_Player"):
+		player_in_range = true
+
+func _on_player_in_range_body_exited(body):
+	if body.is_in_group("Overworld_Player"):
+		player_in_range = false
+		if player_is_speaking_to_me:
+			end_dialogue()
+
+func _on_npc_clickable_body_entered(_body):
+	pass
+
+func _on_npc_clickable_body_exited(_body):
+	pass
+
+func _on_button_button_down():
+	if player_in_range:
+		begin_dialogue()

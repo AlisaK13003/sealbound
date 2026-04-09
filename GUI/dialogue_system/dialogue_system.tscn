@@ -5,7 +5,6 @@
 [ext_resource type="FontFile" uid="uid://bpnykjvtqplb2" path="res://GUI/fonts/Abaddon Light.ttf" id="3_drgf3"]
 [ext_resource type="FontFile" uid="uid://7p0i4a7thmg4" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_mcufe"]
 [ext_resource type="Texture2D" uid="uid://iovi8qgsw6fv" path="res://npc/sprites/portraits/maleNPC3_portraits.png" id="5_drgf3"]
-[ext_resource type="FontFile" uid="uid://drgpjbau3im17" path="res://GUI/fonts/m5x7.ttf" id="6_mcufe"]
 
 [sub_resource type="Gradient" id="Gradient_drgf3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -27,54 +26,6 @@ texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 region_rect = Rect2(24, 30, 666, 162)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5aig"]
-content_margin_left = 5.0
-content_margin_top = 0.0
-content_margin_right = 2.0
-content_margin_bottom = 1.0
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="Animation" id="Animation_nnx0c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_vk0xy"]
-resource_name = "default"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06666667, 0.3, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.7764706, 0.48235294, 0.25490198, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8q62r"]
-_data = {
-&"RESET": SubResource("Animation_nnx0c"),
-&"default": SubResource("Animation_vk0xy")
-}
-
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
 layer = 0
@@ -91,6 +42,7 @@ offset_right = 3.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="DialogueUI" unique_id=929834750]
 modulate = Color(0, 0, 0, 1)
@@ -102,25 +54,28 @@ anchor_bottom = 1.0
 offset_top = -617.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_mcufe")
 
-[node name="PanelContainer" type="PanelContainer" parent="DialogueUI" unique_id=1882035644]
+[node name="TextBoxContainer" type="PanelContainer" parent="DialogueUI" unique_id=1882035644]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1478.0
-offset_top = -417.0
+offset_left = -1541.0
+offset_top = -343.0
 offset_right = -45.0
 offset_bottom = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_p5aig")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogueUI/PanelContainer" unique_id=1146066181]
+[node name="BodyText" type="RichTextLabel" parent="DialogueUI/TextBoxContainer" unique_id=1146066181]
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.38162273, 0.2822109, 0.11049946, 1)
 theme_override_fonts/normal_font = ExtResource("3_drgf3")
 theme_override_fonts/bold_font = ExtResource("4_mcufe")
@@ -132,10 +87,10 @@ scroll_active = false
 
 [node name="NameLabel" type="Label" parent="DialogueUI" unique_id=1254259597]
 layout_mode = 0
-offset_left = 472.0
-offset_top = 604.0
-offset_right = 577.0
-offset_bottom = 658.0
+offset_left = 408.0
+offset_top = 668.0
+offset_right = 513.0
+offset_bottom = 722.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -153,30 +108,37 @@ text = "NAME"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DialogueUI" unique_id=524168825]
 
-[node name="Sprite2D" type="Sprite2D" parent="DialogueUI" unique_id=1973429152]
-position = Vector2(228.99998, 742.00006)
-scale = Vector2(9.124268, 9.124269)
+[node name="Portrait" type="Sprite2D" parent="DialogueUI" unique_id=1973429152]
+position = Vector2(193.50879, 797.4551)
+scale = Vector2(7.6454673, 7.645468)
 texture = ExtResource("5_drgf3")
 hframes = 4
 frame = 2
 
-[node name="DialogueProgressIndicator" type="PanelContainer" parent="DialogueUI" unique_id=1331695912]
-self_modulate = Color(0.34117648, 0.039215688, 0, 1)
-layout_mode = 0
-offset_left = 1619.0
-offset_top = 931.0
-offset_right = 1738.0
-offset_bottom = 990.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_p5aig")
+[node name="ChoicesContainer" type="VBoxContainer" parent="DialogueUI" unique_id=512565363]
+z_index = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1597.0
+offset_top = -552.0
+offset_right = -54.0
+offset_bottom = -364.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+alignment = 2
 
-[node name="Label" type="Label" parent="DialogueUI/DialogueProgressIndicator" unique_id=607172714]
+[node name="Choice1" type="Button" parent="DialogueUI/ChoicesContainer" unique_id=2050261870]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_mcufe")
-theme_override_font_sizes/font_size = 48
-text = "NEXT"
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "Choice"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DialogueUI/DialogueProgressIndicator" unique_id=839172678]
-libraries/ = SubResource("AnimationLibrary_8q62r")
-autoplay = &"default"
+[node name="Choice2" type="Button" parent="DialogueUI/ChoicesContainer" unique_id=1086208791]
+layout_mode = 2
+text = "Choice"
+
+[node name="Choice3" type="Button" parent="DialogueUI/ChoicesContainer" unique_id=1649475502]
+layout_mode = 2
+text = "Choice"
