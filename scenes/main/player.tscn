@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://b0el85ib6l0r1" path="res://icon.svg" id="1_3y00o"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="2_tpytq"]
-[ext_resource type="Script" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
+[ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
 [ext_resource type="PackedScene" uid="uid://coypf00axxmjs" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory.tscn" id="4_wqvcu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3y00o"]
-size = Vector2(48, 48)
+size = Vector2(52, 52)
 
 [node name="Player" type="CharacterBody2D" unique_id=355956441 groups=["Overworld_Player"]]
 
