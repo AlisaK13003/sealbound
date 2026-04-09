@@ -16,6 +16,8 @@ var holding_item
 var stylebox : StyleBoxFlat
 
 func _ready():
+	visible = false
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for child in range(inventory_grid.get_child_count()):
 		inventory_grid.get_child(child)._setup(child, self)
 	Global.inventory_updated.connect(update_inventory_slot)
@@ -25,6 +27,8 @@ func _ready():
 func manage_visibility(make_visible):
 	# Makes full inventory visible, and unselects all slots
 	if make_visible:
+		visible = true
+		mouse_filter = Control.MOUSE_FILTER_PASS
 		inventory_grid.get_child(selected_item).change_color(Color.AQUA)
 				
 		for slot in inventory_grid.get_children():
@@ -53,6 +57,8 @@ func manage_visibility(make_visible):
 		Global.item_is_in_slot = selected_item
 		full_inventory_visible = false
 		Global.mouse_texture.texture = null
+		visible = false
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 # Handles moving items around in your inventory
 func swap_items(new_selected_item):

@@ -33,10 +33,19 @@ const PORTRAIT_EMOTION_FRAMES: Dictionary = {
 @onready var fallback_portrait_node: Node = get_node_or_null("DialogueUI/Sprite2D")
 @onready var choices_container: Control = get_node_or_null("DialogueUI/ChoicesContainer")
 @onready var choice_buttons: Array[Button] = [
-	get_node_or_null("DialogueUI/ChoicesContainer/Choice1"),
-	get_node_or_null("DialogueUI/ChoicesContainer/Choice2"),
-	get_node_or_null("DialogueUI/ChoicesContainer/Choice3"),
+	_find_choice_button(1),
+	_find_choice_button(2),
+	_find_choice_button(3),
 ]
+
+func _find_choice_button(index: int) -> Button:
+	var wrapped_path := "DialogueUI/ChoicesContainer/PanelContainer%d/Choice%d" % [index, index]
+	var wrapped_button: Button = get_node_or_null(wrapped_path)
+	if wrapped_button != null:
+		return wrapped_button
+
+	var legacy_path := "DialogueUI/ChoicesContainer/Choice%d" % index
+	return get_node_or_null(legacy_path)
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -55,22 +64,9 @@ func _ready() -> void:
 			continue
 		choice_button.process_mode = Node.PROCESS_MODE_ALWAYS
 		choice_button.mouse_filter = Control.MOUSE_FILTER_STOP
-		choice_button.self_modulate = Color(1, 1, 1, 1)
 		var callback := Callable(self, "_on_choice_button_pressed").bind(index)
 		if not choice_button.pressed.is_connected(callback):
 			choice_button.pressed.connect(callback)
-
-		var hover_entered := Callable(self, "_on_choice_button_mouse_entered").bind(index)
-		if not choice_button.mouse_entered.is_connected(hover_entered):
-			choice_button.mouse_entered.connect(hover_entered)
-
-		var hover_exited := Callable(self, "_on_choice_button_mouse_exited").bind(index)
-		if not choice_button.mouse_exited.is_connected(hover_exited):
-			choice_button.mouse_exited.connect(hover_exited)
-
-		var gui_input_callback := Callable(self, "_on_choice_button_gui_input").bind(index)
-		if not choice_button.gui_input.is_connected(gui_input_callback):
-			choice_button.gui_input.connect(gui_input_callback)
 
 	hide_dialog()
 
@@ -287,41 +283,15 @@ func show_choices() -> void:
 	set_choices_visible(true)
 
 func _on_choice_button_pressed(choice_index: int) -> void:
-	print("choice pressed:", choice_index)
-	print("current choices:", current_choices)
-
 	if choice_index < 0 or choice_index >= current_choices.size():
-		print("choice index out of range")
 		return
 
 	var choice_data: Dictionary = current_choices[choice_index]
 	var next_node: String = str(choice_data.get("next", ""))
-	print("next node:", next_node)
 
 	if next_node.is_empty():
-		print("no next node, closing dialogue")
 		hide_dialog()
 		return
 
 	set_choices_visible(false)
 	show_node(next_node)
-
-func _on_choice_button_mouse_entered(choice_index: int) -> void:
-	var choice_button: Button = choice_buttons[choice_index]
-	if choice_button == null:
-		return
-
-	choice_button.self_modulate = Color(1, 0.9, 0.55, 1)
-	print("hover entered:", choice_button.name)
-
-func _on_choice_button_mouse_exited(choice_index: int) -> void:
-	var choice_button: Button = choice_buttons[choice_index]
-	if choice_button == null:
-		return
-
-	choice_button.self_modulate = Color(1, 1, 1, 1)
-	print("hover exited:", choice_button.name)
-
-func _on_choice_button_gui_input(event: InputEvent, choice_index: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		print("button gui_input left click:", choice_buttons[choice_index].name)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg1rkgpplhk1s"
-path="res://.godot/imported/hero_portrait.png-5e4f99c7dfed4b468afcd0e5c71804ee.ctex"
+uid="uid://drex3s8y28126"
+path="res://.godot/imported/maleNPC2_portraits.png-824ab3998f436e57c4497022804aac97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/portraits/hero_portrait.png"
-dest_files=["res://.godot/imported/hero_portrait.png-5e4f99c7dfed4b468afcd0e5c71804ee.ctex"]
+source_file="res://GUI/dialogue_system/sprites/portraits/maleNPC2_portraits.png"
+dest_files=["res://.godot/imported/maleNPC2_portraits.png-824ab3998f436e57c4497022804aac97.ctex"]
 
 [params]
 

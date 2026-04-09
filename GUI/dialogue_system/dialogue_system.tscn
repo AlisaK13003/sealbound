@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="2_icgm8"]
 [ext_resource type="FontFile" uid="uid://bpnykjvtqplb2" path="res://GUI/fonts/Abaddon Light.ttf" id="3_drgf3"]
 [ext_resource type="FontFile" uid="uid://7p0i4a7thmg4" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_mcufe"]
-[ext_resource type="Texture2D" uid="uid://iovi8qgsw6fv" path="res://npc/sprites/portraits/maleNPC3_portraits.png" id="5_drgf3"]
+[ext_resource type="Texture2D" uid="uid://pfuhauy61si8" path="res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png" id="5_mcufe"]
+[ext_resource type="Texture2D" uid="uid://dg7blmoggpw84" path="res://GUI/dialogue_system/sprites/choiceBox.png" id="6_p5aig"]
 
 [sub_resource type="Gradient" id="Gradient_drgf3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -25,6 +26,13 @@ texture_margin_top = 8.0
 texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 region_rect = Rect2(24, 30, 666, 162)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nnx0c"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+content_margin_bottom = 0.0
+texture = ExtResource("6_p5aig")
 
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
@@ -111,34 +119,60 @@ text = "NAME"
 [node name="Portrait" type="Sprite2D" parent="DialogueUI" unique_id=1973429152]
 position = Vector2(193.50879, 797.4551)
 scale = Vector2(7.6454673, 7.645468)
-texture = ExtResource("5_drgf3")
+texture = ExtResource("5_mcufe")
 hframes = 4
-frame = 2
 
 [node name="ChoicesContainer" type="VBoxContainer" parent="DialogueUI" unique_id=512565363]
+process_mode = 3
 z_index = 1
+clip_contents = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1597.0
-offset_top = -552.0
-offset_right = -54.0
-offset_bottom = -364.0
+offset_left = 1412.0
+offset_top = -741.0
+offset_right = -277.0
+offset_bottom = -548.5
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(2, 2)
 theme_override_constants/separation = 12
 alignment = 2
 
-[node name="Choice1" type="Button" parent="DialogueUI/ChoicesContainer" unique_id=2050261870]
+[node name="PanelContainer1" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=887627904]
 layout_mode = 2
-text = "Choice"
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
 
-[node name="Choice2" type="Button" parent="DialogueUI/ChoicesContainer" unique_id=1086208791]
+[node name="Choice1" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer1" unique_id=2050261870]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
 text = "Choice"
+flat = true
+alignment = 0
+vertical_icon_alignment = 0
 
-[node name="Choice3" type="Button" parent="DialogueUI/ChoicesContainer" unique_id=1649475502]
+[node name="PanelContainer2" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=1638044303]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
+
+[node name="Choice2" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer2" unique_id=1014166749]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
 text = "Choice"
+flat = true
+alignment = 0
+vertical_icon_alignment = 0
+
+[node name="PanelContainer3" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=466206647]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
+
+[node name="Choice3" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer3" unique_id=1899167331]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
+text = "Choice"
+flat = true
+alignment = 0
+vertical_icon_alignment = 0
