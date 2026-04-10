@@ -11,7 +11,10 @@ var dialogue_nodes: Dictionary = {}
 var current_node_id: String = ""
 var is_typing: bool = false
 var typewriter_timer: float = 0.0
-var typewriter_delay: float = 0.03
+var typewriter_base_delay: float = 0.03
+var typewriter_current_delay: float = 0.03
+var punctuation_hard_pause: float = 0.6
+var punctuation_soft_pause: float = 0.3
 var current_text_character_count: int = 0
 var current_node_has_choices: bool = false
 var current_choices: Array = []
@@ -84,7 +87,7 @@ func _process(delta: float) -> void:
 		return
 
 	typewriter_timer += delta
-	if typewriter_timer < typewriter_delay:
+	if typewriter_timer < typewriter_current_delay:
 		return
 
 	typewriter_timer = 0.0
@@ -95,6 +98,7 @@ func _process(delta: float) -> void:
 
 	if text_label.visible_characters < current_text_character_count:
 		text_label.visible_characters += 1
+		typewriter_current_delay = typewriter_base_delay + _get_character_pause(text_label, text_label.visible_characters - 1)
 
 	if text_label.visible_characters >= current_text_character_count:
 		finish_typewriter()
@@ -124,6 +128,7 @@ func hide_dialog() -> void:
 	current_node_id = ""
 	is_typing = false
 	typewriter_timer = 0.0
+	typewriter_current_delay = typewriter_base_delay
 	current_text_character_count = 0
 	if speaker_label != null:
 		speaker_label.text = ""
@@ -175,6 +180,7 @@ func show_node(node_id: String) -> void:
 	var node_data: Dictionary = dialogue_nodes[node_id]
 	is_typing = false
 	typewriter_timer = 0.0
+	typewriter_current_delay = typewriter_base_delay
 	current_text_character_count = 0
 	current_node_has_choices = false
 	current_choices = []
@@ -187,6 +193,7 @@ func show_node(node_id: String) -> void:
 		text_label.text = str(node_data.get("text", ""))
 		text_label.visible_characters = 0
 		current_text_character_count = text_label.get_total_character_count()
+		typewriter_current_delay = typewriter_base_delay
 		is_typing = current_text_character_count > 0
 		if not is_typing:
 			text_label.visible_characters = -1
@@ -223,6 +230,7 @@ func advance_dialogue() -> void:
 func finish_typewriter() -> void:
 	is_typing = false
 	typewriter_timer = 0.0
+	typewriter_current_delay = typewriter_base_delay
 	var text_label := get_active_body_text()
 	if text_label != null:
 		text_label.visible_characters = -1
@@ -234,6 +242,22 @@ func get_active_body_text() -> RichTextLabel:
 	if body_text != null:
 		return body_text
 	return fallback_body_text
+
+func _get_character_pause(text_label: RichTextLabel, character_index: int) -> float:
+	if text_label == null or character_index < 0:
+		return 0.0
+
+	var parsed_text := text_label.get_parsed_text()
+	if character_index >= parsed_text.length():
+		return 0.0
+
+	var character := parsed_text.substr(character_index, 1)
+	if character == "." or character == "!" or character == "?":
+		return punctuation_hard_pause
+	if character == "," or character == "-":
+		return punctuation_soft_pause
+
+	return 0.0
 
 func update_portrait(node_data: Dictionary) -> void:
 	var portrait_target: Node = portrait_node if portrait_node != null else fallback_portrait_node
