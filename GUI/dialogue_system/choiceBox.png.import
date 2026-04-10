@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjup6k6hut04g"
-path="res://.godot/imported/npc_portrait_01.png-971fac6dea105911b8b8bde8826f4f81.ctex"
+uid="uid://0dk2ydel70hj"
+path="res://.godot/imported/choiceBox.png-08a6e1572b631057ca6252dfed310e60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/portraits/npc_portrait_01.png"
-dest_files=["res://.godot/imported/npc_portrait_01.png-971fac6dea105911b8b8bde8826f4f81.ctex"]
+source_file="res://GUI/dialogue_system/choiceBox.png"
+dest_files=["res://.godot/imported/choiceBox.png-08a6e1572b631057ca6252dfed310e60.ctex"]
 
 [params]
 

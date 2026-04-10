@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0il4wdrj14v2"
-path="res://.godot/imported/npc_portraits.png-3fea81046399b9814abb724bb02f3950.ctex"
+uid="uid://2vbt45pfd3ps"
+path="res://.godot/imported/Lyra_portraits.png-09513a34fd423f77f15fd74f837188aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/npc_portraits.png"
-dest_files=["res://.godot/imported/npc_portraits.png-3fea81046399b9814abb724bb02f3950.ctex"]
+source_file="res://GUI/dialogue_system/sprites/portraits/Lyra_portraits.png"
+dest_files=["res://.godot/imported/Lyra_portraits.png-09513a34fd423f77f15fd74f837188aa.ctex"]
 
 [params]
 

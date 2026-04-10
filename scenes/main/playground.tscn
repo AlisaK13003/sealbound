@@ -64,96 +64,7 @@ start_location = 4
 end_location = 2
 metadata/_custom_type_script = "uid://dg2ixqi7x7dn6"
 
-[sub_resource type="Resource" id="Resource_abk2p"]
-script = ExtResource("21_px3xr")
-coin_drop_range = Vector2(100, 700)
-bond_drop_range = Vector2(100, 1000)
-items_to_drop = Array[ExtResource("20_hbw74")]([ExtResource("8_mcr4y")])
-metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
-
-[sub_resource type="Resource" id="Resource_px3xr"]
-script = ExtResource("18_vytcs")
-quest_name = "I Need Herbs!"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
-
-[sub_resource type="Resource" id="Resource_4tlwk"]
-script = ExtResource("18_vytcs")
-quest_name = "Poops"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
-
-[sub_resource type="Resource" id="Resource_o0hwp"]
-script = ExtResource("18_vytcs")
-quest_name = "I Need Herbs!"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
-
-[sub_resource type="Resource" id="Resource_g3gee"]
-script = ExtResource("18_vytcs")
-quest_name = "Poops"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
-
-[sub_resource type="Resource" id="Resource_si8qq"]
-script = ExtResource("18_vytcs")
-quest_name = "I Need Herbs!"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
-
-[sub_resource type="Resource" id="Resource_2ac3m"]
-script = ExtResource("18_vytcs")
-quest_name = "Poops"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
-
-[sub_resource type="Resource" id="Resource_jetce"]
-script = ExtResource("18_vytcs")
-quest_name = "I Need Herbs!"
-quest_giver = "Sera"
-quest_description = "Find Sera some Herbs so she can make healing remedies"
-quest_completion_requirements = {
-ExtResource("20_px3xr"): 10
-}
-quest_rewards = SubResource("Resource_abk2p")
-quest_location_descriptor = "Dungeon 1 1F"
-metadata/_custom_type_script = "uid://du845xri6aakf"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtqqb"]
 
 [node name="Playground" type="Node2D" unique_id=724564567]
 
@@ -222,6 +133,9 @@ height = 5
 horizontal_separation = 40
 vertical_separation = 40
 
-[node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("17_8212i")]
-position = Vector2(362, -14)
-stored_quests_ = Array[ExtResource("18_vytcs")]([SubResource("Resource_px3xr"), SubResource("Resource_4tlwk"), SubResource("Resource_o0hwp"), SubResource("Resource_g3gee"), SubResource("Resource_si8qq"), SubResource("Resource_2ac3m"), SubResource("Resource_jetce"), SubResource("Resource_jetce")])
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1785780637]
+position = Vector2(-213, -12)
+scale = Vector2(-8.7188, 9.984964)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=12727457]
+shape = SubResource("RectangleShape2D_vtqqb")

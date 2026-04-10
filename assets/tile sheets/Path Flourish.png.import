@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq2pghlb2w5ol"
-path="res://.godot/imported/dialog_interactable.png-d84878c1c57b6aa52097014b24b8d6c4.ctex"
+uid="uid://b20ipow235lnk"
+path="res://.godot/imported/Path Flourish.png-edfb369f64fd77250f05cf396a20cc2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/dialog_interactable.png"
-dest_files=["res://.godot/imported/dialog_interactable.png-d84878c1c57b6aa52097014b24b8d6c4.ctex"]
+source_file="res://assets/tile sheets/Path Flourish.png"
+dest_files=["res://.godot/imported/Path Flourish.png-edfb369f64fd77250f05cf396a20cc2b.ctex"]
 
 [params]
 

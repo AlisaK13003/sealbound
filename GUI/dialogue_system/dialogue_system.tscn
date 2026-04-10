@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="2_icgm8"]
 [ext_resource type="FontFile" uid="uid://bpnykjvtqplb2" path="res://GUI/fonts/Abaddon Light.ttf" id="3_drgf3"]
 [ext_resource type="FontFile" uid="uid://7p0i4a7thmg4" path="res://GUI/fonts/Abaddon Bold.ttf" id="4_mcufe"]
-[ext_resource type="Texture2D" uid="uid://iovi8qgsw6fv" path="res://npc/sprites/portraits/maleNPC3_portraits.png" id="5_drgf3"]
+[ext_resource type="Texture2D" uid="uid://pfuhauy61si8" path="res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png" id="5_mcufe"]
+[ext_resource type="Texture2D" uid="uid://dg7blmoggpw84" path="res://GUI/dialogue_system/sprites/choiceBox.png" id="6_p5aig"]
 
 [sub_resource type="Gradient" id="Gradient_drgf3"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -26,13 +27,20 @@ texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 region_rect = Rect2(24, 30, 666, 162)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nnx0c"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+content_margin_bottom = 0.0
+texture = ExtResource("6_p5aig")
+
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
 layer = 0
 visible = false
 script = ExtResource("1_7r5wx")
 
-[node name="Control" type="Control" parent="." unique_id=1183597739]
+[node name="DialogueUI" type="Control" parent="." unique_id=1183597739]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,8 +51,9 @@ offset_right = 3.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="Control" unique_id=929834750]
+[node name="TextureRect" type="TextureRect" parent="DialogueUI" unique_id=929834750]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 12
@@ -54,25 +63,28 @@ anchor_bottom = 1.0
 offset_top = -617.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_mcufe")
 
-[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1882035644]
+[node name="TextBoxContainer" type="PanelContainer" parent="DialogueUI" unique_id=1882035644]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1478.0
-offset_top = -417.0
+offset_left = -1541.0
+offset_top = -343.0
 offset_right = -45.0
 offset_bottom = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_p5aig")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/PanelContainer" unique_id=1146066181]
+[node name="BodyText" type="RichTextLabel" parent="DialogueUI/TextBoxContainer" unique_id=1146066181]
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.38162273, 0.2822109, 0.11049946, 1)
 theme_override_fonts/normal_font = ExtResource("3_drgf3")
 theme_override_fonts/bold_font = ExtResource("4_mcufe")
@@ -82,12 +94,12 @@ bbcode_enabled = true
 text = "example text"
 scroll_active = false
 
-[node name="NameLabel" type="Label" parent="Control" unique_id=1254259597]
+[node name="NameLabel" type="Label" parent="DialogueUI" unique_id=1254259597]
 layout_mode = 0
-offset_left = 472.0
-offset_top = 604.0
-offset_right = 577.0
-offset_bottom = 658.0
+offset_left = 408.0
+offset_top = 668.0
+offset_right = 513.0
+offset_bottom = 722.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -101,18 +113,67 @@ theme_override_fonts/font = ExtResource("4_mcufe")
 theme_override_font_sizes/font_size = 48
 text = "NAME"
 
-[node name="Timer" type="Timer" parent="Control" unique_id=672850845]
+[node name="Timer" type="Timer" parent="DialogueUI" unique_id=672850845]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control" unique_id=524168825]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DialogueUI" unique_id=524168825]
 
-[node name="PanelContainer2" type="PanelContainer" parent="Control" unique_id=1199778026]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=1973429152]
-position = Vector2(228.99998, 742.00006)
-scale = Vector2(9.124268, 9.124269)
-texture = ExtResource("5_drgf3")
+[node name="Portrait" type="Sprite2D" parent="DialogueUI" unique_id=1973429152]
+position = Vector2(193.50879, 797.4551)
+scale = Vector2(7.6454673, 7.645468)
+texture = ExtResource("5_mcufe")
 hframes = 4
-frame = 2
+
+[node name="ChoicesContainer" type="VBoxContainer" parent="DialogueUI" unique_id=512565363]
+process_mode = 3
+z_index = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1412.0
+offset_top = -652.0
+offset_right = -277.0
+offset_bottom = -504.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="PanelContainer1" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=887627904]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
+
+[node name="Choice1" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer1" unique_id=2050261870]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
+text = "Choice"
+flat = true
+alignment = 0
+vertical_icon_alignment = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=1638044303]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
+
+[node name="Choice2" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer2" unique_id=1014166749]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
+text = "Choice"
+flat = true
+alignment = 0
+vertical_icon_alignment = 0
+
+[node name="PanelContainer3" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=466206647]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
+
+[node name="Choice3" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer3" unique_id=1899167331]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
+text = "Choice"
+flat = true
+alignment = 0
+vertical_icon_alignment = 0

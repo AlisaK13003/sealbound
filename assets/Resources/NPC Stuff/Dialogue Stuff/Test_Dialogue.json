@@ -1,27 +1,76 @@
 {
-  "scene1": [
-	{
+  "id": "sera_test_001",
+  "start": "intro",
+  "nodes": {
+	"intro": {
 	  "speaker": "Villager Girl",
+	  "portrait_frame": "neutral",
 	  "text": "Can you hear me at all?",
-	  "portrait": "player_neutral"
+	  "next": "reply"
 	},
-	{
+	"reply": {
 	  "speaker": "FEMC",
+	  "portrait_frame": "smile",
 	  "text": "Greetings! Need a quest?",
-	  "portrait": "npc_happy",
-	  "choices": ["Barely", "Not Really", "Who are you?"]
+	  "choices": [
+		{
+		  "text": "Barely",
+		  "next": "sera_barely"
+		},
+		{
+		  "text": "Not really",
+		  "next": "sera_not_really"
+		},
+		{
+		  "text": "Who are you?",
+		  "next": "sera_who"
+		}
+	  ]
 	},
-	{
-		"speaker": "Villager Girl",
-		"text": ["Okay, that's... better than before.", "That's okay. Just look at me when I talk.\nWe'll figure it out.", "Right- Sorry."]
+	"sera_barely": {
+	  "speaker": "Sera",
+	  "portrait_frame": "awkward",
+	  "text": "Okay, that is better than before.",
+	  "effects": [
+		{
+		  "type": "friendship",
+		  "npc": "Sera",
+		  "amount": 1
+		}
+	  ],
+	  "next": "end_node"
 	},
-	{
-		"speaker": "Sera",
-		"text": "My name is Sera"
+	"sera_not_really": {
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "That is okay. We will figure it out.",
+	  "effects": [
+		{
+		  "type": "friendship",
+		  "npc": "Sera",
+		  "amount": 0
+		}
+	  ],
+	  "next": "end_node"
 	},
-	{
-		"speaker": "Sera",
-		"text": "I found you out in the woods near... the aftermath"
+	"sera_who": {
+	  "speaker": "Sera",
+	  "portrait_frame": "smile",
+	  "text": "Right, sorry. My name is Sera.",
+	  "effects": [
+		{
+		  "type": "friendship",
+		  "npc": "Sera",
+		  "amount": 2
+		}
+	  ],
+	  "next": "end_node"
+	},
+	"end_node": {
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "I found you out in the woods near the aftermath.",
+	  "end": true
 	}
-  ]
+  }
 }

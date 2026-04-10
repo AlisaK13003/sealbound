@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg1rkgpplhk1s"
-path="res://.godot/imported/hero_portrait.png-5e4f99c7dfed4b468afcd0e5c71804ee.ctex"
+uid="uid://dhl5585bopbcs"
+path="res://.godot/imported/Well.png-5b82cec3ba6a8b09787eead02f86e8ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/dialogue_system/sprites/portraits/hero_portrait.png"
-dest_files=["res://.godot/imported/hero_portrait.png-5e4f99c7dfed4b468afcd0e5c71804ee.ctex"]
+source_file="res://assets/tile sheets/Well.png"
+dest_files=["res://.godot/imported/Well.png-5b82cec3ba6a8b09787eead02f86e8ce.ctex"]
 
 [params]
 

@@ -1,0 +1,85 @@
+[gd_resource type="TileSet" format=3 uid="uid://cbns3wnhsla0t"]
+
+[ext_resource type="Texture2D" uid="uid://qjur3wuvcnlx" path="res://assets/tile sheets/Foliage2.0.png" id="1_5db5w"]
+[ext_resource type="Texture2D" uid="uid://ny5tx7uare56" path="res://assets/tile sheets/Dark_Folliage2.0.png" id="2_bg7x2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhusf"]
+texture = ExtResource("1_5db5w")
+margins = Vector2i(0, 13)
+12:15/size_in_atlas = Vector2i(6, 3)
+12:15/0 = 0
+12:15/0/texture_origin = Vector2i(-35, 12)
+20:14/size_in_atlas = Vector2i(2, 2)
+20:14/0 = 0
+24:13/size_in_atlas = Vector2i(2, 3)
+24:13/0 = 0
+27:14/size_in_atlas = Vector2i(2, 2)
+27:14/0 = 0
+30:14/size_in_atlas = Vector2i(2, 2)
+30:14/0 = 0
+19:8/size_in_atlas = Vector2i(3, 3)
+19:8/0 = 0
+19:8/0/texture_origin = Vector2i(0, 16)
+24:8/size_in_atlas = Vector2i(2, 3)
+24:8/0 = 0
+27:8/size_in_atlas = Vector2i(2, 3)
+27:8/0 = 0
+30:9/size_in_atlas = Vector2i(2, 2)
+30:9/0 = 0
+12:8/size_in_atlas = Vector2i(3, 4)
+12:8/0 = 0
+3:7/size_in_atlas = Vector2i(3, 6)
+3:7/0 = 0
+1:0/size_in_atlas = Vector2i(7, 7)
+1:0/0 = 0
+0:4/0 = 0
+9:0/size_in_atlas = Vector2i(8, 7)
+9:0/0 = 0
+9:0/0/texture_origin = Vector2i(6, 0)
+19:2/size_in_atlas = Vector2i(3, 3)
+19:2/0 = 0
+19:2/0/texture_origin = Vector2i(0, 16)
+25:2/size_in_atlas = Vector2i(2, 3)
+25:2/0 = 0
+25:2/0/texture_origin = Vector2i(-8, 16)
+29:2/size_in_atlas = Vector2i(2, 3)
+29:2/0 = 0
+29:2/0/texture_origin = Vector2i(-8, 16)
+1:14/size_in_atlas = Vector2i(7, 6)
+1:14/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pmovw"]
+texture = ExtResource("2_bg7x2")
+margins = Vector2i(0, 6)
+2:8/size_in_atlas = Vector2i(3, 5)
+2:8/0 = 0
+8:9/size_in_atlas = Vector2i(3, 4)
+8:9/0 = 0
+13:9/size_in_atlas = Vector2i(1, 2)
+13:9/0 = 0
+13:11/size_in_atlas = Vector2i(1, 2)
+13:11/0 = 0
+16:11/size_in_atlas = Vector2i(1, 2)
+16:11/0 = 0
+16:9/size_in_atlas = Vector2i(2, 2)
+16:9/0 = 0
+16:13/size_in_atlas = Vector2i(2, 3)
+16:13/0 = 0
+12:13/size_in_atlas = Vector2i(2, 3)
+12:13/0 = 0
+8:13/size_in_atlas = Vector2i(2, 3)
+8:13/0 = 0
+15:4/size_in_atlas = Vector2i(3, 3)
+15:4/0 = 0
+15:0/size_in_atlas = Vector2i(3, 3)
+15:0/0 = 0
+7:0/size_in_atlas = Vector2i(7, 7)
+7:0/0 = 0
+7:0/0/texture_origin = Vector2i(0, 48)
+0:0/size_in_atlas = Vector2i(7, 7)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 48)
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_lhusf")
+sources/1 = SubResource("TileSetAtlasSource_pmovw")
