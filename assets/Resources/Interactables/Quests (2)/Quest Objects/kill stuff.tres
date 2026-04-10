@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="quest" format=3 uid="uid://scqlm76m0up0"]
 
-[ext_resource type="Script" uid="uid://7ewqrmuckb2y" path="res://assets/Resources/Quests/quest_item.gd" id="1_r414t"]
+[ext_resource type="Script" uid="uid://7ewqrmuckb2y" path="res://assets/Resources/Interactables/Quests (2)/quest_item.gd" id="1_r414t"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="2_k2cvt"]
-[ext_resource type="Resource" uid="uid://bl6dnsrdxajjv" path="res://assets/Resources/Quests/Quest Items/spider silk.tres" id="2_ut4ib"]
+[ext_resource type="Resource" uid="uid://bl6dnsrdxajjv" path="res://assets/Resources/Interactables/Quests (2)/Quest Items/spider silk.tres" id="2_ut4ib"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_ut4ib"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="4_nxjjk"]
-[ext_resource type="Script" uid="uid://darc2xqjtdyk6" path="res://assets/Resources/Quests/quest_controller.gd" id="5_ehomn"]
+[ext_resource type="Script" uid="uid://darc2xqjtdyk6" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="5_ehomn"]
 
 [resource]
 script = ExtResource("5_ehomn")

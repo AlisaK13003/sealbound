@@ -24,6 +24,8 @@ var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
 
+var accepted_quest_list: Array[quests]
+
 @onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
 @onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
 @onready var party_slot_3 : PartyMember = load("res://assets/Party Members/Paladin.tres")
@@ -53,6 +55,15 @@ enum locations {
 	Infirmay2,
 	Infirmary3,
 }
+
+enum dungeon_location {
+	Dungeon1_1F,
+	Dungeon1_2F,
+	Dungeon1_3F,
+	Dungeon1_4F,
+}
+
+var dungeon : Array[String]= ["Dungeon1_1F", "Dungeon1_2F", "Dungeon1_3F", "Dungeon1_4F"]
 
 enum weather {
 	Normal,
@@ -280,48 +291,67 @@ func added_to_inventory(added_thing: inventory_items, where_was_it_added):
 	var temp = 0
 	var amount_that_can_be_added = added_thing.stack_amount
 	
-	if village_inventory[where_was_it_added] != null and village_inventory[where_was_it_added].amount_held >= amount_that_can_be_added:
+	if village_inventory[where_was_it_added] != null and village_inventory[where_was_it_added].amount_held >= amount_that_can_be_added and village_inventory[where_was_it_added].item_resource_path != added_thing.item_resource_path:
 		return added_thing
-	
 	for i in range(added_thing.amount_held):
 		if added_thing.amount_held == 0:
 			village_inventory[where_was_it_added].amount_held = temp
 			inventory_updated.emit(where_was_it_added)
-			return
+			return null
 		if village_inventory[where_was_it_added] != null and village_inventory[where_was_it_added].item_resource_path == added_thing.item_resource_path:
 			if village_inventory[where_was_it_added].amount_held + 1 <= amount_that_can_be_added:
 				village_inventory[where_was_it_added].amount_held += 1
-				added_thing.amount_held -= 1
+				added_thing.amount_held -=1
+				inventory_updated.emit(where_was_it_added)
 			else:
-				village_inventory[where_was_it_added] = added_thing
+				village_inventory[where_was_it_added] = added_thing.duplicate()
 				village_inventory[where_was_it_added].amount_held = amount_that_can_be_added
 				inventory_updated.emit(where_was_it_added)
 				return added_thing
-		else:
-			village_inventory[where_was_it_added] = added_thing
-			village_inventory[where_was_it_added].amount_held = added_thing.amount_held
+		elif village_inventory[where_was_it_added] == null:
+			village_inventory[where_was_it_added] = added_thing.duplicate()
+			if village_inventory[where_was_it_added].amount_held > amount_that_can_be_added:
+				village_inventory[where_was_it_added].amount_held = amount_that_can_be_added
+				added_thing.amount_held -= amount_that_can_be_added
+				inventory_updated.emit(where_was_it_added)
+				return added_thing
 			break
+		else:
+			return added_thing
+	inventory_updated.emit(where_was_it_added)
+
+func added_just_one_item(added_thing: inventory_items, where_was_it_added):
+	if village_inventory[where_was_it_added] != null and village_inventory[where_was_it_added].amount_held >= added_thing.stack_amount:
+		return added_thing
+	
+	if village_inventory[where_was_it_added] == null:
+		village_inventory[where_was_it_added] = added_thing
+		village_inventory[where_was_it_added].amount_held = 1
+		inventory_updated.emit(where_was_it_added)
+		return null
+	village_inventory[where_was_it_added].amount_held += 1
 	inventory_updated.emit(where_was_it_added)
 
 func add_to_first_open_slot(added_thing: inventory_items):
 	for slot in range(village_inventory.size()):
-		if village_inventory[slot] == null:
-			continue
-		if village_inventory[slot].item_resource_path == added_thing.item_resource_path and village_inventory[slot].amount_held < village_inventory[slot].stack_amount:
-			added_to_inventory(added_thing, slot)
+		if added_to_inventory(added_thing, slot) == null:
 			return true
-	for slot in range(village_inventory.size()):
-		if village_inventory[slot] == null:
-			added_to_inventory(added_thing, slot)
-			return true
+		elif added_thing.amount_held == 0:
+			return true	
 	print("SENT TO STORAGE")
 	return false
 
 func remove_from_inventory(removed_at):
-	if village_inventory[removed_at] != null and holding_item.item_name == village_inventory[removed_at].item_name:
+	if village_inventory[removed_at] != null:
 		holding_item = null
 		Global.player_head_sprite = null
 	village_inventory[removed_at] = null
+	inventory_updated.emit(removed_at)
+
+func remove_from_inventory_n_times(removed_at, amount_removed):
+	village_inventory[removed_at].amount_held -= amount_removed
+	if village_inventory[removed_at].amount_held == 0:
+		village_inventory[removed_at] = null
 	inventory_updated.emit(removed_at)
 
 func add_armor(armor: equipment):
@@ -358,14 +388,19 @@ func _ready():
 	var temp = load("res://assets/Resources/Interactables/VillageInventory/temp.tres")
 	# var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
 	var temp3 = load("res://assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
+	var temp4 = load("res://assets/Resources/Interactables/Shops/Shop Items/Milk.tres")
 	for i in range(40):
 		if i % 3 == 0:
-			added_to_inventory(temp3.duplicate(true), i)
+			added_to_inventory(temp4.duplicate(true), i)
 		elif i % 2 == 0:
 			add_to_first_open_slot(temp.duplicate(true))
 	temp_canvas_layer = CanvasLayer.new()
+	temp_canvas_layer.layer = 100
 	add_child(temp_canvas_layer)
 	mouse_texture = TextureRect.new()
+	# Maybe replace with this
+	#     Input.set_custom_mouse_cursor(item_texture, Input.CURSOR_ARROW, Vector2(16, 16))
+	mouse_texture.top_level = true
 	
 	temp_canvas_layer.add_child(mouse_texture)
 	for flag in Progression_Flags.values():

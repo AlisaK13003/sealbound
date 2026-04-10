@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://2xni6vuesc06"]
+
+[ext_resource type="Script" uid="uid://ccond57fltreb" path="res://assets/Resources/Interactables/Quests (2)/quest_node_controller.gd" id="1_umtdc"]
+[ext_resource type="Texture2D" uid="uid://dggadw7mbuiqp" path="res://assets/Resources/Interactables/Quests (2)/Gold.png" id="2_6svtd"]
+[ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="3_j5gla"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_g3gxy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbq0"]
+bg_color = Color(0.32792747, 0.24988261, 0.087906934, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.41467434, 0.32069528, 0.13787058, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_umtdc"]
+size = Vector2(444, 60)
+
+[node name="QuestNode" type="Control" unique_id=2112167932]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_umtdc")
+
+[node name="Panel" type="Panel" parent="." unique_id=1664935892]
+layout_mode = 0
+offset_left = -100.0
+offset_top = -36.0
+offset_right = 344.0
+offset_bottom = 24.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewbq0")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=854615143]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=265306990]
+position = Vector2(122, -6)
+shape = SubResource("RectangleShape2D_umtdc")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=470215953]
+layout_mode = 0
+offset_left = -97.0
+offset_top = -18.0
+offset_right = 343.0
+offset_bottom = -16.0
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="Quest Rewards" type="HBoxContainer" parent="." unique_id=725312938]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_right = 0.007
+offset_left = 252.56
+offset_top = -33.0
+offset_right = 415.56
+offset_bottom = -1.0
+scale = Vector2(0.45, 0.45)
+
+[node name="TextureRect" type="TextureRect" parent="Quest Rewards" unique_id=1776965982]
+layout_mode = 2
+texture = ExtResource("2_6svtd")
+stretch_mode = 2
+
+[node name="Quest_Gold" type="Label" parent="Quest Rewards" unique_id=1975753477]
+layout_mode = 2
+text = "200g  "
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Quest Rewards" unique_id=1370199250]
+layout_mode = 2
+texture = ExtResource("3_j5gla")
+stretch_mode = 2
+
+[node name="Quest_Bond" type="Label" parent="Quest Rewards" unique_id=803853927]
+layout_mode = 2
+text = "200"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=561528607]
+layout_mode = 0
+offset_left = -94.0
+offset_top = -32.000004
+offset_right = 85.0
+offset_bottom = 26.999996
+scale = Vector2(0.84, 0.84)
+
+[node name="QuestName" type="Label" parent="VBoxContainer" unique_id=1949900024]
+layout_mode = 2
+text = "I need herbs!"
+
+[node name="QuestGiver" type="Label" parent="VBoxContainer" unique_id=526747216]
+layout_mode = 2
+text = "- sera"
+
+[node name="QuestLocation" type="Label" parent="VBoxContainer" unique_id=1447489564]
+layout_mode = 2
+text = "Forest Dungeon, 7g"
+
+[node name="Am_I_Accepted" type="TextureRect" parent="." unique_id=968134524]
+visible = false
+layout_mode = 0
+offset_left = 307.0
+offset_top = -12.0
+offset_right = 339.0
+offset_bottom = 21.0
+texture = ExtResource("4_g3gxy")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

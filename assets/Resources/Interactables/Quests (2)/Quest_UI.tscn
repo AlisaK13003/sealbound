@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://cumvpqxhdbqn8"]
+
+[ext_resource type="Texture2D" uid="uid://bfmfqtbi4afjp" path="res://assets/Resources/Interactables/Quests (2)/MissionBoard.tres" id="1_gctrq"]
+[ext_resource type="Script" uid="uid://6slscp1v6jog" path="res://assets/Resources/Interactables/Quests (2)/quest_mission_handler.gd" id="1_qwsrt"]
+[ext_resource type="Texture2D" uid="uid://co28rr8wks40j" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_1.tres" id="3_qwsrt"]
+[ext_resource type="Texture2D" uid="uid://dk8ow86fqnj83" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_2.tres" id="4_lsis7"]
+[ext_resource type="Texture2D" uid="uid://cwfvkw21sg7c7" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_3.tres" id="5_schd3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gctrq"]
+size = Vector2(555, 296)
+
+[node name="QuestUi" type="Control" unique_id=490027118]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_qwsrt")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1700042292]
+layout_mode = 0
+offset_left = -183.0
+offset_top = -135.0
+offset_right = 375.0
+offset_bottom = 284.0
+texture = ExtResource("1_gctrq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=140806472]
+z_index = 2
+layout_mode = 0
+offset_left = -25.0
+offset_top = -44.0
+offset_right = 15.0
+offset_bottom = 148.0
+theme_override_constants/separation = 64
+
+[node name="MissionPaper1" type="Sprite2D" parent="." unique_id=1948265229]
+position = Vector2(-102, -28)
+texture = ExtResource("3_qwsrt")
+
+[node name="MissionPaper2" type="Sprite2D" parent="." unique_id=1319409742]
+z_index = 1
+position = Vector2(-142, 1)
+texture = ExtResource("4_lsis7")
+
+[node name="MissionPaper3" type="Sprite2D" parent="." unique_id=340416691]
+z_index = 1
+position = Vector2(-76, 20)
+texture = ExtResource("5_schd3")
+
+[node name="MissionPaper4" type="Sprite2D" parent="." unique_id=742608395]
+position = Vector2(330, 47)
+texture = ExtResource("4_lsis7")
+
+[node name="MissionPaper5" type="Sprite2D" parent="." unique_id=342816750]
+position = Vector2(304, -23)
+texture = ExtResource("3_qwsrt")
+
+[node name="MissionPaper6" type="Sprite2D" parent="." unique_id=529128654]
+position = Vector2(-138, 111)
+texture = ExtResource("4_lsis7")
+
+[node name="MissionPaper7" type="Sprite2D" parent="." unique_id=307177301]
+position = Vector2(-119, 67)
+texture = ExtResource("3_qwsrt")
+
+[node name="MissionPaper8" type="Sprite2D" parent="." unique_id=35414800]
+position = Vector2(270, 147)
+texture = ExtResource("4_lsis7")
+
+[node name="MissionPaper9" type="Sprite2D" parent="." unique_id=160101844]
+position = Vector2(252, 13)
+texture = ExtResource("4_lsis7")
+
+[node name="MissionPaper10" type="Sprite2D" parent="." unique_id=163039254]
+position = Vector2(287, 47)
+texture = ExtResource("5_schd3")
+
+[node name="MissionPaper11" type="Sprite2D" parent="." unique_id=880486587]
+position = Vector2(312, 113)
+texture = ExtResource("3_qwsrt")
+
+[node name="VScrollBar" type="VScrollBar" parent="." unique_id=122661650]
+layout_mode = 0
+offset_left = 330.0
+offset_top = -84.0
+offset_right = 338.0
+offset_bottom = 168.0
+step = 1.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1649746297]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1722646443]
+position = Vector2(95.5, 40)
+shape = SubResource("RectangleShape2D_gctrq")
+
+[connection signal="scrolling" from="VScrollBar" to="." method="_on_v_scroll_bar_scrolling"]
+[connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

@@ -4,12 +4,17 @@
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="2_0glpd"]
 [ext_resource type="PackedScene" uid="uid://cobhlimte4psu" path="res://scenes/Dungeon/Enemies/Overworld_Enemy_Template.tscn" id="3_0glpd"]
 [ext_resource type="PackedScene" uid="uid://dfird1yjtwtku" path="res://assets/Resources/Shop Dude.tscn" id="4_bwdrk"]
-[ext_resource type="Script" uid="uid://clipbmas30q6p" path="res://assets/Resources/Shops/custom_shop_item.gd" id="6_8212i"]
-[ext_resource type="Resource" uid="uid://cq4t8y7a232hb" path="res://assets/Resources/Shops/Shop Items/Honey.tres" id="7_vytcs"]
-[ext_resource type="Resource" uid="uid://bmmuhdhwof7yn" path="res://assets/Resources/Shops/Shop Items/Honey_Bread.tres" id="8_mcr4y"]
-[ext_resource type="Resource" uid="uid://dtm4nljpv0hkd" path="res://assets/Resources/Shops/Shop Items/Milk.tres" id="9_ow75l"]
-[ext_resource type="Resource" uid="uid://bs1i1s05n3qrg" path="res://assets/Resources/Shops/Shop Items/Potion.tres" id="10_hbw74"]
+[ext_resource type="Script" uid="uid://clipbmas30q6p" path="res://assets/Resources/Interactables/Shops/custom_shop_item.gd" id="6_8212i"]
+[ext_resource type="Resource" uid="uid://cq4t8y7a232hb" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey.tres" id="7_vytcs"]
+[ext_resource type="Resource" uid="uid://bmmuhdhwof7yn" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey_Bread.tres" id="8_mcr4y"]
+[ext_resource type="Resource" uid="uid://dtm4nljpv0hkd" path="res://assets/Resources/Interactables/Shops/Shop Items/Milk.tres" id="9_ow75l"]
+[ext_resource type="Resource" uid="uid://bs1i1s05n3qrg" path="res://assets/Resources/Interactables/Shops/Shop Items/Potion.tres" id="10_hbw74"]
+[ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Interactables/Quests (2)/Quest Board.tscn" id="17_8212i"]
+[ext_resource type="Script" uid="uid://du845xri6aakf" path="res://assets/Resources/Interactables/Quests (2)/quest_resource.gd" id="18_vytcs"]
 [ext_resource type="PackedScene" uid="uid://brqfybqxi6qey" path="res://assets/Resources/Interactables/Farming/Farming_Plot.tscn" id="19_mcr4y"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="20_hbw74"]
+[ext_resource type="Resource" uid="uid://baih1ktep5aea" path="res://assets/Resources/Interactables/VillageInventory/Herbs.tres" id="20_px3xr"]
+[ext_resource type="Script" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="21_px3xr"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="23_4tlwk"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="23_g3gee"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="25_2ac3m"]
@@ -20,7 +25,7 @@
 [sub_resource type="Resource" id="Resource_vytcs"]
 script = ExtResource("6_8212i")
 item = ExtResource("7_vytcs")
-quantity = 15
+quantity = 10
 metadata/_custom_type_script = "uid://clipbmas30q6p"
 
 [sub_resource type="Resource" id="Resource_mcr4y"]
@@ -61,7 +66,51 @@ metadata/_custom_type_script = "uid://dg2ixqi7x7dn6"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtqqb"]
 
+[sub_resource type="Resource" id="Resource_abk2p"]
+script = ExtResource("21_px3xr")
+coin_drop_range = Vector2(100, 700)
+bond_drop_range = Vector2(100, 1000)
+items_to_drop = Array[ExtResource("20_hbw74")]([ExtResource("8_mcr4y")])
+metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
+
+[sub_resource type="Resource" id="Resource_px3xr"]
+script = ExtResource("18_vytcs")
+quest_name = "I Need Herbs!"
+quest_giver = "Sera"
+quest_description = "Find Sera some Herbs so she can make healing remedies"
+quest_completion_requirements = {
+ExtResource("20_px3xr"): 10
+}
+quest_rewards = SubResource("Resource_abk2p")
+quest_location_descriptor = "Dungeon 1 1F"
+metadata/_custom_type_script = "uid://du845xri6aakf"
+
+[sub_resource type="Resource" id="Resource_4tlwk"]
+script = ExtResource("18_vytcs")
+quest_name = "I Need Herbs!"
+quest_giver = "Sera"
+quest_description = "Find Sera some Herbs so she can make healing remedies"
+quest_completion_requirements = {
+ExtResource("20_px3xr"): 10
+}
+quest_rewards = SubResource("Resource_abk2p")
+quest_location_descriptor = "Dungeon 1 1F"
+metadata/_custom_type_script = "uid://du845xri6aakf"
+
+[sub_resource type="Resource" id="Resource_g3gee"]
+script = ExtResource("18_vytcs")
+quest_name = "I Need Herbs!"
+quest_giver = "Sera"
+quest_description = "Find Sera some Herbs so she can make healing remedies"
+quest_completion_requirements = {
+ExtResource("20_px3xr"): 10
+}
+quest_rewards = SubResource("Resource_abk2p")
+quest_location_descriptor = "Dungeon 1 1F"
+metadata/_custom_type_script = "uid://du845xri6aakf"
+
 [node name="Playground" type="Node2D" unique_id=724564567]
+position = Vector2(916, -728)
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(60, -30)
@@ -73,6 +122,7 @@ position = Vector2(315, 114)
 [node name="ShopDude" parent="." unique_id=1899411687 instance=ExtResource("4_bwdrk")]
 position = Vector2(40, 54)
 shop_stock = Array[ExtResource("6_8212i")]([SubResource("Resource_vytcs"), SubResource("Resource_mcr4y"), SubResource("Resource_ow75l"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74")])
+shop_sell_node_color = Color(0.6770483, 0.29464298, 0.65132797, 1)
 
 [node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("23_g3gee")]
 position = Vector2(389, -97)
@@ -133,3 +183,7 @@ scale = Vector2(-8.7188, 9.984964)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=12727457]
 shape = SubResource("RectangleShape2D_vtqqb")
+
+[node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("17_8212i")]
+position = Vector2(1888, 3)
+stored_quests_ = Array[ExtResource("18_vytcs")]([SubResource("Resource_px3xr"), SubResource("Resource_4tlwk"), SubResource("Resource_g3gee")])

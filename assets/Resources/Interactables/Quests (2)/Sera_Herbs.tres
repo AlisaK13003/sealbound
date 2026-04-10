@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="quests" format=3 uid="uid://dlxjvp840ione"]
+
+[ext_resource type="Script" uid="uid://du845xri6aakf" path="res://assets/Resources/Interactables/Quests (2)/quest_resource.gd" id="1_34q3x"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_crtwl"]
+[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="2_2kryx"]
+[ext_resource type="Resource" uid="uid://baih1ktep5aea" path="res://assets/Resources/Interactables/VillageInventory/Herbs.tres" id="2_abk2p"]
+[ext_resource type="Resource" uid="uid://bmmuhdhwof7yn" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey_Bread.tres" id="3_abk2p"]
+
+[sub_resource type="Resource" id="Resource_abk2p"]
+script = ExtResource("2_2kryx")
+coin_drop_range = Vector2(100, 700)
+bond_drop_range = Vector2(100, 1000)
+items_to_drop = Array[ExtResource("1_crtwl")]([ExtResource("3_abk2p")])
+metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
+
+[resource]
+script = ExtResource("1_34q3x")
+quest_name = "I Need Herbs!"
+quest_giver = "Sera"
+quest_description = "Find Sera some Herbs so she can make healing remedies"
+quest_completion_requirements = {
+ExtResource("2_abk2p"): 10
+}
+quest_rewards = SubResource("Resource_abk2p")
+quest_location_descriptor = "Dungeon 1 1F"
+metadata/_custom_type_script = "uid://du845xri6aakf"
