@@ -3,7 +3,7 @@ extends Control
 var can_scroll: bool
 var selected_index = 0
 
-var shop_stock: Array[custom_shop_item]
+var shop_stock: Array[custom_shop_items]
 
 @onready var item_window = $"Buy Menu/Item_Selection"
 

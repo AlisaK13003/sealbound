@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c3mh2w7joj81k"]
+
+[ext_resource type="Script" uid="uid://b4ql3x6sr7vsf" path="res://assets/Resources/Interactables/Teleports/teleport_handler.gd" id="1_7spty"]
+[ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="2_7eit1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_frbkq"]
+radius = 16.03122
+
+[node name="LoadingZone" type="Node2D" unique_id=1216423571]
+script = ExtResource("1_7spty")
+"Current Location/Region" = null
+"Destination Location/Region" = null
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=119519273]
+texture = ExtResource("2_7eit1")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=416868945]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1179238723]
+shape = SubResource("CircleShape2D_frbkq")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

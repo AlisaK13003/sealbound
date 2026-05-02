@@ -1,21 +1,19 @@
 [gd_scene format=3 uid="uid://dn7pbr6ccxfbx"]
 
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_cavrc"]
-[ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_px3xr"]
+[ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="2_0glpd"]
 [ext_resource type="PackedScene" uid="uid://cobhlimte4psu" path="res://scenes/Dungeon/Enemies/Overworld_Enemy_Template.tscn" id="3_0glpd"]
 [ext_resource type="PackedScene" uid="uid://dfird1yjtwtku" path="res://assets/Resources/Shop Dude.tscn" id="4_bwdrk"]
-[ext_resource type="Script" uid="uid://m6b2arn0m6ao" path="res://assets/Resources/Interactables/custom_shop_items.gd" id="5_vytcs"]
-[ext_resource type="Resource" uid="uid://dtm4nljpv0hkd" path="res://assets/Resources/Interactables/Shops/Shop Items/Milk.tres" id="7_hbw74"]
+[ext_resource type="Resource" uid="uid://cq4t8y7a232hb" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey.tres" id="7_vytcs"]
 [ext_resource type="Resource" uid="uid://bmmuhdhwof7yn" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey_Bread.tres" id="8_mcr4y"]
-[ext_resource type="Resource" uid="uid://bs1i1s05n3qrg" path="res://assets/Resources/Interactables/Shops/Shop Items/Potion.tres" id="8_px3xr"]
-[ext_resource type="Resource" uid="uid://cq4t8y7a232hb" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey.tres" id="9_4tlwk"]
+[ext_resource type="Resource" uid="uid://dtm4nljpv0hkd" path="res://assets/Resources/Interactables/Shops/Shop Items/Milk.tres" id="9_ow75l"]
+[ext_resource type="Resource" uid="uid://bs1i1s05n3qrg" path="res://assets/Resources/Interactables/Shops/Shop Items/Potion.tres" id="10_hbw74"]
 [ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Interactables/Quests (2)/Quest Board.tscn" id="17_8212i"]
 [ext_resource type="Script" uid="uid://du845xri6aakf" path="res://assets/Resources/Interactables/Quests (2)/quest_resource.gd" id="18_vytcs"]
 [ext_resource type="PackedScene" uid="uid://brqfybqxi6qey" path="res://assets/Resources/Interactables/Farming/Farming_Plot.tscn" id="19_mcr4y"]
 [ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="20_hbw74"]
 [ext_resource type="Resource" uid="uid://baih1ktep5aea" path="res://assets/Resources/Interactables/VillageInventory/Herbs.tres" id="20_px3xr"]
 [ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="21_px3xr"]
-[ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="22_px3xr"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="23_4tlwk"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="23_g3gee"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="25_2ac3m"]
@@ -23,95 +21,38 @@
 [ext_resource type="PackedScene" uid="uid://xoqrkremn3la" path="res://assets/Resources/Interactables/Rest_Spot.tscn" id="27_si8qq"]
 [ext_resource type="Script" uid="uid://dg2ixqi7x7dn6" path="res://assets/Resources/NPC Stuff/NPC_Schedule.gd" id="27_xtt7h"]
 
-[sub_resource type="Resource" id="Resource_2ac3m"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+[sub_resource type="GDScript" id="GDScript_ow75l"]
+script/source = "extends Resource
+
+class_name custom_shop_item
+
+@export var item: inventory_items
+@export var quantity: int = 1
+"
 
 [sub_resource type="Resource" id="Resource_vytcs"]
-script = ExtResource("5_vytcs")
+script = SubResource("GDScript_ow75l")
+item = ExtResource("7_vytcs")
 quantity = 10
-item = ExtResource("7_hbw74")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+metadata/_custom_type_script = "uid://clipbmas30q6p"
 
 [sub_resource type="Resource" id="Resource_mcr4y"]
-script = ExtResource("5_vytcs")
+script = SubResource("GDScript_ow75l")
+item = ExtResource("8_mcr4y")
 quantity = 10
-item = ExtResource("7_hbw74")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+metadata/_custom_type_script = "uid://clipbmas30q6p"
 
 [sub_resource type="Resource" id="Resource_ow75l"]
-script = ExtResource("5_vytcs")
+script = SubResource("GDScript_ow75l")
+item = ExtResource("9_ow75l")
 quantity = 10
-item = ExtResource("8_px3xr")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+metadata/_custom_type_script = "uid://clipbmas30q6p"
 
 [sub_resource type="Resource" id="Resource_hbw74"]
-script = ExtResource("5_vytcs")
+script = SubResource("GDScript_ow75l")
+item = ExtResource("10_hbw74")
 quantity = 10
-item = ExtResource("8_px3xr")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_o0hwp"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_si8qq"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_jetce"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("9_4tlwk")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_7wdc0"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_lgxne"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("9_4tlwk")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_daxnb"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_hk430"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_rwadj"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_tx574"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
-
-[sub_resource type="Resource" id="Resource_twvge"]
-script = ExtResource("5_vytcs")
-quantity = 10
-item = ExtResource("8_mcr4y")
-metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+metadata/_custom_type_script = "uid://clipbmas30q6p"
 
 [sub_resource type="Resource" id="Resource_y5t6s"]
 script = ExtResource("27_xtt7h")
@@ -178,17 +119,17 @@ metadata/_custom_type_script = "uid://du845xri6aakf"
 
 [node name="Playground" type="Node2D" unique_id=724564567]
 position = Vector2(916, -728)
-script = ExtResource("1_px3xr")
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_cavrc")]
 position = Vector2(60, -30)
+script = ExtResource("2_0glpd")
 
 [node name="OverworldEnemyTemplate" parent="." unique_id=640357848 instance=ExtResource("3_0glpd")]
 position = Vector2(315, 114)
 
 [node name="ShopDude" parent="." unique_id=1899411687 instance=ExtResource("4_bwdrk")]
 position = Vector2(40, 54)
-shop_stock = Array[ExtResource("5_vytcs")]([SubResource("Resource_2ac3m"), SubResource("Resource_vytcs"), SubResource("Resource_mcr4y"), SubResource("Resource_ow75l"), SubResource("Resource_hbw74"), SubResource("Resource_o0hwp"), SubResource("Resource_si8qq"), SubResource("Resource_jetce"), SubResource("Resource_7wdc0"), SubResource("Resource_lgxne"), SubResource("Resource_daxnb"), SubResource("Resource_hk430"), SubResource("Resource_rwadj"), SubResource("Resource_tx574"), SubResource("Resource_twvge")])
+shop_stock = Array[SubResource("GDScript_ow75l")]([SubResource("Resource_vytcs"), SubResource("Resource_mcr4y"), SubResource("Resource_ow75l"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74"), SubResource("Resource_hbw74")])
 shop_sell_node_color = Color(0.6770483, 0.29464298, 0.65132797, 1)
 
 [node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("23_g3gee")]
@@ -254,10 +195,3 @@ shape = SubResource("RectangleShape2D_vtqqb")
 [node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("17_8212i")]
 position = Vector2(1888, 3)
 stored_quests_ = Array[ExtResource("18_vytcs")]([SubResource("Resource_px3xr"), SubResource("Resource_4tlwk"), SubResource("Resource_g3gee")])
-
-[node name="Potion Shop" parent="." unique_id=1216423571 instance=ExtResource("22_px3xr")]
-position = Vector2(-6, -230)
-"Current Location/Region" = "Village"
-"Current Location/Spot" = "Potion Shop"
-"Destination Location/Region" = "Forest"
-"Destination Location/Spot" = "Left Side"

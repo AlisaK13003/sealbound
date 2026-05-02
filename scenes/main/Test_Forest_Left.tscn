@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cy4lyontihaod"]
+
+[ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_iqn08"]
+[ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="1_rf6b3"]
+[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="2_m6s1u"]
+
+[node name="TestForestLeft" type="Node2D" unique_id=1563172430]
+script = ExtResource("1_iqn08")
+
+[node name="Left Side" parent="." unique_id=1216423571 instance=ExtResource("1_rf6b3")]
+position = Vector2(-2, -1)
+"Current Location/Region" = "Forest"
+"Current Location/Spot" = "Left Side"
+"Destination Location/Region" = "Village"
+"Destination Location/Spot" = "Potion Shop"
+
+[node name="Player" parent="." unique_id=355956441 instance=ExtResource("2_m6s1u")]
+position = Vector2(140, -5)
+
+[node name="Right Side" parent="." unique_id=40094055 instance=ExtResource("1_rf6b3")]
+position = Vector2(823, -407)
+"Current Location/Region" = "Forest"
+"Current Location/Spot" = "Left Side"
+"Destination Location/Region" = "Village"
+"Destination Location/Spot" = "Potion Shop"

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cxdv3syfuh66b"]
+
+[ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="1_jdjcr"]
+
+[node name="TestForestRight" type="Node2D" unique_id=2014784867]
+
+[node name="LoadingZone" parent="." unique_id=1216423571 instance=ExtResource("1_jdjcr")]
+position = Vector2(-2, 2)
