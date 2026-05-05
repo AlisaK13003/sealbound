@@ -1,7 +1,7 @@
 class_name Player extends CharacterBody2D
 
 var in_menu : bool = false
-var move_speed : float = 300.0
+@export var move_speed : float = 300.0
 
 @onready var pause_menu = $CanvasLayer/PauseMenu
 @onready var full_inventory = $CanvasLayer/VillageInventory

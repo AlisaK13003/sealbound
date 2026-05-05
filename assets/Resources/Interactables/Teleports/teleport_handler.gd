@@ -4,8 +4,10 @@ extends Node
 @onready var loading_zone_position = self.global_position
 
 @export var location_data: Dictionary = {
-	"Village": ["Potion Shop", "Infirmary", "Library"],
-	"Forest": ["Left Side", "Right Side"]
+	"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"],
+	"Forest": ["Left Side", "Right Side"],
+	"Cliff Side": ["Cliff Entrance"],
+	"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"]
 }:
 	set(value):
 		location_data = value

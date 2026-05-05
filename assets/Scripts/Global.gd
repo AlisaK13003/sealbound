@@ -56,17 +56,13 @@ enum locations {
 	Infirmary3,
 }
 
-# Updated Location
-var location_data = {
-	"Village": ["Potion Shop", "Library", "Infirmary"],
-	"Forest": ["Left Side", "Right Side"],
-}
-
 var current_loading_zone: String = ""
 
 var location_paths = {
-	"Village": "res://scenes/main/playground.tscn",
-	"Forest": "res://scenes/main/Test_Forest_Left.tscn"
+	"Village": "res://scenes/main/Hearthwynn.tscn",
+	"Forest": "res://scenes/main/Forest.tscn",
+	"Cliff Side": "res://scenes/main/Cliff Siude.tscn",
+	"Buildings_Insides": "res://scenes/main/Building Insides.tscn"
 }
 
 enum dungeon_location {

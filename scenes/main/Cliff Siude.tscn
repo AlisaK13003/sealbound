@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dc08xpss5koyp"]
+
+[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_2ifsk"]
+[ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_bru6d"]
+[ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="2_udpf0"]
+
+[node name="Cliff" type="Node2D" unique_id=760048950]
+script = ExtResource("1_bru6d")
+
+[node name="Player" parent="." unique_id=355956441 instance=ExtResource("1_2ifsk")]
+position = Vector2(86, -60)
+move_speed = 300.0
+
+[node name="Cliff Entrance" parent="." unique_id=1216423571 instance=ExtResource("2_udpf0")]
+"Current Location/Region" = "Cliff Side"
+"Current Location/Spot" = "Cliff Entrance"
+"Destination Location/Region" = "Village"
+"Destination Location/Spot" = "Cliff Side"
+
+[node name="Label" type="Label" parent="Cliff Entrance" unique_id=1024168250]
+offset_left = -134.0
+offset_top = -167.0
+offset_right = 133.0
+offset_bottom = -149.0
+text = "DON'T FALL OFF THIS DANGEROUS CLIFF"

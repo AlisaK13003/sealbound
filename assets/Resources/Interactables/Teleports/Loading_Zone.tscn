@@ -8,8 +8,10 @@ radius = 16.03122
 
 [node name="LoadingZone" type="Node2D" unique_id=1216423571]
 script = ExtResource("1_7spty")
-"Current Location/Region" = null
-"Destination Location/Region" = null
+"Current Location/Region" = "Forest"
+"Current Location/Spot" = "Left Side"
+"Destination Location/Region" = "Forest"
+"Destination Location/Spot" = "Right Side"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=119519273]
 texture = ExtResource("2_7eit1")
