@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://ch0g0g5sxgct6"]
+
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_uns0e"]
+
+[resource]
+script = ExtResource("1_uns0e")
+item_qualities = null
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"

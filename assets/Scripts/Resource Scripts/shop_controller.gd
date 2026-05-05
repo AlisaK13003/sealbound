@@ -2,7 +2,7 @@ extends Node2D
 
 class_name shop_controller
 
-@export var shop_stock: Array[custom_shop_item]
+@export var shop_stock: Array[custom_shop_items]
 
 @onready var shop_ui = $CanvasLayer/ShopInterface
 @onready var item_selection = shop_ui.get_node("Buy Menu/Item_Selection")

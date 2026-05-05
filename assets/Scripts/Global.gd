@@ -56,6 +56,15 @@ enum locations {
 	Infirmary3,
 }
 
+var current_loading_zone: String = ""
+
+var location_paths = {
+	"Village": "res://scenes/main/Hearthwynn.tscn",
+	"Forest": "res://scenes/main/Forest.tscn",
+	"Cliff Side": "res://scenes/main/Cliff Siude.tscn",
+	"Buildings_Insides": "res://scenes/main/Building Insides.tscn"
+}
+
 enum dungeon_location {
 	Dungeon1_1F,
 	Dungeon1_2F,

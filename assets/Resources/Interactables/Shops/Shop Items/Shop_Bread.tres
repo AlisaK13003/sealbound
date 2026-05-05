@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="custom_shop_items" format=3 uid="uid://bebjicwo60aag"]
+
+[ext_resource type="Script" uid="uid://m6b2arn0m6ao" path="res://assets/Resources/Interactables/custom_shop_items.gd" id="1_fl2t3"]
+[ext_resource type="Resource" uid="uid://bmmuhdhwof7yn" path="res://assets/Resources/Interactables/Shops/Shop Items/Honey_Bread.tres" id="1_pyi4d"]
+
+[resource]
+script = ExtResource("1_fl2t3")
+quantity = 10
+item_type = ExtResource("1_pyi4d")
+metadata/_custom_type_script = "uid://m6b2arn0m6ao"

@@ -37,7 +37,6 @@ texture = ExtResource("6_p5aig")
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
 layer = 0
-visible = false
 script = ExtResource("1_7r5wx")
 
 [node name="DialogueUI" type="Control" parent="." unique_id=1183597739]
