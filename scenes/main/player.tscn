@@ -36,3 +36,38 @@ offset_top = -157.0
 offset_right = -65.00001
 offset_bottom = -157.0
 scale = Vector2(1.57, 1.57)
+<<<<<<< Updated upstream
+=======
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]
+offset_left = 1029.545
+offset_top = 90.0
+offset_right = 1245.545
+offset_bottom = 185.25
+theme_override_font_sizes/font_size = 28
+text = "Day 0 Year 0
+06:00
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_2gs60")
+metadata/_edit_use_anchors_ = true
+
+[node name="VillageInventory" parent="CanvasLayer" unique_id=1392521463 instance=ExtResource("4_wqvcu")]
+offset_left = -384.455
+offset_top = 44.0
+offset_right = -435.45496
+scale = Vector2(2, 2)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=19682057]
+anchors_preset = -1
+anchor_left = -0.22000001
+anchor_right = -0.22000001
+offset_left = -172.05493
+offset_top = -60.0
+offset_right = 2067.945
+offset_bottom = 1188.0
+color = Color(0, 0, 0, 0.61960787)
+>>>>>>> Stashed changes
