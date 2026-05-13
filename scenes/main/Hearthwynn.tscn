@@ -74,6 +74,9 @@ location_name = 1
 template_sprite = ExtResource("9_ujx4y")
 connected_node_names = ["KeyPointNode"]
 "Connected To" = ["KeyPointNode"]
+hi = null
+run_my_function = null
+_connected_to_spots = null
 
 [node name="Infirmary" parent="VillageLocationContainer" unique_id=518439433 instance=ExtResource("8_ofm1v")]
 position = Vector2(2829, 720)
@@ -174,3 +177,9 @@ dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dia
 location_container = NodePath("../VillageLocationContainer")
 speed = 100.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday.json"
+hi = null
+run_my_function = null
+_connected_to_spots = null
+
+[node name="KeyPointNode" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("8_ofm1v")]
+hi = "HII"
