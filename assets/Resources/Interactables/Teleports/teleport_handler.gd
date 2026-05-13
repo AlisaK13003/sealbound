@@ -51,7 +51,6 @@ func _get(property):
 func _get_property_list():
 	var properties = []
 	var region_list = ",".join(location_data.keys())
-
 	# Current Location
 	properties.append({
 		"name": "Current Location/Region",

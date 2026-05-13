@@ -4,6 +4,7 @@ var dialogue_data: Dictionary
 
 var path_nodes: Array[Vector2]
 var walking: bool = false
+var leaving_scene: bool = false
 
 var running_time: float = 0
 
@@ -11,20 +12,30 @@ var player_in_range: bool = false
 var player_is_speaking_to_me: bool = false
 var player_just_stopped_talking_to_me: bool = false
 
+var current_location
+
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
 
 @export_file("*.json") var dialogue_path: String
 @export var location_container: Node2D
 @export var speed: float = 300.0
-@export var schedule: Array[npc_schedule]
+@export_file("*.json") var schedule_path: String
+
+var schedule_info
+var traveling_to : int
 
 func _ready():
 	Global.time_updated.connect(navigate)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
 		return
-
+	var file = FileAccess.open(schedule_path, FileAccess.READ)
+	var json_string = file.get_as_text()
+	file.close()
+	
+	schedule_info = JSON.parse_string(json_string)
+	
 	dialogue_data = load_json_file(dialogue_path)
 	if DialogueSystem != null and DialogueSystem.has_signal("dialogue_closed"):
 		var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
@@ -36,8 +47,10 @@ func _ready():
 # Otherwise have the npc move towards their destination
 func _process(delta):
 	if path_nodes.is_empty():
+		walking = false
+		if leaving_scene:
+			self.visible = false
 		return 
-		
 	if player_is_speaking_to_me:
 		return
 	
@@ -48,7 +61,8 @@ func _process(delta):
 			player_just_stopped_talking_to_me = false
 			running_time = 0
 		return
-	
+	walking = true
+	self.visible = true
 	var current_target = path_nodes[0]
 	global_position = global_position.move_toward(current_target, speed * delta)
 	
@@ -76,21 +90,96 @@ func load_json_file(path: String) -> Dictionary:
 # Is called by a signal in global that emits every time the clock updates
 # Checks if there is a schedule that can be executed, if yes, send them on their merry way
 func navigate():
-	for navigation in schedule:
-		if Global.current_weather != navigation.weather_conditions:
-			print("weather doesn't match")
-		elif Global.current_day % navigation.repeats_every_x_days != 0:
-			print("Can't happen")
-		elif Global.current_hour == navigation.what_hour and Global.current_minute == navigation.what_minute:
-			setup_navigation(navigation)
+	if walking == true:
+		print("HI")
+		return
+	for schedule_name in schedule_info["schedules"]:
+		var details = schedule_info["schedules"][schedule_name]
+		var path = get_tree().current_scene.scene_file_path
+		if details["scene_swap"] == 1:
+			if details["start_scene"] == path:
+				if check_time(details["start_time_hour"], details["start_time_minute"], 2):
+					print("NOT TIME YET")
+					return
+				elif check_time(details["start_time_hour"], details["start_time_minute"], 1):
+					self.visible = true
+					setup_navigation(details, 0)
+					leaving_scene = true
+					return
+				elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2):
+					print("not over yet")
+					self.visible = true
+					setup_navigation(details, 2)
+					leaving_scene = true
+					return
+			elif details["end_scene"] == path and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
+				leaving_scene = false
+				self.visible = true
+				setup_navigation(details, 1)
+				return
+		elif details["start_scene"] == path and check_time(details["start_time_hour"], details["start_time_minute"], 1):
+			self.visible = true
+			setup_navigation(details, 0)
+			leaving_scene = false
+			return
+		elif details["start_scene"] == path and check_time(details["end_time_hour"], details["end_time_minute"], 2):
+			self.visible = true
+			setup_navigation(details, 3)
+			leaving_scene = false
+	return
+
+func check_time(start_time_hour, start_time_minutes, before_equal_after):
+	match before_equal_after:
+		0:
+			if start_time_hour < Global.current_hour and start_time_minutes < Global.current_minute:
+				return true
+		1:
+			if start_time_hour == Global.current_hour and start_time_minutes == Global.current_minute:
+				return true
+		2:
+			if start_time_hour > Global.current_hour:
+				return true
+			elif start_time_hour == Global.current_hour and start_time_minutes > Global.current_minute:
+				return true
+
+	return false
 
 # Given the start and end location specified in the schedule, return the path of points needed to traverse to get there
-func setup_navigation(active_schedule: npc_schedule):
-	var path_ids = location_container.get_path_between(active_schedule.start_location, active_schedule.end_location)
-		
+func setup_navigation(schedule_info_basic, which_sub_schedule):
+	print("STARTING")
+	
+	match which_sub_schedule:
+		0:
+			set_path(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
+		1:
+			set_path(schedule_info_basic["2_start_location"], schedule_info_basic["2_end_location"])
+		# resume schedule
+		2:
+			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
+			var time_diff = ((schedule_info_basic["2_start_time_hour"] - Global.current_hour) * 60) - (schedule_info_basic["2_start_time_minute"] - Global.current_minute)
+			var start_diff = (( schedule_info_basic["2_start_time_hour"] - schedule_info_basic["start_time_hour"]) * 60) - (schedule_info_basic["2_start_time_minute"] - schedule_info_basic["2_start_time_minute"])
+			var final_diff = time_diff / start_diff
+			var path_start = temp_path.size() * final_diff
+			set_path(floor(path_start), schedule_info_basic["end_location"])
+		3:
+			print("HII")
+			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
+			var time_diff = ((schedule_info_basic["end_time_hour"] - Global.current_hour) * 60) - (Global.current_minute)
+			var start_diff = ((schedule_info_basic["end_time_hour"] - schedule_info_basic["start_time_hour"]) * 60) - schedule_info_basic["start_time_minute"] + schedule_info_basic["end_time_minute"]
+			var final_diff = time_diff / start_diff
+			var path_start = temp_path.size() * final_diff
+
+			set_path(floor(path_start), schedule_info_basic["end_location"])
+			
+
+func set_path(start_point, end_point):
+	var path_ids = location_container.get_path_between(start_point, end_point)
+	path_nodes.clear()
 	for vertex_id in path_ids:
 		var target_node = location_container.get_child(vertex_id)
 		var target_pos = target_node.location_position[2] 
+		if vertex_id == start_point:
+			self.position = target_pos
 		path_nodes.append(target_pos)
 
 # This shouldn't really exist (the cancel operation), only does for testing purposes

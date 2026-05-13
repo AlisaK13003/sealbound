@@ -11,6 +11,6 @@ class_name npc_schedule
 @export_range(6, 24) var what_hour: int = 6
 @export_range(0, 60, 5) var what_minute: int = 0
 
-@export var start_location: Global.locations
-@export var end_location: Global.locations
+@export var start_location: int
+@export var end_location: int
 @export var weather_conditions: Global.weather
