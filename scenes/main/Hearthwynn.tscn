@@ -1,20 +1,20 @@
 [gd_scene format=3 uid="uid://c0ydpk5qjlay4"]
 
-[ext_resource type="PackedScene" uid="uid://rx8110un8pu4" path="res://scenes/main/Test_Hearthwynn.tscn" id="1_vp5p6"]
-[ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_xo8co"]
-[ext_resource type="Texture2D" uid="uid://ctr2tlix70614" path="res://assets/tile sheets/Weapon_Shop.png" id="2_c2pt7"]
-[ext_resource type="Texture2D" uid="uid://do1cpc0paumfg" path="res://assets/tile sheets/Infirmary.png" id="3_uotra"]
-[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="4_c2pt7"]
-[ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="4_gjr7v"]
-[ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="7_8ncia"]
-[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="8_ofm1v"]
-[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_ujx4y"]
-[ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_ujx4y"]
+[ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_ofm1v"]
+[ext_resource type="PackedScene" uid="uid://rx8110un8pu4" path="res://scenes/main/Test_Hearthwynn.tscn" id="2_ujx4y"]
+[ext_resource type="Texture2D" uid="uid://ctr2tlix70614" path="res://assets/tile sheets/Weapon_Shop.png" id="3_wt6lr"]
+[ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="4_jt62i"]
+[ext_resource type="Texture2D" uid="uid://do1cpc0paumfg" path="res://assets/tile sheets/Infirmary.png" id="5_itay7"]
+[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="6_lg162"]
+[ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="7_f16d7"]
+[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="8_732vc"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_75do5"]
+[ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_1ifxj"]
 
 [node name="Hearthwynn" type="Node2D" unique_id=981634707]
-script = ExtResource("1_xo8co")
+script = ExtResource("1_ofm1v")
 
-[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("1_vp5p6")]
+[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
 position = Vector2(2058, -1549)
 
 [node name="Buildings" type="Node2D" parent="." unique_id=2101509992]
@@ -25,9 +25,9 @@ position = Vector2(-2116, 1513)
 
 [node name="Weapon_Shop" type="Sprite2D" parent="Buildings/WeaponShop" unique_id=1738180733]
 position = Vector2(3113, -745)
-texture = ExtResource("2_c2pt7")
+texture = ExtResource("3_wt6lr")
 
-[node name="LoadingZone" parent="Buildings/WeaponShop" unique_id=1216423571 instance=ExtResource("4_gjr7v")]
+[node name="LoadingZone" parent="Buildings/WeaponShop" unique_id=1216423571 instance=ExtResource("4_jt62i")]
 position = Vector2(3091, -628)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Blacksmith"
@@ -39,147 +39,141 @@ position = Vector2(-2116, 1513)
 
 [node name="Infirmary" type="Sprite2D" parent="Buildings/Infirmary" unique_id=209426913]
 position = Vector2(4246, -798)
-texture = ExtResource("3_uotra")
+texture = ExtResource("5_itay7")
 
-[node name="LoadingZone" parent="Buildings/Infirmary" unique_id=1269289252 instance=ExtResource("4_gjr7v")]
+[node name="LoadingZone" parent="Buildings/Infirmary" unique_id=1269289252 instance=ExtResource("4_jt62i")]
 position = Vector2(4326, -676)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Infirmary"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Infirmary"
 
-[node name="Player" parent="." unique_id=355956441 instance=ExtResource("4_c2pt7")]
+[node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
 position = Vector2(3667, -1127)
 move_speed = 200.0
 
-[node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_gjr7v")]
+[node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]
 position = Vector2(3674, -1748)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Spooky Forest"
 "Destination Location/Spot" = "Left Side"
 
-[node name="Cliff Side" parent="." unique_id=563595575 instance=ExtResource("4_gjr7v")]
+[node name="Cliff Side" parent="." unique_id=563595575 instance=ExtResource("4_jt62i")]
 position = Vector2(4488, -1062)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Cliff Side"
 "Destination Location/Region" = "Cliff Side"
 "Destination Location/Spot" = "Cliff Entrance"
 
-[node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("7_8ncia")]
+[node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("7_f16d7")]
 position = Vector2(1497, -1395)
 
-[node name="Weapon_Shop" parent="VillageLocationContainer" unique_id=1631754914 instance=ExtResource("8_ofm1v")]
+[node name="Weapon_Shop" parent="VillageLocationContainer" unique_id=1631754914 instance=ExtResource("8_732vc")]
 position = Vector2(1594, 766)
 location_name = 1
-template_sprite = ExtResource("9_ujx4y")
+template_sprite = ExtResource("9_75do5")
 connected_node_names = ["KeyPointNode"]
 "Connected To" = ["KeyPointNode"]
-hi = null
-run_my_function = null
-_connected_to_spots = null
 
-[node name="Infirmary" parent="VillageLocationContainer" unique_id=518439433 instance=ExtResource("8_ofm1v")]
+[node name="Infirmary" parent="VillageLocationContainer" unique_id=518439433 instance=ExtResource("8_732vc")]
 position = Vector2(2829, 720)
 location_name = 3
-template_sprite = ExtResource("9_ujx4y")
+template_sprite = ExtResource("9_75do5")
 connected_node_names = ["KeyPointNode17"]
 "Connected To" = ["KeyPointNode17"]
 
-[node name="KeyPointNode" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("8_732vc")]
 position = Vector2(1774, 867)
 connected_node_names = ["KeyPointNode2", "Weapon_Shop"]
 "Connected To" = ["KeyPointNode2", "Weapon_Shop"]
 
-[node name="KeyPointNode2" parent="VillageLocationContainer" unique_id=1016947685 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode2" parent="VillageLocationContainer" unique_id=1016947685 instance=ExtResource("8_732vc")]
 position = Vector2(1879, 712)
 connected_node_names = ["KeyPointNode3", "KeyPointNode"]
 "Connected To" = ["KeyPointNode3", "KeyPointNode"]
 
-[node name="KeyPointNode3" parent="VillageLocationContainer" unique_id=1085261405 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode3" parent="VillageLocationContainer" unique_id=1085261405 instance=ExtResource("8_732vc")]
 position = Vector2(1753, 610)
 connected_node_names = ["KeyPointNode4", "KeyPointNode2"]
 "Connected To" = ["KeyPointNode4", "KeyPointNode2"]
 
-[node name="KeyPointNode4" parent="VillageLocationContainer" unique_id=1151130895 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode4" parent="VillageLocationContainer" unique_id=1151130895 instance=ExtResource("8_732vc")]
 position = Vector2(1764, 520)
 connected_node_names = ["KeyPointNode3", "KeyPointNode5"]
 "Connected To" = ["KeyPointNode3", "KeyPointNode5"]
 
-[node name="KeyPointNode5" parent="VillageLocationContainer" unique_id=97936704 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode5" parent="VillageLocationContainer" unique_id=97936704 instance=ExtResource("8_732vc")]
 position = Vector2(1888, 522)
 connected_node_names = ["KeyPointNode6", "KeyPointNode4"]
 "Connected To" = ["KeyPointNode6", "KeyPointNode4"]
 
-[node name="KeyPointNode6" parent="VillageLocationContainer" unique_id=909523160 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode6" parent="VillageLocationContainer" unique_id=909523160 instance=ExtResource("8_732vc")]
 position = Vector2(1903, 590)
 connected_node_names = ["KeyPointNode7", "KeyPointNode5"]
 "Connected To" = ["KeyPointNode7", "KeyPointNode5"]
 
-[node name="KeyPointNode7" parent="VillageLocationContainer" unique_id=663425142 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode7" parent="VillageLocationContainer" unique_id=663425142 instance=ExtResource("8_732vc")]
 position = Vector2(1979, 597)
 connected_node_names = ["KeyPointNode8", "KeyPointNode6"]
 "Connected To" = ["KeyPointNode8", "KeyPointNode6"]
 
-[node name="KeyPointNode8" parent="VillageLocationContainer" unique_id=52885679 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode8" parent="VillageLocationContainer" unique_id=52885679 instance=ExtResource("8_732vc")]
 position = Vector2(2038, 532)
 connected_node_names = ["KeyPointNode9", "KeyPointNode10", "KeyPointNode7"]
 "Connected To" = ["KeyPointNode9", "KeyPointNode10", "KeyPointNode7"]
 
-[node name="KeyPointNode9" parent="VillageLocationContainer" unique_id=1851789291 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode9" parent="VillageLocationContainer" unique_id=1851789291 instance=ExtResource("8_732vc")]
 position = Vector2(2352, 537)
 connected_node_names = ["KeyPointNode11", "KeyPointNode16", "KeyPointNode8"]
 "Connected To" = ["KeyPointNode11", "KeyPointNode16", "KeyPointNode8"]
 
-[node name="KeyPointNode10" parent="VillageLocationContainer" unique_id=15453334 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode10" parent="VillageLocationContainer" unique_id=15453334 instance=ExtResource("8_732vc")]
 position = Vector2(2123, 374)
 connected_node_names = ["KeyPointNode8", "KeyPointNode13"]
 "Connected To" = ["KeyPointNode8", "KeyPointNode13"]
 
-[node name="KeyPointNode11" parent="VillageLocationContainer" unique_id=310273180 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode11" parent="VillageLocationContainer" unique_id=310273180 instance=ExtResource("8_732vc")]
 position = Vector2(2372, 472)
 connected_node_names = ["KeyPointNode9", "KeyPointNode12", "KeyPointNode13"]
 "Connected To" = ["KeyPointNode9", "KeyPointNode12", "KeyPointNode13"]
 
-[node name="KeyPointNode12" parent="VillageLocationContainer" unique_id=703507042 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode12" parent="VillageLocationContainer" unique_id=703507042 instance=ExtResource("8_732vc")]
 position = Vector2(2538, 359)
 connected_node_names = ["KeyPointNode11", "KeyPointNode15"]
 "Connected To" = ["KeyPointNode11", "KeyPointNode15"]
 
-[node name="KeyPointNode13" parent="VillageLocationContainer" unique_id=283570273 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode13" parent="VillageLocationContainer" unique_id=283570273 instance=ExtResource("8_732vc")]
 position = Vector2(2180, 255)
 connected_node_names = ["KeyPointNode10", "KeyPointNode11", "KeyPointNode14"]
 "Connected To" = ["KeyPointNode10", "KeyPointNode11", "KeyPointNode14"]
 
-[node name="KeyPointNode14" parent="VillageLocationContainer" unique_id=2140342662 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode14" parent="VillageLocationContainer" unique_id=2140342662 instance=ExtResource("8_732vc")]
 position = Vector2(2176, -354)
 connected_node_names = ["KeyPointNode13"]
 "Connected To" = ["KeyPointNode13"]
 
-[node name="KeyPointNode15" parent="VillageLocationContainer" unique_id=1614397272 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode15" parent="VillageLocationContainer" unique_id=1614397272 instance=ExtResource("8_732vc")]
 position = Vector2(2989, 335)
 connected_node_names = ["KeyPointNode12"]
 "Connected To" = ["KeyPointNode12"]
 
-[node name="KeyPointNode16" parent="VillageLocationContainer" unique_id=190808486 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode16" parent="VillageLocationContainer" unique_id=190808486 instance=ExtResource("8_732vc")]
 position = Vector2(2388, 678)
 connected_node_names = ["KeyPointNode9", "KeyPointNode17"]
 "Connected To" = ["KeyPointNode9", "KeyPointNode17"]
 
-[node name="KeyPointNode17" parent="VillageLocationContainer" unique_id=152276690 instance=ExtResource("8_ofm1v")]
+[node name="KeyPointNode17" parent="VillageLocationContainer" unique_id=152276690 instance=ExtResource("8_732vc")]
 position = Vector2(2484, 768)
 connected_node_names = ["KeyPointNode16", "Infirmary"]
 "Connected To" = ["KeyPointNode16", "Infirmary"]
 
-[node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("10_ujx4y")]
+[node name="KeyPointNode18" parent="VillageLocationContainer" unique_id=606601727 instance=ExtResource("8_732vc")]
+"Connected To" = []
+
+[node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("10_1ifxj")]
 position = Vector2(3091, -630)
 scale = Vector2(0.3, 0.3)
 dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dialogue.json"
 location_container = NodePath("../VillageLocationContainer")
 speed = 100.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday.json"
-hi = null
-run_my_function = null
-_connected_to_spots = null
-
-[node name="KeyPointNode" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("8_ofm1v")]
-hi = "HII"
