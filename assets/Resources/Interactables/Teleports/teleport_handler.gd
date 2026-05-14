@@ -95,4 +95,6 @@ func _on_area_2d_body_entered(body):
 			Global.current_loading_zone = ""
 			return
 		Global.current_loading_zone = _target_spot
-		get_tree().change_scene_to_file.call_deferred(Global.location_paths[_target_region])
+		await Fade.fade_in()		
+		Fade.change_scene(Global.location_paths[_target_region])
+		

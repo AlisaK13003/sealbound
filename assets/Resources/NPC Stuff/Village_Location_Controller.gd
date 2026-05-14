@@ -5,6 +5,8 @@ var next_matrix: PackedFloat32Array
 
 @onready var node_count = get_child_count()
 
+@export var player_node : Node2D
+
 func _ready():
 	create_adjacency_matrix()
 	run_floyd_warshall()
@@ -62,3 +64,7 @@ func get_path_between(start_spot: int, end_spot: int) -> Array[int]:
 		start_id = next_matrix[start_id * node_count + end_id]
 		path.append(start_id)
 	return path
+
+func begin_teleportation():
+	player_node.fade_in()
+	pass

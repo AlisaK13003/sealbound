@@ -9,9 +9,9 @@ var in_menu : bool = false
 
 func _ready() -> void:
 	Global.load_save_data()
-	
+			
 func _process(_delta: float) -> void:
-	if Global.is_in_menu:
+	if Global.is_in_menu or Fade.is_fading:
 		velocity = Vector2.ZERO
 		return
 	var direction : Vector2 = Vector2.ZERO

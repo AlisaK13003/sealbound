@@ -11,8 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_75do5"]
 [ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_1ifxj"]
 
-[node name="Hearthwynn" type="Node2D" unique_id=981634707]
+[node name="Hearthwynn" type="Node2D" unique_id=981634707 node_paths=PackedStringArray("player_node")]
 script = ExtResource("1_ofm1v")
+player_node = NodePath("Player")
 
 [node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
 position = Vector2(2058, -1549)
@@ -65,8 +66,9 @@ position = Vector2(4488, -1062)
 "Destination Location/Region" = "Cliff Side"
 "Destination Location/Spot" = "Cliff Entrance"
 
-[node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("7_f16d7")]
+[node name="VillageLocationContainer" parent="." unique_id=364046489 node_paths=PackedStringArray("player_node") instance=ExtResource("7_f16d7")]
 position = Vector2(1497, -1395)
+player_node = NodePath("../Player")
 
 [node name="Weapon_Shop" parent="VillageLocationContainer" unique_id=1631754914 instance=ExtResource("8_732vc")]
 position = Vector2(1594, 766)
@@ -177,3 +179,11 @@ dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dia
 location_container = NodePath("../VillageLocationContainer")
 speed = 100.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday.json"
+
+[node name="Camera Bounds" type="Node2D" parent="." unique_id=139174317]
+
+[node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=1542888868]
+position = Vector2(2826, -1789)
+
+[node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=609263534]
+position = Vector2(4507, -428)

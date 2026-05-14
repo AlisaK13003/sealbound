@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bp4nraurt5ifw"]
+
+[ext_resource type="Script" uid="uid://g4atnxodcy8x" path="res://assets/Scripts/fade_handler.gd" id="1_nukjo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nukjo"]
+bg_color = Color(0, 0, 0, 0)
+
+[node name="Fade" type="CanvasLayer" unique_id=1305704]
+script = ExtResource("1_nukjo")
+
+[node name="Panel" type="Panel" parent="." unique_id=302419641]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nukjo")

@@ -303,8 +303,9 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
 
-[node name="BuildingInsides" type="Node2D" unique_id=2092508538]
+[node name="BuildingInsides" type="Node2D" unique_id=2092508538 node_paths=PackedStringArray("player_node")]
 script = ExtResource("1_0o3x6")
+player_node = NodePath("Player")
 
 [node name="Blacksmith" type="Node2D" parent="." unique_id=1037602788]
 position = Vector2(1212, -299)
@@ -388,5 +389,11 @@ scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape2D" parent="Player/Area2D" index="0" unique_id=1736247091]
 scale = Vector2(0.25, 0.25)
+
+[node name="Camera Bounds" type="Node2D" parent="." unique_id=1353164743]
+
+[node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=1623669884]
+
+[node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=2009868387]
 
 [editable path="Player"]
