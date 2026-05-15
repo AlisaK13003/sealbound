@@ -2,14 +2,18 @@
   "id": "Monday",
   "schedules": {
 	"Weapon_to_Infirmary": {
-	  "scene_swap": 0,
+	  "scene_swap": 1,
 	  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+	  "end_scene": "",
 	  "start_time_hour": 6,
 	  "start_time_minute": 0,
 	  "start_location": 0,
 	  "end_location": 1,
-	  "end_time_hour": 7,
-	  "end_time_minute": 0
+	  "2_start_time_hour": 7,
+	  "2_start_time_minute": 0,
+	  "2_start_location": 0,
+	  "2_end_location": 0,
+	  "should_disappear": 1
 	},
 	"Infirmary_to_PotionShop": {
 	  "scene_swap": 1,
@@ -19,10 +23,11 @@
 	  "start_time_minute": 0,
 	  "start_location": 1,
 	  "end_location": 15,
-	  "2_start_time_hour": 0,
+	  "2_start_time_hour": 1,
 	  "2_start_time_minute": 0,
 	  "2_start_location": 0,
-	  "2_end_location": 0 
+	  "2_end_location": 0,
+	  "should_disappear": 1
 	},
 	"PotionShop_to_Infirmary": {
 	  "scene_swap": 1,
@@ -32,10 +37,11 @@
 	  "start_time_minute": 0,
 	  "start_location": 15,
 	  "end_location": 1,
-	  "2_start_time_hour": 0,
+	  "2_start_time_hour": 8,
 	  "2_start_time_minute": 0,
-	  "2_start_location": 0,
-	  "2_end_location": 0 
+	  "2_start_location": 15,
+	  "2_end_location": 1,
+	  "should_disappear": 1
 	},
 	"Infirmary_to_Cliff": {
 	  "scene_swap": 1,
@@ -48,7 +54,8 @@
 	  "2_start_time_hour": 10,
 	  "2_start_time_minute": 0,
 	  "2_start_location": 0,
-	  "2_end_location": 4 
+	  "2_end_location": 4,
+	  "should_disappear": 1
 	}
   }
 }

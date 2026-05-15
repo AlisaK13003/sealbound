@@ -54,6 +54,8 @@ func run_floyd_warshall():
 					
 # Given start location and end location, returns path to traverse to get between them
 func get_path_between(start_spot: int, end_spot: int) -> Array[int]:
+	if start_spot == end_spot:
+		return []
 	var start_id = start_spot
 	var end_id = end_spot
 	if next_matrix[start_id * node_count + end_id] == -1:

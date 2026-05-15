@@ -169,9 +169,6 @@ position = Vector2(2484, 768)
 connected_node_names = ["KeyPointNode16", "Infirmary"]
 "Connected To" = ["KeyPointNode16", "Infirmary"]
 
-[node name="KeyPointNode18" parent="VillageLocationContainer" unique_id=606601727 instance=ExtResource("8_732vc")]
-"Connected To" = []
-
 [node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("10_1ifxj")]
 position = Vector2(3091, -630)
 scale = Vector2(0.3, 0.3)

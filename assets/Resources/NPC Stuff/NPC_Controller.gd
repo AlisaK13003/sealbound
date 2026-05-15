@@ -24,6 +24,7 @@ var current_location
 
 var schedule_info
 var traveling_to : int
+var just_swapped_scenes: bool = false
 
 func _ready():
 	Global.time_updated.connect(navigate)
@@ -41,6 +42,8 @@ func _ready():
 		var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
 		if not DialogueSystem.dialogue_closed.is_connected(dialogue_closed_callback):
 			DialogueSystem.dialogue_closed.connect(dialogue_closed_callback)
+	just_swapped_scenes = true
+
 
 # If there is no schedule to execute, or if player is talking, do nothing
 # If player stopped talking, wait 3 seconds till they start going again 
@@ -64,6 +67,7 @@ func _process(delta):
 	walking = true
 	self.visible = true
 	var current_target = path_nodes[0]
+	just_swapped_scenes = false
 	global_position = global_position.move_toward(current_target, speed * delta)
 	
 	if global_position.distance_to(current_target) < 0.1:
@@ -91,12 +95,11 @@ func load_json_file(path: String) -> Dictionary:
 # Checks if there is a schedule that can be executed, if yes, send them on their merry way
 func navigate():
 	if walking == true:
-		print("HI")
 		return
 	for schedule_name in schedule_info["schedules"]:
 		var details = schedule_info["schedules"][schedule_name]
 		var path = get_tree().current_scene.scene_file_path
-		if details["scene_swap"] == 1:
+		if details["scene_swap"] == 1 and details["2_start_time_hour"] != 0:
 			if details["start_scene"] == path:
 				if check_time(details["start_time_hour"], details["start_time_minute"], 2):
 					print("NOT TIME YET")
@@ -105,27 +108,37 @@ func navigate():
 					self.visible = true
 					setup_navigation(details, 0)
 					leaving_scene = true
+					if details["should_disappear"] == 1:
+						self.visible = false
 					return
-				elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2):
-					print("not over yet")
+				elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
+					print("TRYING AGAIN")
 					self.visible = true
 					setup_navigation(details, 2)
 					leaving_scene = true
+					if details["should_disappear"] == 1:
+						self.visible = false
 					return
 			elif details["end_scene"] == path and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
-				leaving_scene = false
+				leaving_scene = true
 				self.visible = true
 				setup_navigation(details, 1)
+				if details["should_disappear"] == 1:
+					self.visible = false
 				return
 		elif details["start_scene"] == path and check_time(details["start_time_hour"], details["start_time_minute"], 1):
 			self.visible = true
 			setup_navigation(details, 0)
 			leaving_scene = false
+			if details["should_disappear"] == 1:
+				self.visible = false
 			return
-		elif details["start_scene"] == path and check_time(details["end_time_hour"], details["end_time_minute"], 2):
+		elif details["start_scene"] == path and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
 			self.visible = true
 			setup_navigation(details, 3)
 			leaving_scene = false
+			if details["should_disappear"] == 1:
+				self.visible = false
 	return
 
 func check_time(start_time_hour, start_time_minutes, before_equal_after):
@@ -146,8 +159,6 @@ func check_time(start_time_hour, start_time_minutes, before_equal_after):
 
 # Given the start and end location specified in the schedule, return the path of points needed to traverse to get there
 func setup_navigation(schedule_info_basic, which_sub_schedule):
-	print("STARTING")
-	
 	match which_sub_schedule:
 		0:
 			set_path(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
@@ -159,10 +170,11 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 			var time_diff = ((schedule_info_basic["2_start_time_hour"] - Global.current_hour) * 60) - (schedule_info_basic["2_start_time_minute"] - Global.current_minute)
 			var start_diff = (( schedule_info_basic["2_start_time_hour"] - schedule_info_basic["start_time_hour"]) * 60) - (schedule_info_basic["2_start_time_minute"] - schedule_info_basic["2_start_time_minute"])
 			var final_diff = time_diff / start_diff
-			var path_start = temp_path.size() * final_diff
+			var path_start = (temp_path.size() - 1) * final_diff
+			if floor(path_start) == location_container.get_child_count():
+				path_start -= 1
 			set_path(floor(path_start), schedule_info_basic["end_location"])
 		3:
-			print("HII")
 			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
 			var time_diff = ((schedule_info_basic["end_time_hour"] - Global.current_hour) * 60) - (Global.current_minute)
 			var start_diff = ((schedule_info_basic["end_time_hour"] - schedule_info_basic["start_time_hour"]) * 60) - schedule_info_basic["start_time_minute"] + schedule_info_basic["end_time_minute"]

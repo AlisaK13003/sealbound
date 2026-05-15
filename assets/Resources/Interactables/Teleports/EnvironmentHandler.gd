@@ -12,7 +12,7 @@ func teleport_player_to_spawn():
 	if Global.current_loading_zone == "":
 		return
 	var spawn_point = find_child(Global.current_loading_zone, true, false)
-	
+	print(Global.current_loading_zone)
 	if spawn_point:
 		if player_node:
 			player_node.global_position = spawn_point.global_position

@@ -2969,14 +2969,13 @@ sources/0 = SubResource("TileSetAtlasSource_ir3fe")
 script = ExtResource("1_b841q")
 player_node = NodePath("Player")
 
-[node name="Spooky Forest" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
-z_index = 1
+[node name="Left Side" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
+z_index = 2
 position = Vector2(1188, -481)
-"Current Location/Spot" = "Spooky Forest"
 "Destination Location/Region" = "Village"
 "Destination Location/Spot" = "Spooky Forest"
 
-[node name="Label" type="Label" parent="Spooky Forest" unique_id=631425293]
+[node name="Label" type="Label" parent="Left Side" unique_id=631425293]
 offset_left = -90.0
 offset_top = -145.0
 offset_right = 93.0
@@ -3045,12 +3044,10 @@ tile_set = SubResource("TileSet_4ala6")
 z_index = 3
 position = Vector2(1200, -568)
 
-[node name="LoadingZone" parent="." unique_id=894261789 instance=ExtResource("2_f2gc6")]
-z_index = 2
-position = Vector2(1192, -485)
-
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 
 [node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=867972228]
+position = Vector2(1041, -1121)
 
 [node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=1450480538]
+position = Vector2(2083, -445)
