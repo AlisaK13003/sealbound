@@ -22,13 +22,6 @@ shape = SubResource("RectangleShape2D_7u671")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_5l30s")
 
-[node name="Button" type="Button" parent="." unique_id=1661342217]
-offset_left = -56.0
-offset_top = 78.0
-offset_right = 60.0
-offset_bottom = 103.0
-text = "Go to next "
-
 [node name="Player_In_Range" type="Area2D" parent="." unique_id=289574461]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=1695977954]
@@ -37,7 +30,6 @@ shape = SubResource("CircleShape2D_ilmyp")
 [connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]
 [connection signal="body_exited" from="NPC_Clickable" to="." method="_on_npc_clickable_body_exited"]
 [connection signal="input_event" from="NPC_Clickable" to="." method="_on_npc_clickable_input_event"]
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="area_entered" from="Player_In_Range" to="." method="_on_player_in_range_area_entered"]
 [connection signal="area_exited" from="Player_In_Range" to="." method="_on_player_in_range_area_exited"]
 [connection signal="body_entered" from="Player_In_Range" to="." method="_on_player_in_range_body_entered"]
