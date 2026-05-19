@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://brfvp6osp867i"]
+
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_6xv2q"]
+[ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_57kig"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_57kig"]
+
+[sub_resource type="Resource" id="Resource_ffb4d"]
+script = ExtResource("2_57kig")
+max_health = 697
+health = 388
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_6xv2q")
+combatant_name = "MC"
+combatant_sprite = ExtResource("1_57kig")
+combatant_stats = SubResource("Resource_ffb4d")
+metadata/_custom_type_script = "uid://125iickqse23"

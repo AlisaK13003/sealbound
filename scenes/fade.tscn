@@ -6,6 +6,7 @@
 bg_color = Color(0, 0, 0, 0)
 
 [node name="Fade" type="CanvasLayer" unique_id=1305704]
+layer = 0
 script = ExtResource("1_nukjo")
 
 [node name="Panel" type="Panel" parent="." unique_id=302419641]
@@ -14,4 +15,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_nukjo")

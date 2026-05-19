@@ -23,13 +23,10 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 script = ExtResource("3_hxegi")
 max_health = 300
 health = 300
-max_magic_points = 20
-magic_points = 20
-strength = 36
 defense = 30
+magic = 5
 speed = 2
 evasion = 1
-magic = 5
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

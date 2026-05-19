@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://xvh8favukow8"]
+
+[ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="1_pstms"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_x58lf"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_pstms"]
+
+[sub_resource type="Resource" id="Resource_se6t2"]
+script = ExtResource("2_pstms")
+max_health = 286
+health = 55
+speed = 135
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_x58lf")
+combatant_name = "Lyra"
+combatant_sprite = ExtResource("1_pstms")
+combatant_stats = SubResource("Resource_se6t2")
+metadata/_custom_type_script = "uid://125iickqse23"

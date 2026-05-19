@@ -50,7 +50,7 @@ position = Vector2(4013, -2517)
 "Destination Location/Spot" = "Left Side"
 
 [node name="Cliff Side" parent="." unique_id=563595575 instance=ExtResource("4_jt62i")]
-position = Vector2(5006, -1085)
+position = Vector2(3934, -1079)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Cliff Side"
 "Destination Location/Region" = "Cliff Side"

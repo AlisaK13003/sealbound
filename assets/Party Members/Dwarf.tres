@@ -29,7 +29,6 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 script = ExtResource("5_r627t")
 max_health = 314
 health = 314
-strength = 20
 speed = 4
 evasion = 1
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"

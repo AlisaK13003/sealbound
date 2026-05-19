@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ck2fc6hexgqmj"]
+
+[ext_resource type="Script" uid="uid://bops5mbyg0ebp" path="res://assets/Resources/combatant_setup.gd" id="1_j4a75"]
+[ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_v40r4"]
+[ext_resource type="Texture2D" uid="uid://c5m63looaycv5" path="res://assets/tile sheets/Under_Health_)Bar.png" id="2_2eyhr"]
+[ext_resource type="Texture2D" uid="uid://y5h7r3qfd7ty" path="res://assets/tile sheets/Sprite-0004.png" id="3_j4a75"]
+[ext_resource type="Texture2D" uid="uid://bvdle862wer" path="res://assets/tile sheets/Over_Health_bar.png" id="4_p0jva"]
+
+[node name="CombatTemplate" type="Control" unique_id=1956196581]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_j4a75")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=17305136]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -21.0
+offset_right = 20.0
+offset_bottom = 19.0
+texture = ExtResource("1_v40r4")
+flip_h = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=786684796]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 25.0
+offset_right = 15.0
+offset_bottom = 32.0
+value = 86.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_2eyhr")
+texture_over = ExtResource("3_j4a75")
+texture_progress = ExtResource("4_p0jva")
+
+[node name="Label" type="Label" parent="." unique_id=1137114047]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 17.0
+offset_right = 4.0
+offset_bottom = 29.0
+scale = Vector2(0.205, 0.205)
+theme_override_font_sizes/font_size = 48
+text = "LYRA"

@@ -8,7 +8,6 @@ func change_scene(target_path: String, duration: float = 2):
 	
 	await get_tree().process_frame
 
-	
 func fade_in():
 	is_fading = true
 	for i in range(25):

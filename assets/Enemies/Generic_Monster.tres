@@ -17,14 +17,11 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 script = ExtResource("3_dqi5h")
 max_health = 303
 health = 303
-max_magic_points = 20
-magic_points = 20
-strength = 36
 defense = 30
+magic = 5
 speed = 1
 luck = 5
 evasion = 3
-magic = 5
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

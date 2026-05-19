@@ -1,3 +1,228 @@
 [gd_scene format=3 uid="uid://c08f16jmfwsgy"]
 
+[ext_resource type="Script" uid="uid://bftcak8hng7gw" path="res://scenes/Dungeon/dungeon.gd" id="1_cdvrn"]
+[ext_resource type="Texture2D" uid="uid://cmuy0tdbqehib" path="res://scenes/Dungeon/Dungeon_wall_right.png" id="1_r7rxu"]
+[ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="2_os2xq"]
+[ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="3_602r5"]
+[ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="4_65pfe"]
+[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_dungeon_type.tres" id="5_602r5"]
+[ext_resource type="PackedScene" uid="uid://ck2fc6hexgqmj" path="res://assets/Resources/Combat Template.tscn" id="7_602r5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_os2xq"]
+bg_color = Color(0.6, 0.6, 0.6, 0.6862745)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="Dungeon" type="Node2D" unique_id=1808121713]
+script = ExtResource("1_cdvrn")
+party_slot_1 = ExtResource("2_os2xq")
+party_slot_2 = ExtResource("3_602r5")
+party_slot_3 = ExtResource("4_65pfe")
+current_dungeon_run = ExtResource("5_602r5")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=617872279]
+position = Vector2(-4, -82)
+zoom = Vector2(4.96, 4.96)
+process_callback = 0
+
+[node name="DungeonWallRight" type="Sprite2D" parent="." unique_id=669050168]
+z_index = -1
+position = Vector2(-3, -133)
+texture = ExtResource("1_r7rxu")
+
+[node name="Control" type="Control" parent="." unique_id=1653696261]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -198.0
+offset_top = -38.0
+offset_right = -158.0
+offset_bottom = 2.0
+
+[node name="Panel" type="Panel" parent="Control" unique_id=709070032]
+layout_mode = 0
+offset_right = 386.0
+offset_bottom = 63.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_os2xq")
+
+[node name="Active Person" type="Label" parent="Control" unique_id=1796575772]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 5.0
+offset_right = 144.0
+offset_bottom = 23.0
+mouse_filter = 1
+text = "Active Turn: Person"
+
+[node name="Temp_Mana" type="Label" parent="Control" unique_id=1743893826]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 2.0
+offset_right = 410.0
+offset_bottom = 20.0
+mouse_filter = 1
+text = "Mana: 0  0  0"
+
+[node name="Bond_Attack" type="ProgressBar" parent="Control" unique_id=2144906110]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 3.0
+offset_right = 257.0
+offset_bottom = 25.0
+mouse_filter = 1
+
+[node name="Item Menu" type="Control" parent="Control" unique_id=1665060574]
+anchors_preset = 0
+offset_left = 198.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 78.0
+
+[node name="Skill Menu" type="Control" parent="Control" unique_id=1081598948]
+anchors_preset = 0
+offset_left = 198.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 78.0
+
+[node name="Action Menu" type="Control" parent="Control" unique_id=420559543]
+anchors_preset = 0
+offset_left = 198.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 78.0
+
+[node name="Base_Menu" type="Control" parent="Control" unique_id=1154739311]
+anchors_preset = 0
+offset_left = 198.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 78.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Base_Menu" unique_id=154840136]
+layout_mode = 0
+offset_left = -141.0
+offset_top = -8.0
+offset_right = 141.0
+offset_bottom = 10.0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=1166704467]
+layout_mode = 2
+mouse_filter = 1
+text = "Action"
+
+[node name="Label2" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=354460479]
+layout_mode = 2
+mouse_filter = 1
+text = "Skill"
+
+[node name="Label3" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=431508868]
+layout_mode = 2
+mouse_filter = 1
+text = "Item"
+
+[node name="Label4" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=1925066782]
+layout_mode = 2
+mouse_filter = 1
+text = "Run"
+
+[node name="Label" type="Label" parent="." unique_id=414026071]
+offset_left = -194.0
+offset_top = -189.0
+offset_right = -76.0
+offset_bottom = -150.0
+mouse_filter = 1
+text = "Name of Dungeon
+3f"
+
+[node name="Label" type="Label" parent="Label" unique_id=962473842]
+layout_mode = 0
+offset_left = 367.0
+offset_right = 407.0
+offset_bottom = 18.0
+mouse_filter = 1
+text = "Q"
+
+[node name="Enemy_Container" type="Control" parent="." unique_id=1590751177]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = -103.0
+offset_right = 41.0
+offset_bottom = -63.0
+mouse_filter = 1
+
+[node name="Enemy Slot 1" parent="Enemy_Container" unique_id=2120839824 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = 35.0
+offset_top = 28.0
+offset_right = 35.0
+offset_bottom = 28.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Enemy Slot 2" parent="Enemy_Container" unique_id=1956196581 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = 64.0
+offset_right = 64.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Enemy Slot 3" parent="Enemy_Container" unique_id=1803532895 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = 94.0
+offset_top = 28.0
+offset_right = 94.0
+offset_bottom = 28.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Enemy Slot 4" parent="Enemy_Container" unique_id=1144950428 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = 125.0
+offset_top = -1.0
+offset_right = 125.0
+offset_bottom = -1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Enemy Slot 5" parent="Enemy_Container" unique_id=933799574 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = 150.0
+offset_top = 28.0
+offset_right = 150.0
+offset_bottom = 28.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Party_Container" type="Control" parent="." unique_id=1619393400]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = -103.0
+offset_right = 41.0
+offset_bottom = -63.0
+mouse_filter = 1
+
+[node name="Party Slot 2" parent="Party_Container" unique_id=1316690077 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = -110.0
+offset_right = -110.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Party Slot 1" parent="Party_Container" unique_id=608503097 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = -69.0
+offset_top = 29.0
+offset_right = -69.0
+offset_bottom = 29.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Party Slot 3" parent="Party_Container" unique_id=1945596742 instance=ExtResource("7_602r5")]
+layout_mode = 1
+offset_left = -151.0
+offset_top = 27.0
+offset_right = -151.0
+offset_bottom = 27.0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="gui_input" from="Control/Base_Menu/HBoxContainer/Label4" to="." method="run"]

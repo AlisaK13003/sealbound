@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://cicgt1fthbow0"]
+
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_jr63c"]
+[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="1_w33mw"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_wn58t"]
+
+[sub_resource type="Resource" id="Resource_uyw4s"]
+script = ExtResource("2_wn58t")
+speed = 81
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_jr63c")
+combatant_name = "Puppy"
+combatant_sprite = ExtResource("1_w33mw")
+combatant_stats = SubResource("Resource_uyw4s")
+is_combatant_enemy = true
+metadata/_custom_type_script = "uid://125iickqse23"

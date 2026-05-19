@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://bxctx8rnxsana"]
+
+[ext_resource type="Texture2D" uid="uid://ceicki2gyqvpl" path="res://assets/Party Members/Sprites/Temp_Party_3.tres" id="1_dhfcn"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_oakox"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_dhfcn"]
+
+[sub_resource type="Resource" id="Resource_qx3or"]
+script = ExtResource("2_dhfcn")
+max_health = 495
+health = 235
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_oakox")
+combatant_name = "Rowan"
+combatant_sprite = ExtResource("1_dhfcn")
+combatant_stats = SubResource("Resource_qx3or")
+metadata/_custom_type_script = "uid://125iickqse23"

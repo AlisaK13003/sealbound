@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="dungeon_wave" format=3 uid="uid://cyycmbiduvert"]
+
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_i4qd2"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_4h0ow"]
+
+[resource]
+script = ExtResource("2_4h0ow")
