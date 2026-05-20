@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdrtiprqkglms"
-path="res://.godot/imported/maleNPC1_portraits.png-64f34e5e405157efafac75e60fa02e0e.ctex"
+uid="uid://hla08h17fqhv"
+path="res://.godot/imported/sera_idle.png-76313879914a13c93dfc35ec10f122d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/maleNPC1_portraits.png"
-dest_files=["res://.godot/imported/maleNPC1_portraits.png-64f34e5e405157efafac75e60fa02e0e.ctex"]
+source_file="res://assets/characters/sera/sera_idle.png"
+dest_files=["res://.godot/imported/sera_idle.png-76313879914a13c93dfc35ec10f122d3.ctex"]
 
 [params]
 

@@ -1,13 +1,128 @@
 [gd_scene format=3 uid="uid://cw2kwy7c22qh7"]
 
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="1_2hlsy"]
-[ext_resource type="Texture2D" uid="uid://qradn13ysy1u" path="res://assets/Sprites/FEMC_Stand.tres" id="2_2hlsy"]
+[ext_resource type="Texture2D" uid="uid://bth1ubymbkvbq" path="res://assets/characters/sera/sera_walk.png" id="2_2hlsy"]
+[ext_resource type="Texture2D" uid="uid://hla08h17fqhv" path="res://assets/characters/sera/sera_idle.png" id="2_riacy"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="2_tpytq"]
 [ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
 [ext_resource type="PackedScene" uid="uid://coypf00axxmjs" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory.tscn" id="4_wqvcu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
 radius = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmp5k"]
+atlas = ExtResource("2_riacy")
+region = Rect2(0, 0, 150, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_riacy"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(768, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2ck2"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(960, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2d4w"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(1152, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsfi6"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(1344, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2idcg"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f7gw"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r2ug"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwhpq"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d4y1"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(1536, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov6ka"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(1728, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4vh7"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(1920, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrsny"]
+atlas = ExtResource("2_2hlsy")
+region = Rect2(2112, 0, 192, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmp5k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmp5k")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_riacy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2ck2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2d4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsfi6")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2idcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0f7gw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r2ug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwhpq")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d4y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov6ka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4vh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrsny")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 7.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3y00o"]
 size = Vector2(120, 216)
@@ -25,11 +140,13 @@ shape = SubResource("CircleShape2D_vom5j")
 position = Vector2(0, -49)
 scale = Vector2(0.5, 0.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1076860614]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1076860614]
 texture_filter = 1
 position = Vector2(-1.7881393e-07, 0)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_2hlsy")
+sprite_frames = SubResource("SpriteFrames_tmp5k")
+animation = &"walk_up"
+autoplay = "idle"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 scale = Vector2(0.5, 0.5)
