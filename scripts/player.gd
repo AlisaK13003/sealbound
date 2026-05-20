@@ -2,15 +2,6 @@ class_name Player extends CharacterBody2D
 
 var in_menu : bool = false
 @export var move_speed : float = 300.0
-@export var idle_texture: Texture2D = preload("res://assets/Sprites/FEMC_Stand.tres")
-@export var walk_texture: Texture2D
-@export var idle_frame_size: Vector2i = Vector2i.ZERO
-@export var walk_frame_size: Vector2i = Vector2i.ZERO
-@export var walk_frames_per_row: int = 0
-@export var walk_down_row: int = 0
-@export var walk_side_row: int = 1
-@export var walk_up_row: int = 2
-@export var animation_speed: float = 8.0
 
 @onready var pause_menu = $CanvasLayer/PauseMenu
 @onready var full_inventory = $CanvasLayer/VillageInventory
@@ -21,18 +12,7 @@ var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready() -> void:
 	Global.load_save_data()
-	animation_driver.setup_sprite(
-		animated_sprite,
-		idle_texture,
-		walk_texture,
-		idle_frame_size,
-		walk_frame_size,
-		walk_frames_per_row,
-		walk_down_row,
-		walk_side_row,
-		walk_up_row,
-		animation_speed
-	)
+	animation_driver.sync(animated_sprite, Vector2.ZERO)
 			
 func _process(_delta: float) -> void:
 	var direction : Vector2 = Vector2.ZERO
@@ -40,8 +20,7 @@ func _process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
-	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+	direction = Input.get_vector("left", "right", "up", "down")
 		
 	velocity = direction * move_speed
 	animation_driver.sync(animated_sprite, velocity)

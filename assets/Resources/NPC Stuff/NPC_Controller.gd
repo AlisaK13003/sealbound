@@ -22,15 +22,6 @@ var current_location
 @export var location_container: Node2D
 @export var speed: float = 300.0
 @export_file("*.json") var schedule_path: String
-@export var idle_texture: Texture2D = preload("res://assets/Party Members/Sprites/MMC_Side_Profile.tres")
-@export var walk_texture: Texture2D
-@export var idle_frame_size: Vector2i = Vector2i.ZERO
-@export var walk_frame_size: Vector2i = Vector2i.ZERO
-@export var walk_frames_per_row: int = 0
-@export var walk_down_row: int = 0
-@export var walk_side_row: int = 1
-@export var walk_up_row: int = 2
-@export var animation_speed: float = 8.0
 
 var schedule_info
 var traveling_to : int
@@ -39,18 +30,6 @@ var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
 	Global.time_updated.connect(navigate)
-	animation_driver.setup_sprite(
-		animated_sprite,
-		idle_texture,
-		walk_texture,
-		idle_frame_size,
-		walk_frame_size,
-		walk_frames_per_row,
-		walk_down_row,
-		walk_side_row,
-		walk_up_row,
-		animation_speed
-	)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
 		return

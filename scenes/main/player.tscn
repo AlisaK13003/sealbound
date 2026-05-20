@@ -145,9 +145,8 @@ texture_filter = 1
 position = Vector2(-1.7881393e-07, 0)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_tmp5k")
-animation = &"walk_down"
+animation = &"walk_up"
 autoplay = "idle"
-frame = 3
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 scale = Vector2(0.5, 0.5)
