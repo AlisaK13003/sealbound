@@ -5,7 +5,9 @@
 
 [sub_resource type="Resource" id="Resource_3yam2"]
 script = ExtResource("1_c6mrp")
+attack = null
 defense = 5
+resistance = null
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

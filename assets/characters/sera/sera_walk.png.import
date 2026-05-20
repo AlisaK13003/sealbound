@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boqcvjmxofrim"
-path="res://.godot/imported/Kaela_portraits.png-016249d7d36afc533afd7c4feb0936ab.ctex"
+uid="uid://bth1ubymbkvbq"
+path="res://.godot/imported/sera_walk.png-aeee1f7b17b17d33f9be94a1fc07add8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/Kaela_portraits.png"
-dest_files=["res://.godot/imported/Kaela_portraits.png-016249d7d36afc533afd7c4feb0936ab.ctex"]
+source_file="res://assets/characters/sera/sera_walk.png"
+dest_files=["res://.godot/imported/sera_walk.png-aeee1f7b17b17d33f9be94a1fc07add8.ctex"]
 
 [params]
 

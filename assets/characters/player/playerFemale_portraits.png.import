@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eeophdwyxpcr"
-path="res://.godot/imported/npc_portraits.png-6e5f6e72b9651a9732ed4a0faebc6668.ctex"
+uid="uid://bq8g0sunifuyi"
+path="res://.godot/imported/playerFemale_portraits.png-8ffcaf2d2c3d5c6dadc358c9d5f8f27d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/npc_portraits.png"
-dest_files=["res://.godot/imported/npc_portraits.png-6e5f6e72b9651a9732ed4a0faebc6668.ctex"]
+source_file="res://assets/characters/player/playerFemale_portraits.png"
+dest_files=["res://.godot/imported/playerFemale_portraits.png-8ffcaf2d2c3d5c6dadc358c9d5f8f27d.ctex"]
 
 [params]
 

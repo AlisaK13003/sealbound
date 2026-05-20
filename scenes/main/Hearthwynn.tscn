@@ -4,8 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://rx8110un8pu4" path="res://scenes/main/Test_Hearthwynn.tscn" id="2_ujx4y"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="4_jt62i"]
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="6_lg162"]
+[ext_resource type="Texture2D" uid="uid://bth1ubymbkvbq" path="res://assets/characters/sera/sera_walk.png" id="6_ofm1v"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="7_f16d7"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="8_732vc"]
+[ext_resource type="Texture2D" uid="uid://hla08h17fqhv" path="res://assets/characters/sera/sera_idle.png" id="9_8ncia"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_75do5"]
 [ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_1ifxj"]
 
@@ -42,6 +44,12 @@ position = Vector2(4399, -823)
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
 position = Vector2(3667, -1127)
 move_speed = 200.0
+idle_texture = ExtResource("9_8ncia")
+walk_texture = ExtResource("6_ofm1v")
+walk_frames_per_row = 4
+walk_down_row = 4
+walk_side_row = 4
+walk_up_row = 4
 
 [node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]
 position = Vector2(4013, -2517)
@@ -176,6 +184,11 @@ dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dia
 location_container = NodePath("../VillageLocationContainer")
 speed = 60.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday.json"
+idle_texture = ExtResource("9_8ncia")
+walk_texture = ExtResource("6_ofm1v")
+walk_down_row = 4
+walk_side_row = 4
+walk_up_row = 4
 
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=139174317]
 

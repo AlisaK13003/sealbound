@@ -16,18 +16,41 @@ var current_location
 
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @export_file("*.json") var dialogue_path: String
 @export var location_container: Node2D
 @export var speed: float = 300.0
 @export_file("*.json") var schedule_path: String
+@export var idle_texture: Texture2D = preload("res://assets/Party Members/Sprites/MMC_Side_Profile.tres")
+@export var walk_texture: Texture2D
+@export var idle_frame_size: Vector2i = Vector2i.ZERO
+@export var walk_frame_size: Vector2i = Vector2i.ZERO
+@export var walk_frames_per_row: int = 0
+@export var walk_down_row: int = 0
+@export var walk_side_row: int = 1
+@export var walk_up_row: int = 2
+@export var animation_speed: float = 8.0
 
 var schedule_info
 var traveling_to : int
 var just_swapped_scenes: bool = false
+var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
 	Global.time_updated.connect(navigate)
+	animation_driver.setup_sprite(
+		animated_sprite,
+		idle_texture,
+		walk_texture,
+		idle_frame_size,
+		walk_frame_size,
+		walk_frames_per_row,
+		walk_down_row,
+		walk_side_row,
+		walk_up_row,
+		animation_speed
+	)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
 		return
@@ -51,10 +74,12 @@ func _ready():
 func _process(delta):
 	if path_nodes.is_empty():
 		walking = false
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		if leaving_scene:
 			self.visible = false
 		return 
 	if player_is_speaking_to_me:
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
 	
 	if player_just_stopped_talking_to_me:
@@ -63,11 +88,14 @@ func _process(delta):
 		if running_time >= 3:
 			player_just_stopped_talking_to_me = false
 			running_time = 0
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
 	walking = true
 	self.visible = true
 	var current_target = path_nodes[0]
 	just_swapped_scenes = false
+	var motion: Vector2 = current_target - global_position
+	animation_driver.sync(animated_sprite, motion)
 	global_position = global_position.move_toward(current_target, speed * delta)
 	
 	if global_position.distance_to(current_target) < 0.1:

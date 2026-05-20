@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bci72r7y43t48"
-path="res://.godot/imported/maleNPC2_portraits.png-3810a5a35534bec14ba2268537b2302d.ctex"
+uid="uid://bdrtiprqkglms"
+path="res://.godot/imported/rowan_portraits.png-65cbb85e6cb8448f75ee4e059d130e01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/maleNPC2_portraits.png"
-dest_files=["res://.godot/imported/maleNPC2_portraits.png-3810a5a35534bec14ba2268537b2302d.ctex"]
+source_file="res://assets/characters/rowan/rowan_portraits.png"
+dest_files=["res://.godot/imported/rowan_portraits.png-65cbb85e6cb8448f75ee4e059d130e01.ctex"]
 
 [params]
 

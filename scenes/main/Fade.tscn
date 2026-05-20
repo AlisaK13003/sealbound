@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://do86w1ydyy7ck"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3nu4"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Fade" type="Node2D" unique_id=2039833051]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2070717441]
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1196447443]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 1946.0
+offset_bottom = 1101.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i3nu4")
