@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="6_lg162"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="7_f16d7"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="8_732vc"]
+[ext_resource type="PackedScene" uid="uid://bg1uxu604kh6j" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="9_8ncia"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_75do5"]
 [ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_1ifxj"]
+[ext_resource type="PackedScene" uid="uid://dfird1yjtwtku" path="res://assets/Resources/Shop Dude.tscn" id="10_ofm1v"]
 
 [node name="Hearthwynn" type="Node2D" unique_id=981634707 node_paths=PackedStringArray("player_node")]
 script = ExtResource("1_ofm1v")
@@ -29,10 +31,10 @@ position = Vector2(2915, -725)
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Blacksmith"
 
-[node name="Infirmary" type="Node2D" parent="Buildings" unique_id=2085898168]
+[node name="Infirmary_Spawn" type="Node2D" parent="Buildings" unique_id=2085898168]
 position = Vector2(-2116, 1513)
 
-[node name="LoadingZone" parent="Buildings/Infirmary" unique_id=1269289252 instance=ExtResource("4_jt62i")]
+[node name="LoadingZone" parent="Buildings/Infirmary_Spawn" unique_id=1269289252 instance=ExtResource("4_jt62i")]
 position = Vector2(4399, -823)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Infirmary"
@@ -172,7 +174,7 @@ connected_node_names = ["10"]
 [node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("10_1ifxj")]
 position = Vector2(2918, -722)
 scale = Vector2(0.3, 0.3)
-dialogue_path = "D:/sealbound/assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dialogue.json"
+dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/Test_Dialogue.json"
 location_container = NodePath("../VillageLocationContainer")
 speed = 60.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday.json"
@@ -184,3 +186,12 @@ position = Vector2(2826, -2525)
 
 [node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=609263534]
 position = Vector2(5019, -413)
+
+[node name="Cassian_NPC" parent="." unique_id=1817321559 node_paths=PackedStringArray("location_container") instance=ExtResource("9_8ncia")]
+position = Vector2(3566.0002, -1192)
+scale = Vector2(0.39999998, 0.39999998)
+dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/cassian_dialogue.json"
+location_container = NodePath("../VillageLocationContainer")
+
+[node name="ShopDude" parent="." unique_id=1899411687 instance=ExtResource("10_ofm1v")]
+position = Vector2(3833, -1063)

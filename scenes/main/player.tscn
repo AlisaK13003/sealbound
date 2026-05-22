@@ -189,6 +189,7 @@ script = ExtResource("3_2gs60")
 metadata/_edit_use_anchors_ = true
 
 [node name="VillageInventory" parent="CanvasLayer" unique_id=1392521463 instance=ExtResource("4_wqvcu")]
+visible = false
 offset_left = -384.455
 offset_top = 44.0
 offset_right = -435.45496

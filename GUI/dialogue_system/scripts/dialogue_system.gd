@@ -4,6 +4,7 @@
 class_name DialogueSystemNode extends CanvasLayer
 
 signal dialogue_closed
+signal choice_action_requested(action: String, choice_data: Dictionary)
 
 var is_active : bool = false
 var dialogue_data: Dictionary = {}
@@ -18,6 +19,7 @@ var punctuation_soft_pause: float = 0.3
 var current_text_character_count: int = 0
 var current_node_has_choices: bool = false
 var current_choices: Array = []
+var ignore_next_input: bool = false
 
 const PORTRAIT_EMOTION_FRAMES: Dictionary = {
 	"neutral": 0,
@@ -74,6 +76,10 @@ func _ready() -> void:
 	hide_dialog()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if ignore_next_input:
+		ignore_next_input = false
+		return
+
 	if not is_active:
 		if event.is_action_pressed("test"):
 			show_dialog()
@@ -115,6 +121,7 @@ func show_dialog() -> void:
 	dialog_ui.process_mode = Node.PROCESS_MODE_ALWAYS
 	Global.is_in_menu = true
 	get_tree().paused = true
+	ignore_next_input = true
 	show_node(dialogue_data.get("start", ""))
 
 func hide_dialog() -> void:
@@ -130,6 +137,7 @@ func hide_dialog() -> void:
 	typewriter_timer = 0.0
 	typewriter_current_delay = typewriter_base_delay
 	current_text_character_count = 0
+	ignore_next_input = false
 	if speaker_label != null:
 		speaker_label.text = ""
 	var text_label := get_active_body_text()
@@ -176,8 +184,13 @@ func show_node(node_id: String) -> void:
 		hide_dialog()
 		return
 
-	current_node_id = node_id
 	var node_data: Dictionary = dialogue_nodes[node_id]
+	var random_next: Variant = node_data.get("random_next", [])
+	if typeof(random_next) == TYPE_ARRAY and random_next.size() > 0:
+		show_node(str(random_next.pick_random()))
+		return
+
+	current_node_id = node_id
 	is_typing = false
 	typewriter_timer = 0.0
 	typewriter_current_delay = typewriter_base_delay
@@ -264,6 +277,12 @@ func update_portrait(node_data: Dictionary) -> void:
 	if portrait_target == null:
 		return
 
+	var portrait_sheet_path: String = str(node_data.get("portrait_sheet", "")).strip_edges()
+	if portrait_sheet_path != "" and portrait_target is Sprite2D:
+		var portrait_texture := load(portrait_sheet_path)
+		if portrait_texture is Texture2D:
+			portrait_target.texture = portrait_texture
+
 	var portrait_name: String = str(node_data.get("portrait_frame", node_data.get("portrait", ""))).strip_edges().to_lower()
 	if portrait_target is Sprite2D:
 		if portrait_name.is_valid_int():
@@ -311,6 +330,10 @@ func _on_choice_button_pressed(choice_index: int) -> void:
 		return
 
 	var choice_data: Dictionary = current_choices[choice_index]
+	var action: String = str(choice_data.get("action", "")).strip_edges()
+	if not action.is_empty():
+		choice_action_requested.emit(action, choice_data)
+
 	var next_node: String = str(choice_data.get("next", ""))
 
 	if next_node.is_empty():
