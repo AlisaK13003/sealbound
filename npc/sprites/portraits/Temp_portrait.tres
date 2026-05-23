@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://dt01gbmixe5kl"]
+
+[ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://npc/sprites/portraits/Lyra_portraits.png" id="1_glli8"]
+
+[resource]
+atlas = ExtResource("1_glli8")
+region = Rect2(5, 5, 38, 64)

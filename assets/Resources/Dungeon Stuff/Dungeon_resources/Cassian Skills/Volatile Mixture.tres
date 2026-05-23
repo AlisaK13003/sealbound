@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://cy2k08p1l4pjw"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_48mr1"]
+
+[resource]
+script = ExtResource("1_48mr1")
+move_name = "Volatile Mixture"
+move_description = "Chance to apply random status to all enemies"
+attack_power = null
+mana_cost = 2
+status_type = 1064
+chance_of_status_condition = 0.4
+metadata/_custom_type_script = "uid://djfkp740jjn43"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://djwjyvcsdetmq"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_nv07q"]
+
+[resource]
+script = ExtResource("1_nv07q")
+move_name = "Calculated Dose"
+move_description = "Medium damage to an enemy. Hits once per status inflicted on enemy/"
+attack_power = 1
+multi_hit = true
+guaranteed_hit_count = 1
+max_hit_count = 3
+mana_cost = 3
+status_type = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"

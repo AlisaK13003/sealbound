@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ck2fc6hexgqmj"]
 
 [ext_resource type="Script" uid="uid://bops5mbyg0ebp" path="res://assets/Resources/combatant_setup.gd" id="1_j4a75"]
-[ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_v40r4"]
 [ext_resource type="Texture2D" uid="uid://c5m63looaycv5" path="res://assets/tile sheets/Under_Health_)Bar.png" id="2_2eyhr"]
 [ext_resource type="Texture2D" uid="uid://y5h7r3qfd7ty" path="res://assets/tile sheets/Sprite-0004.png" id="3_j4a75"]
 [ext_resource type="Texture2D" uid="uid://bvdle862wer" path="res://assets/tile sheets/Over_Health_bar.png" id="4_p0jva"]
@@ -17,15 +16,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_j4a75")
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=17305136]
-layout_mode = 0
-offset_left = -20.0
-offset_top = -21.0
-offset_right = 20.0
-offset_bottom = 19.0
-texture = ExtResource("1_v40r4")
-flip_h = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=786684796]
 layout_mode = 0
@@ -48,3 +38,12 @@ offset_bottom = 29.0
 scale = Vector2(0.205, 0.205)
 theme_override_font_sizes/font_size = 48
 text = "LYRA"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=707385155]
+scale = Vector2(1.5, 1.5)
+offset = Vector2(0, -5)
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1947775290]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1108685168]

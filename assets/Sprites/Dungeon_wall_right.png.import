@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blwwqj855maws"
-path="res://.godot/imported/rogues.png-9af4d6a17ca7730240466d3ee957a9d2.ctex"
+uid="uid://dfguifwtach7e"
+path.s3tc="res://.godot/imported/Dungeon_wall_right.png-3f2c86c1b6de4e805f4f09e87ddf63bb.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/rogues.png"
-dest_files=["res://.godot/imported/rogues.png-9af4d6a17ca7730240466d3ee957a9d2.ctex"]
+source_file="res://assets/Sprites/Dungeon_wall_right.png"
+dest_files=["res://.godot/imported/Dungeon_wall_right.png-3f2c86c1b6de4e805f4f09e87ddf63bb.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

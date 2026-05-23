@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://dpvtn10gvuq4b"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_tdadt"]
+
+[resource]
+script = ExtResource("1_tdadt")
+move_name = "Heavy Swing"
+move_description = "Strong single-target attack. "
+attack_power = 2
+accuracy = 80
+mana_cost = 2
+status_conditions = null
+enemy_stat_debuffs = null
+party_statuses = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"

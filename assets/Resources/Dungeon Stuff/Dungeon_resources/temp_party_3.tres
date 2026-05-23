@@ -1,19 +1,43 @@
-[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://xvh8favukow8"]
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://xvh8favukow8"]
 
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_aqpqu"]
 [ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="1_pstms"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_x58lf"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_pstms"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_ddxp4"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_aqpqu"]
 
 [sub_resource type="Resource" id="Resource_se6t2"]
 script = ExtResource("2_pstms")
 max_health = 286
 health = 55
+attack = 477
 speed = 135
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_53op7"]
+script = ExtResource("2_pstms")
+defense = 30
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_7byuw"]
+script = ExtResource("4_ddxp4")
+equipment_stats = SubResource("Resource_53op7")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"
+
+[sub_resource type="Resource" id="Resource_a05x6"]
+script = ExtResource("5_aqpqu")
+weapon_attack = 30
+attack_accuracy = 95
+status_conditions = null
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
 script = ExtResource("1_x58lf")
 combatant_name = "Lyra"
+party_member_portrait = ExtResource("1_pstms")
 combatant_sprite = ExtResource("1_pstms")
 combatant_stats = SubResource("Resource_se6t2")
+stored_weapon = SubResource("Resource_a05x6")
+stored_equipment = SubResource("Resource_7byuw")
 metadata/_custom_type_script = "uid://125iickqse23"

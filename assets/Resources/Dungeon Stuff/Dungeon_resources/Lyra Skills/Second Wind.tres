@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://bw1eminch3nhl"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_mko41"]
+
+[resource]
+script = ExtResource("1_mko41")
+move_name = "Second Wind"
+move_description = "Restore moderate HP to self. Gain increased defense and status immunity. Can't act for 2 turns"
+attack_power = null
+mana_cost = 2
+status_type = null
+does_heal_party = true
+amount_healed = 1
+metadata/_custom_type_script = "uid://djfkp740jjn43"
