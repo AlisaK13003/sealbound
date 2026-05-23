@@ -9,7 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://bg1uxu604kh6j" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="9_8ncia"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_75do5"]
 [ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_1ifxj"]
-[ext_resource type="PackedScene" uid="uid://dfird1yjtwtku" path="res://assets/Resources/Shop Dude.tscn" id="10_ofm1v"]
+[ext_resource type="PackedScene" uid="uid://ckp71tv7lpfj5" path="res://assets/Resources/NPC Stuff/Rowan_NPC.tscn" id="10_ofm1v"]
+[ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="11_ujx4y"]
+[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Kaela_NPC.tscn" id="12_kaela1"]
+[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Orion_NPC.tscn" id="13_orion1"]
+[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
 
 [node name="Hearthwynn" type="Node2D" unique_id=981634707 node_paths=PackedStringArray("player_node")]
 script = ExtResource("1_ofm1v")
@@ -188,10 +192,26 @@ position = Vector2(2826, -2525)
 position = Vector2(5019, -413)
 
 [node name="Cassian_NPC" parent="." unique_id=1817321559 node_paths=PackedStringArray("location_container") instance=ExtResource("9_8ncia")]
-position = Vector2(3566.0002, -1192)
+position = Vector2(3614.0002, -1229)
 scale = Vector2(0.39999998, 0.39999998)
-dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/cassian_dialogue.json"
 location_container = NodePath("../VillageLocationContainer")
 
-[node name="ShopDude" parent="." unique_id=1899411687 instance=ExtResource("10_ofm1v")]
-position = Vector2(3833, -1063)
+[node name="NpcTemplate2" parent="." unique_id=11279432 instance=ExtResource("10_ofm1v")]
+position = Vector2(3384, -1180)
+scale = Vector2(0.48000002, 0.48000002)
+
+[node name="Sera_NPC" parent="." unique_id=1051293040 instance=ExtResource("11_ujx4y")]
+position = Vector2(3997.0002, -761.99994)
+scale = Vector2(0.44, 0.44)
+
+[node name="Kaela_NPC" parent="." unique_id=1711293041 instance=ExtResource("12_kaela1")]
+position = Vector2(3860, -1054.0001)
+scale = Vector2(0.42, 0.42)
+
+[node name="Orion_NPC" parent="." unique_id=1711293042 instance=ExtResource("13_orion1")]
+position = Vector2(3927, -1209)
+scale = Vector2(0.42, 0.42)
+
+[node name="Lyra_NPC" parent="." unique_id=1711293043 instance=ExtResource("14_lyra1")]
+position = Vector2(3358, -942)
+scale = Vector2(0.44, 0.44)

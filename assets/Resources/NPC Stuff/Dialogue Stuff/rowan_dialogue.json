@@ -1,0 +1,87 @@
+{
+  "id": "rowan_001",
+  "start": "intro",
+  "nodes": {
+	"intro": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Forge's hot. Watch your step.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		},
+		{
+		  "text": "Shop",
+		  "action": "open_shop"
+		}
+	  ]
+	},
+
+	"gift_wip": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "Haven't figured that part out yet.",
+	  "next": "intro"
+	},
+
+	"talk_hub": {
+	  "random_next": [
+		"talk_a_1",
+		"talk_b_1",
+        "talk_c_1"
+	  ]
+	},
+
+	"talk_a_1": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Long day?",
+	  "next": "talk_a_2"
+	},
+
+	"talk_a_2": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "soft",
+	  "text": "Tea's still warm if you want some."
+	},
+
+	"talk_b_1": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Most people come here for weapons.",
+	  "next": "talk_b_2"
+	},
+
+	"talk_b_2": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "soft_smile",
+	  "text": "Half of them just needed somewhere to sit for a while."
+	},
+
+	"talk_c_1": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "concerned",
+	  "text": "You eat today?",
+	  "next": "talk_c_2"
+	},
+
+	"talk_c_2": {
+	  "speaker": "Rowan",
+	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+	  "portrait_frame": "small_smile",
+	  "text": "Good. If not, fix that before you head back out."
+	}
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "lyra_001",
+  "start": "intro",
+  "nodes": {
+    "intro": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Alright, bud — let's move!",
+      "choices": [
+        {
+          "text": "Talk",
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "gift_wip": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "Hah! You didn't have to do that, bud... but I appreciate it.",
+      "next": "intro"
+    },
+    "talk_hub": {
+      "random_next": [
+        "talk_a_1",
+        "talk_b_1",
+        "talk_c_1"
+      ]
+    },
+    "talk_a_1": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Tavern's busy today. Good sign, if you ask me.",
+      "next": "talk_a_2"
+    },
+    "talk_a_2": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Means folks are fed, warmed up, and not dead on their feet."
+    },
+    "talk_b_1": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "No, I am not just standing here because I'm bored.",
+      "next": "talk_b_2"
+    },
+    "talk_b_2": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "smile",
+      "text": "...Okay, maybe a little. But I can still handle the place."
+    },
+    "talk_c_1": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "sad",
+      "text": "You look like you could use a seat, bud.",
+      "next": "talk_c_2"
+    },
+    "talk_c_2": {
+      "speaker": "Lyra",
+      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Stay a while. The tavern's better when people are in it."
+    }
+  }
+}
