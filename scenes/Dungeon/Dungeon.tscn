@@ -15,6 +15,14 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_602r5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65pfe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eg1s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw2ji"]
+
 [node name="Dungeon" type="Node2D" unique_id=1808121713]
 script = ExtResource("1_cdvrn")
 party_slot_1 = ExtResource("2_os2xq")
@@ -81,18 +89,45 @@ offset_right = 238.0
 offset_bottom = 78.0
 
 [node name="Skill Menu" type="Control" parent="Control" unique_id=1081598948]
+visible = false
 anchors_preset = 0
 offset_left = 198.0
 offset_top = 38.0
 offset_right = 238.0
 offset_bottom = 78.0
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Skill Menu" unique_id=174917246]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Skill Menu/HBoxContainer2" unique_id=734862194]
+layout_mode = 2
+
 [node name="Action Menu" type="Control" parent="Control" unique_id=420559543]
+visible = false
 anchors_preset = 0
 offset_left = 198.0
 offset_top = 38.0
 offset_right = 238.0
 offset_bottom = 78.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Action Menu" unique_id=1463171078]
+layout_mode = 0
+offset_left = -74.0
+offset_top = -8.0
+offset_right = 71.0
+offset_bottom = 10.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Action Menu/HBoxContainer" unique_id=1558121957]
+layout_mode = 2
+text = "Attack"
+
+[node name="Label2" type="Label" parent="Control/Action Menu/HBoxContainer" unique_id=1269611417]
+layout_mode = 2
+text = "Defend"
 
 [node name="Base_Menu" type="Control" parent="Control" unique_id=1154739311]
 anchors_preset = 0
@@ -110,25 +145,57 @@ offset_bottom = 10.0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=1166704467]
+[node name="Action Menu" type="Panel" parent="Control/Base_Menu/HBoxContainer" unique_id=717288498]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_602r5")
+
+[node name="Label" type="Label" parent="Control/Base_Menu/HBoxContainer/Action Menu" unique_id=1166704467]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 18.0
 mouse_filter = 1
 text = "Action"
+horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=354460479]
+[node name="Skill Menu" type="Panel" parent="Control/Base_Menu/HBoxContainer" unique_id=1073765667]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_65pfe")
+
+[node name="Label2" type="Label" parent="Control/Base_Menu/HBoxContainer/Skill Menu" unique_id=354460479]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 18.0
 mouse_filter = 1
 text = "Skill"
+horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=431508868]
+[node name="Item Menu" type="Panel" parent="Control/Base_Menu/HBoxContainer" unique_id=954460130]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4eg1s")
+
+[node name="Label3" type="Label" parent="Control/Base_Menu/HBoxContainer/Item Menu" unique_id=431508868]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 18.0
 mouse_filter = 1
 text = "Item"
+horizontal_alignment = 1
 
-[node name="Label4" type="Label" parent="Control/Base_Menu/HBoxContainer" unique_id=1925066782]
+[node name="Run Option" type="Panel" parent="Control/Base_Menu/HBoxContainer" unique_id=86191596]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vw2ji")
+
+[node name="Label4" type="Label" parent="Control/Base_Menu/HBoxContainer/Run Option" unique_id=1925066782]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 18.0
 mouse_filter = 1
 text = "Run"
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="." unique_id=414026071]
 offset_left = -194.0
@@ -225,4 +292,7 @@ offset_right = -151.0
 offset_bottom = 27.0
 metadata/_edit_use_anchors_ = true
 
-[connection signal="gui_input" from="Control/Base_Menu/HBoxContainer/Label4" to="." method="run"]
+[connection signal="gui_input" from="Control/Base_Menu/HBoxContainer/Action Menu" to="." method="action_menu_selected"]
+[connection signal="gui_input" from="Control/Base_Menu/HBoxContainer/Skill Menu" to="." method="skill_menu_selected"]
+[connection signal="gui_input" from="Control/Base_Menu/HBoxContainer/Item Menu" to="." method="item_menu_selected"]
+[connection signal="gui_input" from="Control/Base_Menu/HBoxContainer/Run Option" to="." method="run"]

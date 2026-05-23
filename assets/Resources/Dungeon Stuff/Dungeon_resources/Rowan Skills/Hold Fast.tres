@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://p38m7hh5chwp"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_g3b0q"]
+
+[resource]
+script = ExtResource("1_g3b0q")
+move_name = "Hold Fast"
+move_description = "Enters Guard Stance for 2 turns, greatly increases defense and agros enemies"
+attack_power = null
+mana_cost = 3
+does_status = true
+status_type = 131200
+targets_party = true
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"

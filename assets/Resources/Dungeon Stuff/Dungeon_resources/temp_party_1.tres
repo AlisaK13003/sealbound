@@ -1,18 +1,42 @@
-[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://brfvp6osp867i"]
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://brfvp6osp867i"]
 
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_4t8q3"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_6xv2q"]
 [ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_57kig"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_57kig"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_q427m"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_4t8q3"]
 
 [sub_resource type="Resource" id="Resource_ffb4d"]
 script = ExtResource("2_57kig")
 max_health = 697
 health = 388
+attack = 547
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_03ww6"]
+script = ExtResource("2_57kig")
+defense = 30
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_k5b5e"]
+script = ExtResource("4_q427m")
+equipment_stats = SubResource("Resource_03ww6")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"
+
+[sub_resource type="Resource" id="Resource_dylaw"]
+script = ExtResource("5_4t8q3")
+weapon_attack = 30
+attack_accuracy = 90
+status_conditions = null
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
 script = ExtResource("1_6xv2q")
 combatant_name = "MC"
+party_member_portrait = ExtResource("1_57kig")
 combatant_sprite = ExtResource("1_57kig")
 combatant_stats = SubResource("Resource_ffb4d")
+stored_weapon = SubResource("Resource_dylaw")
+stored_equipment = SubResource("Resource_k5b5e")
 metadata/_custom_type_script = "uid://125iickqse23"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://x035pcrm1a8q"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_weuym"]
+
+[resource]
+script = ExtResource("1_weuym")
+move_name = "Corrosive Shot"
+move_description = "Single-target attack. Chance to apply poison"
+attack_power = 1
+accuracy = 85
+status_type = 132
+chance_of_status_condition = 0.65
+metadata/_custom_type_script = "uid://djfkp740jjn43"

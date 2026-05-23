@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blwwqj855maws"
-path="res://.godot/imported/rogues.png-9af4d6a17ca7730240466d3ee957a9d2.ctex"
+uid="uid://cgbej77uw2udq"
+path="res://.godot/imported/Item_Selection.png-4dcf3a91a81b3bd0bb3b61c41e5cb26e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/rogues.png"
-dest_files=["res://.godot/imported/rogues.png-9af4d6a17ca7730240466d3ee957a9d2.ctex"]
+source_file="res://assets/tile sheets/Item_Selection.png"
+dest_files=["res://.godot/imported/Item_Selection.png-4dcf3a91a81b3bd0bb3b61c41e5cb26e.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

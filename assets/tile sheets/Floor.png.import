@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blwwqj855maws"
-path="res://.godot/imported/rogues.png-9af4d6a17ca7730240466d3ee957a9d2.ctex"
+uid="uid://58jsyjqchuls"
+path.s3tc="res://.godot/imported/Floor.png-a1ee9e08f3868bf3da4332e151609ccc.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/rogues.png"
-dest_files=["res://.godot/imported/rogues.png-9af4d6a17ca7730240466d3ee957a9d2.ctex"]
+source_file="res://assets/tile sheets/Floor.png"
+dest_files=["res://.godot/imported/Floor.png-a1ee9e08f3868bf3da4332e151609ccc.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

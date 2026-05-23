@@ -1,0 +1,269 @@
+[gd_scene format=3 uid="uid://dywa8njfjb1kd"]
+
+[ext_resource type="Script" uid="uid://ctrfsut1wwtnw" path="res://assets/Resources/Dungeon Stuff/combatant_ui_handler.gd" id="1_b2wl4"]
+[ext_resource type="Texture2D" uid="uid://c5m63looaycv5" path="res://assets/tile sheets/Under_Health_)Bar.png" id="1_tq8y1"]
+[ext_resource type="Texture2D" uid="uid://y5h7r3qfd7ty" path="res://assets/tile sheets/Sprite-0004.png" id="2_xosph"]
+[ext_resource type="Texture2D" uid="uid://bvdle862wer" path="res://assets/tile sheets/Over_Health_bar.png" id="3_2ttuk"]
+[ext_resource type="Texture2D" uid="uid://b45x70ob3ead2" path="res://assets/tile sheets/Back_Arrow.png" id="4_iqe56"]
+[ext_resource type="Texture2D" uid="uid://cgbej77uw2udq" path="res://assets/tile sheets/Item_Selection.png" id="5_6j17h"]
+[ext_resource type="Texture2D" uid="uid://dnxf5i0bwkyve" path="res://assets/tile sheets/Defend_Selection.png" id="6_b2wl4"]
+[ext_resource type="Texture2D" uid="uid://b0m5otdlhwxng" path="res://assets/tile sheets/Skill Selection.png" id="6_iqe56"]
+[ext_resource type="Texture2D" uid="uid://crmnlgmc341af" path="res://assets/tile sheets/Action_Selection.png" id="7_b2wl4"]
+[ext_resource type="Texture2D" uid="uid://hppsd84yucl8" path="res://assets/Sprites/Orb_Under.png" id="10_ukfog"]
+
+[node name="CombatantUi" type="Control" unique_id=1169996085]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 97.0
+offset_right = 25.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_b2wl4")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=400153213]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 72.0
+offset_right = 79.0
+offset_bottom = 79.0
+value = 86.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_tq8y1")
+texture_over = ExtResource("2_xosph")
+texture_progress = ExtResource("3_2ttuk")
+
+[node name="Label" type="Label" parent="." unique_id=1994430107]
+visible = false
+layout_mode = 0
+offset_left = 14.0
+offset_top = 47.0
+offset_right = 80.0
+offset_bottom = 83.00018
+mouse_filter = 1
+theme_override_font_sizes/font_size = 31
+text = "LYRA"
+
+[node name="Player_Menu" type="Control" parent="." unique_id=161412231]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 35.0
+offset_right = 42.0
+offset_bottom = 75.0
+mouse_filter = 1
+
+[node name="Action_Menu" type="Control" parent="Player_Menu" unique_id=1195955355]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Back_Button" type="TextureButton" parent="Player_Menu/Action_Menu" unique_id=594873299]
+layout_mode = 0
+offset_left = -25.0
+offset_top = -75.00001
+offset_right = 15.0
+offset_bottom = -35.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("4_iqe56")
+texture_pressed = ExtResource("4_iqe56")
+texture_hover = ExtResource("4_iqe56")
+
+[node name="Attack_Button" type="TextureButton" parent="Player_Menu/Action_Menu" unique_id=629289211]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = 60.000004
+offset_bottom = -60.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("7_b2wl4")
+texture_pressed = ExtResource("7_b2wl4")
+texture_hover = ExtResource("7_b2wl4")
+
+[node name="Defend_Button" type="TextureButton" parent="Player_Menu/Action_Menu" unique_id=221461651]
+layout_mode = 0
+offset_left = 67.00001
+offset_top = -75.0
+offset_right = 107.00001
+offset_bottom = -35.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("6_b2wl4")
+texture_pressed = ExtResource("6_b2wl4")
+texture_hover = ExtResource("6_b2wl4")
+
+[node name="Base_Menu" type="Control" parent="Player_Menu" unique_id=998320703]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Item_Menu_Button" type="TextureButton" parent="Player_Menu/Base_Menu" unique_id=1339739656]
+layout_mode = 0
+offset_left = 67.00001
+offset_top = -75.0
+offset_right = 107.00001
+offset_bottom = -35.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("5_6j17h")
+texture_pressed = ExtResource("5_6j17h")
+texture_hover = ExtResource("5_6j17h")
+
+[node name="Action_Menu_Button" type="TextureButton" parent="Player_Menu/Base_Menu" unique_id=527326915]
+layout_mode = 0
+offset_left = -25.000002
+offset_top = -75.00001
+offset_right = 14.999998
+offset_bottom = -35.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("7_b2wl4")
+texture_pressed = ExtResource("7_b2wl4")
+texture_hover = ExtResource("7_b2wl4")
+
+[node name="Skill_Menu_Button" type="TextureButton" parent="Player_Menu/Base_Menu" unique_id=1692199256]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -100.00001
+offset_right = 60.0
+offset_bottom = -60.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("6_iqe56")
+texture_pressed = ExtResource("6_iqe56")
+texture_hover = ExtResource("6_iqe56")
+
+[node name="Skill_Menu" type="Control" parent="Player_Menu" unique_id=1837008235]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Skill_3_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=337757743]
+layout_mode = 0
+offset_left = 67.00001
+offset_top = -75.0
+offset_right = 107.00001
+offset_bottom = -35.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("10_ukfog")
+texture_pressed = ExtResource("10_ukfog")
+texture_hover = ExtResource("10_ukfog")
+
+[node name="Back_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=1783702197]
+layout_mode = 0
+offset_left = -25.000002
+offset_top = -75.00001
+offset_right = 14.999998
+offset_bottom = -35.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("4_iqe56")
+texture_pressed = ExtResource("4_iqe56")
+texture_hover = ExtResource("4_iqe56")
+
+[node name="Skill_1_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=57531659]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -100.00001
+offset_right = 60.0
+offset_bottom = -60.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("10_ukfog")
+texture_pressed = ExtResource("10_ukfog")
+texture_hover = ExtResource("10_ukfog")
+
+[node name="Skill_3_Button2" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=1335418955]
+layout_mode = 0
+offset_left = 66.0
+offset_top = -126.0
+offset_right = 106.0
+offset_bottom = -86.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("10_ukfog")
+texture_pressed = ExtResource("10_ukfog")
+texture_hover = ExtResource("10_ukfog")
+
+[node name="Item_Menu" type="Control" parent="Player_Menu" unique_id=1574410578]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Item_2_Button" type="TextureButton" parent="Player_Menu/Item_Menu" unique_id=846764547]
+layout_mode = 0
+offset_left = 67.00001
+offset_top = -75.0
+offset_right = 107.00001
+offset_bottom = -35.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("10_ukfog")
+texture_pressed = ExtResource("10_ukfog")
+texture_hover = ExtResource("10_ukfog")
+
+[node name="Back_Button" type="TextureButton" parent="Player_Menu/Item_Menu" unique_id=46522402]
+layout_mode = 0
+offset_left = -25.000002
+offset_top = -75.00001
+offset_right = 14.999998
+offset_bottom = -35.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("4_iqe56")
+texture_pressed = ExtResource("4_iqe56")
+texture_hover = ExtResource("4_iqe56")
+
+[node name="Item_1_Button" type="TextureButton" parent="Player_Menu/Item_Menu" unique_id=1576737335]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -100.00001
+offset_right = 60.0
+offset_bottom = -60.000008
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("10_ukfog")
+texture_pressed = ExtResource("10_ukfog")
+texture_hover = ExtResource("10_ukfog")
+
+[node name="Item_3_Button" type="TextureButton" parent="Player_Menu/Item_Menu" unique_id=1370031217]
+layout_mode = 0
+offset_left = 66.0
+offset_top = -126.0
+offset_right = 106.0
+offset_bottom = -86.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+texture_normal = ExtResource("10_ukfog")
+texture_pressed = ExtResource("10_ukfog")
+texture_hover = ExtResource("10_ukfog")
+
+[node name="Label2" type="Label" parent="." unique_id=326055068]
+visible = false
+layout_mode = 0
+offset_left = -24.0
+offset_top = -95.0
+offset_right = 16.0
+offset_bottom = -77.0
+text = "Skills"
+
+[connection signal="gui_input" from="Player_Menu/Action_Menu/Back_Button" to="." method="back_button_pressed"]
+[connection signal="gui_input" from="Player_Menu/Action_Menu/Attack_Button" to="." method="base_attack_selected"]
+[connection signal="gui_input" from="Player_Menu/Action_Menu/Defend_Button" to="." method="base_defend_selected"]
+[connection signal="gui_input" from="Player_Menu/Base_Menu/Item_Menu_Button" to="." method="swap_to_item_menu"]
+[connection signal="gui_input" from="Player_Menu/Base_Menu/Action_Menu_Button" to="." method="swap_to_action_menu"]
+[connection signal="gui_input" from="Player_Menu/Base_Menu/Skill_Menu_Button" to="." method="swap_to_skill_menu"]
+[connection signal="gui_input" from="Player_Menu/Skill_Menu/Back_Button" to="." method="back_button_pressed"]
+[connection signal="gui_input" from="Player_Menu/Item_Menu/Back_Button" to="." method="back_button_pressed"]

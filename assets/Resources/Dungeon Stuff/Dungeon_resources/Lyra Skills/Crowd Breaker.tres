@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://dxb4vjubb67ah"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_vbscd"]
+
+[resource]
+script = ExtResource("1_vbscd")
+move_name = "Crowdbreaker"
+move_description = "Damage all enemies. Enemies now target Lyra"
+attack_power = 1
+accuracy = 90
+mana_cost = 3
+does_status = true
+status_type = 128
+chance_of_status_condition = 0.75
+is_skill_aoe = true
+amount_healed = 1
+metadata/_custom_type_script = "uid://djfkp740jjn43"
