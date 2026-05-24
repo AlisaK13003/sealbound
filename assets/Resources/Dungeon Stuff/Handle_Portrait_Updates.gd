@@ -17,7 +17,7 @@ func _setup(person_to_setup: generic_combatants):
 	portrait_name.text = person_to_setup.combatant_name
 	
 func _update_health(health_value):
-	health_bar.value -= floor(health_value)
+	health_bar.value = clamp(floor(health_bar.value - health_value), 0, health_bar.max_value)
 	health_num.text = str(int(health_bar.value))
 
 func update_statuses(person_to_do_it_for: combat_template):

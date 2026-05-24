@@ -1,5 +1,7 @@
 extends Control
 
+class_name combatant_ui
+
 @onready var base_menu = $Player_Menu/Base_Menu
 @onready var action_menu = $Player_Menu/Action_Menu
 @onready var skill_menu = $Player_Menu/Skill_Menu
@@ -32,6 +34,7 @@ func reset_ui():
 
 func handle_menu_swapping(swap_to_what_menu: int):
 	reset_ui()
+	print("HIII")
 	match swap_to_what_menu:
 		# Back button pressed
 		0:
@@ -63,12 +66,8 @@ func update_skill_buttons(player_to_check: generic_combatants, total_mana):
 		else:
 			skill_node.disabled = true
 
-func base_attack_selected(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			parent_reference.parent_reference.attack_button_pressed()
-
-func base_defend_selected(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			parent_reference.parent_reference.defend_button_pressed()
+func base_attack_defend_selected(attack_or_defend):
+	if attack_or_defend:
+		parent_reference.parent_reference.attack_button_pressed()
+	else:
+		parent_reference.parent_reference.defend_button_pressed(parent_reference.stored_combatant.combatant_name)

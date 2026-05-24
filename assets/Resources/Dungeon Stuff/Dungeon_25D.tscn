@@ -237,7 +237,6 @@ region = Rect2(0, 128, 32.350105, 32)
 script = ExtResource("8_hyoec")
 max_health = 1789
 health = 1000
-attack = 662
 speed = 81
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
@@ -783,13 +782,15 @@ layout_mode = 2
 [node name="PartyPortrait_3" parent="UI/Party_Portraits/HBoxContainer" unique_id=1414338046 instance=ExtResource("12_edm4l")]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="UI" unique_id=2068698271]
+[node name="Confirmation" type="Panel" parent="UI" unique_id=2068698271]
+visible = false
 layout_mode = 0
 offset_right = 576.0
 offset_bottom = 216.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_edm4l")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel" unique_id=584198092]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Confirmation" unique_id=584198092]
 layout_mode = 0
 offset_left = 85.0
 offset_top = 130.0
@@ -797,36 +798,41 @@ offset_right = 493.0
 offset_bottom = 180.0
 theme_override_constants/separation = 208
 
-[node name="Panel" type="Panel" parent="UI/Panel/HBoxContainer" unique_id=2010219705]
+[node name="Panel" type="Panel" parent="UI/Confirmation/HBoxContainer" unique_id=2010219705]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7uj4b")
 
-[node name="Label" type="Label" parent="UI/Panel/HBoxContainer/Panel" unique_id=361036939]
+[node name="Label" type="Label" parent="UI/Confirmation/HBoxContainer/Panel" unique_id=361036939]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 51.0
+mouse_filter = 1
 text = "Confirm"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel2" type="Panel" parent="UI/Panel/HBoxContainer" unique_id=1457558027]
+[node name="Panel2" type="Panel" parent="UI/Confirmation/HBoxContainer" unique_id=1457558027]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_iegkx")
 
-[node name="Label" type="Label" parent="UI/Panel/HBoxContainer/Panel2" unique_id=1701090137]
+[node name="Label" type="Label" parent="UI/Confirmation/HBoxContainer/Panel2" unique_id=1701090137]
 layout_mode = 0
 offset_right = 101.0
 offset_bottom = 50.0
+mouse_filter = 1
 text = "Decline"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="UI/Panel" unique_id=2111548861]
+[node name="Label" type="Label" parent="UI/Confirmation" unique_id=2111548861]
 layout_mode = 0
 offset_right = 573.0
 offset_bottom = 124.0
+mouse_filter = 1
 theme_override_font_sizes/font_size = 28
 text = "Use Second Wind on Lyra?"
 horizontal_alignment = 1
@@ -984,3 +990,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22956991, 0.072930865, -0.
 
 [node name="Player_Slot3" parent="Player_Container" unique_id=2018764669 instance=ExtResource("7_x3t77")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34856743, 0.072930865, 0.011933684)
+
+[connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel" to="." method="confirmation_button" binds= [true]]
+[connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel2" to="." method="confirmation_button" binds= [false]]

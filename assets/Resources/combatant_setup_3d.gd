@@ -153,9 +153,7 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 	await get_tree().create_timer(0.5).timeout
 	
 	attacked_label.text = ""
-	print(stored_combatant.combatant_stats.health)
 	if stored_combatant.combatant_stats.health <= 0:
-		print("YOU ARE DEAD")
 		on_death()
 	parent_reference.turn_ended.emit()
 
@@ -287,7 +285,6 @@ func take_turn(player_portrait: player_portraits = null):
 	if active_statuses != null:
 		for _status in range(active_statuses.size()):
 			active_statuses[_status].remaining_turns -= 1
-			print("Remaining Turns: ", active_statuses[_status].remaining_turns)
 			if active_statuses[_status].remaining_turns == 0:
 				_remove_active_status(active_statuses[_status].status_type)
 	if not stored_combatant.is_combatant_enemy:
@@ -299,7 +296,6 @@ func execute_defend():
 func do_nothing_3d(camera, event, event_position, normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
-			print("HIII")
 			parent_reference.confirmation.emit(child_number)
 
 func reset_ui():
@@ -325,7 +321,6 @@ func handle_status(incoming_statuses):
 				for _status in active_statuses:
 					if _status.status_type & (incoming_statuses & key):
 						_status.remaining_turns += 3
-						print("STATUS REFRESHED")
 						break
 			else:
 				var add_status = status.new()

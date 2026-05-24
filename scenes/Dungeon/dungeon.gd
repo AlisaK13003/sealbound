@@ -25,6 +25,7 @@ var waiting_for_confirmation : bool = false
 signal confirmation
 signal action_taken
 signal turn_ended
+signal actual_confirmation
 
 func _ready():
 	slot_1.setup(party_slot_1, self, 0)
@@ -82,7 +83,7 @@ func battle_loop():
 		while(not is_wave_over):
 			turn_count += 1
 			print("TURN: ", turn_count)
-
+			print(mana, " remaining")
 			determine_order()
 			for j in range(all_combatants.size()):
 				var current_combatant = all_combatants[j]
@@ -132,7 +133,7 @@ func battle_loop():
 												player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health)
 									# Does this skill apply a status to every party member
 									if skill_used.does_status:
-										for player: combat_template in player_container:
+										for player: combat_template in player_container.get_children():
 											player.handle_status(skill_used.status_type)
 								# AOE skill that effects enemies
 								else:
@@ -165,18 +166,18 @@ func battle_loop():
 								if skill_used.targets_party:
 									var targetted_player: combat_template = player_container.get_child(what_action[1])
 									if skill_used.does_heal_party:
-											var magic_boost = 0
-											match skill_used.amount_healed:
-												0:
-													magic_boost = 20
-												1:
-													magic_boost = 40
-												2:
-													magic_boost = 999
-											if magic_boost != 999:
-												targetted_player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + magic_boost) * rng.randf_range(0.95, 1.05))
-											else:
-												targetted_player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health)
+										var magic_boost = 0
+										match skill_used.amount_healed:
+											0:
+												magic_boost = 20
+											1:
+												magic_boost = 40
+											2:
+												magic_boost = 999
+										if magic_boost != 999:
+											targetted_player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + magic_boost) * rng.randf_range(0.95, 1.05), false, get_player_portrait(current_slot))
+										else:
+											targetted_player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health, false, get_player_portrait(current_slot))
 									if skill_used.does_status:
 										targetted_player.handle_status(skill_used.status_type)
 								else:
@@ -219,6 +220,7 @@ func battle_loop():
 											targetted_enemy.update_health(damage)
 										else:
 											targetted_enemy.update_health("MISS")
+							mana = clamp(mana - skill_used.mana_cost, 0, 3)
 						"ITEM":
 							print("ITEM")
 					get_player(current_slot).take_turn(get_player_portrait(current_slot))
@@ -288,45 +290,67 @@ func attack_button_pressed():
 	for enemy in enemy_shit.get_children():
 		enemy.could_be_selected()
 	var action_on_who = await confirmation
-	for enemy in enemy_shit.get_children():
-		enemy.undo_selection()
-	action_taken.emit("BASIC_ATTACK", action_on_who)
+	revert_to_default_UI()
+	enemy_shit.get_child(action_on_who).could_be_selected()
+	setup_confirmation_button("Attack", enemy_shit.get_child(action_on_who).stored_combatant.combatant_name)
+	var confirmed = await actual_confirmation
+	if confirmed:
+		action_taken.emit("BASIC_ATTACK", action_on_who)
+	revert_to_default_UI()
 			
-func defend_button_pressed():
-	action_taken.emit("BASIC_DEFEND")
-
+func defend_button_pressed(stored_combatant_name):
+	setup_confirmation_button("Defend", stored_combatant_name)
+	var confirmed = await actual_confirmation
+	if confirmed:
+		action_taken.emit("BASIC_DEFEND", false)
+	revert_to_default_UI()
+	
 func skill_selected(what_skill, what_player):
-	if get_player(what_player).stored_combatant.combatant_skills[what_skill].targets_party:
-		for player in player_container.get_children():
-			player.could_be_selected()
+	var skill_to_use: moves = get_player(what_player).stored_combatant.combatant_skills[what_skill]
+	if skill_to_use.targets_party:
+		if skill_to_use.is_skill_aoe:
+			for player in player_container.get_children():
+				player.could_be_selected()
+		else:
+			get_player(what_player).could_be_selected()
 	else:
 		for enemy in enemy_shit.get_children():
 			enemy.could_be_selected()
 		
 	var action_on_who = await confirmation
-	if get_player(what_player).stored_combatant.combatant_skills[what_skill].targets_party:
-		for player in player_container.get_children():
-			player.undo_selection()
+	if not skill_to_use.is_skill_aoe:
+		if skill_to_use.targets_party:
+			setup_confirmation_button(skill_to_use.move_name, get_player(what_player).stored_combatant.combatant_name)
+		else:
+			setup_confirmation_button(skill_to_use.move_name, enemy_shit.get_child(action_on_who).combatant_name)
 	else:
-		for enemy in enemy_shit.get_children():
-			enemy.undo_selection()
+		if skill_to_use.targets_party:
+			setup_confirmation_button(skill_to_use.move_name, "entire party")
+		else:
+			setup_confirmation_button(skill_to_use.move_name, "every enemy")
+
+	var confirmed = await actual_confirmation
+	revert_to_default_UI()
 	action_taken.emit("SKILL", action_on_who, what_skill)
 
-func gave_confirmation(event):
+func confirmation_button(event, confirm_or_deny):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("CONFIRMED")
+			actual_confirmation.emit(confirm_or_deny)
 
-func denied_confirmation(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			waiting_for_confirmation = false
+func setup_confirmation_button(move_name, entity_used_on_name):
+	#for player: combat_template in player_container.get_children():
+	#	player.combatant_ui.visible = false
+	$UI/Confirmation.visible = true
+	var question_label = $UI/Confirmation/Label
+	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
 
 func revert_to_default_UI():
 	for enemy in enemy_shit.get_children():
 		enemy.undo_selection()
 	for player in player_container.get_children():
 		player.undo_selection()
+	$UI/Confirmation.visible = false
 		
 func hide_everything():
 	revert_to_default_UI()
