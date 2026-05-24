@@ -7,6 +7,17 @@
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_q427m"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_4t8q3"]
 
+[sub_resource type="Resource" id="Resource_4t8q3"]
+script = ExtResource("1_4t8q3")
+attack_power = null
+does_status = true
+status_type = 65536
+targets_party = true
+is_skill_aoe = true
+does_heal_party = true
+amount_healed = 1
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [sub_resource type="Resource" id="Resource_ffb4d"]
 script = ExtResource("2_57kig")
 max_health = 697
@@ -39,4 +50,5 @@ combatant_sprite = ExtResource("1_57kig")
 combatant_stats = SubResource("Resource_ffb4d")
 stored_weapon = SubResource("Resource_dylaw")
 stored_equipment = SubResource("Resource_k5b5e")
+combatant_skills = Array[ExtResource("1_4t8q3")]([SubResource("Resource_4t8q3")])
 metadata/_custom_type_script = "uid://125iickqse23"

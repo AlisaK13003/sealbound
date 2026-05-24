@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="moves" format=3 uid="uid://dxb4vjubb67ah"]
 
+[ext_resource type="Texture2D" uid="uid://bj20m4afhf23b" path="res://assets/tile sheets/Move Sprites/Disabled_Crowd_Breaker.png" id="1_4r1pk"]
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_vbscd"]
+[ext_resource type="Texture2D" uid="uid://cfanufen60f0u" path="res://assets/tile sheets/Move Sprites/Crowd_Breaker.png" id="2_akiin"]
 
 [resource]
 script = ExtResource("1_vbscd")
@@ -8,10 +10,16 @@ move_name = "Crowdbreaker"
 move_description = "Damage all enemies. Enemies now target Lyra"
 attack_power = 1
 accuracy = 90
+guaranteed_hit_count = 1
+max_hit_count = 1
 mana_cost = 3
 does_status = true
 status_type = 128
 chance_of_status_condition = 0.75
 is_skill_aoe = true
 amount_healed = 1
+normal_sprite = ExtResource("2_akiin")
+pressed_sprite = ExtResource("2_akiin")
+hover_sprite = ExtResource("2_akiin")
+disabled_sprite = ExtResource("1_4r1pk")
 metadata/_custom_type_script = "uid://djfkp740jjn43"

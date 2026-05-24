@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnxf5i0bwkyve"
-path="res://.godot/imported/Defend_Selection.png-a6ff96e7f7af8a8541ef60e7e254e42b.ctex"
+uid="uid://bcblthvt3hn4f"
+path="res://.godot/imported/Second_Wind.png-f8d66af06893570ed8cfa1e5c2f0908c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Defend_Selection.png"
-dest_files=["res://.godot/imported/Defend_Selection.png-a6ff96e7f7af8a8541ef60e7e254e42b.ctex"]
+source_file="res://assets/tile sheets/Move Sprites/Second_Wind.png"
+dest_files=["res://.godot/imported/Second_Wind.png-f8d66af06893570ed8cfa1e5c2f0908c.ctex"]
 
 [params]
 

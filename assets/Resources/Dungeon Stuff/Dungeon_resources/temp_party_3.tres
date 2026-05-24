@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_aqpqu"]
 [ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="1_pstms"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_x58lf"]
+[ext_resource type="Resource" uid="uid://dxb4vjubb67ah" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Crowd Breaker.tres" id="2_a05x6"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_pstms"]
+[ext_resource type="Resource" uid="uid://dpvtn10gvuq4b" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Heavy Swing.tres" id="3_fey42"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_ddxp4"]
+[ext_resource type="Resource" uid="uid://bw1eminch3nhl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Second Wind.tres" id="4_xadco"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_aqpqu"]
 
 [sub_resource type="Resource" id="Resource_se6t2"]
@@ -40,4 +43,5 @@ combatant_sprite = ExtResource("1_pstms")
 combatant_stats = SubResource("Resource_se6t2")
 stored_weapon = SubResource("Resource_a05x6")
 stored_equipment = SubResource("Resource_7byuw")
+combatant_skills = Array[ExtResource("1_aqpqu")]([ExtResource("2_a05x6"), ExtResource("3_fey42"), ExtResource("4_xadco")])
 metadata/_custom_type_script = "uid://125iickqse23"

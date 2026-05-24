@@ -12,41 +12,56 @@ var parent_reference
 func _ready():
 	reset_ui()
 
-func setup(parent_ref):
+func setup(parent_ref, party_member: generic_combatants):
 	parent_reference = parent_ref
+	
+	for move in range(party_member.combatant_skills.size()):
+		var skill_node: TextureButton = skill_menu.get_child(move + 1)
+		if party_member.combatant_skills[move] == null:
+			continue
+		skill_node.texture_normal = party_member.combatant_skills[move].normal_sprite
+		skill_node.texture_pressed = party_member.combatant_skills[move].normal_sprite
+		skill_node.texture_hover = party_member.combatant_skills[move].normal_sprite
+		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
 	
 func reset_ui():
 	base_menu.visible = true
 	action_menu.visible = false
 	skill_menu.visible = false
 	item_menu.visible = false
-	
-func swap_to_action_menu(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			reset_ui()
+
+func handle_menu_swapping(swap_to_what_menu: int):
+	reset_ui()
+	match swap_to_what_menu:
+		# Back button pressed
+		0:
+			parent_reference.parent_reference.revert_to_default_UI()
+		# Swap to Action Menu
+		1:
 			base_menu.visible = false
 			action_menu.visible = true
-	
-func swap_to_skill_menu(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			reset_ui()
+		# Swap to Skill Menu
+		2:
 			base_menu.visible = false
 			skill_menu.visible = true
-	
-func swap_to_item_menu(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			reset_ui()
+		# Swap to Item Menu
+		3:
 			base_menu.visible = false
 			item_menu.visible = true
 
-func back_button_pressed(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			reset_ui()
-			parent_reference.parent_reference.revert_to_default_UI()
+func use_skill(what_skill):
+	parent_reference.parent_reference.skill_selected(what_skill, parent_reference.child_number)
+
+func update_skill_buttons(player_to_check: generic_combatants, total_mana):
+	for move in range(player_to_check.combatant_skills.size()):
+		var skill_node: TextureButton = skill_menu.get_child(move + 1)
+		if player_to_check.combatant_skills[move] == null:
+			continue
+		
+		if total_mana >= player_to_check.combatant_skills[move].mana_cost:
+			skill_node.disabled = false
+		else:
+			skill_node.disabled = true
 
 func base_attack_selected(event):
 	if event is InputEventMouseButton:

@@ -7,17 +7,14 @@
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="5_o8d11"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_pvdly"]
 [ext_resource type="Texture2D" uid="uid://58jsyjqchuls" path="res://assets/tile sheets/Floor.png" id="7_1u5h8"]
-[ext_resource type="Texture2D" uid="uid://c5m63looaycv5" path="res://assets/tile sheets/Under_Health_)Bar.png" id="7_a4wc1"]
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="7_c1vbs"]
-[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="7_w732d"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="8_hyoec"]
-[ext_resource type="Texture2D" uid="uid://y5h7r3qfd7ty" path="res://assets/tile sheets/Sprite-0004.png" id="8_t7hpr"]
 [ext_resource type="Texture2D" uid="uid://dfguifwtach7e" path="res://assets/Sprites/Dungeon_wall_right.png" id="8_xal47"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="9_ge6k6"]
-[ext_resource type="Texture2D" uid="uid://bvdle862wer" path="res://assets/tile sheets/Over_Health_bar.png" id="9_og2ux"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_p8ud6"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="11_1uael"]
+[ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="12_edm4l"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_42huj"]
 load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
@@ -240,6 +237,7 @@ region = Rect2(0, 128, 32.350105, 32)
 script = ExtResource("8_hyoec")
 max_health = 1789
 health = 1000
+attack = 662
 speed = 81
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
@@ -664,15 +662,21 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edm4l"]
-bg_color = Color(0.28207913, 0.6745273, 0.63669854, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0.64324254, 0.5426964, 0.80472004, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 20
+shadow_color = Color(0.1336903, 0.061995834, 0.2626783, 0.6)
+shadow_size = 9
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uj4b"]
+bg_color = Color(0, 0.73001605, 9.62615e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iegkx"]
+bg_color = Color(0.99999994, 0.28730667, 0.22523719, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7hpr"]
 albedo_texture = ExtResource("8_xal47")
@@ -762,133 +766,71 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Party_Portrait_1" type="Control" parent="UI/Party_Portraits" unique_id=75698817]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Portrait" type="Sprite2D" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=392023982]
-position = Vector2(-565.00006, 457)
-scale = Vector2(2.2105262, 2.2105262)
-texture = ExtResource("7_w732d")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=85084760]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Party_Portraits" unique_id=1628635625]
 layout_mode = 0
-offset_left = -523.0
-offset_top = 423.0
-offset_right = -447.57144
-offset_bottom = 439.0
-value = 86.0
-nine_patch_stretch = true
-texture_under = ExtResource("7_a4wc1")
-texture_over = ExtResource("8_t7hpr")
-texture_progress = ExtResource("9_og2ux")
-
-[node name="Health_Num" type="Label" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=1942784956]
-layout_mode = 0
-offset_left = -513.0
-offset_top = 424.0
-offset_right = -460.0
-offset_bottom = 442.0
-text = "100/500"
-
-[node name="Name" type="Label" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=690401124]
-layout_mode = 0
-offset_left = -515.0
-offset_top = 387.0
-offset_right = -453.0
-offset_bottom = 429.0
-theme_override_font_sizes/font_size = 33
-text = "Lyra"
-
-[node name="Party_Portrait_2" type="Control" parent="UI/Party_Portraits" unique_id=1396455914]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Portrait" type="Sprite2D" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=667681062]
-position = Vector2(-387, 451.73682)
-scale = Vector2(2.2105262, 2.2105262)
-texture = ExtResource("7_w732d")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=1620443012]
-layout_mode = 0
-offset_left = -340.0
-offset_top = 411.0
-offset_right = -265.81216
-offset_bottom = 426.73682
-value = 86.0
-nine_patch_stretch = true
-texture_under = ExtResource("7_a4wc1")
-texture_over = ExtResource("8_t7hpr")
-texture_progress = ExtResource("9_og2ux")
-
-[node name="Name" type="Label" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=1873521796]
-layout_mode = 0
-offset_left = -338.0
-offset_top = 380.0
-offset_right = -266.0
-offset_bottom = 412.0
-theme_override_font_sizes/font_size = 28
-text = "Rowan"
-
-[node name="Health_Num" type="Label" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=1511396136]
-layout_mode = 0
-offset_left = -331.0
-offset_top = 412.0
-offset_right = -278.0
-offset_bottom = 451.0
-text = "100/500
-"
-
-[node name="Party_Portrait_3" type="Control" parent="UI/Party_Portraits" unique_id=18857068]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel" type="Panel" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=1842927605]
-z_index = -1
-layout_mode = 0
-offset_left = -615.0
+offset_left = -613.0
 offset_top = 375.0
-offset_right = -444.0
-offset_bottom = 534.0
+offset_right = -245.0
+offset_bottom = 415.0
+theme_override_constants/separation = 184
+
+[node name="PartyPortrait_1" parent="UI/Party_Portraits/HBoxContainer" unique_id=812714871 instance=ExtResource("12_edm4l")]
+layout_mode = 2
+
+[node name="PartyPortrait_2" parent="UI/Party_Portraits/HBoxContainer" unique_id=1001780271 instance=ExtResource("12_edm4l")]
+layout_mode = 2
+
+[node name="PartyPortrait_3" parent="UI/Party_Portraits/HBoxContainer" unique_id=1414338046 instance=ExtResource("12_edm4l")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UI" unique_id=2068698271]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 216.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_edm4l")
 
-[node name="Name" type="Label" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=220101027]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel" unique_id=584198092]
 layout_mode = 0
-offset_left = -132.0
-offset_top = 379.0
-offset_right = -92.0
-offset_bottom = 411.0
+offset_left = 85.0
+offset_top = 130.0
+offset_right = 493.0
+offset_bottom = 180.0
+theme_override_constants/separation = 208
+
+[node name="Panel" type="Panel" parent="UI/Panel/HBoxContainer" unique_id=2010219705]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7uj4b")
+
+[node name="Label" type="Label" parent="UI/Panel/HBoxContainer/Panel" unique_id=361036939]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 51.0
+text = "Confirm"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="UI/Panel/HBoxContainer" unique_id=1457558027]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iegkx")
+
+[node name="Label" type="Label" parent="UI/Panel/HBoxContainer/Panel2" unique_id=1701090137]
+layout_mode = 0
+offset_right = 101.0
+offset_bottom = 50.0
+text = "Decline"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="UI/Panel" unique_id=2111548861]
+layout_mode = 0
+offset_right = 573.0
+offset_bottom = 124.0
 theme_override_font_sizes/font_size = 28
-text = "MC"
-
-[node name="Health_Num" type="Label" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=409078617]
-z_index = 1
-layout_mode = 0
-offset_left = -135.0
-offset_top = 408.0
-offset_right = -82.0
-offset_bottom = 440.0
-text = "100/500"
-
-[node name="Portrait" type="Sprite2D" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=1852567644]
-position = Vector2(-190, 452.73682)
-scale = Vector2(2.2105262, 2.2105262)
-texture = ExtResource("7_w732d")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=2065969080]
-layout_mode = 0
-offset_left = -143.0
-offset_top = 408.0
-offset_right = -78.24072
-offset_bottom = 421.73682
-value = 86.0
-nine_patch_stretch = true
-texture_under = ExtResource("7_a4wc1")
-texture_over = ExtResource("8_t7hpr")
-texture_progress = ExtResource("9_og2ux")
+text = "Use Second Wind on Lyra?"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
 transform = Transform3D(1, 0, 0, 0, 0.9957247, 0.09237059, 0, -0.09237059, 0.9957247, 0.3054195, 0.23937124, 0.65926707)

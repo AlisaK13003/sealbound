@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://caqapr6wd1jpj"]
+
+[ext_resource type="Texture2D" uid="uid://ci04ctadmibja" path="res://assets/tile sheets/Move Sprites/Down_Arrow.png" id="1_tdssb"]
+
+[resource]
+atlas = ExtResource("1_tdssb")
+region = Rect2(3, 3, 11, 13)

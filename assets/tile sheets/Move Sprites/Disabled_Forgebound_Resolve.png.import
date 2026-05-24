@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgbej77uw2udq"
-path="res://.godot/imported/Item_Selection.png-4dcf3a91a81b3bd0bb3b61c41e5cb26e.ctex"
+uid="uid://bsiujjtj83bkq"
+path="res://.godot/imported/Disabled_Forgebound_Resolve.png-eb927d76dee1069da745c78a4d226f34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Item_Selection.png"
-dest_files=["res://.godot/imported/Item_Selection.png-4dcf3a91a81b3bd0bb3b61c41e5cb26e.ctex"]
+source_file="res://assets/tile sheets/Move Sprites/Disabled_Forgebound_Resolve.png"
+dest_files=["res://.godot/imported/Disabled_Forgebound_Resolve.png-eb927d76dee1069da745c78a4d226f34.ctex"]
 
 [params]
 

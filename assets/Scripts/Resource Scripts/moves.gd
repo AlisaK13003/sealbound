@@ -52,3 +52,8 @@ class_name moves
 @export var does_heal_party: bool
 @export_enum("low", "moderate", "full") var amount_healed: int
 @export var aoe_heal : bool
+
+@export var normal_sprite: Texture2D
+@export var pressed_sprite: Texture2D
+@export var hover_sprite: Texture2D
+@export var disabled_sprite: Texture2D

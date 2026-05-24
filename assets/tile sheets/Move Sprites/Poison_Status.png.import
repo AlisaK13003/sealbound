@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crmnlgmc341af"
-path="res://.godot/imported/Action_Selection.png-a68071543cf4be2c0bb34632d95d6577.ctex"
+uid="uid://b1qeayxmm5tkf"
+path="res://.godot/imported/Poison_Status.png-011aa877b2702caa86ed3a676cdef369.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Action_Selection.png"
-dest_files=["res://.godot/imported/Action_Selection.png-a68071543cf4be2c0bb34632d95d6577.ctex"]
+source_file="res://assets/tile sheets/Move Sprites/Poison_Status.png"
+dest_files=["res://.godot/imported/Poison_Status.png-011aa877b2702caa86ed3a676cdef369.ctex"]
 
 [params]
 
