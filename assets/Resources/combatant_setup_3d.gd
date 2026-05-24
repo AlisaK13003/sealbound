@@ -147,9 +147,13 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 					attacked_label.text = str(int(floor(change_health_value)))
 					stored_combatant.combatant_stats.health -= floor(change_health_value)
 	else:
-		parent_reference.get_player_portrait(child_number)._update_health(change_health_value)
-		stored_combatant.combatant_stats.health -= floor(change_health_value)
-
+		if not stored_combatant.is_combatant_enemy:
+			parent_reference.get_player_portrait(child_number)._update_health(change_health_value)
+			stored_combatant.combatant_stats.health -= floor(change_health_value)
+		else:
+			health_bar.value -= floor(change_health_value)
+			attacked_label.text = str(int(floor(change_health_value)))
+			stored_combatant.combatant_stats.health -= floor(change_health_value)
 	await get_tree().create_timer(0.5).timeout
 	
 	attacked_label.text = ""

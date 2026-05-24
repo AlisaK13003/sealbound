@@ -19,7 +19,8 @@ extends Node3D
 
 var all_combatants : Array[generic_combatants] = []
 
-var mana: int = 1
+var mana: int = 3
+var max_mana: int = 3
 
 var waiting_for_confirmation : bool = false
 signal confirmation
@@ -56,7 +57,7 @@ func determine_order():
 	)
 
 func select_next_wave():
-	mana = 3
+	update_mana_display(3)
 	var number_of_possible_waves = current_dungeon_run.potential_waves.size()
 	var random_wave = rng.randi_range(0, number_of_possible_waves - 1)
 	var enemy_count_for_current_wave = current_dungeon_run.potential_waves[random_wave].enemies.size()
@@ -77,11 +78,12 @@ func battle_loop():
 	for i in range(number_of_waves_to_fight):
 		is_wave_over = false
 		select_next_wave()
-		mana = clamp(mana + 1, 0, 3)
+		update_mana_display(1)
 		$UI/Dungeon_Floor.text = current_dungeon_run.dungeon_name + "\n" + str(i + 1) + "F"
 
 		while(not is_wave_over):
 			turn_count += 1
+			$"UI/Turn Counter".text = "Turn: " + str(turn_count)
 			print("TURN: ", turn_count)
 			print(mana, " remaining")
 			determine_order()
@@ -108,7 +110,7 @@ func battle_loop():
 								target_node.stored_combatant.is_dead = true
 						"BASIC_DEFEND":
 							$Player_Container.get_child(current_slot).execute_defend()
-							mana = clamp(mana + 2, 0, 3)
+							update_mana_display(2)
 						"SKILL":
 							var current_player: combat_template = get_player(current_slot)
 							var skill_used: moves = current_player.stored_combatant.combatant_skills[what_action[2]]
@@ -144,7 +146,7 @@ func battle_loop():
 										1:
 											attack_boost = 40
 										2:
-											attack_boost = 80
+											attack_boost = 300
 									for enemy: combat_template in enemy_shit.get_children():
 										var check_evasion = current_player.calculate_evasion(enemy, skill_used.accuracy)
 										var chance = rng.randf_range(0, 1)
@@ -192,7 +194,6 @@ func battle_loop():
 									var targetted_enemy = enemy_shit.get_child(what_action[1])
 									var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
 									var chance = rng.randf_range(0, 1)
-									print("HIII")
 									if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
 										targetted_enemy.handle_status(skill_used.status_type)
 									if skill_used.multi_hit:
@@ -220,7 +221,7 @@ func battle_loop():
 											targetted_enemy.update_health(damage)
 										else:
 											targetted_enemy.update_health("MISS")
-							mana = clamp(mana - skill_used.mana_cost, 0, 3)
+							update_mana_display(-1 * skill_used.mana_cost)
 						"ITEM":
 							print("ITEM")
 					get_player(current_slot).take_turn(get_player_portrait(current_slot))
@@ -279,7 +280,7 @@ func toggle_player_ui(player_to_toggle):
 
 func set_health_bar_values(player_to_set_for):
 	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
-	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
+	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health) + "/" + str(get_player(player_to_set_for).stored_combatant.combatant_stats.max_health)
 
 func run(event):
 	if event is InputEventMouseButton:
@@ -352,3 +353,7 @@ func revert_to_default_UI():
 		
 func hide_everything():
 	revert_to_default_UI()
+
+func update_mana_display(mana_used_or_gained):
+	mana = clamp(mana + mana_used_or_gained, 0, 3)
+	$"UI/Mana Bar/Label".text = str(mana) + "/" + str(max_mana) 

@@ -25,6 +25,9 @@ func setup(parent_ref, party_member: generic_combatants):
 		skill_node.texture_pressed = party_member.combatant_skills[move].normal_sprite
 		skill_node.texture_hover = party_member.combatant_skills[move].normal_sprite
 		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
+		
+		for mana in range(party_member.combatant_skills[move].mana_cost):
+			skill_node.get_child(mana).visible = true
 	
 func reset_ui():
 	base_menu.visible = true
@@ -34,7 +37,6 @@ func reset_ui():
 
 func handle_menu_swapping(swap_to_what_menu: int):
 	reset_ui()
-	print("HIII")
 	match swap_to_what_menu:
 		# Back button pressed
 		0:
