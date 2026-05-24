@@ -339,8 +339,6 @@ func confirmation_button(event, confirm_or_deny):
 			actual_confirmation.emit(confirm_or_deny)
 
 func setup_confirmation_button(move_name, entity_used_on_name):
-	#for player: combat_template in player_container.get_children():
-	#	player.combatant_ui.visible = false
 	$UI/Confirmation.visible = true
 	var question_label = $UI/Confirmation/Label
 	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
