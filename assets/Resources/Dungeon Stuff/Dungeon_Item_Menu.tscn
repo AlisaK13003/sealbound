@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bdncivkt5ewpn"]
+
+[ext_resource type="Script" uid="uid://cmuy52sot1frj" path="res://assets/Resources/Dungeon Stuff/dungeon_item_menu.gd" id="1_cnb6k"]
+[ext_resource type="PackedScene" uid="uid://eql2rxxa33si" path="res://assets/Resources/Dungeon Stuff/Item_Node.tscn" id="1_mrcn6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrcn6"]
+bg_color = Color(0.34440893, 0.6144544, 0.91143113, 1)
+
+[node name="DungeonItemMenu" type="Control" unique_id=1100506542]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_cnb6k")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=246274254]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 226
+theme_override_constants/v_separation = 107
+columns = 2
+
+[node name="ItemNode" parent="GridContainer" unique_id=2064623552 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode2" parent="GridContainer" unique_id=1110619728 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode3" parent="GridContainer" unique_id=496637043 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode4" parent="GridContainer" unique_id=1684479455 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode5" parent="GridContainer" unique_id=2022169406 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode6" parent="GridContainer" unique_id=109731529 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode7" parent="GridContainer" unique_id=1780650335 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode8" parent="GridContainer" unique_id=2145543207 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode9" parent="GridContainer" unique_id=65400841 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="ItemNode10" parent="GridContainer" unique_id=1988541176 instance=ExtResource("1_mrcn6")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=281418985]
+layout_mode = 0
+mouse_filter = 1
+
+[node name="Panel2" type="Panel" parent="." unique_id=674101943]
+z_index = -2
+layout_mode = 0
+offset_left = -7.0
+offset_top = -4.0
+offset_right = 437.0
+offset_bottom = 533.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrcn6")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=173432665]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="TextureButton2" type="TextureButton" parent="." unique_id=1911042890]
+layout_mode = 0
+offset_top = 393.0
+offset_right = 33.0
+offset_bottom = 409.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="." unique_id=1197017893]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -58.0
+offset_right = 116.0
+offset_bottom = 7.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 57
+text = "Items"

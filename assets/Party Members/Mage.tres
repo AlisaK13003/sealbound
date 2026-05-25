@@ -12,8 +12,7 @@ script = ExtResource("1_hgtu5")
 move_name = "Swing"
 move_description = "Swing Swing Swing"
 attack_power = 2
-energy_cost = 1
-status_conditions = null
+status_type = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_t0iy1"]

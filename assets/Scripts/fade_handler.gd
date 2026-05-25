@@ -3,7 +3,7 @@ extends CanvasLayer
 @onready var fade_thing = $Panel
 var is_fading : bool
 
-func change_scene(target_path: String, duration: float = 2):
+func change_scene(target_path: String, _duration: float = 2):
 	get_tree().change_scene_to_file(target_path)
 	
 	await get_tree().process_frame

@@ -7,6 +7,8 @@ extends Node3D
 
 @export var current_dungeon_run : dungeon_type
 
+@export var temp_item_list : Array[Items]
+
 @onready var slot_1 = $Player_Container/Player_Slot1
 @onready var slot_2 = $Player_Container/Player_Slot2
 @onready var slot_3 = $Player_Container/Player_Slot3
@@ -15,12 +17,18 @@ extends Node3D
 
 @onready var enemy_shit = $Enemy_Container
 
+@onready var item_menu = $UI/DungeonItemMenu
+@onready var selected_item = $UI/ItemNode
+
 @onready var rng = RandomNumberGenerator.new()
 
-var all_combatants : Array[generic_combatants] = []
+
+var all_combatants : Array[combat_template] = []
 
 var mana: int = 3
 var max_mana: int = 3
+
+var current_run_id = 0
 
 var waiting_for_confirmation : bool = false
 signal confirmation
@@ -33,13 +41,15 @@ func _ready():
 	slot_2.setup(party_slot_2, self, 1)
 	slot_3.setup(party_slot_3, self, 2)
 
-	all_combatants.append(party_slot_1)
-	all_combatants.append(party_slot_2)
-	all_combatants.append(party_slot_3)
+	all_combatants.append(slot_1)
+	all_combatants.append(slot_2)
+	all_combatants.append(slot_3)
 	
 	get_player_portrait(0)._setup(party_slot_1)
 	get_player_portrait(1)._setup(party_slot_2)
 	get_player_portrait(2)._setup(party_slot_3)
+	
+	item_menu.setup(temp_item_list, self)
 	
 	battle_loop()
 
@@ -60,13 +70,14 @@ func battle_loop():
 			$"UI/Turn Counter".text = "Turn: " + str(turn_count)
 			determine_order()
 			for j in range(all_combatants.size()):
+				item_menu.update_item_list(temp_item_list)
 				var current_combatant = all_combatants[j]
-				if current_combatant.is_dead:
+				if current_combatant.stored_combatant.is_dead:
 					continue
-				elif current_combatant.is_combatant_enemy:
-					await execute_enemy_turn(current_combatant, turn_count)
+				elif current_combatant.stored_combatant.is_combatant_enemy:
+					await execute_enemy_turn(current_combatant.stored_combatant, turn_count)
 				else:	
-					await handle_player_move_selection(current_combatant)
+					await handle_player_move_selection(current_combatant.stored_combatant)
 				revert_to_default_UI()
 				await get_tree().create_timer(0.75).timeout
 				var number_of_alive_enemies = 0
@@ -75,27 +86,30 @@ func battle_loop():
 						continue
 					if not enemy.stored_combatant.is_dead:
 						number_of_alive_enemies += 1
+						
+				await get_tree().create_timer(1).timeout
 				if number_of_alive_enemies <= 0:
 					is_wave_over = true
 					break
-		
-func execute_enemy_turn(enemy_to_attack, turn_number):
+	print("BATTLE FINISHED")
+	
+func execute_enemy_turn(enemy_to_attack, _turn_number):
 	rng = RandomNumberGenerator.new()
 	var action_selected = rng.randi_range(0,2)
 	var player_to_attack = rng.randi_range(0,2)
 	while(get_player(player_to_attack).stored_combatant.is_dead or get_player(player_to_attack).is_empty):
 		player_to_attack = rng.randi_range(0,2)
 	
-	var attacking_enemy : int
+	var attacking_enemy: combat_template
 	for enemy in enemy_shit.get_children():
 		if enemy_to_attack == enemy.stored_combatant:
-			attacking_enemy = enemy.get_index()
-	enemy_shit.get_child(attacking_enemy).take_turn()
+			attacking_enemy = enemy_shit.get_child(enemy.get_index())
+	attacking_enemy.take_turn()
 	action_selected = 0
 	match action_selected:
 		# Basic Attack
 		0:
-			var damage_to_deal = enemy_shit.get_child(attacking_enemy).execute_base_attack(get_player(player_to_attack))
+			var damage_to_deal = calculate_damage(attacking_enemy, attacking_enemy.obtain_stat(attacking_enemy.stats.ATTACK), get_player(player_to_attack), true)
 			if await get_player(player_to_attack).update_health(damage_to_deal, false, get_player_portrait(player_to_attack)):
 				get_player(player_to_attack).stored_combatant.is_dead = true
 			set_health_bar_values(player_to_attack)
@@ -117,16 +131,15 @@ func handle_player_move_selection(current_combatant):
 		"BASIC_ATTACK":
 			var target_node = enemy_shit.get_child(what_action[1])
 			var damage = get_player(current_slot).execute_base_attack(target_node)
-			if await target_node.update_health(damage, false):
+			if await target_node.update_health([damage, ""], false):
 				target_node.stored_combatant.is_dead = true
 		"BASIC_DEFEND":
 			$Player_Container.get_child(current_slot).execute_defend()
 			update_mana_display(2)
 		"SKILL":
-			execute_skills(current_slot, what_action)
-
+			await execute_skills(current_slot, what_action)
 		"ITEM":
-			print("ITEM")
+			await execute_item(temp_item_list[what_action[2]], what_action[1], what_action[2])
 	get_player(current_slot).take_turn(get_player_portrait(current_slot))
 	get_player_portrait(current_slot).update_statuses(get_player(current_slot))
 
@@ -141,9 +154,9 @@ func execute_skills(active_player, what_action):
 			if skill_used.does_heal_party:
 				for player: combat_template in player_container:
 					if get_skill_boost(skill_used) != 999:
-						player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), false, get_player_portrait(active_player))
+						player.update_health([-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(active_player))
 					else:
-						player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health, false, get_player_portrait(active_player))
+						player.update_health([-1 * current_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(active_player))
 			# Does this skill apply a status to every party member
 			if skill_used.does_status:
 				for player: combat_template in player_container.get_children():
@@ -152,7 +165,8 @@ func execute_skills(active_player, what_action):
 		else:
 			for enemy: combat_template in enemy_shit.get_children():
 				var chance = rng.randf_range(0, 1)
-				calculate_multi_hit(skill_used, enemy, current_player, get_skill_boost(skill_used))
+				await deal_damage(current_player, enemy, true, skill_used)
+
 				if skill_used.does_status:
 					chance = rng.randf_range(0, 1)
 					if chance <= skill_used.chance_of_status_condition:
@@ -162,34 +176,71 @@ func execute_skills(active_player, what_action):
 			var targetted_player: combat_template = player_container.get_child(what_action[1])
 			if skill_used.does_heal_party:
 				if get_skill_boost(skill_used) != 999:
-					targetted_player.update_health(-1 * (current_player.obtain_stat(active_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), false, get_player_portrait(active_player))
+					await targetted_player.update_health([-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(what_action[1]))
 				else:
-					targetted_player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health, false, get_player_portrait(active_player))
+					await targetted_player.update_health([-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(what_action[1]))
 			if skill_used.does_status:
-				targetted_player.handle_status(skill_used.status_type)
+				await targetted_player.handle_status(skill_used.status_type)
 		else:
 			var targetted_enemy = enemy_shit.get_child(what_action[1])
 			var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
 			var chance = rng.randf_range(0, 1)
 			if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
-				targetted_enemy.handle_status(skill_used.status_type)
+				await targetted_enemy.handle_status(skill_used.status_type)
 			if skill_used.multi_hit:
-				calculate_multi_hit(skill_used, targetted_enemy, current_player, get_skill_boost(skill_used))
+				await deal_damage(current_player, targetted_enemy, true, skill_used)
 			else:
 				chance = rng.randf_range(0, 1)
 				if chance <= check_evasion:
-					var damage = calculate_damage(current_player, get_skill_boost(skill_used), targetted_enemy, skill_used.is_magic_skill)
-					targetted_enemy.update_health(damage)
+					await deal_damage(current_player, targetted_enemy, true, skill_used)
 				else:
 					targetted_enemy.update_health("MISS")
 	update_mana_display(-1 * skill_used.mana_cost)
-	
+
+func execute_item(what_item: Items, targets_who, item_index):
+	if what_item.targets_players:
+		if what_item.is_aoe_item:
+			for player_num in range(player_container.get_child_count()):
+				var player = get_player(player_num)
+				if what_item.does_what == 2:
+					player.update_health([-1 * what_item.amount_to_heal_or_deal, "HEAL"], false, get_player_portrait(player_num))
+				if what_item.removes_status != null:
+					get_player(targets_who).remove_status(what_item.removes_status)
+				if what_item.give_status != null:
+					get_player(targets_who).handle_status(what_item.give_status)
+		else:
+			if what_item.does_what == 2:
+				get_player(targets_who).update_health([-1 * what_item.amount_to_heal_or_deal, "HEAL"], false, get_player_portrait(targets_who))
+			if what_item.removes_status != null:
+				get_player(targets_who).remove_status(what_item.removes_status)
+			if what_item.give_status != null:
+				get_player(targets_who).handle_status(what_item.give_status)
+	else:
+		if what_item.is_aoe_item:
+			for enemy in enemy_shit.get_children():
+				if what_item.does_what == 1:
+					await enemy.update_health([what_item.amount_to_heal_or_deal, 0])
+				if what_item.removes_status != null:
+					enemy.remove_status(what_item.removes_status)
+				if what_item.give_status != null:
+					enemy.handle_status(what_item.give_status)
+		else:
+			var enemy = enemy_shit.get_child(targets_who)
+			if what_item.does_what == 1:
+				await enemy.update_health([what_item.amount_to_heal_or_deal, 0])
+			if what_item.removes_status != null:
+				enemy.remove_status(what_item.removes_status)
+			if what_item.give_status != null:
+				enemy.handle_status(what_item.give_status)
+	temp_item_list.remove_at(item_index)
+	update_mana_display(-1)
+
 # Helper Functions
 func get_player(player_to_get: int):
 	return $Player_Container.get_child(player_to_get)
 
 func get_player_portrait(portrait_to_get: int):
-	return $UI/Party_Portraits/HBoxContainer.get_child(portrait_to_get)
+	return $UI/Party_Portraits/VBoxContainer.get_child(portrait_to_get)
 
 func check_if_critical_hit(current_individual: combat_template):
 	var chance_of_crit_hit = rng.randf_range(0,1)
@@ -199,7 +250,7 @@ func check_if_critical_hit(current_individual: combat_template):
 	else:
 		return false
 
-func calculate_damage(current_player, stat_boost, targetted_enemy, attack_or_magic):
+func calculate_damage(current_player: combat_template, stat_boost, targetted_enemy, attack_or_magic, _skill_accuracy = 1):
 	var correct_player_stat
 	if attack_or_magic:
 		correct_player_stat = current_player.stats.ATTACK
@@ -210,23 +261,23 @@ func calculate_damage(current_player, stat_boost, targetted_enemy, attack_or_mag
 	var attacker_atk = current_player.obtain_stat(correct_player_stat) + stat_boost
 	var enemy_def = targetted_enemy.obtain_stat(current_player.stats.DEFENSE) + 1.0
 	var weapon_pwr = current_player.stored_combatant.stored_weapon.weapon_attack + stat_boost
-	var acc_mod = current_player.obtain_stat_alteration(current_player.stats.ACCURACY)
-
-	var ratio = (attacker_atk / enemy_def) * (weapon_pwr * acc_mod)
+	# var acc_mod = current_player.obtain_stat_alteration(current_player.stats.ACCURACY) * ((float(skill_accuracy) / 100) if skill_accuracy != 1 else 1)
+	var ratio = (attacker_atk / enemy_def) * (weapon_pwr if not current_player.stored_combatant.is_combatant_enemy else 1) #* acc_mod)
 	
 	var damage = (5.0 * sqrt(max(0, ratio))) * (2 if do_critical_hit else 1)
-	return (damage * randf_range(0.95, 1.05))
+	var retval = [damage * randf_range(0.95, 1.05), 1 if do_critical_hit else 0]
+	return retval
 
-func calculate_multi_hit(skill_used, targetted_enemy, current_player, attack_boost):
+func calculate_multi_hit(skill_used: moves, targetted_enemy, current_player, attack_boost):
 	var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
 	var chance = rng.randf_range(0, 1)
 	for hit in range(skill_used.max_hit_count):
 		if hit < skill_used.guaranteed_hit_count:
-			targetted_enemy.update_health(calculate_damage(current_player, attack_boost, targetted_enemy, skill_used.is_magic_skill))
+			await deal_damage(current_player, targetted_enemy, true, skill_used)
 		else:
 			chance = rng.randf_range(0, 1)
 			if chance <= check_evasion:
-				targetted_enemy.update_health(calculate_damage(current_player, attack_boost, targetted_enemy, skill_used.is_magic_skill))
+				await deal_damage(current_player, targetted_enemy, true, skill_used)
 			else:
 				targetted_enemy.update_health("MISS")
 
@@ -252,17 +303,28 @@ func get_skill_boost(skill_used: moves):
 				magic_boost = 999
 		return magic_boost
 
+func deal_damage(entity_attacking, entity_being_attacked, was_a_skill_used, what_skill_was_used: moves):
+	if was_a_skill_used:
+		if what_skill_was_used.multi_hit:
+			await calculate_multi_hit(what_skill_was_used, entity_being_attacked, entity_attacking, get_skill_boost(what_skill_was_used))
+		else:
+			await entity_being_attacked.update_health(calculate_damage(entity_attacking, get_skill_boost(what_skill_was_used), entity_being_attacked, what_skill_was_used.is_magic_skill, what_skill_was_used.accuracy))
+	else:
+		pass
+	
+	pass
+
 func determine_order():
 	all_combatants.clear()
 	
 	for slot in $Player_Container.get_children():
-		all_combatants.append(slot.stored_combatant)
+		all_combatants.append(slot)
 	for enemy_slot in enemy_shit.get_children():
 		if enemy_slot.visible:
-			all_combatants.append(enemy_slot.stored_combatant)
+			all_combatants.append(enemy_slot)
 	
 	all_combatants.sort_custom(func(a, b):
-		return a.combatant_stats.altered_speed > b.combatant_stats.altered_speed
+		return a.obtain_stat(5) > b.obtain_stat(5)
 	)
 
 func select_next_wave():
@@ -277,7 +339,7 @@ func select_next_wave():
 		else:
 			enemy_shit.get_child(i).visible = true
 		enemy_shit.get_child(i).setup(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true), self, i)
-		all_combatants.append(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true))
+		all_combatants.append(enemy_shit.get_child(i))
 
 func toggle_player_ui(player_to_toggle):
 	if not get_player(player_to_toggle).combatant_ui.visible:
@@ -290,12 +352,11 @@ func toggle_player_ui(player_to_toggle):
 
 func set_health_bar_values(player_to_set_for):
 	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
-	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health) + "/" + str(get_player(player_to_set_for).stored_combatant.combatant_stats.max_health)
+	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
 
 # Buttons
 func attack_button_pressed():
-	for enemy in enemy_shit.get_children():
-		enemy.could_be_selected()
+	highlight_enemies()
 	var action_on_who = await confirmation
 	revert_to_default_UI()
 	enemy_shit.get_child(action_on_who).could_be_selected()
@@ -316,13 +377,11 @@ func skill_selected(what_skill, what_player):
 	var skill_to_use: moves = get_player(what_player).stored_combatant.combatant_skills[what_skill]
 	if skill_to_use.targets_party:
 		if skill_to_use.is_skill_aoe:
-			for player in player_container.get_children():
-				player.could_be_selected()
+			highlight_players()
 		else:
 			get_player(what_player).could_be_selected()
 	else:
-		for enemy in enemy_shit.get_children():
-			enemy.could_be_selected()
+		highlight_enemies()
 		
 	var action_on_who = await confirmation
 	if not skill_to_use.is_skill_aoe:
@@ -341,9 +400,59 @@ func skill_selected(what_skill, what_player):
 		action_taken.emit("SKILL", action_on_who, what_skill)
 	revert_to_default_UI()
 
+func item_selected(item_index):
+	current_run_id += 1
+	var cur_id = current_run_id
+	
+	item_menu.visible = false
+	selected_item.visible = true
+	var used_item: bool = false
+	var chosen_item: Items = temp_item_list[item_index]
+	var action_on_who
+	var is_aoe
+	selected_item.setup(chosen_item, item_index, self)
+	if chosen_item.targets_players:
+		highlight_players()
+	else:
+		highlight_enemies()
+	while not used_item:
+		if chosen_item.is_aoe_item:
+			setup_confirmation_button(chosen_item.item_name, "entire party" if chosen_item.targets_players else "every enemy")
+			var confirmation = await actual_confirmation
+			if confirmation:
+				is_aoe = true
+				revert_to_default_UI()
+				break
+			else:
+				$UI/Confirmation.visible = false
+				item_menu.visible = true
+				selected_item.visible = false
+				unhighlight_all_entities()
+				return
+		else:
+			action_on_who = await confirmation
+			if current_run_id != cur_id:
+				return
+			setup_confirmation_button(chosen_item.item_name, enemy_shit.get_child(action_on_who).stored_combatant.combatant_name if not chosen_item.targets_players else get_player(action_on_who).stored_combatant.combatant_name)
+			var confirmed = await actual_confirmation
+			if current_run_id != cur_id:
+				return
+			if confirmed:
+				revert_to_default_UI()
+				break
+			else:
+				$UI/Confirmation.visible = false
+				selected_item.visible = true
+				if not confirmed is bool and confirmed =="NOPE":
+					print("HIII")
+				continue
+
+	action_taken.emit("ITEM", action_on_who if not is_aoe else 4, item_index)
+
 func confirmation_button(event, confirm_or_deny):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			await get_tree().create_timer(0.02).timeout
 			actual_confirmation.emit(confirm_or_deny)
 
 func setup_confirmation_button(move_name, entity_used_on_name):
@@ -352,12 +461,24 @@ func setup_confirmation_button(move_name, entity_used_on_name):
 	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
 
 func revert_to_default_UI():
+	unhighlight_all_entities()
+	$UI/Confirmation.visible = false
+	$UI/ItemNode.visible = false
+
+func unhighlight_all_entities():
 	for enemy in enemy_shit.get_children():
 		enemy.undo_selection()
 	for player in player_container.get_children():
 		player.undo_selection()
-	$UI/Confirmation.visible = false
+
+func highlight_players():
+	for player in player_container.get_children():
+		player.could_be_selected()
 		
+func highlight_enemies():
+	for enemy in enemy_shit.get_children():
+		enemy.could_be_selected()
+
 func hide_everything():
 	revert_to_default_UI()
 

@@ -396,7 +396,7 @@ func _ready():
 	village_inventory.resize(40)
 	var temp = load("res://assets/Resources/Interactables/VillageInventory/temp.tres")
 	# var temp2 = load("D:/sealbound/assets/Resources/Interactables/VillageInventory/temp_2.tres")
-	var temp3 = load("res://assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
+	# var temp3 = load("res://assets/Resources/Interactables/VillageInventory/Seed_Pack.tres")
 	var temp4 = load("res://assets/Resources/Interactables/Shops/Shop Items/Milk.tres")
 	for i in range(40):
 		if i % 3 == 0:

@@ -9,7 +9,7 @@
 viewport_path = NodePath("Sprite3D2/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_51gu7"]
-size = Vector3(2.2663574, 1.7889404, 0.042236328)
+size = Vector3(1.5053711, 1.7889404, 0.042236328)
 
 [node name="CombatTemplate3d" type="Node3D" unique_id=240556923]
 script = ExtResource("1_51gu7")
@@ -23,7 +23,9 @@ texture = ExtResource("2_7mydf")
 [node name="Area3D" type="Area3D" parent="." unique_id=520647102]
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Area3D" unique_id=51668580]
+depth = 0.11
 disabled = true
+debug_color = Color(0.25951964, 0.5873487, 0.66371477, 0.41960785)
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
 transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, 0, 0.014089659, 0)
@@ -39,12 +41,10 @@ size = Vector2i(172, 245)
 [node name="CombatantUi" parent="Sprite3D2/SubViewport" unique_id=1169996085 instance=ExtResource("3_drjmm")]
 
 [node name="Area3D" type="Area3D" parent="Sprite3D2" unique_id=1246036896]
-visible = false
 script = ExtResource("4_mmlnl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Area3D" unique_id=1923538043]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19714354, 0.3944702, -0.01574707)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18334964, 0.3944702, -0.01574707)
 shape = SubResource("BoxShape3D_51gu7")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=1576479968]

@@ -12,13 +12,13 @@ class_name player_portraits
 func _setup(person_to_setup: generic_combatants):
 	health_bar.max_value = person_to_setup.combatant_stats.max_health
 	health_bar.value = person_to_setup.combatant_stats.health
-	health_num.text = str(int(health_bar.value)) + "/" + str(int(health_bar.max_value))
+	health_num.text = str(int(health_bar.value))
 	party_portrait.texture = person_to_setup.party_member_portrait
 	portrait_name.text = person_to_setup.combatant_name
 	
 func _update_health(health_value):
 	health_bar.value = clamp(floor(health_bar.value - health_value), 0, health_bar.max_value)
-	health_num.text = str(int(health_bar.value)) + "/" + str(int(health_bar.max_value))
+	health_num.text = str(int(health_bar.value))
 
 func update_statuses(person_to_do_it_for: combat_template):
 	reset_ui()

@@ -3,7 +3,7 @@ extends Area3D
 @onready var subviewport = $"../SubViewport"
 @onready var sprite = $".."
 
-func _input_event(camera, event, position, normal, shape_idx):
+func _input_event(_camera, event, position, _normal, _shape_idx):
 	if event is InputEventMouse:
 		
 		var local_pos = sprite.to_local(position)

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://ga5pyvowfui4"]
+
+[ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="1_axywx"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_y1h3q"]
+
+[resource]
+script = ExtResource("1_y1h3q")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("1_axywx")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

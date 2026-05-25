@@ -39,10 +39,18 @@ func reset_ui():
 	item_menu.visible = false
 
 func handle_menu_swapping(swap_to_what_menu: int):
-	reset_ui()
+	if not parent_reference.parent_reference.selected_item.visible:
+		reset_ui()
 	match swap_to_what_menu:
 		# Back button pressed
 		0:
+			if parent_reference.parent_reference.selected_item.visible:
+				parent_reference.parent_reference.selected_item.visible = false
+				parent_reference.parent_reference.item_menu.visible = true
+				parent_reference.parent_reference.unhighlight_all_entities()
+				parent_reference.parent_reference.actual_confirmation.emit("NOPE")
+				print("INSIDE THE HELL")
+				return
 			parent_reference.parent_reference.revert_to_default_UI()
 		# Swap to Action Menu
 		1:
@@ -56,8 +64,11 @@ func handle_menu_swapping(swap_to_what_menu: int):
 		3:
 			base_menu.visible = false
 			item_menu.visible = true
+			parent_reference.parent_reference.item_menu.visible = true
+			
 
 func use_skill(what_skill):
+	parent_reference.parent_reference.revert_to_default_UI()
 	parent_reference.parent_reference.skill_selected(what_skill, parent_reference.child_number)
 
 func update_skill_buttons(player_to_check: generic_combatants, total_mana):
