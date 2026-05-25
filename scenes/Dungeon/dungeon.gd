@@ -43,39 +43,13 @@ func _ready():
 	
 	battle_loop()
 
-func determine_order():
-	all_combatants.clear()
-	
-	for slot in $Player_Container.get_children():
-		all_combatants.append(slot.stored_combatant)
-	for enemy_slot in enemy_shit.get_children():
-		if enemy_slot.visible:
-			all_combatants.append(enemy_slot.stored_combatant)
-	
-	all_combatants.sort_custom(func(a, b):
-		return a.combatant_stats.altered_speed > b.combatant_stats.altered_speed
-	)
-
-func select_next_wave():
-	update_mana_display(3)
-	var number_of_possible_waves = current_dungeon_run.potential_waves.size()
-	var random_wave = rng.randi_range(0, number_of_possible_waves - 1)
-	var enemy_count_for_current_wave = current_dungeon_run.potential_waves[random_wave].enemies.size()
-	for i in range(enemy_shit.get_child_count()):
-		if i >= enemy_count_for_current_wave:
-			enemy_shit.get_child(i).visible = false
-			continue
-		else:
-			enemy_shit.get_child(i).visible = true
-		enemy_shit.get_child(i).setup(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true), self, i)
-		all_combatants.append(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true))
-	
 func battle_loop():
 	print("BATTLE_STARTED")
 	var turn_count = 0
 	var is_wave_over : bool = false
 	var number_of_waves_to_fight = rng.randi_range(current_dungeon_run.minimum_number_of_waves, current_dungeon_run.max_number_of_waves)
 	for i in range(number_of_waves_to_fight):
+		turn_count = 0
 		is_wave_over = false
 		select_next_wave()
 		update_mana_display(1)
@@ -84,8 +58,6 @@ func battle_loop():
 		while(not is_wave_over):
 			turn_count += 1
 			$"UI/Turn Counter".text = "Turn: " + str(turn_count)
-			print("TURN: ", turn_count)
-			print(mana, " remaining")
 			determine_order()
 			for j in range(all_combatants.size()):
 				var current_combatant = all_combatants[j]
@@ -94,138 +66,7 @@ func battle_loop():
 				elif current_combatant.is_combatant_enemy:
 					await execute_enemy_turn(current_combatant, turn_count)
 				else:	
-					var current_slot : int = 0
-					for person in $Player_Container.get_children():
-						if person.stored_combatant.combatant_name == current_combatant.combatant_name:
-							current_slot = person.get_index()
-					toggle_player_ui(current_slot)
-					get_player(current_slot).combatant_ui_.update_skill_buttons(get_player(current_slot).stored_combatant, mana)
-					var what_action = await action_taken
-					toggle_player_ui(current_slot)
-					match what_action[0]:
-						"BASIC_ATTACK":
-							var target_node = enemy_shit.get_child(what_action[1])
-							var damage = get_player(current_slot).execute_base_attack(target_node)
-							if await target_node.update_health(damage, false):
-								target_node.stored_combatant.is_dead = true
-						"BASIC_DEFEND":
-							$Player_Container.get_child(current_slot).execute_defend()
-							update_mana_display(2)
-						"SKILL":
-							var current_player: combat_template = get_player(current_slot)
-							var skill_used: moves = current_player.stored_combatant.combatant_skills[what_action[2]]
-							
-							if skill_used.is_skill_aoe:
-								# AOE skill that acts on party
-								if skill_used.targets_party:
-									# Does skill heal everyone in the party
-									if skill_used.does_heal_party:
-										for player: combat_template in player_container:
-											var magic_boost = 0
-											match skill_used.amount_healed:
-												0:
-													magic_boost = 20
-												1:
-													magic_boost = 40
-												2:
-													magic_boost = 999
-											if magic_boost != 999:
-												player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + magic_boost) * rng.randf_range(0.95, 1.05))
-											else:
-												player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health)
-									# Does this skill apply a status to every party member
-									if skill_used.does_status:
-										for player: combat_template in player_container.get_children():
-											player.handle_status(skill_used.status_type)
-								# AOE skill that effects enemies
-								else:
-									var attack_boost = 0
-									match skill_used.attack_power:
-										0:
-											attack_boost = 20
-										1:
-											attack_boost = 40
-										2:
-											attack_boost = 300
-									for enemy: combat_template in enemy_shit.get_children():
-										var check_evasion = current_player.calculate_evasion(enemy, skill_used.accuracy)
-										var chance = rng.randf_range(0, 1)
-										
-										for hit in range(skill_used.max_hit_count):
-											if hit < skill_used.guaranteed_hit_count:
-												enemy.update_health((current_player.obtain_stat(current_player.stats.ATTACK) + attack_boost) * rng.randf_range(0.95, 1.05))
-											else:
-												chance = rng.randf_range(0, 1)
-												if chance <= check_evasion:
-													enemy.update_health((current_player.obtain_stat(current_player.stats.ATTACK) + attack_boost) * rng.randf_range(0.95, 1.05))
-												else:
-													enemy.update_health("MISS")
-										if skill_used.does_status:
-											chance = rng.randf_range(0, 1)
-											if chance <= skill_used.chance_of_status_condition:
-												enemy.handle_status(skill_used.status_type)
-							else:
-								if skill_used.targets_party:
-									var targetted_player: combat_template = player_container.get_child(what_action[1])
-									if skill_used.does_heal_party:
-										var magic_boost = 0
-										match skill_used.amount_healed:
-											0:
-												magic_boost = 20
-											1:
-												magic_boost = 40
-											2:
-												magic_boost = 999
-										if magic_boost != 999:
-											targetted_player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + magic_boost) * rng.randf_range(0.95, 1.05), false, get_player_portrait(current_slot))
-										else:
-											targetted_player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health, false, get_player_portrait(current_slot))
-									if skill_used.does_status:
-										targetted_player.handle_status(skill_used.status_type)
-								else:
-									var attack_boost = 0
-									match skill_used.attack_power:
-										0:
-											attack_boost = 40
-										1:
-											attack_boost = 60
-										2:
-											attack_boost = 160
-									var targetted_enemy = enemy_shit.get_child(what_action[1])
-									var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
-									var chance = rng.randf_range(0, 1)
-									if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
-										targetted_enemy.handle_status(skill_used.status_type)
-									if skill_used.multi_hit:
-										for hit in range(skill_used.max_hit_count):
-											if hit < skill_used.guaranteed_hit_count:
-												targetted_enemy.update_health((current_player.obtain_stat(current_player.stats.ATTACK) + attack_boost) * rng.randf_range(0.95, 1.05))
-											else:
-												chance = rng.randf_range(0, 1)
-												if chance <= check_evasion:
-													targetted_enemy.update_health((current_player.obtain_stat(current_player.stats.ATTACK) + attack_boost) * rng.randf_range(0.95, 1.05))
-												else:
-													targetted_enemy.update_health("MISS")
-									else:
-										chance = rng.randf_range(0, 1)
-										if chance <= check_evasion:
-											var attacker_atk = current_player.obtain_stat(current_player.stats.ATTACK) + attack_boost
-											var enemy_def = targetted_enemy.obtain_stat(current_player.stats.DEFENSE) + 1.0
-											var weapon_pwr = current_player.stored_combatant.stored_weapon.weapon_attack
-											var acc_mod = current_player.obtain_stat_alteration(current_player.stats.ACCURACY)
-
-											var ratio = (attacker_atk / enemy_def) * (weapon_pwr * acc_mod)
-
-											var damage = 5.0 * sqrt(max(0, ratio)) 
-											damage *= randf_range(0.95, 1.05)
-											targetted_enemy.update_health(damage)
-										else:
-											targetted_enemy.update_health("MISS")
-							update_mana_display(-1 * skill_used.mana_cost)
-						"ITEM":
-							print("ITEM")
-					get_player(current_slot).take_turn(get_player_portrait(current_slot))
-					get_player_portrait(current_slot).update_statuses(get_player(current_slot))
+					await handle_player_move_selection(current_combatant)
 				revert_to_default_UI()
 				await get_tree().create_timer(0.75).timeout
 				var number_of_alive_enemies = 0
@@ -263,11 +104,180 @@ func execute_enemy_turn(enemy_to_attack, turn_number):
 		2:
 			pass
 
-func get_player(player_to_get):
+func handle_player_move_selection(current_combatant):
+	var current_slot : int = 0
+	for person in $Player_Container.get_children():
+		if person.stored_combatant.combatant_name == current_combatant.combatant_name:
+			current_slot = person.get_index()
+	toggle_player_ui(current_slot)
+	get_player(current_slot).combatant_ui_.update_skill_buttons(get_player(current_slot).stored_combatant, mana)
+	var what_action = await action_taken
+	toggle_player_ui(current_slot)
+	match what_action[0]:
+		"BASIC_ATTACK":
+			var target_node = enemy_shit.get_child(what_action[1])
+			var damage = get_player(current_slot).execute_base_attack(target_node)
+			if await target_node.update_health(damage, false):
+				target_node.stored_combatant.is_dead = true
+		"BASIC_DEFEND":
+			$Player_Container.get_child(current_slot).execute_defend()
+			update_mana_display(2)
+		"SKILL":
+			execute_skills(current_slot, what_action)
+
+		"ITEM":
+			print("ITEM")
+	get_player(current_slot).take_turn(get_player_portrait(current_slot))
+	get_player_portrait(current_slot).update_statuses(get_player(current_slot))
+
+func execute_skills(active_player, what_action):
+	var current_player: combat_template = get_player(active_player)
+	var skill_used: moves = current_player.stored_combatant.combatant_skills[what_action[2]]
+	
+	if skill_used.is_skill_aoe:
+		# AOE skill that acts on party
+		if skill_used.targets_party:
+			# Does skill heal everyone in the party
+			if skill_used.does_heal_party:
+				for player: combat_template in player_container:
+					if get_skill_boost(skill_used) != 999:
+						player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), false, get_player_portrait(active_player))
+					else:
+						player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health, false, get_player_portrait(active_player))
+			# Does this skill apply a status to every party member
+			if skill_used.does_status:
+				for player: combat_template in player_container.get_children():
+					player.handle_status(skill_used.status_type)
+		# AOE skill that effects enemies
+		else:
+			for enemy: combat_template in enemy_shit.get_children():
+				var chance = rng.randf_range(0, 1)
+				calculate_multi_hit(skill_used, enemy, current_player, get_skill_boost(skill_used))
+				if skill_used.does_status:
+					chance = rng.randf_range(0, 1)
+					if chance <= skill_used.chance_of_status_condition:
+						enemy.handle_status(skill_used.status_type)
+	else:
+		if skill_used.targets_party:
+			var targetted_player: combat_template = player_container.get_child(what_action[1])
+			if skill_used.does_heal_party:
+				if get_skill_boost(skill_used) != 999:
+					targetted_player.update_health(-1 * (current_player.obtain_stat(active_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), false, get_player_portrait(active_player))
+				else:
+					targetted_player.update_health(-1 * current_player.stored_combatant.combatant_stats.max_health, false, get_player_portrait(active_player))
+			if skill_used.does_status:
+				targetted_player.handle_status(skill_used.status_type)
+		else:
+			var targetted_enemy = enemy_shit.get_child(what_action[1])
+			var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
+			var chance = rng.randf_range(0, 1)
+			if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
+				targetted_enemy.handle_status(skill_used.status_type)
+			if skill_used.multi_hit:
+				calculate_multi_hit(skill_used, targetted_enemy, current_player, get_skill_boost(skill_used))
+			else:
+				chance = rng.randf_range(0, 1)
+				if chance <= check_evasion:
+					var damage = calculate_damage(current_player, get_skill_boost(skill_used), targetted_enemy, skill_used.is_magic_skill)
+					targetted_enemy.update_health(damage)
+				else:
+					targetted_enemy.update_health("MISS")
+	update_mana_display(-1 * skill_used.mana_cost)
+	
+# Helper Functions
+func get_player(player_to_get: int):
 	return $Player_Container.get_child(player_to_get)
 
-func get_player_portrait(portrait_to_get):
+func get_player_portrait(portrait_to_get: int):
 	return $UI/Party_Portraits/HBoxContainer.get_child(portrait_to_get)
+
+func check_if_critical_hit(current_individual: combat_template):
+	var chance_of_crit_hit = rng.randf_range(0,1)
+	
+	if chance_of_crit_hit <= (0.04 * current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)):
+		return true
+	else:
+		return false
+
+func calculate_damage(current_player, stat_boost, targetted_enemy, attack_or_magic):
+	var correct_player_stat
+	if attack_or_magic:
+		correct_player_stat = current_player.stats.ATTACK
+	else:
+		correct_player_stat = current_player.stats.MAGIC
+	
+	var do_critical_hit = check_if_critical_hit(current_player)
+	var attacker_atk = current_player.obtain_stat(correct_player_stat) + stat_boost
+	var enemy_def = targetted_enemy.obtain_stat(current_player.stats.DEFENSE) + 1.0
+	var weapon_pwr = current_player.stored_combatant.stored_weapon.weapon_attack + stat_boost
+	var acc_mod = current_player.obtain_stat_alteration(current_player.stats.ACCURACY)
+
+	var ratio = (attacker_atk / enemy_def) * (weapon_pwr * acc_mod)
+	
+	var damage = (5.0 * sqrt(max(0, ratio))) * (2 if do_critical_hit else 1)
+	return (damage * randf_range(0.95, 1.05))
+
+func calculate_multi_hit(skill_used, targetted_enemy, current_player, attack_boost):
+	var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
+	var chance = rng.randf_range(0, 1)
+	for hit in range(skill_used.max_hit_count):
+		if hit < skill_used.guaranteed_hit_count:
+			targetted_enemy.update_health(calculate_damage(current_player, attack_boost, targetted_enemy, skill_used.is_magic_skill))
+		else:
+			chance = rng.randf_range(0, 1)
+			if chance <= check_evasion:
+				targetted_enemy.update_health(calculate_damage(current_player, attack_boost, targetted_enemy, skill_used.is_magic_skill))
+			else:
+				targetted_enemy.update_health("MISS")
+
+func get_skill_boost(skill_used: moves):
+	var attack_boost = 0
+	var magic_boost = 0
+	if not skill_used.is_magic_skill:
+		match skill_used.attack_power:
+			0:
+				attack_boost = 100
+			1:
+				attack_boost = 180
+			2:
+				attack_boost = 300
+		return attack_boost
+	else:
+		match skill_used.amount_healed:
+			0:
+				magic_boost = 20
+			1:
+				magic_boost = 40
+			2:
+				magic_boost = 999
+		return magic_boost
+
+func determine_order():
+	all_combatants.clear()
+	
+	for slot in $Player_Container.get_children():
+		all_combatants.append(slot.stored_combatant)
+	for enemy_slot in enemy_shit.get_children():
+		if enemy_slot.visible:
+			all_combatants.append(enemy_slot.stored_combatant)
+	
+	all_combatants.sort_custom(func(a, b):
+		return a.combatant_stats.altered_speed > b.combatant_stats.altered_speed
+	)
+
+func select_next_wave():
+	update_mana_display(3)
+	var number_of_possible_waves = current_dungeon_run.potential_waves.size()
+	var random_wave = rng.randi_range(0, number_of_possible_waves - 1)
+	var enemy_count_for_current_wave = current_dungeon_run.potential_waves[random_wave].enemies.size()
+	for i in range(enemy_shit.get_child_count()):
+		if i >= enemy_count_for_current_wave:
+			enemy_shit.get_child(i).visible = false
+			continue
+		else:
+			enemy_shit.get_child(i).visible = true
+		enemy_shit.get_child(i).setup(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true), self, i)
+		all_combatants.append(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true))
 
 func toggle_player_ui(player_to_toggle):
 	if not get_player(player_to_toggle).combatant_ui.visible:
@@ -282,11 +292,7 @@ func set_health_bar_values(player_to_set_for):
 	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
 	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health) + "/" + str(get_player(player_to_set_for).stored_combatant.combatant_stats.max_health)
 
-func run(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			get_tree().quit()
-
+# Buttons
 func attack_button_pressed():
 	for enemy in enemy_shit.get_children():
 		enemy.could_be_selected()
@@ -331,8 +337,9 @@ func skill_selected(what_skill, what_player):
 			setup_confirmation_button(skill_to_use.move_name, "every enemy")
 
 	var confirmed = await actual_confirmation
+	if confirmed:
+		action_taken.emit("SKILL", action_on_who, what_skill)
 	revert_to_default_UI()
-	action_taken.emit("SKILL", action_on_who, what_skill)
 
 func confirmation_button(event, confirm_or_deny):
 	if event is InputEventMouseButton:

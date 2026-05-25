@@ -14,6 +14,22 @@ class_name combat_template
 @onready var subviewport = $Sprite3D2/SubViewport
 @onready var rng = RandomNumberGenerator.new()
 
+var currently_selectable : bool
+var stored_combatant : generic_combatants
+var parent_reference
+var child_number: int
+var is_empty : bool
+var is_defending : bool = false
+var all_active_effects = 0
+var active_statuses : Array[status]
+
+# Percentages that stat buff / debuffs affect combat
+var attack_up_down: float = 1.25
+var defense_up_down: float = 1.25
+var evasion_up_down: float = 1.25
+var accuracy_up_down: float = 1.25
+var critchance_up_down: float = 1.25
+
 enum statuses {
 	STUN = 1 << 0,
 	SLEEP = 1 << 1,
@@ -75,25 +91,7 @@ var conflicts = {
 	statuses.ACCURACYup: _apply_acc_up
 }
 
-func _unhandled_input(event):
-	subviewport.push_input(event)
-
-var currently_selectable : bool
-var stored_combatant : generic_combatants
-var parent_reference
-var child_number: int
-var is_empty : bool
-var is_defending : bool = false
-var all_active_effects = 0
-var active_statuses : Array[status]
-
-# Percentages that stat buff / debuffs affect combat
-var attack_up_down: float = 1.25
-var defense_up_down: float = 1.25
-var evasion_up_down: float = 1.25
-var accuracy_up_down: float = 1.25
-var critchance_up_down: float = 1.25
-
+enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC}
 
 func setup(combatant : generic_combatants, parent_ref, child_num):
 	if combatant == null:
@@ -120,14 +118,6 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	create_collision_from_sprite_3d()
 	$Sprite3D2/SubViewport/CombatantUi.setup(self, stored_combatant)
 	
-func could_be_selected():
-	combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
-	currently_selectable = true
-
-func undo_selection():
-	combatant_sprite.modulate = Color(Color.WHITE, 0.75)
-	currently_selectable = false
-
 func update_health(change_health_value, status_ = false, portrait: player_portraits = null):
 	if not status_:
 		if str(change_health_value) == "MISS":
@@ -161,6 +151,7 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 		on_death()
 	parent_reference.turn_ended.emit()
 
+# Combat related stuff
 func calculate_evasion(entity_being_attacked: combat_template, attack_hit_chance = 90):
 	if not stored_combatant.is_combatant_enemy:
 		return ((obtain_stat(stats.EVASION) + 200) / (entity_being_attacked.obtain_stat(stats.EVASION) + 200)) * (attack_hit_chance + obtain_stat_alteration(stats.ACCURACY))
@@ -170,14 +161,110 @@ func calculate_evasion(entity_being_attacked: combat_template, attack_hit_chance
 func execute_base_attack(entity_node: combat_template):
 	var chance_to_hit = calculate_evasion(entity_node)
 	var chance = rng.randf_range(0, 1)
-	
-	if chance <= chance_to_hit:
+
+	if (chance * 100) <= chance_to_hit:
 		return 5 * sqrt((obtain_stat(stats.ATTACK) / (entity_node.obtain_stat(stats.DEFENSE) + 1)) * (stored_combatant.stored_weapon.weapon_attack * obtain_stat_alteration(stats.ACCURACY))) * randf_range(0.95, 1.05)
 	else:
 		return "MISS"
 
-enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC}
+func on_death():
+	self.visible = false
+	stored_combatant.is_dead = true
 
+func execute_defend():
+	is_defending = true
+
+# Checks if you can click the entity to execute skill/attack
+func do_nothing_3d(camera, event, event_position, normal, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
+			parent_reference.confirmation.emit(child_number)
+
+func reset_ui():
+	combatant_ui.get_parent().reset_ui()
+
+# Status Stuff
+func handle_status(incoming_statuses):
+	for key in conflicts.keys():
+		var opposite = conflicts[key]
+		if (incoming_statuses & key) and (all_active_effects & opposite):
+			_remove_active_status(opposite)
+			incoming_statuses &= ~key
+	var already_inflicted_with_major_status = false
+	for key in status_map:
+		if incoming_statuses & key:
+			if key < statuses.FREEZE:
+				already_inflicted_with_major_status = true
+				for _status in active_statuses:
+					if _status.status_type & (incoming_statuses & key):
+						_status.remaining_turns = 3
+						break
+			
+			if (all_active_effects != 0) and (all_active_effects & key) == key:
+				for _status in active_statuses:
+					if _status.status_type & (incoming_statuses & key):
+						_status.remaining_turns += 3
+						break
+			else:
+				var add_status = status.new()
+				add_status.status_type = key
+				add_status.setup()
+				active_statuses.append(add_status)
+				if all_active_effects == 0:
+					all_active_effects = key
+				else:
+					all_active_effects |= key
+	if not stored_combatant.is_combatant_enemy:
+		parent_reference.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
+					
+func _remove_active_status(type_to_remove: int):
+	all_active_effects &= ~type_to_remove 
+	for i in range(active_statuses.size() - 1, -1, -1):
+		if active_statuses[i].status_type == type_to_remove:
+			active_statuses.remove_at(i)
+			break
+
+func take_turn(player_portrait: player_portraits = null):
+	is_defending = false
+	if all_active_effects != null:
+		for key in status_map:
+			if all_active_effects & key:
+				status_map[key].call()
+	if active_statuses != null:
+		for _status in range(active_statuses.size()):
+			active_statuses[_status].remaining_turns -= 1
+			if active_statuses[_status].remaining_turns == 0:
+				_remove_active_status(active_statuses[_status].status_type)
+	if not stored_combatant.is_combatant_enemy:
+		player_portrait.update_statuses(self)
+
+# Functions that run if status is active
+
+func _apply_stun(): print("STUN")
+func _apply_sleep(): print("SLEEP")
+func _apply_shock(): print("SHOCK")
+func _apply_poison(): 
+	update_health(20, true)
+
+func _apply_burn(): print("burned")
+func _apply_freeze(): print("FREEZE")
+func _apply_slow(): print("SLOW")
+func _apply_agro(): print("AGRO")
+func _apply_atk_down(): print("Attack Down")
+func _apply_def_down(): print("Def down")
+func _apply_eva_down(): print("eva down")
+func _apply_crit_down(): print("crit down")
+func _apply_acc_down(): print("acc down")
+func _apply_momentum(): print("momentum")
+func _apply_regen():  print("regen")
+func _apply_stun_imm():  print("stun imun")
+func _apply_atk_up():  print("atck up")
+func _apply_def_up(): print("Def up")
+func _apply_eva_up():  print("eva up")
+func _apply_crit_up():  print("crit up")
+func _apply_acc_up(): print("ACC UP")
+
+# Helper Functions
 func obtain_stat(what_stat):
 	match what_stat:
 		# Attack
@@ -238,10 +325,18 @@ func obtain_stat_alteration(what_stat):
 				return -20
 	return 1
 
-func on_death():
-	self.visible = false
-	stored_combatant.is_dead = true
+func could_be_selected():
+	combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
+	currently_selectable = true
 
+func undo_selection():
+	combatant_sprite.modulate = Color(Color.WHITE, 0.75)
+	currently_selectable = false
+
+func _unhandled_input(event):
+	subviewport.push_input(event)
+
+# Makes them clickable, probably will be removed
 func create_collision_from_sprite_3d():
 	for child in interactable_area.get_children():
 		if child is CollisionPolygon3D:
@@ -279,92 +374,3 @@ func create_collision_from_sprite_3d():
 		
 		if not combatant_sprite.centered:
 			collision_poly.position.y += (texture.get_height() * scale_factor)
-
-func take_turn(player_portrait: player_portraits = null):
-	is_defending = false
-	if all_active_effects != null:
-		for key in status_map:
-			if all_active_effects & key:
-				status_map[key].call()
-	if active_statuses != null:
-		for _status in range(active_statuses.size()):
-			active_statuses[_status].remaining_turns -= 1
-			if active_statuses[_status].remaining_turns == 0:
-				_remove_active_status(active_statuses[_status].status_type)
-	if not stored_combatant.is_combatant_enemy:
-		player_portrait.update_statuses(self)
-
-func execute_defend():
-	is_defending = true
-
-func do_nothing_3d(camera, event, event_position, normal, shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
-			parent_reference.confirmation.emit(child_number)
-
-func reset_ui():
-	combatant_ui.get_parent().reset_ui()
-
-func handle_status(incoming_statuses):
-	for key in conflicts.keys():
-		var opposite = conflicts[key]
-		if (incoming_statuses & key) and (all_active_effects & opposite):
-			_remove_active_status(opposite)
-			incoming_statuses &= ~key
-	var already_inflicted_with_major_status = false
-	for key in status_map:
-		if incoming_statuses & key:
-			if key < statuses.FREEZE:
-				already_inflicted_with_major_status = true
-				for _status in active_statuses:
-					if _status.status_type & (incoming_statuses & key):
-						_status.remaining_turns = 3
-						break
-			
-			if (all_active_effects != 0) and (all_active_effects & key) == key:
-				for _status in active_statuses:
-					if _status.status_type & (incoming_statuses & key):
-						_status.remaining_turns += 3
-						break
-			else:
-				var add_status = status.new()
-				add_status.status_type = key
-				add_status.setup()
-				active_statuses.append(add_status)
-				if all_active_effects == 0:
-					all_active_effects = key
-				else:
-					all_active_effects |= key
-	if not stored_combatant.is_combatant_enemy:
-		parent_reference.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
-					
-func _remove_active_status(type_to_remove: int):
-	all_active_effects &= ~type_to_remove 
-	for i in range(active_statuses.size() - 1, -1, -1):
-		if active_statuses[i].status_type == type_to_remove:
-			active_statuses.remove_at(i)
-			break
-
-func _apply_stun(): print("STUN")
-func _apply_sleep(): print("SLEEP")
-func _apply_shock(): print("SHOCK")
-func _apply_poison(): 
-	update_health(20, true)
-
-func _apply_burn(): print("burned")
-func _apply_freeze(): print("FREEZE")
-func _apply_slow(): print("SLOW")
-func _apply_agro(): print("AGRO")
-func _apply_atk_down(): print("Attack Down")
-func _apply_def_down(): print("Def down")
-func _apply_eva_down(): print("eva down")
-func _apply_crit_down(): print("crit down")
-func _apply_acc_down(): print("acc down")
-func _apply_momentum(): print("momentum")
-func _apply_regen():  print("regen")
-func _apply_stun_imm():  print("stun imun")
-func _apply_atk_up():  print("atck up")
-func _apply_def_up(): print("Def up")
-func _apply_eva_up():  print("eva up")
-func _apply_crit_up():  print("crit up")
-func _apply_acc_up(): print("ACC UP")

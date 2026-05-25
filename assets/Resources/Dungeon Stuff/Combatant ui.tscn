@@ -231,33 +231,36 @@ texture_pressed = ExtResource("12_bie1j")
 texture_hover = ExtResource("12_bie1j")
 texture_disabled = ExtResource("13_ns327")
 
-[node name="TextureRect4" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=1194390512]
+[node name="TextureRect7" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=334819547]
 visible = false
 layout_mode = 0
-offset_left = 31.538456
-offset_top = -33.846153
-offset_right = 35.38461
-offset_bottom = -30.0
+offset_left = 38.461533
+offset_top = 20.000004
+offset_right = 42.307686
+offset_bottom = 23.846157
+rotation = -3.1415927
 texture = ExtResource("12_moi0g")
 expand_mode = 1
 
-[node name="TextureRect5" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=319779029]
+[node name="TextureRect8" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=576262357]
 visible = false
 layout_mode = 0
-offset_left = 20.769226
-offset_top = -43.076923
-offset_right = 24.61538
-offset_bottom = -39.23077
+offset_left = 35.384613
+offset_top = 6.1538353
+offset_right = 39.230766
+offset_bottom = 9.999989
+rotation = -3.1415927
 texture = ExtResource("12_moi0g")
 expand_mode = 1
 
-[node name="TextureRect6" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=1598604140]
+[node name="TextureRect9" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=639370436]
 visible = false
 layout_mode = 0
-offset_left = 26.92307
-offset_top = -39.23077
-offset_right = 30.769224
-offset_bottom = -35.384617
+offset_left = 37.6923
+offset_top = 12.3076935
+offset_right = 41.538452
+offset_bottom = 16.153847
+rotation = -3.1415927
 texture = ExtResource("12_moi0g")
 expand_mode = 1
 
@@ -274,36 +277,31 @@ texture_pressed = ExtResource("14_u0uvq")
 texture_hover = ExtResource("14_u0uvq")
 texture_disabled = ExtResource("15_yidf5")
 
-[node name="TextureRect7" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_3_Button" unique_id=334819547]
+[node name="TextureRect4" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_3_Button" unique_id=1194390512]
 visible = false
 layout_mode = 0
-offset_left = 39.230766
-offset_top = 59.230774
-offset_right = 43.07692
-offset_bottom = 63.076927
-rotation = -3.1415927
+offset_left = 32.307693
+offset_top = 5.3846188
+offset_right = 36.153847
+offset_bottom = 9.230772
 texture = ExtResource("12_moi0g")
 expand_mode = 1
 
-[node name="TextureRect8" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_3_Button" unique_id=576262357]
+[node name="TextureRect5" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_3_Button" unique_id=319779029]
 visible = false
 layout_mode = 0
-offset_left = 36.153843
-offset_top = 45.384605
-offset_right = 39.999996
-offset_bottom = 49.23076
-rotation = -3.1415927
+offset_left = 21.538467
+offset_top = -3.8461547
+offset_right = 25.38462
 texture = ExtResource("12_moi0g")
 expand_mode = 1
 
-[node name="TextureRect9" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_3_Button" unique_id=639370436]
+[node name="TextureRect6" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_3_Button" unique_id=1598604140]
 visible = false
 layout_mode = 0
-offset_left = 38.461536
-offset_top = 51.538464
-offset_right = 42.30769
-offset_bottom = 55.384617
-rotation = -3.1415927
+offset_left = 27.692314
+offset_right = 31.538467
+offset_bottom = 3.8461533
 texture = ExtResource("12_moi0g")
 expand_mode = 1
 

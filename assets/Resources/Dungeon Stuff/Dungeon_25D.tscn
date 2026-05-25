@@ -33,6 +33,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 [sub_resource type="Resource" id="Resource_782v8"]
 script = ExtResource("8_hyoec")
 defense = 12
+evasion = 969
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_kbs5w"]
@@ -226,432 +227,12 @@ script = ExtResource("5_o8d11")
 enemies = Array[ExtResource("6_pvdly")]([SubResource("Resource_ay0lm"), SubResource("Resource_fr0kc"), SubResource("Resource_d8xg6"), SubResource("Resource_46vsc"), SubResource("Resource_gy3qw")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hg0oc"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yr3b8"]
-atlas = SubResource("CompressedTexture2D_hg0oc")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_joceg"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_dorgm"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_7rrrg"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_dorgm")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_2bxru"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_iqo5e"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_yr3b8")
-combatant_stats = SubResource("Resource_joceg")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_2bxru")
-stored_equipment = SubResource("Resource_7rrrg")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rwxat"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j217g"]
-atlas = SubResource("CompressedTexture2D_rwxat")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_lgac8"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_sgtuw"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_2wsgu"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_sgtuw")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_4eoni"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_nhyju"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_j217g")
-combatant_stats = SubResource("Resource_lgac8")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_4eoni")
-stored_equipment = SubResource("Resource_2wsgu")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j57u1"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d4lrt"]
-atlas = SubResource("CompressedTexture2D_j57u1")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_hl8aq"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_wpsyd"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_w04sa"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_wpsyd")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_yj662"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_bq1a6"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_d4lrt")
-combatant_stats = SubResource("Resource_hl8aq")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_yj662")
-stored_equipment = SubResource("Resource_w04sa")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_63ibq"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5r0qx"]
-atlas = SubResource("CompressedTexture2D_63ibq")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_xyjl8"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_6rm15"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_slovp"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_6rm15")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_suyt2"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_hgpo4"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_5r0qx")
-combatant_stats = SubResource("Resource_xyjl8")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_suyt2")
-stored_equipment = SubResource("Resource_slovp")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_temcn"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iew1q"]
-atlas = SubResource("CompressedTexture2D_temcn")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_bgb76"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_5pv0v"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_ifkqu"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_5pv0v")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_1nlno"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_3xk41"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_iew1q")
-combatant_stats = SubResource("Resource_bgb76")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_1nlno")
-stored_equipment = SubResource("Resource_ifkqu")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="Resource" id="Resource_u2r4m"]
-script = ExtResource("5_o8d11")
-enemies = Array[ExtResource("6_pvdly")]([SubResource("Resource_iqo5e"), SubResource("Resource_nhyju"), SubResource("Resource_bq1a6"), SubResource("Resource_hgpo4"), SubResource("Resource_3xk41")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aidf8"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wmshm"]
-atlas = SubResource("CompressedTexture2D_aidf8")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_ixsva"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_dquxj"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_ofqp5"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_dquxj")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_d1u6b"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_dpcn4"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_wmshm")
-combatant_stats = SubResource("Resource_ixsva")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_d1u6b")
-stored_equipment = SubResource("Resource_ofqp5")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vylt2"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yip25"]
-atlas = SubResource("CompressedTexture2D_vylt2")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_lne72"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_vh5eg"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_mjxer"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_vh5eg")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_7n1xa"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_yrtyl"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_yip25")
-combatant_stats = SubResource("Resource_lne72")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_7n1xa")
-stored_equipment = SubResource("Resource_mjxer")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2jmat"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w3iph"]
-atlas = SubResource("CompressedTexture2D_2jmat")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_3toti"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_15ie8"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_1j0sc"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_15ie8")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_yo2ul"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_fscfi"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_w3iph")
-combatant_stats = SubResource("Resource_3toti")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_yo2ul")
-stored_equipment = SubResource("Resource_1j0sc")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1d73"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g5dgi"]
-atlas = SubResource("CompressedTexture2D_t1d73")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_top1u"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_b5ujj"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_diyrm"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_b5ujj")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_m80p0"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_d10a0"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_g5dgi")
-combatant_stats = SubResource("Resource_top1u")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_m80p0")
-stored_equipment = SubResource("Resource_diyrm")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tvabg"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0j1qb"]
-atlas = SubResource("CompressedTexture2D_tvabg")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_or6je"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_alrv8"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_fkh0r"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_alrv8")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_4xjxf"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_fnp1t"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_0j1qb")
-combatant_stats = SubResource("Resource_or6je")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_4xjxf")
-stored_equipment = SubResource("Resource_fkh0r")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="Resource" id="Resource_da8al"]
-script = ExtResource("5_o8d11")
-enemies = Array[ExtResource("6_pvdly")]([SubResource("Resource_dpcn4"), SubResource("Resource_yrtyl"), SubResource("Resource_fscfi"), SubResource("Resource_d10a0"), SubResource("Resource_fnp1t")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
 [sub_resource type="Resource" id="Resource_drgul"]
 script = ExtResource("11_1uael")
 dungeon_name = "Creepy Crawly Dungeon"
 max_number_of_waves = 2
 minimum_number_of_waves = 5
-potential_waves = Array[ExtResource("5_o8d11")]([SubResource("Resource_bb5ta"), SubResource("Resource_u2r4m"), SubResource("Resource_da8al")])
+potential_waves = Array[ExtResource("5_o8d11")]([SubResource("Resource_bb5ta")])
 metadata/_custom_type_script = "uid://3loyjc4d808j"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edm4l"]
@@ -859,26 +440,26 @@ theme_override_font_sizes/font_size = 51
 text = "Turn: "
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
-transform = Transform3D(1, 0, 0, 0, 0.9980267, -0.06279052, 0, 0.06279052, 0.9980267, 0.3950637, 0.13820523, 0.65926707)
+transform = Transform3D(1, 0, 0, 0, 0.98685575, 0.16160382, 0, -0.16160382, 0.98685575, 0.3950637, 0.71162957, 0.65926707)
 fov = 90.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
 
 [node name="Enemy_Slot1" parent="Enemy_Container" unique_id=1849059853 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82946444, 0.085932866, -0.41350815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82946444, 0.085932866, -0.9242213)
 
 [node name="Enemy_Slot2" parent="Enemy_Container" unique_id=169123962 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9707415, 0.085932866, -0.21960393)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92328155, 0.085932866, -0.41570944)
 
 [node name="Enemy_Slot3" parent="Enemy_Container" unique_id=1094727955 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1212277, 0.030133858, -0.11861959)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4687207, 0.030133858, -0.51243937)
 
 [node name="Enemy_Slot4" parent="Enemy_Container" unique_id=2016040555 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5572612, 0.085932866, -0.39120483)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5572612, 0.085932866, -1.1191133)
 
 [node name="Enemy_Slot5" parent="Enemy_Container" unique_id=2008772717 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.442809, 0.085932866, -0.15646863)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1290648, 0.085932866, -0.9641814)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
 
@@ -1003,13 +584,13 @@ light_bake_mode = 1
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
 
 [node name="Player_Slot1" parent="Player_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011787981, 0.072930865, -0.3279845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011787981, 0.072930865, -0.8917727)
 
 [node name="Player_Slot2" parent="Player_Container" unique_id=1180676946 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22956991, 0.072930865, -0.16121057)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22956991, 0.072930865, -0.5756123)
 
 [node name="Player_Slot3" parent="Player_Container" unique_id=2018764669 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34856743, 0.072930865, 0.011933684)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34856743, 0.072930865, -0.30550757)
 
 [connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel" to="." method="confirmation_button" binds= [true]]
 [connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel2" to="." method="confirmation_button" binds= [false]]

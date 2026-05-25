@@ -11,6 +11,9 @@ class_name moves
 @export var guaranteed_hit_count : int
 @export var max_hit_count : int
 
+@export var is_unlocked: bool = true
+@export var is_magic_skill: bool = false
+
 @export_range(1,3) var mana_cost : int = 1
 
 @export_group("Status")

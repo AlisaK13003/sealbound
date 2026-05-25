@@ -18,17 +18,20 @@ func setup(parent_ref, party_member: generic_combatants):
 	parent_reference = parent_ref
 	
 	for move in range(party_member.combatant_skills.size()):
-		var skill_node: TextureButton = skill_menu.get_child(move + 1)
 		if party_member.combatant_skills[move] == null:
 			continue
+		var skill_node: TextureButton = skill_menu.get_child(move + 1)
+		if not party_member.combatant_skills[move].is_unlocked:
+			skill_node.visible = false
+		else:
+			for mana in range(party_member.combatant_skills[move].mana_cost):
+				skill_node.get_child(mana).visible = true
+
 		skill_node.texture_normal = party_member.combatant_skills[move].normal_sprite
 		skill_node.texture_pressed = party_member.combatant_skills[move].normal_sprite
 		skill_node.texture_hover = party_member.combatant_skills[move].normal_sprite
 		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
 		
-		for mana in range(party_member.combatant_skills[move].mana_cost):
-			skill_node.get_child(mana).visible = true
-	
 func reset_ui():
 	base_menu.visible = true
 	action_menu.visible = false
