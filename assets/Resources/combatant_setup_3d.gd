@@ -22,6 +22,7 @@ var is_empty : bool
 var is_defending : bool = false
 var all_active_effects = 0
 var active_statuses : Array[status]
+var already_inflicted_with_major_status = false
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -123,6 +124,8 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 	if not status_:
 		if str(change_health_value) == "MISS":
 			await update_damage_label(0, false, true)
+		elif str(change_health_value[0]) == "MISS":
+			await update_damage_label(0, false, true)
 		else:
 			if is_defending:
 				portrait._update_health(change_health_value)
@@ -181,6 +184,8 @@ func execute_base_attack(entity_node: combat_template):
 	var chance = rng.randf_range(0, 1)
 
 	if (chance * 100) <= chance_to_hit:
+		await entity_node.handle_status(statuses.POISON)
+		await entity_node.handle_status(statuses.CRITCHANCEdown)
 		return 5 * sqrt((obtain_stat(stats.ATTACK) / (entity_node.obtain_stat(stats.DEFENSE) + 1)) * (stored_combatant.stored_weapon.weapon_attack * obtain_stat_alteration(stats.ACCURACY))) * randf_range(0.95, 1.05)
 	else:
 		return "MISS"
@@ -208,30 +213,29 @@ func handle_status(incoming_statuses):
 		if (incoming_statuses & key) and (all_active_effects & opposite):
 			_remove_active_status(opposite)
 			incoming_statuses &= ~key
-	var already_inflicted_with_major_status = false
 	for key in status_map:
 		if incoming_statuses & key:
-			if key < statuses.FREEZE:
-				already_inflicted_with_major_status = true
+			if key <= statuses.AGRO and already_inflicted_with_major_status:
 				for _status in active_statuses:
-					if _status.status_type & (incoming_statuses & key):
+					if _status.status_type & key:
 						_status.remaining_turns = 3
 						break
-			
-			if (all_active_effects != 0) and (all_active_effects & key) == key:
-				for _status in active_statuses:
-					if _status.status_type & (incoming_statuses & key):
-						_status.remaining_turns += 3
-						break
 			else:
-				var add_status = status.new()
-				add_status.status_type = key
-				add_status.setup()
-				active_statuses.append(add_status)
-				if all_active_effects == 0:
-					all_active_effects = key
+				if (all_active_effects != 0) and (all_active_effects & key) == key:
+					for _status in active_statuses:
+						if _status.status_type & (incoming_statuses & key):
+							_status.remaining_turns += 3
+							break
 				else:
-					all_active_effects |= key
+					var add_status = status.new()
+					add_status.status_type = key
+					already_inflicted_with_major_status = true
+					add_status.setup()
+					active_statuses.append(add_status)
+					if all_active_effects == 0:
+						all_active_effects = key
+					else:
+						all_active_effects |= key
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
 
@@ -254,8 +258,12 @@ func take_turn(player_portrait: player_portraits = null):
 	if active_statuses != null:
 		for _status in range(active_statuses.size()):
 			active_statuses[_status].remaining_turns -= 1
+			print("INFLICTED WITH STATUS: ", active_statuses[_status].status_name)
 			if active_statuses[_status].remaining_turns == 0:
+				if active_statuses[_status].status_type <= statuses.AGRO:
+					already_inflicted_with_major_status = false
 				_remove_active_status(active_statuses[_status].status_type)
+				
 	if not stored_combatant.is_combatant_enemy:
 		player_portrait.update_statuses(self)
 
