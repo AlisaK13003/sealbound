@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://dmhaxgxe2w5q1"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_5xl56"]
+
+[resource]
+script = ExtResource("1_5xl56")
+move_name = "Shielding Strike"
+move_description = "Deal moderate Ddamage to one enemy. Chance to apply defense reduction to enemy."
+attack_power = 0
+does_status = true
+status_type = 512
+chance_of_status_condition = 0.75
+lasts_x_turns = 2
+metadata/_custom_type_script = "uid://djfkp740jjn43"

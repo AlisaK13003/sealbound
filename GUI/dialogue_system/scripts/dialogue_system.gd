@@ -58,6 +58,8 @@ func _ready() -> void:
 			get_parent().remove_child(self)
 			return
 		return
+		
+		process_mode = Node.PROCESS_MODE_ALWAYS  # add this line
 
 	if dialog_ui == null:
 		push_error("DialogueSystemNode: Missing child node 'DialogueUI'.")
@@ -74,6 +76,7 @@ func _ready() -> void:
 			choice_button.pressed.connect(callback)
 
 	hide_dialog()
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if ignore_next_input:
@@ -86,6 +89,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("Open Menu") or event.is_action_pressed("Mouse_Left_Click"):
+		if current_node_has_choices and not is_typing:
+			# Manually check if click hit a choice button
+			var mouse_pos := get_viewport().get_mouse_position()
+			for index in range(choice_buttons.size()):
+				var btn: Button = choice_buttons[index]
+				if btn != null and btn.visible and btn.get_global_rect().has_point(mouse_pos):
+					_on_choice_button_pressed(index)
+					get_viewport().set_input_as_handled()
+					return
+			# Clicked but missed all buttons — do nothing
+			return
 		advance_dialogue()
 
 func _process(delta: float) -> void:
@@ -117,6 +131,7 @@ func show_dialog() -> void:
 		return
 
 	is_active = true
+	process_mode = Node.PROCESS_MODE_ALWAYS 
 	dialog_ui.visible = true
 	dialog_ui.process_mode = Node.PROCESS_MODE_ALWAYS
 	Global.is_in_menu = true
@@ -147,6 +162,7 @@ func hide_dialog() -> void:
 	set_choices_visible(false)
 	Global.is_in_menu = false
 	dialogue_closed.emit()
+	process_mode = Node.PROCESS_MODE_INHERIT
 
 func load_dialogue_file(path: String) -> bool:
 	if path.is_empty():

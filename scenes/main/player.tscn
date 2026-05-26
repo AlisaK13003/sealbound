@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://d1rlbttsh3lkd" path="res://assets/characters/player/female_walk.png" id="3_q2ck2"]
 [ext_resource type="PackedScene" uid="uid://coypf00axxmjs" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory.tscn" id="4_wqvcu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]
-radius = 32.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_riacy"]
+radius = 22.0
+height = 72.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2d4w"]
 atlas = ExtResource("2_riacy")
@@ -132,9 +133,10 @@ script = ExtResource("1_2hlsy")
 move_speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305105354 groups=["Overworld_Player"]]
-position = Vector2(3.8146973e-06, -5.9604645e-08)
+z_index = 5
+position = Vector2(-1, 0)
 scale = Vector2(0.5, 0.5)
-shape = SubResource("CircleShape2D_vom5j")
+shape = SubResource("CapsuleShape2D_riacy")
 
 [node name="OvertheHead" type="Sprite2D" parent="." unique_id=1998479163]
 position = Vector2(0, -49)
@@ -142,7 +144,6 @@ scale = Vector2(0.5, 0.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1076860614]
 texture_filter = 1
-position = Vector2(-1.7881393e-07, 0)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_tmp5k")
 animation = &"idle"

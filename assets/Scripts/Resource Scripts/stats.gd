@@ -2,6 +2,7 @@
 extends Resource
 class_name stats
 
+@export var level : int = 1
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var max_health: int = 0
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var health: int = 0: 
 	set(value):
