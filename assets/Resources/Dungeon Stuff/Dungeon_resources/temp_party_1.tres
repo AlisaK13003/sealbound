@@ -37,6 +37,7 @@ metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_dylaw"]
 script = ExtResource("5_4t8q3")
+weapon_name = "Lucifer's Blade"
 weapon_attack = 30
 attack_accuracy = 90
 status_conditions = null

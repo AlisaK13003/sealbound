@@ -20,13 +20,6 @@ flip_h = true
 pixel_size = 0.005
 texture = ExtResource("2_7mydf")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=520647102]
-
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Area3D" unique_id=51668580]
-depth = 0.11
-disabled = true
-debug_color = Color(0.25951964, 0.5873487, 0.66371477, 0.41960785)
-
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
 transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, 0, 0.014089659, 0)
 texture_filter = 0
@@ -37,6 +30,7 @@ transparent_bg = true
 snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(172, 245)
+render_target_update_mode = 4
 
 [node name="CombatantUi" parent="Sprite3D2/SubViewport" unique_id=1169996085 instance=ExtResource("3_drjmm")]
 
@@ -50,5 +44,3 @@ shape = SubResource("BoxShape3D_51gu7")
 [node name="Label3D" type="Label3D" parent="." unique_id=1576479968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05734358, 0.24420947, 0)
 modulate = Color(0.88235295, 0.16078432, 0.2509804, 1)
-
-[connection signal="input_event" from="Area3D" to="." method="do_nothing_3d"]

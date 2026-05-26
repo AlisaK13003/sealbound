@@ -49,8 +49,9 @@ func handle_menu_swapping(swap_to_what_menu: int):
 				parent_reference.parent_reference.item_menu.visible = true
 				parent_reference.parent_reference.unhighlight_all_entities()
 				parent_reference.parent_reference.actual_confirmation.emit("NOPE")
-				print("INSIDE THE HELL")
 				return
+			elif parent_reference.parent_reference.item_menu:
+				parent_reference.parent_reference.item_menu.visible = false
 			parent_reference.parent_reference.revert_to_default_UI()
 		# Swap to Action Menu
 		1:
@@ -87,3 +88,7 @@ func base_attack_defend_selected(attack_or_defend):
 		parent_reference.parent_reference.attack_button_pressed()
 	else:
 		parent_reference.parent_reference.defend_button_pressed(parent_reference.stored_combatant.combatant_name)
+
+func _on_texture_button_button_down():
+	if parent_reference.currently_selectable:
+		parent_reference.parent_reference.confirmation.emit(parent_reference.child_number)

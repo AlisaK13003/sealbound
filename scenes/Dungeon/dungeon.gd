@@ -104,7 +104,7 @@ func execute_enemy_turn(enemy_to_attack, _turn_number):
 	for enemy in enemy_shit.get_children():
 		if enemy_to_attack == enemy.stored_combatant:
 			attacking_enemy = enemy_shit.get_child(enemy.get_index())
-	attacking_enemy.take_turn()
+	await attacking_enemy.take_turn()
 	action_selected = 0
 	match action_selected:
 		# Basic Attack
@@ -140,7 +140,7 @@ func handle_player_move_selection(current_combatant):
 			await execute_skills(current_slot, what_action)
 		"ITEM":
 			await execute_item(temp_item_list[what_action[2]], what_action[1], what_action[2])
-	get_player(current_slot).take_turn(get_player_portrait(current_slot))
+	await get_player(current_slot).take_turn(get_player_portrait(current_slot))
 	get_player_portrait(current_slot).update_statuses(get_player(current_slot))
 
 func execute_skills(active_player, what_action):

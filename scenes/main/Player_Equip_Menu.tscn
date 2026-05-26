@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bmb80v1vox7d6"]
+
+[ext_resource type="PackedScene" uid="uid://c1kdv54b51l7q" path="res://scenes/main/Generic_Menu.tscn" id="1_tj536"]
+[ext_resource type="Script" uid="uid://di33c0hl5131" path="res://scenes/main/player_equip_menu.gd" id="1_udpo0"]
+[ext_resource type="PackedScene" uid="uid://cmxnktvn1ulhb" path="res://scenes/main/Menu_Party_Card.tscn" id="2_udpo0"]
+
+[node name="PlayerEquipMenu" type="Control" unique_id=1073096627]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_udpo0")
+
+[node name="GenericMenu" parent="." unique_id=1663083347 instance=ExtResource("1_tj536")]
+layout_mode = 1
+offset_left = -256.0
+offset_top = -224.0
+offset_right = -256.0
+offset_bottom = -224.0
+v_separation = 80
+
+[node name="Menu_Tabs" parent="GenericMenu" index="0" unique_id=2125802488]
+z_index = 2
+offset_left = 310.0
+offset_top = 271.0
+offset_right = 334.0
+offset_bottom = 937.0
+theme_override_constants/h_separation = 207
+theme_override_constants/v_separation = 80
+
+[node name="Panel" parent="GenericMenu" index="1" unique_id=416533798]
+visible = false
+
+[node name="MC" parent="GenericMenu" unique_id=865631591 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[node name="Sera" parent="GenericMenu" unique_id=1740854481 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[node name="Kaela" parent="GenericMenu" unique_id=677793147 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[node name="Rowan" parent="GenericMenu" unique_id=857614485 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[node name="Cassian" parent="GenericMenu" unique_id=635782607 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[node name="Lyra" parent="GenericMenu" unique_id=411591662 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[node name="Orion" parent="GenericMenu" unique_id=817967840 instance=ExtResource("2_udpo0")]
+layout_mode = 1
+offset_left = 696.0
+offset_top = 301.0
+offset_right = 696.0
+offset_bottom = 301.0
+
+[editable path="GenericMenu"]

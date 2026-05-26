@@ -25,11 +25,13 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_7byuw"]
 script = ExtResource("4_ddxp4")
+equipment_name = "Adamant Armor"
 equipment_stats = SubResource("Resource_53op7")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_a05x6"]
 script = ExtResource("5_aqpqu")
+weapon_name = "Kokuseki Senjin"
 weapon_attack = 30
 attack_accuracy = 95
 status_conditions = null

@@ -5,7 +5,6 @@ class_name combat_template
 @onready var combatant_name = $Sprite3D2/SubViewport/CombatantUi.get_node("Label")
 @onready var combatant_sprite = $Sprite3D
 @onready var health_bar = $Sprite3D2/SubViewport/CombatantUi.get_node("TextureProgressBar")
-@onready var interactable_area = $Area3D
 @onready var attacked_label = $Label3D
 @onready var combatant_ui_ = $Sprite3D2/SubViewport/CombatantUi
 @onready var combatant_ui = $Sprite3D2/SubViewport/CombatantUi/Player_Menu
@@ -117,7 +116,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
 	combatant_ui.visible = false
 	combatant_ui_area.visible = false
-	create_collision_from_sprite_3d()
+	# create_collision_from_sprite_3d()
 	$Sprite3D2/SubViewport/CombatantUi.setup(self, stored_combatant)
 	
 func update_health(change_health_value, status_ = false, portrait: player_portraits = null):
@@ -201,6 +200,7 @@ func execute_defend():
 func do_nothing_3d(_camera, event, _event_position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
+			print("HELLO")
 			parent_reference.confirmation.emit(child_number)
 
 func reset_ui():
@@ -277,6 +277,7 @@ func _apply_poison():
 
 func _apply_burn(): 
 	update_health(20, true)
+	
 func _apply_freeze(): print("FREEZE")
 func _apply_agro(): print("AGRO")
 func _apply_momentum(): print("momentum")
@@ -351,16 +352,20 @@ func obtain_stat_alteration(what_stat):
 func could_be_selected():
 	combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
 	currently_selectable = true
+	combatant_ui_area.visible = true
 
 func undo_selection():
 	combatant_sprite.modulate = Color(Color.WHITE, 0.75)
 	currently_selectable = false
+	combatant_ui_area.visible = false
+
 
 func _unhandled_input(event):
 	subviewport.push_input(event)
 
 # Makes them clickable, probably will be removed
 func create_collision_from_sprite_3d():
+	var interactable_area
 	for child in interactable_area.get_children():
 		if child is CollisionPolygon3D:
 			child.queue_free()

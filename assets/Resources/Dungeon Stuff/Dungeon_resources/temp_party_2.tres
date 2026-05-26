@@ -24,11 +24,13 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_b6bld"]
 script = ExtResource("4_i1avj")
+equipment_name = "Soul of Athena"
 equipment_stats = SubResource("Resource_iikrj")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_8v2a8"]
 script = ExtResource("5_dmw0s")
+weapon_name = "Quintessence"
 weapon_attack = 30
 attack_accuracy = 90
 status_conditions = null

@@ -31,6 +31,11 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_b2wl4")
 
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1268568179]
+layout_mode = 0
+offset_right = 86.0
+offset_bottom = 67.0
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=400153213]
 layout_mode = 0
 offset_left = 46.0
@@ -331,6 +336,7 @@ texture_normal = ExtResource("4_iqe56")
 texture_pressed = ExtResource("4_iqe56")
 texture_hover = ExtResource("4_iqe56")
 
+[connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
 [connection signal="button_down" from="Player_Menu/Action_Menu/Back_Button" to="." method="handle_menu_swapping" binds= [0]]
 [connection signal="button_down" from="Player_Menu/Action_Menu/Attack_Button" to="." method="base_attack_defend_selected" binds= [true]]
 [connection signal="button_down" from="Player_Menu/Action_Menu/Defend_Button" to="." method="base_attack_defend_selected" binds= [false]]

@@ -1,7 +1,12 @@
 extends Control
 
+
 @onready var item_container = $GridContainer
+@export var number_of_columns : int = 2
 var parent_reference
+
+func _ready():
+	item_container.columns = number_of_columns
 
 func setup(item_list: Array[Items], parent_ref):
 	parent_reference = parent_ref
