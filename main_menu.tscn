@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://7ae7b1yl6psk"]
+
+[ext_resource type="Script" uid="uid://dbmgl2im4ad7l" path="res://main_menu.gd" id="1_06t4h"]
+[ext_resource type="PackedScene" uid="uid://bp4nraurt5ifw" path="res://scenes/fade.tscn" id="2_7vrkn"]
+
+[node name="Main Menu" type="Node2D" unique_id=704245703]
+script = ExtResource("1_06t4h")
+
+[node name="Button_manager" type="Control" parent="." unique_id=2043164313]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="New Game" type="Button" parent="Button_manager" unique_id=768366424]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 647.0
+offset_top = 165.0
+offset_right = 1317.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "New Game"
+
+[node name="Continue" type="Button" parent="Button_manager" unique_id=349522677]
+layout_mode = 0
+offset_left = 649.0
+offset_top = 296.0
+offset_right = 1317.0
+offset_bottom = 392.0
+text = "Continue"
+
+[node name="Settings" type="Button" parent="Button_manager" unique_id=1821451838]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 433.0
+offset_right = 1317.0
+offset_bottom = 529.0
+text = "Settings"
+
+[node name="Credits" type="Button" parent="Button_manager" unique_id=1962389507]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 556.0
+offset_right = 1317.0
+offset_bottom = 651.0
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Button_manager" unique_id=880497608]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 651.0
+offset_top = 676.0
+offset_right = 1317.0
+offset_bottom = 771.0
+text = "Quit"
+
+[node name="Fade" parent="." unique_id=1305704 instance=ExtResource("2_7vrkn")]
+
+[node name="fade_timer" type="Timer" parent="Fade" unique_id=1485503960]
+
+[connection signal="pressed" from="Button_manager/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Button_manager/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Button_manager/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Button_manager/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]
