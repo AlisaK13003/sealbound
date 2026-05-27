@@ -2,74 +2,74 @@
   "id": "sera_001",
   "start": "intro",
   "nodes": {
-    "intro": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "Oh... hello. Do you need help, or just a quiet place to stand?",
-      "choices": [
-        {
-          "text": "Talk",
-          "next": "talk_hub"
-        },
-        {
-          "text": "Gift (WIP)",
-          "next": "gift_wip"
-        }
-      ]
-    },
-    "talk_hub": {
-      "random_next": [
-        "talk_a_1",
-        "talk_b_1",
+	"intro": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Oh... hello. Do you need help, or just a quiet place to stand?",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"talk_hub": {
+	  "random_next": [
+		"talk_a_1",
+		"talk_b_1",
         "talk_c_1"
-      ]
-    },
-    "talk_a_1": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "smile",
-      "text": "I was just finishing another note for the infirmary ledger.",
-      "next": "talk_a_2"
-    },
-    "talk_a_2": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "It helps me remember who is resting, and who needs a little more care."
-    },
-    "talk_b_1": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "I keep more tea on hand than most people expect.",
-      "next": "talk_b_2"
-    },
-    "talk_b_2": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "smile",
-      "text": "Warm food and warm drinks do matter. Especially when they are shared."
-    },
-    "talk_c_1": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "sad",
-      "text": "Some people wait too long to say they are hurting.",
-      "next": "talk_c_2"
-    },
-    "talk_c_2": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "I do not mind noticing first. That is part of what I am here for."
-    },
-    "gift_wip": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "I am not ready for gifts yet... but thank you for thinking of me.",
-      "next": "intro"
-    }
+	  ]
+	},
+	"talk_a_1": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "I was just finishing another note for the infirmary ledger.",
+	  "next": "talk_a_2"
+	},
+	"talk_a_2": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "It helps me remember who is resting, and who needs a little more care."
+	},
+	"talk_b_1": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "I keep more tea on hand than most people expect.",
+	  "next": "talk_b_2"
+	},
+	"talk_b_2": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Warm food and warm drinks do matter. Especially when they are shared."
+	},
+	"talk_c_1": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Some people wait too long to say they are hurting.",
+	  "next": "talk_c_2"
+	},
+	"talk_c_2": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I do not mind noticing first. That is part of what I am here for."
+	},
+	"gift_wip": {
+	  "speaker": "Sera",
+	  "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I am not ready for gifts yet... but thank you for thinking of me.",
+	  "next": "intro"
+	}
   }
 }

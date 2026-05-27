@@ -12,6 +12,8 @@ var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready() -> void:
 	Global.load_save_data()
+	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	pause_menu.visible = false
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 			
 func _process(_delta: float) -> void:
@@ -32,6 +34,18 @@ func _process(_delta: float) -> void:
 	
 func _input(event):
 	if event.is_action_pressed("Pause"):
+		if pause_menu.visible:
+			pause_menu.visible = false
+			Global.is_in_menu = false
+			get_tree().paused = false
+		else:
+			full_inventory.manage_visibility(false)
+			pause_menu.visible = true
+			Global.is_in_menu = true
+			get_tree().paused = true
+		return
+
+	if event.is_action_pressed("Inventory"):
 		if Global.is_in_menu:
 			return
 		if not in_menu:

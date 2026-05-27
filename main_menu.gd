@@ -2,10 +2,13 @@ extends Node2D
 
 const START_SCENE_PATH := "res://scenes/main/Hearthwynn.tscn"
 
+@onready var continue_button: Button = $Button_manager/Continue
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	if continue_button != null:
+		continue_button.disabled = not Global.has_save_data()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,7 +30,16 @@ func _on_settings_pressed() -> void:
 
 
 func _on_continue_pressed() -> void:
-	pass
+	if not Global.has_save_data():
+		return
+
+	if Fade.is_fading:
+		return
+
+	if has_node("Button_manager"):
+		$Button_manager.visible = false
+
+	Fade.transition_to_scene(START_SCENE_PATH)
 
 func _on_new_game_pressed() -> void:
 	if Fade.is_fading:

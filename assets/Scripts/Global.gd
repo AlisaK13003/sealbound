@@ -176,8 +176,11 @@ const SAVE_PATH = "user://save_game.dat"
 var player_saves : Array[String]
 signal save_loaded
 
+func has_save_data() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
+
 func load_save():
-	if not FileAccess.file_exists(SAVE_PATH):
+	if not has_save_data():
 		print("No save file found.")
 		return ""
 
