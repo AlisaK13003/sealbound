@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_mko41"]
 [ext_resource type="Texture2D" uid="uid://1aoguy5xkn6v" path="res://assets/tile sheets/Move Sprites/Disabled_Second_Wind.png" id="1_q6u85"]
 [ext_resource type="Texture2D" uid="uid://bcblthvt3hn4f" path="res://assets/tile sheets/Move Sprites/Second_Wind.png" id="2_i30tp"]
+[ext_resource type="Texture2D" uid="uid://cmgagr4xnwpkm" path="res://assets/tile sheets/Move Sprites/Toggled_Second_Wind.png" id="3_i30tp"]
 
 [resource]
 script = ExtResource("1_mko41")
@@ -12,11 +13,11 @@ attack_power = null
 is_magic_skill = true
 mana_cost = 2
 status_type = null
+removes_status = null
 targets_party = true
 does_heal_party = true
 amount_healed = 2
 normal_sprite = ExtResource("2_i30tp")
-pressed_sprite = ExtResource("2_i30tp")
-hover_sprite = ExtResource("2_i30tp")
+pressed_sprite = ExtResource("3_i30tp")
 disabled_sprite = ExtResource("1_q6u85")
 metadata/_custom_type_script = "uid://djfkp740jjn43"

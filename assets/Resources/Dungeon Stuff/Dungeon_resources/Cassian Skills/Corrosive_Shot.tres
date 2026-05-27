@@ -9,5 +9,6 @@ move_description = "Single-target attack. Chance to apply poison"
 attack_power = 1
 accuracy = 85
 status_type = 132
+removes_status = null
 chance_of_status_condition = 0.65
 metadata/_custom_type_script = "uid://djfkp740jjn43"

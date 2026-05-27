@@ -208,6 +208,7 @@ func reset_ui():
 
 # Status Stuff
 func handle_status(incoming_statuses):
+	print("INFLICTED STATUS")
 	for key in conflicts.keys():
 		var opposite = conflicts[key]
 		if (incoming_statuses & key) and (all_active_effects & opposite):

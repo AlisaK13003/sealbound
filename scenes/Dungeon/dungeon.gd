@@ -21,7 +21,6 @@ extends Node
 
 @onready var rng = RandomNumberGenerator.new()
 
-
 var all_combatants : Array[combat_template] = []
 
 var mana: int = 3
@@ -113,6 +112,7 @@ func battle_loop():
 	print("BATTLE FINISHED")
 	
 func execute_enemy_turn(enemy_to_attack, _turn_number):
+	print("ACTING")
 	rng = RandomNumberGenerator.new()
 	var action_selected = rng.randi_range(0,2)
 	var player_to_attack = rng.randi_range(0,2)
@@ -145,76 +145,113 @@ func handle_player_move_selection(current_combatant):
 	toggle_player_ui(current_slot)
 	get_player(current_slot).combatant_ui_.update_skill_buttons(get_player(current_slot).stored_combatant, mana)
 	var what_action = await action_taken
+	var action_sequence: Array[Callable]
 	toggle_player_ui(current_slot)
 	match what_action[0]:
 		"BASIC_ATTACK":
 			var target_node = enemy_shit.get_child(what_action[1])
 			var damage = get_player(current_slot).execute_base_attack(target_node)
-			if await target_node.update_health([damage, ""], false):
-				target_node.stored_combatant.is_dead = true
+			action_sequence.append(func(): await target_node.update_health([damage, ""], false))
 		"BASIC_DEFEND":
-			$Player_Container.get_child(current_slot).execute_defend()
+			action_sequence.append(func(): await get_player(current_slot).execute_defend())
 			update_mana_display(2)
 		"SKILL":
-			await execute_skills(current_slot, what_action)
+			action_sequence.append(func(): await execute_skills(current_slot, what_action))
+
 		"ITEM":
-			await execute_item(temp_item_list[what_action[2]], what_action[1], what_action[2])
+			action_sequence = [
+				func(): execute_item(temp_item_list[what_action[2]], what_action[1], what_action[2])
+			]
+	await action_queue(action_sequence)
 	await get_player(current_slot).take_turn(get_player_portrait(current_slot))
 	get_player_portrait(current_slot).update_statuses(get_player(current_slot))
 
 func execute_skills(active_player, what_action):
 	var current_player: combat_template = get_player(active_player)
 	var skill_used: moves = current_player.stored_combatant.combatant_skills[what_action[2]]
-	
+	var action_sequence : Array[Callable]
+	var parallel_tasks : Array[Callable]
 	if skill_used.is_skill_aoe:
 		# AOE skill that acts on party
 		if skill_used.targets_party:
 			# Does skill heal everyone in the party
-			if skill_used.does_heal_party:
-				for player: combat_template in player_container:
+			var par_task: Array[Callable]
+			for player: combat_template in player_container.get_children():
+				if skill_used.does_heal_party:
 					if get_skill_boost(skill_used) != 999:
-						player.update_health([-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(active_player))
+						par_task.append(func(): await player.update_health([-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(player.get_index())))
+						#player.update_health([-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(active_player))
 					else:
-						player.update_health([-1 * current_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(active_player))
-			# Does this skill apply a status to every party member
-			if skill_used.does_status:
-				for player: combat_template in player_container.get_children():
-					player.handle_status(skill_used.status_type)
+						par_task.append(func(): await player.update_health([-1 * player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(player.get_index())))
+						#player.update_health([-1 * current_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(active_player))
+				# Does this skill apply a status to every party member
+				if skill_used.does_status:
+					par_task.append(func(): await player.handle_status(skill_used.status_type))
+					#player.handle_status(skill_used.status_type)
+				if skill_used.does_remove_status:
+					par_task.append(func(): await player.remove_status(skill_used.removes_status))
+					#player.remove_status(skill_used.removes_status)
+			action_sequence.append(func(): await await_parallel(par_task))
 		# AOE skill that effects enemies
 		else:
+			var par_tasks: Array[Callable]
 			for enemy: combat_template in enemy_shit.get_children():
 				var chance = rng.randf_range(0, 1)
-				await deal_damage(current_player, enemy, true, skill_used)
+				par_tasks.append(func(): await deal_damage(current_player, enemy, true, skill_used))
+				#await deal_damage(current_player, enemy, true, skill_used)
 
 				if skill_used.does_status:
 					chance = rng.randf_range(0, 1)
 					if chance <= skill_used.chance_of_status_condition:
-						enemy.handle_status(skill_used.status_type)
+						par_tasks.append(func(): await enemy.handle_status(skill_used.status_type))
+						#enemy.handle_status(skill_used.status_type)
+				if skill_used.removes_status:
+					chance = rng.randf_range(0, 1)
+					if chance <= skill_used.chance_of_status_condition:
+						par_tasks.append(func(): await enemy.remove_status(skill_used.removes_status))
+						#enemy.remove_status(skill_used.removes_status)
+			action_sequence.append(func(): await await_parallel(par_tasks))
 	else:
 		if skill_used.targets_party:
 			var targetted_player: combat_template = player_container.get_child(what_action[1])
 			if skill_used.does_heal_party:
 				if get_skill_boost(skill_used) != 999:
-					await targetted_player.update_health([-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(what_action[1]))
+					parallel_tasks.append(func(): await targetted_player.update_health([-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(what_action[1])))
+					#await targetted_player.update_health([-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(what_action[1]))
 				else:
-					await targetted_player.update_health([-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(what_action[1]))
+					parallel_tasks.append(func(): await targetted_player.update_health([-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(what_action[1])))
+					#await targetted_player.update_health([-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(what_action[1]))
 			if skill_used.does_status:
-				await targetted_player.handle_status(skill_used.status_type)
+				action_sequence.append(func(): await targetted_player.handle_status(skill_used.status_type))
+				#await targetted_player.handle_status(skill_used.status_type)
+			if skill_used.removes_status:
+				action_sequence.append(func(): await targetted_player.remove_status(skill_used.removes_status))
+				#await targetted_player.remove_status(skill_used.removes_status)
 		else:
 			var targetted_enemy = enemy_shit.get_child(what_action[1])
 			var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
 			var chance = rng.randf_range(0, 1)
 			if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
-				await targetted_enemy.handle_status(skill_used.status_type)
+				action_sequence.append(func(): await targetted_enemy.handle_status(skill_used.status_type))
+				#await targetted_enemy.handle_status(skill_used.status_type)
+			if skill_used.removes_status and chance <= skill_used.chance_of_status_condition:
+				action_sequence.append(func(): await targetted_enemy.remove_status(skill_used.removes_status))
+				#await targetted_enemy.remove_status(skill_used.removes_status)
 			if skill_used.multi_hit:
-				await deal_damage(current_player, targetted_enemy, true, skill_used)
+				parallel_tasks.append(func(): await deal_damage(current_player, targetted_enemy, true, skill_used))
+				#await deal_damage(current_player, targetted_enemy, true, skill_used)
 			else:
 				chance = rng.randf_range(0, 1)
 				if chance <= check_evasion:
-					await deal_damage(current_player, targetted_enemy, true, skill_used)
+					parallel_tasks.append(func(): await deal_damage(current_player, targetted_enemy, true, skill_used))
+					#await deal_damage(current_player, targetted_enemy, true, skill_used)
 				else:
-					targetted_enemy.update_health("MISS")
-	update_mana_display(-1 * skill_used.mana_cost)
+					parallel_tasks.append(func(): await targetted_enemy.update_health("MISS"))
+					#targetted_enemy.update_health("MISS")
+	parallel_tasks.append(func(): await update_mana_display(-1 * skill_used.mana_cost))
+	action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
+	#update_mana_display(-1 * skill_used.mana_cost)
+	await action_queue(action_sequence)
 
 func execute_item(what_item: Items, targets_who, item_index):
 	if what_item.targets_players:
@@ -375,7 +412,9 @@ func set_health_bar_values(player_to_set_for):
 
 # Buttons
 func attack_button_pressed():
-	highlight_enemies()
+	if not highlight_enemies():
+		unhighlight_all_entities()
+		return
 	var action_on_who = await confirmation
 	revert_to_default_UI()
 	enemy_shit.get_child(action_on_who).could_be_selected()
@@ -403,11 +442,13 @@ func skill_selected(what_skill, what_player):
 		highlight_enemies()
 		
 	var action_on_who = await confirmation
+	if action_on_who is bool:
+		return
 	if not skill_to_use.is_skill_aoe:
 		if skill_to_use.targets_party:
 			setup_confirmation_button(skill_to_use.move_name, get_player(what_player).stored_combatant.combatant_name)
 		else:
-			setup_confirmation_button(skill_to_use.move_name, enemy_shit.get_child(action_on_who).combatant_name)
+			setup_confirmation_button(skill_to_use.move_name, enemy_shit.get_child(action_on_who).stored_combatant.combatant_name)
 	else:
 		if skill_to_use.targets_party:
 			setup_confirmation_button(skill_to_use.move_name, "entire party")
@@ -462,11 +503,28 @@ func item_selected(item_index):
 			else:
 				$UI/Confirmation.visible = false
 				selected_item.visible = true
-				if not confirmed is bool and confirmed =="NOPE":
-					print("HIII")
 				continue
 
 	action_taken.emit("ITEM", action_on_who if not is_aoe else 4, item_index)
+
+func action_queue(sequence: Array[Callable]):
+	for action: Callable in sequence:
+		await action.call()
+
+
+func await_parallel(tasks: Array[Callable]):
+	var state = { "active_tasks": tasks.size() }
+	if state["active_tasks"] == 0:
+		return
+		
+	for task in tasks:
+		var run_task = func():
+			await task.call()
+			state["active_tasks"] -= 1
+		run_task.call() 
+	
+	while state["active_tasks"] > 0:
+		await get_tree().process_frame
 
 func confirmation_button(event, confirm_or_deny):
 	if event is InputEventMouseButton:
@@ -492,11 +550,17 @@ func unhighlight_all_entities():
 
 func highlight_players():
 	for player in player_container.get_children():
+		if player.currently_selectable:
+			return false
 		player.could_be_selected()
+	return true
 		
 func highlight_enemies():
 	for enemy in enemy_shit.get_children():
+		if enemy.currently_selectable:
+			return false
 		enemy.could_be_selected()
+	return true
 
 func hide_everything():
 	revert_to_default_UI()
@@ -507,13 +571,12 @@ func update_mana_display(mana_used_or_gained):
 
 @onready var camera: Camera3D = $Camera3D
 
-@export var original_fov: float = 15.0 # Your maximum FOV (default unzoomed state)
-@export var min_fov: float = 8.0       # Your minimum FOV (maximum zoom)
-@export var padding: float = 0.5       # Keeps a tight margin around targets (in world meters)
-@export var border_size: float = 0.1   # The "forbidden" margin inside the original frame (in world meters)
+@export var original_fov: float = 15.0 
+@export var min_fov: float = 8.0      
+@export var padding: float = 0.5       
+@export var border_size: float = 0.1   
 
 func sci_fi_enhance_zoom(target_a: Node3D, target_b: Node3D, duration: float):
-	# 1. Convert targets to the camera's local space
 	var local_a = camera.to_local(target_a.global_position)
 	var local_b = camera.to_local(target_b.global_position)
 	
@@ -521,34 +584,25 @@ func sci_fi_enhance_zoom(target_a: Node3D, target_b: Node3D, duration: float):
 	var depth_b = abs(local_b.z)
 	var avg_depth = (depth_a + depth_b) / 2.0
 	
-	# 2. Get the aspect ratio of the viewport
 	var viewport_size = get_viewport().get_visible_rect().size
 	var aspect = viewport_size.x / viewport_size.y
 	
-	# 3. CALCULATE THE SHRUNK BOUNDARIES (The allowed zone)
-	# Find physical dimensions of original 15-degree frame at this depth
 	var orig_v_fov_rad = deg_to_rad(original_fov)
 	var orig_height = 2.0 * avg_depth * tan(orig_v_fov_rad / 2.0)
 	var orig_width = orig_height * aspect
 	
-	# Safety check: If targets are extremely close, the 15-degree frame might be physically
-	# smaller than 4 meters. We scale the border down so the view never collapses to zero.
 	var actual_border = min(border_size, min(orig_height, orig_width) * 0.4)
 	
-	# Subtract the border from all sides to create the inner "allowed" box
 	var shrunk_height = orig_height - (2.0 * actual_border)
 	var shrunk_width = orig_width - (2.0 * actual_border)
 	
-	# Find the maximum FOV allowed to stay strictly within these shrunk boundaries
 	var limit_v_rad = 2.0 * atan(shrunk_height / (2.0 * avg_depth))
 	var limit_h_rad = 2.0 * atan((shrunk_width / aspect) / (2.0 * avg_depth))
 	var max_allowed_fov = rad_to_deg(min(limit_v_rad, limit_h_rad))
 	
-	# 4. Find the ideal center point between them
 	var target_h_offset = (local_a.x + local_b.x) / 2.0
 	var target_v_offset = (local_a.y + local_b.y) / 2.0
 	
-	# 5. PASS 1: Calculate temporary FOV assuming ideal centering
 	var shifted_a_x = local_a.x - target_h_offset
 	var shifted_a_y = local_a.y - target_v_offset
 	var shifted_b_x = local_b.x - target_h_offset
@@ -559,24 +613,18 @@ func sci_fi_enhance_zoom(target_a: Node3D, target_b: Node3D, duration: float):
 	var fov_x_b = 2.0 * atan((abs(shifted_b_x) + padding/2.0) / aspect / depth_b)
 	var fov_y_b = 2.0 * atan((abs(shifted_b_y) + padding/2.0) / depth_b)
 	
-	# Clamp the temporary FOV using the new max_allowed_fov instead of original_fov
 	var temp_fov = clamp(rad_to_deg(max(fov_x_a, fov_y_a, fov_x_b, fov_y_b)), min_fov, max_allowed_fov)
 	
-	# Find the physical dimensions of this temporary zoomed frame
 	var temp_v_fov_rad = deg_to_rad(temp_fov)
 	var temp_height = 2.0 * avg_depth * tan(temp_v_fov_rad / 2.0)
 	var temp_width = temp_height * aspect
 	
-	# 6. CALCULATE THE OFFSET LIMITS (Clamping to the shrunk box)
-	# The maximum distance the camera can shift while keeping the zoomed view inside the shrunk boundaries
 	var max_h_offset = max(0.0, (shrunk_width - temp_width) / 2.0)
 	var max_v_offset = max(0.0, (shrunk_height - temp_height) / 2.0)
 	
-	# Apply the clamp to get the final actual offsets
 	var final_h_offset = clamp(target_h_offset, -max_h_offset, max_h_offset)
 	var final_v_offset = clamp(target_v_offset, -max_v_offset, max_v_offset)
 	
-	# 7. PASS 2: Recalculate the REAL FOV relative to the final clamped offsets
 	var final_shifted_a_x = local_a.x - final_h_offset
 	var final_shifted_a_y = local_a.y - final_v_offset
 	var final_shifted_b_x = local_b.x - final_h_offset
@@ -587,10 +635,8 @@ func sci_fi_enhance_zoom(target_a: Node3D, target_b: Node3D, duration: float):
 	var final_fov_x_b = 2.0 * atan((abs(final_shifted_b_x) + padding/2.0) / aspect / depth_b)
 	var final_fov_y_b = 2.0 * atan((abs(final_shifted_b_y) + padding/2.0) / depth_b)
 	
-	# Again, enforce the max_allowed_fov boundary
 	var required_fov = clamp(rad_to_deg(max(final_fov_x_a, final_fov_y_a, final_fov_x_b, final_fov_y_b)), min_fov, max_allowed_fov)
 	
-	# 8. Smoothly transition
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)

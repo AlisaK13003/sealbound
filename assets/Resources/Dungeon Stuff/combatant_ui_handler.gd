@@ -28,8 +28,8 @@ func setup(parent_ref, party_member: generic_combatants):
 				skill_node.get_child(mana).visible = true
 
 		skill_node.texture_normal = party_member.combatant_skills[move].normal_sprite
-		skill_node.texture_pressed = party_member.combatant_skills[move].normal_sprite
-		skill_node.texture_hover = party_member.combatant_skills[move].normal_sprite
+		skill_node.texture_pressed = party_member.combatant_skills[move].pressed_sprite
+		skill_node.texture_hover = party_member.combatant_skills[move].hover_sprite
 		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
 		
 func reset_ui():
@@ -88,8 +88,14 @@ func update_skill_buttons(player_to_check: generic_combatants, total_mana):
 func base_attack_defend_selected(attack_or_defend):
 	if attack_or_defend:
 		parent_reference.parent_reference.attack_button_pressed()
+		action_menu.get_child(1).toggle_mode = true
 	else:
+		if action_menu.get_child(1).toggle_mode == true:
+			action_menu.get_child(1).toggle_mode = false
+			parent_reference.parent_reference.attack_button_pressed()
 		parent_reference.parent_reference.defend_button_pressed(parent_reference.stored_combatant.combatant_name)
+		action_menu.get_child(2).toggle_mode = true
+
 
 func _on_texture_button_button_down():
 	if parent_reference.currently_selectable:

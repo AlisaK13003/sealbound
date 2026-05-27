@@ -18,6 +18,7 @@ class_name moves
 
 @export_group("Status")
 @export var does_status: bool
+@export var does_remove_status: bool
 @export_flags(
 	"Stun:1",
 	"Sleep:2",
@@ -40,6 +41,29 @@ class_name moves
 	"Evasion+:262144",
 	"CritChance+:524288"
 	) var status_type
+	
+@export_flags(
+	"Stun:1",
+	"Sleep:2",
+	"Shock:4",
+	"Poison:8",
+	"Burn:16",
+	"Freeze:32",
+	"Slow:64",
+	"Agro:128",
+	"Attack-:256",
+	"Defense-:512",
+	"Evasion-:1024",
+	"CritChance-:2048",
+	"Accuracy-:4096",
+	"Momentum:8192",
+	"Regen:16384",
+	"Stun_Immunity:32768",
+	"Attack+:65536",
+	"Defense+:131072",
+	"Evasion+:262144",
+	"CritChance+:524288"
+	) var removes_status
 	
 @export_range(0,1) var chance_of_status_condition : float
 @export var lasts_x_turns: int = 3

@@ -12,6 +12,7 @@ script = ExtResource("1_4t8q3")
 attack_power = null
 does_status = true
 status_type = 65536
+removes_status = null
 targets_party = true
 is_skill_aoe = true
 does_heal_party = true
