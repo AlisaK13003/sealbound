@@ -7,7 +7,6 @@ func _ready():
 	teleport_player_to_spawn()
 	set_camera_limits()
 
-	
 func teleport_player_to_spawn():
 	if Global.current_loading_zone == "":
 		return

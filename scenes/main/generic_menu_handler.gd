@@ -24,10 +24,8 @@ func _ready():
 				menu_tabs.get_child(name_).get_child(1).text = menu_self.get_child(name_ + child_offset).name
 				menu_tabs.get_child(name_).visible = true
 				menu_self.get_child(name_ + child_offset).visible = false
-
 			else:
 				menu_tabs.get_child(name_).visible = false
-
 func _swap_menu_tabs(extra_arg_0):
 	for child in menu_tabs.get_children():
 		if child.get_index() >= menu_self.get_child_count() - child_offset:
@@ -35,7 +33,6 @@ func _swap_menu_tabs(extra_arg_0):
 		if child.get_index() == extra_arg_0:
 			child.get_child(0).color = Color.YELLOW
 			menu_self.get_child(child.get_index() + child_offset).visible = true
-			print("SWAPPING TO TAB: ", extra_arg_0)
 		else:
 			child.get_child(0).color = Color.WHITE
 			menu_self.get_child(child.get_index() + child_offset).visible = false

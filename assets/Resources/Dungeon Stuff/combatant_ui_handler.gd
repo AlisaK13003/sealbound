@@ -41,6 +41,7 @@ func reset_ui():
 func handle_menu_swapping(swap_to_what_menu: int):
 	if not parent_reference.parent_reference.selected_item.visible:
 		reset_ui()
+	print(swap_to_what_menu)
 	match swap_to_what_menu:
 		# Back button pressed
 		0:
@@ -52,6 +53,7 @@ func handle_menu_swapping(swap_to_what_menu: int):
 				return
 			elif parent_reference.parent_reference.item_menu:
 				parent_reference.parent_reference.item_menu.visible = false
+			print("HELLO")
 			parent_reference.parent_reference.revert_to_default_UI()
 		# Swap to Action Menu
 		1:

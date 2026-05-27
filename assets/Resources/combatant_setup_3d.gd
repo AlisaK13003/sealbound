@@ -352,13 +352,14 @@ func obtain_stat_alteration(what_stat):
 func could_be_selected():
 	combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
 	currently_selectable = true
-	combatant_ui_area.visible = true
+	if stored_combatant.is_combatant_enemy:
+		combatant_ui_area.visible = true
 
 func undo_selection():
-	combatant_sprite.modulate = Color(Color.WHITE, 0.75)
+	combatant_sprite.modulate = Color(Color.WHITE, 1)
 	currently_selectable = false
-	combatant_ui_area.visible = false
-
+	if stored_combatant.is_combatant_enemy:
+		combatant_ui_area.visible = false
 
 func _unhandled_input(event):
 	subviewport.push_input(event)

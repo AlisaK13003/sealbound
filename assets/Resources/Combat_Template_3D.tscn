@@ -18,6 +18,7 @@ script = ExtResource("1_51gu7")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 flip_h = true
 pixel_size = 0.005
+texture_filter = 0
 texture = ExtResource("2_7mydf")
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
@@ -43,4 +44,13 @@ shape = SubResource("BoxShape3D_51gu7")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=1576479968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05734358, 0.24420947, 0)
+texture_filter = 0
 modulate = Color(0.88235295, 0.16078432, 0.2509804, 1)
+
+[node name="Camera_Bounds" type="Node3D" parent="." unique_id=1525285511]
+
+[node name="Upper_Left" type="Node3D" parent="Camera_Bounds" unique_id=666716837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36611858, 0.512074, 0)
+
+[node name="Bottom_Right" type="Node3D" parent="Camera_Bounds" unique_id=806672053]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29167026, -0.32938018, 0)

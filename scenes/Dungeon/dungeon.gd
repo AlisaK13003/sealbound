@@ -1,9 +1,8 @@
-extends Node3D
+extends Node
 
-# temporary onboarding
 @export var party_slot_1 : generic_combatants
-@export var party_slot_2 : generic_combatants
-@export var party_slot_3 : generic_combatants
+@export var party_slot_2: generic_combatants
+@export var party_slot_3: generic_combatants
 
 @export var current_dungeon_run : dungeon_type
 
@@ -48,6 +47,26 @@ func _ready():
 	get_player_portrait(0)._setup(party_slot_1)
 	get_player_portrait(1)._setup(party_slot_2)
 	get_player_portrait(2)._setup(party_slot_3)
+	
+	item_menu.setup(temp_item_list, self)
+	
+	battle_loop()
+
+func setup(active_combatants: Array[generic_combatants], current_dungeon_type: dungeon_type, current_item_list: Array[Items]):
+	current_dungeon_run = current_dungeon_type
+	temp_item_list = current_item_list
+		
+	slot_1.setup(active_combatants[0], self, 0)
+	slot_2.setup(active_combatants[1], self, 1)
+	slot_3.setup(active_combatants[2], self, 2)
+
+	all_combatants.append(slot_1)
+	all_combatants.append(slot_2)
+	all_combatants.append(slot_3)
+	
+	get_player_portrait(0)._setup(active_combatants[0])
+	get_player_portrait(1)._setup(active_combatants[1])
+	get_player_portrait(2)._setup(active_combatants[2])
 	
 	item_menu.setup(temp_item_list, self)
 	
@@ -485,3 +504,110 @@ func hide_everything():
 func update_mana_display(mana_used_or_gained):
 	mana = clamp(mana + mana_used_or_gained, 0, 3)
 	$"UI/Mana Bar/Label".text = str(mana) + "/" + str(max_mana) 
+
+@onready var camera: Camera3D = $Camera3D
+
+@export var original_fov: float = 15.0 # Your maximum FOV (default unzoomed state)
+@export var min_fov: float = 8.0       # Your minimum FOV (maximum zoom)
+@export var padding: float = 0.5       # Keeps a tight margin around targets (in world meters)
+@export var border_size: float = 0.1   # The "forbidden" margin inside the original frame (in world meters)
+
+func sci_fi_enhance_zoom(target_a: Node3D, target_b: Node3D, duration: float):
+	# 1. Convert targets to the camera's local space
+	var local_a = camera.to_local(target_a.global_position)
+	var local_b = camera.to_local(target_b.global_position)
+	
+	var depth_a = abs(local_a.z)
+	var depth_b = abs(local_b.z)
+	var avg_depth = (depth_a + depth_b) / 2.0
+	
+	# 2. Get the aspect ratio of the viewport
+	var viewport_size = get_viewport().get_visible_rect().size
+	var aspect = viewport_size.x / viewport_size.y
+	
+	# 3. CALCULATE THE SHRUNK BOUNDARIES (The allowed zone)
+	# Find physical dimensions of original 15-degree frame at this depth
+	var orig_v_fov_rad = deg_to_rad(original_fov)
+	var orig_height = 2.0 * avg_depth * tan(orig_v_fov_rad / 2.0)
+	var orig_width = orig_height * aspect
+	
+	# Safety check: If targets are extremely close, the 15-degree frame might be physically
+	# smaller than 4 meters. We scale the border down so the view never collapses to zero.
+	var actual_border = min(border_size, min(orig_height, orig_width) * 0.4)
+	
+	# Subtract the border from all sides to create the inner "allowed" box
+	var shrunk_height = orig_height - (2.0 * actual_border)
+	var shrunk_width = orig_width - (2.0 * actual_border)
+	
+	# Find the maximum FOV allowed to stay strictly within these shrunk boundaries
+	var limit_v_rad = 2.0 * atan(shrunk_height / (2.0 * avg_depth))
+	var limit_h_rad = 2.0 * atan((shrunk_width / aspect) / (2.0 * avg_depth))
+	var max_allowed_fov = rad_to_deg(min(limit_v_rad, limit_h_rad))
+	
+	# 4. Find the ideal center point between them
+	var target_h_offset = (local_a.x + local_b.x) / 2.0
+	var target_v_offset = (local_a.y + local_b.y) / 2.0
+	
+	# 5. PASS 1: Calculate temporary FOV assuming ideal centering
+	var shifted_a_x = local_a.x - target_h_offset
+	var shifted_a_y = local_a.y - target_v_offset
+	var shifted_b_x = local_b.x - target_h_offset
+	var shifted_b_y = local_b.y - target_v_offset
+	
+	var fov_x_a = 2.0 * atan((abs(shifted_a_x) + padding/2.0) / aspect / depth_a)
+	var fov_y_a = 2.0 * atan((abs(shifted_a_y) + padding/2.0) / depth_a)
+	var fov_x_b = 2.0 * atan((abs(shifted_b_x) + padding/2.0) / aspect / depth_b)
+	var fov_y_b = 2.0 * atan((abs(shifted_b_y) + padding/2.0) / depth_b)
+	
+	# Clamp the temporary FOV using the new max_allowed_fov instead of original_fov
+	var temp_fov = clamp(rad_to_deg(max(fov_x_a, fov_y_a, fov_x_b, fov_y_b)), min_fov, max_allowed_fov)
+	
+	# Find the physical dimensions of this temporary zoomed frame
+	var temp_v_fov_rad = deg_to_rad(temp_fov)
+	var temp_height = 2.0 * avg_depth * tan(temp_v_fov_rad / 2.0)
+	var temp_width = temp_height * aspect
+	
+	# 6. CALCULATE THE OFFSET LIMITS (Clamping to the shrunk box)
+	# The maximum distance the camera can shift while keeping the zoomed view inside the shrunk boundaries
+	var max_h_offset = max(0.0, (shrunk_width - temp_width) / 2.0)
+	var max_v_offset = max(0.0, (shrunk_height - temp_height) / 2.0)
+	
+	# Apply the clamp to get the final actual offsets
+	var final_h_offset = clamp(target_h_offset, -max_h_offset, max_h_offset)
+	var final_v_offset = clamp(target_v_offset, -max_v_offset, max_v_offset)
+	
+	# 7. PASS 2: Recalculate the REAL FOV relative to the final clamped offsets
+	var final_shifted_a_x = local_a.x - final_h_offset
+	var final_shifted_a_y = local_a.y - final_v_offset
+	var final_shifted_b_x = local_b.x - final_h_offset
+	var final_shifted_b_y = local_b.y - final_v_offset
+	
+	var final_fov_x_a = 2.0 * atan((abs(final_shifted_a_x) + padding/2.0) / aspect / depth_a)
+	var final_fov_y_a = 2.0 * atan((abs(final_shifted_a_y) + padding/2.0) / depth_a)
+	var final_fov_x_b = 2.0 * atan((abs(final_shifted_b_x) + padding/2.0) / aspect / depth_b)
+	var final_fov_y_b = 2.0 * atan((abs(final_shifted_b_y) + padding/2.0) / depth_b)
+	
+	# Again, enforce the max_allowed_fov boundary
+	var required_fov = clamp(rad_to_deg(max(final_fov_x_a, final_fov_y_a, final_fov_x_b, final_fov_y_b)), min_fov, max_allowed_fov)
+	
+	# 8. Smoothly transition
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	
+	tween.tween_property(camera, "h_offset", final_h_offset, duration)
+	tween.tween_property(camera, "v_offset", final_v_offset, duration)
+	tween.tween_property(camera, "fov", required_fov, duration)
+	await get_tree().create_timer(duration).timeout
+
+
+func revert_camera(duration: float):
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	
+	tween.tween_property(camera, "h_offset", 0.0, duration)
+	tween.tween_property(camera, "v_offset", 0.0, duration)
+	tween.tween_property(camera, "fov", original_fov, duration)

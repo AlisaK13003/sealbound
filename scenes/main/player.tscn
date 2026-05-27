@@ -97,6 +97,7 @@ theme_override_constants/h_separation = 195
 theme_override_constants/v_separation = 82
 
 [node name="Items" parent="CanvasLayer/GenericMenu" unique_id=1100506542 instance=ExtResource("7_q2ck2")]
+visible = false
 layout_mode = 1
 offset_left = 1224.0
 offset_top = 309.0
@@ -104,6 +105,7 @@ offset_right = 1224.0
 offset_bottom = 309.0
 
 [node name="Equip" parent="CanvasLayer/GenericMenu" unique_id=583333125 instance=ExtResource("7_q2ck2")]
+visible = false
 layout_mode = 1
 offset_left = 734.0
 offset_top = 315.0
@@ -112,6 +114,7 @@ offset_bottom = 315.0
 number_of_columns = 4
 
 [node name="Stats" parent="CanvasLayer/GenericMenu" unique_id=924970152 instance=ExtResource("7_q2ck2")]
+visible = false
 layout_mode = 1
 offset_left = 284.0
 offset_top = 328.0
@@ -120,6 +123,7 @@ offset_bottom = 328.0
 number_of_columns = 6
 
 [node name="Stats2" parent="CanvasLayer/GenericMenu" unique_id=1522579163 instance=ExtResource("7_q2ck2")]
+visible = false
 layout_mode = 1
 offset_left = 284.0
 offset_top = 328.0
@@ -128,6 +132,7 @@ offset_bottom = 328.0
 number_of_columns = 6
 
 [node name="Stats3" parent="CanvasLayer/GenericMenu" unique_id=658150034 instance=ExtResource("7_q2ck2")]
+visible = false
 layout_mode = 1
 offset_left = 284.0
 offset_top = 328.0
@@ -136,6 +141,7 @@ offset_bottom = 328.0
 number_of_columns = 6
 
 [node name="Stats4" parent="CanvasLayer/GenericMenu" unique_id=129680650 instance=ExtResource("7_q2ck2")]
+visible = false
 layout_mode = 1
 offset_left = 284.0
 offset_top = 328.0
@@ -151,3 +157,5 @@ offset_right = -1522.0
 offset_bottom = -791.0
 
 [editable path="CanvasLayer/GenericMenu"]
+[editable path="CanvasLayer/GenericMenu/PlayerEquipMenu"]
+[editable path="CanvasLayer/GenericMenu/PlayerEquipMenu/GenericMenu"]

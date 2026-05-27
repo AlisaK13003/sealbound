@@ -5,6 +5,11 @@ extends Control
 
 func _ready():
 	await GlobalCombatInformation.finished
+	for child in $GenericMenu/Menu_Tabs.get_children():
+		if child.get_index() >= GlobalCombatInformation.all_party_slots.size():
+			child.visible = false
+			continue
+			
 	for child in tabs:
 		if child.get_index() < menu.child_offset or child.get_index() > GlobalCombatInformation.all_party_slots.size() +1:
 			continue
