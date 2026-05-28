@@ -13,6 +13,7 @@ move_name = "Swing"
 move_description = "Swingy swing swing"
 attack_power = null
 status_type = null
+removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_bdilv"]

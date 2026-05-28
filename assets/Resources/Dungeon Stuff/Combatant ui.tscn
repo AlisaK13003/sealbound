@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://ca2tk80g8637h" path="res://assets/tile sheets/Move Sprites/Toggled_Action_Selection.png" id="7_q2ipg"]
 [ext_resource type="Texture2D" uid="uid://bbk3oyyj2yvhf" path="res://assets/tile sheets/Move Sprites/Toggled_Defend_Select.png" id="9_fi4b1"]
 [ext_resource type="Texture2D" uid="uid://b1n1gctkrrkbe" path="res://assets/tile sheets/Move Sprites/Hold_Fast.png" id="10_4epld"]
-[ext_resource type="Texture2D" uid="uid://ba5uiadeyhpln" path="res://assets/tile sheets/Move Sprites/Toggle_Item_Menu.png" id="11_1akwf"]
 [ext_resource type="Texture2D" uid="uid://lmyafctrsjee" path="res://assets/tile sheets/Move Sprites/Disabled_Hold_Fast.png" id="11_moi0g"]
 [ext_resource type="Texture2D" uid="uid://cc1xrt2epa4ra" path="res://assets/tile sheets/Move Sprites/Shielding_Strike.png" id="12_bie1j"]
 [ext_resource type="Texture2D" uid="uid://bq8v5o5otsror" path="res://assets/Sprites/Orb_Bar.png" id="12_moi0g"]
@@ -29,10 +28,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 97.0
-offset_right = 25.0
-offset_bottom = 97.0
+offset_left = 36.0
+offset_top = 781.0
+offset_right = 36.0
+offset_bottom = 781.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -41,16 +40,20 @@ script = ExtResource("1_b2wl4")
 [node name="TextureButton" type="TextureButton" parent="." unique_id=1268568179]
 texture_filter = 1
 layout_mode = 0
-offset_right = 86.0
-offset_bottom = 67.0
+offset_left = 223.0
+offset_top = 302.00003
+offset_right = 450.0
+offset_bottom = 568.5
+scale = Vector2(2, 2)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=400153213]
 texture_filter = 1
 layout_mode = 0
-offset_left = 46.0
-offset_top = 72.0
-offset_right = 79.0
-offset_bottom = 79.0
+offset_left = 302.0
+offset_top = 833.0
+offset_right = 459.9286
+offset_bottom = 866.5
+scale = Vector2(2, 2)
 value = 86.0
 nine_patch_stretch = true
 texture_under = ExtResource("1_tq8y1")
@@ -71,27 +74,30 @@ text = "LYRA"
 
 [node name="Player_Menu" type="Control" parent="." unique_id=161412231]
 anchors_preset = 0
-offset_left = 2.0
-offset_top = 35.0
-offset_right = 42.0
-offset_bottom = 75.0
+offset_left = 225.0
+offset_top = 337.00003
+offset_right = 265.0
+offset_bottom = 377.00003
+scale = Vector2(2, 2)
 mouse_filter = 1
 
 [node name="Action_Menu" type="Control" parent="Player_Menu" unique_id=1195955355]
-visible = false
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -126.0
+offset_top = -215.50002
+offset_right = -85.99988
+offset_bottom = -175.50002
+scale = Vector2(2, 2)
 mouse_filter = 1
 
 [node name="Back_Button" type="TextureButton" parent="Player_Menu/Action_Menu" unique_id=594873299]
 texture_filter = 1
 layout_mode = 0
-offset_left = -25.0
-offset_top = -75.00001
-offset_right = 15.0
-offset_bottom = -35.000008
-scale = Vector2(1.3, 1.3)
+offset_left = 5.25
+offset_top = 43.75
+offset_right = 45.25
+offset_bottom = 83.74998
+scale = Vector2(2, 2)
 mouse_filter = 1
 texture_normal = ExtResource("4_iqe56")
 texture_pressed = ExtResource("4_iqe56")
@@ -100,11 +106,11 @@ texture_hover = ExtResource("4_iqe56")
 [node name="Attack_Button" type="TextureButton" parent="Player_Menu/Action_Menu" unique_id=629289211]
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = -100.0
-offset_right = 60.000004
-offset_bottom = -60.0
-scale = Vector2(1.3, 1.3)
+offset_left = 68.49997
+offset_top = -7.25
+offset_right = 108.49997
+offset_bottom = 32.750008
+scale = Vector2(2, 2)
 mouse_filter = 1
 action_mode = 0
 texture_normal = ExtResource("7_b2wl4")
@@ -113,52 +119,57 @@ texture_pressed = ExtResource("7_q2ipg")
 [node name="Defend_Button" type="TextureButton" parent="Player_Menu/Action_Menu" unique_id=221461651]
 texture_filter = 1
 layout_mode = 0
-offset_left = 67.00001
-offset_top = -75.0
-offset_right = 107.00001
-offset_bottom = -35.0
-scale = Vector2(1.3, 1.3)
+offset_left = 140.39499
+offset_top = 35.545
+offset_right = 180.39499
+offset_bottom = 75.54498
+scale = Vector2(2, 2)
 mouse_filter = 1
+action_mode = 0
 texture_normal = ExtResource("6_b2wl4")
 texture_pressed = ExtResource("9_fi4b1")
 
 [node name="Label" type="Label" parent="Player_Menu/Action_Menu/Defend_Button" unique_id=255583981]
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = -71.538475
 offset_top = -42.307693
 offset_right = -28.538475
 offset_bottom = -24.307693
+scale = Vector2(2, 2)
 text = "Action"
 
 [node name="Base_Menu" type="Control" parent="Player_Menu" unique_id=998320703]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -126.0
+offset_top = -215.50002
+offset_right = -85.99988
+offset_bottom = -175.50002
+scale = Vector2(2, 2)
 mouse_filter = 1
 
 [node name="Item_Menu_Button" type="TextureButton" parent="Player_Menu/Base_Menu" unique_id=1339739656]
 texture_filter = 1
 layout_mode = 0
-offset_left = 67.00001
-offset_top = -75.0
-offset_right = 107.00001
-offset_bottom = -35.0
-scale = Vector2(1.3, 1.3)
+offset_left = 140.39499
+offset_top = 35.545
+offset_right = 180.39499
+offset_bottom = 75.54498
+scale = Vector2(2, 2)
 mouse_filter = 1
 action_mode = 0
 texture_normal = ExtResource("5_6j17h")
-texture_pressed = ExtResource("11_1akwf")
 texture_hover = ExtResource("5_6j17h")
 
 [node name="Action_Menu_Button" type="TextureButton" parent="Player_Menu/Base_Menu" unique_id=527326915]
 texture_filter = 1
 layout_mode = 0
-offset_left = -25.000002
-offset_top = -75.00001
-offset_right = 14.999998
-offset_bottom = -35.000008
-scale = Vector2(1.3, 1.3)
+offset_left = 5.25
+offset_top = 43.75
+offset_right = 45.25
+offset_bottom = 83.74998
+scale = Vector2(2, 2)
 mouse_filter = 1
 action_mode = 0
 texture_normal = ExtResource("7_b2wl4")
@@ -167,11 +178,11 @@ texture_hover = ExtResource("7_b2wl4")
 [node name="Skill_Menu_Button" type="TextureButton" parent="Player_Menu/Base_Menu" unique_id=1692199256]
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = -100.00001
-offset_right = 60.0
-offset_bottom = -60.000008
-scale = Vector2(1.3, 1.3)
+offset_left = 68.49997
+offset_top = -7.25
+offset_right = 108.49997
+offset_bottom = 32.750008
+scale = Vector2(2, 2)
 mouse_filter = 1
 action_mode = 0
 texture_normal = ExtResource("6_iqe56")
@@ -179,37 +190,53 @@ texture_pressed = ExtResource("13_d4kea")
 texture_hover = ExtResource("6_iqe56")
 
 [node name="Skill_Menu" type="Control" parent="Player_Menu" unique_id=1837008235]
-visible = false
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -126.0
+offset_top = -215.50002
+offset_right = -85.99988
+offset_bottom = -175.5
+scale = Vector2(2, 2)
 mouse_filter = 1
 
 [node name="Back_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=1783702197]
 texture_filter = 1
 layout_mode = 0
-offset_left = -25.000002
-offset_top = -75.00001
-offset_right = 14.999998
-offset_bottom = -35.000008
-scale = Vector2(1.3, 1.3)
+offset_left = 5.25
+offset_top = 43.75
+offset_right = 45.25
+offset_bottom = 83.74998
+scale = Vector2(2, 2)
 mouse_filter = 1
 texture_normal = ExtResource("4_iqe56")
 texture_pressed = ExtResource("4_iqe56")
 texture_hover = ExtResource("4_iqe56")
 
+[node name="Description" type="Label" parent="Player_Menu/Skill_Menu/Back_Button" unique_id=1286600965]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = -1.5384603
+offset_top = -106.92308
+offset_right = 2110.3499
+offset_bottom = 1030.0769
+scale = Vector2(0.06, 0.06)
+theme_override_font_sizes/font_size = 200
+text = "Restore moderate HP to self. Gain increased defense and status immunity. Can't act for 2 turns"
+autowrap_mode = 2
+
 [node name="Skill_1_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=57531659]
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0
-offset_top = -100.00001
-offset_right = 60.0
-offset_bottom = -60.000008
-scale = Vector2(1.3, 1.3)
+offset_left = 68.49997
+offset_top = -7.25
+offset_right = 108.49997
+offset_bottom = 32.750008
+scale = Vector2(2, 2)
 mouse_filter = 1
+toggle_mode = true
+action_mode = 0
 texture_normal = ExtResource("10_4epld")
 texture_pressed = ExtResource("15_tgvb5")
-texture_hover = ExtResource("10_4epld")
 texture_disabled = ExtResource("11_moi0g")
 
 [node name="TextureRect" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_1_Button" unique_id=1894627856]
@@ -248,15 +275,16 @@ expand_mode = 1
 [node name="Skill_2_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=337757743]
 texture_filter = 1
 layout_mode = 0
-offset_left = 67.00001
-offset_top = -75.0
-offset_right = 107.00001
-offset_bottom = -35.0
-scale = Vector2(1.3, 1.3)
+offset_left = 140.39499
+offset_top = 35.545
+offset_right = 180.39499
+offset_bottom = 75.54498
+scale = Vector2(2, 2)
 mouse_filter = 1
+toggle_mode = true
+action_mode = 0
 texture_normal = ExtResource("12_bie1j")
 texture_pressed = ExtResource("19_6y21j")
-texture_hover = ExtResource("12_bie1j")
 texture_disabled = ExtResource("13_ns327")
 
 [node name="TextureRect7" type="TextureRect" parent="Player_Menu/Skill_Menu/Skill_2_Button" unique_id=334819547]
@@ -298,12 +326,14 @@ expand_mode = 1
 [node name="Skill_3_Button" type="TextureButton" parent="Player_Menu/Skill_Menu" unique_id=1335418955]
 texture_filter = 1
 layout_mode = 0
-offset_left = 66.0
-offset_top = -126.0
-offset_right = 106.0
-offset_bottom = -86.0
-scale = Vector2(1.3, 1.3)
+offset_left = 140.25
+offset_top = -52.25
+offset_right = 180.25
+offset_bottom = -12.25
+scale = Vector2(2, 2)
 mouse_filter = 1
+toggle_mode = true
+action_mode = 0
 texture_normal = ExtResource("14_u0uvq")
 texture_pressed = ExtResource("22_w5vlq")
 texture_disabled = ExtResource("15_yidf5")
@@ -349,20 +379,22 @@ offset_bottom = 14.923077
 text = "Skills"
 
 [node name="Item_Menu" type="Control" parent="Player_Menu" unique_id=1574410578]
-visible = false
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -126.0
+offset_top = -215.50002
+offset_right = -85.99988
+offset_bottom = -175.50002
+scale = Vector2(2, 2)
 mouse_filter = 1
 
 [node name="Back_Button" type="TextureButton" parent="Player_Menu/Item_Menu" unique_id=46522402]
 texture_filter = 1
 layout_mode = 0
-offset_left = -25.000002
-offset_top = -75.00001
-offset_right = 14.999998
-offset_bottom = -35.000008
-scale = Vector2(1.3, 1.3)
+offset_left = 5.25
+offset_top = 43.75
+offset_right = 45.25
+offset_bottom = 83.74998
+scale = Vector2(2, 2)
 mouse_filter = 1
 texture_normal = ExtResource("4_iqe56")
 texture_pressed = ExtResource("4_iqe56")
@@ -370,13 +402,19 @@ texture_hover = ExtResource("4_iqe56")
 
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
 [connection signal="pressed" from="Player_Menu/Action_Menu/Back_Button" to="." method="handle_menu_swapping" binds= [0]]
-[connection signal="button_down" from="Player_Menu/Action_Menu/Attack_Button" to="." method="base_attack_defend_selected" binds= [true]]
-[connection signal="button_down" from="Player_Menu/Action_Menu/Defend_Button" to="." method="base_attack_defend_selected" binds= [false]]
-[connection signal="pressed" from="Player_Menu/Base_Menu/Item_Menu_Button" to="." method="handle_menu_swapping" binds= [0]]
+[connection signal="button_up" from="Player_Menu/Action_Menu/Attack_Button" to="." method="base_attack_defend_selected" binds= [true]]
+[connection signal="pressed" from="Player_Menu/Action_Menu/Defend_Button" to="." method="base_attack_defend_selected" binds= [false]]
+[connection signal="pressed" from="Player_Menu/Base_Menu/Item_Menu_Button" to="." method="handle_menu_swapping" binds= [3]]
 [connection signal="pressed" from="Player_Menu/Base_Menu/Action_Menu_Button" to="." method="handle_menu_swapping" binds= [1]]
 [connection signal="pressed" from="Player_Menu/Base_Menu/Skill_Menu_Button" to="." method="handle_menu_swapping" binds= [2]]
 [connection signal="pressed" from="Player_Menu/Skill_Menu/Back_Button" to="." method="handle_menu_swapping" binds= [0]]
-[connection signal="button_down" from="Player_Menu/Skill_Menu/Skill_1_Button" to="." method="use_skill" binds= [0]]
-[connection signal="button_down" from="Player_Menu/Skill_Menu/Skill_2_Button" to="." method="use_skill" binds= [1]]
-[connection signal="button_down" from="Player_Menu/Skill_Menu/Skill_3_Button" to="." method="use_skill" binds= [2]]
+[connection signal="button_up" from="Player_Menu/Skill_Menu/Skill_1_Button" to="." method="use_skill" binds= [0]]
+[connection signal="mouse_entered" from="Player_Menu/Skill_Menu/Skill_1_Button" to="." method="_mouse_hovered_over_skill" binds= [0]]
+[connection signal="mouse_exited" from="Player_Menu/Skill_Menu/Skill_1_Button" to="." method="_mouse_left_skill" binds= [0]]
+[connection signal="button_up" from="Player_Menu/Skill_Menu/Skill_2_Button" to="." method="use_skill" binds= [1]]
+[connection signal="mouse_entered" from="Player_Menu/Skill_Menu/Skill_2_Button" to="." method="_mouse_hovered_over_skill" binds= [1]]
+[connection signal="mouse_exited" from="Player_Menu/Skill_Menu/Skill_2_Button" to="." method="_mouse_left_skill" binds= [1]]
+[connection signal="button_up" from="Player_Menu/Skill_Menu/Skill_3_Button" to="." method="use_skill" binds= [2]]
+[connection signal="mouse_entered" from="Player_Menu/Skill_Menu/Skill_3_Button" to="." method="_mouse_hovered_over_skill" binds= [2]]
+[connection signal="mouse_exited" from="Player_Menu/Skill_Menu/Skill_3_Button" to="." method="_mouse_left_skill" binds= [2]]
 [connection signal="pressed" from="Player_Menu/Item_Menu/Back_Button" to="." method="handle_menu_swapping" binds= [0]]

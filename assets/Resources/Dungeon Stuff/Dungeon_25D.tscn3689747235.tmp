@@ -69,6 +69,10 @@ party_slot_2 = ExtResource("3_x3t77")
 party_slot_3 = ExtResource("4_xal47")
 current_dungeon_run = ExtResource("5_t7hpr")
 temp_item_list = Array[ExtResource("12_iegkx")]([ExtResource("7_og2ux"), ExtResource("7_og2ux")])
+original_fov = null
+min_fov = null
+padding = null
+border_size = null
 
 [node name="UI" type="Control" parent="." unique_id=738875588]
 texture_filter = 1

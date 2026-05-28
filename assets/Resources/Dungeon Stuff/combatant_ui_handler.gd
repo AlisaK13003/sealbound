@@ -29,10 +29,12 @@ func setup(parent_ref, party_member: generic_combatants):
 
 		skill_node.texture_normal = party_member.combatant_skills[move].normal_sprite
 		skill_node.texture_pressed = party_member.combatant_skills[move].pressed_sprite
-		skill_node.texture_hover = party_member.combatant_skills[move].hover_sprite
+		#skill_node.texture_hover = party_member.combatant_skills[move].hover_sprite
 		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
+
 		
 func reset_ui():
+	un_toggle_all_buttons()
 	base_menu.visible = true
 	action_menu.visible = false
 	skill_menu.visible = false
@@ -41,7 +43,6 @@ func reset_ui():
 func handle_menu_swapping(swap_to_what_menu: int):
 	if not parent_reference.parent_reference.selected_item.visible:
 		reset_ui()
-	print(swap_to_what_menu)
 	match swap_to_what_menu:
 		# Back button pressed
 		0:
@@ -53,8 +54,8 @@ func handle_menu_swapping(swap_to_what_menu: int):
 				return
 			elif parent_reference.parent_reference.item_menu:
 				parent_reference.parent_reference.item_menu.visible = false
-			print("HELLO")
-			parent_reference.parent_reference.revert_to_default_UI()
+			parent_reference.parent_reference.confirmation.emit(false)
+			parent_reference.parent_reference.unhighlight_all_entities()
 		# Swap to Action Menu
 		1:
 			base_menu.visible = false
@@ -69,10 +70,21 @@ func handle_menu_swapping(swap_to_what_menu: int):
 			item_menu.visible = true
 			parent_reference.parent_reference.item_menu.visible = true
 			
-
 func use_skill(what_skill):
-	parent_reference.parent_reference.revert_to_default_UI()
-	parent_reference.parent_reference.skill_selected(what_skill, parent_reference.child_number)
+	var target_button = skill_menu.get_child(what_skill + 1)
+	
+	if target_button.button_pressed:
+		for i in [1, 2, 3]:
+			if i != (what_skill + 1):
+				skill_menu.get_child(i).button_pressed = false
+				
+		parent_reference.parent_reference.unhighlight_all_entities()
+		parent_reference.parent_reference.skill_selected(what_skill, parent_reference.child_number)
+	else:
+		if parent_reference.stored_combatant.combatant_skills[what_skill].is_skill_aoe:
+			return
+		parent_reference.parent_reference.unhighlight_all_entities()
+		parent_reference.parent_reference.revert_to_default_UI()
 
 func update_skill_buttons(player_to_check: generic_combatants, total_mana):
 	for move in range(player_to_check.combatant_skills.size()):
@@ -87,16 +99,23 @@ func update_skill_buttons(player_to_check: generic_combatants, total_mana):
 
 func base_attack_defend_selected(attack_or_defend):
 	if attack_or_defend:
-		parent_reference.parent_reference.attack_button_pressed()
-		action_menu.get_child(1).toggle_mode = true
+		parent_reference.parent_reference.attack_button_pressed(parent_reference.child_number)
 	else:
-		if action_menu.get_child(1).toggle_mode == true:
-			action_menu.get_child(1).toggle_mode = false
-			parent_reference.parent_reference.attack_button_pressed()
-		parent_reference.parent_reference.defend_button_pressed(parent_reference.stored_combatant.combatant_name)
-		action_menu.get_child(2).toggle_mode = true
-
+		if action_menu.get_child(1).pressed:
+			parent_reference.parent_reference.unhighlight_all_entities()
+		parent_reference.parent_reference.defend_button_pressed(parent_reference, parent_reference.child_number)
 
 func _on_texture_button_button_down():
 	if parent_reference.currently_selectable:
 		parent_reference.parent_reference.confirmation.emit(parent_reference.child_number)
+
+func un_toggle_all_buttons():
+	for menu in $Player_Menu.get_children():
+		for button in menu.get_children():
+			button.button_pressed = false
+
+func _mouse_hovered_over_skill(extra_arg_0):
+	$Player_Menu/Skill_Menu/Back_Button/Description.text = parent_reference.stored_combatant.combatant_skills[extra_arg_0].move_description
+
+func _mouse_left_skill(extra_arg_0):
+	$Player_Menu/Skill_Menu/Back_Button/Description.text = ""

@@ -1,5 +1,6 @@
 extends Node
 
+#region Variables
 @export var party_slot_1 : generic_combatants
 @export var party_slot_2: generic_combatants
 @export var party_slot_3: generic_combatants
@@ -33,7 +34,9 @@ signal confirmation
 signal action_taken
 signal turn_ended
 signal actual_confirmation
+#endregion
 
+#region Initialization
 func _ready():
 	slot_1.setup(party_slot_1, self, 0)
 	slot_2.setup(party_slot_2, self, 1)
@@ -63,13 +66,14 @@ func setup(active_combatants: Array[generic_combatants], current_dungeon_type: d
 	all_combatants.append(slot_2)
 	all_combatants.append(slot_3)
 	
-	get_player_portrait(0)._setup(active_combatants[0])
-	get_player_portrait(1)._setup(active_combatants[1])
-	get_player_portrait(2)._setup(active_combatants[2])
-	
+	get_player_portrait(0)._setup(party_slot_1)
+	get_player_portrait(1)._setup(party_slot_1)
+	get_player_portrait(2)._setup(party_slot_1)
+
 	item_menu.setup(temp_item_list, self)
 	
 	battle_loop()
+#endregion
 
 func battle_loop():
 	print("BATTLE_STARTED")
@@ -110,7 +114,8 @@ func battle_loop():
 					is_wave_over = true
 					break
 	print("BATTLE FINISHED")
-	
+
+#region EntityTurns
 func execute_enemy_turn(enemy_to_attack, _turn_number):
 	print("ACTING")
 	rng = RandomNumberGenerator.new()
@@ -125,13 +130,32 @@ func execute_enemy_turn(enemy_to_attack, _turn_number):
 			attacking_enemy = enemy_shit.get_child(enemy.get_index())
 	await attacking_enemy.take_turn()
 	action_selected = 0
+	var action_sequence: Array[Callable]
+	var par_task : Array[Callable]
 	match action_selected:
 		# Basic Attack
 		0:
 			var damage_to_deal = calculate_damage(attacking_enemy, attacking_enemy.obtain_stat(attacking_enemy.stats.ATTACK), get_player(player_to_attack), true)
-			if await get_player(player_to_attack).update_health(damage_to_deal, false, get_player_portrait(player_to_attack)):
-				get_player(player_to_attack).stored_combatant.is_dead = true
+			var random_attack = rng.randi_range(0, 1)
+			
+			action_sequence.append(func(): await attacking_enemy.walk_animation())
+			action_sequence.append(func(): await attacking_enemy.walk_towards_entity(get_player(player_to_attack).global_position))
+			match random_attack:
+				0:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+				1:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(1))
+
+			action_sequence.append(func(): await get_player(player_to_attack).update_health(damage_to_deal, false, get_player_portrait(player_to_attack)))
+			action_sequence.append(func(): await attacking_enemy.walk_animation())
+
+			action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
+			
+			action_sequence.append(func(): await attacking_enemy.idle_animation())
+			
 			set_health_bar_values(player_to_attack)
+			await action_queue(action_sequence)
+
 		1:
 			pass
 		2:
@@ -146,25 +170,65 @@ func handle_player_move_selection(current_combatant):
 	get_player(current_slot).combatant_ui_.update_skill_buttons(get_player(current_slot).stored_combatant, mana)
 	var what_action = await action_taken
 	var action_sequence: Array[Callable]
+	var par_task : Array[Callable]
 	toggle_player_ui(current_slot)
+	show_player_ui(current_slot)
 	match what_action[0]:
 		"BASIC_ATTACK":
 			var target_node = enemy_shit.get_child(what_action[1])
 			var damage = get_player(current_slot).execute_base_attack(target_node)
+			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(false, what_action[1])))
 			action_sequence.append(func(): await target_node.update_health([damage, ""], false))
 		"BASIC_DEFEND":
 			action_sequence.append(func(): await get_player(current_slot).execute_defend())
 			update_mana_display(2)
 		"SKILL":
+			var skill_used: moves = get_player(current_slot).stored_combatant.combatant_skills[what_action[2]]
+			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(skill_used.targets_party, what_action[1] if what_action[1] < 5 else (6 if not skill_used.targets_party else 4))))
 			action_sequence.append(func(): await execute_skills(current_slot, what_action))
-
 		"ITEM":
-			action_sequence = [
-				func(): execute_item(temp_item_list[what_action[2]], what_action[1], what_action[2])
-			]
+			action_sequence.append(func(): execute_item(temp_item_list[what_action[2]], what_action[1], what_action[2]))
+	action_sequence.append(func(): await revert_camera(2))
 	await action_queue(action_sequence)
 	await get_player(current_slot).take_turn(get_player_portrait(current_slot))
 	get_player_portrait(current_slot).update_statuses(get_player(current_slot))
+#endregion
+
+#region uniqueActions
+func confirmation_button(event, confirm_or_deny):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if not confirm_or_deny:
+				var count = 0
+				for enemy in enemy_shit.get_children():
+					if enemy.currently_selectable:
+						count += 1
+				if count != 5 and count > 0:
+					highlight_enemies()
+				else:
+					unhighlight_all_entities()
+				count = 0
+				for player in player_container.get_children():
+					if player.currently_selectable:
+						count += 1
+					if player.previously_visible:
+						player.previously_visible = false
+						player.combatant_ui_.visible = true
+				if count != 3 and count > 0:
+					highlight_players()
+				else:
+					unhighlight_all_entities()
+				print("WHY ARE YOU DUMB")
+				$UI/Confirmation.visible = false
+				revert_camera(1)
+				
+				actual_confirmation.emit(false)
+
+			if confirm_or_deny:
+				await get_tree().create_timer(0.02).timeout
+				actual_confirmation.emit(confirm_or_deny)
+				unhighlight_all_entities()
+				revert_to_default_UI()
 
 func execute_skills(active_player, what_action):
 	var current_player: combat_template = get_player(active_player)
@@ -290,14 +354,317 @@ func execute_item(what_item: Items, targets_who, item_index):
 				enemy.handle_status(what_item.give_status)
 	temp_item_list.remove_at(item_index)
 	update_mana_display(-1)
+#endregion
 
-# Helper Functions
-func get_player(player_to_get: int):
-	return $Player_Container.get_child(player_to_get)
+#region Actions
+func attack_button_pressed(player_who_attacked):
+	if not highlight_enemies():
+		unhighlight_all_entities()
+		return
+	var action_on_who
 
-func get_player_portrait(portrait_to_get: int):
-	return $UI/Party_Portraits/VBoxContainer.get_child(portrait_to_get)
+	while(true):
+		action_on_who = await confirmation
+		if action_on_who is bool:
+			revert_to_default_UI()
+			return
+		
+		only_highlight_necessary(false, action_on_who)
+		setup_confirmation_button("Attack", enemy_shit.get_child(action_on_who).stored_combatant.combatant_name, action_on_who, player_who_attacked)
+		sci_fi_enhance_zoom(get_camera_offset(false, action_on_who))
+		var confirmed = await actual_confirmation
+		if confirmed:
+			action_taken.emit("BASIC_ATTACK", action_on_who)
+			break
+		else:
+			highlight_enemies()
+			
+func defend_button_pressed(stored_combatant_, who_is_defending):
+	setup_confirmation_button("Defend", stored_combatant_.stored_combatant.combatant_name, stored_combatant_, who_is_defending)
+	var confirmed = await actual_confirmation
+	if confirmed:
+		action_taken.emit("BASIC_DEFEND", false)
+	else:
+		stored_combatant_.combatant_ui_.action_menu.get_child(2).button_pressed = false
+	revert_to_default_UI()
+	
+func skill_selected(what_skill, what_player):
+	var skill_to_use: moves = get_player(what_player).stored_combatant.combatant_skills[what_skill]
+	var skip_initial_wait: bool = true
+		
+	var action_on_who
+	while(true):
+		if skill_to_use.targets_party:
+			if skill_to_use.is_skill_aoe:
+				highlight_players()
+			skip_initial_wait = false
+		else:
+			if skill_to_use.is_skill_aoe:
+				skip_initial_wait = false
+		highlight_enemies()
+		if skip_initial_wait:
+			action_on_who = await confirmation
+			if action_on_who is bool:
+				return
+			if skill_to_use.targets_party:
+				setup_confirmation_button(skill_to_use.move_name, get_player(what_player).stored_combatant.combatant_name, get_player(what_player), what_player)
+			else:
+				setup_confirmation_button(skill_to_use.move_name, enemy_shit.get_child(action_on_who).stored_combatant.combatant_name, enemy_shit.get_child(action_on_who), what_player)
+		else:
+			if skill_to_use.targets_party:
+				if skill_to_use.is_skill_aoe:
+					setup_confirmation_button(skill_to_use.move_name, "entire party", 4, what_player)
+					action_on_who = 6
+				else:
+					setup_confirmation_button(skill_to_use.move_name, get_player(what_player).stored_combatant.combatant_name, what_player, what_player)
+					action_on_who = what_player
+			else:
+				setup_confirmation_button(skill_to_use.move_name, "every enemy", 5, what_player)
+				action_on_who = 6
+		sci_fi_enhance_zoom(get_camera_offset(skill_to_use.targets_party, action_on_who))
+		if not skill_to_use.is_skill_aoe:
+			only_highlight_necessary(skill_to_use.targets_party, action_on_who)
+		var confirmed = await actual_confirmation
+		if confirmed:
+			get_player(what_player).combatant_ui_.reset_ui()
+			action_taken.emit("SKILL", action_on_who, what_skill)
+			return
+		elif skill_to_use.is_skill_aoe:
+			$UI/Confirmation.visible = false
+			get_player(what_player).combatant_ui.get_child(2).get_child(what_skill + 1).button_pressed = false
+			return	
+		else:
+			$UI/Confirmation.visible = false
+			get_player(what_player).combatant_ui.visible = true
+			get_player(what_player).combatant_ui_.un_toggle_all_buttons()
+			get_player(what_player).combatant_ui.get_child(2).get_child(what_skill + 1).button_pressed = true
 
+
+func item_selected(item_index, what_player):
+	current_run_id += 1
+	var cur_id = current_run_id
+	
+	item_menu.visible = false
+	selected_item.visible = true
+	var used_item: bool = false
+	var chosen_item: Items = temp_item_list[item_index]
+	var action_on_who
+	var is_aoe
+	selected_item.setup(chosen_item, item_index, self)
+	if chosen_item.targets_players:
+		highlight_players()
+	else:
+		highlight_enemies()
+	while not used_item:
+		if chosen_item.is_aoe_item:
+			setup_confirmation_button(chosen_item.item_name, "entire party" if chosen_item.targets_players else "every enemy", 4 if chosen_item.targets_players else 5, what_player)
+			var confirmation = await actual_confirmation
+			if confirmation:
+				is_aoe = true
+				revert_to_default_UI()
+				break
+			else:
+				$UI/Confirmation.visible = false
+				item_menu.visible = true
+				selected_item.visible = false
+				unhighlight_all_entities()
+				return
+		else:
+			action_on_who = await confirmation
+			if current_run_id != cur_id:
+				return
+			setup_confirmation_button(chosen_item.item_name, enemy_shit.get_child(action_on_who).stored_combatant.combatant_name if not chosen_item.targets_players else get_player(action_on_who).stored_combatant.combatant_name, enemy_shit.get_child(action_on_who).stored_combatant if not chosen_item.targets_players else get_player(action_on_who).stored_combatant, what_player)
+			only_highlight_necessary(chosen_item.targets_players, action_on_who)
+			var confirmed = await actual_confirmation
+			if current_run_id != cur_id:
+				return
+			if confirmed:
+				revert_to_default_UI()
+				break
+			else:
+				$UI/Confirmation.visible = false
+				selected_item.visible = true
+				continue
+
+	action_taken.emit("ITEM", action_on_who if not is_aoe else 4, item_index)
+
+#endregion
+
+func action_queue(sequence: Array[Callable]):
+	for action: Callable in sequence:
+		await action.call()
+
+func await_parallel(tasks: Array[Callable]):
+	var state = { "active_tasks": tasks.size() }
+	if state["active_tasks"] == 0:
+		return
+		
+	for task in tasks:
+		var run_task = func():
+			await task.call()
+			state["active_tasks"] -= 1
+		run_task.call() 
+	
+	while state["active_tasks"] > 0:
+		await get_tree().process_frame
+
+#region UI
+
+func revert_to_default_UI():
+	for enemy in enemy_shit.get_children():
+		enemy.combatant_ui_.reset_ui()
+	for player in player_container.get_children():
+		player.combatant_ui_.reset_ui()
+		player.combatant_ui_.visible = false
+	unhighlight_all_entities()
+	$UI/Confirmation.visible = false
+	$UI/ItemNode.visible = false
+
+func highlight_players():
+	for player in player_container.get_children():
+		if player.currently_selectable:
+			return false
+		player.could_be_selected()
+	return true
+		
+func highlight_enemies():
+	var ret_val = true
+	for enemy in enemy_shit.get_children():
+		if enemy.currently_selectable:
+			ret_val = false
+		enemy.could_be_selected()
+	return ret_val
+
+func only_highlight_necessary(is_player, what_entity):
+	unhighlight_all_entities()
+	if is_player:
+		if what_entity == 3:
+			highlight_players()
+		else:
+			get_player(what_entity).could_be_selected()
+	else:
+		if what_entity == 5:
+			highlight_enemies()
+		else:
+			enemy_shit.get_child(what_entity).could_be_selected()
+			
+func unhighlight_all_entities():
+	for enemy in enemy_shit.get_children():
+		enemy.undo_selection()
+	for player in player_container.get_children():
+		player.undo_selection()
+
+func hide_everything():
+	revert_to_default_UI()
+
+func hide_player_ui(what_player):
+	get_player(what_player).combatant_ui_.visible = false
+	get_player(what_player).previously_visible = true
+
+func show_player_ui(what_player):
+	get_player(what_player).combatant_ui_.visible = true
+	
+func setup_confirmation_button(move_name, entity_used_on_name, used_on, player_using_move):
+	if used_on is combat_template:
+		if used_on.stored_combatant.is_combatant_enemy:
+			sci_fi_enhance_zoom(get_camera_offset(false, used_on.child_number))
+		else:
+			sci_fi_enhance_zoom(get_camera_offset(true, used_on.child_number))
+	elif used_on == 4:
+		sci_fi_enhance_zoom(get_camera_offset(true, 4))
+	elif used_on == 5:
+		sci_fi_enhance_zoom(get_camera_offset(false, 6))
+	hide_player_ui(player_using_move)
+	$UI/Confirmation.visible = true
+	var question_label = $UI/Confirmation/Label
+	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
+
+func toggle_player_ui(player_to_toggle):
+	if not get_player(player_to_toggle).combatant_ui.visible:
+		get_player(player_to_toggle).combatant_ui.visible = true
+		get_player(player_to_toggle).combatant_ui_.visible = true
+		get_player(player_to_toggle).combatant_ui_area.visible = true
+	else:
+		get_player(player_to_toggle).combatant_ui.visible = false
+		get_player(player_to_toggle).combatant_ui_.visible = false
+		get_player(player_to_toggle).combatant_ui_area.visible = false
+		get_player(player_to_toggle).reset_ui()
+
+func set_health_bar_values(player_to_set_for):
+	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
+	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
+	
+func update_mana_display(mana_used_or_gained):
+	mana = clamp(mana + mana_used_or_gained, 0, 3)
+	$"UI/Mana Bar/Label".text = str(mana) + "/" + str(max_mana)
+	return mana
+	
+#endregion
+
+#region Camera
+@onready var camera: Camera3D = $Camera3D
+
+@export var original_fov: float = 15.0 
+@export var min_fov: float = 8.0      
+@export var padding: float = 0.5       
+@export var border_size: float = 0.01   
+
+func sci_fi_enhance_zoom(values: Array):
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	
+	# Tween the camera properties to the specified values
+	tween.tween_property(camera, "h_offset", values[0], values[3])
+	tween.tween_property(camera, "v_offset", values[1], values[3])
+	tween.tween_property(camera, "fov", values[2], values[3])
+	
+	# Wait for the tween to complete (this is slightly cleaner than creating a timer)
+	await tween.finished
+
+func get_camera_offset(is_player, what_entity):
+	if not is_player:
+		if what_entity == 6:
+			return [0.5, 0.0, 10, 1.0]
+		else:
+			match what_entity:
+				0:
+					return [0.1, -0.125, 8.0, 1.0]
+					
+				1:
+					return [0.75, -0.125, 8.0, 1.0]
+				2:
+					return [0.4, -0.125, 8.0, 1.0]
+				3:
+					return [0.15, -0.125, 8.0, 1.0]
+				4:
+					return [-0.05, -0.125, 8.0, 1.0]
+	else:
+		if what_entity == 4:
+			return [-1.03, -0.13, 6.0, 1.0]
+		else:
+			match what_entity:
+				0:
+					return [-0.75, 0, 8.0, 1.0]
+				1:
+					return [-1.0, 0, 8.0, 1.0]
+				2:
+					return [-1.25, 0, 8.0, 1.0]
+
+func revert_camera(duration: float):
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	
+	tween.tween_property(camera, "h_offset", 0.0, duration)
+	tween.tween_property(camera, "v_offset", 0.0, duration)
+	tween.tween_property(camera, "fov", original_fov, duration)
+
+#endregion
+
+#region CombatHelpers
 func check_if_critical_hit(current_individual: combat_template):
 	var chance_of_crit_hit = rng.randf_range(0,1)
 	
@@ -323,19 +690,6 @@ func calculate_damage(current_player: combat_template, stat_boost, targetted_ene
 	var damage = (5.0 * sqrt(max(0, ratio))) * (2 if do_critical_hit else 1)
 	var retval = [damage * randf_range(0.95, 1.05), 1 if do_critical_hit else 0]
 	return retval
-
-func calculate_multi_hit(skill_used: moves, targetted_enemy, current_player, attack_boost):
-	var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
-	var chance = rng.randf_range(0, 1)
-	for hit in range(skill_used.max_hit_count):
-		if hit < skill_used.guaranteed_hit_count:
-			await deal_damage(current_player, targetted_enemy, true, skill_used)
-		else:
-			chance = rng.randf_range(0, 1)
-			if chance <= check_evasion:
-				await deal_damage(current_player, targetted_enemy, true, skill_used)
-			else:
-				targetted_enemy.update_health("MISS")
 
 func get_skill_boost(skill_used: moves):
 	var attack_boost = 0
@@ -396,264 +750,23 @@ func select_next_wave():
 			enemy_shit.get_child(i).visible = true
 		enemy_shit.get_child(i).setup(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true), self, i)
 		all_combatants.append(enemy_shit.get_child(i))
-
-func toggle_player_ui(player_to_toggle):
-	if not get_player(player_to_toggle).combatant_ui.visible:
-		get_player(player_to_toggle).combatant_ui.visible = true
-		get_player(player_to_toggle).combatant_ui_area.visible = true
-	else:
-		get_player(player_to_toggle).combatant_ui.visible = false
-		get_player(player_to_toggle).combatant_ui_area.visible = false
-		get_player(player_to_toggle).reset_ui()
-
-func set_health_bar_values(player_to_set_for):
-	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
-	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
-
-# Buttons
-func attack_button_pressed():
-	if not highlight_enemies():
-		unhighlight_all_entities()
-		return
-	var action_on_who = await confirmation
-	revert_to_default_UI()
-	enemy_shit.get_child(action_on_who).could_be_selected()
-	setup_confirmation_button("Attack", enemy_shit.get_child(action_on_who).stored_combatant.combatant_name)
-	var confirmed = await actual_confirmation
-	if confirmed:
-		action_taken.emit("BASIC_ATTACK", action_on_who)
-	revert_to_default_UI()
-			
-func defend_button_pressed(stored_combatant_name):
-	setup_confirmation_button("Defend", stored_combatant_name)
-	var confirmed = await actual_confirmation
-	if confirmed:
-		action_taken.emit("BASIC_DEFEND", false)
-	revert_to_default_UI()
-	
-func skill_selected(what_skill, what_player):
-	var skill_to_use: moves = get_player(what_player).stored_combatant.combatant_skills[what_skill]
-	if skill_to_use.targets_party:
-		if skill_to_use.is_skill_aoe:
-			highlight_players()
+func calculate_multi_hit(skill_used: moves, targetted_enemy, current_player, attack_boost):
+	var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
+	var chance = rng.randf_range(0, 1)
+	for hit in range(skill_used.max_hit_count):
+		if hit < skill_used.guaranteed_hit_count:
+			await deal_damage(current_player, targetted_enemy, true, skill_used)
 		else:
-			get_player(what_player).could_be_selected()
-	else:
-		highlight_enemies()
-		
-	var action_on_who = await confirmation
-	if action_on_who is bool:
-		return
-	if not skill_to_use.is_skill_aoe:
-		if skill_to_use.targets_party:
-			setup_confirmation_button(skill_to_use.move_name, get_player(what_player).stored_combatant.combatant_name)
-		else:
-			setup_confirmation_button(skill_to_use.move_name, enemy_shit.get_child(action_on_who).stored_combatant.combatant_name)
-	else:
-		if skill_to_use.targets_party:
-			setup_confirmation_button(skill_to_use.move_name, "entire party")
-		else:
-			setup_confirmation_button(skill_to_use.move_name, "every enemy")
-
-	var confirmed = await actual_confirmation
-	if confirmed:
-		action_taken.emit("SKILL", action_on_who, what_skill)
-	revert_to_default_UI()
-
-func item_selected(item_index):
-	current_run_id += 1
-	var cur_id = current_run_id
-	
-	item_menu.visible = false
-	selected_item.visible = true
-	var used_item: bool = false
-	var chosen_item: Items = temp_item_list[item_index]
-	var action_on_who
-	var is_aoe
-	selected_item.setup(chosen_item, item_index, self)
-	if chosen_item.targets_players:
-		highlight_players()
-	else:
-		highlight_enemies()
-	while not used_item:
-		if chosen_item.is_aoe_item:
-			setup_confirmation_button(chosen_item.item_name, "entire party" if chosen_item.targets_players else "every enemy")
-			var confirmation = await actual_confirmation
-			if confirmation:
-				is_aoe = true
-				revert_to_default_UI()
-				break
+			chance = rng.randf_range(0, 1)
+			if chance <= check_evasion:
+				await deal_damage(current_player, targetted_enemy, true, skill_used)
 			else:
-				$UI/Confirmation.visible = false
-				item_menu.visible = true
-				selected_item.visible = false
-				unhighlight_all_entities()
-				return
-		else:
-			action_on_who = await confirmation
-			if current_run_id != cur_id:
-				return
-			setup_confirmation_button(chosen_item.item_name, enemy_shit.get_child(action_on_who).stored_combatant.combatant_name if not chosen_item.targets_players else get_player(action_on_who).stored_combatant.combatant_name)
-			var confirmed = await actual_confirmation
-			if current_run_id != cur_id:
-				return
-			if confirmed:
-				revert_to_default_UI()
-				break
-			else:
-				$UI/Confirmation.visible = false
-				selected_item.visible = true
-				continue
+				targetted_enemy.update_health("MISS")
+#endregion
 
-	action_taken.emit("ITEM", action_on_who if not is_aoe else 4, item_index)
+# Helper Functions
+func get_player(player_to_get: int):
+	return $Player_Container.get_child(player_to_get)
 
-func action_queue(sequence: Array[Callable]):
-	for action: Callable in sequence:
-		await action.call()
-
-
-func await_parallel(tasks: Array[Callable]):
-	var state = { "active_tasks": tasks.size() }
-	if state["active_tasks"] == 0:
-		return
-		
-	for task in tasks:
-		var run_task = func():
-			await task.call()
-			state["active_tasks"] -= 1
-		run_task.call() 
-	
-	while state["active_tasks"] > 0:
-		await get_tree().process_frame
-
-func confirmation_button(event, confirm_or_deny):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			await get_tree().create_timer(0.02).timeout
-			actual_confirmation.emit(confirm_or_deny)
-
-func setup_confirmation_button(move_name, entity_used_on_name):
-	$UI/Confirmation.visible = true
-	var question_label = $UI/Confirmation/Label
-	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
-
-func revert_to_default_UI():
-	unhighlight_all_entities()
-	$UI/Confirmation.visible = false
-	$UI/ItemNode.visible = false
-
-func unhighlight_all_entities():
-	for enemy in enemy_shit.get_children():
-		enemy.undo_selection()
-	for player in player_container.get_children():
-		player.undo_selection()
-
-func highlight_players():
-	for player in player_container.get_children():
-		if player.currently_selectable:
-			return false
-		player.could_be_selected()
-	return true
-		
-func highlight_enemies():
-	for enemy in enemy_shit.get_children():
-		if enemy.currently_selectable:
-			return false
-		enemy.could_be_selected()
-	return true
-
-func hide_everything():
-	revert_to_default_UI()
-
-func update_mana_display(mana_used_or_gained):
-	mana = clamp(mana + mana_used_or_gained, 0, 3)
-	$"UI/Mana Bar/Label".text = str(mana) + "/" + str(max_mana) 
-
-@onready var camera: Camera3D = $Camera3D
-
-@export var original_fov: float = 15.0 
-@export var min_fov: float = 8.0      
-@export var padding: float = 0.5       
-@export var border_size: float = 0.1   
-
-func sci_fi_enhance_zoom(target_a: Node3D, target_b: Node3D, duration: float):
-	var local_a = camera.to_local(target_a.global_position)
-	var local_b = camera.to_local(target_b.global_position)
-	
-	var depth_a = abs(local_a.z)
-	var depth_b = abs(local_b.z)
-	var avg_depth = (depth_a + depth_b) / 2.0
-	
-	var viewport_size = get_viewport().get_visible_rect().size
-	var aspect = viewport_size.x / viewport_size.y
-	
-	var orig_v_fov_rad = deg_to_rad(original_fov)
-	var orig_height = 2.0 * avg_depth * tan(orig_v_fov_rad / 2.0)
-	var orig_width = orig_height * aspect
-	
-	var actual_border = min(border_size, min(orig_height, orig_width) * 0.4)
-	
-	var shrunk_height = orig_height - (2.0 * actual_border)
-	var shrunk_width = orig_width - (2.0 * actual_border)
-	
-	var limit_v_rad = 2.0 * atan(shrunk_height / (2.0 * avg_depth))
-	var limit_h_rad = 2.0 * atan((shrunk_width / aspect) / (2.0 * avg_depth))
-	var max_allowed_fov = rad_to_deg(min(limit_v_rad, limit_h_rad))
-	
-	var target_h_offset = (local_a.x + local_b.x) / 2.0
-	var target_v_offset = (local_a.y + local_b.y) / 2.0
-	
-	var shifted_a_x = local_a.x - target_h_offset
-	var shifted_a_y = local_a.y - target_v_offset
-	var shifted_b_x = local_b.x - target_h_offset
-	var shifted_b_y = local_b.y - target_v_offset
-	
-	var fov_x_a = 2.0 * atan((abs(shifted_a_x) + padding/2.0) / aspect / depth_a)
-	var fov_y_a = 2.0 * atan((abs(shifted_a_y) + padding/2.0) / depth_a)
-	var fov_x_b = 2.0 * atan((abs(shifted_b_x) + padding/2.0) / aspect / depth_b)
-	var fov_y_b = 2.0 * atan((abs(shifted_b_y) + padding/2.0) / depth_b)
-	
-	var temp_fov = clamp(rad_to_deg(max(fov_x_a, fov_y_a, fov_x_b, fov_y_b)), min_fov, max_allowed_fov)
-	
-	var temp_v_fov_rad = deg_to_rad(temp_fov)
-	var temp_height = 2.0 * avg_depth * tan(temp_v_fov_rad / 2.0)
-	var temp_width = temp_height * aspect
-	
-	var max_h_offset = max(0.0, (shrunk_width - temp_width) / 2.0)
-	var max_v_offset = max(0.0, (shrunk_height - temp_height) / 2.0)
-	
-	var final_h_offset = clamp(target_h_offset, -max_h_offset, max_h_offset)
-	var final_v_offset = clamp(target_v_offset, -max_v_offset, max_v_offset)
-	
-	var final_shifted_a_x = local_a.x - final_h_offset
-	var final_shifted_a_y = local_a.y - final_v_offset
-	var final_shifted_b_x = local_b.x - final_h_offset
-	var final_shifted_b_y = local_b.y - final_v_offset
-	
-	var final_fov_x_a = 2.0 * atan((abs(final_shifted_a_x) + padding/2.0) / aspect / depth_a)
-	var final_fov_y_a = 2.0 * atan((abs(final_shifted_a_y) + padding/2.0) / depth_a)
-	var final_fov_x_b = 2.0 * atan((abs(final_shifted_b_x) + padding/2.0) / aspect / depth_b)
-	var final_fov_y_b = 2.0 * atan((abs(final_shifted_b_y) + padding/2.0) / depth_b)
-	
-	var required_fov = clamp(rad_to_deg(max(final_fov_x_a, final_fov_y_a, final_fov_x_b, final_fov_y_b)), min_fov, max_allowed_fov)
-	
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN_OUT)
-	
-	tween.tween_property(camera, "h_offset", final_h_offset, duration)
-	tween.tween_property(camera, "v_offset", final_v_offset, duration)
-	tween.tween_property(camera, "fov", required_fov, duration)
-	await get_tree().create_timer(duration).timeout
-
-
-func revert_camera(duration: float):
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN_OUT)
-	
-	tween.tween_property(camera, "h_offset", 0.0, duration)
-	tween.tween_property(camera, "v_offset", 0.0, duration)
-	tween.tween_property(camera, "fov", original_fov, duration)
+func get_player_portrait(portrait_to_get: int):
+	return $UI/Party_Portraits/VBoxContainer.get_child(portrait_to_get)

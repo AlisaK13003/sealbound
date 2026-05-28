@@ -9,7 +9,7 @@
 script = ExtResource("1_vbscd")
 move_name = "Crowdbreaker"
 move_description = "Damage all enemies. Enemies now target Lyra"
-attack_power = 1
+attack_power = 2
 max_hit_count = 1
 mana_cost = 3
 status_type = 983040

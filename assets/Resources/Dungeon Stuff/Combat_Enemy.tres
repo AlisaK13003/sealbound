@@ -6,8 +6,6 @@
 
 [sub_resource type="Resource" id="Resource_8bhhf"]
 script = ExtResource("2_4cxo0")
-attack = null
-resistance = null
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

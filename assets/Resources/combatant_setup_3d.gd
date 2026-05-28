@@ -9,9 +9,12 @@ class_name combat_template
 @onready var combatant_ui_ = $Sprite3D2/SubViewport/CombatantUi
 @onready var combatant_ui = $Sprite3D2/SubViewport/CombatantUi/Player_Menu
 @onready var combatant_ui_area = $Sprite3D2/Area3D
-
+@onready var enemy_collision = $Sprite3D2/Enemy_Collision
+@onready var selection_area_sprite = $AnimatedSprite3D
+@onready var animated_sprite = $AnimatedSprite3D2
 @onready var subviewport = $Sprite3D2/SubViewport
 @onready var rng = RandomNumberGenerator.new()
+@onready var animator = SpriteFrames.new()
 
 var currently_selectable : bool
 var stored_combatant : generic_combatants
@@ -22,6 +25,9 @@ var is_defending : bool = false
 var all_active_effects = 0
 var active_statuses : Array[status]
 var already_inflicted_with_major_status = false
+var previously_visible = false
+var base_location: Vector3
+var displacement = Vector3(0.3, 0, 0)
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -103,15 +109,23 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	active_statuses.clear()
 	is_defending = false
 		
+	base_location = self.global_position
+		
 	child_number = child_num
 	parent_reference = parent_ref
 	stored_combatant = combatant
 	combatant_name.text = combatant.combatant_name
-	combatant_sprite.texture = combatant.combatant_sprite
+	if not combatant.is_combatant_enemy:
+		combatant_sprite.texture = combatant.combatant_sprite
 	health_bar.max_value = combatant.combatant_stats.max_health
 	health_bar.value = combatant.combatant_stats.health
 	if combatant.is_combatant_enemy:
-		combatant_sprite.flip_h = false
+		animated_sprite.sprite_frames = combatant.sprite_frames
+		combatant_sprite.visible = false
+		animated_sprite.pixel_size = 0.004
+		animated_sprite.speed_scale = stored_combatant.idle_speed
+		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
+		animated_sprite.play("Idle")
 	else:
 		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
 	combatant_ui.visible = false
@@ -190,9 +204,16 @@ func execute_base_attack(entity_node: combat_template):
 		return "MISS"
 
 func on_death():
-	self.visible = false
-	stored_combatant.is_dead = true
+	await get_tree().create_timer(0.5).timeout
 
+	animated_sprite.play("On_Death")
+	animated_sprite.speed_scale = 1.5
+	animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
+	await animated_sprite.animation_finished
+	
+	stored_combatant.is_dead = true
+	enemy_collision.visible = false
+	
 func execute_defend():
 	is_defending = true
 
@@ -351,16 +372,20 @@ func obtain_stat_alteration(what_stat):
 	return 1
 
 func could_be_selected():
-	combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
+	#combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
+	selection_area_sprite.visible = true
+	selection_area_sprite.play("selectable")
 	currently_selectable = true
 	if stored_combatant.is_combatant_enemy:
-		combatant_ui_area.visible = true
+		enemy_collision.visible = true
 
 func undo_selection():
-	combatant_sprite.modulate = Color(Color.WHITE, 1)
+	#combatant_sprite.modulate = Color(Color.WHITE, 1)
 	currently_selectable = false
+	selection_area_sprite.visible = false
+	selection_area_sprite.stop()
 	if stored_combatant.is_combatant_enemy:
-		combatant_ui_area.visible = false
+		enemy_collision.visible = false
 
 func _unhandled_input(event):
 	subviewport.push_input(event)
@@ -404,3 +429,43 @@ func create_collision_from_sprite_3d():
 		
 		if not combatant_sprite.centered:
 			collision_poly.position.y += (texture.get_height() * scale_factor)
+
+#region States
+
+func walk_towards_entity(node_to_walk_to):
+	if node_to_walk_to != base_location:
+		node_to_walk_to += displacement
+	else:
+		animated_sprite.flip_h = true
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN_OUT)
+
+	tween.tween_property(self, "global_position", node_to_walk_to, 3)
+	
+	await tween.finished
+
+func idle_animation():
+	animated_sprite.flip_h = false
+	animated_sprite.speed_scale = stored_combatant.idle_speed
+	animated_sprite.play("Idle")
+	animated_sprite.sprite_frames.set_animation_loop("Idle", true)
+
+func walk_animation():
+	animated_sprite.speed_scale = stored_combatant.walk_speed
+	animated_sprite.play("Walk")
+	animated_sprite.sprite_frames.set_animation_loop("Walk", true)
+
+func attack_animation(what_attack_anim):
+	var what_attack
+	match what_attack_anim:
+		0:
+			what_attack = "On_Attack_1"
+		1:
+			what_attack = "On_Attack_2"
+	animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
+	animated_sprite.play(what_attack)
+	animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
+	
+
+#endregion
