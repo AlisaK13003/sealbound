@@ -19,7 +19,9 @@ signal shop_populated
 @export var test_sell_menu : bool
 
 func _ready():
-	Global.money = 1000
+	self.visible = false
+	shop_ui.visible = false
+	can_open_shop = false
 	currency_display.text = str(Global.money)
 	for item in range(len(shop_stock)):
 		var item_display = shop_item_scene.instantiate()
@@ -27,13 +29,14 @@ func _ready():
 		item_display.setup(shop_stock[item].item)
 
 func show_shop():
+	self.visible = true
+	shop_ui.visible = true
 	Global.is_in_menu = true
 	currency_display.text = str(Global.money)
 	shop_populated.emit()
 	
 func _input(event):
 	if event.is_action_pressed("Open Menu") and can_open_shop:
-		shop_ui.visible = true
 		show_shop()
 
 func _on_area_2d_area_entered(area):

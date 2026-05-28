@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eeophdwyxpcr"
-path="res://.godot/imported/npc_portraits.png-6e5f6e72b9651a9732ed4a0faebc6668.ctex"
+uid="uid://dl7qdnu6wo2lf"
+path="res://.godot/imported/cassian_walk.png-82e6103aa6e713f00143356f2b358011.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/npc_portraits.png"
-dest_files=["res://.godot/imported/npc_portraits.png-6e5f6e72b9651a9732ed4a0faebc6668.ctex"]
+source_file="res://assets/characters/cassian/cassian_walk.png"
+dest_files=["res://.godot/imported/cassian_walk.png-82e6103aa6e713f00143356f2b358011.ctex"]
 
 [params]
 

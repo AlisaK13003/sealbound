@@ -1,0 +1,75 @@
+{
+  "id": "orion_001",
+  "start": "intro",
+  "nodes": {
+    "intro": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Alright — let’s move!",
+      "choices": [
+        {
+          "text": "Talk",
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "gift_wip": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "Huh? A gift? I, uh... appreciate it. Seriously.",
+      "next": "intro"
+    },
+    "talk_hub": {
+      "random_next": [
+        "talk_a_1",
+        "talk_b_1",
+        "talk_c_1"
+      ]
+    },
+    "talk_a_1": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "smile",
+      "text": "I was just checking the routes again. Habit, I guess.",
+      "next": "talk_a_2"
+    },
+    "talk_a_2": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "If something's coming, I want to know before it gets here."
+    },
+    "talk_b_1": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "No, I am not waiting for Lyra. Why would you even say that?",
+      "next": "talk_b_2"
+    },
+    "talk_b_2": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "...I mean. Tavern food is good. That is all."
+    },
+    "talk_c_1": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "sad",
+      "text": "I know I can be a little much.",
+      "next": "talk_c_2"
+    },
+    "talk_c_2": {
+      "speaker": "Orion",
+      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Still sticking around? Good. I like that."
+    }
+  }
+}

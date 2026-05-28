@@ -11,11 +11,14 @@ var running_time: float = 0
 var player_in_range: bool = false
 var player_is_speaking_to_me: bool = false
 var player_just_stopped_talking_to_me: bool = false
+var pending_choice_action: String = ""
 
 var current_location
 
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var shop_controller: Node = get_node_or_null("ShopController")
 
 @export_file("*.json") var dialogue_path: String
 @export var location_container: Node2D
@@ -25,23 +28,30 @@ var current_location
 var schedule_info
 var traveling_to : int
 var just_swapped_scenes: bool = false
+var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
 	Global.time_updated.connect(navigate)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
 		return
-	var file = FileAccess.open(schedule_path, FileAccess.READ)
-	var json_string = file.get_as_text()
-	file.close()
-	
-	schedule_info = JSON.parse_string(json_string)
+	schedule_info = {}
+	if not schedule_path.is_empty():
+		var file = FileAccess.open(schedule_path, FileAccess.READ)
+		if file != null:
+			var json_string = file.get_as_text()
+			file.close()
+			schedule_info = JSON.parse_string(json_string)
 	
 	dialogue_data = load_json_file(dialogue_path)
 	if DialogueSystem != null and DialogueSystem.has_signal("dialogue_closed"):
 		var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
 		if not DialogueSystem.dialogue_closed.is_connected(dialogue_closed_callback):
 			DialogueSystem.dialogue_closed.connect(dialogue_closed_callback)
+	if DialogueSystem != null and DialogueSystem.has_signal("choice_action_requested"):
+		var choice_action_callback = Callable(self, "_on_dialogue_system_choice_action_requested")
+		if not DialogueSystem.choice_action_requested.is_connected(choice_action_callback):
+			DialogueSystem.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
 
 
@@ -51,10 +61,12 @@ func _ready():
 func _process(delta):
 	if path_nodes.is_empty():
 		walking = false
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		if leaving_scene:
 			self.visible = false
 		return 
 	if player_is_speaking_to_me:
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
 	
 	if player_just_stopped_talking_to_me:
@@ -63,11 +75,14 @@ func _process(delta):
 		if running_time >= 3:
 			player_just_stopped_talking_to_me = false
 			running_time = 0
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
 	walking = true
 	self.visible = true
 	var current_target = path_nodes[0]
 	just_swapped_scenes = false
+	var motion: Vector2 = current_target - global_position
+	animation_driver.sync(animated_sprite, motion)
 	global_position = global_position.move_toward(current_target, speed * delta)
 	
 	if global_position.distance_to(current_target) < 0.1:
@@ -94,6 +109,8 @@ func load_json_file(path: String) -> Dictionary:
 # Is called by a signal in global that emits every time the clock updates
 # Checks if there is a schedule that can be executed, if yes, send them on their merry way
 func navigate():
+	if not (schedule_info is Dictionary) or not schedule_info.has("schedules"):
+		return
 	if walking == true:
 		return
 	for schedule_name in schedule_info["schedules"]:
@@ -221,9 +238,16 @@ func begin_dialogue() -> void:
 		return
 
 	player_is_speaking_to_me = true
+	pending_choice_action = ""
 	Global.is_in_menu = true
 
 	if DialogueSystem != null and DialogueSystem.has_method("show_dialog"):
+		if dialogue_path.is_empty():
+			push_warning("NPC_Controller: dialogue_path is empty.")
+			player_is_speaking_to_me = false
+			Global.is_in_menu = false
+			return
+		DialogueSystem.dialogue_file_path = dialogue_path
 		DialogueSystem.show_dialog()
 
 func end_dialogue() -> void:
@@ -240,6 +264,24 @@ func _on_dialogue_system_dialogue_closed() -> void:
 	player_is_speaking_to_me = false
 	player_just_stopped_talking_to_me = true
 	Global.is_in_menu = false
+	if pending_choice_action == "open_shop":
+		pending_choice_action = ""
+		open_shop()
+		return
+	pending_choice_action = ""
+
+func _on_dialogue_system_choice_action_requested(action: String, _choice_data: Dictionary) -> void:
+	if not player_is_speaking_to_me:
+		return
+
+	pending_choice_action = action
+
+func open_shop() -> void:
+	if shop_controller != null and shop_controller.has_method("show_shop"):
+		shop_controller.show_shop()
+		return
+
+	push_warning("NPC_Controller: No ShopController child found to open.")
 
 # Determines if the player is in range to talk with NPC
 func _on_player_in_range_area_entered(area):

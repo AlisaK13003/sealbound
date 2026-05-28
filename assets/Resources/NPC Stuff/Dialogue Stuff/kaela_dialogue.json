@@ -1,0 +1,75 @@
+{
+  "id": "kaela_001",
+  "start": "intro",
+  "nodes": {
+    "intro": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Hello. If you're looking for the archive, I can point you the right way.",
+      "choices": [
+        {
+          "text": "Talk",
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "gift_wip": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "You didn't need to bring anything. But... thank you.",
+      "next": "intro"
+    },
+    "talk_hub": {
+      "random_next": [
+        "talk_a_1",
+        "talk_b_1",
+        "talk_c_1"
+      ]
+    },
+    "talk_a_1": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I spend most of my time sorting old blueprints and repair notes.",
+      "next": "talk_a_2"
+    },
+    "talk_a_2": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Someone has to remember what the village used to be built like."
+    },
+    "talk_b_1": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "Attention is... not really my favorite thing.",
+      "next": "talk_b_2"
+    },
+    "talk_b_2": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "But quiet company is different. I do not mind that."
+    },
+    "talk_c_1": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Sometimes I think the archive is easier to restore than people are.",
+      "next": "talk_c_2"
+    },
+    "talk_c_2": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Still... I keep trying."
+    }
+  }
+}

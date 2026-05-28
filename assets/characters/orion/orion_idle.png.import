@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt28ffm0cjyop"
-path="res://.godot/imported/Sera_portraits.png-2a6fb84cf095bb99568750b135dbbc16.ctex"
+uid="uid://dcjqtb3uyekpo"
+path="res://.godot/imported/orion_idle.png-eaa617ac212057ddd065ca89688995ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/Sera_portraits.png"
-dest_files=["res://.godot/imported/Sera_portraits.png-2a6fb84cf095bb99568750b135dbbc16.ctex"]
+source_file="res://assets/characters/orion/orion_idle.png"
+dest_files=["res://.godot/imported/orion_idle.png-eaa617ac212057ddd065ca89688995ea.ctex"]
 
 [params]
 

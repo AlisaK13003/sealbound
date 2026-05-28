@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://bg1uxu604kh6j"]
+
+[ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_eooly"]
+[ext_resource type="Texture2D" uid="uid://m00wxofcxxj4" path="res://assets/characters/cassian/cassian_idle.png" id="2_gjqij"]
+[ext_resource type="Texture2D" uid="uid://dl7qdnu6wo2lf" path="res://assets/characters/cassian/cassian_walk.png" id="3_cabsr"]
+[ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="4_gjqij"]
+[ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_cabsr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
+size = Vector2(71, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52tew"]
+atlas = ExtResource("2_gjqij")
+region = Rect2(0, 0, 150, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3k3xb"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysr08"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3insh"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7jk0"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5455o"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(768, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_leaap"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(960, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcmje"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(1152, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edq0w"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(1344, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lff06"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(1536, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsnfw"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(1728, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54v38"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(1920, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa7ct"]
+atlas = ExtResource("3_cabsr")
+region = Rect2(2112, 0, 192, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0ocd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52tew")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3k3xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysr08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3insh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7jk0")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5455o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leaap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcmje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edq0w")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lff06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsnfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54v38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fa7ct")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 3.5
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
+radius = 245.58908
+
+[node name="NpcTemplate" type="Node2D" unique_id=823861237]
+script = ExtResource("1_eooly")
+dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/cassian_dialogue.json"
+
+[node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC_Clickable" unique_id=2012646422]
+position = Vector2(0.5, 9)
+shape = SubResource("RectangleShape2D_7u671")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=575912758]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_l0ocd")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.70326364
+
+[node name="Player_In_Range" type="Area2D" parent="." unique_id=289574461]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=1695977954]
+shape = SubResource("CircleShape2D_ilmyp")
+
+[node name="ShopController" type="Node2D" parent="." unique_id=827537280]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_gjqij")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ShopController" unique_id=617435556]
+
+[node name="ShopInterface" parent="ShopController/CanvasLayer" unique_id=1487542661 node_paths=PackedStringArray("parent") instance=ExtResource("5_cabsr")]
+offset_left = 325.0
+offset_top = 209.0
+offset_right = 325.0
+offset_bottom = 209.0
+parent = NodePath("../..")
+
+[connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]
+[connection signal="body_exited" from="NPC_Clickable" to="." method="_on_npc_clickable_body_exited"]
+[connection signal="input_event" from="NPC_Clickable" to="." method="_on_npc_clickable_input_event"]
+[connection signal="area_entered" from="Player_In_Range" to="." method="_on_player_in_range_area_entered"]
+[connection signal="area_exited" from="Player_In_Range" to="." method="_on_player_in_range_area_exited"]
+[connection signal="body_entered" from="Player_In_Range" to="." method="_on_player_in_range_body_entered"]
+[connection signal="body_exited" from="Player_In_Range" to="." method="_on_player_in_range_body_exited"]

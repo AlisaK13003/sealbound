@@ -6,19 +6,24 @@ var in_menu : bool = false
 @onready var pause_menu = $CanvasLayer/PauseMenu
 @onready var full_inventory = $CanvasLayer/VillageInventory
 @onready var over_the_head_sprite = $OvertheHead
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready() -> void:
 	Global.load_save_data()
+	animation_driver.sync(animated_sprite, Vector2.ZERO)
 			
 func _process(_delta: float) -> void:
+	var direction : Vector2 = Vector2.ZERO
 	if Global.is_in_menu or Fade.is_fading:
 		velocity = Vector2.ZERO
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
-	var direction : Vector2 = Vector2.ZERO
-	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+	direction = Input.get_vector("left", "right", "up", "down")
 		
 	velocity = direction * move_speed
+	animation_driver.sync(animated_sprite, velocity)
 	
 	if Global.player_head_sprite != null:
 		over_the_head_sprite.texture = Global.player_head_sprite

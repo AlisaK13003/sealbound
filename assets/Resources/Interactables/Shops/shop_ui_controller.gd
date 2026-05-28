@@ -192,5 +192,7 @@ func update_inventory_slot(slot_to_update):
  
 func _exit_shop():
 	self.visible = false
+	if parent != null:
+		parent.visible = false
 	purchase_confirmation_parent.visible = false
 	Global.is_in_menu = false

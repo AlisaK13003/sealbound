@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx2nwbbwer6we"
-path="res://.godot/imported/Lyra_portraits.png-18b7f5183995790b6c4bddf4e6e2f829.ctex"
+uid="uid://dqox4qdiw4bj2"
+path="res://.godot/imported/kaela_walk.png-bca5fe4d8e8bb8146900fd20da4e2fd1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/Lyra_portraits.png"
-dest_files=["res://.godot/imported/Lyra_portraits.png-18b7f5183995790b6c4bddf4e6e2f829.ctex"]
+source_file="res://assets/characters/kaela/kaela_walk.png"
+dest_files=["res://.godot/imported/kaela_walk.png-bca5fe4d8e8bb8146900fd20da4e2fd1.ctex"]
 
 [params]
 

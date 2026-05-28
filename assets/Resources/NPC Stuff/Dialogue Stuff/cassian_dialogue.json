@@ -1,0 +1,79 @@
+{
+	"id": "cassian_001",
+	"start": "intro",
+	"nodes": {
+		"intro": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "neutral",
+			"text": "Need something? Buy it or don't.",
+			"choices": [
+				{
+					"text": "Talk",
+					"next": "talk_hub"
+				},
+				{
+					"text": "Gift (WIP)",
+					"next": "gift_wip"
+				},
+				{
+					"text": "Shop",
+					"action": "open_shop"
+				}
+			]
+		},
+		"gift_wip": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "awkward",
+			"text": "this feature is not yet implemented!",
+			"next": "intro"
+		},
+		"talk_hub": {
+			"random_next": [
+				"talk_a_1",
+				"talk_b_1",
+				"talk_c_1"
+			]
+		},
+		"talk_a_1": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "neutral",
+			"text": "You picked talk. Bold choice.",
+			"next": "talk_a_2"
+		},
+		"talk_a_2": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "smile",
+			"text": "If you need potions, say it before I lose patience."
+		},
+		"talk_b_1": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "awkward",
+			"text": "Rowan can forge a weapon. I keep people alive with bottles.",
+			"next": "talk_b_2"
+		},
+		"talk_b_2": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "neutral",
+			"text": "Different tools. Same chaos."
+		},
+		"talk_c_1": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "sad",
+			"text": "If you're here because you got hurt again, I already know this is going to be tedious.",
+			"next": "talk_c_2"
+		},
+		"talk_c_2": {
+			"speaker": "Cassian",
+			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+			"portrait_frame": "neutral",
+			"text": "Fine. Stand still. I will fix it before you make it worse."
+		}
+	}
+}

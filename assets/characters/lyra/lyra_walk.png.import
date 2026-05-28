@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bci72r7y43t48"
-path="res://.godot/imported/maleNPC2_portraits.png-3810a5a35534bec14ba2268537b2302d.ctex"
+uid="uid://k8h3wryir8iy"
+path="res://.godot/imported/lyra_walk.png-b970ff1ee99db33c90e2a394fc398448.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://npc/sprites/portraits/maleNPC2_portraits.png"
-dest_files=["res://.godot/imported/maleNPC2_portraits.png-3810a5a35534bec14ba2268537b2302d.ctex"]
+source_file="res://assets/characters/lyra/lyra_walk.png"
+dest_files=["res://.godot/imported/lyra_walk.png-b970ff1ee99db33c90e2a394fc398448.ctex"]
 
 [params]
 
