@@ -70,7 +70,9 @@ class_name moves
 
 @export_group("Targets Who?")
 @export var targets_party : bool
+@export var targets_self: bool
 @export var is_skill_aoe : bool
+
 
 #accuracy reductiuo, burn, slow, poison, defense reduction, momentum (orion special), regen, stun, stun immunity, attack + , def+ , evasion +, crit + .
 

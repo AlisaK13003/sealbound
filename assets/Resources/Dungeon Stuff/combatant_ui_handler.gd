@@ -3,13 +3,14 @@ extends Control
 class_name combatant_ui
 
 @onready var base_menu = $Player_Menu/Base_Menu
-@onready var action_menu = $Player_Menu/Action_Menu
 @onready var skill_menu = $Player_Menu/Skill_Menu
 @onready var item_menu = $Player_Menu/Item_Menu
 
 @onready var health_bar = $TextureProgressBar
 
 var parent_reference
+
+var hovered_over: bool = false
 
 func _ready():
 	reset_ui()
@@ -32,11 +33,15 @@ func setup(parent_ref, party_member: generic_combatants):
 		#skill_node.texture_hover = party_member.combatant_skills[move].hover_sprite
 		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
 
+func _process(delta):
+	if parent_reference.currently_selectable and hovered_over:
+		parent_reference.selection_area_sprite.visible = true
+		parent_reference.could_be_selected()
+		print("HOVERABLE")
 		
 func reset_ui():
 	un_toggle_all_buttons()
 	base_menu.visible = true
-	action_menu.visible = false
 	skill_menu.visible = false
 	item_menu.visible = false
 
@@ -59,7 +64,6 @@ func handle_menu_swapping(swap_to_what_menu: int):
 		# Swap to Action Menu
 		1:
 			base_menu.visible = false
-			action_menu.visible = true
 		# Swap to Skill Menu
 		2:
 			base_menu.visible = false
@@ -101,8 +105,6 @@ func base_attack_defend_selected(attack_or_defend):
 	if attack_or_defend:
 		parent_reference.parent_reference.attack_button_pressed(parent_reference.child_number)
 	else:
-		if action_menu.get_child(1).pressed:
-			parent_reference.parent_reference.unhighlight_all_entities()
 		parent_reference.parent_reference.defend_button_pressed(parent_reference, parent_reference.child_number)
 
 func _on_texture_button_button_down():
@@ -119,3 +121,15 @@ func _mouse_hovered_over_skill(extra_arg_0):
 
 func _mouse_left_skill(extra_arg_0):
 	$Player_Menu/Skill_Menu/Back_Button/Description.text = ""
+
+func player_hovered():
+	hovered_over = true
+
+func player_unhovered():
+	hovered_over = false
+	parent_reference.undo_selection()
+	print("UNHOVERED")
+
+
+func _on_area_2d_mouse_entered():
+	print("HELLO")

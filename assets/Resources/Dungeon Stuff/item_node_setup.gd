@@ -1,34 +1,36 @@
 extends Control
 
-@onready var item_name = $Item_Name
-@onready var item_texture = $Item_Texture
-@onready var item_description_panel = $Item_Description_Panel
-@onready var item_description_label = $Item_Description_Panel/Item_Description
+@onready var item_name = $HBoxContainer/Control/Item_Name
+@onready var item_texture = $HBoxContainer/Control/Item_Texture
+@onready var selection_arrow = $HBoxContainer/AnimatedSprite2D
 
 var trying_to_be_used: bool = false
 var index_number: int
 var held_item : Items
-var parent_reference
+var p_ref
 var can_be_selected
 
-func setup(item_passed: Items, i_num, parent_ref):
-	parent_reference = parent_ref
+func _setup(item_passed: Items, i_num, parent_ref):
+	p_ref = parent_ref
 	item_name.text = item_passed.item_name
 	item_texture.texture = item_passed.item_sprite
-	item_description_label.text = item_passed.item_description
+	print("Index of stored item: ", i_num)
 	index_number = i_num
 	held_item = item_passed
 	
 func _on_panel_mouse_entered():
+	p_ref.unselect_all()
 	can_be_selected = true
-	item_description_panel.visible = true
+	p_ref.update_description(held_item.item_description)
+	selection_arrow.visible = true
+	selection_arrow.play("default")
 
-func _on_panel_mouse_exited():
+func unselect():
 	can_be_selected = false
-	item_description_panel.visible = false
+	selection_arrow.visible = false
+	selection_arrow.stop()
 
 func _on_item_selected(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and can_be_selected:
-			if parent_reference.item_menu.visible:
-				parent_reference.item_selected(index_number)
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			p_ref.p_ref.item_selected(held_item, index_number)

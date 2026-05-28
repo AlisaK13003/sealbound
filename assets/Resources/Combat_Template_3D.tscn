@@ -11,11 +11,8 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_51gu7"]
 viewport_path = NodePath("Sprite3D2/SubViewport")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_51gu7"]
-size = Vector3(9.029466, 12.278206, 0.042236328)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mydf"]
-size = Vector3(3.6266632, 5.5570545, 0.05419922)
+size = Vector3(3.0724373, 3.571803, 0.05419922)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_51gu7"]
 atlas = ExtResource("3_51gu7")
@@ -83,25 +80,18 @@ transparent_bg = true
 snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
+physics_object_picking = true
 size = Vector2i(1039, 1826)
 render_target_update_mode = 4
 
 [node name="CombatantUi" parent="Sprite3D2/SubViewport" unique_id=1169996085 instance=ExtResource("3_drjmm")]
-
-[node name="Area3D" type="Area3D" parent="Sprite3D2" unique_id=1246036896]
-script = ExtResource("4_mmlnl")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Area3D" unique_id=1923538043]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9144037, -1.6657245, -0.01574707)
-shape = SubResource("BoxShape3D_51gu7")
-debug_fill = false
 
 [node name="Enemy_Collision" type="Area3D" parent="Sprite3D2" unique_id=1958587253]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35619026, 0)
 script = ExtResource("4_mmlnl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Enemy_Collision" unique_id=376378909]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0968709, -4.189494, 0.7319856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8197584, -4.301213, 0.7319856)
 shape = SubResource("BoxShape3D_7mydf")
 debug_fill = false
 
@@ -118,3 +108,7 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_y4m62")
 animation = &"selectable"
 speed_scale = -0.5
+
+[connection signal="input_event" from="Sprite3D2/Enemy_Collision" to="." method="_mouse_confirmation_given"]
+[connection signal="mouse_entered" from="Sprite3D2/Enemy_Collision" to="." method="_on_enemy_collision_mouse_entered"]
+[connection signal="mouse_exited" from="Sprite3D2/Enemy_Collision" to="." method="_on_enemy_collision_mouse_exited"]

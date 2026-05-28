@@ -99,31 +99,31 @@ region = Rect2(512, 128, 128, 64)
 atlas = ExtResource("5_o16x7")
 region = Rect2(640, 128, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w8jmt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o16x7"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(0, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6wvk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8jmt"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(128, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pgw11"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6wvk"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(256, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bo0cv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgw11"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(384, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l3mnq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo0cv"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(512, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yj55h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3mnq"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(640, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ruva"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj55h"]
 atlas = ExtResource("5_o16x7")
 region = Rect2(768, 0, 128, 64)
 
@@ -214,6 +214,9 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_o16x7")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_w8jmt")
 }, {
 "duration": 1.0,
@@ -230,9 +233,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1ruva")
 }],
 "loop": true,
 "name": &"Walk",
@@ -268,5 +268,5 @@ sprite_frames = SubResource("SpriteFrames_8x0pw")
 idle_speed = 0.25
 death_speed = 1.0
 walk_speed = 2.0
-attack_speed = Array[float]([1.5, 1.5])
+attack_speed = Array[float]([2.0, 2.0])
 metadata/_custom_type_script = "uid://125iickqse23"

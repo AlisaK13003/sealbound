@@ -8,11 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://58jsyjqchuls" path="res://assets/tile sheets/Floor.png" id="7_1u5h8"]
 [ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="7_og2ux"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
+[ext_resource type="PackedScene" uid="uid://dgs2lhgc5rktk" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_GUI.tscn" id="8_og2ux"]
 [ext_resource type="Texture2D" uid="uid://dfguifwtach7e" path="res://assets/Sprites/Dungeon_wall_right.png" id="8_xal47"]
 [ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="12_edm4l"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="12_iegkx"]
-[ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Dungeon_Item_Menu.tscn" id="13_7uj4b"]
-[ext_resource type="PackedScene" uid="uid://eql2rxxa33si" path="res://assets/Resources/Dungeon Stuff/Item_Node.tscn" id="16_pvdly"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edm4l"]
 bg_color = Color(0.64324254, 0.5426964, 0.80472004, 1)
@@ -43,6 +42,10 @@ corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
+
+[sub_resource type="Environment" id="Environment_a4wc1"]
+background_mode = 1
+background_color = Color(1, 1, 0.96862745, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7hpr"]
 albedo_texture = ExtResource("8_xal47")
@@ -80,6 +83,13 @@ offset_right = 662.0
 offset_bottom = 573.0
 mouse_filter = 1
 
+[node name="DungeonPlayerGui" parent="UI" unique_id=217185090 instance=ExtResource("8_og2ux")]
+layout_mode = 1
+offset_left = 334.0
+offset_top = 9.0
+offset_right = 334.0
+offset_bottom = 9.0
+
 [node name="Bond_Attack" type="ProgressBar" parent="UI" unique_id=899942920]
 texture_filter = 1
 layout_mode = 0
@@ -99,8 +109,7 @@ offset_right = -127.0
 offset_bottom = -376.0
 mouse_filter = 1
 theme_override_font_sizes/font_size = 66
-text = "Name of Dungeon
-3f"
+text = "Name of Dungeon 3f"
 
 [node name="Quests" type="Label" parent="UI/Dungeon_Floor" unique_id=655004733]
 texture_filter = 1
@@ -118,6 +127,7 @@ texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Party_Portraits" unique_id=1611507960]
 texture_filter = 1
@@ -212,6 +222,7 @@ offset_left = -613.0
 offset_top = 388.0
 offset_right = -477.0
 offset_bottom = 506.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_o8d11")
 
 [node name="Label" type="Label" parent="UI/Mana Bar" unique_id=1886573025]
@@ -241,70 +252,45 @@ offset_left = -615.0
 offset_top = 334.0
 offset_right = -488.0
 offset_bottom = 393.0
+mouse_filter = 1
 theme_override_font_sizes/font_size = 51
 text = "Turn: "
 
-[node name="DungeonItemMenu" parent="UI" unique_id=1100506542 instance=ExtResource("13_7uj4b")]
-visible = false
-z_index = 5
+[node name="Label" type="Label" parent="UI" unique_id=1014058335]
 texture_filter = 1
-layout_mode = 1
-offset_left = 274.0
-offset_top = -211.0
-offset_right = 274.0
-offset_bottom = -211.0
-
-[node name="ItemNode" parent="UI" unique_id=2064623552 instance=ExtResource("16_pvdly")]
-visible = false
-texture_filter = 1
-layout_mode = 1
-offset_left = -386.0
-offset_top = -370.0
-offset_right = -386.0
-offset_bottom = -370.0
-
-[node name="Panel" parent="UI/ItemNode" index="0" unique_id=584745599]
-texture_filter = 1
-
-[node name="Item_Name" parent="UI/ItemNode" index="1" unique_id=1412283802]
-texture_filter = 1
-
-[node name="Item_Texture" parent="UI/ItemNode" index="2" unique_id=1564032927]
-texture_filter = 1
-
-[node name="Item_Description_Panel" parent="UI/ItemNode" index="3" unique_id=849264651]
-visible = true
-texture_filter = 1
-offset_left = 206.0
-offset_top = 16.0
-offset_right = 367.0
-offset_bottom = 56.0
-
-[node name="Item_Description" parent="UI/ItemNode/Item_Description_Panel" index="0" unique_id=354233654]
-texture_filter = 1
+layout_mode = 0
+offset_left = -621.00006
+offset_top = -465.00003
+offset_right = 503.99994
+offset_bottom = -240.00003
+scale = Vector2(0.365, 0.365)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Active Turn: "
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.395, 2.07, 6)
+environment = SubResource("Environment_a4wc1")
 fov = 15.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0062575, 0, -0.545)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0062575, 0, -0.74907875)
 
 [node name="Enemy_Slot1" parent="Enemy_Container" unique_id=1849059853 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.550099, 0.178, 0.11)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.751, 0.138, 0.5)
 
 [node name="Enemy_Slot2" parent="Enemy_Container" unique_id=169123962 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.7937584, 0.07327473, -0.129)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.001, 0.138, 0.45)
 
 [node name="Enemy_Slot3" parent="Enemy_Container" unique_id=1094727955 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.1162719, 0.178, 0.11)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.251, 0.138, 0.4)
 
 [node name="Enemy_Slot4" parent="Enemy_Container" unique_id=2016040555 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.3702102, 0.07327473, -0.129)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.501, 0.138, 0.35)
 
 [node name="Enemy_Slot5" parent="Enemy_Container" unique_id=2008772717 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.5775998, 0.178, 0.11)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.751, 0.138, 0.3)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
 
@@ -428,18 +414,16 @@ light_indirect_energy = 16.0
 light_bake_mode = 1
 
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6123473, 0, -0.545)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17756835, 0, -0.19572136)
 
 [node name="Player_Slot1" parent="Player_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.3, 0.178, 0.11)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0, 0.168, 0)
 
 [node name="Player_Slot2" parent="Player_Container" unique_id=1180676946 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0, 0.07327473, -0.129)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, 0.168, 0.05)
 
 [node name="Player_Slot3" parent="Player_Container" unique_id=2018764669 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.15000004, 0.178, 0.11)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.6, 0.168, 0.1)
 
 [connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel" to="." method="confirmation_button" binds= [true]]
 [connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel2" to="." method="confirmation_button" binds= [false]]
-
-[editable path="UI/ItemNode"]

@@ -15,6 +15,7 @@ mana_cost = 2
 status_type = null
 removes_status = null
 targets_party = true
+is_skill_aoe = true
 does_heal_party = true
 amount_healed = 2
 normal_sprite = ExtResource("2_i30tp")

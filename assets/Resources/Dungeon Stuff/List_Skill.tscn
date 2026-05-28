@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://c10mh7w1xs0t7"]
+
+[ext_resource type="Script" uid="uid://bgovxssxgk34k" path="res://assets/Resources/Dungeon Stuff/Skill_node_setup.gd" id="1_fitij"]
+[ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="2_6wcys"]
+[ext_resource type="Texture2D" uid="uid://bq8v5o5otsror" path="res://assets/Sprites/Orb_Bar.png" id="3_vvm6e"]
+[ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="4_6wcys"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohv3v"]
+size = Vector2(237, 65)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45w41"]
+bg_color = Color(0.75417984, 0.45223308, 0.888336, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8666667, 0.7529412, 0.49019608, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpb4g"]
+atlas = ExtResource("4_6wcys")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pchgr"]
+atlas = ExtResource("4_6wcys")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6lgf"]
+atlas = ExtResource("4_6wcys")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cukh"]
+atlas = ExtResource("4_6wcys")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d63qj"]
+atlas = ExtResource("4_6wcys")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vvm6e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpb4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pchgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6lgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cukh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d63qj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ListSkill" type="Control" unique_id=1191788680]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_fitij")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1216441813]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1812623274]
+position = Vector2(118.5, 32.5)
+shape = SubResource("RectangleShape2D_ohv3v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=966767686]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control" type="Control" parent="HBoxContainer" unique_id=1111690853]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Control" unique_id=340883625]
+z_index = -1
+layout_mode = 0
+offset_right = 158.66667
+offset_bottom = 43.333336
+scale = Vector2(1.5, 1.5)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_45w41")
+
+[node name="Skill_Name" type="Label" parent="HBoxContainer/Control" unique_id=2081972802]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 3.0
+offset_right = 178.66667
+offset_bottom = 43.666668
+scale = Vector2(1.5, 1.5)
+mouse_filter = 1
+text = "Potion"
+vertical_alignment = 1
+
+[node name="Skill_Texture" type="TextureRect" parent="HBoxContainer/Control" unique_id=424969460]
+z_index = -1
+layout_mode = 0
+offset_left = 6.0
+offset_right = 38.0
+offset_bottom = 32.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_6wcys")
+
+[node name="Mana_Cost" type="VBoxContainer" parent="HBoxContainer/Control" unique_id=983496114]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 58.0
+offset_right = 54.0
+offset_bottom = 162.0
+rotation = -1.5707964
+scale = Vector2(0.25, 0.25)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Control/Mana_Cost" unique_id=1780393036]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_vvm6e")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/Control/Mana_Cost" unique_id=385152947]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_vvm6e")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/Control/Mana_Cost" unique_id=489523621]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_vvm6e")
+stretch_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=648964495]
+visible = false
+position = Vector2(215, 31)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_vvm6e")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2012115367]
+visible = false
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 235.0
+offset_bottom = 62.0
+color = Color(1, 0, 0, 0.59607846)
+
+[connection signal="input_event" from="Area2D" to="." method="_on_skill_selected"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_panel_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_panel_mouse_exited"]

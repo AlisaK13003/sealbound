@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bdncivkt5ewpn"]
+
+[ext_resource type="Script" uid="uid://cmuy52sot1frj" path="res://assets/Resources/Dungeon Stuff/dungeon_item_menu.gd" id="1_7ukf3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrcn6"]
+bg_color = Color(0.34440893, 0.6144544, 0.91143113, 1)
+
+[node name="DungeonItemMenu" type="Control" unique_id=1100506542]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_7ukf3")
+node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Skill.tscn"
+
+[node name="Menu_Name" type="Label" parent="." unique_id=1197017893]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -58.0
+offset_right = 435.0
+offset_bottom = 7.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 57
+text = "Items"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1645356078]
+layout_mode = 0
+offset_right = 437.0
+offset_bottom = 534.0
+theme_override_constants/separation = 77
+
+[node name="Panel" type="Panel" parent="." unique_id=281418985]
+layout_mode = 0
+mouse_filter = 1
+
+[node name="Panel2" type="Panel" parent="." unique_id=674101943]
+z_index = -2
+layout_mode = 0
+offset_left = -7.0
+offset_top = -4.0
+offset_right = 437.0
+offset_bottom = 533.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrcn6")
+
+[node name="Description_Label" type="Label" parent="." unique_id=243866030]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 531.0
+offset_right = 3224.6296
+offset_bottom = 1760.6296
+scale = Vector2(0.135, 0.135)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Restores party to full"
+autowrap_mode = 2
+autowrap_trim_flags = 0
+
+[node name="Panel3" type="Panel" parent="." unique_id=1231143411]
+z_index = -1
+layout_mode = 0
+offset_left = -7.0
+offset_top = 528.0
+offset_right = 438.0
+offset_bottom = 649.0

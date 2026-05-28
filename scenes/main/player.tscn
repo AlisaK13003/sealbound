@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
 [ext_resource type="PackedScene" uid="uid://coypf00axxmjs" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory.tscn" id="4_wqvcu"]
 [ext_resource type="PackedScene" uid="uid://c1kdv54b51l7q" path="res://scenes/main/Generic_Menu.tscn" id="6_riacy"]
-[ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Dungeon_Item_Menu.tscn" id="7_q2ck2"]
+[ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Generic_List_Menu.tscn" id="7_q2ck2"]
 [ext_resource type="PackedScene" uid="uid://bmb80v1vox7d6" path="res://scenes/main/Player_Equip_Menu.tscn" id="8_u2d4w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vom5j"]

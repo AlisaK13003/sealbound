@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://dgs2lhgc5rktk"]
+
+[ext_resource type="Texture2D" uid="uid://cgbej77uw2udq" path="res://assets/tile sheets/Move Sprites/Item_Selection.png" id="1_7j646"]
+[ext_resource type="Script" uid="uid://ckc4ktd8gbxdm" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_UI_Handler.gd" id="1_ijjon"]
+[ext_resource type="Texture2D" uid="uid://b0m5otdlhwxng" path="res://assets/tile sheets/Move Sprites/Skill Selection.png" id="2_2eed5"]
+[ext_resource type="Texture2D" uid="uid://cfkrsuv277nja" path="res://assets/tile sheets/Move Sprites/Toggled_Skill_Selection.png" id="3_oq2hf"]
+[ext_resource type="Texture2D" uid="uid://crmnlgmc341af" path="res://assets/tile sheets/Move Sprites/Action_Selection.png" id="4_udkoq"]
+[ext_resource type="Texture2D" uid="uid://ca2tk80g8637h" path="res://assets/tile sheets/Move Sprites/Toggled_Action_Selection.png" id="5_h00cp"]
+[ext_resource type="Texture2D" uid="uid://dnxf5i0bwkyve" path="res://assets/tile sheets/Move Sprites/Defend_Selection.png" id="6_uxw8m"]
+[ext_resource type="Texture2D" uid="uid://bbk3oyyj2yvhf" path="res://assets/tile sheets/Move Sprites/Toggled_Defend_Select.png" id="7_yubku"]
+[ext_resource type="Texture2D" uid="uid://b45x70ob3ead2" path="res://assets/tile sheets/Move Sprites/Back_Arrow.png" id="8_cthwo"]
+[ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Generic_List_Menu.tscn" id="9_irdl1"]
+
+[node name="DungeonPlayerGui" type="Control" unique_id=217185090]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ijjon")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1243960500]
+
+[node name="Base_Menu" type="HBoxContainer" parent="CanvasLayer" unique_id=806002493]
+texture_filter = 1
+offset_left = 1068.0
+offset_top = 896.0
+offset_right = 1253.0
+offset_bottom = 936.0
+scale = Vector2(3, 3)
+theme_override_constants/separation = 19
+
+[node name="Item_Menu_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=116493470]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+texture_normal = ExtResource("1_7j646")
+texture_hover = ExtResource("1_7j646")
+stretch_mode = 3
+
+[node name="Skill_Menu_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=1881280147]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+texture_normal = ExtResource("2_2eed5")
+texture_pressed = ExtResource("3_oq2hf")
+texture_hover = ExtResource("2_2eed5")
+stretch_mode = 3
+
+[node name="Attack_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=1462537621]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+texture_normal = ExtResource("4_udkoq")
+texture_pressed = ExtResource("5_h00cp")
+stretch_mode = 3
+
+[node name="Defend_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=241091125]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+texture_normal = ExtResource("6_uxw8m")
+texture_pressed = ExtResource("7_yubku")
+stretch_mode = 3
+
+[node name="Item_Menu" parent="CanvasLayer" unique_id=1100506542 instance=ExtResource("9_irdl1")]
+visible = false
+offset_left = 187.0
+offset_top = 255.0
+offset_right = -1298.0002
+offset_bottom = -296.0
+node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Item.tscn"
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer" unique_id=466504251]
+visible = false
+offset_left = 545.0
+offset_top = 967.0
+offset_right = 585.0
+offset_bottom = 1007.0
+scale = Vector2(3, 3)
+mouse_filter = 1
+texture_normal = ExtResource("8_cthwo")
+texture_pressed = ExtResource("8_cthwo")
+
+[node name="Skill_Menu" parent="CanvasLayer" unique_id=1366619319 instance=ExtResource("9_irdl1")]
+visible = false
+offset_left = 187.0
+offset_top = 255.0
+offset_right = -1292.0
+offset_bottom = -294.0
+
+[connection signal="pressed" from="CanvasLayer/Base_Menu/Item_Menu_Button" to="." method="_item_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Base_Menu/Skill_Menu_Button" to="." method="_skill_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Base_Menu/Attack_Button" to="." method="_base_attack_emitted"]
+[connection signal="pressed" from="CanvasLayer/Base_Menu/Defend_Button" to="." method="_defend_executed"]
+[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_back_button_pressed"]

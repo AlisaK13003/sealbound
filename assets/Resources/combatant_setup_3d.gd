@@ -8,11 +8,12 @@ class_name combat_template
 @onready var attacked_label = $Label3D
 @onready var combatant_ui_ = $Sprite3D2/SubViewport/CombatantUi
 @onready var combatant_ui = $Sprite3D2/SubViewport/CombatantUi/Player_Menu
-@onready var combatant_ui_area = $Sprite3D2/Area3D
+
 @onready var enemy_collision = $Sprite3D2/Enemy_Collision
 @onready var selection_area_sprite = $AnimatedSprite3D
 @onready var animated_sprite = $AnimatedSprite3D2
 @onready var subviewport = $Sprite3D2/SubViewport
+@onready var ui_sprite = $Sprite3D2
 @onready var rng = RandomNumberGenerator.new()
 @onready var animator = SpriteFrames.new()
 
@@ -28,6 +29,7 @@ var already_inflicted_with_major_status = false
 var previously_visible = false
 var base_location: Vector3
 var displacement = Vector3(0.3, 0, 0)
+var can_be_unselected: bool = true
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -119,7 +121,10 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		combatant_sprite.texture = combatant.combatant_sprite
 	health_bar.max_value = combatant.combatant_stats.max_health
 	health_bar.value = combatant.combatant_stats.health
+	
 	if combatant.is_combatant_enemy:
+		if has_node("Sprite3D2/Area3D"):
+			$Sprite3D2/Area3D.queue_free()
 		animated_sprite.sprite_frames = combatant.sprite_frames
 		combatant_sprite.visible = false
 		animated_sprite.pixel_size = 0.004
@@ -129,8 +134,6 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	else:
 		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
 	combatant_ui.visible = false
-	combatant_ui_area.visible = false
-	# create_collision_from_sprite_3d()
 	$Sprite3D2/SubViewport/CombatantUi.setup(self, stored_combatant)
 	
 func update_health(change_health_value, status_ = false, portrait: player_portraits = null):
@@ -180,7 +183,7 @@ func update_damage_label(damage_taken, _was_heal = false, attack_missed = false)
 		attacked_label.modulate = Color.LAWN_GREEN
 		attacked_label.text = str(int(floor(-1 * damage_taken[0])))
 	else:
-		attacked_label.modulate = Color.INDIAN_RED
+		attacked_label.modulate = Color.WEB_PURPLE
 		attacked_label.text = str(int(floor(damage_taken[0])))
 	await get_tree().create_timer(0.5).timeout
 	attacked_label.text = ""
@@ -204,6 +207,7 @@ func execute_base_attack(entity_node: combat_template):
 		return "MISS"
 
 func on_death():
+	stored_combatant.is_dead = true
 	await get_tree().create_timer(0.5).timeout
 
 	animated_sprite.play("On_Death")
@@ -211,7 +215,7 @@ func on_death():
 	animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
 	await animated_sprite.animation_finished
 	
-	stored_combatant.is_dead = true
+
 	enemy_collision.visible = false
 	
 func execute_defend():
@@ -221,7 +225,6 @@ func execute_defend():
 func do_nothing_3d(_camera, event, _event_position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
-			print("HELLO")
 			parent_reference.confirmation.emit(child_number)
 
 func reset_ui():
@@ -372,63 +375,25 @@ func obtain_stat_alteration(what_stat):
 	return 1
 
 func could_be_selected():
-	#combatant_sprite.modulate = Color(Color.YELLOW, 0.75)
-	selection_area_sprite.visible = true
-	selection_area_sprite.play("selectable")
+	can_be_unselected = true
 	currently_selectable = true
 	if stored_combatant.is_combatant_enemy:
 		enemy_collision.visible = true
 
-func undo_selection():
-	#combatant_sprite.modulate = Color(Color.WHITE, 1)
-	currently_selectable = false
+func selected(can_be_unselected_):
+	selection_area_sprite.visible = true
+	currently_selectable = true
+	selection_area_sprite.play("selectable")
+	can_be_unselected = can_be_unselected_
+
+func unselect():
 	selection_area_sprite.visible = false
 	selection_area_sprite.stop()
-	if stored_combatant.is_combatant_enemy:
-		enemy_collision.visible = false
 
-func _unhandled_input(event):
-	subviewport.push_input(event)
-
-# Makes them clickable, probably will be removed
-func create_collision_from_sprite_3d():
-	var interactable_area
-	for child in interactable_area.get_children():
-		if child is CollisionPolygon3D:
-			child.queue_free()
-
-	var texture = combatant_sprite.texture
-	if not texture: return
-	
-	var image = texture.get_image()
-	if image.is_compressed():
-		var err = image.decompress()
-		if err != OK:
-			return
-	var bitmap = BitMap.new()
-	bitmap.create_from_image_alpha(image)
-	var polygons = bitmap.opaque_to_polygons(Rect2(Vector2.ZERO, texture.get_size()), 2.0)
-	var scale_factor = combatant_sprite.pixel_size
-	
-	for poly_points in polygons:
-		var collision_poly = CollisionPolygon3D.new()
-		var adjusted_points = PackedVector2Array()
-		var texture_center = Vector2(texture.get_width(), texture.get_height()) / 2.0
-		
-		for pt in poly_points:
-			var new_pt = pt
-			
-			if combatant_sprite.centered:
-				new_pt -= texture_center
-			new_pt.y *= -1 
-			adjusted_points.append(new_pt * scale_factor)
-		
-		collision_poly.polygon = adjusted_points
-		collision_poly.depth = 0.1 
-		interactable_area.add_child(collision_poly)
-		
-		if not combatant_sprite.centered:
-			collision_poly.position.y += (texture.get_height() * scale_factor)
+func can_no_longer_be_selected():
+	unselect()
+	currently_selectable = false
+	can_be_unselected = true
 
 #region States
 
@@ -469,3 +434,22 @@ func attack_animation(what_attack_anim):
 	
 
 #endregion
+
+func _on_enemy_collision_mouse_entered():
+	if currently_selectable and not stored_combatant.is_dead:
+		selection_area_sprite.visible = true
+		selection_area_sprite.play("selectable")
+		if can_be_unselected:
+			parent_reference.unselect_all(false if stored_combatant.is_combatant_enemy else true)
+			parent_reference.select_individual(false if stored_combatant.is_combatant_enemy else true, child_number)
+		
+func _on_enemy_collision_mouse_exited():
+	return
+	if currently_selectable:
+		selection_area_sprite.visible = false
+		selection_area_sprite.stop()
+
+func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
+			parent_reference.confirmation.emit(child_number)

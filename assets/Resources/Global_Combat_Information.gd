@@ -11,6 +11,11 @@ var all_held_items: Array[Items]
 
 signal finished
 
+func load_items():
+	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
+	for i in range(5):
+		all_held_items.append(new_item.duplicate())
+
 func _ready():
 	active_party_slots.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres"))
 	active_party_slots.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres"))

@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://eql2rxxa33si"]
+
+[ext_resource type="Script" uid="uid://bhbkl0p8g5ou7" path="res://assets/Resources/Dungeon Stuff/item_node_setup.gd" id="1_4bq8n"]
+[ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="2_ud1yq"]
+[ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="3_ud1yq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dh27c"]
+size = Vector2(242, 65)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh27c"]
+bg_color = Color(0.75417984, 0.45223308, 0.888336, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8666667, 0.7529412, 0.49019608, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpb4g"]
+atlas = ExtResource("3_ud1yq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pchgr"]
+atlas = ExtResource("3_ud1yq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6lgf"]
+atlas = ExtResource("3_ud1yq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cukh"]
+atlas = ExtResource("3_ud1yq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d63qj"]
+atlas = ExtResource("3_ud1yq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xls77"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpb4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pchgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6lgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cukh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d63qj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="List_Item" type="Control" unique_id=2064623552]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_4bq8n")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2104335080]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1446236301]
+position = Vector2(121, 32.5)
+shape = SubResource("RectangleShape2D_dh27c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=660287717]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control" type="Control" parent="HBoxContainer" unique_id=1245118047]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Control" unique_id=584745599]
+z_index = -1
+layout_mode = 0
+offset_right = 160.66667
+offset_bottom = 43.333336
+scale = Vector2(1.5, 1.5)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_dh27c")
+
+[node name="Item_Name" type="Label" parent="HBoxContainer/Control" unique_id=1412283802]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 3.0
+offset_right = 181.33334
+offset_bottom = 44.333336
+scale = Vector2(1.5, 1.5)
+mouse_filter = 1
+text = "Potion"
+vertical_alignment = 1
+
+[node name="Item_Texture" type="TextureRect" parent="HBoxContainer/Control" unique_id=1564032927]
+z_index = -1
+layout_mode = 0
+offset_top = 1.0
+offset_right = 40.0
+offset_bottom = 41.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_ud1yq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=577751092]
+visible = false
+position = Vector2(215, 31)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_xls77")
+frame_progress = 0.26809916
+
+[connection signal="input_event" from="Area2D" to="." method="_on_item_selected"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_panel_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_panel_mouse_exited"]
