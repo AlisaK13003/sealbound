@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0m5otdlhwxng"
-path="res://.godot/imported/Skill Selection.png-dde3e09344801d4668efbb52de90324c.ctex"
+uid="uid://dm1en4gddvvqc"
+path="res://.godot/imported/Toggled_Forgebound_Resolve.png-be1f1329acc08bdd18950d2cc6bd9d35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Skill Selection.png"
-dest_files=["res://.godot/imported/Skill Selection.png-dde3e09344801d4668efbb52de90324c.ctex"]
+source_file="res://assets/tile sheets/Move Sprites/Toggled_Forgebound_Resolve.png"
+dest_files=["res://.godot/imported/Toggled_Forgebound_Resolve.png-be1f1329acc08bdd18950d2cc6bd9d35.ctex"]
 
 [params]
 

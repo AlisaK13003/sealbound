@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Global="*uid://c8yegl8nrw5mx"
 DialogueSystem="*uid://bojyx7lfmc8nh"
 Fade="*uid://bp4nraurt5ifw"
+GlobalCombatInformation="*uid://bba2tvdjwats"
 
 [display]
 
@@ -34,8 +35,15 @@ window/stretch/aspect="ignore"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[file_customization]
+
+folder_colors={
+"res://assets/tile sheets/Move Sprites/": "red"
+}
+
 [gui]
 
+common/snap_controls_to_pixels=false
 theme/custom_font="uid://bpnykjvtqplb2"
 
 [input]
@@ -134,5 +142,6 @@ rendering/text_driver="ICU / HarfBuzz / Graphite (Built-in)"
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+textures/default_filters/use_nearest_mipmap_filter=true
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

@@ -3,8 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://ceicki2gyqvpl" path="res://assets/Party Members/Sprites/Temp_Party_3.tres" id="1_dhfcn"]
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_dmw0s"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_oakox"]
+[ext_resource type="Resource" uid="uid://dmhaxgxe2w5q1" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Shielding Strike.tres" id="2_8v2a8"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_dhfcn"]
+[ext_resource type="Resource" uid="uid://p38m7hh5chwp" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Hold Fast.tres" id="3_ikrf0"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_i1avj"]
+[ext_resource type="Resource" uid="uid://m5dnd2snq2qa" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Forgebound Resolve.tres" id="4_ouiim"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_dmw0s"]
 
 [sub_resource type="Resource" id="Resource_qx3or"]
@@ -21,11 +24,13 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_b6bld"]
 script = ExtResource("4_i1avj")
+equipment_name = "Soul of Athena"
 equipment_stats = SubResource("Resource_iikrj")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_8v2a8"]
 script = ExtResource("5_dmw0s")
+weapon_name = "Quintessence"
 weapon_attack = 30
 attack_accuracy = 90
 status_conditions = null
@@ -39,4 +44,5 @@ combatant_sprite = ExtResource("1_dhfcn")
 combatant_stats = SubResource("Resource_qx3or")
 stored_weapon = SubResource("Resource_8v2a8")
 stored_equipment = SubResource("Resource_b6bld")
+combatant_skills = Array[ExtResource("1_dmw0s")]([ExtResource("2_8v2a8"), ExtResource("3_ikrf0"), ExtResource("4_ouiim")])
 metadata/_custom_type_script = "uid://125iickqse23"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b45x70ob3ead2"
-path="res://.godot/imported/Back_Arrow.png-a7bb46fd6122865e6f3b08afdcd53405.ctex"
+uid="uid://v8eyoeu78441"
+path="res://.godot/imported/Eyeball_Shoot.png-9fc2c6f868a5dd710ba1e6ef4f3ea8ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Back_Arrow.png"
-dest_files=["res://.godot/imported/Back_Arrow.png-a7bb46fd6122865e6f3b08afdcd53405.ctex"]
+source_file="res://assets/Enemies/Enemy_Sprites/Eyeball_Shoot.png"
+dest_files=["res://.godot/imported/Eyeball_Shoot.png-9fc2c6f868a5dd710ba1e6ef4f3ea8ae.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

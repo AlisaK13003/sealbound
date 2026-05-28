@@ -1,17 +1,25 @@
 [gd_resource type="Resource" script_class="moves" format=3 uid="uid://m5dnd2snq2qa"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_3ydac"]
+[ext_resource type="Texture2D" uid="uid://bsiujjtj83bkq" path="res://assets/tile sheets/Move Sprites/Disabled_Forgebound_Resolve.png" id="1_nimfi"]
+[ext_resource type="Texture2D" uid="uid://bv8ce3lbnof8i" path="res://assets/tile sheets/Move Sprites/Forgebound Resolve.png" id="2_keh4f"]
 
 [resource]
 script = ExtResource("1_3ydac")
 move_name = "Forgebound Resolve"
 move_description = "Restore moderate HP to one ally. Also gives defense buff"
 attack_power = null
+is_magic_skill = true
 mana_cost = 2
 does_status = true
 status_type = 131072
+removes_status = null
 chance_of_status_condition = 1.0
 targets_party = true
 does_heal_party = true
 amount_healed = 1
+normal_sprite = ExtResource("2_keh4f")
+pressed_sprite = ExtResource("2_keh4f")
+hover_sprite = ExtResource("2_keh4f")
+disabled_sprite = ExtResource("1_nimfi")
 metadata/_custom_type_script = "uid://djfkp740jjn43"

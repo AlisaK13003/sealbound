@@ -3,10 +3,16 @@ extends CanvasLayer
 @onready var fade_thing = $Panel
 var is_fading : bool
 
-func change_scene(target_path: String, duration: float = 2):
+func change_scene(target_path: String, _duration: float = 2):
 	get_tree().change_scene_to_file(target_path)
 	
+	# Wait exactly one idle frame for Godot to unload the old scene and load the new one
 	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	# Now current_scene refers to the newly loaded scene
+	var new_scene: Node = get_tree().current_scene
+	return new_scene
 
 func fade_in():
 	is_fading = true

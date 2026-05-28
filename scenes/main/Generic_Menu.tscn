@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://c1kdv54b51l7q"]
+
+[ext_resource type="Script" uid="uid://dukkf58jai03t" path="res://scenes/main/generic_menu_handler.gd" id="1_vrgb6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slo5s"]
+bg_color = Color(0.25361022, 0.66085225, 0.75401354, 1)
+
+[node name="GenericMenu" type="Control" unique_id=1663083347 node_paths=PackedStringArray("menu_self")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_vrgb6")
+menu_self = NodePath(".")
+
+[node name="Menu_Tabs" type="GridContainer" parent="." unique_id=2125802488]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 152.0
+offset_right = 257.0
+offset_bottom = 176.0
+
+[node name="TextureButton" type="TextureButton" parent="Menu_Tabs" unique_id=562369736]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton" unique_id=991510685]
+layout_mode = 0
+offset_right = 36.2
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton" unique_id=1771744390]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="TextureButton2" type="TextureButton" parent="Menu_Tabs" unique_id=255349547]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton2" unique_id=180320981]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton2" unique_id=1901554746]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="TextureButton3" type="TextureButton" parent="Menu_Tabs" unique_id=1719567713]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton3" unique_id=846653218]
+layout_mode = 0
+offset_right = 36.600006
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton3" unique_id=1130494510]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="TextureButton4" type="TextureButton" parent="Menu_Tabs" unique_id=615336796]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton4" unique_id=1761763924]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton4" unique_id=326181132]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="TextureButton5" type="TextureButton" parent="Menu_Tabs" unique_id=2059717399]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton5" unique_id=1152258505]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton5" unique_id=823830240]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="TextureButton6" type="TextureButton" parent="Menu_Tabs" unique_id=1091649919]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton6" unique_id=159633705]
+layout_mode = 0
+offset_right = 35.799988
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton6" unique_id=1960270950]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="TextureButton7" type="TextureButton" parent="Menu_Tabs" unique_id=1291362382]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Menu_Tabs/TextureButton7" unique_id=1739221665]
+layout_mode = 0
+offset_right = 35.799988
+offset_bottom = 14.0
+scale = Vector2(5, 5)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Menu_Tabs/TextureButton7" unique_id=2062984087]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+scale = Vector2(0.445, 0.445)
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 190
+text = "Items"
+
+[node name="Panel" type="Panel" parent="." unique_id=416533798]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 224.0
+offset_right = 1741.0
+offset_bottom = 964.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_slo5s")
+
+[connection signal="button_down" from="Menu_Tabs/TextureButton" to="." method="_swap_menu_tabs" binds= [0]]
+[connection signal="button_down" from="Menu_Tabs/TextureButton2" to="." method="_swap_menu_tabs" binds= [1]]
+[connection signal="button_down" from="Menu_Tabs/TextureButton3" to="." method="_swap_menu_tabs" binds= [2]]
+[connection signal="button_down" from="Menu_Tabs/TextureButton4" to="." method="_swap_menu_tabs" binds= [3]]
+[connection signal="button_down" from="Menu_Tabs/TextureButton5" to="." method="_swap_menu_tabs" binds= [4]]
+[connection signal="button_down" from="Menu_Tabs/TextureButton6" to="." method="_swap_menu_tabs" binds= [5]]
+[connection signal="button_down" from="Menu_Tabs/TextureButton7" to="." method="_swap_menu_tabs" binds= [6]]

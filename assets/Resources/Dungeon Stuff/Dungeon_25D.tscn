@@ -1,681 +1,55 @@
-[gd_scene format=3 uid="uid://dwrp12akj1lvn"]
+[gd_scene format=3 uid="uid://ccdj2neuofomx"]
 
 [ext_resource type="Script" uid="uid://bftcak8hng7gw" path="res://scenes/Dungeon/dungeon.gd" id="1_xfoey"]
 [ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="2_dgt0a"]
 [ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="3_x3t77"]
 [ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="4_xal47"]
-[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="5_o8d11"]
-[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_pvdly"]
+[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_dungeon_type.tres" id="5_t7hpr"]
 [ext_resource type="Texture2D" uid="uid://58jsyjqchuls" path="res://assets/tile sheets/Floor.png" id="7_1u5h8"]
-[ext_resource type="Texture2D" uid="uid://c5m63looaycv5" path="res://assets/tile sheets/Under_Health_)Bar.png" id="7_a4wc1"]
-[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="7_c1vbs"]
-[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="7_w732d"]
+[ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="7_og2ux"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
-[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="8_hyoec"]
-[ext_resource type="Texture2D" uid="uid://y5h7r3qfd7ty" path="res://assets/tile sheets/Sprite-0004.png" id="8_t7hpr"]
+[ext_resource type="PackedScene" uid="uid://dgs2lhgc5rktk" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_GUI.tscn" id="8_og2ux"]
 [ext_resource type="Texture2D" uid="uid://dfguifwtach7e" path="res://assets/Sprites/Dungeon_wall_right.png" id="8_xal47"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="9_ge6k6"]
-[ext_resource type="Texture2D" uid="uid://bvdle862wer" path="res://assets/tile sheets/Over_Health_bar.png" id="9_og2ux"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_p8ud6"]
-[ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="11_1uael"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_42huj"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qmc7r"]
-atlas = SubResource("CompressedTexture2D_42huj")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_663s7"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_782v8"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_kbs5w"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_782v8")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_27c16"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_ay0lm"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_qmc7r")
-combatant_stats = SubResource("Resource_663s7")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_27c16")
-stored_equipment = SubResource("Resource_kbs5w")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aomwr"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wc1mo"]
-atlas = SubResource("CompressedTexture2D_aomwr")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_l2hbv"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_1jorw"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_ye7wd"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_1jorw")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_t77wq"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_fr0kc"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_wc1mo")
-combatant_stats = SubResource("Resource_l2hbv")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_t77wq")
-stored_equipment = SubResource("Resource_ye7wd")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uky6n"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_22shg"]
-atlas = SubResource("CompressedTexture2D_uky6n")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_ocjc6"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_mj55i"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_81rv2"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_mj55i")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_up5h0"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_d8xg6"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_22shg")
-combatant_stats = SubResource("Resource_ocjc6")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_up5h0")
-stored_equipment = SubResource("Resource_81rv2")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ayfnu"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_up657"]
-atlas = SubResource("CompressedTexture2D_ayfnu")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_dfxhc"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_oui2p"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_33h1d"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_oui2p")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_g0guc"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_46vsc"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_up657")
-combatant_stats = SubResource("Resource_dfxhc")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_g0guc")
-stored_equipment = SubResource("Resource_33h1d")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ba1vd"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cek54"]
-atlas = SubResource("CompressedTexture2D_ba1vd")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_8fhgi"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_8oflg"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_wlj2u"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_8oflg")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_b1p7t"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_gy3qw"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_cek54")
-combatant_stats = SubResource("Resource_8fhgi")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_b1p7t")
-stored_equipment = SubResource("Resource_wlj2u")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="Resource" id="Resource_bb5ta"]
-script = ExtResource("5_o8d11")
-enemies = Array[ExtResource("6_pvdly")]([SubResource("Resource_ay0lm"), SubResource("Resource_fr0kc"), SubResource("Resource_d8xg6"), SubResource("Resource_46vsc"), SubResource("Resource_gy3qw")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hg0oc"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yr3b8"]
-atlas = SubResource("CompressedTexture2D_hg0oc")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_joceg"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_dorgm"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_7rrrg"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_dorgm")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_2bxru"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_iqo5e"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_yr3b8")
-combatant_stats = SubResource("Resource_joceg")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_2bxru")
-stored_equipment = SubResource("Resource_7rrrg")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rwxat"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j217g"]
-atlas = SubResource("CompressedTexture2D_rwxat")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_lgac8"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_sgtuw"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_2wsgu"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_sgtuw")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_4eoni"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_nhyju"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_j217g")
-combatant_stats = SubResource("Resource_lgac8")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_4eoni")
-stored_equipment = SubResource("Resource_2wsgu")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j57u1"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d4lrt"]
-atlas = SubResource("CompressedTexture2D_j57u1")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_hl8aq"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_wpsyd"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_w04sa"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_wpsyd")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_yj662"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_bq1a6"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_d4lrt")
-combatant_stats = SubResource("Resource_hl8aq")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_yj662")
-stored_equipment = SubResource("Resource_w04sa")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_63ibq"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5r0qx"]
-atlas = SubResource("CompressedTexture2D_63ibq")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_xyjl8"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_6rm15"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_slovp"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_6rm15")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_suyt2"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_hgpo4"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_5r0qx")
-combatant_stats = SubResource("Resource_xyjl8")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_suyt2")
-stored_equipment = SubResource("Resource_slovp")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_temcn"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iew1q"]
-atlas = SubResource("CompressedTexture2D_temcn")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_bgb76"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_5pv0v"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_ifkqu"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_5pv0v")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_1nlno"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_3xk41"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_iew1q")
-combatant_stats = SubResource("Resource_bgb76")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_1nlno")
-stored_equipment = SubResource("Resource_ifkqu")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="Resource" id="Resource_u2r4m"]
-script = ExtResource("5_o8d11")
-enemies = Array[ExtResource("6_pvdly")]([SubResource("Resource_iqo5e"), SubResource("Resource_nhyju"), SubResource("Resource_bq1a6"), SubResource("Resource_hgpo4"), SubResource("Resource_3xk41")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aidf8"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wmshm"]
-atlas = SubResource("CompressedTexture2D_aidf8")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_ixsva"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_dquxj"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_ofqp5"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_dquxj")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_d1u6b"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_dpcn4"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_wmshm")
-combatant_stats = SubResource("Resource_ixsva")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_d1u6b")
-stored_equipment = SubResource("Resource_ofqp5")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vylt2"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yip25"]
-atlas = SubResource("CompressedTexture2D_vylt2")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_lne72"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_vh5eg"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_mjxer"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_vh5eg")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_7n1xa"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_yrtyl"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_yip25")
-combatant_stats = SubResource("Resource_lne72")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_7n1xa")
-stored_equipment = SubResource("Resource_mjxer")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2jmat"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w3iph"]
-atlas = SubResource("CompressedTexture2D_2jmat")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_3toti"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_15ie8"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_1j0sc"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_15ie8")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_yo2ul"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_fscfi"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_w3iph")
-combatant_stats = SubResource("Resource_3toti")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_yo2ul")
-stored_equipment = SubResource("Resource_1j0sc")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1d73"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g5dgi"]
-atlas = SubResource("CompressedTexture2D_t1d73")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_top1u"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_b5ujj"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_diyrm"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_b5ujj")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_m80p0"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_d10a0"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_g5dgi")
-combatant_stats = SubResource("Resource_top1u")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_m80p0")
-stored_equipment = SubResource("Resource_diyrm")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tvabg"]
-load_path = "res://.godot/imported/monsters.png-e391ea8191ba43e545c43c59aaf2bc7a.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0j1qb"]
-atlas = SubResource("CompressedTexture2D_tvabg")
-region = Rect2(0, 128, 32.350105, 32)
-
-[sub_resource type="Resource" id="Resource_or6je"]
-script = ExtResource("8_hyoec")
-max_health = 1789
-health = 1000
-speed = 81
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_alrv8"]
-script = ExtResource("8_hyoec")
-defense = 12
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_fkh0r"]
-script = ExtResource("9_ge6k6")
-equipment_stats = SubResource("Resource_alrv8")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_4xjxf"]
-script = ExtResource("10_p8ud6")
-weapon_attack = 20
-attack_accuracy = 90
-status_conditions = null
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
-[sub_resource type="Resource" id="Resource_fnp1t"]
-script = ExtResource("6_pvdly")
-combatant_name = "Puppy"
-combatant_sprite = SubResource("AtlasTexture_0j1qb")
-combatant_stats = SubResource("Resource_or6je")
-is_combatant_enemy = true
-stored_weapon = SubResource("Resource_4xjxf")
-stored_equipment = SubResource("Resource_fkh0r")
-metadata/_custom_type_script = "uid://125iickqse23"
-
-[sub_resource type="Resource" id="Resource_da8al"]
-script = ExtResource("5_o8d11")
-enemies = Array[ExtResource("6_pvdly")]([SubResource("Resource_dpcn4"), SubResource("Resource_yrtyl"), SubResource("Resource_fscfi"), SubResource("Resource_d10a0"), SubResource("Resource_fnp1t")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="Resource" id="Resource_drgul"]
-script = ExtResource("11_1uael")
-dungeon_name = "Creepy Crawly Dungeon"
-max_number_of_waves = 2
-minimum_number_of_waves = 5
-potential_waves = Array[ExtResource("5_o8d11")]([SubResource("Resource_bb5ta"), SubResource("Resource_u2r4m"), SubResource("Resource_da8al")])
-metadata/_custom_type_script = "uid://3loyjc4d808j"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfoey"]
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="12_edm4l"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="12_iegkx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edm4l"]
-bg_color = Color(0.28207913, 0.6745273, 0.63669854, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0.64324254, 0.5426964, 0.80472004, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 20
+shadow_color = Color(0.1336903, 0.061995834, 0.2626783, 0.6)
+shadow_size = 9
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uj4b"]
+bg_color = Color(0, 0.73001605, 9.62615e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iegkx"]
+bg_color = Color(0.99999994, 0.28730667, 0.22523719, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8d11"]
+bg_color = Color(0.5128465, 0.5735708, 0.8962405, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.7691465, 0.78199226, 0.97865075, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="Environment" id="Environment_a4wc1"]
+background_mode = 1
+background_color = Color(1, 1, 0.96862745, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7hpr"]
 albedo_texture = ExtResource("8_xal47")
+texture_filter = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_og2ux"]
 
@@ -683,6 +57,7 @@ albedo_texture = ExtResource("8_xal47")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuhll"]
 albedo_texture = ExtResource("7_1u5h8")
+texture_filter = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_7ovfc"]
 size = Vector3(2.215, 0.255, 1)
@@ -695,9 +70,11 @@ script = ExtResource("1_xfoey")
 party_slot_1 = ExtResource("2_dgt0a")
 party_slot_2 = ExtResource("3_x3t77")
 party_slot_3 = ExtResource("4_xal47")
-current_dungeon_run = SubResource("Resource_drgul")
+current_dungeon_run = ExtResource("5_t7hpr")
+temp_item_list = Array[ExtResource("12_iegkx")]([ExtResource("7_og2ux"), ExtResource("7_og2ux")])
 
 [node name="UI" type="Control" parent="." unique_id=738875588]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 622.0
@@ -706,37 +83,25 @@ offset_right = 662.0
 offset_bottom = 573.0
 mouse_filter = 1
 
-[node name="UI_Background" type="Panel" parent="UI" unique_id=1761465477]
-z_index = -1
-layout_mode = 0
-offset_left = -619.0
-offset_top = 372.0
-offset_right = 962.4575
-offset_bottom = 550.0
-scale = Vector2(1.2134376, 1)
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_xfoey")
-
-[node name="Temp_Mana" type="Label" parent="UI" unique_id=1961758163]
-layout_mode = 0
-offset_left = 995.0
-offset_top = 373.0
-offset_right = 1278.0
-offset_bottom = 549.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 50
-text = "Mana: 0  0  0"
-vertical_alignment = 1
+[node name="DungeonPlayerGui" parent="UI" unique_id=217185090 instance=ExtResource("8_og2ux")]
+layout_mode = 1
+offset_left = 334.0
+offset_top = 9.0
+offset_right = 334.0
+offset_bottom = 9.0
 
 [node name="Bond_Attack" type="ProgressBar" parent="UI" unique_id=899942920]
+texture_filter = 1
 layout_mode = 0
-offset_left = -57.0
-offset_top = 384.0
-offset_right = 802.0
-offset_bottom = 539.0
+offset_left = 1022.0
+offset_top = 375.0
+offset_right = 1478.0
+offset_bottom = 401.0
+rotation = -1.5707964
 mouse_filter = 1
 
 [node name="Dungeon_Floor" type="Label" parent="UI" unique_id=1949041571]
+texture_filter = 1
 layout_mode = 0
 offset_left = -614.0
 offset_top = -529.0
@@ -744,10 +109,10 @@ offset_right = -127.0
 offset_bottom = -376.0
 mouse_filter = 1
 theme_override_font_sizes/font_size = 66
-text = "Name of Dungeon
-3f"
+text = "Name of Dungeon 3f"
 
 [node name="Quests" type="Label" parent="UI/Dungeon_Floor" unique_id=655004733]
+texture_filter = 1
 layout_mode = 0
 offset_left = 1831.0
 offset_top = -4.0
@@ -758,188 +123,203 @@ theme_override_font_sizes/font_size = 146
 text = "Q"
 
 [node name="Party_Portraits" type="Control" parent="UI" unique_id=1031394283]
+texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 
-[node name="Party_Portrait_1" type="Control" parent="UI/Party_Portraits" unique_id=75698817]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Portrait" type="Sprite2D" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=392023982]
-position = Vector2(-565.00006, 457)
-scale = Vector2(2.2105262, 2.2105262)
-texture = ExtResource("7_w732d")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=85084760]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Party_Portraits" unique_id=1611507960]
+texture_filter = 1
 layout_mode = 0
-offset_left = -523.0
-offset_top = 423.0
-offset_right = -447.57144
-offset_bottom = 439.0
-value = 86.0
-nine_patch_stretch = true
-texture_under = ExtResource("7_a4wc1")
-texture_over = ExtResource("8_t7hpr")
-texture_progress = ExtResource("9_og2ux")
+offset_left = 1053.0
+offset_top = -102.0
+offset_right = 1093.0
+offset_bottom = 228.0
+theme_override_constants/separation = 165
 
-[node name="Health_Num" type="Label" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=1942784956]
+[node name="PartyPortrait_1" parent="UI/Party_Portraits/VBoxContainer" unique_id=812714871 instance=ExtResource("12_edm4l")]
+texture_filter = 1
+layout_mode = 2
+
+[node name="PartyPortrait_2" parent="UI/Party_Portraits/VBoxContainer" unique_id=1001780271 instance=ExtResource("12_edm4l")]
+texture_filter = 1
+layout_mode = 2
+
+[node name="PartyPortrait_3" parent="UI/Party_Portraits/VBoxContainer" unique_id=1414338046 instance=ExtResource("12_edm4l")]
+texture_filter = 1
+layout_mode = 2
+
+[node name="Confirmation" type="Panel" parent="UI" unique_id=2068698271]
+visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = -513.0
-offset_top = 424.0
-offset_right = -460.0
-offset_bottom = 442.0
-text = "100/500"
-
-[node name="Name" type="Label" parent="UI/Party_Portraits/Party_Portrait_1" unique_id=690401124]
-layout_mode = 0
-offset_left = -515.0
-offset_top = 387.0
-offset_right = -453.0
-offset_bottom = 429.0
-theme_override_font_sizes/font_size = 33
-text = "Lyra"
-
-[node name="Party_Portrait_2" type="Control" parent="UI/Party_Portraits" unique_id=1396455914]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Portrait" type="Sprite2D" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=667681062]
-position = Vector2(-387, 451.73682)
-scale = Vector2(2.2105262, 2.2105262)
-texture = ExtResource("7_w732d")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=1620443012]
-layout_mode = 0
-offset_left = -340.0
-offset_top = 411.0
-offset_right = -265.81216
-offset_bottom = 426.73682
-value = 86.0
-nine_patch_stretch = true
-texture_under = ExtResource("7_a4wc1")
-texture_over = ExtResource("8_t7hpr")
-texture_progress = ExtResource("9_og2ux")
-
-[node name="Name" type="Label" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=1873521796]
-layout_mode = 0
-offset_left = -338.0
-offset_top = 380.0
-offset_right = -266.0
-offset_bottom = 412.0
-theme_override_font_sizes/font_size = 28
-text = "Rowan"
-
-[node name="Health_Num" type="Label" parent="UI/Party_Portraits/Party_Portrait_2" unique_id=1511396136]
-layout_mode = 0
-offset_left = -331.0
-offset_top = 412.0
-offset_right = -278.0
-offset_bottom = 451.0
-text = "100/500
-"
-
-[node name="Party_Portrait_3" type="Control" parent="UI/Party_Portraits" unique_id=18857068]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel" type="Panel" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=1842927605]
-z_index = -1
-layout_mode = 0
-offset_left = -615.0
-offset_top = 375.0
-offset_right = -444.0
-offset_bottom = 534.0
+offset_left = 29.0
+offset_top = 322.0
+offset_right = 605.0
+offset_bottom = 538.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_edm4l")
 
-[node name="Name" type="Label" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=220101027]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Confirmation" unique_id=584198092]
+texture_filter = 1
 layout_mode = 0
-offset_left = -132.0
-offset_top = 379.0
-offset_right = -92.0
-offset_bottom = 411.0
+offset_left = 85.0
+offset_top = 130.0
+offset_right = 493.0
+offset_bottom = 180.0
+theme_override_constants/separation = 208
+
+[node name="Panel" type="Panel" parent="UI/Confirmation/HBoxContainer" unique_id=2010219705]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_7uj4b")
+
+[node name="Label" type="Label" parent="UI/Confirmation/HBoxContainer/Panel" unique_id=361036939]
+texture_filter = 1
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 51.0
+mouse_filter = 1
+text = "Confirm"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="UI/Confirmation/HBoxContainer" unique_id=1457558027]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_iegkx")
+
+[node name="Label" type="Label" parent="UI/Confirmation/HBoxContainer/Panel2" unique_id=1701090137]
+texture_filter = 1
+layout_mode = 0
+offset_right = 101.0
+offset_bottom = 50.0
+mouse_filter = 1
+text = "Decline"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="UI/Confirmation" unique_id=2111548861]
+texture_filter = 1
+layout_mode = 0
+offset_right = 573.0
+offset_bottom = 124.0
+mouse_filter = 1
 theme_override_font_sizes/font_size = 28
-text = "MC"
+text = "Use Second Wind on Lyra?"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Health_Num" type="Label" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=409078617]
-z_index = 1
+[node name="Mana Bar" type="Panel" parent="UI" unique_id=2056271401]
+texture_filter = 1
 layout_mode = 0
-offset_left = -135.0
-offset_top = 408.0
-offset_right = -82.0
-offset_bottom = 440.0
-text = "100/500"
+offset_left = -613.0
+offset_top = 388.0
+offset_right = -477.0
+offset_bottom = 506.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8d11")
 
-[node name="Portrait" type="Sprite2D" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=1852567644]
-position = Vector2(-190, 452.73682)
-scale = Vector2(2.2105262, 2.2105262)
-texture = ExtResource("7_w732d")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Party_Portraits/Party_Portrait_3" unique_id=2065969080]
+[node name="Label" type="Label" parent="UI/Mana Bar" unique_id=1886573025]
+texture_filter = 1
 layout_mode = 0
-offset_left = -143.0
-offset_top = 408.0
-offset_right = -78.24072
-offset_bottom = 421.73682
-value = 86.0
-nine_patch_stretch = true
-texture_under = ExtResource("7_a4wc1")
-texture_over = ExtResource("8_t7hpr")
-texture_progress = ExtResource("9_og2ux")
+offset_left = 20.0
+offset_top = 24.0
+offset_right = 114.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 68
+text = "3/3"
+
+[node name="Label2" type="Label" parent="UI/Mana Bar" unique_id=1858373208]
+texture_filter = 1
+layout_mode = 0
+offset_left = 8.0
+offset_top = 116.0
+offset_right = 48.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 30
+text = "Mana"
+
+[node name="Turn Counter" type="Label" parent="UI" unique_id=258393882]
+texture_filter = 1
+layout_mode = 0
+offset_left = -615.0
+offset_top = 334.0
+offset_right = -488.0
+offset_bottom = 393.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 51
+text = "Turn: "
+
+[node name="Label" type="Label" parent="UI" unique_id=1014058335]
+texture_filter = 1
+layout_mode = 0
+offset_left = -621.00006
+offset_top = -465.00003
+offset_right = 503.99994
+offset_bottom = -240.00003
+scale = Vector2(0.365, 0.365)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Active Turn: "
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
-transform = Transform3D(1, 0, 0, 0, 0.9957247, 0.09237059, 0, -0.09237059, 0.9957247, 0.3054195, 0.23937124, 0.65926707)
-fov = 85.3
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.395, 2.07, 6)
+environment = SubResource("Environment_a4wc1")
+fov = 15.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0062575, 0, -0.74907875)
 
 [node name="Enemy_Slot1" parent="Enemy_Container" unique_id=1849059853 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82946444, 0.085932866, -0.41350815)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.751, 0.138, 0.5)
 
 [node name="Enemy_Slot2" parent="Enemy_Container" unique_id=169123962 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9707415, 0.085932866, -0.21960393)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.001, 0.138, 0.45)
 
 [node name="Enemy_Slot3" parent="Enemy_Container" unique_id=1094727955 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1212277, 0.030133858, -0.11861959)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.251, 0.138, 0.4)
 
 [node name="Enemy_Slot4" parent="Enemy_Container" unique_id=2016040555 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5572612, 0.085932866, -0.39120483)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.501, 0.138, 0.35)
 
 [node name="Enemy_Slot5" parent="Enemy_Container" unique_id=2008772717 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.442809, 0.085932866, -0.15646863)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.751, 0.138, 0.3)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Background" unique_id=1849542940]
-transform = Transform3D(2.245, 0, 0, 0, 2.605, 0, 0, 0, 0.77, -3.8813362, 0.80531025, -2.7060204)
+transform = Transform3D(2.2449985, -0.0024608748, 0.00037480026, 0.0021208662, 2.6049986, -4.937798e-05, -0.0010926181, 0.00016831119, 0.7699998, -3.8748999, -1.1425264, -9.574345)
 material_override = SubResource("StandardMaterial3D_t7hpr")
 mesh = SubResource("BoxMesh_og2ux")
 material = SubResource("StandardMaterial3D_edm4l")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Background" unique_id=370850503]
-transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, -1.641, 0.805428, -3.4514618)
+transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, -1.6348088, -1.1373134, -10.322394)
 material_override = SubResource("StandardMaterial3D_t7hpr")
 mesh = SubResource("BoxMesh_og2ux")
 material = SubResource("StandardMaterial3D_edm4l")
 
 [node name="CSGMesh3D3" type="CSGMesh3D" parent="Background" unique_id=1378537069]
-transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, 0.7025068, 0.805428, -3.4514618)
+transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, 0.70869803, -1.1373134, -10.322394)
 material_override = SubResource("StandardMaterial3D_t7hpr")
 mesh = SubResource("BoxMesh_og2ux")
 material = SubResource("StandardMaterial3D_edm4l")
 
 [node name="CSGMesh3D4" type="CSGMesh3D" parent="Background" unique_id=1356877479]
-transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, 3.0137897, 0.805428, -3.4514618)
+transform = Transform3D(0.0010926638, -0.002460875, -2.3749986, -0.0001439658, 2.604999, -0.0022436786, 2.2449996, 0.00016831122, 0.0011557842, 3.0198588, -1.1358469, -10.323141)
 material_override = SubResource("StandardMaterial3D_t7hpr")
 mesh = SubResource("BoxMesh_og2ux")
 material = SubResource("StandardMaterial3D_edm4l")
 
 [node name="CSGMesh3D5" type="CSGMesh3D" parent="Background" unique_id=473875855]
-transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, 5.302498, 0.805428, -3.4514618)
+transform = Transform3D(0.0010926638, -0.002460875, -2.3749986, -0.0001439658, 2.604999, -0.0022436786, 2.2449996, 0.00016831122, 0.0011557842, 5.3085656, -1.1336846, -10.324255)
 material_override = SubResource("StandardMaterial3D_t7hpr")
 mesh = SubResource("BoxMesh_og2ux")
 material = SubResource("StandardMaterial3D_edm4l")
@@ -947,7 +327,7 @@ material = SubResource("StandardMaterial3D_edm4l")
 [node name="Node3D" type="Node3D" parent="Background" unique_id=1840056412]
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Background/Node3D" unique_id=844618595]
-transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, 0.7250071, 1.8527098, -1.4258513)
+transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, 0.7311984, 1.2121916, -1.4257321)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
@@ -956,66 +336,67 @@ transform = Transform3D(-1.5, 8.742278e-08, 0, 1.484481e-08, 0.11320321, -10.566
 material_override = SubResource("StandardMaterial3D_a4wc1")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Background/Node3D" unique_id=701846657]
-transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, -2.574, 1.853, -1.426)
+transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, -2.5678086, 1.2124817, -1.4258808)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Background/Node3D" unique_id=379927830]
-transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, 3.977, 1.853, -1.426)
+transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, 3.9831913, 1.2124817, -1.4258808)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Background/Node3D" unique_id=859156403]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9546279, -0.5272965, -1.653939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9546279, -0.45402175, -1.653939)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="Background/Node3D" unique_id=1655325655]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23347682, -0.5272965, -1.653939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23347682, -0.45402175, -1.653939)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D14" type="MeshInstance3D" parent="Background/Node3D" unique_id=1814099832]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.9548312, -0.527, -0.71)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.9548312, -0.45372528, -0.71)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D15" type="MeshInstance3D" parent="Background/Node3D" unique_id=592331149]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.137033, -0.527, -0.71)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.137033, -0.45372528, -0.71)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D13" type="MeshInstance3D" parent="Background/Node3D" unique_id=1373977101]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4158444, -0.5272965, -1.653939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4158444, -0.45402175, -1.653939)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D16" type="MeshInstance3D" parent="Background/Node3D" unique_id=1526825726]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6094456, -0.5272965, -1.653939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6094456, -0.45402175, -1.653939)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="Background/Node3D" unique_id=1612521161]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2347903, -0.5272965, -0.7101507)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2347903, -0.45402175, -0.7101507)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="Background/Node3D" unique_id=118344350]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.43, -0.527, -0.71)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.43, -0.45372528, -0.71)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="MeshInstance3D8" type="MeshInstance3D" parent="Background/Node3D" unique_id=1970071791]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1589966, -0.5272965, -1.6912394)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1589966, -0.45402175, -1.6912394)
 material_override = SubResource("StandardMaterial3D_fuhll")
 mesh = SubResource("BoxMesh_7ovfc")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Background" unique_id=652497575]
-transform = Transform3D(1, 0, 0, 0, -0.068015285, -0.9976843, 0, 0.9976843, -0.068015285, -2.3039393, 0.23747367, -2.1053653)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.9402634, 0.2595748, -0.901104)
 light_color = Color(1, 0, 0, 1)
-light_energy = 1.074
 light_indirect_energy = 16.0
 light_bake_mode = 1
+spot_range = 1.1626496
+spot_angle = 43.251858
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Background" unique_id=217029686]
 transform = Transform3D(1, 0, 0, 0, -0.068015285, -0.9976843, 0, 0.9976843, -0.068015285, 2.2186317, 0.16160595, -2.1053653)
@@ -1033,12 +414,16 @@ light_indirect_energy = 16.0
 light_bake_mode = 1
 
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17756835, 0, -0.19572136)
 
 [node name="Player_Slot1" parent="Player_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011787981, 0.072930865, -0.3279845)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0, 0.168, 0)
 
 [node name="Player_Slot2" parent="Player_Container" unique_id=1180676946 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22956991, 0.072930865, -0.16121057)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, 0.168, 0.05)
 
 [node name="Player_Slot3" parent="Player_Container" unique_id=2018764669 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34856743, 0.072930865, 0.011933684)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.6, 0.168, 0.1)
+
+[connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel" to="." method="confirmation_button" binds= [true]]
+[connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel2" to="." method="confirmation_button" binds= [false]]

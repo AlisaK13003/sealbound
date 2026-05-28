@@ -9,14 +9,16 @@
 script = ExtResource("1_jguxn")
 move_name = "Head Bash"
 attack_power = 1
-status_conditions = null
+status_type = null
+removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ytgt1"]
 script = ExtResource("1_jguxn")
 move_name = "Swing Sword"
 attack_power = 2
-status_conditions = null
+status_type = null
+removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_bef6l"]

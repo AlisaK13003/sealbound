@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crmnlgmc341af"
-path="res://.godot/imported/Action_Selection.png-a68071543cf4be2c0bb34632d95d6577.ctex"
+uid="uid://duo61acvtl5rr"
+path="res://.godot/imported/Toggled_Shielding_Strike.png-ab213d1f4e1db0c1d9d79a73b3300098.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Action_Selection.png"
-dest_files=["res://.godot/imported/Action_Selection.png-a68071543cf4be2c0bb34632d95d6577.ctex"]
+source_file="res://assets/tile sheets/Move Sprites/Toggled_Shielding_Strike.png"
+dest_files=["res://.godot/imported/Toggled_Shielding_Strike.png-ab213d1f4e1db0c1d9d79a73b3300098.ctex"]
 
 [params]
 
