@@ -25,6 +25,10 @@ class_name dungeon_loop
 
 var all_combatants : Array[combat_template] = []
 
+var selecting_entity
+
+var current_selected_person
+
 var mana: int = 3
 var max_mana: int = 3
 
@@ -119,16 +123,214 @@ func battle_loop():
 						number_of_alive_enemies += 1
 						
 				await get_tree().create_timer(1).timeout
-				print(number_of_alive_enemies)
 				if number_of_alive_enemies <= 0:
 					is_wave_over = true
 					break
 	print("BATTLE FINISHED")
 
 #region EntityTurns
+
+func get_enemy_count():
+	return enemy_shit.get_child_count()
+
+func get_player_count():
+	return player_container.get_child_count()
+
+var healing_weight = 10
+var kill_weight = 50
+var little_damage_weight = 5
+var moderate_damage_weight = 10
+var large_damage_weight = 20
+var little_heal_weight = 5
+var moderate_heal_weight = 10
+var large_heal_weight = 20
+var remove_status_weight = 15
+var give_self_status_weight = 15
+var remove_players_status_weight = 20
+var give_player_status_weight = 20
+
+class enemy_weighting:
+	var is_base_attack: bool
+	var skill_type: moves
+	var targetting_player: bool
+	var targetting_who
+	var action_weight: float = 0.0
+	var action_name : String
+	var person_acting: combat_template
+	# Mana cost, Adding status, Removing Status, Targets Party, Targets Self, Is Aoe, healing
+	
+	func _init(enemy_container, player_container, person_acting: combat_template, target = null, targetting_player = true, skill_type: moves= null, action_weight: int = 1):
+		self.skill_type = skill_type
+		self.person_acting = person_acting
+		if target == null:
+			self.action_weight = 0
+			return
+		if skill_type != null:
+			if skill_type.mana_cost > person_acting.current_mana:
+				self.action_weight = 0
+				return
+			if (skill_type.targets_party or skill_type.targets_self) and not target.stored_combatant.is_combatant_enemy:
+				self.action_weight = 0
+				return
+			if skill_type.does_remove_status and not target.check_if_status_is_there(skill_type.removes_status):
+				self.action_weight = 0
+				return
+			if skill_type.does_status and skill_type.status_type <= person_acting.statuses.AGRO and not target.check_if_status_is_there(skill_type.removes_status):
+				self.action_weight = 0
+				return
+			if skill_type.is_skill_aoe:
+				if skill_type.targets_party and not targetting_player:
+					targetting_who = enemy_container.get_child_count()	
+				elif not skill_type.targets_party and not target.stored_combatant.is_combatant_enemy:
+					targetting_who = player_container.get_child_count()
+				else:
+					self.action_weight = 0
+					return
+				var should_do_status = 0
+				if skill_type.does_status or skill_type.removes_status:
+					if not skill_type.targets_party:
+						for player in player_container.get_children():
+							if player.stored_combatant.is_dead:
+								continue
+							if skill_type.does_remove_status and target.check_if_status_is_there(skill_type.removes_status):
+								should_do_status += 1
+							if skill_type.does_status and skill_type.status_type <= person_acting.statuses.AGRO and target.check_if_status_is_there(skill_type.removes_status):
+								should_do_status += 1
+					else:
+						for enemy in enemy_container.get_children():
+							if enemy.stored_combatant.is_dead:
+								continue
+							if skill_type.does_remove_status and target.check_if_status_is_there(skill_type.removes_status):
+								should_do_status += 1
+							if skill_type.does_status and skill_type.status_type <= person_acting.statuses.AGRO and target.check_if_status_is_there(skill_type.removes_status):
+								should_do_status += 1
+					if should_do_status < 2:
+						self.action_weight = 0
+						return
+			else:
+				if targetting_who.stored_combatant.is_dead:
+					self.action_weight = 0
+					return
+				if skill_type.targets_party and skill_type.does_heal_party:
+					match skill_type.amount_healed:
+						0:
+							if target.stored_combatant.combatant_stats.health > (0.8 * target.stored_combatant.combatant_stats.max_health):
+								self.action_weight = 0
+								return
+						1:
+							if target.stored_combatant.combatant_stats.health > (0.6 * target.stored_combatant.combatant_stats.max_health):
+								self.action_weight = 0
+								return
+						2:
+							if target.stored_combatant.combatant_stats.health > (0.5 * target.stored_combatant.combatant_stats.max_health):
+								self.action_weight = 0
+								return
+				targetting_who = target
+			self.targetting_player = not skill_type.targets_party
+			action_name = skill_type.move_name
+			is_base_attack = false
+			self.action_weight += action_weight
+		else:
+			is_base_attack = true
+			targetting_player = true
+			targetting_who = target
+			action_name = "Base Attack"
+			self.action_weight = action_weight
+
+func gather_true_action_weights(action_to_test: enemy_weighting):
+	var new_weighting = 0
+	if not action_to_test.is_base_attack:
+		var skill_used = action_to_test.skill_type
+		if skill_used.is_skill_aoe:
+			if skill_used.targets_party:
+				for enemy in enemy_shit.get_children():
+					if enemy.stored_combatant.is_dead:
+						continue
+					if skill_used.does_remove_status and ((skill_used.status_type <= action_to_test.person_acting.statuses.AGRO and enemy.check_if_status_is_there(skill_used.removes_status)) or true):
+						new_weighting += give_player_status_weight
+					if skill_used.does_status and enemy.check_if_status_is_there(skill_used.removes_status):
+						new_weighting += remove_players_status_weight
+					var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), enemy.stored_combatant, skill_used.is_magic_skill, skill_used.accuracy)
+					if enemy.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+						new_weighting += kill_weight
+					elif damage_done[0] > (0.7 * enemy.stored_combatant.combatant_stats.max_health):
+						new_weighting += large_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+					elif damage_done[0] > (0.4 * enemy.stored_combatant.combatant_stats.max_health):
+						new_weighting += moderate_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+					elif damage_done[0] > (0.2 * enemy.stored_combatant.combatant_stats.max_health):
+						new_weighting += little_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+					else:
+						new_weighting += 1
+			else:
+				for player in player_container.get_children():
+					if skill_used.does_status:
+						new_weighting += give_player_status_weight
+					if skill_used.removes_status:
+						new_weighting += remove_players_status_weight
+					var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), player, skill_used.is_magic_skill, skill_used.accuracy)
+					if player.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+						new_weighting += kill_weight
+					elif damage_done[0] > (0.7 * player.stored_combatant.combatant_stats.max_health):
+						new_weighting += large_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+					elif damage_done[0] > (0.4 * player.stored_combatant.combatant_stats.max_health):
+						new_weighting += moderate_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+					elif damage_done[0] > (0.2 * player.stored_combatant.combatant_stats.max_health):
+						new_weighting += little_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+					else:
+						new_weighting += 1
+		else:
+			var targetting_dude: generic_combatants = action_to_test.targetting_who.stored_combatant
+			if skill_used.targets_party or skill_used.targets_self:
+				if skill_used.does_heal_party:
+					match skill_used.amount_healed:
+						0:
+							if targetting_dude.combatant_stats.health > (0.8 * targetting_dude.combatant_stats.max_health):
+								new_weighting += little_heal_weight
+						1:
+							if targetting_dude.combatant_stats.health > (0.6 * targetting_dude.combatant_stats.max_health):
+								new_weighting += moderate_heal_weight
+						2:
+							if targetting_dude.combatant_stats.health > (0.5 * targetting_dude.combatant_stats.max_health):
+								new_weighting += large_heal_weight
+				if skill_used.does_status:
+					new_weighting += give_self_status_weight
+				if skill_used.removes_status:
+					new_weighting += remove_status_weight
+			else:
+				if skill_used.does_status:
+					new_weighting += give_player_status_weight
+				if skill_used.removes_status:
+					new_weighting += remove_players_status_weight
+				var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), targetting_dude, skill_used.is_magic_skill, skill_used.accuracy)
+				if targetting_dude.combatant_stats.health - damage_done[0] <= 0:
+					new_weighting += kill_weight
+				elif damage_done[0] > (0.7 * targetting_dude.combatant_stats.max_health):
+					new_weighting += large_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+				elif damage_done[0] > (0.4 * targetting_dude.combatant_stats.max_health):
+					new_weighting += moderate_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+				elif damage_done[0] > (0.2 * targetting_dude.combatant_stats.max_health):
+					new_weighting += little_damage_weight * (skill_used.guaranteed_hit_count if skill_used.multi_hit else 1)
+				else:
+					new_weighting += 1
+	else:
+		var targetting_dude = action_to_test.targetting_who
+		var damage_done = calculate_damage(action_to_test.person_acting, 0, targetting_dude, false, action_to_test.person_acting.stored_combatant.stored_weapon.attack_accuracy)
+		if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+			new_weighting += kill_weight
+		elif damage_done[0] > (0.7 * targetting_dude.stored_combatant.combatant_stats.max_health):
+			new_weighting += large_damage_weight
+		elif damage_done[0] > (0.4 * targetting_dude.stored_combatant.combatant_stats.max_health):
+			new_weighting += moderate_damage_weight
+		elif damage_done[0] > (0.2 * targetting_dude.stored_combatant.combatant_stats.max_health):
+			new_weighting += little_damage_weight
+		else:
+			new_weighting += 1
+	return new_weighting
+
+
 func execute_enemy_turn(enemy_to_attack, _turn_number):
-	print("ACTING")
 	rng = RandomNumberGenerator.new()
+	var possible_enemy_actions: Array[enemy_weighting]
 	var action_selected = rng.randi_range(0,2)
 	var player_to_attack = rng.randi_range(0,2)
 	while(get_player(player_to_attack).stored_combatant.is_dead or get_player(player_to_attack).is_empty):
@@ -138,6 +340,44 @@ func execute_enemy_turn(enemy_to_attack, _turn_number):
 	for enemy in enemy_shit.get_children():
 		if enemy_to_attack == enemy.stored_combatant:
 			attacking_enemy = enemy_shit.get_child(enemy.get_index())
+
+	for action in range(attacking_enemy.stored_combatant.combatant_skills.size() + 1):
+		for player in player_container.get_children():
+			if action == 0:
+				var new_action = await enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player)
+				possible_enemy_actions.append(new_action)
+				continue
+			elif attacking_enemy.stored_combatant.combatant_skills[action - 1].is_skill_aoe and player.get_index() > 0:
+				continue
+			else:
+				var new_action = await enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player, true, attacking_enemy.stored_combatant.combatant_skills[action - 1])
+				possible_enemy_actions.append(new_action)
+				continue
+		if action != 0:
+			for enemy in enemy_shit.get_children():
+				if attacking_enemy.stored_combatant.combatant_skills[action - 1].is_skill_aoe and enemy.get_index() > 0:
+					continue
+				var new_action = await enemy_weighting.new(enemy_shit, player_container, attacking_enemy, enemy, false, attacking_enemy.stored_combatant.combatant_skills[action - 1])
+				possible_enemy_actions.append(new_action)
+
+	var finalized_enemy_actions: Array[enemy_weighting]
+	for action: enemy_weighting in possible_enemy_actions:
+		if action == null:
+			continue
+		if action.action_weight != 0:
+			finalized_enemy_actions.append(action)
+			
+	for action: enemy_weighting in finalized_enemy_actions:
+		action.action_weight = gather_true_action_weights(action)
+	finalized_enemy_actions = sort_enemy_actions(finalized_enemy_actions)
+	var total_weight_count = 0
+	for action: enemy_weighting in finalized_enemy_actions:
+		total_weight_count += action.action_weight
+	for action: enemy_weighting in finalized_enemy_actions:
+		action.action_weight = float(action.action_weight) / total_weight_count
+	for action: enemy_weighting in finalized_enemy_actions:
+		print(action.action_weight, " weight, then ", action.action_name)
+	return
 	await attacking_enemy.take_turn()
 	action_selected = 0
 	var action_sequence: Array[Callable]
@@ -155,7 +395,8 @@ func execute_enemy_turn(enemy_to_attack, _turn_number):
 					action_sequence.append(func(): await attacking_enemy.attack_animation(0))
 				1:
 					action_sequence.append(func(): await attacking_enemy.attack_animation(1))
-
+			
+			action_sequence.append(func(): await get_player(player_to_attack).handle_status(get_player(player_to_attack).statuses.BURN))
 			action_sequence.append(func(): await get_player(player_to_attack).update_health(damage_to_deal, false, get_player_portrait(player_to_attack)))
 			action_sequence.append(func(): await attacking_enemy.walk_animation())
 
@@ -187,12 +428,17 @@ func handle_player_move_selection(current_combatant):
 			var damage = get_player(active_player_turn).execute_base_attack(target_node)
 			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(false, what_action[1])))
 			action_sequence.append(func(): await target_node.update_health([damage, ""], false))
+			action_sequence.append(func(): await target_node.handle_status(target_node.statuses.EVASIONdown))
+			action_sequence.append(func(): await target_node.handle_status(target_node.statuses.ATTACKdown))
+			action_sequence.append(func(): await target_node.handle_status(target_node.statuses.DEFENSEdown))
+
+
 		"BASIC_DEFEND":
 			action_sequence.append(func(): await get_player(active_player_turn).execute_defend())
 			update_mana_display(2)
 		"SKILL":
 			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
-			action_sequence.append(func(): await execute_skills(what_action))
+			action_sequence.append(func(): await execute_skills(what_action, true))
 		"ITEM":
 			action_sequence.append(func(): await execute_item(what_action[1], what_action[3], what_action[2]))
 	action_sequence.append(func(): await revert_camera())
@@ -209,7 +455,7 @@ func confirmation_button(event, confirm_or_deny):
 			actual_confirmation.emit(confirm_or_deny)
 
 # what_action[1] is the skill itself and what_action[2] is who it targets
-func execute_skills(what_action):
+func execute_skills(what_action, player_or_enemy):
 	var current_player: combat_template = get_player(active_player_turn)
 	var skill_used: moves = what_action[1]
 	var action_sequence : Array[Callable]
@@ -225,17 +471,13 @@ func execute_skills(what_action):
 				if skill_used.does_heal_party:
 					if get_skill_boost(skill_used) != 999:
 						par_task.append(func(): await player.update_health([-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(player.get_index())))
-						#player.update_health([-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false, get_player_portrait(active_player))
 					else:
 						par_task.append(func(): await player.update_health([-1 * player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(player.get_index())))
-						#player.update_health([-1 * current_player.stored_combatant.combatant_stats.max_health, "HEAL"], false, get_player_portrait(active_player))
 				# Does this skill apply a status to every party member
 				if skill_used.does_status:
 					par_task.append(func(): await player.handle_status(skill_used.status_type))
-					#player.handle_status(skill_used.status_type)
 				if skill_used.does_remove_status:
 					par_task.append(func(): await player.remove_status(skill_used.removes_status))
-					#player.remove_status(skill_used.removes_status)
 			action_sequence.append(func(): await await_parallel(par_task))
 		# AOE skill that effects enemies
 		else:
@@ -364,7 +606,7 @@ func skill_selected(what_skill: moves):
 	highlight_check(what_skill.is_skill_aoe, what_skill.targets_party, what_skill.targets_self)
 	sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, 6 if not what_skill.targets_party else 4))
 	gui.hide_gui(true)
-	gui._executing_skill()
+	gui._executing_skill(true)
 	action_on_who = await confirmation
 	if not action_on_who is bool:
 		await no_one_can_be_selected()
@@ -372,25 +614,77 @@ func skill_selected(what_skill: moves):
 		action_taken.emit("SKILL", what_skill, action_on_who)
 		return
 	else:
-		revert_camera()
-		no_one_can_be_selected()
+		if action_on_who:
+			var count = 0
+			var last_selectable_entity = 0
+			if what_skill.targets_party:
+				for player in player_container.get_children():
+					if player.selection_area_sprite.visible:
+						count += 1
+						last_selectable_entity = player.get_index()
+				if count < player_container.get_child_count() - 1:
+					action_on_who = last_selectable_entity
+				else:
+					action_on_who = 4
+			else:
+				for enemy in enemy_shit.get_children():
+					if enemy.selection_area_sprite.visible:
+						count += 1
+						last_selectable_entity = enemy.get_index()
+				if count < enemy_shit.get_child_count() - 1:
+					action_on_who = last_selectable_entity
+				else:
+					action_on_who = 6
+			await no_one_can_be_selected()
+			sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
+			action_taken.emit("SKILL", what_skill, action_on_who)
+			gui._executing_skill(false)
+
+		else:
+			revert_camera()
+			gui._executing_skill(false)
+			no_one_can_be_selected()
 
 func item_selected(item_used: Items, index_of_item_used):
 	var action_on_who
 	highlight_check(item_used.is_aoe_item, item_used.targets_players, false)
 	sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, 6 if not item_used.targets_players else 4))
 	gui.hide_gui(true)
-	gui._executing_item()
+	gui._executing_item(true)
 	action_on_who = await confirmation
 	print("Index of item used: ", index_of_item_used)
 	if not (action_on_who is bool):
 		await no_one_can_be_selected()
 		sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
 		action_taken.emit("ITEM", item_used, action_on_who if not item_used.is_aoe_item else 4, index_of_item_used)
-		return
 	else:
-		revert_camera()
-		no_one_can_be_selected()
+		if action_on_who:
+			var count = 0
+			if item_used.targets_players:
+				for player in player_container.get_children():
+					if player.selection_area_sprite.visible:
+						count += 1
+				if count < player_container.get_child_count() - 1:
+					action_on_who = count
+				else:
+					action_on_who = 4
+			else:
+				for enemy in enemy_shit.get_children():
+					if enemy.selection_area_sprite.visible:
+						count += 1
+				if count < 5:
+					action_on_who = enemy_shit.get_child_count() - 1
+				else:
+					action_on_who = 6
+			await no_one_can_be_selected()
+			sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
+			action_taken.emit("ITEM", item_used, action_on_who if not item_used.is_aoe_item else 4, index_of_item_used)
+			gui._executing_item(false)
+		else:
+			revert_camera()
+			gui._executing_item(false)
+
+			no_one_can_be_selected()
 #endregion
 
 func action_queue(sequence: Array[Callable]):
@@ -440,25 +734,39 @@ func unselect_all(is_player):
 			enemy.unselect()
 
 func select_individual(is_player, index):
-	if is_player:
-		get_player(index).selected(true)
-	else:
-		enemy_shit.get_child(index).selected(true)
+	current_selected_person = index
+	index -= 1
+	while(true):
+		index += 1
+		if is_player:
+			if get_player(index).stored_combatant.is_dead:
+				continue
+			get_player(index).selected(true)
+			break
+		else:
+			if enemy_shit.get_child(index).stored_combatant.is_dead:
+				continue
+			enemy_shit.get_child(index).selected(true)
+			break
 
 func make_players_selectable():
+	selecting_entity = true
 	for player in player_container.get_children():
 		player.could_be_selected()
 
 func make_enemies_selectable():
+	selecting_entity = true
 	for enemy in enemy_shit.get_children():
 		enemy.could_be_selected()
 
 func select_all_players():
+	selecting_entity = false
 	for player in player_container.get_children():
 		if not player.stored_combatant.is_dead:
 			player.selected(false)
 	
 func select_all_enemies():
+	selecting_entity = false
 	for enemy in enemy_shit.get_children():
 		if not enemy.stored_combatant.is_dead:
 			enemy.selected(false)
@@ -498,17 +806,6 @@ func setup_confirmation_button(move_name, entity_used_on_name, used_on):
 	$UI/Confirmation.visible = true
 	var question_label = $UI/Confirmation/Label
 	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
-
-func toggle_player_ui(player_to_toggle):
-	if not get_player(player_to_toggle).combatant_ui.visible:
-		get_player(player_to_toggle).combatant_ui.visible = true
-		get_player(player_to_toggle).combatant_ui_.visible = true
-		get_player(player_to_toggle).combatant_ui_area.visible = true
-	else:
-		get_player(player_to_toggle).combatant_ui.visible = false
-		get_player(player_to_toggle).combatant_ui_.visible = false
-		get_player(player_to_toggle).combatant_ui_area.visible = false
-		get_player(player_to_toggle).reset_ui()
 
 func set_health_bar_values(player_to_set_for):
 	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
@@ -656,6 +953,12 @@ func determine_order():
 		return a.obtain_stat(5) > b.obtain_stat(5)
 	)
 
+func sort_enemy_actions(enemy_actions: Array[enemy_weighting]):
+	enemy_actions.sort_custom(func(a, b):
+		return a.action_weight > b.action_weight
+	)
+	return enemy_actions
+
 func select_next_wave():
 	update_mana_display(3)
 	var number_of_possible_waves = current_dungeon_run.potential_waves.size()
@@ -689,4 +992,50 @@ func get_player(player_to_get: int):
 	return $Player_Container.get_child(player_to_get)
 
 func get_player_portrait(portrait_to_get: int):
-	return $UI/Party_Portraits/VBoxContainer.get_child(portrait_to_get)
+	return $UI/Party_Portraits/HBoxContainer.get_child(portrait_to_get)
+
+func get_num_selected():
+	var count = 0
+	var player_ret_val
+	var enemy_ret_val
+	for player in player_container.get_children():
+		if player.selection_area_sprite.visible:
+			count += 1
+	if count < player_container.get_child_count() - 1:
+		player_ret_val = count
+	else:
+		player_ret_val = 4
+	for enemy in enemy_shit.get_children():
+		if enemy.selection_area_sprite.visible:
+			count += 1
+	if count < 5:
+		enemy_ret_val = enemy_shit.get_child_count() - 1
+	else:
+		enemy_ret_val = 6
+		
+	if enemy_ret_val > 0:
+		return [enemy_ret_val, false]
+	elif player_ret_val > 0:
+		return [player_ret_val, true]
+		
+	
+func update_selected_enemy(what_direction):
+	var ret = get_num_selected()
+	if ret[1]:
+		if ret[0] == 4:
+			return
+		else:
+			unselect_all(true)
+			var updated_index = (current_selected_person + what_direction)
+			var child_count = player_container.get_child_count() - 1
+			var newly_selected_child = updated_index if updated_index < child_count and updated_index >= 0 else (0 if updated_index > child_count else child_count)
+			select_individual(true, newly_selected_child)
+	else:
+		if ret[0] == 6:
+			return
+		else:
+			unselect_all(false)
+			var updated_index = (current_selected_person + what_direction)
+			var child_count = enemy_shit.get_child_count() - 1
+			var newly_selected_child = updated_index if updated_index < child_count and updated_index >= 0 else (0 if updated_index > child_count else child_count)
+			select_individual(false, newly_selected_child)

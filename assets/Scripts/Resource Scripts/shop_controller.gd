@@ -36,7 +36,7 @@ func show_shop():
 	shop_populated.emit()
 	
 func _input(event):
-	if event.is_action_pressed("Open Menu") and can_open_shop:
+	if event.is_action_pressed("Interact") and can_open_shop:
 		show_shop()
 
 func _on_area_2d_area_entered(area):

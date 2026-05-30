@@ -8,6 +8,25 @@
 [ext_resource type="Texture2D" uid="uid://w3qqr6y7m537" path="res://assets/tile sheets/All_Eyeball_Animations.png" id="5_o16x7"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_w4ub5"]
 
+[sub_resource type="Resource" id="Resource_ho304"]
+script = ExtResource("1_w4ub5")
+move_name = "REMOVE STATUS"
+attack_power = 2
+guaranteed_hit_count = 1
+status_type = 0
+removes_status = null
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_8x0pw"]
+script = ExtResource("1_w4ub5")
+move_name = "Eye ball slash"
+attack_power = null
+status_type = null
+removes_status = null
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [sub_resource type="Resource" id="Resource_uyw4s"]
 script = ExtResource("2_wn58t")
 max_health = 1789
@@ -264,6 +283,7 @@ combatant_stats = SubResource("Resource_uyw4s")
 is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
+combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_ho304"), SubResource("Resource_8x0pw")])
 sprite_frames = SubResource("SpriteFrames_8x0pw")
 idle_speed = 0.25
 death_speed = 1.0

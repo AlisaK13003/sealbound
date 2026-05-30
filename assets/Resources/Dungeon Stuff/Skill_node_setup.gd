@@ -9,6 +9,7 @@ extends Control
 var p_ref
 var s_num
 var can_be_selected
+var can_be_unselected = true
 var held_skill: moves
 
 func _setup(skill: moves, skill_num, parent_ref):
@@ -26,11 +27,22 @@ func _on_panel_mouse_entered():
 	if disabled.visible:
 		return
 	p_ref.unselect_all()
+	select()
+
+	can_be_unselected = false
+	
+func _on_panel_mouse_exited():
+	can_be_unselected = true
+
+func select():
+	if not can_be_unselected:
+		return
 	can_be_selected = true
 	p_ref.update_description(held_skill.move_description)
 	selection_arrow.visible = true
 	selection_arrow.play("default")
-
+	p_ref.update_selected_child(s_num)
+	
 func unselect():
 	can_be_selected = false
 	selection_arrow.visible = false
@@ -39,4 +51,10 @@ func unselect():
 func _on_skill_selected(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			p_ref.p_ref.skill_selected(held_skill)
+			selection_confirmed()
+
+func selection_confirmed():
+	p_ref.p_ref.skill_selected(held_skill)
+
+func execute_selection():
+	p_ref.p_ref.confirmation.emit(true)

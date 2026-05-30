@@ -2,134 +2,108 @@ extends Control
 
 class_name combatant_ui
 
-@onready var base_menu = $Player_Menu/Base_Menu
-@onready var skill_menu = $Player_Menu/Skill_Menu
-@onready var item_menu = $Player_Menu/Item_Menu
-
 @onready var health_bar = $TextureProgressBar
+@onready var status_container = $NinePatchRect/GridContainer
+@onready var status_visible_container = $NinePatchRect
+@onready var status_timer_node = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Status_Timer.tscn")
+
+enum statuses {
+	STUN = 1 << 0,
+	SLEEP = 1 << 1,
+	SHOCK = 1 << 2,
+	POISON = 1 << 3,
+	BURN = 1 << 4,
+	FREEZE = 1 << 5,
+	SLOW = 1 << 6,
+	AGRO = 1 << 7,
+	ATTACKdown = 1 << 8,
+	DEFENSEdown = 1 << 9,
+	EVASIONdown = 1 << 10,
+	CRITCHANCEdown = 1 << 11,
+	ACCURACYdown = 1 << 12,
+	MOMENTUM = 1 << 13,
+	REGEN = 1 << 14,
+	STUNIMMUNITY = 1 << 15,
+	ATTACKup = 1 << 16,
+	DEFENSEup = 1 << 17,
+	EVASIONup = 1 << 18,
+	CRITCHANCEup = 1 << 19,
+	ACCURACYup = 1 << 20,
+}
+
+@onready var status_color_chart: Dictionary = {
+	statuses.STUN: Color.YELLOW,
+	statuses.SLEEP: Color.DIM_GRAY,
+	statuses.SHOCK: Color.YELLOW,
+	statuses.POISON: Color.WEB_PURPLE,
+	statuses.BURN: Color.ORANGE_RED,
+	statuses.FREEZE: Color.LIGHT_CYAN,
+	statuses.SLOW: 5,
+	statuses.AGRO: Color.INDIAN_RED,
+	statuses.ATTACKdown: Color.RED,
+	statuses.DEFENSEdown: Color.BLUE,
+	statuses.EVASIONdown: Color.YELLOW,
+	statuses.CRITCHANCEdown: Color.GREEN,
+	statuses.ACCURACYdown: Color.CADET_BLUE,
+	statuses.MOMENTUM: 5,
+	statuses.REGEN: 5,
+	statuses.STUNIMMUNITY: 5,
+	statuses.ATTACKup: Color.RED,
+	statuses.DEFENSEup: Color.BLUE,
+	statuses.EVASIONup: Color.YELLOW,
+	statuses.CRITCHANCEup: Color.GREEN,
+	statuses.ACCURACYup: Color.CADET_BLUE
+}
 
 var parent_reference
 
 var hovered_over: bool = false
 
-func _ready():
-	reset_ui()
-
-func setup(parent_ref, party_member: generic_combatants):
+func setup(parent_ref):
 	parent_reference = parent_ref
-	
-	for move in range(party_member.combatant_skills.size()):
-		if party_member.combatant_skills[move] == null:
-			continue
-		var skill_node: TextureButton = skill_menu.get_child(move + 1)
-		if not party_member.combatant_skills[move].is_unlocked:
-			skill_node.visible = false
-		else:
-			for mana in range(party_member.combatant_skills[move].mana_cost):
-				skill_node.get_child(mana).visible = true
 
-		skill_node.texture_normal = party_member.combatant_skills[move].normal_sprite
-		skill_node.texture_pressed = party_member.combatant_skills[move].pressed_sprite
-		#skill_node.texture_hover = party_member.combatant_skills[move].hover_sprite
-		skill_node.texture_disabled = party_member.combatant_skills[move].disabled_sprite
-
-func _process(delta):
-	if parent_reference.currently_selectable and hovered_over:
-		parent_reference.selection_area_sprite.visible = true
-		parent_reference.could_be_selected()
-		print("HOVERABLE")
-		
-func reset_ui():
-	un_toggle_all_buttons()
-	base_menu.visible = true
-	skill_menu.visible = false
-	item_menu.visible = false
-
-func handle_menu_swapping(swap_to_what_menu: int):
-	if not parent_reference.parent_reference.selected_item.visible:
-		reset_ui()
-	match swap_to_what_menu:
-		# Back button pressed
-		0:
-			if parent_reference.parent_reference.selected_item.visible:
-				parent_reference.parent_reference.selected_item.visible = false
-				parent_reference.parent_reference.item_menu.visible = true
-				parent_reference.parent_reference.unhighlight_all_entities()
-				parent_reference.parent_reference.actual_confirmation.emit("NOPE")
-				return
-			elif parent_reference.parent_reference.item_menu:
-				parent_reference.parent_reference.item_menu.visible = false
-			parent_reference.parent_reference.confirmation.emit(false)
-			parent_reference.parent_reference.unhighlight_all_entities()
-		# Swap to Action Menu
-		1:
-			base_menu.visible = false
-		# Swap to Skill Menu
-		2:
-			base_menu.visible = false
-			skill_menu.visible = true
-		# Swap to Item Menu
-		3:
-			base_menu.visible = false
-			item_menu.visible = true
-			parent_reference.parent_reference.item_menu.visible = true
-			
-func use_skill(what_skill):
-	var target_button = skill_menu.get_child(what_skill + 1)
-	
-	if target_button.button_pressed:
-		for i in [1, 2, 3]:
-			if i != (what_skill + 1):
-				skill_menu.get_child(i).button_pressed = false
-				
-		parent_reference.parent_reference.unhighlight_all_entities()
-		parent_reference.parent_reference.skill_selected(what_skill, parent_reference.child_number)
-	else:
-		if parent_reference.stored_combatant.combatant_skills[what_skill].is_skill_aoe:
+func remove_active_status(status_to_remove):
+	var status_found: bool
+	for child in status_container.get_children():
+		if child.get_meta("status_type") == status_to_remove:
+			child.queue_free()
+			update_grid_size()
 			return
-		parent_reference.parent_reference.unhighlight_all_entities()
-		parent_reference.parent_reference.revert_to_default_UI()
 
-func update_skill_buttons(player_to_check: generic_combatants, total_mana):
-	for move in range(player_to_check.combatant_skills.size()):
-		var skill_node: TextureButton = skill_menu.get_child(move + 1)
-		if player_to_check.combatant_skills[move] == null:
-			continue
-		
-		if total_mana >= player_to_check.combatant_skills[move].mana_cost:
-			skill_node.disabled = false
-		else:
-			skill_node.disabled = true
-
-func base_attack_defend_selected(attack_or_defend):
-	if attack_or_defend:
-		parent_reference.parent_reference.attack_button_pressed(parent_reference.child_number)
+func update_active_status(status_to_update: status):
+	if status_to_update == null:
+		return
+	if status_to_update.status_type <= statuses.AGRO:
+		return
+	var child_found
+	for child in status_container.get_children():
+		if child.get_meta("status_type") == status_to_update.status_type:
+			child_found = child
+			break
+			
+	if child_found != null:
+		child_found.get_node("Time_Left").text = str(status_to_update.remaining_turns)
 	else:
-		parent_reference.parent_reference.defend_button_pressed(parent_reference, parent_reference.child_number)
+		var new_child: Control = status_timer_node.instantiate()
+		new_child.set_meta("status_type", status_to_update.status_type)
+		new_child.get_node("Status_Indicator").modulate = Color(status_color_chart[status_to_update.status_type] * 10)
 
-func _on_texture_button_button_down():
-	if parent_reference.currently_selectable:
-		parent_reference.parent_reference.confirmation.emit(parent_reference.child_number)
+		status_container.add_child(new_child)
+		if status_to_update.status_type > statuses.AGRO and status_to_update.status_type < statuses.MOMENTUM:
+			new_child.get_node("Status_Indicator").flip_v = true
+		elif status_to_update.status_type > statuses.STUNIMMUNITY:
+			new_child.get_node("Status_Indicator").flip_v = false
+	update_grid_size()
 
-func un_toggle_all_buttons():
-	for menu in $Player_Menu.get_children():
-		for button in menu.get_children():
-			button.button_pressed = false
+func update_grid_size():
+	if status_container.get_child_count() >= 1:
+		status_visible_container.visible = true
+	else:
+		status_visible_container.visible = false
+	if status_container.get_child_count() < 4:
+		status_visible_container.custom_minimum_size = Vector2(15 + (13 * (status_container.get_child_count() - 1)), 29)
+	else:
+		status_visible_container.custom_minimum_size = Vector2(54, 29 + ((status_container.get_child_count() / 4) if status_container.get_child_count() % 4 == 0 else status_container.get_child_count() % 4))
 
-func _mouse_hovered_over_skill(extra_arg_0):
-	$Player_Menu/Skill_Menu/Back_Button/Description.text = parent_reference.stored_combatant.combatant_skills[extra_arg_0].move_description
-
-func _mouse_left_skill(extra_arg_0):
-	$Player_Menu/Skill_Menu/Back_Button/Description.text = ""
-
-func player_hovered():
-	hovered_over = true
-
-func player_unhovered():
-	hovered_over = false
-	parent_reference.undo_selection()
-	print("UNHOVERED")
-
-
-func _on_area_2d_mouse_entered():
-	print("HELLO")
+	
+	

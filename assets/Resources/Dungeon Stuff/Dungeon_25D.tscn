@@ -93,10 +93,10 @@ offset_bottom = 9.0
 [node name="Bond_Attack" type="ProgressBar" parent="UI" unique_id=899942920]
 texture_filter = 1
 layout_mode = 0
-offset_left = 1022.0
-offset_top = 375.0
-offset_right = 1478.0
-offset_bottom = 401.0
+offset_left = 1256.0
+offset_top = 262.0
+offset_right = 1712.0
+offset_bottom = 288.0
 rotation = -1.5707964
 mouse_filter = 1
 
@@ -129,24 +129,23 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Party_Portraits" unique_id=1611507960]
-texture_filter = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Party_Portraits" unique_id=642363993]
 layout_mode = 0
-offset_left = 1053.0
-offset_top = -102.0
-offset_right = 1093.0
-offset_bottom = 228.0
-theme_override_constants/separation = 165
+offset_left = -465.0
+offset_top = 399.0
+offset_right = -115.0
+offset_bottom = 439.0
+theme_override_constants/separation = 175
 
-[node name="PartyPortrait_1" parent="UI/Party_Portraits/VBoxContainer" unique_id=812714871 instance=ExtResource("12_edm4l")]
+[node name="PartyPortrait_1" parent="UI/Party_Portraits/HBoxContainer" unique_id=812714871 instance=ExtResource("12_edm4l")]
 texture_filter = 1
 layout_mode = 2
 
-[node name="PartyPortrait_2" parent="UI/Party_Portraits/VBoxContainer" unique_id=1001780271 instance=ExtResource("12_edm4l")]
+[node name="PartyPortrait_2" parent="UI/Party_Portraits/HBoxContainer" unique_id=1001780271 instance=ExtResource("12_edm4l")]
 texture_filter = 1
 layout_mode = 2
 
-[node name="PartyPortrait_3" parent="UI/Party_Portraits/VBoxContainer" unique_id=1414338046 instance=ExtResource("12_edm4l")]
+[node name="PartyPortrait_3" parent="UI/Party_Portraits/HBoxContainer" unique_id=1414338046 instance=ExtResource("12_edm4l")]
 texture_filter = 1
 layout_mode = 2
 
@@ -275,7 +274,7 @@ fov = 15.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0062575, 0, -0.74907875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3746285, 0, -0.74907875)
 
 [node name="Enemy_Slot1" parent="Enemy_Container" unique_id=1849059853 instance=ExtResource("7_x3t77")]
 transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.751, 0.138, 0.5)

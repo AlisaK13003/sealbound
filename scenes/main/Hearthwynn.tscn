@@ -6,12 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="6_lg162"]
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="7_f16d7"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="8_732vc"]
-[ext_resource type="PackedScene" uid="uid://d2l54oy03qbul" path="res://scenes/main/temp_thing.tscn" id="9_8ncia"]
-[ext_resource type="PackedScene" uid="uid://bg1uxu604kh6j" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="9_8ncia"]
+[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="9_8ncia"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="9_75do5"]
 [ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="10_1ifxj"]
-[ext_resource type="PackedScene" uid="uid://ckp71tv7lpfj5" path="res://assets/Resources/NPC Stuff/Rowan_NPC.tscn" id="10_ofm1v"]
-[ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="11_ujx4y"]
+[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Rowan_NPC.tscn" id="10_ofm1v"]
+[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="11_ujx4y"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Kaela_NPC.tscn" id="12_kaela1"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Orion_NPC.tscn" id="13_orion1"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
@@ -194,6 +193,7 @@ position = Vector2(5019, -413)
 
 [node name="TempThing" parent="." unique_id=289262995 instance=ExtResource("9_8ncia")]
 position = Vector2(3678, -426)
+
 [node name="Cassian_NPC" parent="." unique_id=1817321559 node_paths=PackedStringArray("location_container") instance=ExtResource("9_8ncia")]
 position = Vector2(3614.0002, -1229)
 scale = Vector2(0.39999998, 0.39999998)

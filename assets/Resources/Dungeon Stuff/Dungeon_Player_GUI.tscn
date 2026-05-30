@@ -16,6 +16,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 132.0
+offset_right = 22.0
+offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -41,6 +45,13 @@ texture_normal = ExtResource("1_7j646")
 texture_hover = ExtResource("1_7j646")
 stretch_mode = 3
 
+[node name="Label" type="Label" parent="CanvasLayer/Base_Menu/Item_Menu_Button" unique_id=1306641953]
+layout_mode = 0
+offset_left = -1.6666667
+offset_top = 37.333336
+offset_right = 38.333332
+offset_bottom = 55.333336
+
 [node name="Skill_Menu_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=1881280147]
 texture_filter = 1
 layout_mode = 2
@@ -51,6 +62,13 @@ texture_pressed = ExtResource("3_oq2hf")
 texture_hover = ExtResource("2_2eed5")
 stretch_mode = 3
 
+[node name="Label2" type="Label" parent="CanvasLayer/Base_Menu/Skill_Menu_Button" unique_id=1231691832]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 38.333336
+offset_right = 38.0
+offset_bottom = 56.333336
+
 [node name="Attack_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=1462537621]
 texture_filter = 1
 layout_mode = 2
@@ -60,6 +78,13 @@ texture_normal = ExtResource("4_udkoq")
 texture_pressed = ExtResource("5_h00cp")
 stretch_mode = 3
 
+[node name="Label3" type="Label" parent="CanvasLayer/Base_Menu/Attack_Button" unique_id=839654491]
+layout_mode = 0
+offset_left = -1.3333282
+offset_top = 37.333336
+offset_right = 38.66667
+offset_bottom = 55.333336
+
 [node name="Defend_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=241091125]
 texture_filter = 1
 layout_mode = 2
@@ -68,6 +93,13 @@ action_mode = 0
 texture_normal = ExtResource("6_uxw8m")
 texture_pressed = ExtResource("7_yubku")
 stretch_mode = 3
+
+[node name="Label4" type="Label" parent="CanvasLayer/Base_Menu/Defend_Button" unique_id=1615745429]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 38.0
+offset_right = 38.0
+offset_bottom = 56.0
 
 [node name="Item_Menu" parent="CanvasLayer" unique_id=1100506542 instance=ExtResource("9_irdl1")]
 visible = false

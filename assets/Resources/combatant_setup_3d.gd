@@ -2,13 +2,13 @@ extends Node3D
 
 class_name combat_template
 
-@onready var combatant_name = $Sprite3D2/SubViewport/CombatantUi.get_node("Label")
+#region Variables
+
 @onready var combatant_sprite = $Sprite3D
 @onready var health_bar = $Sprite3D2/SubViewport/CombatantUi.get_node("TextureProgressBar")
 @onready var attacked_label = $Label3D
-@onready var combatant_ui_ = $Sprite3D2/SubViewport/CombatantUi
-@onready var combatant_ui = $Sprite3D2/SubViewport/CombatantUi/Player_Menu
-
+@onready var combatant_ui_: combatant_ui = $Sprite3D2/SubViewport/CombatantUi
+@onready var status_sprite = load("res://assets/tile sheets/Up_Arrow.png")
 @onready var enemy_collision = $Sprite3D2/Enemy_Collision
 @onready var selection_area_sprite = $AnimatedSprite3D
 @onready var animated_sprite = $AnimatedSprite3D2
@@ -30,6 +30,7 @@ var previously_visible = false
 var base_location: Vector3
 var displacement = Vector3(0.3, 0, 0)
 var can_be_unselected: bool = true
+var current_mana = 2
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -100,25 +101,47 @@ var conflicts = {
 	statuses.ACCURACYup: stat_does_nothing
 }
 
+@onready var status_color_chart: Dictionary = {
+	statuses.STUN: Color.YELLOW,
+	statuses.SLEEP: Color.DIM_GRAY,
+	statuses.SHOCK: Color.YELLOW,
+	statuses.POISON: Color.WEB_PURPLE,
+	statuses.BURN: Color.ORANGE_RED,
+	statuses.FREEZE: Color.LIGHT_CYAN,
+	statuses.SLOW: stat_does_nothing,
+	statuses.AGRO: Color.INDIAN_RED,
+	statuses.ATTACKdown: Color.RED,
+	statuses.DEFENSEdown: Color.BLUE,
+	statuses.EVASIONdown: Color.YELLOW,
+	statuses.CRITCHANCEdown: Color.GREEN,
+	statuses.ACCURACYdown: Color.CADET_BLUE,
+	statuses.MOMENTUM: _apply_momentum,
+	statuses.REGEN: _apply_regen,
+	statuses.STUNIMMUNITY: _apply_stun_imm,
+	statuses.ATTACKup: Color.RED,
+	statuses.DEFENSEup: Color.BLUE,
+	statuses.EVASIONup: Color.YELLOW,
+	statuses.CRITCHANCEup: Color.GREEN,
+	statuses.ACCURACYup: Color.CADET_BLUE
+}
+
 enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC}
+
+#endregion
 
 func setup(combatant : generic_combatants, parent_ref, child_num):
 	if combatant == null:
 		is_empty = true
 		return
-		
+	parent_reference = parent_ref
+	child_number = child_num
+	base_location = self.global_position
+
 	all_active_effects = 0
 	active_statuses.clear()
 	is_defending = false
 		
-	base_location = self.global_position
-		
-	child_number = child_num
-	parent_reference = parent_ref
 	stored_combatant = combatant
-	combatant_name.text = combatant.combatant_name
-	if not combatant.is_combatant_enemy:
-		combatant_sprite.texture = combatant.combatant_sprite
 	health_bar.max_value = combatant.combatant_stats.max_health
 	health_bar.value = combatant.combatant_stats.health
 	
@@ -133,8 +156,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		animated_sprite.play("Idle")
 	else:
 		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
-	combatant_ui.visible = false
-	$Sprite3D2/SubViewport/CombatantUi.setup(self, stored_combatant)
+		combatant_sprite.texture = combatant.combatant_sprite
 	
 func update_health(change_health_value, status_ = false, portrait: player_portraits = null):
 	if not status_:
@@ -200,24 +222,21 @@ func execute_base_attack(entity_node: combat_template):
 	var chance = rng.randf_range(0, 1)
 
 	if (chance * 100) <= chance_to_hit:
-		await entity_node.handle_status(statuses.POISON)
-		await entity_node.handle_status(statuses.CRITCHANCEdown)
 		return 5 * sqrt((obtain_stat(stats.ATTACK) / (entity_node.obtain_stat(stats.DEFENSE) + 1)) * (stored_combatant.stored_weapon.weapon_attack * obtain_stat_alteration(stats.ACCURACY))) * randf_range(0.95, 1.05)
 	else:
 		return "MISS"
 
 func on_death():
 	stored_combatant.is_dead = true
+	enemy_collision.visible = false
+
 	await get_tree().create_timer(0.5).timeout
 
 	animated_sprite.play("On_Death")
 	animated_sprite.speed_scale = 1.5
 	animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
 	await animated_sprite.animation_finished
-	
-
-	enemy_collision.visible = false
-	
+		
 func execute_defend():
 	is_defending = true
 
@@ -227,15 +246,12 @@ func do_nothing_3d(_camera, event, _event_position, _normal, _shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
 			parent_reference.confirmation.emit(child_number)
 
-func reset_ui():
-	combatant_ui.get_parent().reset_ui()
-
 # Status Stuff
 func handle_status(incoming_statuses):
-	print("INFLICTED STATUS")
 	for key in conflicts.keys():
 		var opposite = conflicts[key]
 		if (incoming_statuses & key) and (all_active_effects & opposite):
+			combatant_ui_.remove_active_status(opposite)
 			_remove_active_status(opposite)
 			incoming_statuses &= ~key
 	for key in status_map:
@@ -256,6 +272,11 @@ func handle_status(incoming_statuses):
 					add_status.status_type = key
 					already_inflicted_with_major_status = true
 					add_status.setup()
+					if add_status.status_type < statuses.ATTACKdown:
+						animated_sprite.modulate = status_color_chart[key]
+					if add_status.status_type >= statuses.ATTACKdown:
+						pass
+					combatant_ui_.update_active_status(add_status)
 					active_statuses.append(add_status)
 					if all_active_effects == 0:
 						all_active_effects = key
@@ -264,8 +285,10 @@ func handle_status(incoming_statuses):
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
 
-func remove_status(statustype):
-	pass
+func check_if_status_is_there(statustype):
+	if all_active_effects & statustype == 0:
+		return false
+	return true
 
 func _remove_active_status(type_to_remove: int):
 	all_active_effects &= ~type_to_remove 
@@ -283,10 +306,11 @@ func take_turn(player_portrait: player_portraits = null):
 	if active_statuses != null:
 		for _status in range(active_statuses.size()):
 			active_statuses[_status].remaining_turns -= 1
-			print("INFLICTED WITH STATUS: ", active_statuses[_status].status_name)
+			combatant_ui_.update_active_status(active_statuses[_status])
 			if active_statuses[_status].remaining_turns == 0:
 				if active_statuses[_status].status_type <= statuses.AGRO:
 					already_inflicted_with_major_status = false
+				combatant_ui_.remove_active_status(active_statuses[_status].status_type)
 				_remove_active_status(active_statuses[_status].status_type)
 				
 	if not stored_combatant.is_combatant_enemy:
@@ -299,6 +323,7 @@ func _apply_sleep(): print("SLEEP")
 func _apply_shock(): print("SHOCK")
 func _apply_poison(): 
 	update_health(20, true)
+	animated_sprite.modulate = Color.PURPLE
 
 func _apply_burn(): 
 	update_health(20, true)
@@ -442,12 +467,6 @@ func _on_enemy_collision_mouse_entered():
 		if can_be_unselected:
 			parent_reference.unselect_all(false if stored_combatant.is_combatant_enemy else true)
 			parent_reference.select_individual(false if stored_combatant.is_combatant_enemy else true, child_number)
-		
-func _on_enemy_collision_mouse_exited():
-	return
-	if currently_selectable:
-		selection_area_sprite.visible = false
-		selection_area_sprite.stop()
 
 func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
