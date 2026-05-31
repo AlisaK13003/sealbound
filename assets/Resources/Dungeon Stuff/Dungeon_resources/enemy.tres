@@ -13,15 +13,17 @@ script = ExtResource("1_w4ub5")
 move_name = "REMOVE STATUS"
 attack_power = 2
 guaranteed_hit_count = 1
+max_hit_count = 2
+mana_cost = 3
 status_type = 0
 removes_status = null
-is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_8x0pw"]
 script = ExtResource("1_w4ub5")
 move_name = "Eye ball slash"
-attack_power = null
+attack_power = 1
+mana_cost = 2
 status_type = null
 removes_status = null
 is_skill_aoe = true
@@ -29,9 +31,15 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_uyw4s"]
 script = ExtResource("2_wn58t")
-max_health = 1789
-health = 1000
-speed = 81
+max_health = 130
+health = 130
+attack = 25
+defense = 24
+magic = 4
+resistance = 30
+speed = 4
+luck = 3
+evasion = 3
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2dqj"]
@@ -260,7 +268,6 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_o16x7"]
 script = ExtResource("2_wn58t")
-defense = 12
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_f2dqj"]
@@ -270,8 +277,7 @@ metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_otd26"]
 script = ExtResource("5_w4ub5")
-weapon_attack = 20
-attack_accuracy = 90
+attack_accuracy = 100
 status_conditions = null
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
 

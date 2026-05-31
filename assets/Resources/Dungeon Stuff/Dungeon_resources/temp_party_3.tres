@@ -12,10 +12,15 @@
 
 [sub_resource type="Resource" id="Resource_se6t2"]
 script = ExtResource("2_pstms")
-max_health = 286
-health = 55
-attack = 477
+max_health = 391
+health = 391
+attack = 37
+defense = 29
+magic = 24
+resistance = 23
 speed = 135
+luck = 10
+evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_53op7"]

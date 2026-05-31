@@ -10,9 +10,14 @@
 
 [sub_resource type="Resource" id="Resource_ffb4d"]
 script = ExtResource("2_57kig")
-max_health = 697
-health = 388
-attack = 547
+max_health = 391
+health = 391
+attack = 28
+defense = 16
+magic = 28
+resistance = 25
+speed = 10
+evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_03ww6"]

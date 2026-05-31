@@ -12,9 +12,14 @@
 
 [sub_resource type="Resource" id="Resource_qx3or"]
 script = ExtResource("2_dhfcn")
-max_health = 495
-health = 235
-attack = 346
+max_health = 422
+health = 422
+attack = 27
+defense = 16
+magic = 23
+resistance = 22
+speed = 10
+evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_iikrj"]

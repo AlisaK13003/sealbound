@@ -66,9 +66,11 @@ func remove_active_status(status_to_remove):
 	var status_found: bool
 	for child in status_container.get_children():
 		if child.get_meta("status_type") == status_to_remove:
+			print("removed")
+			child.get_parent().remove_child(child)
 			child.queue_free()
+			await get_tree().process_frame
 			update_grid_size()
-			return
 
 func update_active_status(status_to_update: status):
 	if status_to_update == null:

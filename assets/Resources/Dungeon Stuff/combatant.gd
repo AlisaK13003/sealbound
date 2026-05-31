@@ -7,7 +7,7 @@ class_name generic_combatants
 @export var combatant_sprite: Texture2D
 @export var combatant_stats: stats
 @export var is_combatant_enemy: bool
-var is_dead: bool
+@export var is_dead: bool = false
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
 

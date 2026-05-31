@@ -21,6 +21,7 @@ Global="*uid://c8yegl8nrw5mx"
 DialogueSystem="*uid://bojyx7lfmc8nh"
 Fade="*uid://bp4nraurt5ifw"
 GlobalCombatInformation="*uid://bba2tvdjwats"
+EnemyGeneticAlgorithm="*uid://y7m2qm2bq0p0"
 
 [display]
 

@@ -30,7 +30,7 @@ var previously_visible = false
 var base_location: Vector3
 var displacement = Vector3(0.3, 0, 0)
 var can_be_unselected: bool = true
-var current_mana = 2
+var current_mana = 3
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -136,15 +136,17 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	parent_reference = parent_ref
 	child_number = child_num
 	base_location = self.global_position
-
+	
+	for status_ in active_statuses:
+		_remove_active_status(status_.status_type)
+	combatant_ui_.remove_active_status(all_active_effects)
 	all_active_effects = 0
 	active_statuses.clear()
 	is_defending = false
-		
 	stored_combatant = combatant
 	health_bar.max_value = combatant.combatant_stats.max_health
 	health_bar.value = combatant.combatant_stats.health
-	
+	current_mana = 3
 	if combatant.is_combatant_enemy:
 		if has_node("Sprite3D2/Area3D"):
 			$Sprite3D2/Area3D.queue_free()
@@ -184,8 +186,9 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 		else:
 			health_bar.value -= floor(change_health_value)
 			attacked_label.text = str(int(floor(change_health_value)))
-			
-	await get_tree().create_timer(0.5).timeout
+	
+	if not parent_reference.training:	
+		await get_tree().create_timer(0.5).timeout
 	
 	attacked_label.text = ""
 	if stored_combatant.combatant_stats.health <= 0:
@@ -199,7 +202,8 @@ func update_damage_label(damage_taken, _was_heal = false, attack_missed = false)
 	elif not damage_taken[1] is String and damage_taken[1] == 1:
 		attacked_label.modulate = Color.RED
 		attacked_label.text = "CRIT"
-		await get_tree().create_timer(0.5).timeout
+		if not parent_reference.training:	
+			await get_tree().create_timer(0.5).timeout
 		attacked_label.text = str(int(floor(damage_taken[0])))
 	elif damage_taken[1] is String and not damage_taken[1] == "":
 		attacked_label.modulate = Color.LAWN_GREEN
@@ -207,7 +211,8 @@ func update_damage_label(damage_taken, _was_heal = false, attack_missed = false)
 	else:
 		attacked_label.modulate = Color.WEB_PURPLE
 		attacked_label.text = str(int(floor(damage_taken[0])))
-	await get_tree().create_timer(0.5).timeout
+	if not parent_reference.training:	
+		await get_tree().create_timer(0.5).timeout
 	attacked_label.text = ""
 
 # Combat related stuff
@@ -229,14 +234,16 @@ func execute_base_attack(entity_node: combat_template):
 func on_death():
 	stored_combatant.is_dead = true
 	enemy_collision.visible = false
-
-	await get_tree().create_timer(0.5).timeout
-	
-	if stored_combatant.is_combatant_enemy:
-		animated_sprite.play("On_Death")
-		animated_sprite.speed_scale = 1.5
-		animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
-		await animated_sprite.animation_finished
+	all_active_effects = 0
+	active_statuses.clear()
+	if not parent_reference.training:	
+		await get_tree().create_timer(0.5).timeout
+		
+		if stored_combatant.is_combatant_enemy:
+			animated_sprite.play("On_Death")
+			animated_sprite.speed_scale = 1.5
+			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
+			await animated_sprite.animation_finished
 		
 func execute_defend():
 	is_defending = true
@@ -305,7 +312,7 @@ func take_turn(player_portrait: player_portraits = null):
 			if all_active_effects & key:
 				status_map[key].call()
 	if active_statuses != null:
-		for _status in range(active_statuses.size()):
+		for _status in range(active_statuses.size() - 1, -1, -1):
 			active_statuses[_status].remaining_turns -= 1
 			combatant_ui_.update_active_status(active_statuses[_status])
 			if active_statuses[_status].remaining_turns == 0:
@@ -334,7 +341,7 @@ func _apply_agro(): print("AGRO")
 func _apply_momentum(): print("momentum")
 func _apply_regen():  print("regen")
 func _apply_stun_imm():  print("stun imun")
-func stat_does_nothing(): return
+func stat_does_nothing(): print("INFL:ICT?ED")
 
 # Helper Functions
 func obtain_stat(what_stat):
@@ -354,7 +361,7 @@ func obtain_stat(what_stat):
 		# Crit Chance
 		4:
 			var ret_stat = obtain_stat_alteration(stats.CRIT_CHANCE)
-			return ret_stat if (ret_stat != 0) else 1
+			return (ret_stat * stored_combatant.combatant_stats.luck) if (ret_stat != 0) else 1
 		5: 
 			var ret_stat = obtain_stat_alteration(stats.SPEED)
 			return stored_combatant.combatant_stats.speed * ret_stat if (ret_stat != 0) else 1
@@ -421,6 +428,9 @@ func can_no_longer_be_selected():
 	currently_selectable = false
 	can_be_unselected = true
 
+func empty():
+	stored_combatant = null
+
 #region States
 
 func walk_towards_entity(node_to_walk_to):
@@ -437,26 +447,29 @@ func walk_towards_entity(node_to_walk_to):
 	await tween.finished
 
 func idle_animation():
-	animated_sprite.flip_h = false
-	animated_sprite.speed_scale = stored_combatant.idle_speed
-	animated_sprite.play("Idle")
-	animated_sprite.sprite_frames.set_animation_loop("Idle", true)
+	if stored_combatant.is_combatant_enemy:
+		animated_sprite.flip_h = false
+		animated_sprite.speed_scale = stored_combatant.idle_speed
+		animated_sprite.play("Idle")
+		animated_sprite.sprite_frames.set_animation_loop("Idle", true)
 
 func walk_animation():
-	animated_sprite.speed_scale = stored_combatant.walk_speed
-	animated_sprite.play("Walk")
-	animated_sprite.sprite_frames.set_animation_loop("Walk", true)
+	if stored_combatant.is_combatant_enemy:
+		animated_sprite.speed_scale = stored_combatant.walk_speed
+		animated_sprite.play("Walk")
+		animated_sprite.sprite_frames.set_animation_loop("Walk", true)
 
 func attack_animation(what_attack_anim):
-	var what_attack
-	match what_attack_anim:
-		0:
-			what_attack = "On_Attack_1"
-		1:
-			what_attack = "On_Attack_2"
-	animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
-	animated_sprite.play(what_attack)
-	animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
+	if stored_combatant.is_combatant_enemy:
+		var what_attack
+		match what_attack_anim:
+			0:
+				what_attack = "On_Attack_1"
+			1:
+				what_attack = "On_Attack_2"
+		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
+		animated_sprite.play(what_attack)
+		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 	
 
 #endregion
