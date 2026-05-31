@@ -231,11 +231,12 @@ func on_death():
 	enemy_collision.visible = false
 
 	await get_tree().create_timer(0.5).timeout
-
-	animated_sprite.play("On_Death")
-	animated_sprite.speed_scale = 1.5
-	animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
-	await animated_sprite.animation_finished
+	
+	if stored_combatant.is_combatant_enemy:
+		animated_sprite.play("On_Death")
+		animated_sprite.speed_scale = 1.5
+		animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
+		await animated_sprite.animation_finished
 		
 func execute_defend():
 	is_defending = true

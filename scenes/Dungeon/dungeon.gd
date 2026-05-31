@@ -107,6 +107,7 @@ func battle_loop():
 				if current_combatant.stored_combatant.is_dead:
 					continue
 				elif current_combatant.stored_combatant.is_combatant_enemy:
+					active_player_turn = current_combatant.child_number
 					$UI/Label.text = "Active Turn: Enemies"
 					await execute_enemy_turn(current_combatant.stored_combatant, turn_count)
 				else:	
@@ -166,6 +167,7 @@ class enemy_weighting:
 			self.action_weight = 0
 			return
 		if skill_type != null:
+			self.is_base_attack = true
 			if skill_type.mana_cost > person_acting.current_mana:
 				self.action_weight = 0
 				return
@@ -375,11 +377,23 @@ func execute_enemy_turn(enemy_to_attack, _turn_number):
 		total_weight_count += action.action_weight
 	for action: enemy_weighting in finalized_enemy_actions:
 		action.action_weight = float(action.action_weight) / total_weight_count
+		
+	var chance = rng.randf_range(0, 1)
+	var selected_action: enemy_weighting
 	for action: enemy_weighting in finalized_enemy_actions:
 		print(action.action_weight, " weight, then ", action.action_name)
-	return
+		if chance <= action.action_weight:
+			selected_action = action
+			break
+		else:
+			selected_action = action
+	
+	if selected_action.is_base_attack:
+		action_selected = 0
+	else:
+		action_selected = 1
+	
 	await attacking_enemy.take_turn()
-	action_selected = 0
 	var action_sequence: Array[Callable]
 	var par_task : Array[Callable]
 	match action_selected:
@@ -406,9 +420,28 @@ func execute_enemy_turn(enemy_to_attack, _turn_number):
 			
 			set_health_bar_values(player_to_attack)
 			await action_queue(action_sequence)
-
 		1:
-			pass
+			action_sequence.append(func(): await attacking_enemy.walk_animation())
+			if not selected_action.skill_type.targets_party:
+				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(get_player(player_to_attack).global_position))
+			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(selected_action.targetting_player, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
+			action_sequence.append(func(): await execute_enemy_skills(selected_action))
+			var random_attack = rng.randi_range(0, 1)
+			
+			match random_attack:
+				0:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+				1:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(1))
+			
+			
+			action_sequence.append(func(): await attacking_enemy.walk_animation())
+
+			action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
+			
+			action_sequence.append(func(): await attacking_enemy.idle_animation())
+			
+			await action_queue(action_sequence)
 		2:
 			pass
 	turn_ended.emit()
@@ -438,7 +471,7 @@ func handle_player_move_selection(current_combatant):
 			update_mana_display(2)
 		"SKILL":
 			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
-			action_sequence.append(func(): await execute_skills(what_action, true))
+			action_sequence.append(func(): await execute_skills(what_action))
 		"ITEM":
 			action_sequence.append(func(): await execute_item(what_action[1], what_action[3], what_action[2]))
 	action_sequence.append(func(): await revert_camera())
@@ -454,10 +487,88 @@ func confirmation_button(event, confirm_or_deny):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			actual_confirmation.emit(confirm_or_deny)
 
+func execute_enemy_skills(action: enemy_weighting):
+	var acting_entity = enemy_shit if action.skill_type.targets_party else player_container
+	var skill_used = action.skill_type
+	var person_acting = action.person_acting
+	print("Enemy: ", current_selected_person, " has ", person_acting.current_mana)
+	var person_recieving = action.targetting_who
+	var action_sequence : Array[Callable]
+	var parallel_tasks : Array[Callable]
+	if skill_used.is_skill_aoe:
+		# AOE skill that acts on party
+		if skill_used.targets_party:
+			# Does skill heal everyone in the party
+			var par_task: Array[Callable]
+			for party: combat_template in acting_entity.get_children():
+				if party.stored_combatant.is_dead:
+					continue
+				if skill_used.does_heal_party:
+					if get_skill_boost(skill_used) != 999:
+						par_task.append(func(): await party.update_health([-1 * (person_acting.obtain_stat(person_acting.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false))
+					else:
+						par_task.append(func(): await party.update_health([-1 * party.stored_combatant.combatant_stats.max_health, "HEAL"], false))
+				# Does this skill apply a status to every party member
+				if skill_used.does_status:
+					par_task.append(func(): await party.handle_status(skill_used.status_type))
+				if skill_used.does_remove_status:
+					par_task.append(func(): await party.remove_status(skill_used.removes_status))
+			action_sequence.append(func(): await await_parallel(par_task))
+		# AOE skill that effects enemies
+		else:
+			var par_tasks: Array[Callable]
+			for enemy: combat_template in acting_entity.get_children():
+				if enemy.stored_combatant.is_dead:
+					continue
+				var chance = rng.randf_range(0, 1)
+				par_tasks.append(func(): await deal_damage(person_acting, enemy, true, skill_used))
+				if skill_used.does_status:
+					chance = rng.randf_range(0, 1)
+					if chance <= skill_used.chance_of_status_condition:
+						par_tasks.append(func(): await enemy.handle_status(skill_used.status_type))
+				if skill_used.removes_status:
+					chance = rng.randf_range(0, 1)
+					if chance <= skill_used.chance_of_status_condition:
+						par_tasks.append(func(): await enemy.remove_status(skill_used.removes_status))
+				
+			action_sequence.append(func(): await await_parallel(par_tasks))
+	else:
+		if skill_used.targets_party:
+			if skill_used.does_heal_party:
+				if get_skill_boost(skill_used) != 999:
+					parallel_tasks.append(func(): await person_recieving.update_health([-1 * (acting_entity.obtain_stat(person_recieving.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false))
+				else:
+					parallel_tasks.append(func(): await person_recieving.update_health([-1 * person_recieving.stored_combatant.combatant_stats.max_health, "HEAL"], false))
+			if skill_used.does_status:
+				action_sequence.append(func(): await person_recieving.handle_status(skill_used.status_type))
+			if skill_used.removes_status:
+				action_sequence.append(func(): await person_recieving.remove_status(skill_used.removes_status))
+		else:
+			var check_evasion = action.person_acting.calculate_evasion(person_recieving, skill_used.accuracy)
+			var chance = rng.randf_range(0, 1)
+			if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
+				action_sequence.append(func(): await person_recieving.handle_status(skill_used.status_type))
+			if skill_used.removes_status and chance <= skill_used.chance_of_status_condition:
+				action_sequence.append(func(): await person_recieving.remove_status(skill_used.removes_status))
+			if skill_used.multi_hit:
+				parallel_tasks.append(func(): await deal_damage(action.person_acting, person_recieving, true, skill_used))
+			else:
+				chance = rng.randf_range(0, 1)
+				if chance <= check_evasion:
+					parallel_tasks.append(func(): await deal_damage(action.person_acting, person_recieving, true, skill_used))
+				else:
+					parallel_tasks.append(func(): await person_recieving.update_health("MISS"))
+	person_acting.current_mana = clamp(person_acting.current_mana - skill_used.mana_cost, 0, 3)
+	print("Enemy: ", current_selected_person, " has ", person_acting.current_mana)
+
+	action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
+	await action_queue(action_sequence)
+
 # what_action[1] is the skill itself and what_action[2] is who it targets
-func execute_skills(what_action, player_or_enemy):
-	var current_player: combat_template = get_player(active_player_turn)
+func execute_skills(what_action):
 	var skill_used: moves = what_action[1]
+	var recieving_entity
+	var current_player = get_player(current_selected_person)
 	var action_sequence : Array[Callable]
 	var parallel_tasks : Array[Callable]
 	if skill_used.is_skill_aoe:
@@ -482,7 +593,7 @@ func execute_skills(what_action, player_or_enemy):
 		# AOE skill that effects enemies
 		else:
 			var par_tasks: Array[Callable]
-			for enemy: combat_template in enemy_shit.get_children():
+			for enemy: combat_template in recieving_entity.get_children():
 				if enemy.stored_combatant.is_dead:
 					continue
 				var chance = rng.randf_range(0, 1)
@@ -517,7 +628,7 @@ func execute_skills(what_action, player_or_enemy):
 				action_sequence.append(func(): await targetted_player.remove_status(skill_used.removes_status))
 				#await targetted_player.remove_status(skill_used.removes_status)
 		else:
-			var targetted_enemy = enemy_shit.get_child(what_action[2])
+			var targetted_enemy = recieving_entity.get_child(what_action[2])
 			var check_evasion = current_player.calculate_evasion(targetted_enemy, skill_used.accuracy)
 			var chance = rng.randf_range(0, 1)
 			if skill_used.does_status and chance <= skill_used.chance_of_status_condition:
@@ -930,15 +1041,14 @@ func get_skill_boost(skill_used: moves):
 		return magic_boost
 
 func deal_damage(entity_attacking, entity_being_attacked, was_a_skill_used, what_skill_was_used: moves):
+	var damage_dealt = 0
 	if was_a_skill_used:
 		if what_skill_was_used.multi_hit:
-			await calculate_multi_hit(what_skill_was_used, entity_being_attacked, entity_attacking, get_skill_boost(what_skill_was_used))
+			damage_dealt = await calculate_multi_hit(what_skill_was_used, entity_being_attacked, entity_attacking, get_skill_boost(what_skill_was_used))
+			entity_being_attacked.update_health(damage_dealt, false, get_player_portrait(entity_being_attacked.child_number) if entity_attacking.stored_combatant.is_combatant_enemy else null)
 		else:
-			await entity_being_attacked.update_health(calculate_damage(entity_attacking, get_skill_boost(what_skill_was_used), entity_being_attacked, what_skill_was_used.is_magic_skill, what_skill_was_used.accuracy))
-	else:
-		pass
+			await entity_being_attacked.update_health(calculate_damage(entity_attacking, get_skill_boost(what_skill_was_used), entity_being_attacked, what_skill_was_used.is_magic_skill, what_skill_was_used.accuracy), false, get_player_portrait(entity_being_attacked.child_number) if entity_attacking.stored_combatant.is_combatant_enemy else null)
 	
-	pass
 
 func determine_order():
 	all_combatants.clear()
@@ -978,13 +1088,14 @@ func calculate_multi_hit(skill_used: moves, targetted_enemy, current_player, att
 	var chance = rng.randf_range(0, 1)
 	for hit in range(skill_used.max_hit_count):
 		if hit < skill_used.guaranteed_hit_count:
-			await deal_damage(current_player, targetted_enemy, true, skill_used)
+			await calculate_damage(current_player, attack_boost, targetted_enemy, skill_used.is_magic_skill, skill_used.accuracy)
 		else:
 			chance = rng.randf_range(0, 1)
 			if chance <= check_evasion:
-				await deal_damage(current_player, targetted_enemy, true, skill_used)
+				await calculate_damage(current_player, attack_boost, targetted_enemy, skill_used.is_magic_skill, skill_used.accuracy)
 			else:
 				targetted_enemy.update_health("MISS")
+	
 #endregion
 
 # Helper Functions
