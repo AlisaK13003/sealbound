@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_dof4r"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_m55de"]
-[ext_resource type="Script" uid="uid://xre2ojy65qev" path="res://assets/Scripts/Resource Scripts/combatant.gd" id="2_wehx1"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_wehx1"]
 
 [sub_resource type="Resource" id="Resource_ok5pr"]
 script = ExtResource("1_dof4r")
