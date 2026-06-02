@@ -7,6 +7,7 @@
 script = ExtResource("1_y1h3q")
 item_name = "Potion"
 item_description = "Heals party to Full"
+item_quantity = 5
 item_sprite = ExtResource("1_axywx")
 does_what = 1
 targets_players = false

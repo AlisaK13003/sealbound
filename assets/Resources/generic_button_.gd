@@ -10,9 +10,6 @@ func _ready():
 	hint_label.text = OS.get_keycode_string(incoming_key)
 	hint_label.visible = hide_key_hint
 
-func _pressed():
-	print("HELLO")
-
 func _input(event):
 	if Input.is_action_just_pressed(input_event_that_will_activate):
 		pressed.emit()

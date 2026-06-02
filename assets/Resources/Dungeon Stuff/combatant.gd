@@ -29,5 +29,7 @@ class_name generic_combatants
 func add_experience(amount_to_add):
 	total_experience_points += amount_to_add
 	combatant_stats.level
-	if total_experience_points >= (100 * pow(1.2, combatant_stats.level)):
+	if total_experience_points >= ceili((100 * pow(1.2, combatant_stats.level)) - 120):
 		combatant_stats.level += 1
+	
+	return (ceili((100 * pow(1.2, combatant_stats.level)) - 120) - total_experience_points)

@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_jr63c"]
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_w4ub5"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_wn58t"]
-[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="4_8x0pw"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_8x0pw"]
+[ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="4_8x0pw"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_uyw4s"]
 [ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_nw6bc"]
 [ext_resource type="Texture2D" uid="uid://w3qqr6y7m537" path="res://assets/tile sheets/All_Eyeball_Animations.png" id="5_o16x7"]
@@ -74,6 +75,9 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 script = ExtResource("5_nw6bc")
 coin_drop_range = Vector2(10, 15)
 bond_drop_range = Vector2(2, 5)
+item_drop_chances = Dictionary[ExtResource("3_8x0pw"), int]({
+ExtResource("4_8x0pw"): 50
+})
 metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2dqj"]

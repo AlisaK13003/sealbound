@@ -28,20 +28,18 @@ position = Vector2(2058, -1549)
 position = Vector2(2116, -1513)
 
 [node name="WeaponShop" type="Node2D" parent="Buildings" unique_id=130962121]
-position = Vector2(-2116, 1513)
+position = Vector2(805, 794)
 
 [node name="LoadingZone" parent="Buildings/WeaponShop" unique_id=1216423571 instance=ExtResource("4_jt62i")]
-position = Vector2(2915, -725)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Blacksmith"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Blacksmith"
 
 [node name="Infirmary_Spawn" type="Node2D" parent="Buildings" unique_id=2085898168]
-position = Vector2(-2116, 1513)
+position = Vector2(2284, 687)
 
 [node name="LoadingZone" parent="Buildings/Infirmary_Spawn" unique_id=1269289252 instance=ExtResource("4_jt62i")]
-position = Vector2(4399, -823)
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Infirmary"
 "Destination Location/Region" = "Buildings_Insides"

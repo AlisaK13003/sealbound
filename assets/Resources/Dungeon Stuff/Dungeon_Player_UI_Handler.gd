@@ -12,6 +12,8 @@ class_name dungeon_gui
 @onready var attack_button = $CanvasLayer/Base_Menu/Attack
 @onready var defend_button = $CanvasLayer/Base_Menu/Defend
 
+@onready var scroll_back_drop = $CanvasLayer/NinePatchRect
+
 var test_mode = false
 
 var p_ref: dungeon_loop
@@ -71,9 +73,11 @@ func hide_gui(show_back_button):
 	skill_menu.visible = false
 	base_menu.visible = false
 	back_button.visible = show_back_button
+	scroll_back_drop.visible = false
 
 func show_base_gui():
 	base_menu.visible = true
+	scroll_back_drop.visible = true
 
 func new_player_turn(item_list):
 	swap_to_new_player(item_list)

@@ -5,6 +5,7 @@ class_name Items
 @export var item_name : String
 @export var item_description : String
 @export var sell_price: int
+@export var item_quantity: int
 
 @export var item_sprite : Texture2D
 

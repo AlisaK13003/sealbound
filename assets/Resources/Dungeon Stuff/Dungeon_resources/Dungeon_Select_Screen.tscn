@@ -60,6 +60,7 @@ offset_bottom = 240.0
 scale = Vector2(0.785, 0.785)
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 theme_override_constants/separation = 5
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer2" unique_id=967142851]
@@ -170,6 +171,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Dungeon_Dungeon" type="Container" parent="CanvasLayer/Control" unique_id=2096355983]
 layout_mode = 1
@@ -315,6 +317,14 @@ z_index = -1
 custom_minimum_size = Vector2(224.58, 121.57)
 layout_mode = 2
 mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=390468899]
+z_index = 10
+offset_left = -10.664172
+offset_top = -26.795135
+offset_right = 369.6913
+offset_bottom = 198.08794
+color = Color(0, 0, 0, 1)
 
 [connection signal="gui_input" from="CanvasLayer/Label5" to="." method="_on_label_5_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/Label6" to="." method="_on_label_6_gui_input"]

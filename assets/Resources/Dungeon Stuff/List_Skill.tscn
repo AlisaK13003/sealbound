@@ -115,6 +115,7 @@ offset_bottom = 121.0
 scale = Vector2(0.25, 0.25)
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Container/Control/Mana_Cost" unique_id=1780393036]
+visible = false
 custom_minimum_size = Vector2(46.83, 35.37)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -124,6 +125,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/Container/Control/Mana_Cost" unique_id=385152947]
+visible = false
 custom_minimum_size = Vector2(46.83, 35.37)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -133,6 +135,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/Container/Control/Mana_Cost" unique_id=489523621]
+visible = false
 custom_minimum_size = Vector2(46.83, 35.37)
 layout_mode = 2
 size_flags_horizontal = 0

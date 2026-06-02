@@ -168,8 +168,12 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 			await update_damage_label(0, false, true)
 		else:
 			if is_defending:
-				portrait._update_health(change_health_value[0] * 0.4)
-				await update_damage_label([change_health_value[0] * 0.4, ""], false, false)
+				if not change_health_value[0] is Array:
+					portrait._update_health(change_health_value[0] * 0.4)
+					await update_damage_label([change_health_value[0] * 0.4, ""], false, false)
+				else:
+					portrait._update_health(change_health_value[0][0] * 0.4)
+					await  update_damage_label([change_health_value[0][0] * 0.4, ""], false, false)
 			else:
 				if portrait == null:
 					if not change_health_value[0] is Array:
@@ -180,7 +184,10 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 					portrait._update_health(change_health_value[0])
 				await update_damage_label(change_health_value, false, false)
 			if is_defending:
-				stored_combatant.combatant_stats.health -= floor(change_health_value[0] * 0.4)
+				if change_health_value[0] is Array:
+					stored_combatant.combatant_stats.health -= floor(change_health_value[0][0] * 0.4)
+				else:
+					stored_combatant.combatant_stats.health -= floor(change_health_value[0] * 0.4)
 			else:
 				if change_health_value[0] is Array:
 					stored_combatant.combatant_stats.health -= change_health_value[0][0]

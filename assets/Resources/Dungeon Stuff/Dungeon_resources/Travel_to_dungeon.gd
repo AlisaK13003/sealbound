@@ -6,13 +6,16 @@ var current_selected_dungeon: int = 0
 @onready var dungeon_select_buttons = $CanvasLayer/VBoxContainer
 @onready var container_thing = $CanvasLayer/Control
 
+@onready var hidden_load = $CanvasLayer/ColorRect
+
 func _ready():
+	Fade.fade_out()
+	hidden_load.visible = false
 	for child in dungeon_select_buttons.get_children():
 		child.pressed.connect(change_selected_dungeon.bind(child.get_index()))
 		print("bound to: ", child.get_index())
 		
 func change_selected_dungeon(dungeon_select):
-	print("HII")
 	hide_all_info()
 	current_selected_dungeon = dungeon_select
 	container_thing.get_child(dungeon_select).visible = true
