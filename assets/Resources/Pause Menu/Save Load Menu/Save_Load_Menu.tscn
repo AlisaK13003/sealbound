@@ -7,3 +7,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SaveLoadToggle" type="HBoxContainer" parent="." unique_id=1260105354]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Save" type="Button" parent="SaveLoadToggle" unique_id=407659994]
+layout_mode = 2
+
+[node name="Load" type="Button" parent="SaveLoadToggle" unique_id=2114972366]
+layout_mode = 2
+
+[node name="SlotSelect" type="VBoxContainer" parent="." unique_id=330520387]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Slot1" type="Button" parent="SlotSelect" unique_id=310786545]
+layout_mode = 2
+
+[node name="Slot2" type="Button" parent="SlotSelect" unique_id=1783686441]
+layout_mode = 2
+
+[node name="Slot3" type="Button" parent="SlotSelect" unique_id=609466449]
+layout_mode = 2
+
+[node name="Delete" type="Button" parent="." unique_id=1820685857]
+layout_mode = 0
