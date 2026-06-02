@@ -43,7 +43,7 @@ position = Vector2(4399, -823)
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
 y_sort_enabled = true
-position = Vector2(3668, -1127)
+position = Vector2(3669, -1127)
 move_speed = 200.0
 
 [node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]

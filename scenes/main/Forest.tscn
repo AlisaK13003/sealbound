@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dvxumex7afkjl" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet-sheet.png" id="7_rld5i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rld5i"]
-size = Vector2(87, 35)
+size = Vector2(94, 48)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nxhgi"]
 texture = ExtResource("4_1uopn")
@@ -2976,6 +2976,7 @@ texture = ExtResource("7_rld5i")
 sources/0 = SubResource("TileSetAtlasSource_ir3fe")
 
 [node name="TestForestLeft" type="Node2D" unique_id=1563172430 node_paths=PackedStringArray("player_node")]
+y_sort_enabled = true
 script = ExtResource("1_b841q")
 player_node = NodePath("Player")
 
@@ -2995,11 +2996,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Potion Shop" type="Node2D" parent="." unique_id=340125664]
 z_index = 1
+y_sort_enabled = true
 position = Vector2(1748, -1091)
 
 [node name="Sprite2D" type="Sprite2D" parent="Potion Shop" unique_id=649060307]
 z_index = 1
-position = Vector2(2.5, -36)
+position = Vector2(5, -49)
 texture = ExtResource("6_rld5i")
 
 [node name="LoadingZone" parent="Potion Shop" unique_id=1937347105 instance=ExtResource("2_f2gc6")]
@@ -3019,7 +3021,7 @@ location_data = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Potion Shop/StaticBody2D" unique_id=1295031958]
 z_index = 1
-position = Vector2(-2.5, 28.5)
+position = Vector2(1, 10)
 shape = SubResource("RectangleShape2D_rld5i")
 
 [node name="Tile Layers" type="Node" parent="." unique_id=1415513699]
@@ -3059,6 +3061,7 @@ tile_set = SubResource("TileSet_4ala6")
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("3_bgyl7")]
 z_index = 3
+y_sort_enabled = true
 position = Vector2(1200, -568)
 
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
