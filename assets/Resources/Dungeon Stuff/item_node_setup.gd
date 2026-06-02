@@ -1,7 +1,7 @@
 extends Control
 
-@onready var item_name = $HBoxContainer/Control/Item_Name
-@onready var item_texture = $HBoxContainer/Control/Item_Texture
+@onready var item_name = $HBoxContainer/Container/Item_Name
+@onready var item_texture = $HBoxContainer/Container/Item_Texture
 @onready var selection_arrow = $HBoxContainer/AnimatedSprite2D
 
 var trying_to_be_used: bool = false
@@ -18,14 +18,6 @@ func _setup(item_passed: Items, i_num, parent_ref):
 	index_number = i_num
 	held_item = item_passed
 	
-func _on_panel_mouse_entered():
-	p_ref.unselect_all()
-	select()
-	can_be_unselected = false
-
-func _on_panel_mouse_exited():
-	can_be_unselected = true
-
 func select():
 	if not can_be_unselected:
 		return
@@ -40,13 +32,23 @@ func unselect():
 	selection_arrow.visible = false
 	selection_arrow.stop()
 
-func _on_item_selected(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			selection_confirmed()
-
 func selection_confirmed():
 	p_ref.p_ref.item_selected(held_item, index_number)
 
 func execute_selection():
 	p_ref.p_ref.confirmation.emit(true)
+	
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selection_confirmed()
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_MOUSE_ENTER:
+			p_ref.unselect_all()
+			select()
+			can_be_unselected = false
+			
+		NOTIFICATION_MOUSE_EXIT:
+			can_be_unselected = true

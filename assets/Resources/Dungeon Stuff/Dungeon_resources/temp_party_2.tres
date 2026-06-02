@@ -9,16 +9,18 @@
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_i1avj"]
 [ext_resource type="Resource" uid="uid://m5dnd2snq2qa" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Forgebound Resolve.tres" id="4_ouiim"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_dmw0s"]
+[ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="10_ikrf0"]
 
 [sub_resource type="Resource" id="Resource_qx3or"]
 script = ExtResource("2_dhfcn")
-max_health = 422
-health = 422
-attack = 27
-defense = 16
+max_health = 95
+health = 95
+attack = 60
+defense = 100
 magic = 23
-resistance = 22
+resistance = 75
 speed = 10
+luck = 10
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 

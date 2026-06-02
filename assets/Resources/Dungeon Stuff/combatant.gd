@@ -11,10 +11,23 @@ class_name generic_combatants
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
 
+@export var drop_table: drop_tables
+
 @export var combatant_skills : Array[moves]
 
+@export var voxel_frames: Dictionary[String, voxel_animation]
 @export var sprite_frames: SpriteFrames
 @export var idle_speed: float
 @export var death_speed: float
 @export var walk_speed: float
 @export var attack_speed: Array[float]
+
+@export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
+
+@export var total_experience_points: int
+
+func add_experience(amount_to_add):
+	total_experience_points += amount_to_add
+	combatant_stats.level
+	if total_experience_points >= (100 * pow(1.2, combatant_stats.level)):
+		combatant_stats.level += 1

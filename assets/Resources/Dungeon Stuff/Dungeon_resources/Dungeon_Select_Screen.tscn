@@ -1,0 +1,320 @@
+[gd_scene format=3 uid="uid://bl0fbkeqwgs7p"]
+
+[ext_resource type="Script" uid="uid://5ntsh2a3wxkl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Travel_to_dungeon.gd" id="1_owdmc"]
+[ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="2_xdkxl"]
+[ext_resource type="Texture2D" uid="uid://qcl4pcesxx7i" path="res://assets/tile sheets/Lock.png" id="3_06qrs"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="4_rw4us"]
+[ext_resource type="Texture2D" uid="uid://dic7p8wl3usht" path="res://assets/tile sheets/Sprite-0002.png" id="5_7xvnh"]
+[ext_resource type="Texture2D" uid="uid://bucmvixa6qkvp" path="res://assets/Enemies/Enemy_Sprites/Generic_Monster.tres" id="6_df8o2"]
+[ext_resource type="Texture2D" uid="uid://dfguifwtach7e" path="res://assets/Sprites/Dungeon_wall_right.png" id="7_2k235"]
+
+[node name="DungeonSelectScreen" type="Control" unique_id=838999056]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_owdmc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1101859366]
+offset = Vector2(0, 102.22)
+scale = Vector2(5.345, 5.345)
+transform = Transform2D(5.345, 0, 0, 5.345, 0, 102.22)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer" unique_id=1651906064]
+z_index = -2
+offset_right = 357.0
+offset_bottom = 149.0
+mouse_filter = 1
+texture = ExtResource("2_xdkxl")
+patch_margin_left = 12
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label5" type="Label" parent="CanvasLayer" unique_id=1794813979]
+offset_left = 230.0
+offset_top = 150.0
+offset_right = 372.0
+offset_bottom = 168.0
+mouse_filter = 1
+text = "Travel to Dungeon"
+
+[node name="Label6" type="Label" parent="CanvasLayer" unique_id=1261859873]
+offset_left = 2.0
+offset_top = 152.0
+offset_right = 152.0
+offset_bottom = 170.0
+mouse_filter = 1
+text = "Return to Hearthwynn"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1332216379]
+offset_left = 62.0
+offset_top = 71.99999
+offset_right = 94.0
+offset_bottom = 240.0
+scale = Vector2(0.785, 0.785)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer2" unique_id=967142851]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_06qrs")
+stretch_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/VBoxContainer2" unique_id=57932041]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_06qrs")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/VBoxContainer2" unique_id=845644280]
+layout_mode = 2
+texture = ExtResource("3_06qrs")
+stretch_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/VBoxContainer2" unique_id=911571049]
+layout_mode = 2
+texture = ExtResource("3_06qrs")
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/VBoxContainer2" unique_id=434394725]
+layout_mode = 2
+texture = ExtResource("3_06qrs")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=650065877]
+z_index = 3
+offset_left = 18.0
+offset_top = 9.0
+offset_right = 82.0
+offset_bottom = 149.0
+theme_override_constants/separation = 13
+
+[node name="GenericButton" parent="CanvasLayer/VBoxContainer" unique_id=1034936178 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+action_mode = 0
+texture_normal = ExtResource("5_7xvnh")
+input_event_that_will_activate = "up"
+
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer/GenericButton" unique_id=1645003609]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 54.0
+offset_bottom = 18.0
+mouse_filter = 1
+text = "Creepy"
+
+[node name="GenericButton2" parent="CanvasLayer/VBoxContainer" unique_id=2086090258 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+texture_normal = ExtResource("5_7xvnh")
+input_event_that_will_activate = "up"
+
+[node name="Label3" type="Label" parent="CanvasLayer/VBoxContainer/GenericButton2" unique_id=1384852718]
+layout_mode = 0
+offset_left = 10.0
+offset_right = 57.0
+offset_bottom = 18.0
+mouse_filter = 1
+text = "Forest"
+
+[node name="GenericButton3" parent="CanvasLayer/VBoxContainer" unique_id=172920399 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+texture_normal = ExtResource("5_7xvnh")
+input_event_that_will_activate = "up"
+
+[node name="Label4" type="Label" parent="CanvasLayer/VBoxContainer/GenericButton3" unique_id=342083669]
+layout_mode = 0
+offset_left = 15.0
+offset_right = 62.0
+offset_bottom = 18.0
+mouse_filter = 1
+text = "Soon"
+
+[node name="GenericButton4" parent="CanvasLayer/VBoxContainer" unique_id=441815521 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+texture_normal = ExtResource("5_7xvnh")
+input_event_that_will_activate = "up"
+
+[node name="Label5" type="Label" parent="CanvasLayer/VBoxContainer/GenericButton4" unique_id=1194267025]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 30.0
+offset_right = 62.0
+offset_bottom = 48.0
+mouse_filter = 1
+text = "Soon"
+
+[node name="GenericButton5" parent="CanvasLayer/VBoxContainer" unique_id=1036667174 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+texture_normal = ExtResource("5_7xvnh")
+input_event_that_will_activate = "up"
+
+[node name="Label6" type="Label" parent="CanvasLayer/VBoxContainer/GenericButton5" unique_id=902458481]
+layout_mode = 0
+offset_left = 17.0
+offset_top = -29.0
+offset_right = 64.0
+offset_bottom = -11.0
+mouse_filter = 1
+text = "Soon"
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Dungeon_Dungeon" type="Container" parent="CanvasLayer/Control" unique_id=2096355983]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 5.7170005
+anchor_bottom = 3.6460001
+offset_right = -228.68002
+offset_bottom = -145.84001
+
+[node name="DungeonWallRight2" type="Sprite2D" parent="CanvasLayer/Control/Dungeon_Dungeon" unique_id=851109640]
+position = Vector2(266.47583, 81.92372)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("7_2k235")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Dungeon_Dungeon" unique_id=1623904531]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 114
+theme_override_constants/margin_top = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer" unique_id=1257534409]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer" unique_id=1022844235]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=616062099]
+layout_mode = 2
+mouse_filter = 1
+text = "Creepy Dungeon:"
+
+[node name="Label6" type="Label" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=624221442]
+layout_mode = 2
+mouse_filter = 1
+text = "Found Enemies:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=19412740]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=794752908]
+layout_mode = 2
+texture = ExtResource("6_df8o2")
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=843317334]
+layout_mode = 2
+texture = ExtResource("6_df8o2")
+stretch_mode = 3
+
+[node name="Label8" type="Label" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=594229771]
+layout_mode = 2
+mouse_filter = 1
+text = "4-5 Floors"
+
+[node name="Label9" type="Label" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1953386467]
+layout_mode = 2
+mouse_filter = 1
+text = "Level 5"
+
+[node name="Label10" type="Label" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=747456225]
+layout_mode = 2
+mouse_filter = 1
+text = "Seal Guardian: ???"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer/HBoxContainer" unique_id=983499634]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Control/Dungeon_Dungeon/MarginContainer" unique_id=1879866610]
+z_index = -1
+custom_minimum_size = Vector2(224.58, 121.57)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Forest_Dungeon" type="Container" parent="CanvasLayer/Control" unique_id=1356785387]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 5.635
+anchor_bottom = 3.7040002
+offset_right = -225.40001
+offset_bottom = -148.16
+
+[node name="DungeonWallRight2" type="Sprite2D" parent="CanvasLayer/Control/Forest_Dungeon" unique_id=227974435]
+position = Vector2(266.47583, 81.92372)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("7_2k235")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Forest_Dungeon" unique_id=1489792431]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 114
+theme_override_constants/margin_top = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer" unique_id=1734554681]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer" unique_id=282601199]
+layout_mode = 2
+
+[node name="Dungeon_Name" type="Label" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=928633209]
+layout_mode = 2
+mouse_filter = 1
+text = "Forest Dungeon:"
+
+[node name="Label6" type="Label" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1119543378]
+layout_mode = 2
+mouse_filter = 1
+text = "Found Enemies:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1935789433]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=945853624]
+layout_mode = 2
+texture = ExtResource("6_df8o2")
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=909317394]
+layout_mode = 2
+texture = ExtResource("6_df8o2")
+stretch_mode = 3
+
+[node name="Floor Count" type="Label" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2010500662]
+layout_mode = 2
+mouse_filter = 1
+text = "4-5 Floors"
+
+[node name="Average Enemy Level]" type="Label" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1605901330]
+layout_mode = 2
+mouse_filter = 1
+text = "Level 5"
+
+[node name="Seal" type="Label" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1526307542]
+layout_mode = 2
+mouse_filter = 1
+text = "Seal Guardian: ???"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer/HBoxContainer" unique_id=1854193903]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Control/Forest_Dungeon/MarginContainer" unique_id=1572889143]
+z_index = -1
+custom_minimum_size = Vector2(224.58, 121.57)
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="gui_input" from="CanvasLayer/Label5" to="." method="_on_label_5_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/Label6" to="." method="_on_label_6_gui_input"]

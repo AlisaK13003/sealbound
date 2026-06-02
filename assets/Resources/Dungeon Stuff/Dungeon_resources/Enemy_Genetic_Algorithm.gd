@@ -2,14 +2,14 @@ extends Node
 
 class_name genetic_algorithm
 
-var population_size = 10
-var generation_count = 50
+var population_size = 150
+var generation_count = 2500
 var mutation_rate = 0.3
-var cross_over_rate = 0.7
+var cross_over_rate = 0.8
 
-var total_number_of_weights = 8
-var per_weight_mutation_weight = 1.0 / total_number_of_weights
-var sigma = 0.1
+var total_number_of_weights = 9
+var per_weight_mutation_weight = 0.3
+var sigma = 5.0
 
 var hall_of_fame = []
 
@@ -21,10 +21,14 @@ var remove_status_weight = 15
 var give_self_status_weight = 15
 var remove_players_status_weight = 20
 var give_player_status_weight = 20
+var skill_used_weight = 20
+
+#CURRENT BEST MEMBER: [15.8934526443481, 45.2582422494888, 7.55559709668159, 36.5037000924349, 30.0883730649948, 32.604843840003, 25.1595352292061, 25.3082177639008, 21.7800208739936] FITNESS: -1450.0
+
 
 @onready var rng = RandomNumberGenerator.new()
 var weight_range_lower = 0
-var weight_range_upper = 10
+var weight_range_upper = 50
 
 @onready var training_grounds: Node
 
@@ -55,9 +59,10 @@ class population_member:
 			individual.append(rng.randf_range(weight_range_lower, weight_range_upper))
 		return individual
 
-func fitness_function(individual):
-	var results = await training_grounds.battle_loop(individual.member)
+func fitness_function(individual, elite):
+	var results = await training_grounds.battle_loop(individual.member, elite.member)
 	individual.already_evaluated = true
+	
 	var number_of_killed_players = results[0]
 	var number_of_killed_enemies = results[1]
 	var player_container = results[2]
@@ -65,21 +70,33 @@ func fitness_function(individual):
 	var number_of_possible_waves = results[4]
 	var cum_health = results[5]
 	
-	#var average_remaining_player_health = 0.0
-	#for player in player_container.get_children():
-	#	average_remaining_player_health += player.stored_combatant.combatant_stats.health
-	#average_remaining_player_health = float(average_remaining_player_health) / 3.0
+	var enemy_skills_used = 0
+	if results.size() > 6:
+		enemy_skills_used = results[6] 
 	
-	return cum_health
+	var player_kill_reward = 100.0  
+	var skill_use_reward = 15.0      
+	var enemy_death_penalty = 20.0  
+	
+	var final_fitness = cum_health
+	
+	final_fitness -= (number_of_killed_players * player_kill_reward)
+	final_fitness -= (enemy_skills_used * skill_use_reward)
+	
+	final_fitness += (number_of_killed_enemies * enemy_death_penalty)
+	
+	return final_fitness
 
 func run_crossover(ind_1, ind_2):
-	var rand_point = rng.randi_range(0, total_number_of_weights)
 	var child_1 = []
 	var child_2 = []
 	for i in range(total_number_of_weights):
-		var chance = rng.randf_range(0, 1)
-		child_1.append(chance * ind_1.member[i] + (1 - chance) * ind_2.member[i])
-		child_2.append((1 - chance) * ind_1.member[i] + chance * ind_2.member[i])
+		if rng.randf() < 0.5:
+			child_1.append(ind_1.member[i])
+			child_2.append(ind_2.member[i])
+		else:
+			child_1.append(ind_2.member[i])
+			child_2.append(ind_1.member[i])
 
 	var ret_kid_1 = population_member.new(total_number_of_weights, weight_range_lower, weight_range_upper, rng)
 	var ret_kid_2 = population_member.new(total_number_of_weights, weight_range_lower, weight_range_upper, rng)
@@ -122,58 +139,83 @@ func sort_by_fitness(fitness_people: Array[population_member]):
 	return fitness_people
 
 func main_loop():
+	var best_fitness_overall = INF
+	var generations_without_improvement = 0
+	var extinction_threshold = 50
+	var survival_rate = 0.05 
+	
 	for i in range(generation_count):
 		print("GENERATION: ", i)
 		for j in range(population.size()):
 			if not population[j].already_evaluated:
 				await training_grounds._reset()
-				population[j].fitness = await fitness_function(population[j])
-				print(population[j].fitness, " fitness and model ", population[j].member)
-			
-		#selection
-		var selected_individuals: Array[population_member] = []
-		for k in range(population_size / tournament_size):
-			selected_individuals.append(perform_selection(population))
+				population[j].fitness = await fitness_function(population[j], population[0])
 			
 		var children_population: Array[population_member] = []
 		
-		# Elitism
 		var sorted_pop = sort_by_fitness(population)
 		var elite_count = 1
 		for k in range(elite_count):
+			sorted_pop[k].already_evaluated = false 
 			children_population.append(sorted_pop[k])
 		
-		var chance = 0
-
-		for ind in selected_individuals:
-			for ind2 in selected_individuals:
-				if ind.member == ind2.member:
-					continue
-				chance = rng.randf_range(0, 1)
-				if chance < cross_over_rate:
-					var crossover = run_crossover(ind, ind2)
-					children_population.append(crossover[0])
-					children_population.append(crossover[1])
+		while children_population.size() < population_size:
+			var parent_1 = perform_selection(population)
+			var parent_2 = perform_selection(population)
+			
+			var chance = rng.randf_range(0, 1)
+			
+			if chance < cross_over_rate and parent_1.member != parent_2.member:
+				var crossover = run_crossover(parent_1, parent_2)
+				var kid_1 = crossover[0]
+				var kid_2 = crossover[1]
+				
+				kid_1 = gaussian_mutation(kid_1, per_weight_mutation_weight, sigma, weight_range_lower, weight_range_upper)
+				kid_2 = gaussian_mutation(kid_2, per_weight_mutation_weight, sigma, weight_range_lower, weight_range_upper)
+				
+				children_population.append(kid_1)
+				if children_population.size() < population_size:
+					children_population.append(kid_2)
+			else:
+				var clone = population_member.new(total_number_of_weights, weight_range_lower, weight_range_upper, rng)
+				clone.member = parent_1.member.duplicate()
+				clone = gaussian_mutation(clone, per_weight_mutation_weight, sigma, weight_range_lower, weight_range_upper)
+				children_population.append(clone)
 					
-		for mutant in selected_individuals:
-			chance = rng.randf_range(0, 1)
-			if chance < mutation_rate:
-				children_population.append(gaussian_mutation(mutant, mutation_rate, sigma, weight_range_lower, weight_range_upper))
-		
 		for child in children_population:
-			await training_grounds._reset()
-
-			child.fitness = await fitness_function(child)
+			if not child.already_evaluated:
+				await training_grounds._reset()
+				child.fitness = await fitness_function(child, population[0])
 		
 		population = sort_by_fitness(children_population)
-		while (population.size() > population_size):
-			population.pop_back()
+
+
+		if population[0].fitness < best_fitness_overall:
+			best_fitness_overall = population[0].fitness
+			generations_without_improvement = 0 
+		else:
+			generations_without_improvement += 1
+		
+		if generations_without_improvement >= extinction_threshold:
+			print("--- MASS EXTINCTION TRIGGERED! Wiping lower 70% ---")
+			var survival_count = int(population_size * survival_rate)
 			
-		print("CURRENT BEST MEMBER: ", sort_by_fitness(population)[0].member)
-		print()
-		print()
+			for k in range(survival_count, population_size):
+				population[k] = population_member.new(total_number_of_weights, weight_range_lower, weight_range_upper, rng)
+			population = sort_by_fitness(children_population)
+
+			generations_without_improvement = 0
+			best_fitness_overall = population[0].fitness
+
+		print("CURRENT BEST MEMBER: ", population[0].member, " FITNESS: ", population[0].fitness)
+		print("GENERATIONS W/O IMPROVEMENT: ", generations_without_improvement)
+		print("\n")
+		
+	for member in population:
+		print(member.member)
 	
 func _setup(t_ground):
+	Engine.time_scale = 20.0 
 	training_grounds = t_ground
 	for i in range(population_size):
 		population.append(population_member.new(total_number_of_weights, weight_range_lower, weight_range_upper, rng))

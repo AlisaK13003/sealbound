@@ -9,6 +9,8 @@ var all_held_equipment: Array[equipment]
 var all_held_weapons: Array[weapon]
 var all_held_items: Array[Items]
 
+var dungeon_types: Array[dungeon_type]
+
 signal finished
 
 func load_items():
@@ -29,7 +31,28 @@ func _ready():
 
 	finished.emit()
 
-func transition_to_dungeon(active_combatants, current_dungeon_type, current_item_list):
-	var dungeon_scene = await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn")
-	dungeon_scene.setup(active_combatants, current_dungeon_type, current_item_list)
+func transition_to_dungeon(selected_dungeon):
+	var dungeon_scene = await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn", 2)
+
+	await dungeon_scene.setup(active_party_slots, null, all_held_items, selected_dungeon)
+	await Fade.fade_out()
+	var enemies_killed = await dungeon_scene.battle_loop()
 	
+	print("HELLO")
+	
+	var coins_gained: int = 0
+	var experience_gained: int = 0
+	var bond_gained: int = 0
+	var stuff_gained
+	
+	for enemy in enemies_killed:
+		coins_gained += int(randi_range(enemy.drop_table.coin_drop_range.x, enemy.drop_table.coin_drop_range.y) * randf_range(0.5, 1.5))
+		experience_gained += int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2))
+		bond_gained += int(randi_range(enemy.drop_table.bond_drop_range.x, enemy.drop_table.bond_drop_range.y) * randf_range(0.5, 1.2))
+	
+	for player: generic_combatants in active_party_slots:
+		player.add_experience(int(float(experience_gained) / (active_party_slots.size() - 1)))
+	currency_held += coins_gained
+	print("Gained coins: ", coins_gained)
+	print("Gained Experience: ", experience_gained)
+	print("Gained Bond: ", bond_gained)

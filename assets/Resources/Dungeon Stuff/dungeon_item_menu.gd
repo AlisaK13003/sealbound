@@ -1,7 +1,7 @@
 extends Control
 
 @export var node_to_instantiate: String
-@onready var item_container = $VBoxContainer
+@onready var item_container = $MarginContainer/VBoxContainer
 @onready var menu_name = $Menu_Name
 @onready var description = $Description_Label
 var p_ref

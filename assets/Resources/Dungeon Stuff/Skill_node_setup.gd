@@ -1,8 +1,8 @@
 extends Control
 
-@onready var skill_name = $HBoxContainer/Control/Skill_Name
-@onready var skill_texture = $HBoxContainer/Control/Skill_Texture
-@onready var mana_cost = $HBoxContainer/Control/Mana_Cost
+@onready var skill_name = $HBoxContainer/Container/Skill_Name
+@onready var skill_texture = $HBoxContainer/Container/Skill_Texture
+@onready var mana_cost = $HBoxContainer/Container/Control/Mana_Cost
 @onready var selection_arrow = $HBoxContainer/AnimatedSprite2D
 @onready var disabled = $ColorRect
 
@@ -48,13 +48,23 @@ func unselect():
 	selection_arrow.visible = false
 	selection_arrow.stop()
 
-func _on_skill_selected(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			selection_confirmed()
-
 func selection_confirmed():
 	p_ref.p_ref.skill_selected(held_skill)
 
 func execute_selection():
 	p_ref.p_ref.confirmation.emit(true)
+	
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			selection_confirmed()
+			
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_MOUSE_ENTER:
+			p_ref.unselect_all()
+			select()
+			can_be_unselected = false
+			
+		NOTIFICATION_MOUSE_EXIT:
+			can_be_unselected = true

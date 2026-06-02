@@ -13,8 +13,6 @@ var actions_to_change = ["up", "down", "left", "right", "Interact", "Pause", "Co
 
 func _ready():
 	for child in range(button_container.get_child_count()):
-		print(InputMap.action_get_events(actions_to_change[child]))
-		print()
 		var event_to_check = InputMap.action_get_events(actions_to_change[child])[0]
 		var incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
 		button_container.get_child(child).text = OS.get_keycode_string(incoming_key)

@@ -14,8 +14,10 @@
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Kaela_NPC.tscn" id="12_kaela1"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Orion_NPC.tscn" id="13_orion1"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
+[ext_resource type="PackedScene" uid="uid://d2l54oy03qbul" path="res://scenes/main/temp_thing.tscn" id="15_lg162"]
 
 [node name="Hearthwynn" type="Node2D" unique_id=981634707 node_paths=PackedStringArray("player_node")]
+position = Vector2(-46, -5)
 script = ExtResource("1_ofm1v")
 player_node = NodePath("Player")
 
@@ -192,7 +194,7 @@ position = Vector2(2826, -2525)
 position = Vector2(5019, -413)
 
 [node name="TempThing" parent="." unique_id=289262995 instance=ExtResource("9_8ncia")]
-position = Vector2(3678, -426)
+position = Vector2(3401, -443)
 
 [node name="Cassian_NPC" parent="." unique_id=1817321559 node_paths=PackedStringArray("location_container") instance=ExtResource("9_8ncia")]
 position = Vector2(3614.0002, -1229)
@@ -218,3 +220,6 @@ scale = Vector2(0.42, 0.42)
 [node name="Lyra_NPC" parent="." unique_id=1711293043 instance=ExtResource("14_lyra1")]
 position = Vector2(3358, -942)
 scale = Vector2(0.44, 0.44)
+
+[node name="TempThing2" parent="." unique_id=760205585 instance=ExtResource("15_lg162")]
+position = Vector2(3685, -411)

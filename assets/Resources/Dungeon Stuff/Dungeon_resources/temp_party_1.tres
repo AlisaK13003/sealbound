@@ -7,16 +7,28 @@
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_57kig"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_q427m"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_4t8q3"]
+[ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="8_k5b5e"]
+
+[sub_resource type="Resource" id="Resource_xppdd"]
+script = ExtResource("1_4t8q3")
+attack_power = null
+mana_cost = 2
+does_status = true
+status_type = 24
+removes_status = null
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ffb4d"]
 script = ExtResource("2_57kig")
-max_health = 391
-health = 391
-attack = 28
-defense = 16
+max_health = 75
+health = 75
+attack = 80
+defense = 45
 magic = 28
-resistance = 25
-speed = 10
+resistance = 90
+speed = 40
+luck = 5
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
@@ -46,5 +58,5 @@ combatant_sprite = ExtResource("1_57kig")
 combatant_stats = SubResource("Resource_ffb4d")
 stored_weapon = SubResource("Resource_dylaw")
 stored_equipment = SubResource("Resource_k5b5e")
-combatant_skills = Array[ExtResource("1_4t8q3")]([ExtResource("2_03ww6")])
+combatant_skills = Array[ExtResource("1_4t8q3")]([ExtResource("2_03ww6"), SubResource("Resource_xppdd")])
 metadata/_custom_type_script = "uid://125iickqse23"

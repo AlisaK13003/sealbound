@@ -125,7 +125,7 @@ var conflicts = {
 	statuses.ACCURACYup: Color.CADET_BLUE
 }
 
-enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC}
+enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESISTANCE}
 
 #endregion
 
@@ -168,20 +168,28 @@ func update_health(change_health_value, status_ = false, portrait: player_portra
 			await update_damage_label(0, false, true)
 		else:
 			if is_defending:
-				portrait._update_health(change_health_value)
-				await update_damage_label(change_health_value * 0.4, false, false)
+				portrait._update_health(change_health_value[0] * 0.4)
+				await update_damage_label([change_health_value[0] * 0.4, ""], false, false)
 			else:
 				if portrait == null:
-					health_bar.value -= floor(change_health_value[0])
+					if not change_health_value[0] is Array:
+						health_bar.value -= floor(change_health_value[0])
+					else:
+						health_bar.value -= floor(change_health_value[0][0])
 				else:
 					portrait._update_health(change_health_value[0])
 				await update_damage_label(change_health_value, false, false)
 			if is_defending:
 				stored_combatant.combatant_stats.health -= floor(change_health_value[0] * 0.4)
 			else:
-				stored_combatant.combatant_stats.health -= change_health_value[0]
+				if change_health_value[0] is Array:
+					stored_combatant.combatant_stats.health -= change_health_value[0][0]
+				else:
+					stored_combatant.combatant_stats.health -= change_health_value[0]
+
 	else:
 		if not stored_combatant.is_combatant_enemy:
+			await update_damage_label([change_health_value, ""], false, true)
 			parent_reference.get_player_portrait(child_number)._update_health(change_health_value)
 		else:
 			health_bar.value -= floor(change_health_value)
@@ -199,47 +207,37 @@ func update_damage_label(damage_taken, _was_heal = false, attack_missed = false)
 	if attack_missed:
 		attacked_label.modulate = Color.MAGENTA
 		attacked_label.text = "MISS"
-	elif not damage_taken[1] is String and damage_taken[1] == 1:
+	elif damage_taken[0] is Array and damage_taken[0][1] == 1:
 		attacked_label.modulate = Color.RED
 		attacked_label.text = "CRIT"
 		if not parent_reference.training:	
 			await get_tree().create_timer(0.5).timeout
-		attacked_label.text = str(int(floor(damage_taken[0])))
+		attacked_label.text = str(int(floor(damage_taken[0][0])))
 	elif damage_taken[1] is String and not damage_taken[1] == "":
 		attacked_label.modulate = Color.LAWN_GREEN
 		attacked_label.text = str(int(floor(-1 * damage_taken[0])))
 	else:
 		attacked_label.modulate = Color.WEB_PURPLE
-		attacked_label.text = str(int(floor(damage_taken[0])))
+		if damage_taken[0] is Array:
+			attacked_label.text = str(int(floor(damage_taken[0][0])))
+		else:
+			attacked_label.text = str(int(floor(damage_taken[0])))
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	attacked_label.text = ""
 
 # Combat related stuff
-func calculate_evasion(entity_being_attacked: combat_template, attack_hit_chance = 90):
-	if not stored_combatant.is_combatant_enemy:
-		return ((obtain_stat(stats.EVASION) + 200) / (entity_being_attacked.obtain_stat(stats.EVASION) + 200)) * (attack_hit_chance * obtain_stat_alteration(stats.ACCURACY))
-	else:
-		return (((obtain_stat(stats.EVASION) + 200) / (entity_being_attacked.obtain_stat(stats.EVASION) + 200)) * (attack_hit_chance * obtain_stat_alteration(stats.ACCURACY))) * ((obtain_stat(stats.EVASION) + 200) / ((((stored_combatant.stored_equipment.equipment_stats.evasion * obtain_stat_alteration(stats.EVASION))) / 2) + 200))
-
-func execute_base_attack(entity_node: combat_template):
-	var chance_to_hit = calculate_evasion(entity_node)
-	var chance = rng.randf_range(0, 1)
-
-	if (chance * 100) <= chance_to_hit:
-		return 5 * sqrt((obtain_stat(stats.ATTACK) / (entity_node.obtain_stat(stats.DEFENSE) + 1)) * (stored_combatant.stored_weapon.weapon_attack * obtain_stat_alteration(stats.ACCURACY))) * randf_range(0.95, 1.05)
-	else:
-		return "MISS"
 
 func on_death():
 	stored_combatant.is_dead = true
 	enemy_collision.visible = false
 	all_active_effects = 0
 	active_statuses.clear()
-	if not parent_reference.training:	
+	if not parent_reference.training:
 		await get_tree().create_timer(0.5).timeout
 		
 		if stored_combatant.is_combatant_enemy:
+			parent_reference.killed_enemies.append(stored_combatant)
 			animated_sprite.play("On_Death")
 			animated_sprite.speed_scale = 1.5
 			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
@@ -306,6 +304,12 @@ func _remove_active_status(type_to_remove: int):
 			break
 
 func take_turn(player_portrait: player_portraits = null):
+	if parent_reference.turn_count == 1:
+		return
+	elif stored_combatant.is_combatant_enemy:
+		current_mana += 1
+	elif parent_reference.training:
+		current_mana += 1
 	is_defending = false
 	if all_active_effects != null:
 		for key in status_map:
@@ -341,7 +345,7 @@ func _apply_agro(): print("AGRO")
 func _apply_momentum(): print("momentum")
 func _apply_regen():  print("regen")
 func _apply_stun_imm():  print("stun imun")
-func stat_does_nothing(): print("INFL:ICT?ED")
+func stat_does_nothing(): return
 
 # Helper Functions
 func obtain_stat(what_stat):
@@ -368,6 +372,8 @@ func obtain_stat(what_stat):
 		6:
 			var ret_stat = obtain_stat_alteration(stats.ATTACK)
 			return stored_combatant.combatant_stats.magic * ret_stat if (ret_stat != 0) else 1
+		7:
+			return stored_combatant.combatant_stats.resistance
 
 func obtain_stat_alteration(what_stat):
 	match what_stat:
@@ -471,7 +477,6 @@ func attack_animation(what_attack_anim):
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 	
-
 #endregion
 
 func _on_enemy_collision_mouse_entered():

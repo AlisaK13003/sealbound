@@ -16,31 +16,33 @@ func _setup(person_to_setup: generic_combatants):
 	portrait_name.text = person_to_setup.combatant_name
 	
 func _update_health(health_value):
-	health_bar.value = clamp(floor(health_bar.value - health_value), 0, health_bar.max_value)
-	health_num.text = str(int(health_bar.value))
+	if health_value is Array:
+		health_bar.value = clamp(floor(health_bar.value - health_value[0]), 0, health_bar.max_value)
+		health_num.text = str(int(health_bar.value))
+	else:
+		health_bar.value = clamp(floor(health_bar.value - health_value), 0, health_bar.max_value)
+		health_num.text = str(int(health_bar.value))
 
 func update_statuses(person_to_do_it_for: combat_template):
 	reset_ui()
 	for status_ in person_to_do_it_for.active_statuses:
-		print("TESTING")
 		match status_.status_name:
 			"Stun":
-				print("STUN")
+
 				portrait_status.get_child(0).visible = true
 			"Sleep":
-				print("SLEEP")
+
 				portrait_status.get_child(1).visible = true
 			"Shock":
-				print("SHOCK")
+
 				portrait_status.get_child(2).visible = true
 			"Poison":
-				print("POISON")
 				portrait_status.get_child(3).visible = true
 			"Freeze":
-				print("FREEZE")
+
 				portrait_status.get_child(4).visible = true
 			"Burn":
-				print("BURN")
+
 				portrait_status.get_child(5).visible = true
 
 	

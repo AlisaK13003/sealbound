@@ -2,45 +2,79 @@
 
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_jr63c"]
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_w4ub5"]
-[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="1_w33mw"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_wn58t"]
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="4_8x0pw"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_uyw4s"]
+[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_nw6bc"]
 [ext_resource type="Texture2D" uid="uid://w3qqr6y7m537" path="res://assets/tile sheets/All_Eyeball_Animations.png" id="5_o16x7"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_w4ub5"]
+[ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="8_f2dqj"]
+[ext_resource type="Resource" uid="uid://cq50s175yip20" path="res://assets/tile sheets/EyeBall/Idle/Eye_ball_Idle_anim.tres" id="9_otd26"]
 
 [sub_resource type="Resource" id="Resource_ho304"]
 script = ExtResource("1_w4ub5")
-move_name = "REMOVE STATUS"
+move_name = "Eye ball slash"
 attack_power = 2
-guaranteed_hit_count = 1
-max_hit_count = 2
 mana_cost = 3
-status_type = 0
+status_type = null
 removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_8x0pw"]
 script = ExtResource("1_w4ub5")
 move_name = "Eye ball slash"
-attack_power = 1
+attack_power = null
+is_magic_skill = true
 mana_cost = 2
 status_type = null
 removes_status = null
+targets_party = true
+does_heal_party = true
+amount_healed = 1
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_nw6bc"]
+script = ExtResource("1_w4ub5")
+move_name = "POISION"
+attack_power = 2
+mana_cost = 3
+does_status = true
+status_type = 8
+removes_status = null
+chance_of_status_condition = 1.0
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_4qb2n"]
+script = ExtResource("1_w4ub5")
+attack_power = null
+mana_cost = 2
+does_remove_status = true
+status_type = null
+removes_status = 24
+targets_party = true
 is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_uyw4s"]
 script = ExtResource("2_wn58t")
-max_health = 130
-health = 130
-attack = 25
-defense = 24
-magic = 4
-resistance = 30
-speed = 4
+level = 3
+max_health = 65
+health = 65
+attack = 35
+defense = 25
+magic = 20
+resistance = 20
+speed = 40
 luck = 3
 evasion = 3
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_yakan"]
+script = ExtResource("5_nw6bc")
+coin_drop_range = Vector2(10, 15)
+bond_drop_range = Vector2(2, 5)
+metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2dqj"]
 atlas = ExtResource("5_o16x7")
@@ -284,12 +318,15 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 [resource]
 script = ExtResource("1_jr63c")
 combatant_name = "Puppy"
-combatant_sprite = ExtResource("1_w33mw")
 combatant_stats = SubResource("Resource_uyw4s")
 is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
-combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_ho304"), SubResource("Resource_8x0pw")])
+drop_table = SubResource("Resource_yakan")
+combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_ho304"), SubResource("Resource_8x0pw"), SubResource("Resource_nw6bc"), SubResource("Resource_4qb2n")])
+voxel_frames = Dictionary[String, ExtResource("8_f2dqj")]({
+"Idle": ExtResource("9_otd26")
+})
 sprite_frames = SubResource("SpriteFrames_8x0pw")
 idle_speed = 0.25
 death_speed = 1.0

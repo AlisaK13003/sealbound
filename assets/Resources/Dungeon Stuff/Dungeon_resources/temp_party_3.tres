@@ -9,17 +9,18 @@
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_ddxp4"]
 [ext_resource type="Resource" uid="uid://bw1eminch3nhl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Second Wind.tres" id="4_xadco"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_aqpqu"]
+[ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="10_fey42"]
 
 [sub_resource type="Resource" id="Resource_se6t2"]
 script = ExtResource("2_pstms")
-max_health = 391
-health = 391
-attack = 37
-defense = 29
+max_health = 90
+health = 90
+attack = 95
+defense = 75
 magic = 24
-resistance = 23
-speed = 135
-luck = 10
+resistance = 40
+speed = 55
+luck = 20
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
