@@ -65,6 +65,7 @@ sprite_frames = SubResource("SpriteFrames_51gu7")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=948909226]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+cast_shadow = 0
 flip_h = true
 pixel_size = 0.005
 texture_filter = 0
@@ -94,11 +95,6 @@ script = ExtResource("4_mmlnl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8197584, -4.301213, 0.7319856)
 shape = SubResource("BoxShape3D_7mydf")
 debug_fill = false
-
-[node name="Label3D" type="Label3D" parent="." unique_id=1576479968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05734358, 0.24420947, 0)
-texture_filter = 0
-modulate = Color(0.88235295, 0.16078432, 0.2509804, 1)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=546371427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042127967, 0.21524617, 0)

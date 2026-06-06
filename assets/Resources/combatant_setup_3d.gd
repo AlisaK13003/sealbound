@@ -5,14 +5,11 @@ class_name combat_template
 #region Variables
 
 @onready var combatant_sprite = $Sprite3D
-@onready var health_bar = $Sprite3D2/SubViewport/CombatantUi.get_node("TextureProgressBar")
-@onready var attacked_label = $Label3D
 @onready var combatant_ui_: combatant_ui = $Sprite3D2/SubViewport/CombatantUi
 @onready var status_sprite = load("res://assets/tile sheets/Up_Arrow.png")
 @onready var enemy_collision = $Sprite3D2/Enemy_Collision
 @onready var selection_area_sprite = $AnimatedSprite3D
 @onready var animated_sprite = $AnimatedSprite3D2
-@onready var subviewport = $Sprite3D2/SubViewport
 @onready var ui_sprite = $Sprite3D2
 @onready var rng = RandomNumberGenerator.new()
 @onready var animator = SpriteFrames.new()
@@ -136,18 +133,19 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	parent_reference = parent_ref
 	child_number = child_num
 	base_location = self.global_position
-	
 	for status_ in active_statuses:
 		_remove_active_status(status_.status_type)
-	combatant_ui_.remove_active_status(all_active_effects)
+
+	
 	all_active_effects = 0
 	active_statuses.clear()
 	is_defending = false
 	stored_combatant = combatant
-	health_bar.max_value = combatant.combatant_stats.max_health
-	health_bar.value = combatant.combatant_stats.health
+	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
+
 	current_mana = 3
 	if combatant.is_combatant_enemy:
+		currently_selectable = true
 		if has_node("Sprite3D2/Area3D"):
 			$Sprite3D2/Area3D.queue_free()
 		animated_sprite.sprite_frames = combatant.sprite_frames
@@ -160,78 +158,56 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
 		combatant_sprite.texture = combatant.combatant_sprite
 	
-func update_health(change_health_value, status_ = false, portrait: player_portraits = null):
-	if not status_:
-		if str(change_health_value) == "MISS":
-			await update_damage_label(0, false, true)
-		elif str(change_health_value[0]) == "MISS":
-			await update_damage_label(0, false, true)
+func update_health(change_health_value, what_action):
+	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
+	if what_action != "STATUS":
+		if what_action == "MISS":
+			await combatant_ui_.update_damage_label(0, "MISS")
+		elif what_action == "MULTI":
+			var current_damage = int(ceil(change_health_value[0]))
+			while(current_damage is int or current_damage != "MISS"):
+				if is_defending:
+					update_portrait._update_health(current_damage * 0.6)
+					stored_combatant.combatant_stats.health -= current_damage * 0.6
+					await combatant_ui_.update_damage_label(current_damage * 0.6, "DAMAGE")
+				else:
+					if update_portrait != null:
+						update_portrait._update_health(current_damage)
+					stored_combatant.combatant_stats.health -= current_damage
+					await combatant_ui_.update_damage_label(current_damage, "DAMAGE")
+				await get_tree().create_timer(1.5)
+				change_health_value.pop_front()
+				if change_health_value.size() == 0:
+					break
+				current_damage = change_health_value[0]
+				if current_damage is String:
+					if current_damage == "MISS":
+						break
+					elif current_damage.size() == 0:
+						break
 		else:
+			var damage_to_take = int(ceili(change_health_value))
 			if is_defending:
-				if not change_health_value[0] is Array:
-					portrait._update_health(change_health_value[0] * 0.4)
-					await update_damage_label([change_health_value[0] * 0.4, ""], false, false)
-				else:
-					portrait._update_health(change_health_value[0][0] * 0.4)
-					await  update_damage_label([change_health_value[0][0] * 0.4, ""], false, false)
+				update_portrait._update_health(damage_to_take * 0.6)
+				stored_combatant.combatant_stats.health -= damage_to_take * 0.6
+				await combatant_ui_.update_damage_label(damage_to_take * 0.6, "DAMAGE")
 			else:
-				if portrait == null:
-					if not change_health_value[0] is Array:
-						health_bar.value -= floor(change_health_value[0])
-					else:
-						health_bar.value -= floor(change_health_value[0][0])
-				else:
-					portrait._update_health(change_health_value[0])
-				await update_damage_label(change_health_value, false, false)
-			if is_defending:
-				if change_health_value[0] is Array:
-					stored_combatant.combatant_stats.health -= floor(change_health_value[0][0] * 0.4)
-				else:
-					stored_combatant.combatant_stats.health -= floor(change_health_value[0] * 0.4)
-			else:
-				if change_health_value[0] is Array:
-					stored_combatant.combatant_stats.health -= change_health_value[0][0]
-				else:
-					stored_combatant.combatant_stats.health -= change_health_value[0]
-
+				if update_portrait != null:
+					update_portrait._update_health(damage_to_take)
+				stored_combatant.combatant_stats.health -= damage_to_take
+				await combatant_ui_.update_damage_label(damage_to_take, "DAMAGE")
 	else:
+		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
-			await update_damage_label([change_health_value, ""], false, true)
-			parent_reference.get_player_portrait(child_number)._update_health(change_health_value)
-		else:
-			health_bar.value -= floor(change_health_value)
-			attacked_label.text = str(int(floor(change_health_value)))
-	
+			parent_reference.get_player_portrait(child_number)._update_health(damage_to_take)
+		await combatant_ui_.update_damage_label(damage_to_take, "DAMAGE")
+
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	
-	attacked_label.text = ""
 	if stored_combatant.combatant_stats.health <= 0:
 		on_death()
 	parent_reference.turn_ended.emit()
-
-func update_damage_label(damage_taken, _was_heal = false, attack_missed = false):
-	if attack_missed:
-		attacked_label.modulate = Color.MAGENTA
-		attacked_label.text = "MISS"
-	elif damage_taken[0] is Array and damage_taken[0][1] == 1:
-		attacked_label.modulate = Color.RED
-		attacked_label.text = "CRIT"
-		if not parent_reference.training:	
-			await get_tree().create_timer(0.5).timeout
-		attacked_label.text = str(int(floor(damage_taken[0][0])))
-	elif damage_taken[1] is String and not damage_taken[1] == "":
-		attacked_label.modulate = Color.LAWN_GREEN
-		attacked_label.text = str(int(floor(-1 * damage_taken[0])))
-	else:
-		attacked_label.modulate = Color.WEB_PURPLE
-		if damage_taken[0] is Array:
-			attacked_label.text = str(int(floor(damage_taken[0][0])))
-		else:
-			attacked_label.text = str(int(floor(damage_taken[0])))
-	if not parent_reference.training:	
-		await get_tree().create_timer(0.5).timeout
-	attacked_label.text = ""
 
 # Combat related stuff
 
@@ -337,23 +313,6 @@ func take_turn(player_portrait: player_portraits = null):
 
 # Functions that run if status is active
 
-func _apply_stun(): print("STUN")
-func _apply_sleep(): print("SLEEP")
-func _apply_shock(): print("SHOCK")
-func _apply_poison(): 
-	update_health(20, true)
-	animated_sprite.modulate = Color.PURPLE
-
-func _apply_burn(): 
-	update_health(20, true)
-	
-func _apply_freeze(): print("FREEZE")
-func _apply_agro(): print("AGRO")
-func _apply_momentum(): print("momentum")
-func _apply_regen():  print("regen")
-func _apply_stun_imm():  print("stun imun")
-func stat_does_nothing(): return
-
 # Helper Functions
 func obtain_stat(what_stat):
 	match what_stat:
@@ -431,6 +390,7 @@ func selected(can_be_unselected_):
 	currently_selectable = true
 	selection_area_sprite.play("selectable")
 	can_be_unselected = can_be_unselected_
+	parent_reference.gui.update_selection_section(self)
 
 func unselect():
 	selection_area_sprite.visible = false
@@ -498,3 +458,20 @@ func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
 			parent_reference.confirmation.emit(child_number)
+
+func _apply_stun(): print("STUN")
+func _apply_sleep(): print("SLEEP")
+func _apply_shock(): print("SHOCK")
+func _apply_poison(): 
+	update_health(20, "STATUS")
+	animated_sprite.modulate = Color.PURPLE
+
+func _apply_burn(): 
+	update_health(20, "STATUS")
+	
+func _apply_freeze(): print("FREEZE")
+func _apply_agro(): print("AGRO")
+func _apply_momentum(): print("momentum")
+func _apply_regen():  print("regen")
+func _apply_stun_imm():  print("stun imun")
+func stat_does_nothing(): return

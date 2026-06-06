@@ -11,12 +11,22 @@
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_aqpqu"]
 [ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="10_fey42"]
 
+[sub_resource type="Resource" id="Resource_fey42"]
+script = ExtResource("1_aqpqu")
+attack_power = null
+does_status = true
+status_type = 65792
+removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 5
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [sub_resource type="Resource" id="Resource_se6t2"]
 script = ExtResource("2_pstms")
 max_health = 90
 health = 90
 attack = 95
-defense = 75
+defense = 1000
 magic = 24
 resistance = 40
 speed = 55
@@ -51,5 +61,5 @@ combatant_sprite = ExtResource("1_pstms")
 combatant_stats = SubResource("Resource_se6t2")
 stored_weapon = SubResource("Resource_a05x6")
 stored_equipment = SubResource("Resource_7byuw")
-combatant_skills = Array[ExtResource("1_aqpqu")]([ExtResource("2_a05x6"), ExtResource("3_fey42"), ExtResource("4_xadco")])
+combatant_skills = Array[ExtResource("1_aqpqu")]([ExtResource("2_a05x6"), ExtResource("3_fey42"), ExtResource("4_xadco"), SubResource("Resource_fey42")])
 metadata/_custom_type_script = "uid://125iickqse23"

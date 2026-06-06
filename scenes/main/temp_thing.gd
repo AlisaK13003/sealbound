@@ -6,6 +6,5 @@ extends Node2D
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Overworld_Player"):
-		#self.get_child(0).get_child(0).visible = true
-		await Fade.fade_in()
+		await Fade.fade_in(1)
 		await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Select_Screen.tscn")

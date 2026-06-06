@@ -37,11 +37,14 @@ func selection_confirmed():
 
 func execute_selection():
 	p_ref.p_ref.confirmation.emit(true)
+	p_ref.p_ref.gui.update_action_hints()
+
 	
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			selection_confirmed()
+			p_ref.p_ref.gui.update_action_hints()
 
 func _notification(what: int) -> void:
 	match what:

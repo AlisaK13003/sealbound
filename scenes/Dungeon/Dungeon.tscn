@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="2_os2xq"]
 [ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="3_602r5"]
 [ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="4_65pfe"]
-[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_dungeon_type.tres" id="5_602r5"]
+[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres" id="5_602r5"]
 [ext_resource type="PackedScene" uid="uid://ck2fc6hexgqmj" path="res://assets/Resources/Combat Template.tscn" id="7_602r5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_os2xq"]

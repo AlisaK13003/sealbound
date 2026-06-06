@@ -7,59 +7,14 @@
 [ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="4_8x0pw"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_uyw4s"]
 [ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_nw6bc"]
-[ext_resource type="Texture2D" uid="uid://w3qqr6y7m537" path="res://assets/tile sheets/All_Eyeball_Animations.png" id="5_o16x7"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_w4ub5"]
+[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Resources/Dungeon Stuff/Eyeball_Sprite_Frames.tres" id="7_8x0pw"]
 [ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="8_f2dqj"]
 [ext_resource type="Resource" uid="uid://cq50s175yip20" path="res://assets/tile sheets/EyeBall/Idle/Eye_ball_Idle_anim.tres" id="9_otd26"]
 
-[sub_resource type="Resource" id="Resource_ho304"]
-script = ExtResource("1_w4ub5")
-move_name = "Eye ball slash"
-attack_power = 2
-mana_cost = 3
-status_type = null
-removes_status = null
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_8x0pw"]
-script = ExtResource("1_w4ub5")
-move_name = "Eye ball slash"
-attack_power = null
-is_magic_skill = true
-mana_cost = 2
-status_type = null
-removes_status = null
-targets_party = true
-does_heal_party = true
-amount_healed = 1
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_nw6bc"]
-script = ExtResource("1_w4ub5")
-move_name = "POISION"
-attack_power = 2
-mana_cost = 3
-does_status = true
-status_type = 8
-removes_status = null
-chance_of_status_condition = 1.0
-is_skill_aoe = true
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_4qb2n"]
-script = ExtResource("1_w4ub5")
-attack_power = null
-mana_cost = 2
-does_remove_status = true
-status_type = null
-removes_status = 24
-targets_party = true
-is_skill_aoe = true
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
 [sub_resource type="Resource" id="Resource_uyw4s"]
 script = ExtResource("2_wn58t")
-level = 3
+level = 45
 max_health = 65
 health = 65
 attack = 35
@@ -80,230 +35,6 @@ ExtResource("4_8x0pw"): 50
 })
 metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f2dqj"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(0, 192, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_otd26"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(128, 192, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ho304"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(256, 192, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8x0pw"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(384, 192, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nw6bc"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(0, 64, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4qb2n"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(128, 64, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yakan"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(256, 64, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sqcem"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(384, 64, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pq88x"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(512, 64, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iym0a"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(640, 64, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sjpae"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(0, 256, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_apaog"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(128, 256, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_31jbb"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(256, 256, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e3kow"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(384, 256, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uke22"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(512, 256, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hijqw"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(0, 128, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5cp7t"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(128, 128, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d0fsq"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(256, 128, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bijwe"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(384, 128, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4pl5x"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(512, 128, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7rdl"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(640, 128, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o16x7"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(0, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w8jmt"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(128, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6wvk"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(256, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pgw11"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(384, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bo0cv"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(512, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l3mnq"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(640, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yj55h"]
-atlas = ExtResource("5_o16x7")
-region = Rect2(768, 0, 128, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8x0pw"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f2dqj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_otd26")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ho304")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8x0pw")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nw6bc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4qb2n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yakan")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sqcem")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pq88x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iym0a")
-}],
-"loop": true,
-"name": &"On_Attack_1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sjpae")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_apaog")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_31jbb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e3kow")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uke22")
-}],
-"loop": true,
-"name": &"On_Attack_2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hijqw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5cp7t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d0fsq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bijwe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4pl5x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n7rdl")
-}],
-"loop": true,
-"name": &"On_Death",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o16x7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w8jmt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t6wvk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pgw11")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bo0cv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l3mnq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yj55h")
-}],
-"loop": true,
-"name": &"Walk",
-"speed": 5.0
-}]
-
 [sub_resource type="Resource" id="Resource_o16x7"]
 script = ExtResource("2_wn58t")
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
@@ -321,17 +52,16 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
 script = ExtResource("1_jr63c")
-combatant_name = "Puppy"
+combatant_name = "NON-PUPPY"
 combatant_stats = SubResource("Resource_uyw4s")
 is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
 drop_table = SubResource("Resource_yakan")
-combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_ho304"), SubResource("Resource_8x0pw"), SubResource("Resource_nw6bc"), SubResource("Resource_4qb2n")])
 voxel_frames = Dictionary[String, ExtResource("8_f2dqj")]({
 "Idle": ExtResource("9_otd26")
 })
-sprite_frames = SubResource("SpriteFrames_8x0pw")
+sprite_frames = ExtResource("7_8x0pw")
 idle_speed = 0.25
 death_speed = 1.0
 walk_speed = 2.0

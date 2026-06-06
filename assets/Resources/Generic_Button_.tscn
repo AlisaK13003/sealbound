@@ -3,10 +3,31 @@
 [ext_resource type="Script" uid="uid://bqxj5owcwyyxy" path="res://assets/Resources/generic_button_.gd" id="1_s28mv"]
 
 [node name="GenericButton" type="TextureButton" unique_id=1034936178]
+custom_minimum_size = Vector2(65.16, 18.32)
 mouse_filter = 1
 script = ExtResource("1_s28mv")
 
-[node name="Label" type="Label" parent="." unique_id=425272096]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=591641727]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 18.0
+theme_override_constants/separation = 4
+
+[node name="Panel" type="Panel" parent="HBoxContainer" unique_id=724845100]
+custom_minimum_size = Vector2(17.82, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Panel" unique_id=425272096]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 13.0
+offset_bottom = 18.0
+text = "A"
+
+[node name="Label2" type="Label" parent="HBoxContainer" unique_id=698061328]
+layout_mode = 2
+text = "Next"
+
+[node name="Fall_back" type="Label" parent="HBoxContainer" unique_id=86328075]
+layout_mode = 2
+text = "A"

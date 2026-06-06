@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="3_2scpt"]
 [ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="4_q3xnk"]
 [ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="5_mhd4s"]
-[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_dungeon_type.tres" id="6_ljd84"]
+[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres" id="6_ljd84"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="7_pmtcs"]
 [ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="8_40y07"]
 

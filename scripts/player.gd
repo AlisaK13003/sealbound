@@ -11,8 +11,10 @@ var in_menu : bool = false
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready() -> void:
+	$Camera2D.reset_smoothing()
 	Global.load_save_data()
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
+
 			
 func _process(_delta: float) -> void:
 	var direction : Vector2 = Vector2.ZERO

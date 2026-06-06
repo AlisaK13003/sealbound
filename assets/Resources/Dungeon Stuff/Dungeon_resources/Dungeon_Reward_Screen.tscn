@@ -1,12 +1,23 @@
 [gd_scene format=3 uid="uid://6plw41byd7nl"]
 
-[ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="1_0a11p"]
 [ext_resource type="Script" uid="uid://u0e7w8u6gr74" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/dungeon_reward_screen.gd" id="1_wwo72"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_rcxy4"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="2_sg15t"]
-[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="3_8l6vh"]
+[ext_resource type="PackedScene" uid="uid://c84uqx1xugq71" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Reward_Screen_Portrait.tscn" id="3_rcxy4"]
 [ext_resource type="Texture2D" uid="uid://dic7p8wl3usht" path="res://assets/tile sheets/Sprite-0002.png" id="4_rcxy4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8l6vh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcxy4"]
+
+[sub_resource type="Gradient" id="Gradient_rcxy4"]
+offsets = PackedFloat32Array(0.6651652, 0.9654655)
+colors = PackedColorArray(0.1882353, 0.09803922, 0.20392157, 0.6039216, 1, 0.3019608, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_plwbi"]
+gradient = SubResource("Gradient_rcxy4")
+fill = 1
+fill_from = Vector2(0.49358973, 0.4508547)
+fill_to = Vector2(0.4594017, 0.48076922)
+repeat = 1
 
 [node name="DungeonRewardScreen" type="Control" unique_id=1625025092]
 layout_mode = 3
@@ -18,58 +29,46 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_wwo72")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1348787126]
+visible = false
+z_index = 17
+clip_contents = true
+layout_mode = 0
+offset_left = 187.0
+offset_top = 226.0
+offset_right = 940.46045
+offset_bottom = 482.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_rcxy4")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel" type="Panel" parent="NinePatchRect" unique_id=353016365]
+z_index = -1
+layout_mode = 0
+offset_left = 6.5
+offset_top = 6.5
+offset_right = 746.5
+offset_bottom = 249.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcxy4")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1485425319]
+layout_mode = 0
+offset_left = -767.0
+offset_top = -750.0
+offset_right = 2789.048
+offset_bottom = 2160.4155
+rotation = -0.94596845
+pivot_offset = Vector2(1770.255, 1297.58)
+texture = SubResource("GradientTexture2D_plwbi")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=124854014]
 scale = Vector2(7.775, 7.775)
 transform = Transform2D(7.775, 0, 0, 7.775, 0, 0)
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=330342584]
-anchors_preset = -1
-anchor_right = 0.12900001
-anchor_bottom = 0.127
-offset_right = 0.42286682
-offset_bottom = 0.33195496
-mouse_filter = 2
-theme_override_constants/margin_left = 17
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 17
-theme_override_constants/margin_bottom = 15
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/MarginContainer" unique_id=323134180]
-z_index = -1
-layout_mode = 2
-texture = ExtResource("1_0a11p")
-patch_margin_left = 13
-patch_margin_top = 6
-patch_margin_right = 10
-patch_margin_bottom = 9
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer" unique_id=1120142778]
-offset_left = 35.369774
-offset_top = 2.4437294
-offset_right = 207.97427
-offset_bottom = 36.14148
-texture = ExtResource("1_0a11p")
-patch_margin_left = 13
-patch_margin_top = 6
-patch_margin_right = 10
-patch_margin_bottom = 9
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect2" unique_id=1124372790]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.085
-anchor_bottom = 0.90800005
-offset_left = 1.9292603
-offset_top = 0.5144696
-offset_right = -2.2051544
-offset_bottom = 0.013372421
-text = "Rewards"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="GenericButton" parent="CanvasLayer" unique_id=1034936178 instance=ExtResource("2_sg15t")]
 offset_left = 167.07394
@@ -78,6 +77,7 @@ offset_right = 231.07394
 offset_bottom = 138.05788
 texture_normal = ExtResource("4_rcxy4")
 input_event_that_will_activate = "up"
+button_name = "Next"
 
 [node name="Label2" type="Label" parent="CanvasLayer/GenericButton" unique_id=1917446116]
 layout_mode = 0
@@ -96,6 +96,7 @@ offset_right = 231.07394
 offset_bottom = 138.05788
 texture_normal = ExtResource("4_rcxy4")
 input_event_that_will_activate = "up"
+button_name = "Next"
 
 [node name="Label2" type="Label" parent="CanvasLayer/GenericButton2" unique_id=1140179140]
 layout_mode = 0
@@ -105,215 +106,6 @@ offset_right = 56.205788
 offset_bottom = 18.257235
 mouse_filter = 1
 text = "Return"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1141436618]
-offset_left = 51.061
-offset_top = 35.134
-offset_right = 394.061
-offset_bottom = 271.13406
-scale = Vector2(0.355, 0.355)
-mouse_filter = 2
-theme_override_constants/separation = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2" unique_id=1554926803]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 22
-
-[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer2/HBoxContainer" unique_id=1114132913]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer2/HBoxContainer/Control" unique_id=427892497]
-z_index = -1
-custom_minimum_size = Vector2(242.295, 0)
-layout_mode = 0
-offset_left = 4.0
-offset_right = 403.96725
-offset_bottom = 72.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_8l6vh")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer2/HBoxContainer" unique_id=94872490]
-layout_mode = 2
-texture = ExtResource("3_8l6vh")
-stretch_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer" unique_id=1541461325]
-layout_mode = 2
-theme_override_constants/separation = 9
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer" unique_id=261224824]
-layout_mode = 2
-theme_override_constants/separation = 67
-
-[node name="Name" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=729105110]
-layout_mode = 2
-text = "Cloud"
-
-[node name="total_exp" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1203873357]
-layout_mode = 2
-text = "Total EXP:"
-
-[node name="Total_EXP" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=972081341]
-layout_mode = 2
-text = "2804633"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer" unique_id=790021120]
-layout_mode = 2
-theme_override_constants/separation = 74
-
-[node name="Current_Level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1401031970]
-layout_mode = 2
-text = "Level: 01"
-
-[node name="next_level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1186572536]
-layout_mode = 2
-text = "next level:"
-
-[node name="Points_to_next_level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=470206424]
-layout_mode = 2
-text = "0p"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer" unique_id=605604985]
-layout_mode = 2
-
-[node name="Bond_Level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1099649587]
-layout_mode = 2
-text = "Bond: Emergent"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2" unique_id=1246503337]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 22
-
-[node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer2/HBoxContainer2" unique_id=1727286257]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/Control2" unique_id=1852988558]
-z_index = -1
-custom_minimum_size = Vector2(242.295, 0)
-layout_mode = 0
-offset_left = 4.0
-offset_right = 403.96725
-offset_bottom = 72.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_8l6vh")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer2/HBoxContainer2" unique_id=1397250063]
-layout_mode = 2
-texture = ExtResource("3_8l6vh")
-stretch_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer2" unique_id=1728380850]
-layout_mode = 2
-theme_override_constants/separation = 9
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=570436656]
-layout_mode = 2
-theme_override_constants/separation = 67
-
-[node name="Name" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1982584121]
-layout_mode = 2
-text = "Cloud"
-
-[node name="total_exp" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=745852030]
-layout_mode = 2
-text = "Total EXP:"
-
-[node name="Total_EXP" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1676486874]
-layout_mode = 2
-text = "2804633"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=140570578]
-layout_mode = 2
-theme_override_constants/separation = 74
-
-[node name="Current_Level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2" unique_id=443155715]
-layout_mode = 2
-text = "Level: 01"
-
-[node name="next_level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2" unique_id=1501762807]
-layout_mode = 2
-text = "next level:"
-
-[node name="Points_to_next_level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2" unique_id=146253924]
-layout_mode = 2
-text = "0p"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=1834699540]
-layout_mode = 2
-
-[node name="Bond_Level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer3" unique_id=2074538740]
-layout_mode = 2
-text = "Bond: Emergent"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2" unique_id=1278244]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 22
-
-[node name="Control3" type="Control" parent="CanvasLayer/VBoxContainer2/HBoxContainer3" unique_id=618714930]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/Control3" unique_id=1941707670]
-z_index = -1
-custom_minimum_size = Vector2(242.295, 0)
-layout_mode = 0
-offset_left = 4.0
-offset_right = 403.96725
-offset_bottom = 72.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_8l6vh")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer2/HBoxContainer3" unique_id=1377701253]
-layout_mode = 2
-texture = ExtResource("3_8l6vh")
-stretch_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer3" unique_id=862253725]
-layout_mode = 2
-theme_override_constants/separation = 9
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer" unique_id=786630079]
-layout_mode = 2
-theme_override_constants/separation = 67
-
-[node name="Name" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=260743866]
-layout_mode = 2
-text = "Cloud"
-
-[node name="total_exp" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=1675916243]
-layout_mode = 2
-text = "Total EXP:"
-
-[node name="Total_EXP" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=1609905787]
-layout_mode = 2
-text = "2804633"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer" unique_id=1466117654]
-layout_mode = 2
-theme_override_constants/separation = 74
-
-[node name="Current_Level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer2" unique_id=1523417410]
-layout_mode = 2
-text = "Level: 01"
-
-[node name="next_level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer2" unique_id=367873385]
-layout_mode = 2
-text = "next level:"
-
-[node name="Points_to_next_level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer2" unique_id=1919448365]
-layout_mode = 2
-text = "0p"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer" unique_id=629670046]
-layout_mode = 2
-
-[node name="Bond_Level" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3/VBoxContainer/HBoxContainer3" unique_id=996058164]
-layout_mode = 2
-text = "Bond: Emergent"
-
-[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer2/HBoxContainer3" unique_id=1013719983]
-z_index = -1
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8l6vh")
 
 [node name="Container" type="Container" parent="CanvasLayer" unique_id=1649165335]
 visible = false
@@ -340,15 +132,24 @@ theme_override_constants/separation = 36
 [node name="coins_gained" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1365453962]
 custom_minimum_size = Vector2(129.985, 0)
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
 text = "Gained Coins: 12321"
 
 [node name="total_gold" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1637641435]
 custom_minimum_size = Vector2(77.47, 0)
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
 text = "Gold: 1q231"
 
 [node name="Label" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=514353867]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
 text = "Items Gained:"
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=1081285176]
@@ -356,3 +157,33 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/v_separation = 2
 columns = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1141436618]
+z_index = 1
+clip_contents = true
+offset_left = 32.41158
+offset_top = 1.0289398
+offset_right = 442.9006
+offset_bottom = 491.02893
+scale = Vector2(0.45, 0.45)
+pivot_offset = Vector2(0, 13.79)
+mouse_filter = 2
+theme_override_constants/separation = 88
+
+[node name="RewardScreenPortrait" parent="CanvasLayer/VBoxContainer2" unique_id=333886721 instance=ExtResource("3_rcxy4")]
+layout_mode = 2
+
+[node name="RewardScreenPortrait2" parent="CanvasLayer/VBoxContainer2" unique_id=587151694 instance=ExtResource("3_rcxy4")]
+layout_mode = 2
+
+[node name="RewardScreenPortrait3" parent="CanvasLayer/VBoxContainer2" unique_id=1276219366 instance=ExtResource("3_rcxy4")]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2098184916]
+z_index = -2
+layout_mode = 0
+offset_left = -111.0
+offset_top = -114.0
+offset_right = 2051.0
+offset_bottom = 1168.0
+color = Color(0, 0, 0, 1)

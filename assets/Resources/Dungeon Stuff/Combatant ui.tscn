@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://dywa8njfjb1kd"]
 
 [ext_resource type="Script" uid="uid://ctrfsut1wwtnw" path="res://assets/Resources/Dungeon Stuff/combatant_ui_handler.gd" id="1_b2wl4"]
-[ext_resource type="Texture2D" uid="uid://c5m63looaycv5" path="res://assets/tile sheets/Under_Health_)Bar.png" id="1_tq8y1"]
-[ext_resource type="Texture2D" uid="uid://y5h7r3qfd7ty" path="res://assets/tile sheets/Sprite-0004.png" id="2_xosph"]
-[ext_resource type="Texture2D" uid="uid://bvdle862wer" path="res://assets/tile sheets/Over_Health_bar.png" id="3_2ttuk"]
+[ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="2_xosph"]
+[ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="3_2ttuk"]
 [ext_resource type="Texture2D" uid="uid://dcjptti4pnwbx" path="res://assets/tile sheets/Status box.png" id="5_sjbc2"]
 
 [node name="CombatantUi" type="Control" unique_id=1169996085]
@@ -29,11 +28,22 @@ offset_right = 459.9286
 offset_bottom = 866.5
 scale = Vector2(2, 2)
 mouse_filter = 2
-value = 86.0
+value = 100.0
 nine_patch_stretch = true
-texture_under = ExtResource("1_tq8y1")
-texture_over = ExtResource("2_xosph")
+texture_under = ExtResource("2_xosph")
 texture_progress = ExtResource("3_2ttuk")
+
+[node name="Label" type="Label" parent="TextureProgressBar" unique_id=64147251]
+layout_mode = 0
+offset_left = 160.0
+offset_top = -4.5
+offset_right = 253.0
+offset_bottom = 100.5
+scale = Vector2(0.475, 0.475)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_font_sizes/font_size = 93
+text = "56"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1792076839]
 visible = false
@@ -60,3 +70,18 @@ offset_bottom = 43.944256
 theme_override_constants/h_separation = 13
 theme_override_constants/v_separation = 17
 columns = 4
+
+[node name="Health_Differential" type="Label" parent="." unique_id=1728968201]
+custom_minimum_size = Vector2(323.87, 238.76)
+layout_mode = 0
+offset_left = 291.0
+offset_top = 300.0
+offset_right = 614.87
+offset_bottom = 538.76013
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 12
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 150
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -4,14 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="2_ud1yq"]
 [ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="3_ud1yq"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh27c"]
-bg_color = Color(0.75417984, 0.45223308, 0.888336, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.8666667, 0.7529412, 0.49019608, 1)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_lpb4g"]
 atlas = ExtResource("3_ud1yq")
 region = Rect2(0, 0, 32, 32)
@@ -77,17 +69,13 @@ offset_bottom = 64.0
 custom_minimum_size = Vector2(244.38, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="HBoxContainer/Container" unique_id=584745599]
-z_index = -1
-custom_minimum_size = Vector2(169.98, 46.125)
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_dh27c")
-
 [node name="Item_Name" type="Label" parent="HBoxContainer/Container" unique_id=1412283802]
 custom_minimum_size = Vector2(157.61, 42.18)
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
 text = "Potion"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -99,9 +87,10 @@ texture = ExtResource("2_ud1yq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=577751092]
 visible = false
-position = Vector2(191, 21)
+position = Vector2(-19.2, 21)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_xls77")
 frame_progress = 0.26809916
+flip_v = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

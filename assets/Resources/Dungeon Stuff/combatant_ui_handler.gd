@@ -5,7 +5,9 @@ class_name combatant_ui
 @onready var health_bar = $TextureProgressBar
 @onready var status_container = $NinePatchRect/GridContainer
 @onready var status_visible_container = $NinePatchRect
+@onready var health_differential_label = $Health_Differential
 @onready var status_timer_node = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Status_Timer.tscn")
+@onready var current_health_label = $TextureProgressBar/Label
 
 enum statuses {
 	STUN = 1 << 0,
@@ -59,8 +61,12 @@ var parent_reference
 
 var hovered_over: bool = false
 
-func setup(parent_ref):
+func setup(parent_ref, stored_combatant, all_active_effects):
 	parent_reference = parent_ref
+	remove_active_status(all_active_effects)
+	health_bar.max_value = stored_combatant.combatant_stats.max_health
+	health_bar.value = stored_combatant.combatant_stats.health
+	current_health_label.text = str(int(health_bar.value))
 
 func remove_active_status(status_to_remove):
 	var status_found: bool
@@ -101,10 +107,49 @@ func update_grid_size():
 		status_visible_container.visible = true
 	else:
 		status_visible_container.visible = false
-	if status_container.get_child_count() < 4:
+	if status_container.get_child_count() <= 4:
 		status_visible_container.custom_minimum_size = Vector2(15 + (13 * (status_container.get_child_count() - 1)), 29)
 	else:
-		status_visible_container.custom_minimum_size = Vector2(54, 29 + ((status_container.get_child_count() / 4) if status_container.get_child_count() % 4 == 0 else status_container.get_child_count() % 4))
+		print("HIII")
+		status_visible_container.custom_minimum_size = Vector2(54, 29 + (9 * ((status_container.get_child_count() / 4 if status_container.get_child_count() & 4 == 0 else ceili(float(status_container.get_child_count()) / 4))) - 1))
+		print((status_container.get_child_count() / 4 if status_container.get_child_count() & 4 == 0 else ceili(float(status_container.get_child_count()) / 4)))
+	
+func update_damage_label(health_differential, type_of_damage):
+	match type_of_damage:
+		"HEAL":
+			health_differential_label.modulate = Color.LAWN_GREEN
+		"MISS":
+			health_differential_label.modulate = Color.MAGENTA
+			health_differential_label.text = "MISS"
+		"STATUS":
+			health_differential_label.modulate = Color.WEB_PURPLE
+		"CRIT":
+			health_differential_label.modulate = Color.RED
+			health_differential_label.text = "CRIT"
+			if not parent_reference.training:	
+				await get_tree().create_timer(0.5).timeout
+		"DAMAGE":
+			health_differential_label.modulate = Color.WHITE_SMOKE
+	
+	health_differential_label.position.y = 400
+	health_differential_label.visible = true
+	if type_of_damage != "MISS":
+		health_differential_label.text = str(health_differential)
+	health_bar.value -= health_differential
+	current_health_label.text = str(int(health_bar.value))
+	var tween = create_tween()
+	
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, 300.0), 0.3)
+	
+	await tween.finished
+	
 
 	
-	
+	await get_tree().create_timer(0.1).timeout
+
+	tween = create_tween()
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, 400.0), 0.6)
+	await tween.finished
+	health_differential_label.visible = false
+	health_differential_label.position.y = 500
+	await get_tree().create_timer(0.5).timeout

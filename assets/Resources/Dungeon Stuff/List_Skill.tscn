@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bgovxssxgk34k" path="res://assets/Resources/Dungeon Stuff/Skill_node_setup.gd" id="1_fitij"]
 [ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="2_6wcys"]
-[ext_resource type="Texture2D" uid="uid://bq8v5o5otsror" path="res://assets/Sprites/Orb_Bar.png" id="3_vvm6e"]
 [ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="4_6wcys"]
+[ext_resource type="FontFile" uid="uid://bu7pbscguai7e" path="res://assets/Unkempt-Regular.ttf" id="4_vvm6e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lpb4g"]
 atlas = ExtResource("4_6wcys")
@@ -71,86 +71,74 @@ script = ExtResource("1_fitij")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/separation = -19
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=648964495]
 visible = false
-position = Vector2(215, 31)
+position = Vector2(-23, 17)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_vvm6e")
+flip_v = true
 
 [node name="Container" type="Container" parent="HBoxContainer" unique_id=828633088]
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HBoxContainer/Container" unique_id=340883625]
+visible = false
 z_index = -1
 custom_minimum_size = Vector2(174.485, 41.49)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_45w41")
 
-[node name="Skill_Name" type="Label" parent="HBoxContainer/Container" unique_id=2081972802]
-custom_minimum_size = Vector2(186.79, 40.185)
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Container" unique_id=909466418]
 layout_mode = 2
-mouse_filter = 1
-text = "Potion"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Skill_Texture" type="TextureRect" parent="HBoxContainer/Container" unique_id=424969460]
+[node name="Skill_Texture" type="TextureRect" parent="HBoxContainer/Container/HBoxContainer" unique_id=424969460]
 z_index = -1
 custom_minimum_size = Vector2(31.28, 30.67)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource("2_6wcys")
+stretch_mode = 2
 
-[node name="Control" type="Control" parent="HBoxContainer/Container" unique_id=780861193]
+[node name="Skill_Name" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=2081972802]
+custom_minimum_size = Vector2(200, 40.185)
 layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("4_vvm6e")
+theme_override_font_sizes/font_size = 29
+text = "Potion"
+vertical_alignment = 1
 
-[node name="Mana_Cost" type="VBoxContainer" parent="HBoxContainer/Container/Control" unique_id=983496114]
-custom_minimum_size = Vector2(42.675, 109.685)
-layout_mode = 0
-offset_left = 156.0
-offset_top = 8.0
-offset_right = 202.0
-offset_bottom = 121.0
-scale = Vector2(0.25, 0.25)
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Container/Control/Mana_Cost" unique_id=1780393036]
-visible = false
-custom_minimum_size = Vector2(46.83, 35.37)
+[node name="Mana Cost" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=1487513179]
+custom_minimum_size = Vector2(50.42, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("3_vvm6e")
-expand_mode = 1
-stretch_mode = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("4_vvm6e")
+theme_override_font_sizes/font_size = 29
+text = "2"
+horizontal_alignment = 2
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/Container/Control/Mana_Cost" unique_id=385152947]
-visible = false
-custom_minimum_size = Vector2(46.83, 35.37)
+[node name="Label" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=2070590843]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("3_vvm6e")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/Container/Control/Mana_Cost" unique_id=489523621]
-visible = false
-custom_minimum_size = Vector2(46.83, 35.37)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("3_vvm6e")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=2012115367]
-visible = false
-layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 235.0
-offset_bottom = 62.0
-color = Color(1, 0, 0, 0.59607846)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("4_vvm6e")
+theme_override_font_sizes/font_size = 29
+text = "BP"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

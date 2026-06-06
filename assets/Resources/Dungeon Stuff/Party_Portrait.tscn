@@ -12,17 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://dv053puynt24h" path="res://assets/tile sheets/Move Sprites/Freeze_Status.png" id="9_o7gp5"]
 [ext_resource type="Texture2D" uid="uid://dp47tc8eq64k5" path="res://assets/tile sheets/Move Sprites/Burn_Status.png" id="11_2s1to"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0x7f"]
-bg_color = Color(0.28207913, 0.6745273, 0.63669854, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [node name="PartyPortrait" type="Control" unique_id=812714871]
 layout_mode = 3
 anchors_preset = 15
@@ -33,17 +22,16 @@ grow_vertical = 2
 script = ExtResource("1_bswx1")
 
 [node name="Portrait" type="Sprite2D" parent="." unique_id=1341695875]
-position = Vector2(28.500002, 48.84211)
+position = Vector2(-1.9073486e-06, 48.999996)
 scale = Vector2(1.236842, 1.236842)
 texture = ExtResource("1_42j3u")
 
 [node name="HealthBar" type="TextureProgressBar" parent="." unique_id=294996938]
 layout_mode = 0
-offset_left = 47.0
-offset_top = 71.15076
-offset_right = 175.0
-offset_bottom = 99.15076
-rotation = -0.57072264
+offset_left = -31.0
+offset_top = 91.0
+offset_right = 97.0
+offset_bottom = 119.0
 value = 86.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_bswx1")
@@ -52,11 +40,10 @@ texture_progress = ExtResource("4_k4vyt")
 
 [node name="Health_Num" type="Label" parent="." unique_id=1156423034]
 layout_mode = 0
-offset_left = 61.0
-offset_top = 69.15076
-offset_right = 161.0
-offset_bottom = 108.15076
-rotation = -0.57072264
+offset_left = -17.0
+offset_top = 89.0
+offset_right = 83.0
+offset_bottom = 128.0
 theme_override_font_sizes/font_size = 34
 text = "100"
 horizontal_alignment = 1
@@ -64,24 +51,15 @@ vertical_alignment = 1
 
 [node name="Name" type="Label" parent="." unique_id=2128444409]
 layout_mode = 0
-offset_left = 22.999996
-offset_top = 27.0
-offset_right = 148.0
-offset_bottom = 69.0
+offset_left = -7.000002
+offset_top = 62.0
+offset_right = 118.0
+offset_bottom = 104.0
 rotation = -0.34208453
 theme_override_font_sizes/font_size = 33
 text = "Lyra"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="." unique_id=1168982941]
-z_index = -1
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 170.0
-offset_bottom = 97.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_q0x7f")
 
 [node name="Statuses" type="Control" parent="." unique_id=571215200]
 anchors_preset = 0
