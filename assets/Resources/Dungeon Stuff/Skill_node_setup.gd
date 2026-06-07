@@ -1,7 +1,6 @@
 extends Control
 
 @onready var skill_name = $HBoxContainer/Container/HBoxContainer/Skill_Name
-@onready var skill_texture = $HBoxContainer/Container/HBoxContainer/Skill_Texture
 @onready var selection_arrow = $HBoxContainer/AnimatedSprite2D
 @onready var mana_cost_label = $"HBoxContainer/Container/HBoxContainer/Mana Cost"
 
@@ -16,7 +15,7 @@ func _setup(skill: moves, skill_num, parent_ref):
 	s_num = skill_num
 	held_skill = skill
 	skill_name.text = skill.move_name
-	skill_texture.texture = skill.normal_sprite
+	#skill_texture.texture = skill.normal_sprite
 	mana_cost_label.text = str(skill.mana_cost)
 	if p_ref.p_ref.current_bond_points < skill.mana_cost:
 		can_be_selected = false

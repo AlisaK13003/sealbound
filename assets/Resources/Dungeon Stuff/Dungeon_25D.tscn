@@ -50,7 +50,7 @@ fov = 15.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0889413, 0.16001233, -0.74907875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2113839, 0.16001233, -0.74907875)
 
 [node name="Enemy_Slot5" parent="Enemy_Container" unique_id=1804750138 instance=ExtResource("7_x3t77")]
 transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.5184207, -0.091797456, 0.3)
@@ -100,7 +100,7 @@ transform = Transform3D(0.105, 0, 0, 0, 0.0076900045, -0.104718015, 0, 0.1047180
 transform = Transform3D(0.105, 0, 0, 0, 0.0076900045, -0.104718015, 0, 0.104718015, 0.0076900045, 1.2727506, 0.44343746, -1.6526144)
 
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17756835, -0.046935797, 0.052987367)
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, -0.0071456432, -0.046935797, 0.08212426)
 
 [node name="Player_Slot1" parent="Player_Container" unique_id=617855372 instance=ExtResource("7_x3t77")]
 transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0, 0.168, -0.3)

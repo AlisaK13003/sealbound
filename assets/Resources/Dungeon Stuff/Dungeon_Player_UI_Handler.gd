@@ -32,6 +32,7 @@ class_name dungeon_gui
 
 @onready var portrait_container = $Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer
 @onready var mana_label = $"Upper_Bar/HBoxContainer/Mana Bar/Label"
+@onready var bond_bar = $Bond_Attack
 
 var test_mode = false
 
@@ -40,6 +41,8 @@ var p_ref: dungeon_loop
 var executing_skill = false
 var executing_item = false
 var is_aoe = false
+
+var selected_action = 3
 
 @export var how_long_should_base_menu_be: int = 300
 
@@ -83,18 +86,21 @@ func _setup(parent_reference):
 	black_box.visible = false
 	dungeon_floor_label.visible = false
 	floor_label_container.visible = true
-	show_base_gui()
+	bond_bar.value = 0
+	bond_bar.max_value = 2 * p_ref.max_bond_points_
 
 func _input(event):
 	if Input.is_action_just_pressed("down"):
 		cycle_inside_menu(false)
-	elif Input.is_action_just_pressed("left") and p_ref.selecting_entity:
-		p_ref.update_selected_enemy(-1)
-	elif Input.is_action_just_pressed("right") and p_ref.selecting_entity:
-		p_ref.update_selected_enemy(1)
+	elif Input.is_action_just_pressed("left"):
+		if p_ref.selecting_entity:
+			p_ref.update_selected_enemy(-1)
+	elif Input.is_action_just_pressed("right"):
+		if p_ref.selecting_entity:
+			p_ref.update_selected_enemy(1)
 	elif Input.is_action_just_pressed("up"):
 		cycle_inside_menu(true)
-					
+
 func cycle_inside_menu(up_or_down):
 	if item_menu.visible:
 		item_menu.update_selection(-1 if up_or_down else 1)
@@ -119,11 +125,11 @@ func new_player_turn(item_list):
 	swap_to_new_player(item_list)
 
 func swap_to_new_player(item_list):
-	show_base_gui()
 	executing_item = false
 	executing_skill = false
 	await item_menu._setup(item_list, p_ref, "Items")
 	await skill_menu._setup(p_ref.get_player(p_ref.active_player_turn).stored_combatant.combatant_skills, p_ref, "Skills")
+	show_base_gui()
 
 func _base_attack_emitted():
 	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
@@ -164,8 +170,8 @@ func _confirm_button_pressed():
 		if skill_menu.selection_confirmed():
 			selection_area.visible = not is_aoe
 	elif executing_item:
-		if item_menu.execute_selection():
-			selection_area.visible = false
+		item_menu.execute_selection()
+		selection_area.visible = false
 	elif executing_skill:
 		skill_menu.execute_selection()
 		selection_area.visible = false
@@ -241,9 +247,13 @@ func get_player_portrait(portrait_to_get: int):
 	return portrait_container.get_child(portrait_to_get)
 
 func update_mana_display(mana_used_or_gained):
+	update_bond_attack(mana_used_or_gained)
 	p_ref.current_bond_points = clamp(p_ref.current_bond_points + mana_used_or_gained, 0, p_ref.max_bond_points_)
 	mana_label.text = str(p_ref.current_bond_points) + "/" + str(p_ref.max_bond_points_)
 	return p_ref.current_bond_points
+
+func update_bond_attack(update_value):
+	bond_bar.value += clamp(abs(update_value), 0, bond_bar.max_value)
 
 func next_floor(current_floor):
 	black_box.visible = true

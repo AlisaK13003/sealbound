@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://c10mh7w1xs0t7"]
 
 [ext_resource type="Script" uid="uid://bgovxssxgk34k" path="res://assets/Resources/Dungeon Stuff/Skill_node_setup.gd" id="1_fitij"]
-[ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="2_6wcys"]
 [ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="4_6wcys"]
-[ext_resource type="FontFile" uid="uid://bu7pbscguai7e" path="res://assets/Unkempt-Regular.ttf" id="4_vvm6e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lpb4g"]
 atlas = ExtResource("4_6wcys")
@@ -69,14 +67,17 @@ script = ExtResource("1_fitij")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=966767686]
 layout_mode = 0
-offset_right = 40.0
+offset_left = 8.999999
+offset_right = 49.0
 offset_bottom = 40.0
+scale = Vector2(0.21, 0.21)
 theme_override_constants/separation = -19
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=648964495]
 visible = false
-position = Vector2(-23, 17)
+position = Vector2(-85.45, 62.825)
 rotation = 1.5707964
+scale = Vector2(4.445, 4.445)
 sprite_frames = SubResource("SpriteFrames_vvm6e")
 flip_v = true
 
@@ -93,52 +94,53 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_45w41")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Container" unique_id=909466418]
 layout_mode = 2
-
-[node name="Skill_Texture" type="TextureRect" parent="HBoxContainer/Container/HBoxContainer" unique_id=424969460]
-z_index = -1
-custom_minimum_size = Vector2(31.28, 30.67)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("2_6wcys")
-stretch_mode = 2
+theme_override_constants/separation = 17
 
 [node name="Skill_Name" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=2081972802]
-custom_minimum_size = Vector2(200, 40.185)
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(1298.615, 40.185)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("4_vvm6e")
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 100
 text = "Potion"
 vertical_alignment = 1
 
 [node name="Mana Cost" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=1487513179]
+texture_filter = 1
+texture_repeat = 1
 custom_minimum_size = Vector2(50.42, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("4_vvm6e")
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 100
 text = "2"
 horizontal_alignment = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=2070590843]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+[node name="Label" type="Label" parent="HBoxContainer/Container/HBoxContainer/Mana Cost" unique_id=2070590843]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = 66.255
+offset_right = 193.25519
+offset_bottom = 121.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("4_vvm6e")
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 100
 text = "BP"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

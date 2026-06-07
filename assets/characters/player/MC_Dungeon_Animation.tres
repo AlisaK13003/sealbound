@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c5dtxhh6ihchf"]
+
+[ext_resource type="Texture2D" uid="uid://d1rlbttsh3lkd" path="res://assets/characters/player/female_walk.png" id="2_8qa58"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1mpj"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(1536, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qa58"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(1728, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1rie"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(1920, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uwa4"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(2112, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fumcv"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(1536, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo0ft"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(1728, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmpme"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(1920, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vraps"]
+atlas = ExtResource("2_8qa58")
+region = Rect2(2112, 0, 192, 288)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1mpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qa58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1rie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uwa4")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fumcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo0ft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmpme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vraps")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]

@@ -4,7 +4,6 @@ class_name generic_combatants
 
 @export var combatant_name: String
 @export var party_member_portrait: Texture2D
-@export var combatant_sprite: Texture2D
 @export var combatant_stats: stats
 @export var is_combatant_enemy: bool
 @export var is_dead: bool = false
@@ -15,7 +14,6 @@ class_name generic_combatants
 
 @export var combatant_skills : Array[moves]
 
-@export var voxel_frames: Dictionary[String, voxel_animation]
 @export var sprite_frames: SpriteFrames
 @export var idle_speed: float
 @export var death_speed: float

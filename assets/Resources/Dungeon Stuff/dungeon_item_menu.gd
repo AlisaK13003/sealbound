@@ -2,7 +2,7 @@ extends Control
 
 @export var node_to_instantiate: String
 @onready var item_container = $MarginContainer/GridContainer
-@onready var menu_name = $Panel3/Description_Label
+@onready var menu_name = $NinePatchRect/Label
 @onready var description = $Panel3/Description_Label
 var p_ref
 
@@ -41,7 +41,7 @@ func drop_and_swing_in():
 func _setup(items_to_setup, parent_reference, m_name):
 	await clear_children()
 	p_ref = parent_reference
-	#menu_name.text = m_name
+	menu_name.text = m_name
 	var list_item_scene = load(node_to_instantiate)
 
 	var already_selected = false

@@ -290,4 +290,5 @@ idle_speed = 0.25
 death_speed = 1.0
 walk_speed = 2.0
 attack_speed = Array[float]([2.0, 2.0])
+bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

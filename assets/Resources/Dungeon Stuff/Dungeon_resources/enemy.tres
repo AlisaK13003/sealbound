@@ -12,6 +12,17 @@
 [ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="8_f2dqj"]
 [ext_resource type="Resource" uid="uid://cq50s175yip20" path="res://assets/tile sheets/EyeBall/Idle/Eye_ball_Idle_anim.tres" id="9_otd26"]
 
+[sub_resource type="Resource" id="Resource_8x0pw"]
+script = ExtResource("1_w4ub5")
+attack_power = null
+does_damage = false
+does_status = true
+status_type = 8
+removes_status = null
+chance_of_status_condition = 1.0
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [sub_resource type="Resource" id="Resource_uyw4s"]
 script = ExtResource("2_wn58t")
 level = 45
@@ -58,6 +69,7 @@ is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
 drop_table = SubResource("Resource_yakan")
+combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_8x0pw")])
 voxel_frames = Dictionary[String, ExtResource("8_f2dqj")]({
 "Idle": ExtResource("9_otd26")
 })
@@ -66,4 +78,5 @@ idle_speed = 0.25
 death_speed = 1.0
 walk_speed = 2.0
 attack_speed = Array[float]([2.0, 2.0])
+bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

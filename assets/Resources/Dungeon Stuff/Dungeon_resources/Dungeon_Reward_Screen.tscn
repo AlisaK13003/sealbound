@@ -6,7 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://c84uqx1xugq71" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Reward_Screen_Portrait.tscn" id="3_rcxy4"]
 [ext_resource type="Texture2D" uid="uid://dic7p8wl3usht" path="res://assets/tile sheets/Sprite-0002.png" id="4_rcxy4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcxy4"]
+[sub_resource type="Gradient" id="Gradient_m12gh"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswx1"]
+gradient = SubResource("Gradient_m12gh")
+width = 16
+height = 16
+fill_to = Vector2(0.77991456, 0.77991456)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rcxy4"]
+texture = SubResource("GradientTexture2D_bswx1")
+region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
 
 [sub_resource type="Gradient" id="Gradient_rcxy4"]
 offsets = PackedFloat32Array(0.6651652, 0.9654655)
@@ -30,14 +43,13 @@ mouse_filter = 1
 script = ExtResource("1_wwo72")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1348787126]
-visible = false
 z_index = 17
 clip_contents = true
 layout_mode = 0
 offset_left = 187.0
 offset_top = 226.0
 offset_right = 940.46045
-offset_bottom = 482.0
+offset_bottom = 563.0
 scale = Vector2(2, 2)
 texture = ExtResource("2_rcxy4")
 patch_margin_left = 8
@@ -53,8 +65,8 @@ layout_mode = 0
 offset_left = 6.5
 offset_top = 6.5
 offset_right = 746.5
-offset_bottom = 249.5
-theme_override_styles/panel = SubResource("StyleBoxFlat_rcxy4")
+offset_bottom = 332.5
+theme_override_styles/panel = SubResource("StyleBoxTexture_rcxy4")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1485425319]
 layout_mode = 0
@@ -108,7 +120,6 @@ mouse_filter = 1
 text = "Return"
 
 [node name="Container" type="Container" parent="CanvasLayer" unique_id=1649165335]
-visible = false
 offset_right = 40.000008
 offset_bottom = 39.999992
 scale = Vector2(0.755, 0.755)
@@ -159,6 +170,7 @@ theme_override_constants/v_separation = 2
 columns = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1141436618]
+visible = false
 z_index = 1
 clip_contents = true
 offset_left = 32.41158
@@ -168,7 +180,7 @@ offset_bottom = 491.02893
 scale = Vector2(0.45, 0.45)
 pivot_offset = Vector2(0, 13.79)
 mouse_filter = 2
-theme_override_constants/separation = 88
+theme_override_constants/separation = 332
 
 [node name="RewardScreenPortrait" parent="CanvasLayer/VBoxContainer2" unique_id=333886721 instance=ExtResource("3_rcxy4")]
 layout_mode = 2

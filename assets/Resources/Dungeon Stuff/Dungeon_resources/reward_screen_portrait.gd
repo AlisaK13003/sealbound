@@ -8,7 +8,7 @@ extends Control
 @onready var bond = $HBoxContainer/VBoxContainer/HBoxContainer3/Bond_Level
 
 func _setup(active_member: generic_combatants):
-	portrait.texture = active_member.party_member_portrait
+	portrait.texture = active_member.party_member_portrait.get_frame_texture(0)
 	member_name.text = active_member.combatant_name
 	total_exp.text = str(active_member.total_experience_points)
 	current_level.text = str(active_member.combatant_stats.level)

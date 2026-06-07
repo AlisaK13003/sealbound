@@ -71,12 +71,10 @@ func sci_fi_enhance_zoom(values: Array):
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	
-	# Tween the camera properties to the specified values
 	tween.tween_property(camera, "h_offset", values[0], values[3])
 	tween.tween_property(camera, "v_offset", values[1], values[3])
 	tween.tween_property(camera, "fov", values[2], values[3])
 	
-	# Wait for the tween to complete (this is slightly cleaner than creating a timer)
 	await tween.finished
 
 func get_camera_offset(is_player, what_entity):

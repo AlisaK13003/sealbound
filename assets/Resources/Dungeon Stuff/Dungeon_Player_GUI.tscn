@@ -14,12 +14,15 @@
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
 
 [sub_resource type="Gradient" id="Gradient_m12gh"]
-colors = PackedColorArray(0.5254902, 0.11372549, 0.0627451, 1, 0.44182444, 0.17077035, 0.34796935, 1)
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0ob4l"]
 gradient = SubResource("Gradient_m12gh")
+width = 16
+height = 16
 fill = 2
-fill_from = Vector2(0, 0.48504272)
+fill_from = Vector2(0, 0.5)
 fill_to = Vector2(1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_557e4"]
@@ -59,9 +62,9 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 22.0
+offset_left = 64.915
 offset_top = 132.0
-offset_right = 22.0
+offset_right = 64.91504
 offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -70,24 +73,22 @@ script = ExtResource("1_ijjon")
 
 [node name="Bond_Attack" type="TextureProgressBar" parent="." unique_id=591956324]
 layout_mode = 0
-offset_left = 29.47
-offset_top = 21.0
-offset_right = 233.47
-offset_bottom = 113.0
+offset_left = 118.08499
+offset_top = 31.0
+offset_right = 385.66504
+offset_bottom = 48.333336
 scale = Vector2(2.405, 3)
-value = 100.0
 texture_under = ExtResource("2_irdl1")
 texture_progress = ExtResource("3_m12gh")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=783263123]
 z_index = -1
 clip_contents = true
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
 offset_left = -84.0
-offset_top = 708.0
-offset_right = 216.0
-offset_bottom = 793.9279
+offset_top = 770.0
+offset_right = -56.0
+offset_bottom = 828.0
 scale = Vector2(2.22, 2.22)
 mouse_filter = 1
 texture = ExtResource("11_irdl1")
@@ -98,15 +99,15 @@ patch_margin_bottom = 8
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="Base_Menu" type="GridContainer" parent="NinePatchRect" unique_id=1190886286]
+[node name="Base_Menu" type="HBoxContainer" parent="NinePatchRect" unique_id=806002493]
 z_index = 1
+texture_filter = 1
 layout_mode = 0
-offset_left = 135.13513
-offset_top = 7.2072067
-offset_right = 284.13513
-offset_bottom = 75.20721
-theme_override_constants/h_separation = 19
-columns = 2
+offset_left = 67.285
+offset_top = 10.632
+offset_right = 306.28513
+offset_bottom = 50.632
+theme_override_constants/separation = -7
 
 [node name="Item" parent="NinePatchRect/Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
 z_index = -1
@@ -165,23 +166,28 @@ offset_right = 90.333336
 offset_bottom = 43.999985
 
 [node name="Item_Menu" parent="." unique_id=1100506542 instance=ExtResource("9_irdl1")]
-visible = false
 z_index = -1
 layout_mode = 1
-offset_left = 149.29
-offset_top = 40.0
-offset_right = -1335.7102
-offset_bottom = -511.0
+offset_left = 65.085
+offset_top = 81.0
+offset_right = -1419.915
+offset_bottom = -470.0
 node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Item.tscn"
 
+[node name="MarginContainer" parent="Item_Menu" index="1" unique_id=1436117978]
+theme_override_constants/margin_top = -20
+
+[node name="GridContainer" parent="Item_Menu/MarginContainer" index="0" unique_id=929929337]
+theme_override_constants/h_separation = 127
+columns = 2
+
 [node name="Skill_Menu" parent="." unique_id=1366619319 instance=ExtResource("9_irdl1")]
-visible = false
 z_index = -1
 layout_mode = 1
-offset_left = 149.29
-offset_top = 40.0
-offset_right = -1329.71
-offset_bottom = -509.0
+offset_left = 65.085
+offset_top = 81.0
+offset_right = -1413.9141
+offset_bottom = -468.0
 
 [node name="GenericButton" parent="." unique_id=397479680 instance=ExtResource("12_0ob4l")]
 visible = false
@@ -365,7 +371,7 @@ offset_left = -13.9785
 offset_top = -12.903219
 offset_right = 165.86018
 offset_bottom = 19.923494
-scale = Vector2(2, 2.08)
+scale = Vector2(2, 2)
 texture = ExtResource("12_m12gh")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -484,9 +490,9 @@ text = "2F"
 custom_minimum_size = Vector2(206.51, 0)
 layout_mode = 0
 offset_left = -23.0
-offset_top = -135.0
+offset_top = -133.0
 offset_right = 613.0
-offset_bottom = 39.0
+offset_bottom = 83.16501
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Upper_Bar" unique_id=1704224335]
 layout_mode = 2
@@ -495,7 +501,7 @@ theme_override_constants/separation = 1562
 [node name="MarginContainer" type="MarginContainer" parent="Upper_Bar/HBoxContainer" unique_id=259223748]
 layout_mode = 2
 theme_override_constants/margin_left = 96
-theme_override_constants/margin_top = 26
+theme_override_constants/margin_top = 56
 
 [node name="Party_Portraits" type="Control" parent="Upper_Bar/HBoxContainer/MarginContainer" unique_id=138988480]
 z_index = 5
@@ -509,7 +515,7 @@ z_index = 5
 layout_mode = 0
 offset_right = 350.0
 offset_bottom = 40.0
-theme_override_constants/separation = 175
+theme_override_constants/separation = 249
 
 [node name="PartyPortrait_1" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=812714871 instance=ExtResource("10_bvf2b")]
 z_index = 5
@@ -647,6 +653,7 @@ texture = SubResource("GradientTexture2D_m12gh")
 [editable path="NinePatchRect/Base_Menu/Skill"]
 [editable path="NinePatchRect/Base_Menu/Attack"]
 [editable path="NinePatchRect/Base_Menu/Defend"]
+[editable path="Item_Menu"]
 [editable path="Action_Hint/Back_Button"]
 [editable path="Action_Hint/Confirm"]
 [editable path="Action_Hint/Targetting/Target_L"]

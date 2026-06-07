@@ -4,7 +4,20 @@
 [ext_resource type="Script" uid="uid://bbf7hw7gocima" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/reward_screen_portrait.gd" id="1_gieqm"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_df6ge"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gieqm"]
+[sub_resource type="Gradient" id="Gradient_m12gh"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswx1"]
+gradient = SubResource("Gradient_m12gh")
+width = 16
+height = 16
+fill_to = Vector2(0.77991456, 0.77991456)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gieqm"]
+texture = SubResource("GradientTexture2D_bswx1")
+region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
 
 [node name="RewardScreenPortrait" type="Control" unique_id=333886721]
 layout_mode = 3
@@ -41,19 +54,19 @@ theme_override_constants/separation = 67
 
 [node name="Name" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1199420024]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Cloud"
 
 [node name="total_exp" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=495269631]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Total EXP:"
 
 [node name="Total_EXP" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=386493883]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "2804633"
 
@@ -63,19 +76,19 @@ theme_override_constants/separation = 74
 
 [node name="Current_Level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2022749396]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Level: 01"
 
 [node name="next_level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1075194652]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "next level:"
 
 [node name="Points_to_next_level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=888934461]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0p"
 
@@ -84,7 +97,7 @@ layout_mode = 2
 
 [node name="Bond_Level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=464054206]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84313726, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Bond: Emergent"
 
@@ -107,4 +120,4 @@ offset_left = 3.0
 offset_top = 3.0
 offset_right = 402.0
 offset_bottom = 81.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gieqm")
+theme_override_styles/panel = SubResource("StyleBoxTexture_gieqm")

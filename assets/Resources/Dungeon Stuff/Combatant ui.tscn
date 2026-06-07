@@ -72,6 +72,7 @@ theme_override_constants/v_separation = 17
 columns = 4
 
 [node name="Health_Differential" type="Label" parent="." unique_id=1728968201]
+z_index = 10
 custom_minimum_size = Vector2(323.87, 238.76)
 layout_mode = 0
 offset_left = 291.0
