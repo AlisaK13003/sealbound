@@ -8,9 +8,12 @@
 script = ExtResource("1_5xl56")
 move_name = "Shielding Strike"
 move_description = "Deal moderate Ddamage to one enemy. Chance to apply defense reduction to enemy."
-attack_power = 0
+attack_power = 1
+guaranteed_hit_count = 1
+max_hit_count = 1
 does_status = true
 status_type = 512
+removes_status = null
 chance_of_status_condition = 0.75
 lasts_x_turns = 2
 normal_sprite = ExtResource("2_f4dix")

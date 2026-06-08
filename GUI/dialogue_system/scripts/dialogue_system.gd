@@ -88,7 +88,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			show_dialog()
 		return
 
-	if event.is_action_pressed("Open Menu") or event.is_action_pressed("Mouse_Left_Click"):
+	if event.is_action_pressed("Interact") or event.is_action_pressed("Mouse_Left_Click"):
 		if current_node_has_choices and not is_typing:
 			# Manually check if click hit a choice button
 			var mouse_pos := get_viewport().get_mouse_position()

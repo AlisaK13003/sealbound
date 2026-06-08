@@ -1,18 +1,16 @@
 [gd_scene format=3 uid="uid://ujf8gu4vwu00"]
 
 [ext_resource type="Script" uid="uid://dcy7alp2grueo" path="res://assets/Resources/combatant_setup_3d.gd" id="1_51gu7"]
-[ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="2_7mydf"]
+[ext_resource type="SpriteFrames" uid="uid://cbtk43ca1obs0" path="res://assets/characters/lyra/Lyra_dungeon_animation.tres" id="2_51gu7"]
 [ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="3_51gu7"]
 [ext_resource type="PackedScene" uid="uid://dywa8njfjb1kd" path="res://assets/Resources/Dungeon Stuff/Combatant ui.tscn" id="3_drjmm"]
 [ext_resource type="Script" uid="uid://d0pnuy6nbgr42" path="res://assets/Resources/subviewport_fix.gd" id="4_mmlnl"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_51gu7"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_51gu7"]
 viewport_path = NodePath("Sprite3D2/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mydf"]
-size = Vector3(3.0724373, 3.571803, 0.05419922)
+size = Vector3(7.7679873, 13.146252, 0.05419922)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_51gu7"]
 atlas = ExtResource("3_51gu7")
@@ -61,17 +59,12 @@ animations = [{
 script = ExtResource("1_51gu7")
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="." unique_id=367047411]
-sprite_frames = SubResource("SpriteFrames_51gu7")
-
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=948909226]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-flip_h = true
-pixel_size = 0.005
-texture_filter = 0
-texture = ExtResource("2_7mydf")
+pixel_size = 0.002
+sprite_frames = ExtResource("2_51gu7")
+animation = &"Idle"
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0.003969945, 0.25443596, 0)
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.386145, -0.47294062, 0.21984959)
 texture_filter = 0
 texture = SubResource("ViewportTexture_51gu7")
 
@@ -81,24 +74,18 @@ snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
-size = Vector2i(1039, 1826)
 render_target_update_mode = 4
 
 [node name="CombatantUi" parent="Sprite3D2/SubViewport" unique_id=1169996085 instance=ExtResource("3_drjmm")]
 
 [node name="Enemy_Collision" type="Area3D" parent="Sprite3D2" unique_id=1958587253]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35619026, 0)
+transform = Transform3D(0.20000002, 0, 0, 0, 0.20000002, 0, 0, 0, 0.20000002, -1.9487716, 2.6715407, 0.45068455)
 script = ExtResource("4_mmlnl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Enemy_Collision" unique_id=376378909]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8197584, -4.301213, 0.7319856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33037716, 0.8749424, 1.6407666)
 shape = SubResource("BoxShape3D_7mydf")
 debug_fill = false
-
-[node name="Label3D" type="Label3D" parent="." unique_id=1576479968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05734358, 0.24420947, 0)
-texture_filter = 0
-modulate = Color(0.88235295, 0.16078432, 0.2509804, 1)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=546371427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042127967, 0.21524617, 0)

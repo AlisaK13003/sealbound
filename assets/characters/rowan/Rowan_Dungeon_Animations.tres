@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://datq6qhi06hr1"]
+
+[ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="1_ju324"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41pb7"]
+atlas = ExtResource("1_ju324")
+region = Rect2(768, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_207i5"]
+atlas = ExtResource("1_ju324")
+region = Rect2(960, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b3g6"]
+atlas = ExtResource("1_ju324")
+region = Rect2(1152, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jet1c"]
+atlas = ExtResource("1_ju324")
+region = Rect2(1344, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju324"]
+atlas = ExtResource("1_ju324")
+region = Rect2(768, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjj75"]
+atlas = ExtResource("1_ju324")
+region = Rect2(960, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf7kp"]
+atlas = ExtResource("1_ju324")
+region = Rect2(1152, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aip38"]
+atlas = ExtResource("1_ju324")
+region = Rect2(1344, 0, 192, 288)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41pb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_207i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b3g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jet1c")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju324")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjj75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jf7kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aip38")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]

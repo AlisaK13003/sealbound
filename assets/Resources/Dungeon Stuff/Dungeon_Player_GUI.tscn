@@ -1,102 +1,540 @@
 [gd_scene format=3 uid="uid://dgs2lhgc5rktk"]
 
-[ext_resource type="Texture2D" uid="uid://cgbej77uw2udq" path="res://assets/tile sheets/Move Sprites/Item_Selection.png" id="1_7j646"]
 [ext_resource type="Script" uid="uid://ckc4ktd8gbxdm" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_UI_Handler.gd" id="1_ijjon"]
-[ext_resource type="Texture2D" uid="uid://b0m5otdlhwxng" path="res://assets/tile sheets/Move Sprites/Skill Selection.png" id="2_2eed5"]
-[ext_resource type="Texture2D" uid="uid://cfkrsuv277nja" path="res://assets/tile sheets/Move Sprites/Toggled_Skill_Selection.png" id="3_oq2hf"]
-[ext_resource type="Texture2D" uid="uid://crmnlgmc341af" path="res://assets/tile sheets/Move Sprites/Action_Selection.png" id="4_udkoq"]
-[ext_resource type="Texture2D" uid="uid://ca2tk80g8637h" path="res://assets/tile sheets/Move Sprites/Toggled_Action_Selection.png" id="5_h00cp"]
-[ext_resource type="Texture2D" uid="uid://dnxf5i0bwkyve" path="res://assets/tile sheets/Move Sprites/Defend_Selection.png" id="6_uxw8m"]
-[ext_resource type="Texture2D" uid="uid://bbk3oyyj2yvhf" path="res://assets/tile sheets/Move Sprites/Toggled_Defend_Select.png" id="7_yubku"]
-[ext_resource type="Texture2D" uid="uid://b45x70ob3ead2" path="res://assets/tile sheets/Move Sprites/Back_Arrow.png" id="8_cthwo"]
+[ext_resource type="Texture2D" uid="uid://ctd64c1cvs2io" path="res://assets/tile sheets/BP_Under.png" id="2_irdl1"]
+[ext_resource type="Texture2D" uid="uid://d0f1puf6ehmr2" path="res://assets/tile sheets/BP_Over.png" id="3_m12gh"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="9_4wwtq"]
 [ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Generic_List_Menu.tscn" id="9_irdl1"]
+[ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="10_bvf2b"]
+[ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="11_irdl1"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="12_0ob4l"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
+
+[sub_resource type="Gradient" id="Gradient_m12gh"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ob4l"]
+gradient = SubResource("Gradient_m12gh")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_557e4"]
+texture = SubResource("GradientTexture2D_0ob4l")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12gh"]
+bg_color = Color(0.43897805, 0.6789561, 0.24209201, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ob4l"]
+bg_color = Color(0.99999994, 0.28730667, 0.22523719, 1)
+
+[sub_resource type="Gradient" id="Gradient_04tce"]
+offsets = PackedFloat32Array(0.34984985, 1)
+colors = PackedColorArray(0.93333334, 0.7647059, 0.6039216, 1, 0.8833299, 0.66252404, 0.44418237, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m12gh"]
+gradient = SubResource("Gradient_04tce")
+fill = 1
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irdl1"]
+bg_color = Color(0.5128465, 0.5735708, 0.8962405, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.7691465, 0.78199226, 0.97865075, 1)
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [node name="DungeonPlayerGui" type="Control" unique_id=217185090]
+z_index = -1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 49.0
+offset_right = -1.999939
+offset_bottom = 49.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_ijjon")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1243960500]
+[node name="Bond_Attack" type="TextureProgressBar" parent="." unique_id=591956324]
+layout_mode = 0
+offset_left = 198.0
+offset_top = -43.0
+offset_right = 465.58005
+offset_bottom = -25.666664
+texture_under = ExtResource("2_irdl1")
+texture_progress = ExtResource("3_m12gh")
 
-[node name="Base_Menu" type="HBoxContainer" parent="CanvasLayer" unique_id=806002493]
-texture_filter = 1
-offset_left = 1068.0
-offset_top = 896.0
-offset_right = 1253.0
-offset_bottom = 936.0
-scale = Vector2(3, 3)
-theme_override_constants/separation = 19
-
-[node name="Item_Menu_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=116493470]
-texture_filter = 1
-layout_mode = 2
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=783263123]
+z_index = -1
+clip_contents = true
+layout_mode = 0
+offset_left = -53.0
+offset_top = 232.0
+offset_right = 157.0
+offset_bottom = 290.0
 mouse_filter = 1
-action_mode = 0
-texture_normal = ExtResource("1_7j646")
-texture_hover = ExtResource("1_7j646")
-stretch_mode = 3
+texture = ExtResource("11_irdl1")
+patch_margin_left = 13
+patch_margin_top = 7
+patch_margin_right = 15
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
-[node name="Skill_Menu_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=1881280147]
-texture_filter = 1
+[node name="Base_Menu" type="GridContainer" parent="NinePatchRect" unique_id=1741746522]
+z_index = 1
+layout_mode = 0
+offset_left = 79.99999
+offset_top = 10.999987
+offset_right = 287.0
+offset_bottom = 67.999985
+scale = Vector2(0.625, 0.625)
+theme_override_constants/h_separation = 37
+theme_override_constants/v_separation = 21
+columns = 2
+
+[node name="Item" parent="NinePatchRect/Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
+z_index = -1
 layout_mode = 2
-mouse_filter = 1
-action_mode = 0
-texture_normal = ExtResource("2_2eed5")
-texture_pressed = ExtResource("3_oq2hf")
-texture_hover = ExtResource("2_2eed5")
-stretch_mode = 3
+input_event_that_will_activate = "Dungeon_Items"
+button_name = "Items"
 
-[node name="Attack_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=1462537621]
-texture_filter = 1
+[node name="Skill" parent="NinePatchRect/Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
+z_index = -1
 layout_mode = 2
-mouse_filter = 1
-action_mode = 0
-texture_normal = ExtResource("4_udkoq")
-texture_pressed = ExtResource("5_h00cp")
-stretch_mode = 3
+input_event_that_will_activate = "Dungeon_Skill"
+button_name = "Skill"
 
-[node name="Defend_Button" type="TextureButton" parent="CanvasLayer/Base_Menu" unique_id=241091125]
-texture_filter = 1
+[node name="Attack" parent="NinePatchRect/Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
+z_index = -1
 layout_mode = 2
-mouse_filter = 1
-action_mode = 0
-texture_normal = ExtResource("6_uxw8m")
-texture_pressed = ExtResource("7_yubku")
-stretch_mode = 3
+input_event_that_will_activate = "Dungeon_Attack"
+button_name = "Attack"
 
-[node name="Item_Menu" parent="CanvasLayer" unique_id=1100506542 instance=ExtResource("9_irdl1")]
+[node name="Defend" parent="NinePatchRect/Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
+z_index = -1
+layout_mode = 2
+input_event_that_will_activate = "Dungeon_Defend"
+button_name = "Defend"
+
+[node name="Item_Menu" parent="." unique_id=1100506542 instance=ExtResource("9_irdl1")]
 visible = false
-offset_left = 187.0
-offset_top = 255.0
-offset_right = -1298.0002
-offset_bottom = -296.0
+z_index = -1
+layout_mode = 1
+offset_left = 12.0
+offset_top = -47.0
+offset_right = -627.999
+offset_bottom = -367.0
 node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Item.tscn"
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer" unique_id=466504251]
+[node name="Skill_Menu" parent="." unique_id=1366619319 instance=ExtResource("9_irdl1")]
 visible = false
-offset_left = 545.0
-offset_top = 967.0
-offset_right = 585.0
-offset_bottom = 1007.0
-scale = Vector2(3, 3)
+z_index = -1
+layout_mode = 1
+offset_left = 12.0
+offset_top = -49.0
+offset_right = -627.999
+offset_bottom = -369.0
+
+[node name="GenericButton" parent="." unique_id=397479680 instance=ExtResource("12_0ob4l")]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = 1576.0
+offset_top = -73.0
+offset_right = 1576.0
+offset_bottom = -73.0
+scale = Vector2(4.28, 4.28)
+button_name = "Run"
+
+[node name="Action_Hint" type="HBoxContainer" parent="." unique_id=462884993]
+z_index = -1
+layout_mode = 0
+offset_left = 6.0
+offset_top = 267.0
+offset_right = 581.0
+offset_bottom = 307.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(0, 37.225)
+theme_override_constants/separation = 14
+
+[node name="MarginContainer" type="MarginContainer" parent="Action_Hint" unique_id=1524262196]
+layout_mode = 2
+theme_override_constants/margin_top = 21
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Action_Hint/MarginContainer" unique_id=201358778]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Back_Button" parent="Action_Hint/MarginContainer/HBoxContainer" unique_id=1218238259 instance=ExtResource("12_0ob4l")]
+layout_mode = 2
+input_event_that_will_activate = "Cancel"
+button_name = "Back"
+
+[node name="Confirm" parent="Action_Hint/MarginContainer/HBoxContainer" unique_id=727393993 instance=ExtResource("12_0ob4l")]
+custom_minimum_size = Vector2(102.715, 17.48)
+layout_mode = 2
+input_event_that_will_activate = "Confirm"
+button_name = "Confirm"
+
+[node name="Targetting" type="HBoxContainer" parent="Action_Hint" unique_id=1873226986]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = -21
+
+[node name="Target_L" parent="Action_Hint/Targetting" unique_id=788368402 instance=ExtResource("12_0ob4l")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+input_event_that_will_activate = "left"
+
+[node name="Target_R" parent="Action_Hint/Targetting" unique_id=283972379 instance=ExtResource("12_0ob4l")]
+layout_mode = 2
+input_event_that_will_activate = "right"
+button_name = "Target"
+
+[node name="Selection_Indicator" type="NinePatchRect" parent="." unique_id=1210431277]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -45.0
+offset_right = 180.0
+offset_bottom = -10.0
+texture = ExtResource("12_m12gh")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Selection_Indicator" unique_id=610789980]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -2.0
+offset_right = 341.99997
+offset_bottom = 39.0
+theme_override_constants/separation = -81
+
+[node name="Enemy_Level" type="Label" parent="Selection_Indicator/HBoxContainer" unique_id=1340457795]
+layout_mode = 2
 mouse_filter = 1
-texture_normal = ExtResource("8_cthwo")
-texture_pressed = ExtResource("8_cthwo")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "Lv 1"
 
-[node name="Skill_Menu" parent="CanvasLayer" unique_id=1366619319 instance=ExtResource("9_irdl1")]
+[node name="Enemy_Name" type="Label" parent="Selection_Indicator/HBoxContainer" unique_id=715042902]
+custom_minimum_size = Vector2(252.035, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "Puppy"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="Selection_Indicator" unique_id=1193801347]
+z_index = -1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 167.0
+offset_bottom = 28.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_557e4")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=1119225598]
 visible = false
-offset_left = 187.0
-offset_top = 255.0
-offset_right = -1292.0
-offset_bottom = -294.0
+modulate = Color(0.76240367, 0.76240367, 0.76240367, 1)
+z_index = 2
+layout_mode = 0
+offset_left = 1170.0
+offset_top = -117.00001
+offset_right = 1398.5256
+offset_bottom = -44.186768
+scale = Vector2(3.12, 2.115)
+texture = ExtResource("11_irdl1")
+patch_margin_left = 13
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 5
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
-[connection signal="pressed" from="CanvasLayer/Base_Menu/Item_Menu_Button" to="." method="_item_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/Base_Menu/Skill_Menu_Button" to="." method="_skill_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/Base_Menu/Attack_Button" to="." method="_base_attack_emitted"]
-[connection signal="pressed" from="CanvasLayer/Base_Menu/Defend_Button" to="." method="_defend_executed"]
-[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_back_button_pressed"]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2033600652]
+z_index = 20
+layout_mode = 0
+offset_left = -37.0
+offset_top = -83.0
+offset_right = 742.0
+offset_bottom = 369.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="." unique_id=814488456]
+modulate = Color(0.76240367, 0.76240367, 0.76240367, 1)
+z_index = 4096
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.157
+anchor_right = 0.98300004
+anchor_bottom = 0.605
+offset_left = 50.999992
+offset_top = 11.759998
+offset_right = -408.56876
+offset_bottom = -94.76002
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.12, 2.115)
+texture = ExtResource("11_irdl1")
+patch_margin_left = 13
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 5
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Dungeon_Floor" type="Label" parent="NinePatchRect3" unique_id=1668503200]
+z_index = 16
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52900004
+anchor_top = 0.5
+anchor_right = 0.53800005
+anchor_bottom = 0.5
+offset_left = -36.48751
+offset_top = -13.219049
+offset_right = 21.986526
+offset_bottom = 15.780952
+grow_horizontal = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("9_4wwtq")
+theme_override_font_sizes/font_size = 10
+text = "asdfasdfasdf"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect3/Dungeon_Floor" unique_id=1513072654]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -12.17949
+offset_top = 3.7825062
+offset_right = 17.820518
+offset_bottom = 3.782507
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_top = -113
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect3/Dungeon_Floor/MarginContainer" unique_id=1345218510]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 105
+
+[node name="Previous_floor" type="Label" parent="NinePatchRect3/Dungeon_Floor/MarginContainer/VBoxContainer" unique_id=875345408]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("9_4wwtq")
+theme_override_font_sizes/font_size = 10
+text = "1F"
+
+[node name="Current_Floor" type="Label" parent="NinePatchRect3/Dungeon_Floor/MarginContainer/VBoxContainer" unique_id=295202288]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("9_4wwtq")
+theme_override_font_sizes/font_size = 10
+text = "2F"
+
+[node name="Upper_Bar" type="Container" parent="." unique_id=1755790857]
+custom_minimum_size = Vector2(206.51, 0)
+layout_mode = 0
+offset_left = 258.0
+offset_top = 201.0
+offset_right = 894.0
+offset_bottom = 253.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Upper_Bar" unique_id=1704224335]
+layout_mode = 2
+theme_override_constants/separation = 372
+
+[node name="MarginContainer" type="MarginContainer" parent="Upper_Bar/HBoxContainer" unique_id=259223748]
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 56
+
+[node name="Party_Portraits" type="Control" parent="Upper_Bar/HBoxContainer/MarginContainer" unique_id=138988480]
+z_index = 5
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits" unique_id=1863211688]
+z_index = 5
+layout_mode = 0
+offset_left = -111.99999
+offset_top = -7.0
+offset_right = 238.0
+offset_bottom = 33.0
+theme_override_constants/separation = 135
+
+[node name="PartyPortrait_1" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=812714871 instance=ExtResource("10_bvf2b")]
+z_index = 5
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+
+[node name="PartyPortrait_2" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=777293950 instance=ExtResource("10_bvf2b")]
+z_index = 5
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+
+[node name="PartyPortrait_3" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=2074810481 instance=ExtResource("10_bvf2b")]
+z_index = 5
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Confirmation" type="NinePatchRect" parent="." unique_id=1020214608]
+visible = false
+layout_mode = 0
+offset_left = 5.0
+offset_top = 68.0
+offset_right = 194.0
+offset_bottom = 145.0
+mouse_filter = 1
+texture = ExtResource("12_m12gh")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="Confirmation" unique_id=893890796]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 18.0
+offset_right = 182.0
+offset_bottom = 71.0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("9_4wwtq")
+theme_override_font_sizes/font_size = 12
+text = "Use Second Wind on Lyra?"
+horizontal_alignment = 1
+
+[node name="GenericButton" parent="Confirmation" unique_id=1500670421 instance=ExtResource("12_0ob4l")]
+z_index = 2
+layout_mode = 0
+offset_left = 132.0
+offset_top = 50.0
+offset_right = 197.16
+offset_bottom = 68.32001
+input_event_that_will_activate = "Confirm"
+button_name = "Yes"
+
+[node name="Panel" type="Panel" parent="Confirmation/GenericButton" unique_id=877147368]
+z_index = -1
+layout_mode = 0
+offset_top = -10.0
+offset_right = 76.0
+offset_bottom = 34.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_m12gh")
+
+[node name="GenericButton2" parent="Confirmation" unique_id=333780499 instance=ExtResource("12_0ob4l")]
+z_index = 2
+layout_mode = 0
+offset_left = 16.0
+offset_top = 49.0
+offset_right = 81.16
+offset_bottom = 67.32001
+input_event_that_will_activate = "Cancel"
+button_name = "No"
+
+[node name="Panel" type="Panel" parent="Confirmation/GenericButton2" unique_id=360244146]
+z_index = -1
+layout_mode = 0
+offset_top = -5.0
+offset_right = 78.0
+offset_bottom = 33.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ob4l")
+
+[node name="TextureRect" type="TextureRect" parent="Confirmation" unique_id=868937168]
+z_index = -1
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 184.0
+offset_bottom = 72.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_m12gh")
+
+[node name="Mana Bar" type="Panel" parent="." unique_id=514502635]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+offset_left = 598.0
+offset_top = -47.0
+offset_right = 633.0
+offset_bottom = -10.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_irdl1")
+
+[node name="Label" type="Label" parent="Mana Bar" unique_id=628296512]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.000061
+offset_top = 12.0
+offset_right = 101.00006
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 16
+text = "3/3"
+
+[node name="Label2" type="Label" parent="Mana Bar" unique_id=1515659383]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+offset_left = 1.000061
+offset_top = 38.0
+offset_right = 41.00006
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 16
+text = "Mana"

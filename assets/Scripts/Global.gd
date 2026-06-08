@@ -140,7 +140,7 @@ func update_time():
 			if current_hour % 12 == 1:
 				am_or_pm = true
 			elif am_or_pm and current_hour % 12 == 0:
-				Global.player_advanced_day(true)
+				player_advanced_day(true)
 				am_or_pm = false
 		time_since_last_update = (seconds_since_day_started * time_scale)
 	if play_time_seconds == 60:
@@ -168,6 +168,78 @@ func player_advanced_day(did_they_pass_out):
 	
 	if did_they_pass_out:
 		spawn_location = null
+
+var controller_mapping: Dictionary = {
+	"up": "Controller_Up",
+	"down": "Controller_Down",
+	"left": "Controller_Left",
+	"right": "Controller_Right",
+	"ui_right": "Controller_Dungeon_Targeting",
+	"Dungeon_Attack": "Controller_Dungeon_Attack",
+	"Dungeon_Skill": "Controller_Dungeon_Skill",
+	"Dungeon_Defend": "Controller_Dungeon_Defend",
+	"Dungeon_Items": "Controller_Dungeon_Items",
+	"Cancel": "Controller_Cancel",
+	"Confirm": "Controller_Confirm",
+}
+
+var keyboard_mouse_icon_mapping: Dictionary = {
+	"up": 88,
+	"down": 89,
+	"left": 90,
+	"right": 91,
+	"ui_right": 91,
+	"Dungeon_Attack": 87,
+	"Dungeon_Skill": 25,
+	"Dungeon_Defend": 22,
+	"Dungeon_Items": 8,
+	"Cancel": 25,
+	"Confirm": 2,
+}
+
+var controller_icon_mapping: Dictionary = {
+	"Controller_Up": 12,
+	"Controller_Down": 13,
+	"Controller_Left": 14,
+	"Controller_Right": 15,
+	"Controller_Dungeon_Attack": 2,
+	"Controller_Dungeon_Skill": 3,
+	"Controller_Dungeon_Defend": 1,
+	"Controller_Dungeon_Items": 0,
+	"Controller_Dungeon_Targeting": 34,
+	"Controller_Cancel": 1,
+	"Controller_Confirm": 2,
+}
+
+var using_controller: bool = false
+const CONTROLLER_DEADZONE = 0.2
+signal swapped_to_controller
+
+func _input(event):
+	if event is InputEventJoypadButton:
+		set_using_controller(true)
+		swapped_to_controller.emit(true)
+	elif event is InputEventJoypadMotion:
+		if abs(event.axis_value) > CONTROLLER_DEADZONE:
+			set_using_controller(true)
+			swapped_to_controller.emit(true)
+	else:
+		set_using_controller(false)
+		swapped_to_controller.emit(false)
+		
+func set_using_controller(do_it):
+	if do_it:
+		using_controller = true
+	else:
+		using_controller = false
+	swapped_to_controller.emit(do_it)
+
+func get_input_mapping(input_string):
+	if using_controller:
+		return Input.is_action_just_pressed(controller_mapping[input_string])
+	else:
+		return Input.is_action_just_pressed(input_string)
+	
 
 # Save data manager
 # --------------------------------------------------------------------------------------------------
@@ -353,7 +425,7 @@ func add_to_first_open_slot(added_thing: inventory_items):
 func remove_from_inventory(removed_at):
 	if village_inventory[removed_at] != null:
 		holding_item = null
-		Global.player_head_sprite = null
+		player_head_sprite = null
 	village_inventory[removed_at] = null
 	inventory_updated.emit(removed_at)
 

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://5763agr87acy"]
+
+[ext_resource type="Texture2D" uid="uid://cpwt5olgmynmt" path="res://assets/tile sheets/EyeBall/Idle/Dungeon_Wall.png" id="1_4d527"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_2thd2"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_fevs0"]
+[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/enemy.tres" id="5_mrykc"]
+[ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="7_jlcea"]
+
+[sub_resource type="Resource" id="Resource_wehx1"]
+script = ExtResource("2_2thd2")
+enemies = Array[ExtResource("3_fevs0")]([ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[resource]
+script = ExtResource("7_jlcea")
+dungeon_name = "Creepy Crawly Dungeon"
+dungeon_background = ExtResource("1_4d527")
+max_number_of_waves = 2
+minimum_number_of_waves = 2
+potential_waves = Array[ExtResource("2_2thd2")]([SubResource("Resource_wehx1")])
+metadata/_custom_type_script = "uid://3loyjc4d808j"

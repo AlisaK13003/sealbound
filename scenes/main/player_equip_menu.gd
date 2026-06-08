@@ -4,7 +4,6 @@ extends Control
 @onready var tabs = $GenericMenu.get_children()
 
 func _ready():
-	await GlobalCombatInformation.finished
 	for child in $GenericMenu/Menu_Tabs.get_children():
 		if child.get_index() >= GlobalCombatInformation.all_party_slots.size():
 			child.visible = false

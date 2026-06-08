@@ -12,6 +12,7 @@ attack_power = null
 mana_cost = 3
 does_status = true
 status_type = 131200
+removes_status = null
 targets_party = true
 is_skill_aoe = true
 normal_sprite = ExtResource("2_e6j71")

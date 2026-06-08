@@ -1,0 +1,257 @@
+[gd_scene format=3 uid="uid://bjewjuq1dhkt8"]
+
+[ext_resource type="Script" uid="uid://ckhob65nnxb6n" path="res://scenes/main/key_bind_menu.gd" id="1_xd7tj"]
+[ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="2_qy18y"]
+
+[node name="KeyBindMenu" type="Control" unique_id=1312730095]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xd7tj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1298444458]
+scale = Vector2(6.815, 6.815)
+transform = Transform2D(6.815, 0, 0, 6.815, 0, 0)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer" unique_id=1266305676]
+texture_filter = 1
+offset_left = 30.667645
+offset_top = 41.20916
+offset_right = 245.01164
+offset_bottom = 158.38708
+texture = ExtResource("2_qy18y")
+patch_margin_left = 11
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer" unique_id=1372733]
+offset_left = 52.753574
+offset_top = -9.097579
+offset_right = 313.48978
+offset_bottom = 59.920845
+scale = Vector2(0.655, 0.655)
+texture = ExtResource("2_qy18y")
+patch_margin_left = 11
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect2" unique_id=488250299]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 12.0
+offset_right = 532.1111
+offset_bottom = 148.0
+scale = Vector2(0.32, 0.32)
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 120
+text = "Key Binds"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1553502059]
+offset_left = 42.69993
+offset_top = 51.504036
+offset_right = 3115.9856
+offset_bottom = 2108.5042
+scale = Vector2(0.055, 0.055)
+size_flags_horizontal = 0
+theme_override_constants/separation = 463
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer" unique_id=1166049236]
+layout_mode = 2
+
+[node name="Up" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=73160982]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Up"
+horizontal_alignment = 2
+
+[node name="Down" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=61177924]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Down"
+horizontal_alignment = 2
+
+[node name="Left" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=646721393]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Left"
+horizontal_alignment = 2
+
+[node name="Right" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=1137642355]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Right"
+horizontal_alignment = 2
+
+[node name="E (Interact)" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=688299822]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Interact"
+horizontal_alignment = 2
+
+[node name="Escape (Pause Menu)" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=546991295]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Open Pause Menu"
+horizontal_alignment = 2
+
+[node name="X (Confirm)" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=355994211]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Confirm"
+horizontal_alignment = 2
+
+[node name="C (Cancel)" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=114411479]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "Cancel"
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HBoxContainer" unique_id=1479484531]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 100
+
+[node name="up" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=1777768365]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+text = "s"
+
+[node name="down" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=225004822]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+text = "s"
+
+[node name="left" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=967100208]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+
+[node name="right" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=1902537804]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+
+[node name="Interact" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=151273045]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+
+[node name="Pause" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=618797820]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+
+[node name="Confirm" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=937016468]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+
+[node name="Cancel" type="Button" parent="CanvasLayer/HBoxContainer/VBoxContainer2" unique_id=1426136201]
+custom_minimum_size = Vector2(532.38, 137.445)
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1164826718]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 15.700653
+offset_top = 94.93764
+offset_right = 15.700653
+offset_bottom = 94.93764
+scale = Vector2(0.455, 0.455)
+size_flags_horizontal = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control" unique_id=258765558]
+texture_filter = 1
+layout_mode = 0
+offset_left = 155.0
+offset_top = -34.0
+offset_right = 319.0
+offset_bottom = 38.0
+texture = ExtResource("2_qy18y")
+patch_margin_left = 11
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1219762043]
+layout_mode = 0
+offset_left = 170.0
+offset_top = -10.0
+offset_right = 307.0
+offset_bottom = 8.0
+scale = Vector2(0.045, 0.045)
+theme_override_font_sizes/font_size = 356
+text = "Listening for input..."
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="CanvasLayer" unique_id=1818367291]
+visible = false
+texture_filter = 1
+offset_left = 65.44385
+offset_top = 60.748352
+offset_right = 229.44385
+offset_bottom = 132.74835
+texture = ExtResource("2_qy18y")
+patch_margin_left = 11
+patch_margin_top = 5
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect3" unique_id=1821341671]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = 28.319908
+offset_top = 13.20616
+offset_right = 1089.006
+offset_bottom = 451.20615
+scale = Vector2(0.105, 0.105)
+theme_override_font_sizes/font_size = 128
+text = "Key _ is already in use, want to overwrite?"
+autowrap_mode = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/NinePatchRect3" unique_id=2069079584]
+layout_mode = 0
+offset_left = 95.67134
+offset_top = 58.84079
+offset_right = 208.67134
+offset_bottom = 283.8408
+scale = Vector2(0.095, 0.095)
+theme_override_font_sizes/font_size = 200
+text = "X"
+
+[node name="Label3" type="Label" parent="CanvasLayer/NinePatchRect3" unique_id=569169662]
+layout_mode = 0
+offset_left = 43.873833
+offset_top = 55.025677
+offset_right = 156.87384
+offset_bottom = 280.0257
+scale = Vector2(0.095, 0.095)
+theme_override_font_sizes/font_size = 200
+text = "C"
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/up" to="." method="setup_key_bind_swap" binds= [0, "up"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/down" to="." method="setup_key_bind_swap" binds= [1, "down"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/left" to="." method="setup_key_bind_swap" binds= [2, "left"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/right" to="." method="setup_key_bind_swap" binds= [3, "right"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/Interact" to="." method="setup_key_bind_swap" binds= [4, "Interact"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/Pause" to="." method="setup_key_bind_swap" binds= [5, "Pause"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/Confirm" to="." method="setup_key_bind_swap" binds= [6, "Confirm"]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/VBoxContainer2/Cancel" to="." method="setup_key_bind_swap" binds= [7, "Cancel"]]

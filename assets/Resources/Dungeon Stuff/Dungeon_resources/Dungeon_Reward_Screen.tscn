@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://6plw41byd7nl"]
+
+[ext_resource type="Script" uid="uid://u0e7w8u6gr74" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/dungeon_reward_screen.gd" id="1_wwo72"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_rcxy4"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="2_sg15t"]
+[ext_resource type="PackedScene" uid="uid://c84uqx1xugq71" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Reward_Screen_Portrait.tscn" id="3_rcxy4"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="5_plwbi"]
+
+[sub_resource type="Gradient" id="Gradient_m12gh"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswx1"]
+gradient = SubResource("Gradient_m12gh")
+width = 16
+height = 16
+fill_to = Vector2(0.77991456, 0.77991456)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rcxy4"]
+texture = SubResource("GradientTexture2D_bswx1")
+region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
+
+[sub_resource type="Gradient" id="Gradient_rcxy4"]
+offsets = PackedFloat32Array(0.6651652, 0.9654655)
+colors = PackedColorArray(0.1882353, 0.09803922, 0.20392157, 0.6039216, 1, 0.3019608, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_plwbi"]
+gradient = SubResource("Gradient_rcxy4")
+fill = 1
+fill_from = Vector2(0.49358973, 0.4508547)
+fill_to = Vector2(0.4594017, 0.48076922)
+repeat = 1
+
+[node name="DungeonRewardScreen" type="Control" unique_id=1625025092]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_wwo72")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1348787126]
+visible = false
+z_index = 17
+clip_contents = true
+layout_mode = 0
+offset_left = 56.0
+offset_top = 42.0
+offset_right = 548.0
+offset_bottom = 257.0
+texture = ExtResource("2_rcxy4")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel" type="Panel" parent="NinePatchRect" unique_id=353016365]
+z_index = -1
+layout_mode = 0
+offset_left = 6.5
+offset_top = 6.5
+offset_right = 746.5
+offset_bottom = 332.5
+theme_override_styles/panel = SubResource("StyleBoxTexture_rcxy4")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1485425319]
+layout_mode = 0
+offset_left = -216.0
+offset_top = -215.0
+offset_right = 838.84705
+offset_bottom = 648.3301
+rotation = -0.94596845
+pivot_offset = Vector2(522.175, 395.66)
+texture = SubResource("GradientTexture2D_plwbi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=124854014]
+
+[node name="Next_Button" parent="CanvasLayer" unique_id=1034936178 instance=ExtResource("2_sg15t")]
+offset_left = 534.0
+offset_top = 288.0
+offset_right = 599.16003
+offset_bottom = 306.32
+scale = Vector2(1, 1)
+input_event_that_will_activate = "Confirm"
+button_name = "Next"
+
+[node name="Return_Button" parent="CanvasLayer" unique_id=1394715110 instance=ExtResource("2_sg15t")]
+visible = false
+offset_left = 533.0
+offset_top = 288.0
+offset_right = 598.16003
+offset_bottom = 306.32
+scale = Vector2(1, 1)
+input_event_that_will_activate = "Confirm"
+button_name = "Return"
+
+[node name="Container" type="Container" parent="CanvasLayer" unique_id=1649165335]
+visible = false
+offset_left = 60.0
+offset_top = 44.000004
+offset_right = 100.00001
+offset_bottom = 84.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container" unique_id=1122474104]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Container/MarginContainer" unique_id=999124185]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 41
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=2068695919]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 134
+
+[node name="coins_gained" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1365453962]
+custom_minimum_size = Vector2(129.985, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("5_plwbi")
+theme_override_font_sizes/font_size = 16
+text = "Gained Coins: 12321"
+
+[node name="total_gold" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1637641435]
+custom_minimum_size = Vector2(77.47, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("5_plwbi")
+theme_override_font_sizes/font_size = 16
+text = "Gold: 1q231"
+
+[node name="Label" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=514353867]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("5_plwbi")
+theme_override_font_sizes/font_size = 16
+text = "Items Gained:"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=1081285176]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/v_separation = 2
+columns = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1141436618]
+z_index = 1
+clip_contents = true
+offset_left = 88.0
+offset_top = 19.0
+offset_right = 498.489
+offset_bottom = 683.0
+pivot_offset = Vector2(0, 13.79)
+mouse_filter = 2
+theme_override_constants/separation = 400
+
+[node name="RewardScreenPortrait" parent="CanvasLayer/VBoxContainer2" unique_id=333886721 instance=ExtResource("3_rcxy4")]
+layout_mode = 2
+
+[node name="RewardScreenPortrait2" parent="CanvasLayer/VBoxContainer2" unique_id=587151694 instance=ExtResource("3_rcxy4")]
+layout_mode = 2
+
+[node name="RewardScreenPortrait3" parent="CanvasLayer/VBoxContainer2" unique_id=1276219366 instance=ExtResource("3_rcxy4")]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2098184916]
+z_index = -2
+layout_mode = 0
+offset_left = -111.0
+offset_top = -114.0
+offset_right = 754.13727
+offset_bottom = 399.0
+color = Color(0, 0, 0, 1)

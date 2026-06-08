@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bexdaongju8rn"]
+
+[ext_resource type="Texture2D" uid="uid://bdbln8f1w056o" path="res://assets/tile sheets/Move Sprites/Cropped_Up_Arrow.tres" id="1_s7031"]
+
+[node name="StatusTimer" type="Control" unique_id=870061395]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Status_Indicator" type="TextureRect" parent="." unique_id=533480129]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_s7031")
+stretch_mode = 2
+
+[node name="Time_Left" type="Label" parent="." unique_id=640009461]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -3.0
+offset_right = 93.0
+offset_bottom = 218.0
+scale = Vector2(0.035, 0.035)
+theme_override_font_sizes/font_size = 195
+text = "3"

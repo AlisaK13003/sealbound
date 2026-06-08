@@ -6,8 +6,5 @@ extends Node2D
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Overworld_Player"):
-		GlobalCombatInformation.transition_to_dungeon.call_deferred(
-			active_combatants, 
-			current_dungeon_run, 
-			item_list
-		)
+		await Fade.fade_in(1)
+		await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Select_Screen.tscn")

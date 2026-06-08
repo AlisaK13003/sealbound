@@ -14,6 +14,7 @@ class_name moves
 @export var is_unlocked: bool = true
 @export var is_magic_skill: bool = false
 
+@export var does_damage: bool = true
 @export_range(1,3) var mana_cost : int = 1
 
 @export_group("Status")

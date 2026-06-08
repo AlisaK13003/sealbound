@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://bl0fbkeqwgs7p"]
+
+[ext_resource type="Script" uid="uid://5ntsh2a3wxkl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Travel_to_dungeon.gd" id="1_owdmc"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="4_rw4us"]
+[ext_resource type="PackedScene" uid="uid://clofehiiykd5s" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Overview.tscn" id="6_0ovy0"]
+
+[sub_resource type="Gradient" id="Gradient_rcxy4"]
+offsets = PackedFloat32Array(0.6651652, 0.9654655)
+colors = PackedColorArray(0.1882353, 0.09803922, 0.20392157, 0.6039216, 1, 0.3019608, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xlel1"]
+gradient = SubResource("Gradient_rcxy4")
+fill = 1
+fill_from = Vector2(0.49358973, 0.4508547)
+fill_to = Vector2(0.4594017, 0.48076922)
+repeat = 1
+
+[node name="DungeonSelectScreen" type="Control" unique_id=838999056]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_owdmc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1101859366]
+offset = Vector2(1.35, 129.205)
+transform = Transform2D(1, 0, 0, 1, 1.35, 129.205)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1786508087]
+offset_left = 8.65
+offset_top = -114.205
+offset_right = 544.65
+offset_bottom = -74.205
+theme_override_constants/separation = 406
+
+[node name="GenericButton" parent="CanvasLayer/HBoxContainer" unique_id=1034936178 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+action_mode = 0
+input_event_that_will_activate = "up"
+hide_key_hint = false
+button_name = "Soon"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="GenericButton2" parent="CanvasLayer/HBoxContainer" unique_id=2086090258 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+input_event_that_will_activate = "up"
+hide_key_hint = false
+button_name = "Soon"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="GenericButton3" parent="CanvasLayer/HBoxContainer" unique_id=172920399 instance=ExtResource("4_rw4us")]
+visible = false
+layout_mode = 2
+input_event_that_will_activate = "up"
+hide_key_hint = false
+button_name = "Soon"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="GenericButton4" parent="CanvasLayer/HBoxContainer" unique_id=441815521 instance=ExtResource("4_rw4us")]
+visible = false
+layout_mode = 2
+input_event_that_will_activate = "up"
+hide_key_hint = false
+button_name = "Soon"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="GenericButton5" parent="CanvasLayer/HBoxContainer" unique_id=1036667174 instance=ExtResource("4_rw4us")]
+visible = false
+layout_mode = 2
+hide_key_hint = false
+button_name = "Soon"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -14.0
+offset_top = -93.22
+offset_right = 26.0
+offset_bottom = -53.22
+mouse_filter = 2
+
+[node name="DungeonOverview" parent="CanvasLayer/Control" unique_id=2129955901 instance=ExtResource("6_0ovy0")]
+layout_mode = 1
+mouse_filter = 2
+
+[node name="DungeonOverview2" parent="CanvasLayer/Control" unique_id=954683996 instance=ExtResource("6_0ovy0")]
+layout_mode = 1
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=390468899]
+visible = false
+z_index = 10
+offset_left = -23.35
+offset_top = -145.205
+offset_right = 672.65
+offset_bottom = 233.795
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer" unique_id=1648759168]
+offset_left = 8.65
+offset_top = 200.79501
+offset_right = 542.65
+offset_bottom = 240.79501
+theme_override_constants/separation = 404
+
+[node name="GenericButton2" parent="CanvasLayer/HBoxContainer2" unique_id=1503599191 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+hide_key_hint = false
+button_name = "Return to Hearthwynn"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="GenericButton" parent="CanvasLayer/HBoxContainer2" unique_id=766834764 instance=ExtResource("4_rw4us")]
+layout_mode = 2
+hide_key_hint = false
+button_name = "Travel to Dungeon"
+show_panel_and_name = false
+show_only_name = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1479204639]
+layout_mode = 0
+offset_left = -185.0
+offset_top = -183.0
+offset_right = 860.47144
+offset_bottom = 587.3029
+pivot_offset = Vector2(515.035, 343.53)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xlel1")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=468030823]
+z_index = -2
+layout_mode = 0
+offset_left = -39.0
+offset_top = -44.0
+offset_right = 708.0
+offset_bottom = 424.00003
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

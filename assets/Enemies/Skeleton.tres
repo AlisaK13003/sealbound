@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_jguxn"]
 [ext_resource type="Script" uid="uid://cqq1sj1x4ol6d" path="res://assets/Scripts/Resource Scripts/combat_enemy.gd" id="2_dpvc4"]
-[ext_resource type="Texture2D" uid="uid://bqcukhlg6iken" path="res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres" id="2_hxegi"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="3_hxegi"]
 
 [sub_resource type="Resource" id="Resource_0mjcf"]
@@ -21,6 +20,9 @@ status_type = null
 removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
+[sub_resource type="Resource" id="Resource_dpvc4"]
+metadata/__load_path__ = "res://assets/Enemies/Enemy_Sprites/Skeleton_Sprite.tres"
+
 [sub_resource type="Resource" id="Resource_bef6l"]
 script = ExtResource("3_hxegi")
 max_health = 300
@@ -33,7 +35,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("2_dpvc4")
-enemy_sprite = ExtResource("2_hxegi")
+enemy_sprite = SubResource("Resource_dpvc4")
 enemy_name = "Skeleton"
 enemy_stats = SubResource("Resource_bef6l")
 enemy_moves = Array[ExtResource("1_jguxn")]([SubResource("Resource_0mjcf"), SubResource("Resource_ytgt1")])

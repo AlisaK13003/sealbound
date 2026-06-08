@@ -1,9 +1,32 @@
 [gd_scene format=3 uid="uid://bdncivkt5ewpn"]
 
 [ext_resource type="Script" uid="uid://cmuy52sot1frj" path="res://assets/Resources/Dungeon Stuff/dungeon_item_menu.gd" id="1_7ukf3"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_7ukf3"]
+[ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="3_04tce"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrcn6"]
-bg_color = Color(0.34440893, 0.6144544, 0.91143113, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04tce"]
+bg_color = Color(0.6403759, 0.530691, 0.85747075, 0.5568628)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 20
+
+[sub_resource type="Gradient" id="Gradient_04tce"]
+offsets = PackedFloat32Array(0.47185433, 0.9884106)
+colors = PackedColorArray(0.5254902, 0.11372549, 0.0627451, 1, 0.4393073, 0.36581087, 2.8878452e-07, 1)
+metadata/_snap_count = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qj71s"]
+gradient = SubResource("Gradient_04tce")
+width = 256
+fill = 1
+fill_to = Vector2(1, 1)
 
 [node name="DungeonItemMenu" type="Control" unique_id=1100506542]
 layout_mode = 3
@@ -16,54 +39,93 @@ mouse_filter = 1
 script = ExtResource("1_7ukf3")
 node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Skill.tscn"
 
-[node name="Menu_Name" type="Label" parent="." unique_id=1197017893]
+[node name="Panel3" type="Panel" parent="." unique_id=1231143411]
+z_index = -1
 layout_mode = 0
-offset_left = -5.0
-offset_top = -58.0
-offset_right = 435.0
-offset_bottom = 7.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 57
-text = "Items"
-horizontal_alignment = 1
+offset_left = 302.0
+offset_top = 65.0
+offset_right = 587.2604
+offset_bottom = 136.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_04tce")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1645356078]
+[node name="Description_Label" type="Label" parent="Panel3" unique_id=243866030]
 layout_mode = 0
-offset_right = 437.0
-offset_bottom = 534.0
-theme_override_constants/separation = 77
-
-[node name="Panel" type="Panel" parent="." unique_id=281418985]
-layout_mode = 0
-mouse_filter = 1
-
-[node name="Panel2" type="Panel" parent="." unique_id=674101943]
-z_index = -2
-layout_mode = 0
-offset_left = -7.0
-offset_top = -4.0
-offset_right = 437.0
-offset_bottom = 533.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_mrcn6")
-
-[node name="Description_Label" type="Label" parent="." unique_id=243866030]
-layout_mode = 0
-offset_left = -5.0
-offset_top = 531.0
-offset_right = 3224.6296
-offset_bottom = 1760.6296
+offset_left = 11.0
+offset_top = 8.0
+offset_right = 1944.3333
+offset_bottom = 430.22223
 scale = Vector2(0.135, 0.135)
-mouse_filter = 1
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 110
 text = "Restores party to full"
 autowrap_mode = 2
 autowrap_trim_flags = 0
 
-[node name="Panel3" type="Panel" parent="." unique_id=1231143411]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1436117978]
+z_index = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053000003
+anchor_top = -0.055000003
+anchor_right = 0.33900002
+anchor_bottom = 0.31500003
+offset_left = -54.920002
+offset_top = 83.6
+offset_right = 10.639999
+offset_bottom = 68.80001
+theme_override_constants/margin_left = 77
+theme_override_constants/margin_top = -21
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=929929337]
+z_index = 3
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/h_separation = 154
+theme_override_constants/v_separation = -5
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="." unique_id=121743169]
+layout_mode = 0
+offset_left = 1.1650391
+offset_top = 58.0
+offset_right = 271.16504
+offset_bottom = 161.0
+texture = ExtResource("2_7ukf3")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect3" unique_id=339399417]
 z_index = -1
 layout_mode = 0
-offset_left = -7.0
-offset_top = 528.0
-offset_right = 438.0
-offset_bottom = 649.0
+offset_left = 6.333336
+offset_top = 5.333335
+offset_right = 265.00003
+offset_bottom = 96.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_qj71s")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=164521297]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 113.0
+offset_bottom = 66.66667
+texture = ExtResource("3_04tce")
+patch_margin_left = 13
+patch_margin_top = 7
+patch_margin_right = 13
+patch_margin_bottom = 9
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=2064877627]
+layout_mode = 0
+offset_left = 1.6666641
+offset_top = 1.6666665
+offset_right = 112.0
+offset_bottom = 30.0
+text = "Skills"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -2,18 +2,55 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_4t8q3"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_6xv2q"]
-[ext_resource type="Texture2D" uid="uid://bghqt8mthiajv" path="res://assets/Party Members/Sprites/Temp_Party_1.tres" id="1_57kig"]
 [ext_resource type="Resource" uid="uid://dxb4vjubb67ah" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Crowd Breaker.tres" id="2_03ww6"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_57kig"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_q427m"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_4t8q3"]
+[ext_resource type="Texture2D" uid="uid://dbp3bt48m5mat" path="res://GUI/dialogue_system/sprites/portraits/MCfemale_portraits.png" id="5_dylaw"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="7_dylaw"]
+
+[sub_resource type="Resource" id="Resource_xppdd"]
+script = ExtResource("1_4t8q3")
+attack_power = null
+mana_cost = 2
+does_status = true
+status_type = 24
+removes_status = null
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ffb4d"]
 script = ExtResource("2_57kig")
-max_health = 697
-health = 388
-attack = 547
+max_health = 75
+health = 75
+attack = 80
+defense = 25
+magic = 28
+resistance = 90
+speed = 40
+luck = 5
+evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xppdd"]
+atlas = ExtResource("5_dylaw")
+region = Rect2(50, 4, 42, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f5u8"]
+atlas = ExtResource("5_dylaw")
+region = Rect2(98, 4, 42, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f27ns"]
+atlas = ExtResource("5_dylaw")
+region = Rect2(146, 4, 42, 67)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_8onht"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_xppdd")
+frame_1/texture = SubResource("AtlasTexture_8f5u8")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_f27ns")
+frame_2/duration = 1.0
 
 [sub_resource type="Resource" id="Resource_03ww6"]
 script = ExtResource("2_57kig")
@@ -36,10 +73,13 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 [resource]
 script = ExtResource("1_6xv2q")
 combatant_name = "MC"
-party_member_portrait = ExtResource("1_57kig")
-combatant_sprite = ExtResource("1_57kig")
+party_member_portrait = SubResource("AnimatedTexture_8onht")
 combatant_stats = SubResource("Resource_ffb4d")
 stored_weapon = SubResource("Resource_dylaw")
 stored_equipment = SubResource("Resource_k5b5e")
-combatant_skills = Array[ExtResource("1_4t8q3")]([ExtResource("2_03ww6")])
+combatant_skills = Array[ExtResource("1_4t8q3")]([ExtResource("2_03ww6"), SubResource("Resource_xppdd")])
+sprite_frames = ExtResource("7_dylaw")
+idle_speed = 0.2
+walk_speed = 0.7
+bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

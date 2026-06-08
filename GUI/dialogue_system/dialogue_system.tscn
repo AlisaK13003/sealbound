@@ -16,15 +16,15 @@ fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p5aig"]
-content_margin_left = 60.0
-content_margin_top = 60.0
-content_margin_right = 150.0
-content_margin_bottom = 60.0
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 94.0
+content_margin_bottom = 30.0
 texture = ExtResource("2_icgm8")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
+texture_margin_left = 29.856432
+texture_margin_top = 33.2715
+texture_margin_right = 75.61834
+texture_margin_bottom = 32.588486
 region_rect = Rect2(24, 30, 666, 162)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nnx0c"]
@@ -33,6 +33,7 @@ content_margin_top = 0.0
 content_margin_right = 10.0
 content_margin_bottom = 0.0
 texture = ExtResource("6_p5aig")
+region_rect = Rect2(0, 0, 865, 115)
 
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
@@ -59,7 +60,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -16.0
 offset_top = -617.0
+offset_right = 17.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -72,33 +76,33 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1541.0
-offset_top = -343.0
-offset_right = -45.0
-offset_bottom = -40.0
+offset_left = -510.0
+offset_top = -129.0
+offset_right = -14.0
+offset_bottom = -9.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_p5aig")
 
 [node name="BodyText" type="RichTextLabel" parent="DialogueUI/TextBoxContainer" unique_id=1146066181]
+custom_minimum_size = Vector2(0, 9.36)
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.38162273, 0.2822109, 0.11049946, 1)
 theme_override_fonts/normal_font = ExtResource("3_drgf3")
 theme_override_fonts/bold_font = ExtResource("4_mcufe")
-theme_override_font_sizes/normal_font_size = 48
-theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
-text = "example text"
 scroll_active = false
 
 [node name="NameLabel" type="Label" parent="DialogueUI" unique_id=1254259597]
 layout_mode = 0
-offset_left = 408.0
-offset_top = 668.0
-offset_right = 513.0
-offset_bottom = 722.0
+offset_left = 140.0
+offset_top = 211.0
+offset_right = 245.0
+offset_bottom = 265.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -109,7 +113,7 @@ theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 4
 theme_override_fonts/font = ExtResource("4_mcufe")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 16
 text = "NAME"
 
 [node name="Timer" type="Timer" parent="DialogueUI" unique_id=672850845]
@@ -117,8 +121,8 @@ text = "NAME"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DialogueUI" unique_id=524168825]
 
 [node name="Portrait" type="Sprite2D" parent="DialogueUI" unique_id=1973429152]
-position = Vector2(193.50879, 797.4551)
-scale = Vector2(7.6454673, 7.645468)
+position = Vector2(68, 272.00003)
+scale = Vector2(2.59375, 2.59375)
 texture = ExtResource("5_mcufe")
 hframes = 4
 
@@ -126,19 +130,12 @@ hframes = 4
 process_mode = 3
 z_index = 1
 clip_contents = true
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1412.0
-offset_top = -652.0
-offset_right = -277.0
-offset_bottom = -504.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(2, 2)
-theme_override_constants/separation = 8
+layout_mode = 0
+offset_left = 537.0
+offset_top = 78.0
+offset_right = 609.0
+offset_bottom = 224.0
+theme_override_constants/separation = 7
 alignment = 2
 
 [node name="PanelContainer1" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=887627904]

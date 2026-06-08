@@ -2,17 +2,13 @@ extends Node3D
 
 class_name combat_template
 
-@onready var combatant_name = $Sprite3D2/SubViewport/CombatantUi.get_node("Label")
-@onready var combatant_sprite = $Sprite3D
-@onready var health_bar = $Sprite3D2/SubViewport/CombatantUi.get_node("TextureProgressBar")
-@onready var attacked_label = $Label3D
-@onready var combatant_ui_ = $Sprite3D2/SubViewport/CombatantUi
-@onready var combatant_ui = $Sprite3D2/SubViewport/CombatantUi/Player_Menu
+#region Variables
 
+@onready var combatant_ui_: combatant_ui = $Sprite3D2/SubViewport/CombatantUi
+@onready var status_sprite = load("res://assets/tile sheets/Up_Arrow.png")
 @onready var enemy_collision = $Sprite3D2/Enemy_Collision
 @onready var selection_area_sprite = $AnimatedSprite3D
 @onready var animated_sprite = $AnimatedSprite3D2
-@onready var subviewport = $Sprite3D2/SubViewport
 @onready var ui_sprite = $Sprite3D2
 @onready var rng = RandomNumberGenerator.new()
 @onready var animator = SpriteFrames.new()
@@ -30,6 +26,7 @@ var previously_visible = false
 var base_location: Vector3
 var displacement = Vector3(0.3, 0, 0)
 var can_be_unselected: bool = true
+var current_mana = 3
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -100,124 +97,145 @@ var conflicts = {
 	statuses.ACCURACYup: stat_does_nothing
 }
 
-enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC}
+@onready var status_color_chart: Dictionary = {
+	statuses.STUN: Color.YELLOW,
+	statuses.SLEEP: Color.DIM_GRAY,
+	statuses.SHOCK: Color.YELLOW,
+	statuses.POISON: Color.WEB_PURPLE,
+	statuses.BURN: Color.ORANGE_RED,
+	statuses.FREEZE: Color.LIGHT_CYAN,
+	statuses.SLOW: stat_does_nothing,
+	statuses.AGRO: Color.INDIAN_RED,
+	statuses.ATTACKdown: Color.RED,
+	statuses.DEFENSEdown: Color.BLUE,
+	statuses.EVASIONdown: Color.YELLOW,
+	statuses.CRITCHANCEdown: Color.GREEN,
+	statuses.ACCURACYdown: Color.CADET_BLUE,
+	statuses.MOMENTUM: _apply_momentum,
+	statuses.REGEN: _apply_regen,
+	statuses.STUNIMMUNITY: _apply_stun_imm,
+	statuses.ATTACKup: Color.RED,
+	statuses.DEFENSEup: Color.BLUE,
+	statuses.EVASIONup: Color.YELLOW,
+	statuses.CRITCHANCEup: Color.GREEN,
+	statuses.ACCURACYup: Color.CADET_BLUE
+}
+
+enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESISTANCE}
+
+#endregion
 
 func setup(combatant : generic_combatants, parent_ref, child_num):
 	if combatant == null:
 		is_empty = true
 		return
-		
+	parent_reference = parent_ref
+	child_number = child_num
+	base_location = self.global_position
+	for status_ in active_statuses:
+		_remove_active_status(status_.status_type)
+	
 	all_active_effects = 0
 	active_statuses.clear()
 	is_defending = false
-		
-	base_location = self.global_position
-		
-	child_number = child_num
-	parent_reference = parent_ref
+	combatant.combatant_stats.health = combatant.combatant_stats.max_health
 	stored_combatant = combatant
-	combatant_name.text = combatant.combatant_name
-	if not combatant.is_combatant_enemy:
-		combatant_sprite.texture = combatant.combatant_sprite
-	health_bar.max_value = combatant.combatant_stats.max_health
-	health_bar.value = combatant.combatant_stats.health
-	
+	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
+
+	current_mana = 3
 	if combatant.is_combatant_enemy:
-		if has_node("Sprite3D2/Area3D"):
-			$Sprite3D2/Area3D.queue_free()
+		currently_selectable = true
 		animated_sprite.sprite_frames = combatant.sprite_frames
-		combatant_sprite.visible = false
 		animated_sprite.pixel_size = 0.004
 		animated_sprite.speed_scale = stored_combatant.idle_speed
 		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 		animated_sprite.play("Idle")
 	else:
-		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
-	combatant_ui.visible = false
-	$Sprite3D2/SubViewport/CombatantUi.setup(self, stored_combatant)
+		combatant_ui_.get_node("TextureProgressBar").visible = false
+		# combatant_sprite.texture = combatant.combatant_sprite
+		animated_sprite.sprite_frames = combatant.sprite_frames
+		animated_sprite.pixel_size = 0.001
+		animated_sprite.speed_scale = stored_combatant.idle_speed
+		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
+		animated_sprite.play("Idle")
+		animated_sprite.flip_h = false
 	
-func update_health(change_health_value, status_ = false, portrait: player_portraits = null):
-	if not status_:
-		if str(change_health_value) == "MISS":
-			await update_damage_label(0, false, true)
-		elif str(change_health_value[0]) == "MISS":
-			await update_damage_label(0, false, true)
-		else:
-			if is_defending:
-				portrait._update_health(change_health_value)
-				await update_damage_label(change_health_value * 0.4, false, false)
-			else:
-				if portrait == null:
-					health_bar.value -= floor(change_health_value[0])
+func update_health(change_health_value, what_action):
+	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
+	if what_action != "STATUS":
+		if what_action == "MISS":
+			await combatant_ui_.update_damage_label(0, "MISS")
+		elif what_action == "MULTI":
+			var current_damage = int(ceil(change_health_value[0]))
+			while(current_damage is int or current_damage != "MISS"):
+				if is_defending:
+					update_portrait._update_health(current_damage * 0.6)
+					stored_combatant.combatant_stats.health -= current_damage * 0.6
+					await combatant_ui_.update_damage_label(current_damage * 0.6, "DAMAGE")
 				else:
-					portrait._update_health(change_health_value[0])
-				await update_damage_label(change_health_value, false, false)
-			if is_defending:
-				stored_combatant.combatant_stats.health -= floor(change_health_value[0] * 0.4)
-			else:
-				stored_combatant.combatant_stats.health -= change_health_value[0]
-	else:
-		if not stored_combatant.is_combatant_enemy:
-			parent_reference.get_player_portrait(child_number)._update_health(change_health_value)
+					if update_portrait != null:
+						update_portrait._update_health(current_damage)
+					stored_combatant.combatant_stats.health -= current_damage
+					await combatant_ui_.update_damage_label(current_damage, "DAMAGE")
+				await get_tree().create_timer(1.5)
+				change_health_value.pop_front()
+				if change_health_value.size() == 0:
+					break
+				current_damage = change_health_value[0]
+				if current_damage is String:
+					if current_damage == "MISS":
+						break
+					elif current_damage.size() == 0:
+						break
 		else:
-			health_bar.value -= floor(change_health_value)
-			attacked_label.text = str(int(floor(change_health_value)))
-			
-	await get_tree().create_timer(0.5).timeout
+			var damage_to_take = int(ceili(change_health_value))
+			if is_defending:
+				update_portrait._update_health(damage_to_take * 0.6)
+				stored_combatant.combatant_stats.health -= damage_to_take * 0.6
+				await combatant_ui_.update_damage_label(damage_to_take * 0.6, "DAMAGE")
+			else:
+				if update_portrait != null:
+					update_portrait._update_health(damage_to_take)
+				stored_combatant.combatant_stats.health -= damage_to_take
+				await combatant_ui_.update_damage_label(damage_to_take, "DAMAGE")
+	else:
+		var damage_to_take = int(ceili(change_health_value))
+		if not stored_combatant.is_combatant_enemy:
+			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
+		await combatant_ui_.update_damage_label(damage_to_take, "DAMAGE")
+
+	if not parent_reference.training:	
+		await get_tree().create_timer(0.5).timeout
 	
-	attacked_label.text = ""
 	if stored_combatant.combatant_stats.health <= 0:
 		on_death()
 	parent_reference.turn_ended.emit()
 
-func update_damage_label(damage_taken, _was_heal = false, attack_missed = false):
-	if attack_missed:
-		attacked_label.modulate = Color.MAGENTA
-		attacked_label.text = "MISS"
-	elif not damage_taken[1] is String and damage_taken[1] == 1:
-		attacked_label.modulate = Color.RED
-		attacked_label.text = "CRIT"
-		await get_tree().create_timer(0.5).timeout
-		attacked_label.text = str(int(floor(damage_taken[0])))
-	elif damage_taken[1] is String and not damage_taken[1] == "":
-		attacked_label.modulate = Color.LAWN_GREEN
-		attacked_label.text = str(int(floor(-1 * damage_taken[0])))
-	else:
-		attacked_label.modulate = Color.WEB_PURPLE
-		attacked_label.text = str(int(floor(damage_taken[0])))
-	await get_tree().create_timer(0.5).timeout
-	attacked_label.text = ""
-
 # Combat related stuff
-func calculate_evasion(entity_being_attacked: combat_template, attack_hit_chance = 90):
-	if not stored_combatant.is_combatant_enemy:
-		return ((obtain_stat(stats.EVASION) + 200) / (entity_being_attacked.obtain_stat(stats.EVASION) + 200)) * (attack_hit_chance * obtain_stat_alteration(stats.ACCURACY))
-	else:
-		return (((obtain_stat(stats.EVASION) + 200) / (entity_being_attacked.obtain_stat(stats.EVASION) + 200)) * (attack_hit_chance * obtain_stat_alteration(stats.ACCURACY))) * ((obtain_stat(stats.EVASION) + 200) / ((((stored_combatant.stored_equipment.equipment_stats.evasion * obtain_stat_alteration(stats.EVASION))) / 2) + 200))
-
-func execute_base_attack(entity_node: combat_template):
-	var chance_to_hit = calculate_evasion(entity_node)
-	var chance = rng.randf_range(0, 1)
-
-	if (chance * 100) <= chance_to_hit:
-		await entity_node.handle_status(statuses.POISON)
-		await entity_node.handle_status(statuses.CRITCHANCEdown)
-		return 5 * sqrt((obtain_stat(stats.ATTACK) / (entity_node.obtain_stat(stats.DEFENSE) + 1)) * (stored_combatant.stored_weapon.weapon_attack * obtain_stat_alteration(stats.ACCURACY))) * randf_range(0.95, 1.05)
-	else:
-		return "MISS"
 
 func on_death():
 	stored_combatant.is_dead = true
-	await get_tree().create_timer(0.5).timeout
-
-	animated_sprite.play("On_Death")
-	animated_sprite.speed_scale = 1.5
-	animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
-	await animated_sprite.animation_finished
-	
-
 	enemy_collision.visible = false
-	
+	all_active_effects = 0
+	for status_ in active_statuses:
+		_remove_active_status(status_.status_type)
+	active_statuses.clear()
+
+	if not parent_reference.training:
+		await get_tree().create_timer(0.5).timeout
+		
+		if stored_combatant.is_combatant_enemy:
+			parent_reference.killed_enemies.append(stored_combatant)
+			animated_sprite.play("On_Death")
+			animated_sprite.speed_scale = 1.5
+			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
+			await animated_sprite.animation_finished
+	if not stored_combatant.is_combatant_enemy:
+		parent_reference.gui.get_player_portrait(child_number).update_statuses(self)
+	else:
+		parent_reference.gui.update_bond_attack(0.5)
+	animated_sprite.modulate = Color.WHITE
+		
 func execute_defend():
 	is_defending = true
 
@@ -227,15 +245,12 @@ func do_nothing_3d(_camera, event, _event_position, _normal, _shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
 			parent_reference.confirmation.emit(child_number)
 
-func reset_ui():
-	combatant_ui.get_parent().reset_ui()
-
 # Status Stuff
 func handle_status(incoming_statuses):
-	print("INFLICTED STATUS")
 	for key in conflicts.keys():
 		var opposite = conflicts[key]
 		if (incoming_statuses & key) and (all_active_effects & opposite):
+			combatant_ui_.remove_active_status(opposite)
 			_remove_active_status(opposite)
 			incoming_statuses &= ~key
 	for key in status_map:
@@ -249,6 +264,8 @@ func handle_status(incoming_statuses):
 				if (all_active_effects != 0) and (all_active_effects & key) == key:
 					for _status in active_statuses:
 						if _status.status_type & (incoming_statuses & key):
+							if _status.status_type < statuses.ATTACKdown:
+								parent_reference.gui.update_bond_attack(0.5)
 							_status.remaining_turns += 3
 							break
 				else:
@@ -256,16 +273,25 @@ func handle_status(incoming_statuses):
 					add_status.status_type = key
 					already_inflicted_with_major_status = true
 					add_status.setup()
+					if add_status.status_type < statuses.ATTACKdown:
+						if stored_combatant.is_combatant_enemy:
+							parent_reference.gui.update_bond_attack(0.5)
+						animated_sprite.modulate = status_color_chart[key]
+					if add_status.status_type >= statuses.ATTACKdown:
+						pass
+					combatant_ui_.update_active_status(add_status)
 					active_statuses.append(add_status)
 					if all_active_effects == 0:
 						all_active_effects = key
 					else:
 						all_active_effects |= key
 	if not stored_combatant.is_combatant_enemy:
-		parent_reference.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
+		parent_reference.gui.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
 
-func remove_status(statustype):
-	pass
+func check_if_status_is_there(statustype):
+	if all_active_effects & statustype == 0:
+		return false
+	return true
 
 func _remove_active_status(type_to_remove: int):
 	all_active_effects &= ~type_to_remove 
@@ -275,40 +301,31 @@ func _remove_active_status(type_to_remove: int):
 			break
 
 func take_turn(player_portrait: player_portraits = null):
+	if parent_reference.turn_count == 1:
+		return
+	elif stored_combatant.is_combatant_enemy:
+		current_mana += 1
+	elif parent_reference.training:
+		current_mana += 1
 	is_defending = false
 	if all_active_effects != null:
 		for key in status_map:
 			if all_active_effects & key:
 				status_map[key].call()
 	if active_statuses != null:
-		for _status in range(active_statuses.size()):
+		for _status in range(active_statuses.size() - 1, -1, -1):
 			active_statuses[_status].remaining_turns -= 1
-			print("INFLICTED WITH STATUS: ", active_statuses[_status].status_name)
+			combatant_ui_.update_active_status(active_statuses[_status])
 			if active_statuses[_status].remaining_turns == 0:
 				if active_statuses[_status].status_type <= statuses.AGRO:
 					already_inflicted_with_major_status = false
+				combatant_ui_.remove_active_status(active_statuses[_status].status_type)
 				_remove_active_status(active_statuses[_status].status_type)
 				
 	if not stored_combatant.is_combatant_enemy:
 		player_portrait.update_statuses(self)
 
 # Functions that run if status is active
-
-func _apply_stun(): print("STUN")
-func _apply_sleep(): print("SLEEP")
-func _apply_shock(): print("SHOCK")
-func _apply_poison(): 
-	update_health(20, true)
-
-func _apply_burn(): 
-	update_health(20, true)
-	
-func _apply_freeze(): print("FREEZE")
-func _apply_agro(): print("AGRO")
-func _apply_momentum(): print("momentum")
-func _apply_regen():  print("regen")
-func _apply_stun_imm():  print("stun imun")
-func stat_does_nothing(): return
 
 # Helper Functions
 func obtain_stat(what_stat):
@@ -328,13 +345,15 @@ func obtain_stat(what_stat):
 		# Crit Chance
 		4:
 			var ret_stat = obtain_stat_alteration(stats.CRIT_CHANCE)
-			return ret_stat if (ret_stat != 0) else 1
+			return (ret_stat * stored_combatant.combatant_stats.luck) if (ret_stat != 0) else 1
 		5: 
 			var ret_stat = obtain_stat_alteration(stats.SPEED)
 			return stored_combatant.combatant_stats.speed * ret_stat if (ret_stat != 0) else 1
 		6:
 			var ret_stat = obtain_stat_alteration(stats.ATTACK)
 			return stored_combatant.combatant_stats.magic * ret_stat if (ret_stat != 0) else 1
+		7:
+			return stored_combatant.combatant_stats.resistance
 
 func obtain_stat_alteration(what_stat):
 	match what_stat:
@@ -385,6 +404,7 @@ func selected(can_be_unselected_):
 	currently_selectable = true
 	selection_area_sprite.play("selectable")
 	can_be_unselected = can_be_unselected_
+	parent_reference.gui.update_selection_section(self)
 
 func unselect():
 	selection_area_sprite.visible = false
@@ -395,20 +415,26 @@ func can_no_longer_be_selected():
 	currently_selectable = false
 	can_be_unselected = true
 
+func empty():
+	stored_combatant = null
+
 #region States
 
 func walk_towards_entity(node_to_walk_to):
 	if node_to_walk_to != base_location:
-		node_to_walk_to += displacement
+		if stored_combatant.is_combatant_enemy:
+			node_to_walk_to += displacement
+		else:
+			node_to_walk_to -= displacement
 	else:
 		animated_sprite.flip_h = true
 	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN_OUT)
 
-	tween.tween_property(self, "global_position", node_to_walk_to, 3)
+	tween.tween_property(self, "global_position", node_to_walk_to, 2)
 	
 	await tween.finished
+	if not stored_combatant.is_combatant_enemy and node_to_walk_to == base_location:
+		animated_sprite.flip_h = false
 
 func idle_animation():
 	animated_sprite.flip_h = false
@@ -422,17 +448,17 @@ func walk_animation():
 	animated_sprite.sprite_frames.set_animation_loop("Walk", true)
 
 func attack_animation(what_attack_anim):
-	var what_attack
-	match what_attack_anim:
-		0:
-			what_attack = "On_Attack_1"
-		1:
-			what_attack = "On_Attack_2"
-	animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
-	animated_sprite.play(what_attack)
-	animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
+	if stored_combatant.is_combatant_enemy:
+		var what_attack
+		match what_attack_anim:
+			0:
+				what_attack = "On_Attack_1"
+			1:
+				what_attack = "On_Attack_2"
+		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
+		animated_sprite.play(what_attack)
+		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 	
-
 #endregion
 
 func _on_enemy_collision_mouse_entered():
@@ -442,14 +468,25 @@ func _on_enemy_collision_mouse_entered():
 		if can_be_unselected:
 			parent_reference.unselect_all(false if stored_combatant.is_combatant_enemy else true)
 			parent_reference.select_individual(false if stored_combatant.is_combatant_enemy else true, child_number)
-		
-func _on_enemy_collision_mouse_exited():
-	return
-	if currently_selectable:
-		selection_area_sprite.visible = false
-		selection_area_sprite.stop()
 
 func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and currently_selectable:
 			parent_reference.confirmation.emit(child_number)
+
+func _apply_stun(): print("STUN")
+func _apply_sleep(): print("SLEEP")
+func _apply_shock(): print("SHOCK")
+func _apply_poison(): 
+	update_health(20, "STATUS")
+	animated_sprite.modulate = Color.PURPLE
+
+func _apply_burn(): 
+	update_health(20, "STATUS")
+	
+func _apply_freeze(): print("FREEZE")
+func _apply_agro(): print("AGRO")
+func _apply_momentum(): print("momentum")
+func _apply_regen():  print("regen")
+func _apply_stun_imm():  print("stun imun")
+func stat_does_nothing(): return

@@ -2,19 +2,28 @@
 
 [ext_resource type="Script" uid="uid://g4atnxodcy8x" path="res://assets/Scripts/fade_handler.gd" id="1_nukjo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nukjo"]
-bg_color = Color(0, 0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_nukjo"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_76d3x"]
+gradient = SubResource("Gradient_nukjo")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(1, 1)
 
 [node name="Fade" type="CanvasLayer" unique_id=1305704]
-layer = 0
-visible = false
+layer = 60
 script = ExtResource("1_nukjo")
 
-[node name="Panel" type="Panel" parent="." unique_id=302419641]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nukjo")
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1644776843]
+visible = false
+offset_right = 1951.0
+offset_bottom = 1099.0
+texture = SubResource("GradientTexture2D_76d3x")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=260347660]
+modulate = Color(1, 1, 1, 0)
+offset_left = -16.0
+offset_top = -14.0
+offset_right = 1939.0
+offset_bottom = 1106.0
+color = Color(0, 0, 0, 1)

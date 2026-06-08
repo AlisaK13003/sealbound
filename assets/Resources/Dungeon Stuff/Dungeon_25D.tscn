@@ -4,426 +4,120 @@
 [ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="2_dgt0a"]
 [ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="3_x3t77"]
 [ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="4_xal47"]
-[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_dungeon_type.tres" id="5_t7hpr"]
-[ext_resource type="Texture2D" uid="uid://58jsyjqchuls" path="res://assets/tile sheets/Floor.png" id="7_1u5h8"]
 [ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="7_og2ux"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
 [ext_resource type="PackedScene" uid="uid://dgs2lhgc5rktk" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_GUI.tscn" id="8_og2ux"]
-[ext_resource type="Texture2D" uid="uid://dfguifwtach7e" path="res://assets/Sprites/Dungeon_wall_right.png" id="8_xal47"]
-[ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="12_edm4l"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="12_iegkx"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edm4l"]
-bg_color = Color(0.64324254, 0.5426964, 0.80472004, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-corner_detail = 20
-shadow_color = Color(0.1336903, 0.061995834, 0.2626783, 0.6)
-shadow_size = 9
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uj4b"]
-bg_color = Color(0, 0.73001605, 9.62615e-07, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iegkx"]
-bg_color = Color(0.99999994, 0.28730667, 0.22523719, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8d11"]
-bg_color = Color(0.5128465, 0.5735708, 0.8962405, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.7691465, 0.78199226, 0.97865075, 1)
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[ext_resource type="AudioStream" uid="uid://eg4iog2p3170" path="res://assets/Resources/SFX/Eye-laser.wav" id="14_7uj4b"]
+[ext_resource type="PackedScene" uid="uid://cnqf3p8mnno2t" path="res://scenes/Dungeon/Final_Dungeon_Wall_Mario_2.glb" id="14_edm4l"]
+[ext_resource type="PackedScene" uid="uid://btij2pma38ddj" path="res://assets/tile sheets/Dungeon_Backgrounds/Forest_Dungeon_Background.glb" id="14_og2ux"]
+[ext_resource type="PackedScene" uid="uid://ci2lmevgrkq15" path="res://assets/tile sheets/Dungeon_Backgrounds/Forest_Floor.glb" id="15_edm4l"]
+[ext_resource type="PackedScene" uid="uid://b4111xsabmhhp" path="res://assets/tile sheets/Dungeon_Backgrounds/Dungeon_Dungeon_Floor.glb" id="16_7uj4b"]
 
 [sub_resource type="Environment" id="Environment_a4wc1"]
 background_mode = 1
 background_color = Color(1, 1, 0.96862745, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7hpr"]
-albedo_texture = ExtResource("8_xal47")
-texture_filter = 0
-
-[sub_resource type="BoxMesh" id="BoxMesh_og2ux"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_edm4l"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuhll"]
-albedo_texture = ExtResource("7_1u5h8")
-texture_filter = 0
-
-[sub_resource type="BoxMesh" id="BoxMesh_7ovfc"]
-size = Vector3(2.215, 0.255, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4wc1"]
-albedo_texture = ExtResource("8_xal47")
+background_energy_multiplier = 0.42
+ssao_enabled = true
 
 [node name="Dungeon25d" type="Node3D" unique_id=248229616]
 script = ExtResource("1_xfoey")
 party_slot_1 = ExtResource("2_dgt0a")
 party_slot_2 = ExtResource("3_x3t77")
 party_slot_3 = ExtResource("4_xal47")
-current_dungeon_run = ExtResource("5_t7hpr")
 temp_item_list = Array[ExtResource("12_iegkx")]([ExtResource("7_og2ux"), ExtResource("7_og2ux")])
 
 [node name="UI" type="Control" parent="." unique_id=738875588]
 texture_filter = 1
 layout_mode = 3
-anchors_preset = 0
-offset_left = 622.0
-offset_top = 533.0
-offset_right = 662.0
-offset_bottom = 573.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 
 [node name="DungeonPlayerGui" parent="UI" unique_id=217185090 instance=ExtResource("8_og2ux")]
+z_index = 0
 layout_mode = 1
-offset_left = 334.0
-offset_top = 9.0
-offset_right = 334.0
-offset_bottom = 9.0
-
-[node name="Bond_Attack" type="ProgressBar" parent="UI" unique_id=899942920]
-texture_filter = 1
-layout_mode = 0
-offset_left = 1022.0
-offset_top = 375.0
-offset_right = 1478.0
-offset_bottom = 401.0
-rotation = -1.5707964
-mouse_filter = 1
-
-[node name="Dungeon_Floor" type="Label" parent="UI" unique_id=1949041571]
-texture_filter = 1
-layout_mode = 0
-offset_left = -614.0
-offset_top = -529.0
-offset_right = -127.0
-offset_bottom = -376.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 66
-text = "Name of Dungeon 3f"
-
-[node name="Quests" type="Label" parent="UI/Dungeon_Floor" unique_id=655004733]
-texture_filter = 1
-layout_mode = 0
-offset_left = 1831.0
-offset_top = -4.0
-offset_right = 1913.0
-offset_bottom = 161.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 146
-text = "Q"
-
-[node name="Party_Portraits" type="Control" parent="UI" unique_id=1031394283]
-texture_filter = 1
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Party_Portraits" unique_id=1611507960]
-texture_filter = 1
-layout_mode = 0
-offset_left = 1053.0
-offset_top = -102.0
-offset_right = 1093.0
-offset_bottom = 228.0
-theme_override_constants/separation = 165
-
-[node name="PartyPortrait_1" parent="UI/Party_Portraits/VBoxContainer" unique_id=812714871 instance=ExtResource("12_edm4l")]
-texture_filter = 1
-layout_mode = 2
-
-[node name="PartyPortrait_2" parent="UI/Party_Portraits/VBoxContainer" unique_id=1001780271 instance=ExtResource("12_edm4l")]
-texture_filter = 1
-layout_mode = 2
-
-[node name="PartyPortrait_3" parent="UI/Party_Portraits/VBoxContainer" unique_id=1414338046 instance=ExtResource("12_edm4l")]
-texture_filter = 1
-layout_mode = 2
-
-[node name="Confirmation" type="Panel" parent="UI" unique_id=2068698271]
-visible = false
-texture_filter = 1
-layout_mode = 0
-offset_left = 29.0
-offset_top = 322.0
-offset_right = 605.0
-offset_bottom = 538.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_edm4l")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Confirmation" unique_id=584198092]
-texture_filter = 1
-layout_mode = 0
-offset_left = 85.0
-offset_top = 130.0
-offset_right = 493.0
-offset_bottom = 180.0
-theme_override_constants/separation = 208
-
-[node name="Panel" type="Panel" parent="UI/Confirmation/HBoxContainer" unique_id=2010219705]
-texture_filter = 1
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_7uj4b")
-
-[node name="Label" type="Label" parent="UI/Confirmation/HBoxContainer/Panel" unique_id=361036939]
-texture_filter = 1
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 51.0
-mouse_filter = 1
-text = "Confirm"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel2" type="Panel" parent="UI/Confirmation/HBoxContainer" unique_id=1457558027]
-texture_filter = 1
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_iegkx")
-
-[node name="Label" type="Label" parent="UI/Confirmation/HBoxContainer/Panel2" unique_id=1701090137]
-texture_filter = 1
-layout_mode = 0
-offset_right = 101.0
-offset_bottom = 50.0
-mouse_filter = 1
-text = "Decline"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label" type="Label" parent="UI/Confirmation" unique_id=2111548861]
-texture_filter = 1
-layout_mode = 0
-offset_right = 573.0
-offset_bottom = 124.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 28
-text = "Use Second Wind on Lyra?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Mana Bar" type="Panel" parent="UI" unique_id=2056271401]
-texture_filter = 1
-layout_mode = 0
-offset_left = -613.0
-offset_top = 388.0
-offset_right = -477.0
-offset_bottom = 506.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_o8d11")
-
-[node name="Label" type="Label" parent="UI/Mana Bar" unique_id=1886573025]
-texture_filter = 1
-layout_mode = 0
-offset_left = 20.0
-offset_top = 24.0
-offset_right = 114.0
-offset_bottom = 101.0
-theme_override_font_sizes/font_size = 68
-text = "3/3"
-
-[node name="Label2" type="Label" parent="UI/Mana Bar" unique_id=1858373208]
-texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 116.0
-offset_right = 48.0
-offset_bottom = 134.0
-theme_override_font_sizes/font_size = 30
-text = "Mana"
-
-[node name="Turn Counter" type="Label" parent="UI" unique_id=258393882]
-texture_filter = 1
-layout_mode = 0
-offset_left = -615.0
-offset_top = 334.0
-offset_right = -488.0
-offset_bottom = 393.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 51
-text = "Turn: "
-
-[node name="Label" type="Label" parent="UI" unique_id=1014058335]
-texture_filter = 1
-layout_mode = 0
-offset_left = -621.00006
-offset_top = -465.00003
-offset_right = 503.99994
-offset_bottom = -240.00003
-scale = Vector2(0.365, 0.365)
-mouse_filter = 1
-theme_override_font_sizes/font_size = 200
-text = "Active Turn: "
+offset_left = -1.0
+offset_right = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
-transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.395, 2.07, 6)
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.2720056, 2.0102215, 6.178326)
 environment = SubResource("Environment_a4wc1")
 fov = 15.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0062575, 0, -0.74907875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99463224, 0.43436444, 0.12080324)
 
-[node name="Enemy_Slot1" parent="Enemy_Container" unique_id=1849059853 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.751, 0.138, 0.5)
+[node name="Enemy_Slot5" parent="Enemy_Container" unique_id=1804750138 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.5, -0.131, 0)
 
-[node name="Enemy_Slot2" parent="Enemy_Container" unique_id=169123962 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.001, 0.138, 0.45)
+[node name="Enemy_Slot4" parent="Enemy_Container" unique_id=85630224 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, -0.131, 0)
 
-[node name="Enemy_Slot3" parent="Enemy_Container" unique_id=1094727955 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.251, 0.138, 0.4)
+[node name="Enemy_Slot3" parent="Enemy_Container" unique_id=2004831497 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.1, -0.131, 0)
 
-[node name="Enemy_Slot4" parent="Enemy_Container" unique_id=2016040555 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.501, 0.138, 0.35)
+[node name="Enemy_Slot2" parent="Enemy_Container" unique_id=1397628051 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.1, -0.131, 0)
 
-[node name="Enemy_Slot5" parent="Enemy_Container" unique_id=2008772717 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -1.751, 0.138, 0.3)
+[node name="Enemy_Slot1" parent="Enemy_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.3, -0.131, 0)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046935797, 0)
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Background" unique_id=1849542940]
-transform = Transform3D(2.2449985, -0.0024608748, 0.00037480026, 0.0021208662, 2.6049986, -4.937798e-05, -0.0010926181, 0.00016831119, 0.7699998, -3.8748999, -1.1425264, -9.574345)
-material_override = SubResource("StandardMaterial3D_t7hpr")
-mesh = SubResource("BoxMesh_og2ux")
-material = SubResource("StandardMaterial3D_edm4l")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background" unique_id=62143497]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 2.7801843, 4.59894, 0.86376476)
+light_energy = 0.694
+sky_mode = 1
 
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="Background" unique_id=370850503]
-transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, -1.6348088, -1.1373134, -10.322394)
-material_override = SubResource("StandardMaterial3D_t7hpr")
-mesh = SubResource("BoxMesh_og2ux")
-material = SubResource("StandardMaterial3D_edm4l")
+[node name="Dungeon_Dungeon" type="Node3D" parent="Background" unique_id=847566466]
+visible = false
 
-[node name="CSGMesh3D3" type="CSGMesh3D" parent="Background" unique_id=1378537069]
-transform = Transform3D(-9.813206e-08, 0, -2.375, 0, 2.605, 0, 2.245, 0, -1.0381455e-07, 0.70869803, -1.1373134, -10.322394)
-material_override = SubResource("StandardMaterial3D_t7hpr")
-mesh = SubResource("BoxMesh_og2ux")
-material = SubResource("StandardMaterial3D_edm4l")
+[node name="Final_Dungeon_Wall_Mario_2" parent="Background/Dungeon_Dungeon" unique_id=1260364898 instance=ExtResource("14_edm4l")]
+transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, -0.26657003, 0.76829386, -0.99052817)
 
-[node name="CSGMesh3D4" type="CSGMesh3D" parent="Background" unique_id=1356877479]
-transform = Transform3D(0.0010926638, -0.002460875, -2.3749986, -0.0001439658, 2.604999, -0.0022436786, 2.2449996, 0.00016831122, 0.0011557842, 3.0198588, -1.1358469, -10.323141)
-material_override = SubResource("StandardMaterial3D_t7hpr")
-mesh = SubResource("BoxMesh_og2ux")
-material = SubResource("StandardMaterial3D_edm4l")
+[node name="Final_Dungeon_Wall_Mario_6" parent="Background/Dungeon_Dungeon" unique_id=1245794519 instance=ExtResource("14_edm4l")]
+transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, 2.0819876, 0.76829386, -0.99052817)
 
-[node name="CSGMesh3D5" type="CSGMesh3D" parent="Background" unique_id=473875855]
-transform = Transform3D(0.0010926638, -0.002460875, -2.3749986, -0.0001439658, 2.604999, -0.0022436786, 2.2449996, 0.00016831122, 0.0011557842, 5.3085656, -1.1336846, -10.324255)
-material_override = SubResource("StandardMaterial3D_t7hpr")
-mesh = SubResource("BoxMesh_og2ux")
-material = SubResource("StandardMaterial3D_edm4l")
+[node name="Dungeon_Dungeon_Floor2" parent="Background/Dungeon_Dungeon" unique_id=320012077 instance=ExtResource("16_7uj4b")]
+transform = Transform3D(-0.28998756, 0.00037070725, 0.0026600545, -0.0003240836, -0.2899554, 0.0050781993, 0.0026661356, 0.005075009, 0.2899433, 0.16042018, -0.20104289, -0.32642925)
 
-[node name="Node3D" type="Node3D" parent="Background" unique_id=1840056412]
+[node name="Forest_Dungeon" type="Node3D" parent="Background" unique_id=1171691469]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Background/Node3D" unique_id=844618595]
-transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, 0.7311984, 1.2121916, -1.4257321)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
+[node name="Forest_Floor" parent="Background/Forest_Dungeon" unique_id=308570016 instance=ExtResource("15_edm4l")]
+transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.554487, -1.138669)
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Background/Node3D" unique_id=67008968]
-transform = Transform3D(-1.5, 8.742278e-08, 0, 1.484481e-08, 0.11320321, -10.566637, -1.3029123e-07, -0.9935719, -1.2039162, 8.314276, 1.8527098, -1.4258513)
-material_override = SubResource("StandardMaterial3D_a4wc1")
+[node name="Forest_Floor2" parent="Background/Forest_Dungeon" unique_id=1580522416 instance=ExtResource("15_edm4l")]
+transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.554487, -2.9016361)
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Background/Node3D" unique_id=701846657]
-transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, -2.5678086, 1.2124817, -1.4258808)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
+[node name="Forest_Dungeon_Background" parent="Background/Forest_Dungeon" unique_id=1863807259 instance=ExtResource("14_og2ux")]
+transform = Transform3D(-0.080523215, -0.067145005, 0.005705797, -0.0010702424, -0.0076151644, -0.10471801, 0.067378506, -0.08036512, 0.0051555834, -1.49215, 0.44343746, -1.598243)
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Background/Node3D" unique_id=379927830]
-transform = Transform3D(1.5, 1.509958e-07, 1.15398066e-07, 2.2649371e-07, -1, 0, 1.3113416e-07, 1.3200472e-14, -1.32, 3.9831913, 1.2124817, -1.4258808)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
+[node name="Forest_Dungeon_Background2" parent="Background/Forest_Dungeon" unique_id=163128704 instance=ExtResource("14_og2ux")]
+transform = Transform3D(0.105, 0, 0, 0, 0.0076900045, -0.104718015, 0, 0.104718015, 0.0076900045, 0.2899325, 0.44343746, -2.519319)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Background/Node3D" unique_id=859156403]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9546279, -0.45402175, -1.653939)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="Background/Node3D" unique_id=1655325655]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23347682, -0.45402175, -1.653939)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D14" type="MeshInstance3D" parent="Background/Node3D" unique_id=1814099832]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.9548312, -0.45372528, -0.71)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D15" type="MeshInstance3D" parent="Background/Node3D" unique_id=592331149]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.137033, -0.45372528, -0.71)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D13" type="MeshInstance3D" parent="Background/Node3D" unique_id=1373977101]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4158444, -0.45402175, -1.653939)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D16" type="MeshInstance3D" parent="Background/Node3D" unique_id=1526825726]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6094456, -0.45402175, -1.653939)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Background/Node3D" unique_id=1612521161]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2347903, -0.45402175, -0.7101507)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Background/Node3D" unique_id=118344350]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.43, -0.45372528, -0.71)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Background/Node3D" unique_id=1970071791]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1589966, -0.45402175, -1.6912394)
-material_override = SubResource("StandardMaterial3D_fuhll")
-mesh = SubResource("BoxMesh_7ovfc")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Background" unique_id=652497575]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.9402634, 0.2595748, -0.901104)
-light_color = Color(1, 0, 0, 1)
-light_indirect_energy = 16.0
-light_bake_mode = 1
-spot_range = 1.1626496
-spot_angle = 43.251858
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="Background" unique_id=217029686]
-transform = Transform3D(1, 0, 0, 0, -0.068015285, -0.9976843, 0, 0.9976843, -0.068015285, 2.2186317, 0.16160595, -2.1053653)
-light_color = Color(1, 0, 0, 1)
-light_energy = 1.074
-light_indirect_energy = 16.0
-light_bake_mode = 1
-shadow_enabled = true
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="Background" unique_id=1513289175]
-transform = Transform3D(1, 0, 0, 0, -0.068015285, -0.9976843, 0, 0.9976843, -0.068015285, -0.1324501, 0.1255889, -2.1053653)
-light_color = Color(1, 0, 0, 1)
-light_energy = 1.074
-light_indirect_energy = 16.0
-light_bake_mode = 1
+[node name="Forest_Dungeon_Background3" parent="Background/Forest_Dungeon" unique_id=1410993559 instance=ExtResource("14_og2ux")]
+transform = Transform3D(-0.10070537, 0.029303376, -0.004973816, 0.0031278075, -0.0070251683, -0.10471801, -0.029557472, -0.100583084, 0.0058649224, 2.1966925, 0.44343746, -2.019648)
 
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17756835, 0, -0.19572136)
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, -0.0071456432, -0.046935797, -0.034164637)
 
-[node name="Player_Slot1" parent="Player_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0, 0.168, 0)
+[node name="Player_Slot1" parent="Player_Container" unique_id=617855372 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.97629666, 0.21643981, 0, -0.21643981, 0.97629666, 0, 0.369, 0.3)
 
-[node name="Player_Slot2" parent="Player_Container" unique_id=1180676946 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, 0.168, 0.05)
+[node name="Player_Slot2" parent="Player_Container" unique_id=1573487760 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.97629666, 0.21643981, 0, -0.21643981, 0.97629666, -0.3, 0.369, 0.8)
 
-[node name="Player_Slot3" parent="Player_Container" unique_id=2018764669 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.6, 0.168, 0.1)
+[node name="Player_Slot3" parent="Player_Container" unique_id=498151818 instance=ExtResource("7_x3t77")]
+transform = Transform3D(1, 0, 0, 0, 0.97629666, 0.21643981, 0, -0.21643981, 0.97629666, -0.6, 0.369, 1.2)
 
-[connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel" to="." method="confirmation_button" binds= [true]]
-[connection signal="gui_input" from="UI/Confirmation/HBoxContainer/Panel2" to="." method="confirmation_button" binds= [false]]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1639238937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38658774, 1.0366468)
+stream = ExtResource("14_7uj4b")
+attenuation_model = 1
+volume_db = 80.0
