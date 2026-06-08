@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3rs4gc4i4ged"
-path="res://.godot/imported/Health_Before.png-1e534e4693a12c3ed46ecf52c382f124.ctex"
+uid="uid://sjyqbu2c5wop"
+path="res://.godot/imported/Health_Before_2.png-bf6ba98888e7b92d0b85d21305260a40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Health_Before.png"
-dest_files=["res://.godot/imported/Health_Before.png-1e534e4693a12c3ed46ecf52c382f124.ctex"]
+source_file="res://assets/tile sheets/Health_Before_2.png"
+dest_files=["res://.godot/imported/Health_Before_2.png-bf6ba98888e7b92d0b85d21305260a40.ctex"]
 
 [params]
 

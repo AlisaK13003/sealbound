@@ -131,7 +131,7 @@ func update_damage_label(health_differential, type_of_damage):
 		"DAMAGE":
 			health_differential_label.modulate = Color.WHITE_SMOKE
 	
-	health_differential_label.position.y = 400
+	health_differential_label.position.y = 30
 	health_differential_label.visible = true
 	if type_of_damage != "MISS":
 		health_differential_label.text = str(health_differential)
@@ -139,16 +139,14 @@ func update_damage_label(health_differential, type_of_damage):
 	current_health_label.text = str(int(health_bar.value))
 	var tween = create_tween()
 	
-	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, 300.0), 0.3)
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, -10.0), 0.3)
 	
 	await tween.finished
-	
 
-	
 	await get_tree().create_timer(0.1).timeout
 
 	tween = create_tween()
-	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, 400.0), 0.6)
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, 20.0), 0.6)
 	await tween.finished
 	health_differential_label.visible = false
 	health_differential_label.position.y = 500

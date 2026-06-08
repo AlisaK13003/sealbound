@@ -26,16 +26,15 @@ mouse_filter = 1
 script = ExtResource("1_owdmc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1101859366]
-offset = Vector2(0, 102.22)
-scale = Vector2(5.345, 5.345)
-transform = Transform2D(5.345, 0, 0, 5.345, 0, 102.22)
+offset = Vector2(1.35, 129.205)
+transform = Transform2D(1, 0, 0, 1, 1.35, 129.205)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1786508087]
-offset_left = 9.167446
-offset_top = -15.008419
-offset_right = 350.16745
-offset_bottom = 24.991581
-theme_override_constants/separation = 170
+offset_left = 8.65
+offset_top = -114.205
+offset_right = 544.65
+offset_bottom = -74.205
+theme_override_constants/separation = 406
 
 [node name="GenericButton" parent="CanvasLayer/HBoxContainer" unique_id=1034936178 instance=ExtResource("4_rw4us")]
 layout_mode = 2
@@ -83,8 +82,10 @@ show_only_name = true
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -14.0
+offset_top = -93.22
+offset_right = 26.0
+offset_bottom = -53.22
 mouse_filter = 2
 
 [node name="DungeonOverview" parent="CanvasLayer/Control" unique_id=2129955901 instance=ExtResource("6_0ovy0")]
@@ -98,18 +99,19 @@ mouse_filter = 2
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=390468899]
 visible = false
 z_index = 10
-offset_left = -10.664172
-offset_top = -26.795135
-offset_right = 369.6913
-offset_bottom = 198.08794
+offset_left = -23.35
+offset_top = -145.205
+offset_right = 672.65
+offset_bottom = 233.795
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer" unique_id=1648759168]
-offset_top = 166.025
-offset_right = 134.0
-offset_bottom = 206.025
-theme_override_constants/separation = 160
+offset_left = 8.65
+offset_top = 200.79501
+offset_right = 542.65
+offset_bottom = 240.79501
+theme_override_constants/separation = 404
 
 [node name="GenericButton2" parent="CanvasLayer/HBoxContainer2" unique_id=1503599191 instance=ExtResource("4_rw4us")]
 layout_mode = 2
@@ -127,21 +129,20 @@ show_only_name = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1479204639]
 layout_mode = 0
-offset_left = -777.6642
-offset_top = -776.79517
-offset_right = 2778.3838
-offset_bottom = 2133.6204
-rotation = -0.94596845
-pivot_offset = Vector2(1770.255, 1297.58)
+offset_left = -185.0
+offset_top = -183.0
+offset_right = 860.47144
+offset_bottom = 587.3029
+pivot_offset = Vector2(515.035, 343.53)
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_xlel1")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=468030823]
 z_index = -2
 layout_mode = 0
-offset_left = -121.66417
-offset_top = -140.79514
-offset_right = 2040.3358
-offset_bottom = 1141.2048
+offset_left = -39.0
+offset_top = -44.0
+offset_right = 708.0
+offset_bottom = 424.00003
 mouse_filter = 2
 color = Color(0, 0, 0, 1)

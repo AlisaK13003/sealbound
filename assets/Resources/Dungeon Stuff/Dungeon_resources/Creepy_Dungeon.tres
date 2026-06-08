@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_wehx1"]
 script = ExtResource("2_2thd2")
-enemies = Array[ExtResource("3_fevs0")]([ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc")])
+enemies = Array[ExtResource("3_fevs0")]([ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc"), ExtResource("5_mrykc")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]

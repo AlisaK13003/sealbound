@@ -151,7 +151,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 		animated_sprite.play("Idle")
 	else:
-		$Sprite3D2/SubViewport/CombatantUi/TextureProgressBar.visible = false
+		combatant_ui_.get_node("TextureProgressBar").visible = false
 		# combatant_sprite.texture = combatant.combatant_sprite
 		animated_sprite.sprite_frames = combatant.sprite_frames
 		animated_sprite.pixel_size = 0.001

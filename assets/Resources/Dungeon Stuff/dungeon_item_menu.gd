@@ -86,6 +86,18 @@ func update_selection(up_or_down):
 			unselect_all()
 			item_container.get_child(newly_selected_child).select()
 
+func make_visible():
+	self.visible = true
+	unselect_all()
+	var current_index: int = 0
+	var highlighted_someone: bool = false
+	for child in item_container.get_children():
+		if child.visible and child.get_index() == current_index and not highlighted_someone:
+			which_child_is_selected = 0
+			highlighted_someone = true
+		else:
+			current_index += 1
+
 func selection_confirmed():
 	if item_container.get_child(which_child_is_selected).can_be_selected:
 		item_container.get_child(which_child_is_selected).selection_confirmed()

@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="1_42j3u"]
 [ext_resource type="Script" uid="uid://gr3f280redud" path="res://assets/Resources/Dungeon Stuff/Handle_Portrait_Updates.gd" id="1_bswx1"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_jhf3i"]
 [ext_resource type="Texture2D" uid="uid://5b2lsp0ywx31" path="res://assets/tile sheets/Move Sprites/Stun_Status.png" id="5_pn1e0"]
 [ext_resource type="Texture2D" uid="uid://c3tye7kcdf1d7" path="res://assets/tile sheets/Move Sprites/Sleep_Status.png" id="6_t0ncg"]
 [ext_resource type="Texture2D" uid="uid://n5yjrkprqwac" path="res://assets/tile sheets/Move Sprites/Shock_Status.png" id="7_oxokt"]
@@ -30,29 +31,34 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 6.0
+offset_right = -456.0
+offset_bottom = -198.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bswx1")
 
 [node name="Portrait" type="Sprite2D" parent="." unique_id=1341695875]
 z_index = 1
-position = Vector2(-31, 46)
-scale = Vector2(2, 2)
+position = Vector2(1, 15)
 texture = ExtResource("1_42j3u")
+offset = Vector2(19.605, 11.06)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1876796033]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 11.0
-offset_right = 156.0
-offset_bottom = 92.0
+offset_left = 10.0
+offset_top = 14.0
+offset_right = 142.0
+offset_bottom = 95.0
 
 [node name="Name" type="Label" parent="VBoxContainer" unique_id=2128444409]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 33
+theme_override_fonts/font = ExtResource("3_jhf3i")
+theme_override_font_sizes/font_size = 13
 text = "Lyra"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -62,46 +68,45 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 34
+theme_override_fonts/font = ExtResource("3_jhf3i")
+theme_override_font_sizes/font_size = 13
 text = "100 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Statuses" type="Control" parent="." unique_id=571215200]
 anchors_preset = 0
-offset_left = 558.0
-offset_top = -6.0
-offset_right = 598.0
-offset_bottom = 34.0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Stun" type="TextureRect" parent="Statuses" unique_id=1798686968]
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -647.0
-offset_top = 10.0
-offset_right = -559.0
-offset_bottom = 98.0
+offset_left = -39.0
+offset_top = -6.0
+offset_right = 49.0
+offset_bottom = 82.0
 texture = ExtResource("5_pn1e0")
 
 [node name="Sleep" type="TextureRect" parent="Statuses" unique_id=1881670552]
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -624.0
-offset_top = -42.0
-offset_right = -511.0
-offset_bottom = 71.0
+offset_left = -18.0
+offset_top = -50.0
+offset_right = 95.0
+offset_bottom = 63.0
 texture = ExtResource("6_t0ncg")
 
 [node name="Shock" type="TextureRect" parent="Statuses" unique_id=717995427]
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -594.0
-offset_top = -18.999996
-offset_right = -543.88104
-offset_bottom = 31.11895
+offset_left = 21.0
+offset_top = -35.0
+offset_right = 71.11896
+offset_bottom = 15.118946
 rotation = 0.24626666
 texture = ExtResource("7_oxokt")
 
@@ -109,39 +114,39 @@ texture = ExtResource("7_oxokt")
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -648.0
-offset_top = -9.0
-offset_right = -554.0
-offset_bottom = 85.0
+offset_left = -42.0
+offset_top = -21.0
+offset_right = 52.0
+offset_bottom = 73.0
 texture = ExtResource("8_ypv6w")
 
 [node name="Freeze" type="TextureRect" parent="Statuses" unique_id=1062050160]
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -647.0
-offset_top = -6.0
-offset_right = -557.0
-offset_bottom = 84.0
+offset_left = -58.0
+offset_top = -12.0
+offset_right = 32.0
+offset_bottom = 78.0
 texture = ExtResource("9_o7gp5")
 
 [node name="Burn" type="TextureRect" parent="Statuses" unique_id=920172331]
 visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -629.0
-offset_top = 37.0
-offset_right = -550.0
-offset_bottom = 116.0
+offset_left = 1.0
+offset_top = 18.0
+offset_right = 80.0
+offset_bottom = 97.0
+scale = Vector2(0.515, 0.515)
 texture = ExtResource("11_2s1to")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=833874614]
 layout_mode = 0
-offset_left = -43.0
-offset_top = -6.0
-offset_right = 67.5
-offset_bottom = 52.0
-scale = Vector2(2, 2)
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 125.0
+offset_bottom = 58.0
 texture = ExtResource("12_bswx1")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -153,8 +158,8 @@ axis_stretch_vertical = 2
 [node name="Panel" type="Panel" parent="." unique_id=1429280131]
 z_index = -1
 layout_mode = 0
-offset_left = -35.0
-offset_top = 2.0
-offset_right = 170.0
-offset_bottom = 102.0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 121.0
+offset_bottom = 54.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_2s1to")

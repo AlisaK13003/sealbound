@@ -10,7 +10,7 @@
 viewport_path = NodePath("Sprite3D2/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mydf"]
-size = Vector3(3.0724373, 3.571803, 0.05419922)
+size = Vector3(7.7679873, 13.146252, 0.05419922)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_51gu7"]
 atlas = ExtResource("3_51gu7")
@@ -64,7 +64,7 @@ sprite_frames = ExtResource("2_51gu7")
 animation = &"Idle"
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0.003969945, 0.25443596, 0.04722166)
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0.386145, -0.47294062, 0.21984959)
 texture_filter = 0
 texture = SubResource("ViewportTexture_51gu7")
 
@@ -74,17 +74,16 @@ snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
-size = Vector2i(1039, 1826)
 render_target_update_mode = 4
 
 [node name="CombatantUi" parent="Sprite3D2/SubViewport" unique_id=1169996085 instance=ExtResource("3_drjmm")]
 
 [node name="Enemy_Collision" type="Area3D" parent="Sprite3D2" unique_id=1958587253]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35619026, 0)
+transform = Transform3D(0.20000002, 0, 0, 0, 0.20000002, 0, 0, 0, 0.20000002, -1.9487716, 2.6715407, 0.45068455)
 script = ExtResource("4_mmlnl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Enemy_Collision" unique_id=376378909]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8197584, -4.301213, 0.7319856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33037716, 0.8749424, 1.6407666)
 shape = SubResource("BoxShape3D_7mydf")
 debug_fill = false
 

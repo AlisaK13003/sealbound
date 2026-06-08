@@ -12,31 +12,31 @@ class_name dungeon_loop
 
 @onready var gui: dungeon_gui = $UI/DungeonPlayerGui
 
-@onready var slot_1 = $Player_Container/Player_Slot1
-@onready var slot_2 = $Player_Container/Player_Slot2
-@onready var slot_3 = $Player_Container/Player_Slot3
+@onready var slot_1: combat_template = $Player_Container/Player_Slot1
+@onready var slot_2: combat_template = $Player_Container/Player_Slot2
+@onready var slot_3: combat_template = $Player_Container/Player_Slot3
 
-@onready var player_container = $Player_Container
+@onready var player_container: Node = $Player_Container
 
-@onready var enemy_shit = $Enemy_Container
+@onready var enemy_shit: Node = $Enemy_Container
 
-@onready var rng = RandomNumberGenerator.new()
+@onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-@onready var dungeon_dungeon = $Background/Dungeon_Dungeon
-@onready var forest_dungeon = $Background/Forest_Dungeon
+@onready var dungeon_dungeon: Node = $Background/Dungeon_Dungeon
+@onready var forest_dungeon: Node = $Background/Forest_Dungeon
 
 var all_combatants : Array[combat_template] = []
 var killed_enemies: Array[generic_combatants] = []
 
-var selecting_entity = false
+var selecting_entity: bool = false
 var current_dungeon_run : dungeon_type
 
-var current_selected_person
+var current_selected_person: int
 
 var current_bond_points: int = 0
-var max_bond_points_ = 0
+var max_bond_points_: int = 0
 
-var current_run_id = 0
+var current_run_id: int = 0
 var active_player_turn: int = 0
 
 var waiting_for_confirmation : bool = false
@@ -45,34 +45,34 @@ signal action_taken
 signal turn_ended
 signal actual_confirmation
 
-var healing_weight = 14.9862954393029
-var kill_weight = 50
-var damage_importance_weight = 11.0503428578377
-var healing_importance_weight = 20.6637550592422
-var remove_status_weight = 37.6523693203926
-var give_self_status_weight = 33.7605845928192
-var remove_players_status_weight = 50
-var give_player_status_weight = 33.1900285482407
-var skill_importance = 16.6770209241658
+var healing_weight: float = 14.9862954393029
+var kill_weight: float = 50
+var damage_importance_weight: float = 11.0503428578377
+var healing_importance_weight: float = 20.6637550592422
+var remove_status_weight: float = 37.6523693203926
+var give_self_status_weight: float = 33.7605845928192
+var remove_players_status_weight: float = 50
+var give_player_status_weight: float = 33.1900285482407
+var skill_importance: float = 16.6770209241658
 
 #[14.9862954393029, 50, 11.0503428578377, 20.6637550592422, 37.6523693203926, 33.7605845928192, 50, 33.1900285482407, 16.6770209241658]
-var p_healing_weight = 10
-var p_kill_weight = 50
-var p_damage_importance_weight = 10
-var p_healing_importance_weight = 10
-var p_remove_status_weight = 15
-var p_give_self_status_weight = 15
-var p_remove_players_status_weight = 20
-var p_give_player_status_weight = 20
-var p_skill_importance = 0
+var p_healing_weight: float = 10
+var p_kill_weight: float = 50
+var p_damage_importance_weight: float = 10
+var p_healing_importance_weight: float = 10
+var p_remove_status_weight: float = 15
+var p_give_self_status_weight: float = 15
+var p_remove_players_status_weight: float = 20
+var p_give_player_status_weight: float = 20
+var p_skill_importance: float = 0
 
 #endregion
 
-var skills_enemies_have_used = 0
+var skills_enemies_have_used: int = 0
 
 #region Initialization
-var training = false
-var testing = false
+var training: bool = false
+var testing: bool = false
 func _ready():
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
@@ -90,7 +90,7 @@ func _ready():
 
 			return (killed_enemies)
 		
-func _reset():
+func _reset() -> void:
 	all_combatants.clear()
 	
 	for combatant in all_combatants:
@@ -119,7 +119,7 @@ func _reset():
 		await GlobalCombatInformation.load_items()
 		temp_item_list = GlobalCombatInformation.all_held_items
 
-func setup(active_combatants: Array[generic_combatants], current_dungeon_type: dungeon_type, current_item_list: Array[Items], what_dungeon, max_bond_points):
+func setup(active_combatants: Array[generic_combatants], current_dungeon_type: dungeon_type, current_item_list: Array[Items], what_dungeon, max_bond_points) -> void:
 	max_bond_points_ = max_bond_points
 	self.current_dungeon_run = current_dungeon_type
 	temp_item_list = current_item_list
@@ -149,7 +149,7 @@ func setup(active_combatants: Array[generic_combatants], current_dungeon_type: d
 #endregion
 
 #region CombatHelpers
-func determine_order():
+func determine_order() -> void:
 	all_combatants.clear()
 	
 	for slot in $Player_Container.get_children():
@@ -158,26 +158,26 @@ func determine_order():
 		if enemy_slot.visible:
 			all_combatants.append(enemy_slot)
 	
-	all_combatants.sort_custom(func(a, b):
+	all_combatants.sort_custom(func(a, b) -> int:
 		return a.obtain_stat(5) > b.obtain_stat(5)
 	)
 
-func sort_player_actions(player_actions: Array[player_weighting]):
+func sort_player_actions(player_actions: Array[player_weighting]) -> Array[player_weighting]:
 	player_actions.sort_custom(func(a, b):
 		return a.action_weight > b.action_weight
 	)
 	return player_actions
 
-func sort_enemy_actions(enemy_actions: Array[enemy_weighting]):
+func sort_enemy_actions(enemy_actions: Array[enemy_weighting]) -> Array[enemy_weighting]:
 	enemy_actions.sort_custom(func(a, b):
 		return a.action_weight > b.action_weight
 	)
 	return enemy_actions
 
-func select_next_wave():
-	var number_of_possible_waves = current_dungeon_run.potential_waves.size()
-	var random_wave = rng.randi_range(0, number_of_possible_waves - 1)
-	var enemy_count_for_current_wave = current_dungeon_run.potential_waves[random_wave].enemies.size()
+func select_next_wave() -> void:
+	var number_of_possible_waves: int = current_dungeon_run.potential_waves.size()
+	var random_wave: int = rng.randi_range(0, number_of_possible_waves - 1)
+	var enemy_count_for_current_wave: int = current_dungeon_run.potential_waves[random_wave].enemies.size()
 	for i in range(enemy_shit.get_child_count()):
 		if i > enemy_count_for_current_wave - 1:
 			enemy_shit.get_child(i).visible = false
@@ -190,7 +190,7 @@ func select_next_wave():
 	turn_ended.emit()
 #endregion
 
-var turn_count = 0
+var turn_count: int = 0
 
 func battle_loop(training_weight = null, p_weights = null):
 	skills_enemies_have_used = 0
@@ -499,7 +499,7 @@ func handle_player_move_selection(current_combatant):
 	var what_action = null
 	selecting_entity = false
 	await gui.new_player_turn(temp_item_list)
-	gui.get_player_portrait(active_player_turn).position.y -=40
+	gui.get_player_portrait(active_player_turn).position.y -=10
 	make_enemies_selectable()
 	select_individual(false, 0)
 	what_action = await action_taken
@@ -536,7 +536,7 @@ func handle_player_move_selection(current_combatant):
 	await action_queue(action_sequence)
 	await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
 	gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
-	gui.get_player_portrait(active_player_turn).position.y += 40
+	gui.get_player_portrait(active_player_turn).position.y += 10
 	selecting_entity = false
 	turn_ended.emit()
 

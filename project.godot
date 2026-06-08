@@ -13,23 +13,27 @@ config_version=5
 config/name="Sealbound"
 run/main_scene="uid://c08f16jmfwsgy"
 config/features=PackedStringArray("4.6", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*uid://c8yegl8nrw5mx"
 DialogueSystem="*uid://bojyx7lfmc8nh"
 Fade="*uid://bp4nraurt5ifw"
 EnemyGeneticAlgorithm="*uid://y7m2qm2bq0p0"
 GlobalCombatInformation="*uid://bba2tvdjwats"
+Global="*uid://c8yegl8nrw5mx"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=640
+window/size/viewport_height=320
 window/size/resizable=false
-window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
+window/stretch/scale_mode="integer"
 
 [editor]
 
@@ -45,6 +49,7 @@ folder_colors={
 [gui]
 
 common/snap_controls_to_pixels=false
+theme/default_font_multichannel_signed_distance_field=true
 theme/custom_font="uid://bpnykjvtqplb2"
 
 [input]

@@ -21,7 +21,7 @@ class_name dungeon_gui
 @onready var targeting = $Action_Hint/Targetting
 @onready var confirm = $Action_Hint/MarginContainer/HBoxContainer/Confirm
 
-@onready var selection_area = $Panel
+@onready var selection_area = $Selection_Indicator
 
 @onready var black_box = $ColorRect
 @onready var dungeon_floor_label = $NinePatchRect3
@@ -31,7 +31,7 @@ class_name dungeon_gui
 @onready var floor_label_container = $NinePatchRect3/Dungeon_Floor/MarginContainer
 
 @onready var portrait_container = $Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer
-@onready var mana_label = $"Upper_Bar/HBoxContainer/Mana Bar/Label"
+@onready var mana_label = $"Mana Bar/Label"
 @onready var bond_bar = $Bond_Attack
 
 @onready var action_hint_area = $Action_Hint
@@ -46,7 +46,8 @@ var is_aoe = false
 
 var selected_action = 3
 
-@export var how_long_should_base_menu_be: int = 300
+@export var how_long_should_base_menu_be: float = 210.0
+
 
 func _ready():
 	black_box.visible = true
@@ -70,7 +71,7 @@ func unfurl_base_menu(open):
 	var tween = create_tween()
 	if open:
 		base_menu_nine.visible = true
-	tween.tween_property(base_menu_nine, "size:x", (custom_minimum_size.x + how_long_should_base_menu_be if open else 0), 0.5)
+	tween.tween_property(base_menu_nine, "size:x", (custom_minimum_size.x + how_long_should_base_menu_be if open else 0), 0.25)
 	if open:
 		update_action_hints()
 	else:
@@ -154,11 +155,13 @@ func _back_button_pressed():
 		p_ref.confirmation.emit(false)
 		executing_item = false
 		selection_area.visible = false
+		update_action_hints()
 	elif executing_skill:
 		skill_menu.visible = true
 		p_ref.confirmation.emit(false)
 		executing_skill = false
 		selection_area.visible = false
+		update_action_hints()
 	elif skill_menu.visible or item_menu.visible:
 		item_menu.visible = false
 		skill_menu.visible = false
@@ -167,7 +170,8 @@ func _back_button_pressed():
 		p_ref.select_individual(false, 0)
 		p_ref.make_enemies_selectable()
 		selection_area.visible = true
-	update_action_hints()
+		update_action_hints()
+
 
 func _confirm_button_pressed():
 	if item_menu.visible:
@@ -185,21 +189,22 @@ func _confirm_button_pressed():
 	update_action_hints()
 
 func _skill_menu_pressed():
-	if base_menu_nine.visible:
+	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
 		selection_area.visible = false
 		p_ref.no_one_can_be_selected()
+		skill_menu.visible = true
 		await unfurl_base_menu(false)
 		back_button_.visible = true
-		skill_menu.drop_and_swing_in()
+		#skill_menu.drop_and_swing_in()
 	update_action_hints()
 	
 func _item_menu_pressed():
-	if base_menu_nine.visible:
+	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
 		selection_area.visible = false
 		p_ref.no_one_can_be_selected()
 		item_menu.visible = true
 		await unfurl_base_menu(false)
-		item_menu.drop_and_swing_in()
+		#item_menu.drop_and_swing_in()
 		back_button_.visible = true
 	update_action_hints()
 
@@ -234,7 +239,6 @@ func update_action_hints():
 	$Action_Hint.visible = true
 	if base_menu_nine.visible:
 		targeting.visible = true; confirm.visible = false; back_button_.visible = false
-		return
 	if skill_menu.visible or item_menu.visible:
 		confirm.visible = true; back_button_.visible = true; targeting.visible = false
 	if executing_item or executing_skill:

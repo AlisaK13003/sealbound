@@ -40,11 +40,11 @@ mouse_filter = 1
 [node name="DungeonPlayerGui" parent="UI" unique_id=217185090 instance=ExtResource("8_og2ux")]
 z_index = 0
 layout_mode = 1
-offset_left = 18.0
-offset_right = 18.0
+offset_left = -1.0
+offset_right = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
-transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.395, 2.07, 6)
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.2720056, 2.0102215, 6.178326)
 environment = SubResource("Environment_a4wc1")
 fov = 15.0
 near = 0.068
@@ -53,19 +53,19 @@ near = 0.068
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99463224, 0.43436444, 0.12080324)
 
 [node name="Enemy_Slot5" parent="Enemy_Container" unique_id=1804750138 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.5184207, -0.13083813, 0.2273879)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.5, -0.131, 0)
 
 [node name="Enemy_Slot4" parent="Enemy_Container" unique_id=85630224 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.2684207, -0.13083813, 0.27738798)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, -0.131, 0)
 
 [node name="Enemy_Slot3" parent="Enemy_Container" unique_id=2004831497 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.018420696, -0.13083813, 0.32738793)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.1, -0.131, 0)
 
 [node name="Enemy_Slot2" parent="Enemy_Container" unique_id=1397628051 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.2315793, -0.13083813, 0.377388)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.1, -0.131, 0)
 
 [node name="Enemy_Slot1" parent="Enemy_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.48157954, -0.13083813, 0.42738795)
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.3, -0.131, 0)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046935797, 0)
@@ -76,18 +76,18 @@ light_energy = 0.694
 sky_mode = 1
 
 [node name="Dungeon_Dungeon" type="Node3D" parent="Background" unique_id=847566466]
+visible = false
 
 [node name="Final_Dungeon_Wall_Mario_2" parent="Background/Dungeon_Dungeon" unique_id=1260364898 instance=ExtResource("14_edm4l")]
-transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, -0.9435314, 0.76829386, -0.99052817)
+transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, -0.26657003, 0.76829386, -0.99052817)
 
 [node name="Final_Dungeon_Wall_Mario_6" parent="Background/Dungeon_Dungeon" unique_id=1245794519 instance=ExtResource("14_edm4l")]
-transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, 1.4257985, 0.76829386, -0.99052817)
+transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, 2.0819876, 0.76829386, -0.99052817)
 
 [node name="Dungeon_Dungeon_Floor2" parent="Background/Dungeon_Dungeon" unique_id=320012077 instance=ExtResource("16_7uj4b")]
 transform = Transform3D(-0.28998756, 0.00037070725, 0.0026600545, -0.0003240836, -0.2899554, 0.0050781993, 0.0026661356, 0.005075009, 0.2899433, 0.16042018, -0.20104289, -0.32642925)
 
 [node name="Forest_Dungeon" type="Node3D" parent="Background" unique_id=1171691469]
-visible = false
 
 [node name="Forest_Floor" parent="Background/Forest_Dungeon" unique_id=308570016 instance=ExtResource("15_edm4l")]
 transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.554487, -1.138669)

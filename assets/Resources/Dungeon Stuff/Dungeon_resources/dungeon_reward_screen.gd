@@ -3,8 +3,8 @@ extends Control
 @onready var party_container = $CanvasLayer/VBoxContainer2
 @onready var actual_rewards_screen_container = $CanvasLayer/Container
 
-@onready var next_button = $CanvasLayer/GenericButton
-@onready var return_button = $CanvasLayer/GenericButton2
+@onready var next_button = $CanvasLayer/Next_Button
+@onready var return_button = $CanvasLayer/Return_Button
 
 @onready var total_gold = $CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/total_gold
 @onready var gold_gained = $CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/coins_gained
@@ -24,9 +24,9 @@ func _ready():
 	
 	await portraits_populated
 	await Fade.fade_out(0.5)
-	party_container.add_theme_constant_override("separation", 300)
+	party_container.add_theme_constant_override("separation", 400)
 	var tween = create_tween()
-	tween.tween_property(party_container, "theme_override_constants/separation", 88.0, 1)
+	tween.tween_property(party_container, "theme_override_constants/separation", 100, 1)
 	
 	await tween.finished
 
@@ -41,9 +41,10 @@ func _physics_process(delta):
 		in_cycle = false
 
 func _leave_rewards_screen():
-	Global.current_loading_zone = "Infirmary_Spawn"
-	await Fade.fade_in(1)		
-	Fade.change_scene(Global.location_paths["Village"])
+	if not next_button.visible:
+		Global.current_loading_zone = "Infirmary_Spawn"
+		await Fade.fade_in(1)		
+		Fade.change_scene(Global.location_paths["Village"])
 
 func _setup(coins_gained: int , experience_gained: int, bond_gained: int, items_gained: Array[Items]):
 	gold_obtained = coins_gained
@@ -57,23 +58,24 @@ func _setup(coins_gained: int , experience_gained: int, bond_gained: int, items_
 	portraits_populated.emit()
 
 func swapped_page():
-	party_container.visible = false
-	actual_rewards_screen_container.visible = true
-	$NinePatchRect.visible = true
-	next_button.visible = false
-	return_button.visible = true
-	total_gold.text = "Gold: \t" + str(tot_gold)
-	gold_gained.text = "Gained Gold: \t" + str(gold_obtained)
-	for item: Items in obtained_items:
-		var new_item = Label.new()
-		new_item.custom_minimum_size.x = 70
-		new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		new_item.text = item.item_name
-		items_gained.add_child(new_item)
-	if items_gained.get_child_count() == 0:
-		var new_item = Label.new()
-		new_item.text = "No items"
-		new_item.custom_minimum_size.x = 70
-		new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		items_gained.add_child(new_item)		
+	if next_button.visible:
+		party_container.visible = false
+		actual_rewards_screen_container.visible = true
+		$NinePatchRect.visible = true
+		next_button.visible = false
+		return_button.visible = true
+		total_gold.text = "Gold: \t" + str(tot_gold)
+		gold_gained.text = "Gained Gold: \t" + str(gold_obtained)
+		for item: Items in obtained_items:
+			var new_item = Label.new()
+			new_item.custom_minimum_size.x = 70
+			new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			new_item.text = item.item_name
+			items_gained.add_child(new_item)
+		if items_gained.get_child_count() == 0:
+			var new_item = Label.new()
+			new_item.text = "No items"
+			new_item.custom_minimum_size.x = 70
+			new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			items_gained.add_child(new_item)		
 		

@@ -140,7 +140,7 @@ func update_time():
 			if current_hour % 12 == 1:
 				am_or_pm = true
 			elif am_or_pm and current_hour % 12 == 0:
-				Global.player_advanced_day(true)
+				player_advanced_day(true)
 				am_or_pm = false
 		time_since_last_update = (seconds_since_day_started * time_scale)
 	if play_time_seconds == 60:
@@ -425,7 +425,7 @@ func add_to_first_open_slot(added_thing: inventory_items):
 func remove_from_inventory(removed_at):
 	if village_inventory[removed_at] != null:
 		holding_item = null
-		Global.player_head_sprite = null
+		player_head_sprite = null
 	village_inventory[removed_at] = null
 	inventory_updated.emit(removed_at)
 

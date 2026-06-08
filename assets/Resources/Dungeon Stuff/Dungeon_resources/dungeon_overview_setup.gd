@@ -5,7 +5,7 @@ extends Control
 @onready var average_level_label = $MarginContainer/HBoxContainer/VBoxContainer/Average_Level
 @onready var seal_boss_label = $MarginContainer/HBoxContainer/VBoxContainer/Seal
 
-@onready var dungeon_image = $Panel/Panel/TextureRect
+@onready var dungeon_image = $Panel/TextureRect
 
 @onready var enemies = $MarginContainer/MarginContainer/VBoxContainer/Found_Enemies
 
