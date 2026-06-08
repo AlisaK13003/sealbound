@@ -17,9 +17,9 @@ class_name dungeon_gui
 @onready var confirmation_no = $Confirmation/GenericButton2
 @onready var confirmation_button = $Confirmation
 
-@onready var back_button_ = $Action_Hint/Back_Button
+@onready var back_button_ = $Action_Hint/MarginContainer/HBoxContainer/Back_Button
 @onready var targeting = $Action_Hint/Targetting
-@onready var confirm = $Action_Hint/Confirm
+@onready var confirm = $Action_Hint/MarginContainer/HBoxContainer/Confirm
 
 @onready var selection_area = $Panel
 
@@ -33,6 +33,8 @@ class_name dungeon_gui
 @onready var portrait_container = $Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer
 @onready var mana_label = $"Upper_Bar/HBoxContainer/Mana Bar/Label"
 @onready var bond_bar = $Bond_Attack
+
+@onready var action_hint_area = $Action_Hint
 
 var test_mode = false
 
@@ -65,11 +67,16 @@ func _ready():
 	await unfurl_base_menu(true)
 
 func unfurl_base_menu(open):
-	base_menu_nine.visible = open
 	var tween = create_tween()
+	if open:
+		base_menu_nine.visible = true
 	tween.tween_property(base_menu_nine, "size:x", (custom_minimum_size.x + how_long_should_base_menu_be if open else 0), 0.5)
-	update_action_hints()
-	
+	if open:
+		update_action_hints()
+	else:
+		action_hint_area.visible = false
+	await tween.finished
+
 func run_button_pressed():
 	p_ref.action_taken.emit(["RUN", ""])
 
@@ -90,15 +97,15 @@ func _setup(parent_reference):
 	bond_bar.max_value = 2 * p_ref.max_bond_points_
 
 func _input(event):
-	if Input.is_action_just_pressed("down"):
+	if Global.get_input_mapping("down"):
 		cycle_inside_menu(false)
-	elif Input.is_action_just_pressed("left"):
+	elif Global.get_input_mapping("left"):
 		if p_ref.selecting_entity:
 			p_ref.update_selected_enemy(-1)
-	elif Input.is_action_just_pressed("right"):
+	elif Global.get_input_mapping("right"):
 		if p_ref.selecting_entity:
 			p_ref.update_selected_enemy(1)
-	elif Input.is_action_just_pressed("up"):
+	elif Global.get_input_mapping("up"):
 		cycle_inside_menu(true)
 
 func cycle_inside_menu(up_or_down):
@@ -113,12 +120,10 @@ func hide_gui(show_back_button):
 	await unfurl_base_menu(false)
 	back_button_.visible = show_back_button
 	selection_area.visible = false
-	$Action_Hint.visible = false
 
 func show_base_gui():
 	await unfurl_base_menu(true)
 	selection_area.visible = true
-	$Action_Hint.visible = true
 	update_action_hints()
 
 func new_player_turn(item_list):
@@ -133,11 +138,13 @@ func swap_to_new_player(item_list):
 
 func _base_attack_emitted():
 	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
+		await unfurl_base_menu(false)
 		p_ref.attack_button_pressed()
 		hide_gui(false)
 
 func _defend_executed():
 	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
+		await unfurl_base_menu(false)
 		p_ref.defend_button_pressed()
 		hide_gui(false)
 
@@ -181,7 +188,6 @@ func _skill_menu_pressed():
 	if base_menu_nine.visible:
 		selection_area.visible = false
 		p_ref.no_one_can_be_selected()
-		skill_menu.visible = true
 		await unfurl_base_menu(false)
 		back_button_.visible = true
 		skill_menu.drop_and_swing_in()

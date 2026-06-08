@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://dgs2lhgc5rktk"]
 
-[ext_resource type="Texture2D" uid="uid://cgbej77uw2udq" path="res://assets/tile sheets/Move Sprites/Item_Selection.png" id="1_7j646"]
 [ext_resource type="Script" uid="uid://ckc4ktd8gbxdm" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_UI_Handler.gd" id="1_ijjon"]
-[ext_resource type="Texture2D" uid="uid://b0m5otdlhwxng" path="res://assets/tile sheets/Move Sprites/Skill Selection.png" id="2_2eed5"]
 [ext_resource type="Texture2D" uid="uid://ctd64c1cvs2io" path="res://assets/tile sheets/BP_Under.png" id="2_irdl1"]
 [ext_resource type="Texture2D" uid="uid://d0f1puf6ehmr2" path="res://assets/tile sheets/BP_Over.png" id="3_m12gh"]
-[ext_resource type="Texture2D" uid="uid://crmnlgmc341af" path="res://assets/tile sheets/Move Sprites/Action_Selection.png" id="4_udkoq"]
-[ext_resource type="Texture2D" uid="uid://dnxf5i0bwkyve" path="res://assets/tile sheets/Move Sprites/Defend_Selection.png" id="6_uxw8m"]
 [ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Generic_List_Menu.tscn" id="9_irdl1"]
 [ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="10_bvf2b"]
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="11_irdl1"]
@@ -99,71 +95,51 @@ patch_margin_bottom = 8
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="Base_Menu" type="HBoxContainer" parent="NinePatchRect" unique_id=806002493]
+[node name="Base_Menu" type="GridContainer" parent="NinePatchRect" unique_id=1741746522]
 z_index = 1
-texture_filter = 1
 layout_mode = 0
-offset_left = 67.285
-offset_top = 10.632
-offset_right = 306.28513
-offset_bottom = 50.632
-theme_override_constants/separation = -7
+offset_left = 73.46171
+offset_top = 20.72072
+offset_right = 239.4617
+offset_bottom = 60.72072
+theme_override_constants/h_separation = 36
+columns = 2
 
 [node name="Item" parent="NinePatchRect/Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-texture_normal = ExtResource("1_7j646")
 input_event_that_will_activate = "Dungeon_Items"
 hide_key_hint = false
+button_name = "Items"
 show_panel_and_name = false
-
-[node name="HBoxContainer" parent="NinePatchRect/Base_Menu/Item" index="0" unique_id=591641727]
-offset_left = 25.666668
-offset_top = 26.333313
-offset_right = 90.66667
-offset_bottom = 44.333313
+show_only_name = true
 
 [node name="Skill" parent="NinePatchRect/Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-texture_normal = ExtResource("2_2eed5")
 input_event_that_will_activate = "Dungeon_Skill"
 hide_key_hint = false
+button_name = "Skill"
 show_panel_and_name = false
-
-[node name="HBoxContainer" parent="NinePatchRect/Base_Menu/Skill" index="0" unique_id=591641727]
-offset_left = 26.333332
-offset_top = 24.666647
-offset_right = 91.33333
-offset_bottom = 42.66665
+show_only_name = true
 
 [node name="Attack" parent="NinePatchRect/Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-texture_normal = ExtResource("4_udkoq")
 input_event_that_will_activate = "Dungeon_Attack"
 hide_key_hint = false
+button_name = "Attack"
 show_panel_and_name = false
-
-[node name="HBoxContainer" parent="NinePatchRect/Base_Menu/Attack" index="0" unique_id=591641727]
-offset_left = 22.666666
-offset_top = 11.333313
-offset_right = 87.666664
-offset_bottom = 29.333313
+show_only_name = true
 
 [node name="Defend" parent="NinePatchRect/Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-texture_normal = ExtResource("6_uxw8m")
 input_event_that_will_activate = "Dungeon_Defend"
 hide_key_hint = false
+button_name = "Defend"
 show_panel_and_name = false
-
-[node name="HBoxContainer" parent="NinePatchRect/Base_Menu/Defend" index="0" unique_id=591641727]
-offset_left = 25.333334
-offset_top = 25.99998
-offset_right = 90.333336
-offset_bottom = 43.999985
+show_only_name = true
 
 [node name="Item_Menu" parent="." unique_id=1100506542 instance=ExtResource("9_irdl1")]
 z_index = -1
@@ -198,134 +174,57 @@ offset_top = -73.0
 offset_right = 1576.0
 offset_bottom = -73.0
 scale = Vector2(4.28, 4.28)
-input_event_that_will_activate = "Pause"
 button_name = "Run"
 
 [node name="Action_Hint" type="HBoxContainer" parent="." unique_id=462884993]
 z_index = -1
 layout_mode = 0
-offset_left = -37.0
-offset_top = 895.0
-offset_right = 48.0
-offset_bottom = 935.0
+offset_left = 27.085
+offset_top = 915.00006
+offset_right = 602.085
+offset_bottom = 955.00006
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(0, 37.225)
-theme_override_constants/separation = -24
+theme_override_constants/separation = -18
 
-[node name="Back_Button" parent="Action_Hint" unique_id=1218238259 instance=ExtResource("12_0ob4l")]
-custom_minimum_size = Vector2(100.585, 0)
+[node name="MarginContainer" type="MarginContainer" parent="Action_Hint" unique_id=1524262196]
+layout_mode = 2
+theme_override_constants/margin_top = 21
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Action_Hint/MarginContainer" unique_id=201358778]
+layout_mode = 2
+
+[node name="Back_Button" parent="Action_Hint/MarginContainer/HBoxContainer" unique_id=1218238259 instance=ExtResource("12_0ob4l")]
 layout_mode = 2
 input_event_that_will_activate = "Cancel"
 hide_key_hint = false
 button_name = "Back"
 
-[node name="HBoxContainer" parent="Action_Hint/Back_Button" index="0" unique_id=591641727]
-offset_left = 25.666668
-offset_top = 26.333313
-offset_right = 90.66667
-offset_bottom = 44.333313
-alignment = 1
-
-[node name="Panel" parent="Action_Hint/Back_Button/HBoxContainer" index="0" unique_id=724845100]
-mouse_filter = 1
-
-[node name="Label" parent="Action_Hint/Back_Button/HBoxContainer/Panel" index="0" unique_id=425272096]
-mouse_filter = 1
-
-[node name="Label2" parent="Action_Hint/Back_Button/HBoxContainer" index="1" unique_id=698061328]
-mouse_filter = 1
-text = "Back"
-
-[node name="Fall_back" parent="Action_Hint/Back_Button/HBoxContainer" index="2" unique_id=86328075]
-visible = false
-mouse_filter = 1
-
-[node name="Confirm" parent="Action_Hint" unique_id=727393993 instance=ExtResource("12_0ob4l")]
+[node name="Confirm" parent="Action_Hint/MarginContainer/HBoxContainer" unique_id=727393993 instance=ExtResource("12_0ob4l")]
 custom_minimum_size = Vector2(102.715, 17.48)
 layout_mode = 2
 input_event_that_will_activate = "Confirm"
 hide_key_hint = false
 button_name = "Confirm"
 
-[node name="HBoxContainer" parent="Action_Hint/Confirm" index="0" unique_id=591641727]
-offset_left = 25.666668
-offset_top = 26.333313
-offset_right = 90.66667
-offset_bottom = 44.333313
-alignment = 2
-
-[node name="Panel" parent="Action_Hint/Confirm/HBoxContainer" index="0" unique_id=724845100]
-mouse_filter = 1
-
-[node name="Label" parent="Action_Hint/Confirm/HBoxContainer/Panel" index="0" unique_id=425272096]
-mouse_filter = 1
-
-[node name="Label2" parent="Action_Hint/Confirm/HBoxContainer" index="1" unique_id=698061328]
-mouse_filter = 1
-text = "Confirm"
-
-[node name="Fall_back" parent="Action_Hint/Confirm/HBoxContainer" index="2" unique_id=86328075]
-visible = false
-mouse_filter = 1
-
 [node name="Targetting" type="HBoxContainer" parent="Action_Hint" unique_id=1873226986]
-custom_minimum_size = Vector2(100.585, 0)
 layout_mode = 2
-theme_override_constants/separation = -45
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = -38
 
 [node name="Target_L" parent="Action_Hint/Targetting" unique_id=788368402 instance=ExtResource("12_0ob4l")]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 input_event_that_will_activate = "left"
 hide_key_hint = false
-
-[node name="HBoxContainer" parent="Action_Hint/Targetting/Target_L" index="0" unique_id=591641727]
-offset_left = 25.666668
-offset_top = 26.333313
-offset_right = 90.66667
-offset_bottom = 44.333313
-
-[node name="Panel" parent="Action_Hint/Targetting/Target_L/HBoxContainer" index="0" unique_id=724845100]
-mouse_filter = 1
-
-[node name="Label" parent="Action_Hint/Targetting/Target_L/HBoxContainer/Panel" index="0" unique_id=425272096]
-mouse_filter = 1
-text = "<"
-
-[node name="Label2" parent="Action_Hint/Targetting/Target_L/HBoxContainer" index="1" unique_id=698061328]
-mouse_filter = 1
-text = ""
-
-[node name="Fall_back" parent="Action_Hint/Targetting/Target_L/HBoxContainer" index="2" unique_id=86328075]
-visible = false
-mouse_filter = 1
-text = ""
 
 [node name="Target_R" parent="Action_Hint/Targetting" unique_id=283972379 instance=ExtResource("12_0ob4l")]
 layout_mode = 2
 input_event_that_will_activate = "right"
 hide_key_hint = false
 button_name = "Target"
-
-[node name="HBoxContainer" parent="Action_Hint/Targetting/Target_R" index="0" unique_id=591641727]
-offset_left = 25.666668
-offset_top = 26.333313
-offset_right = 90.66667
-offset_bottom = 44.333313
-
-[node name="Panel" parent="Action_Hint/Targetting/Target_R/HBoxContainer" index="0" unique_id=724845100]
-mouse_filter = 1
-
-[node name="Label" parent="Action_Hint/Targetting/Target_R/HBoxContainer/Panel" index="0" unique_id=425272096]
-mouse_filter = 1
-text = ">"
-
-[node name="Label2" parent="Action_Hint/Targetting/Target_R/HBoxContainer" index="1" unique_id=698061328]
-mouse_filter = 1
-text = "Target"
-
-[node name="Fall_back" parent="Action_Hint/Targetting/Target_R/HBoxContainer" index="2" unique_id=86328075]
-visible = false
-mouse_filter = 1
 
 [node name="Panel" type="Panel" parent="." unique_id=1193801347]
 z_index = -1
@@ -649,12 +548,4 @@ offset_bottom = 172.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_m12gh")
 
-[editable path="NinePatchRect/Base_Menu/Item"]
-[editable path="NinePatchRect/Base_Menu/Skill"]
-[editable path="NinePatchRect/Base_Menu/Attack"]
-[editable path="NinePatchRect/Base_Menu/Defend"]
 [editable path="Item_Menu"]
-[editable path="Action_Hint/Back_Button"]
-[editable path="Action_Hint/Confirm"]
-[editable path="Action_Hint/Targetting/Target_L"]
-[editable path="Action_Hint/Targetting/Target_R"]

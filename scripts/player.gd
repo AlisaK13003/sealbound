@@ -15,14 +15,17 @@ func _ready() -> void:
 	Global.load_save_data()
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
-			
 func _process(_delta: float) -> void:
 	var direction : Vector2 = Vector2.ZERO
 	if Global.is_in_menu or Fade.is_fading:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
-	direction = Input.get_vector("left", "right", "up", "down")
+		
+	if not Global.using_controller:
+		direction = Input.get_vector("left", "right", "up", "down")
+	else:
+		direction = Input.get_vector(Global.controller_mapping["left"], Global.controller_mapping["right"], Global.controller_mapping["up"], Global.controller_mapping["down"])
 		
 	velocity = direction * move_speed
 	animation_driver.sync(animated_sprite, velocity)

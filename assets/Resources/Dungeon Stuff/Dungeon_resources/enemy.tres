@@ -9,8 +9,6 @@
 [ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_nw6bc"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_w4ub5"]
 [ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Resources/Dungeon Stuff/Eyeball_Sprite_Frames.tres" id="7_8x0pw"]
-[ext_resource type="Script" uid="uid://c01buwi0wxw4n" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/voxel_frames.gd" id="8_f2dqj"]
-[ext_resource type="Resource" uid="uid://cq50s175yip20" path="res://assets/tile sheets/EyeBall/Idle/Eye_ball_Idle_anim.tres" id="9_otd26"]
 
 [sub_resource type="Resource" id="Resource_8x0pw"]
 script = ExtResource("1_w4ub5")
@@ -70,9 +68,6 @@ stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
 drop_table = SubResource("Resource_yakan")
 combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_8x0pw")])
-voxel_frames = Dictionary[String, ExtResource("8_f2dqj")]({
-"Idle": ExtResource("9_otd26")
-})
 sprite_frames = ExtResource("7_8x0pw")
 idle_speed = 0.25
 death_speed = 1.0

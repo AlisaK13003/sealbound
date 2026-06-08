@@ -9,6 +9,7 @@ var p_ref
 var which_child_is_selected = -1
 	
 func drop_and_swing_in():
+	self.visible = true
 	pivot_offset = Vector2(size.x / 2, 0)
 	position.x = -size.x
 	rotation_degrees = -15.0

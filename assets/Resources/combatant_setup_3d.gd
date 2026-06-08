@@ -429,10 +429,8 @@ func walk_towards_entity(node_to_walk_to):
 	else:
 		animated_sprite.flip_h = true
 	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN_OUT)
 
-	tween.tween_property(self, "global_position", node_to_walk_to, 3)
+	tween.tween_property(self, "global_position", node_to_walk_to, 2)
 	
 	await tween.finished
 	if not stored_combatant.is_combatant_enemy and node_to_walk_to == base_location:
