@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dx8j1v8t4mmbl"]
+
+[ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MC_Walk.tres" id="1_4tiff"]
+[ext_resource type="Script" uid="uid://3yi8o14hgsf0" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3d_player_controller.gd" id="1_wh5h5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wh5h5"]
+size = Vector3(0.30743408, 0.54174805, 0.048919678)
+
+[node name="3dPlayer" type="CharacterBody3D" unique_id=1611672739]
+script = ExtResource("1_wh5h5")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1654750113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29717374, 0)
+pixel_size = 0.002
+sprite_frames = ExtResource("1_4tiff")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1268866802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018035889, 0.29089355, -0.0038909912)
+shape = SubResource("BoxShape3D_wh5h5")

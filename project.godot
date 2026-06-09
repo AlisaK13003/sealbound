@@ -46,6 +46,11 @@ folder_colors={
 "res://assets/tile sheets/Move Sprites/": "red"
 }
 
+[global_group]
+
+3D_Player=""
+Ground=""
+
 [gui]
 
 common/snap_controls_to_pixels=false

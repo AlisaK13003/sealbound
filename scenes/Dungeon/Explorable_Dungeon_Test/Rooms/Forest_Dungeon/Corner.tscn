@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqcvhjetrb62l"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_dm66s"]
+
+[node name="Corner" type="Node3D" unique_id=1039891981]
+script = ExtResource("1_dm66s")

@@ -40,44 +40,29 @@ theme_override_constants/separation = 406
 layout_mode = 2
 action_mode = 0
 input_event_that_will_activate = "up"
-hide_key_hint = false
 button_name = "Soon"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="GenericButton2" parent="CanvasLayer/HBoxContainer" unique_id=2086090258 instance=ExtResource("4_rw4us")]
 layout_mode = 2
 input_event_that_will_activate = "up"
-hide_key_hint = false
 button_name = "Soon"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="GenericButton3" parent="CanvasLayer/HBoxContainer" unique_id=172920399 instance=ExtResource("4_rw4us")]
 visible = false
 layout_mode = 2
 input_event_that_will_activate = "up"
-hide_key_hint = false
 button_name = "Soon"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="GenericButton4" parent="CanvasLayer/HBoxContainer" unique_id=441815521 instance=ExtResource("4_rw4us")]
 visible = false
 layout_mode = 2
 input_event_that_will_activate = "up"
-hide_key_hint = false
 button_name = "Soon"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="GenericButton5" parent="CanvasLayer/HBoxContainer" unique_id=1036667174 instance=ExtResource("4_rw4us")]
 visible = false
 layout_mode = 2
-hide_key_hint = false
 button_name = "Soon"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
 layout_mode = 3
@@ -115,17 +100,11 @@ theme_override_constants/separation = 404
 
 [node name="GenericButton2" parent="CanvasLayer/HBoxContainer2" unique_id=1503599191 instance=ExtResource("4_rw4us")]
 layout_mode = 2
-hide_key_hint = false
 button_name = "Return to Hearthwynn"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="GenericButton" parent="CanvasLayer/HBoxContainer2" unique_id=766834764 instance=ExtResource("4_rw4us")]
 layout_mode = 2
-hide_key_hint = false
 button_name = "Travel to Dungeon"
-show_panel_and_name = false
-show_only_name = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1479204639]
 layout_mode = 0

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://jy4xy3xjv44s"]
+
+[ext_resource type="Script" uid="uid://chqiatkwdeukn" path="res://scenes/Dungeon/Explorable_Dungeon_Test/dungeon_zones.gd" id="1_g6lu8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ran1i"]
+size = Vector3(0.18896484, 1, 4.3947754)
+
+[node name="DungeonZones" type="Area3D" unique_id=90705321]
+script = ExtResource("1_g6lu8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2083679432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40551758, 0, 1.6973877)
+shape = SubResource("BoxShape3D_ran1i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
