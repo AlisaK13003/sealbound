@@ -1,5 +1,16 @@
 [gd_scene format=3 uid="uid://vu351201k44"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8cl4p"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
 [node name="JournalMenu" type="Control" unique_id=1744445820]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +18,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=314259148]
+z_index = -2
+layout_mode = 0
+offset_left = -344.0
+offset_top = -119.0
+offset_right = 611.0
+offset_bottom = 414.0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_8cl4p")

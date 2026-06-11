@@ -24,6 +24,7 @@ func _ready():
 	if not DirAccess.dir_exists_absolute(SAVE_DIR):
 		DirAccess.make_dir_absolute(SAVE_DIR)
 	
+	_set_mode(Mode.SAVE)
 	refresh_slots()
 
 func _set_mode(mode: Mode):
@@ -79,9 +80,6 @@ func _load_from_slot(index: int):
 	var file = FileAccess.open(path, FileAccess.READ)
 	var json = JSON.new()
 	if json.parse(file.get_as_text()) == OK:
-		# You could move load_save_data to accept a dict directly,
-		# but for now just write it to the old path and call existing logic
-		Global.create_save(file.get_as_text())  # won't work since file is consumed
 		# Better approach — feed the dict straight in:
 		_apply_save_data(json.data)
 

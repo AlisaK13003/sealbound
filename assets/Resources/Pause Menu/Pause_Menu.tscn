@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://vu351201k44" path="res://assets/Resources/Pause Menu/Journal Menu/Journal_Menu.tscn" id="9_sjmh0"]
 [ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_mqkyk"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
-[ext_resource type="Script" uid="uid://c20a621eq3fnv" path="res://assets/Resources/Pause Menu/Save Load Menu/save_load_menu.gd" id="12_j01ox"]
 [ext_resource type="PackedScene" uid="uid://cwogyg7mocf2x" path="res://assets/Resources/Pause Menu/Base_Party_Card_Info.tscn" id="13_o57t2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qffmw"]
@@ -132,7 +131,6 @@ layout_mode = 1
 [node name="SaveLoadMenu" parent="Sub_Menus" unique_id=1676534613 instance=ExtResource("10_mqkyk")]
 visible = false
 layout_mode = 1
-script = ExtResource("12_j01ox")
 
 [node name="SystemMenu" parent="Sub_Menus" unique_id=893803557 instance=ExtResource("11_35xr2")]
 visible = false
