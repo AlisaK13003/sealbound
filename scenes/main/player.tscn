@@ -138,7 +138,7 @@ move_speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305105354 groups=["Overworld_Player"]]
 z_index = 5
-position = Vector2(-1, 0)
+position = Vector2(0, -26)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_riacy")
 
@@ -152,12 +152,14 @@ scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_tmp5k")
 animation = &"idle"
 autoplay = "idle"
+offset = Vector2(0, -120)
 frame_progress = 0.8544937
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1736247091 groups=["Overworld_Player"]]
+position = Vector2(0, -48)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_3y00o")
 

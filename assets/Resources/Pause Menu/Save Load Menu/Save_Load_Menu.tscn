@@ -1,9 +1,192 @@
 [gd_scene format=3 uid="uid://b3dw3d21upxin"]
 
+[ext_resource type="Script" uid="uid://c20a621eq3fnv" path="res://assets/Resources/Pause Menu/Save Load Menu/save_load_menu.gd" id="1_c2cs2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcrdw"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
 [node name="SaveLoadMenu" type="Control" unique_id=1676534613]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c2cs2")
+
+[node name="ModeToggle" type="Control" parent="." unique_id=1245048354]
+anchors_preset = 0
+offset_left = -249.0
+offset_top = -153.0
+offset_right = 219.0
+offset_bottom = 76.0
+
+[node name="SaveBtn" type="Button" parent="ModeToggle" unique_id=407659994]
+modulate = Color(0, 0, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.034
+anchor_top = 0.33200002
+anchor_right = -0.034
+anchor_bottom = 0.33200002
+offset_left = 13.912001
+offset_top = -0.028007507
+offset_right = 94.912
+offset_bottom = 25.971992
+scale = Vector2(3, 3)
+text = "Save Game"
+flat = true
+
+[node name="LoadBtn" type="Button" parent="ModeToggle" unique_id=2114972366]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.892
+anchor_top = 0.293
+anchor_right = 0.892
+anchor_bottom = 0.293
+offset_left = 30.543976
+offset_top = -0.09700012
+offset_right = 114.543976
+offset_bottom = 25.903
+scale = Vector2(3, 3)
+text = "LOAD GAME"
+flat = true
+
+[node name="SlotContainer" type="VBoxContainer" parent="." unique_id=330520387]
+layout_mode = 0
+offset_left = -88.0
+offset_top = 8.0
+offset_right = -56.125
+offset_bottom = 50.0
+scale = Vector2(8, 8)
+
+[node name="Slot1" type="Button" parent="SlotContainer" unique_id=310786545]
+layout_mode = 2
+
+[node name="Slot2" type="Button" parent="SlotContainer" unique_id=1783686441]
+layout_mode = 2
+
+[node name="Slot3" type="Button" parent="SlotContainer" unique_id=609466449]
+layout_mode = 2
+
+[node name="DeleteBtn" type="Button" parent="." unique_id=1820685857]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 144.0
+offset_right = 397.0
+offset_bottom = 270.0
+
+[node name="Panel" type="Panel" parent="." unique_id=539499155]
+z_index = -2
+layout_mode = 0
+offset_left = -327.0
+offset_top = -118.0
+offset_right = 628.0
+offset_bottom = 415.0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_kcrdw")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=954063183]
+z_index = -1
+layout_mode = 0
+offset_left = -255.0
+offset_top = -82.0
+offset_right = -13.0
+offset_bottom = -11.0
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1057469820]
+z_index = -1
+layout_mode = 0
+offset_left = 199.0
+offset_top = -87.0
+offset_right = 441.0
+offset_bottom = -16.0
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=2070643288]
+z_index = -1
+layout_mode = 0
+offset_left = -88.0
+offset_top = 2.0
+offset_right = 154.0
+offset_bottom = 73.0
+
+[node name="Name" type="Label" parent="ColorRect3" unique_id=1661335544]
+custom_minimum_size = Vector2(-0.01, 0)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 89.0
+offset_bottom = 35.0
+scale = Vector2(3, 3)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "SaveSlot 1"
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=1603352440]
+z_index = -1
+layout_mode = 0
+offset_left = -87.0
+offset_top = 98.0
+offset_right = 155.0
+offset_bottom = 169.0
+
+[node name="Name" type="Label" parent="ColorRect4" unique_id=1688579848]
+custom_minimum_size = Vector2(-0.01, 0)
+layout_mode = 0
+offset_left = 9.0
+offset_top = 16.0
+offset_right = 84.0
+offset_bottom = 39.0
+scale = Vector2(3, 3)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "SaveSlot 2"
+
+[node name="ColorRect5" type="ColorRect" parent="." unique_id=938951543]
+z_index = -1
+layout_mode = 0
+offset_left = -87.0
+offset_top = 195.0
+offset_right = 155.0
+offset_bottom = 266.0
+
+[node name="Name" type="Label" parent="ColorRect5" unique_id=1016566941]
+custom_minimum_size = Vector2(-0.01, 0)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 89.0
+offset_bottom = 35.0
+scale = Vector2(3, 3)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "SaveSlot 3"
+
+[node name="ColorRect6" type="ColorRect" parent="." unique_id=110519790]
+z_index = -1
+layout_mode = 0
+offset_left = 242.0
+offset_top = 145.0
+offset_right = 397.0
+offset_bottom = 272.0
+color = Color(1, 0.03529412, 0.12941177, 1)
+
+[node name="Name" type="Label" parent="ColorRect6" unique_id=917330552]
+custom_minimum_size = Vector2(-0.01, 0)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 57.666668
+offset_bottom = 46.0
+scale = Vector2(3, 3)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Delete 
+Save"

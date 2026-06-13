@@ -54,6 +54,11 @@ func _physics_process(_delta):
 	clock.text = (str(Global.play_time_hours)) + ":" + ("%02d" % Global.play_time_minutes) + ":" + ("%02d" % Global.play_time_seconds)
 
 func _input(event):
+	if event.is_action_pressed("Pause") and visible:
+		close_menu()
+		get_viewport().set_input_as_handled()
+		return
+		
 	if not in_sub_menu:
 		if event.is_action_pressed("Mouse Scroll Down"):
 			selected_option = clamp(selected_option + 1, 0, start_menu.get_child_count() - 1)
@@ -86,7 +91,16 @@ func change_selection(option):
 			selected_option = menu_choices[option]
 		else:
 			start_menu.get_child(selected_option).change_color(Color.BURLYWOOD)
-
+			
+func close_menu():
+	visible = false
+	get_tree().paused = false
+	# Reset sub-menu state
+	for child in sub_menus.get_children():
+		child.visible = false
+	start_menu.visible = true
+	in_sub_menu = false
+	
 func menu_swap(selected_option_):
 	for child in sub_menus.get_children():
 		child.visible = false

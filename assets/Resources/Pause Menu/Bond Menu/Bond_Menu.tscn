@@ -1,5 +1,20 @@
 [gd_scene format=3 uid="uid://bueo7m313ndrv"]
 
+[ext_resource type="PackedScene" uid="uid://cwogyg7mocf2x" path="res://assets/Resources/Pause Menu/Base_Party_Card_Info.tscn" id="1_5xuh3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bl72"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar5ax"]
+
 [node name="BondMenu" type="Control" unique_id=1832381352]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +22,101 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=388529420]
+z_index = -2
+layout_mode = 0
+offset_left = -344.0
+offset_top = -119.0
+offset_right = 611.0
+offset_bottom = 414.0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3bl72")
+
+[node name="BasePartyCardInfo" parent="." unique_id=988666486 instance=ExtResource("1_5xuh3")]
+layout_mode = 1
+offset_left = 38.0
+offset_top = 4.0
+offset_right = 38.0
+offset_bottom = 4.0
+
+[node name="Panel2" type="Panel" parent="BasePartyCardInfo" unique_id=606601185]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.009000001
+anchor_top = 0.16600001
+anchor_right = 0.009000001
+anchor_bottom = 0.18
+offset_left = -110.28
+offset_top = -20.280014
+offset_right = 24.72
+offset_bottom = -4.400009
+theme_override_styles/panel = SubResource("StyleBoxFlat_ar5ax")
+
+[node name="Label" type="Label" parent="BasePartyCardInfo/Panel2" unique_id=1199733885]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Bond Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BasePartyCardInfo2" parent="." unique_id=1452607455 instance=ExtResource("1_5xuh3")]
+layout_mode = 1
+offset_left = 291.0
+offset_top = 121.0
+offset_right = 291.0
+offset_bottom = 121.0
+
+[node name="Panel2" type="Panel" parent="BasePartyCardInfo2" unique_id=1536718459]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.009000001
+anchor_top = 0.16600001
+anchor_right = 0.009000001
+anchor_bottom = 0.18
+offset_left = -85.28
+offset_top = -390.28003
+offset_right = 36.72
+offset_bottom = -372.40002
+theme_override_styles/panel = SubResource("StyleBoxFlat_ar5ax")
+
+[node name="Label" type="Label" parent="BasePartyCardInfo2/Panel2" unique_id=2143884298]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Bond Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BasePartyCardInfo3" parent="." unique_id=1468029342 instance=ExtResource("1_5xuh3")]
+layout_mode = 1
+offset_left = -231.0
+offset_top = 121.0
+offset_right = -231.0
+offset_bottom = 121.0
+
+[node name="Panel2" type="Panel" parent="BasePartyCardInfo3" unique_id=1502232635]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.009000001
+anchor_top = 0.16600001
+anchor_right = 0.009000001
+anchor_bottom = 0.18
+offset_left = -85.28
+offset_top = -390.28003
+offset_right = 36.72
+offset_bottom = -372.40002
+theme_override_styles/panel = SubResource("StyleBoxFlat_ar5ax")
+
+[node name="Label" type="Label" parent="BasePartyCardInfo3/Panel2" unique_id=795583204]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Bond Level"
+horizontal_alignment = 1
+vertical_alignment = 1
