@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://c84uqx1xugq71"]
+
+[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="1_0pt7u"]
+[ext_resource type="Script" uid="uid://bbf7hw7gocima" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/reward_screen_portrait.gd" id="1_gieqm"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_df6ge"]
+
+[sub_resource type="Gradient" id="Gradient_m12gh"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswx1"]
+gradient = SubResource("Gradient_m12gh")
+width = 16
+height = 16
+fill_to = Vector2(0.77991456, 0.77991456)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gieqm"]
+texture = SubResource("GradientTexture2D_bswx1")
+region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
+
+[node name="RewardScreenPortrait" type="Control" unique_id=333886721]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gieqm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1825517617]
+layout_mode = 0
+offset_top = 6.0
+offset_right = 375.0
+offset_bottom = 78.0
+mouse_filter = 2
+theme_override_constants/separation = 22
+
+[node name="Control" type="Control" parent="HBoxContainer" unique_id=499160006]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=230310413]
+layout_mode = 2
+texture = ExtResource("1_0pt7u")
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1448764407]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=671483340]
+layout_mode = 2
+theme_override_constants/separation = 67
+
+[node name="Name" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1199420024]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Cloud"
+
+[node name="total_exp" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=495269631]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Total EXP:"
+
+[node name="Total_EXP" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=386493883]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "2804633"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=332456462]
+layout_mode = 2
+theme_override_constants/separation = 74
+
+[node name="Current_Level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2022749396]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Level: 01"
+
+[node name="next_level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1075194652]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "next level:"
+
+[node name="Points_to_next_level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=888934461]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0p"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1423746770]
+layout_mode = 2
+
+[node name="Bond_Level" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=464054206]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Bond: Emergent"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=350976918]
+clip_contents = true
+layout_mode = 0
+offset_right = 408.0
+offset_bottom = 84.0
+texture = ExtResource("2_df6ge")
+patch_margin_left = 8
+patch_margin_right = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel" type="Panel" parent="NinePatchRect" unique_id=1352510812]
+z_index = -1
+custom_minimum_size = Vector2(242.295, 0)
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 402.0
+offset_bottom = 81.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_gieqm")

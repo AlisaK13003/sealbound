@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cf76f4x0lvyrw"]
+
+[ext_resource type="Script" uid="uid://bqxj5owcwyyxy" path="res://assets/Resources/generic_button_.gd" id="1_s28mv"]
+[ext_resource type="Texture2D" uid="uid://cfpgrcj2b7b1u" path="res://assets/tile sheets/Centered_Controller_Inputs.png" id="2_f4r1o"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_xv3tk"]
+
+[node name="GenericButton" type="TextureButton" unique_id=1034936178]
+custom_minimum_size = Vector2(65.16, 18.32)
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 69.16
+offset_bottom = 34.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 1
+script = ExtResource("1_s28mv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1419648638]
+layout_mode = 0
+offset_left = -15.0
+offset_top = 1.0
+offset_right = 82.0
+offset_bottom = 19.0
+theme_override_constants/separation = 7
+
+[node name="Container" type="Container" parent="HBoxContainer" unique_id=199163692]
+custom_minimum_size = Vector2(39.01, 0)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/Container" unique_id=292325724]
+position = Vector2(24.5, 5)
+texture = ExtResource("2_f4r1o")
+offset = Vector2(0, 4.2)
+hframes = 4
+vframes = 11
+frame = 34
+
+[node name="Label2" type="Label" parent="HBoxContainer" unique_id=698061328]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xv3tk")
+theme_override_font_sizes/font_size = 16
+text = "Next"

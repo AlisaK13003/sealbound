@@ -1,73 +1,77 @@
 [gd_scene format=3 uid="uid://cw2kwy7c22qh7"]
 
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="1_2hlsy"]
-[ext_resource type="Texture2D" uid="uid://bth1ubymbkvbq" path="res://assets/characters/sera/sera_walk.png" id="2_2hlsy"]
-[ext_resource type="Texture2D" uid="uid://hla08h17fqhv" path="res://assets/characters/sera/sera_idle.png" id="2_riacy"]
+[ext_resource type="Texture2D" uid="uid://but2qc21w7p6x" path="res://assets/characters/player/female_idle.png" id="2_riacy"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="2_tpytq"]
 [ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
+[ext_resource type="Texture2D" uid="uid://d1rlbttsh3lkd" path="res://assets/characters/player/female_walk.png" id="3_q2ck2"]
 [ext_resource type="PackedScene" uid="uid://coypf00axxmjs" path="res://assets/Resources/Interactables/VillageInventory/Village_Inventory.tscn" id="4_wqvcu"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="5_2idcg"]
+[ext_resource type="PackedScene" uid="uid://c1kdv54b51l7q" path="res://scenes/main/Generic_Menu.tscn" id="6_riacy"]
+[ext_resource type="PackedScene" uid="uid://bdncivkt5ewpn" path="res://assets/Resources/Dungeon Stuff/Generic_List_Menu.tscn" id="7_q2ck2"]
+[ext_resource type="PackedScene" uid="uid://bmb80v1vox7d6" path="res://scenes/main/Player_Equip_Menu.tscn" id="8_u2d4w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_riacy"]
 radius = 22.0
 height = 72.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tmp5k"]
-atlas = ExtResource("2_riacy")
-region = Rect2(0, 0, 150, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_riacy"]
-atlas = ExtResource("2_2hlsy")
-region = Rect2(768, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q2ck2"]
-atlas = ExtResource("2_2hlsy")
-region = Rect2(960, 0, 192, 288)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2d4w"]
-atlas = ExtResource("2_2hlsy")
-region = Rect2(1152, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nsfi6"]
-atlas = ExtResource("2_2hlsy")
-region = Rect2(1344, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2idcg"]
-atlas = ExtResource("2_2hlsy")
+atlas = ExtResource("2_riacy")
 region = Rect2(0, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0f7gw"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsfi6"]
+atlas = ExtResource("3_q2ck2")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2idcg"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(192, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0r2ug"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f7gw"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(384, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wwhpq"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r2ug"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(576, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5d4y1"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwhpq"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(1536, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ov6ka"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d4y1"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(1728, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4vh7"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov6ka"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(1920, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mrsny"]
-atlas = ExtResource("2_2hlsy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4vh7"]
+atlas = ExtResource("3_q2ck2")
 region = Rect2(2112, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrsny"]
+atlas = ExtResource("3_q2ck2")
+region = Rect2(768, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmp5k"]
+atlas = ExtResource("3_q2ck2")
+region = Rect2(960, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv5p7"]
+atlas = ExtResource("3_q2ck2")
+region = Rect2(1152, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m6ln"]
+atlas = ExtResource("3_q2ck2")
+region = Rect2(1344, 0, 192, 288)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmp5k"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tmp5k")
+"texture": SubResource("AtlasTexture_u2d4w")
 }],
 "loop": true,
 "name": &"idle",
@@ -75,22 +79,8 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_riacy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q2ck2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u2d4w")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_nsfi6")
-}],
-"loop": true,
-"name": &"walk_down",
-"speed": 5.0
 }, {
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2idcg")
 }, {
@@ -99,15 +89,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0r2ug")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wwhpq")
 }],
 "loop": true,
-"name": &"walk_side",
+"name": &"walk_down",
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwhpq")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5d4y1")
 }, {
@@ -116,9 +106,23 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_i4vh7")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mrsny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmp5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv5p7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m6ln")
 }],
 "loop": true,
 "name": &"walk_up",
@@ -146,9 +150,10 @@ scale = Vector2(0.5, 0.5)
 texture_filter = 1
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_tmp5k")
-animation = &"walk_up"
+animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -120)
+frame_progress = 0.8544937
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 scale = Vector2(0.5, 0.5)
@@ -159,13 +164,10 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_3y00o")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1983470381]
-zoom = Vector2(3, 3)
 process_callback = 0
 position_smoothing_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
-offset = Vector2(430.455, 0)
-transform = Transform2D(1, 0, 0, 1, 430.455, 0)
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
 visible = false
@@ -178,11 +180,15 @@ scale = Vector2(1.57, 1.57)
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]
-offset_left = 1029.545
-offset_top = 90.0
-offset_right = 1245.545
-offset_bottom = 185.25
-theme_override_font_sizes/font_size = 28
+anchors_preset = -1
+anchor_left = 0.196875
+anchor_bottom = -0.13125
+offset_left = 344.0
+offset_top = 20.0
+offset_right = 579.0
+offset_bottom = 122.0
+theme_override_fonts/font = ExtResource("5_2idcg")
+theme_override_font_sizes/font_size = 16
 text = "Day 0 Year 0
 06:00
 "
@@ -192,8 +198,84 @@ script = ExtResource("3_2gs60")
 metadata/_edit_use_anchors_ = true
 
 [node name="VillageInventory" parent="CanvasLayer" unique_id=1392521463 instance=ExtResource("4_wqvcu")]
-offset_left = -384.455
-offset_top = 44.0
-offset_right = -435.45496
-scale = Vector2(2, 2)
+offset_left = 4.0
+offset_top = 3.9999995
+offset_right = -47.0
+offset_bottom = -40.0
+scale = Vector2(0.75, 0.75)
 metadata/_edit_use_anchors_ = true
+
+[node name="GenericMenu" parent="CanvasLayer" unique_id=1663083347 instance=ExtResource("6_riacy")]
+visible = false
+offset_left = -420.455
+offset_top = 4.0
+offset_right = -420.45496
+offset_bottom = 4.0
+v_separation = 82
+
+[node name="Menu_Tabs" parent="CanvasLayer/GenericMenu" index="0" unique_id=2125802488]
+offset_left = 67.0
+offset_top = 223.0
+offset_right = 67.0
+offset_bottom = 811.0
+theme_override_constants/h_separation = 195
+theme_override_constants/v_separation = 82
+
+[node name="Items" parent="CanvasLayer/GenericMenu" unique_id=1100506542 instance=ExtResource("7_q2ck2")]
+visible = false
+layout_mode = 1
+offset_left = 1224.0
+offset_top = 309.0
+offset_right = 1224.0
+offset_bottom = 309.0
+
+[node name="Equip" parent="CanvasLayer/GenericMenu" unique_id=583333125 instance=ExtResource("7_q2ck2")]
+visible = false
+layout_mode = 1
+offset_left = 734.0
+offset_top = 315.0
+offset_right = 734.0
+offset_bottom = 315.0
+
+[node name="Stats" parent="CanvasLayer/GenericMenu" unique_id=924970152 instance=ExtResource("7_q2ck2")]
+visible = false
+layout_mode = 1
+offset_left = 284.0
+offset_top = 328.0
+offset_right = 284.0
+offset_bottom = 328.0
+
+[node name="Stats2" parent="CanvasLayer/GenericMenu" unique_id=1522579163 instance=ExtResource("7_q2ck2")]
+visible = false
+layout_mode = 1
+offset_left = 284.0
+offset_top = 328.0
+offset_right = 284.0
+offset_bottom = 328.0
+
+[node name="Stats3" parent="CanvasLayer/GenericMenu" unique_id=658150034 instance=ExtResource("7_q2ck2")]
+visible = false
+layout_mode = 1
+offset_left = 284.0
+offset_top = 328.0
+offset_right = 284.0
+offset_bottom = 328.0
+
+[node name="Stats4" parent="CanvasLayer/GenericMenu" unique_id=129680650 instance=ExtResource("7_q2ck2")]
+visible = false
+layout_mode = 1
+offset_left = 284.0
+offset_top = 328.0
+offset_right = 284.0
+offset_bottom = 328.0
+
+[node name="PlayerEquipMenu" parent="CanvasLayer/GenericMenu" unique_id=1073096627 instance=ExtResource("8_u2d4w")]
+layout_mode = 1
+offset_left = 392.0
+offset_top = 289.0
+offset_right = -1522.0
+offset_bottom = -791.0
+
+[editable path="CanvasLayer/GenericMenu"]
+[editable path="CanvasLayer/GenericMenu/PlayerEquipMenu"]
+[editable path="CanvasLayer/GenericMenu/PlayerEquipMenu/GenericMenu"]

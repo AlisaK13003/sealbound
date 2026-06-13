@@ -390,10 +390,16 @@ scale = Vector2(0.25, 0.25)
 [node name="CollisionShape2D" parent="Player/Area2D" index="0" unique_id=1736247091]
 scale = Vector2(0.25, 0.25)
 
+[node name="Camera2D" parent="Player" index="4" unique_id=1983470381]
+zoom = Vector2(4, 4)
+
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=1353164743]
+position = Vector2(84, -351)
 
 [node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=1623669884]
+position = Vector2(3, -199)
 
 [node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=2009868387]
+position = Vector2(271, -3)
 
 [editable path="Player"]

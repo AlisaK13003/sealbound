@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bts05athym3op"]
 
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_7u671"]
-[ext_resource type="Texture2D" uid="uid://hla08h17fqhv" path="res://assets/characters/sera/sera_idle.png" id="3_41mj0"]
+[ext_resource type="Texture2D" uid="uid://bso3ewegpelqe" path="res://assets/characters/lyra/lyra_idle.png" id="2_34504"]
 [ext_resource type="Texture2D" uid="uid://bth1ubymbkvbq" path="res://assets/characters/sera/sera_walk.png" id="4_c6b6q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d1iau"]
-atlas = ExtResource("3_41mj0")
-region = Rect2(0, 0, 150, 288)
+atlas = ExtResource("2_34504")
+region = Rect2(0, 0, 150, 282)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_34504"]
 atlas = ExtResource("4_c6b6q")

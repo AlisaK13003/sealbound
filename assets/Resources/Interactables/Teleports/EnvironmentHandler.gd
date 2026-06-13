@@ -6,19 +6,16 @@ extends Node2D
 func _ready():
 	teleport_player_to_spawn()
 	set_camera_limits()
+	await get_tree().create_timer(0.75).timeout
+	await Fade.fade_out(0.5)
 
-	
 func teleport_player_to_spawn():
 	if Global.current_loading_zone == "":
 		return
 	var spawn_point = find_child(Global.current_loading_zone, true, false)
-	print(Global.current_loading_zone)
 	if spawn_point:
 		if player_node:
 			player_node.global_position = spawn_point.global_position
-			await Fade.fade_out()
-			print(player_node.global_position)
-			Fade.is_fading = false
 	else:
 		print("No player found")	
 

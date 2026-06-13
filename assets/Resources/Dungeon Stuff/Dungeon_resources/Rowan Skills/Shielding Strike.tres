@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://dmhaxgxe2w5q1"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_5xl56"]
+[ext_resource type="Texture2D" uid="uid://b2apqnnt4p2h0" path="res://assets/tile sheets/Move Sprites/Disabled_Shielding_Strike.png" id="1_6vred"]
+[ext_resource type="Texture2D" uid="uid://cc1xrt2epa4ra" path="res://assets/tile sheets/Move Sprites/Shielding_Strike.png" id="2_f4dix"]
+
+[resource]
+script = ExtResource("1_5xl56")
+move_name = "Shielding Strike"
+move_description = "Deal moderate Ddamage to one enemy. Chance to apply defense reduction to enemy."
+attack_power = 1
+guaranteed_hit_count = 1
+max_hit_count = 1
+does_status = true
+status_type = 512
+removes_status = null
+chance_of_status_condition = 0.75
+lasts_x_turns = 2
+normal_sprite = ExtResource("2_f4dix")
+pressed_sprite = ExtResource("2_f4dix")
+hover_sprite = ExtResource("2_f4dix")
+disabled_sprite = ExtResource("1_6vred")
+metadata/_custom_type_script = "uid://djfkp740jjn43"

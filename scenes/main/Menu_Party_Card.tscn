@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://cmxnktvn1ulhb"]
+
+[ext_resource type="Script" uid="uid://dffuiir8b532" path="res://scenes/main/menu_party_card.gd" id="1_3gprj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejtgt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gprj"]
+bg_color = Color(0.64474994, 0.5044159, 0.9388492, 1)
+
+[node name="MenuPartyCard" type="Control" unique_id=865631591]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_3gprj")
+
+[node name="Weapon_Sprite" type="TextureRect" parent="." unique_id=1893912984]
+z_index = 2
+layout_mode = 0
+offset_left = 15.0
+offset_top = 54.0
+offset_right = 55.0
+offset_bottom = 94.0
+scale = Vector2(4.311283, 4.311283)
+
+[node name="Equipment_Sprite" type="TextureRect" parent="." unique_id=735662669]
+z_index = 2
+layout_mode = 0
+offset_left = 14.0
+offset_top = -1.0
+offset_right = 54.0
+offset_bottom = 39.0
+scale = Vector2(4.311283, 4.311283)
+
+[node name="Weapon" type="Control" parent="." unique_id=1297308420]
+z_index = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4.311283, 4.311283)
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Weapon" unique_id=1644237921]
+z_index = 2
+layout_mode = 0
+offset_left = 37.111923
+offset_right = 1075.1119
+offset_bottom = 225.0
+scale = Vector2(0.04, 0.04)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Main Weapon"
+
+[node name="Weapon_Name" type="Label" parent="Weapon" unique_id=648949718]
+z_index = 2
+layout_mode = 0
+offset_left = 42.91066
+offset_top = 12.2933235
+offset_right = 1155.9106
+offset_bottom = 237.29332
+scale = Vector2(0.08, 0.08)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Quintessence"
+
+[node name="Panel2" type="Panel" parent="Weapon" unique_id=1233547209]
+z_index = 1
+layout_mode = 0
+offset_left = 36.648026
+offset_right = 199.70854
+offset_bottom = 35.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ejtgt")
+
+[node name="Panel4" type="Panel" parent="Weapon" unique_id=1078300261]
+z_index = 1
+layout_mode = 0
+offset_left = 42.446762
+offset_top = 11.829425
+offset_right = 192.51808
+offset_bottom = 28.829426
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gprj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Weapon" unique_id=1561657231]
+layout_mode = 0
+offset_left = 51.028893
+offset_top = 27.601992
+offset_right = 2031.0289
+offset_bottom = 252.60199
+scale = Vector2(0.04, 0.04)
+theme_override_constants/separation = 200
+
+[node name="Attack_pwr" type="Label" parent="Weapon/HBoxContainer" unique_id=543993761]
+z_index = 2
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Attack: 53"
+
+[node name="Attack_acc" type="Label" parent="Weapon/HBoxContainer" unique_id=368547108]
+z_index = 2
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Accuracy: 53"
+
+[node name="Equipment" type="Control" parent="." unique_id=784381879]
+z_index = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4.311283, 4.311283)
+mouse_filter = 1
+
+[node name="Label2" type="Label" parent="Equipment" unique_id=989805479]
+z_index = 2
+layout_mode = 0
+offset_left = 37.343864
+offset_top = 57.52347
+offset_right = 1300.3439
+offset_bottom = 282.52347
+scale = Vector2(0.04, 0.04)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Main Equipment"
+
+[node name="Equipment_Name" type="Label" parent="Equipment" unique_id=904171232]
+z_index = 2
+layout_mode = 0
+offset_left = 45.925995
+offset_top = 69.352905
+offset_right = 1046.926
+offset_bottom = 294.3529
+scale = Vector2(0.08, 0.08)
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Star Bangle"
+
+[node name="Panel2" type="Panel" parent="Equipment" unique_id=1838466167]
+z_index = 1
+layout_mode = 0
+offset_left = 37.284294
+offset_top = 57.463898
+offset_right = 199.0127
+offset_bottom = 92.4639
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ejtgt")
+
+[node name="Panel5" type="Panel" parent="Equipment" unique_id=303819779]
+z_index = 1
+layout_mode = 0
+offset_left = 45.69406
+offset_top = 69.12096
+offset_right = 196.22928
+offset_bottom = 86.12096
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gprj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Equipment" unique_id=966334053]
+layout_mode = 0
+offset_left = 51.26084
+offset_top = 85.82132
+offset_right = 1981.2609
+offset_bottom = 310.82132
+scale = Vector2(0.04, 0.04)
+theme_override_constants/separation = 200
+
+[node name="Equip_def" type="Label" parent="Equipment/HBoxContainer" unique_id=2020778645]
+z_index = 2
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Defense: 53"
+
+[node name="Equip_eva" type="Label" parent="Equipment/HBoxContainer" unique_id=65682583]
+z_index = 2
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 200
+text = "Evasion: 53"

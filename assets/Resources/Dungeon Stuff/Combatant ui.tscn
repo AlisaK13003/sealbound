@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dywa8njfjb1kd"]
+
+[ext_resource type="Script" uid="uid://ctrfsut1wwtnw" path="res://assets/Resources/Dungeon Stuff/combatant_ui_handler.gd" id="1_b2wl4"]
+[ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="2_xosph"]
+[ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="3_2ttuk"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_2ttuk"]
+[ext_resource type="Texture2D" uid="uid://dcjptti4pnwbx" path="res://assets/tile sheets/Status box.png" id="5_sjbc2"]
+
+[node name="CombatantUi" type="Control" unique_id=1169996085]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_b2wl4")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=400153213]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 40.0
+offset_bottom = 109.0
+scale = Vector2(3, 3)
+mouse_filter = 2
+max_value = 50.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_xosph")
+texture_progress = ExtResource("3_2ttuk")
+
+[node name="Label" type="Label" parent="TextureProgressBar" unique_id=64147251]
+layout_mode = 0
+offset_left = -0.3333335
+offset_top = 7.3333335
+offset_right = 21.333336
+offset_bottom = 24.333334
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_fonts/font = ExtResource("4_2ttuk")
+theme_override_font_sizes/font_size = 12
+text = "55"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1792076839]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 123.0
+offset_right = 34.0
+offset_bottom = 135.0
+texture = ExtResource("5_sjbc2")
+patch_margin_left = 11
+patch_margin_top = 6
+patch_margin_right = 3
+patch_margin_bottom = 6
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect" unique_id=999220777]
+layout_mode = 0
+offset_right = 56.16291
+offset_bottom = 34.726685
+theme_override_constants/h_separation = 13
+theme_override_constants/v_separation = 17
+columns = 4
+
+[node name="Health_Differential" type="Label" parent="." unique_id=1728968201]
+z_index = 10
+texture_filter = 1
+layout_mode = 0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = 73.0
+offset_bottom = 53.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_2ttuk")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1

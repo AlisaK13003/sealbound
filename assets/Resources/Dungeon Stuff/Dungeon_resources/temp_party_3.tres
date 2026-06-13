@@ -1,19 +1,88 @@
-[gd_resource type="Resource" script_class="generic_combatant" format=3 uid="uid://xvh8favukow8"]
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://xvh8favukow8"]
 
-[ext_resource type="Texture2D" uid="uid://ddhf7f0hl5rls" path="res://assets/Party Members/Sprites/Temp_Party_2.tres" id="1_pstms"]
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_aqpqu"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_x58lf"]
+[ext_resource type="Resource" uid="uid://dxb4vjubb67ah" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Crowd Breaker.tres" id="2_a05x6"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_pstms"]
+[ext_resource type="Resource" uid="uid://dpvtn10gvuq4b" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Heavy Swing.tres" id="3_fey42"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_ddxp4"]
+[ext_resource type="Resource" uid="uid://bw1eminch3nhl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Lyra Skills/Second Wind.tres" id="4_xadco"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_aqpqu"]
+[ext_resource type="Texture2D" uid="uid://2vbt45pfd3ps" path="res://GUI/dialogue_system/sprites/portraits/Lyra_portraits.png" id="7_xadco"]
+[ext_resource type="SpriteFrames" uid="uid://cbtk43ca1obs0" path="res://assets/characters/lyra/Lyra_dungeon_animation.tres" id="9_xadco"]
+
+[sub_resource type="Resource" id="Resource_fey42"]
+script = ExtResource("1_aqpqu")
+attack_power = null
+does_status = true
+status_type = 65792
+removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 5
+metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_se6t2"]
 script = ExtResource("2_pstms")
-max_health = 286
-health = 55
-speed = 135
+max_health = 90
+health = 90
+attack = 95
+defense = 25
+magic = 24
+resistance = 40
+speed = 55
+luck = 20
+evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsld1"]
+atlas = ExtResource("7_xadco")
+region = Rect2(53, 5, 38, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tp2td"]
+atlas = ExtResource("7_xadco")
+region = Rect2(101, 5, 38, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iff01"]
+atlas = ExtResource("7_xadco")
+region = Rect2(149, 5, 38, 64)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_rfdh7"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_qsld1")
+frame_1/texture = SubResource("AtlasTexture_tp2td")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_iff01")
+frame_2/duration = 1.0
+
+[sub_resource type="Resource" id="Resource_53op7"]
+script = ExtResource("2_pstms")
+defense = 30
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_7byuw"]
+script = ExtResource("4_ddxp4")
+equipment_name = "Adamant Armor"
+equipment_stats = SubResource("Resource_53op7")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"
+
+[sub_resource type="Resource" id="Resource_a05x6"]
+script = ExtResource("5_aqpqu")
+weapon_name = "Kokuseki Senjin"
+weapon_attack = 30
+attack_accuracy = 95
+status_conditions = null
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
 script = ExtResource("1_x58lf")
 combatant_name = "Lyra"
-combatant_sprite = ExtResource("1_pstms")
+party_member_portrait = SubResource("AnimatedTexture_rfdh7")
 combatant_stats = SubResource("Resource_se6t2")
+stored_weapon = SubResource("Resource_a05x6")
+stored_equipment = SubResource("Resource_7byuw")
+combatant_skills = Array[ExtResource("1_aqpqu")]([ExtResource("2_a05x6"), ExtResource("3_fey42"), ExtResource("4_xadco"), SubResource("Resource_fey42")])
+sprite_frames = ExtResource("9_xadco")
+idle_speed = 0.2
+walk_speed = 0.7
+bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

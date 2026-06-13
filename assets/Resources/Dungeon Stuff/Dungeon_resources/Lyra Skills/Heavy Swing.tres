@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://dpvtn10gvuq4b"]
+
+[ext_resource type="Texture2D" uid="uid://cctfcvmpypl58" path="res://assets/tile sheets/Move Sprites/Disabled_Heavy_Swing.png" id="1_bhyfs"]
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_tdadt"]
+[ext_resource type="Texture2D" uid="uid://bk5qjkceb38yd" path="res://assets/tile sheets/Move Sprites/Heavy_Swing.png" id="2_s12j0"]
+[ext_resource type="Texture2D" uid="uid://clo2od6svi68n" path="res://assets/tile sheets/Move Sprites/Toggled_Heavy_Swing.png" id="3_s12j0"]
+
+[resource]
+script = ExtResource("1_tdadt")
+move_name = "Heavy Swing"
+move_description = "Strong single-target attack. "
+attack_power = 2
+accuracy = 80
+guaranteed_hit_count = 1
+max_hit_count = 1
+mana_cost = 2
+status_type = null
+removes_status = null
+normal_sprite = ExtResource("2_s12j0")
+pressed_sprite = ExtResource("3_s12j0")
+disabled_sprite = ExtResource("1_bhyfs")
+metadata/_custom_type_script = "uid://djfkp740jjn43"

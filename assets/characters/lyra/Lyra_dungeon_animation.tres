@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cbtk43ca1obs0"]
+
+[ext_resource type="Texture2D" uid="uid://k8h3wryir8iy" path="res://assets/characters/lyra/lyra_walk.png" id="1_ox042"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhgbo"]
+atlas = ExtResource("1_ox042")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dton"]
+atlas = ExtResource("1_ox042")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfc3j"]
+atlas = ExtResource("1_ox042")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o08b8"]
+atlas = ExtResource("1_ox042")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ox042"]
+atlas = ExtResource("1_ox042")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky0ar"]
+atlas = ExtResource("1_ox042")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jpwl"]
+atlas = ExtResource("1_ox042")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqao5"]
+atlas = ExtResource("1_ox042")
+region = Rect2(576, 0, 192, 288)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhgbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dton")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfc3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o08b8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ox042")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ky0ar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jpwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqao5")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]

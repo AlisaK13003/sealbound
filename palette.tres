@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bf8ltlvf5b7xh"]
+
+[ext_resource type="Texture2D" uid="uid://wvvwdy5p47v" path="res://assets/tile sheets/Idle_Eyaball_Eyeball Idle.png" id="1_pdp6q"]
+
+[resource]
+resource_name = "palette"
+cull_mode = 2
+albedo_texture = ExtResource("1_pdp6q")

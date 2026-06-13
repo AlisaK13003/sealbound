@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://d2l54oy03qbul"]
+
+[ext_resource type="Script" uid="uid://hyk1rtv5pnce" path="res://scenes/main/temp_thing.gd" id="1_v1qsl"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_fxrxd"]
+[ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="3_2scpt"]
+[ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="4_q3xnk"]
+[ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="5_mhd4s"]
+[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres" id="6_ljd84"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="7_pmtcs"]
+[ext_resource type="Texture2D" uid="uid://dp22h5kiiqmro" path="res://assets/Sprites/background-removed (1).png" id="8_40y07"]
+
+[sub_resource type="Resource" id="Resource_p3rx5"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="Resource" id="Resource_rbb84"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="Resource" id="Resource_00d37"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="Resource" id="Resource_vr683"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="Resource" id="Resource_r3dam"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="Resource" id="Resource_5x8gk"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="Resource" id="Resource_rb326"]
+script = ExtResource("7_pmtcs")
+item_name = "Potion"
+item_description = "Heals party to Full"
+item_sprite = ExtResource("8_40y07")
+does_what = 2
+is_aoe_item = true
+amount_to_heal_or_deal = 9999
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2hja"]
+size = Vector2(129, 78)
+
+[node name="TempThing" type="Node2D" unique_id=289262995]
+script = ExtResource("1_v1qsl")
+active_combatants = Array[ExtResource("2_fxrxd")]([ExtResource("3_2scpt"), ExtResource("4_q3xnk"), ExtResource("5_mhd4s")])
+current_dungeon_run = ExtResource("6_ljd84")
+item_list = Array[ExtResource("7_pmtcs")]([SubResource("Resource_p3rx5"), SubResource("Resource_rbb84"), SubResource("Resource_00d37"), SubResource("Resource_vr683"), SubResource("Resource_r3dam"), SubResource("Resource_5x8gk"), SubResource("Resource_rb326")])
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1792607891]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1240623802]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_i2hja")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
