@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c6vvdxphoompe"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_agywj"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_uxic6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ng5la"]
+
+[node name="4WayJunction2" type="Node3D" unique_id=66050579]
+script = ExtResource("1_agywj")
+room_classification = 5
+
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1318398244]
+transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
+mesh = SubResource("BoxMesh_ng5la")
+
+[node name="Forest_Grid_Tile" parent="." unique_id=275606809 instance=ExtResource("1_uxic6")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)

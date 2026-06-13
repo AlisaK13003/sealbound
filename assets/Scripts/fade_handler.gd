@@ -7,10 +7,9 @@ var is_fading : bool
 
 @onready var fade_thing_2 = $ColorRect
 
-var use_gradient: bool = false
+var use_gradient: bool = true
 
 func _ready():
-
 	if not use_gradient:
 		fade_thing.visible = false
 		fade_thing_2.visible = true

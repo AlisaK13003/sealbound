@@ -84,5 +84,5 @@ combatant_skills = Array[ExtResource("1_aqpqu")]([ExtResource("2_a05x6"), ExtRes
 sprite_frames = ExtResource("9_xadco")
 idle_speed = 0.2
 walk_speed = 0.7
-bond_level = null
+sprite_scale = 0.001
 metadata/_custom_type_script = "uid://125iickqse23"

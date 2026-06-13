@@ -21,6 +21,7 @@ offset_bottom = 1099.0
 texture = SubResource("GradientTexture2D_76d3x")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=260347660]
+visible = false
 modulate = Color(1, 1, 1, 0)
 offset_left = -16.0
 offset_top = -14.0

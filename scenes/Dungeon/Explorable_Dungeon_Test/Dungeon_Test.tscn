@@ -6,10 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://btij2pma38ddj" path="res://assets/tile sheets/Dungeon_Backgrounds/Forest_Dungeon_Background.glb" id="3_vfo45"]
 [ext_resource type="PackedScene" uid="uid://jy4xy3xjv44s" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Zones.tscn" id="4_sxgfm"]
 [ext_resource type="PackedScene" uid="uid://bd3pbfb2hc77r" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3D_Enemy.tscn" id="6_ov5eq"]
-
-[sub_resource type="Environment" id="Environment_vfo45"]
-background_mode = 1
-background_color = Color(1, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://k4xgkd3u8v5f" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/MiniMap.tscn" id="7_i6eaa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c061y"]
 size = Vector3(11.0121765, 1, 4.1467285)
@@ -25,10 +22,6 @@ agent_radius = 0.1
 
 [node name="DungeonTest" type="Node3D" unique_id=2141207969]
 script = ExtResource("1_d40sb")
-
-[node name="Dungeon_Camera" type="Camera3D" parent="." unique_id=166673347]
-transform = Transform3D(-1, 2.1149484e-08, -8.482595e-08, 0, 0.9702957, 0.2419219, 8.742278e-08, 0.2419219, -0.9702957, -3.4261365, 6.5557733, -19.93212)
-environment = SubResource("Environment_vfo45")
 
 [node name="Walls" type="Node" parent="." unique_id=905269639 groups=["Ground"]]
 
@@ -46,16 +39,20 @@ transform = Transform3D(-1.792167e-08, 0, -0.41, 0, 0.41, 0, 0.41, 0, -1.792167e
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Walls" unique_id=2122991489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.970472)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D" unique_id=893529955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8011322, -1.1405039, -1.5733641)
+visible = false
 shape = SubResource("BoxShape3D_c061y")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Walls" unique_id=1337772240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.970472)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D3" unique_id=1667025695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8285084, -1.1405039, -6.10968)
+visible = false
 shape = SubResource("BoxShape3D_sxgfm")
 
 [node name="Forest_Floor5" parent="Walls" unique_id=685110585 instance=ExtResource("1_c061y")]
@@ -69,6 +66,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.746122, 0, -17.970472)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D2" unique_id=403165998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8011322, -1.1405039, -1.5733641)
+visible = false
 shape = SubResource("BoxShape3D_c061y")
 
 [node name="Forest_Dungeon_Background3" parent="Walls" unique_id=711629055 instance=ExtResource("3_vfo45")]
@@ -105,8 +103,8 @@ transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09,
 transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09, -0.15, -0.15, -6.5567085e-09, 2.8660284e-16, 3.4048672, 0.28211725, -28.420862)
 
 [node name="3dPlayer2" parent="." unique_id=1611672739 groups=["3D_Player"] instance=ExtResource("2_c061y")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.5, -19.612473)
-move_speed = 2.0
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, -19.612)
+move_speed = 10.0
 
 [node name="Zones" type="Node" parent="." unique_id=594048962]
 
@@ -122,13 +120,24 @@ lock_x_camera_movement = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.762249, 0.95980406, -19.766718)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=350318906]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.831972, 0.44943982, -17.970472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.449, 0)
 navigation_mesh = SubResource("NavigationMesh_ov5eq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1671542080]
 transform = Transform3D(3.865, 0, 0, 0, 1, 0, 0, 0, 12.26, 1.1008449, -1.5667198, -6.2550545)
+visible = false
 mesh = SubResource("BoxMesh_i6eaa")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1298812878]
 transform = Transform3D(-1.6894451e-07, 0, 12.26, 0, 1, 0, -3.865, 0, -5.359016e-07, 7.6841125, -1.5667198, -1.9985256)
+visible = false
 mesh = SubResource("BoxMesh_i6eaa")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2015268641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.798454, -0.04067421)
+
+[node name="MiniMap" parent="." unique_id=1818784448 instance=ExtResource("7_i6eaa")]
+offset_top = -2.0
+offset_bottom = -2.0
+
+[node name="Enemies" type="Node" parent="." unique_id=1182393121]

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dyr56u8xh6atb"]
+
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_77y0t"]
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_j6sto"]
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="2_j6sto"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j6sto"]
+
+[node name="SpawnRoomFixed" type="Node3D" unique_id=1897828952]
+script = ExtResource("1_j6sto")
+room_classification = 0
+
+[node name="Forest_Grid_Tile" parent="." unique_id=2097126478 instance=ExtResource("1_77y0t")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Section_1_Dungeon_Wall" parent="." unique_id=1453800051 instance=ExtResource("2_j6sto")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
+
+[node name="Section_1_Dungeon_Wall2" parent="." unique_id=2059908542 instance=ExtResource("2_j6sto")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.014748335, 1.7859914, -1.5633721)
+
+[node name="Section_1_Dungeon_Wall3" parent="." unique_id=655030439 instance=ExtResource("2_j6sto")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5800432, 1.7859914, 0.016487122)
+
+[node name="Section_1_Dungeon_Wall4" parent="." unique_id=151606610 instance=ExtResource("2_j6sto")]
+transform = Transform3D(1.7484555e-09, 0.04, -1.7484555e-09, 0, 1.7484555e-09, 0.04, -0.04, 1.7484555e-09, -7.642742e-17, -1.0634993, 0.9850931, 0.016487122)
+
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1199828876]
+transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
+mesh = SubResource("BoxMesh_j6sto")

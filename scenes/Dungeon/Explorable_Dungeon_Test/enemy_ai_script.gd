@@ -27,7 +27,6 @@ func _setup(parent_reference) -> void:
 	player_detector.body_entered.connect(_on_player_detected)
 	player_detector.body_exited.connect(_on_player_lost)
 	
-
 	await get_tree().physics_frame
 	_pick_new_patrol_point()
 	still_setting_up = false
@@ -111,6 +110,7 @@ func _start_returning() -> void:
 	
 	
 func _on_area_3d_2_body_entered(body):
+	return
 	if body.is_in_group("3D_Player"):
 		await Fade.fade_in(1)
 		await GlobalCombatInformation.load_items()

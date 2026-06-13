@@ -18,12 +18,31 @@ does_status = true
 status_type = 8
 removes_status = null
 chance_of_status_condition = 1.0
-is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_ho304"]
+script = ExtResource("1_w4ub5")
+attack_power = 1
+mana_cost = 2
+status_type = null
+removes_status = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_nw6bc"]
+script = ExtResource("1_w4ub5")
+attack_power = null
+is_magic_skill = true
+does_damage = false
+mana_cost = 2
+status_type = null
+removes_status = null
+targets_party = true
+does_heal_party = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_uyw4s"]
 script = ExtResource("2_wn58t")
-level = 45
+level = 2
 max_health = 65
 health = 65
 attack = 35
@@ -67,11 +86,12 @@ is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
 drop_table = SubResource("Resource_yakan")
-combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_8x0pw")])
+combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_8x0pw"), SubResource("Resource_ho304"), SubResource("Resource_nw6bc")])
 sprite_frames = ExtResource("7_8x0pw")
 idle_speed = 0.25
 death_speed = 1.0
 walk_speed = 2.0
 attack_speed = Array[float]([2.0, 2.0])
-bond_level = null
+sprite_scale = 0.004
+sprite_offset = Vector2(-35, -47)
 metadata/_custom_type_script = "uid://125iickqse23"

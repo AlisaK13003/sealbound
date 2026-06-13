@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ch6wq7xspc6gj"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_0p5vt"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_n8wpo"]
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="2_j2l4o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0p5vt"]
+
+[node name="RoomCap" type="Node3D" unique_id=596948473]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_0p5vt")
+room_classification = 2
+
+[node name="Forest_Grid_Tile" parent="." unique_id=275606809 instance=ExtResource("1_n8wpo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Section_1_Dungeon_Wall" parent="." unique_id=644760535 instance=ExtResource("2_j2l4o")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
+
+[node name="Section_1_Dungeon_Wall2" parent="." unique_id=1733922240 instance=ExtResource("2_j2l4o")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.014748335, 1.7859914, -1.5633721)
+
+[node name="Section_1_Dungeon_Wall3" parent="." unique_id=244579811 instance=ExtResource("2_j2l4o")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5800432, 1.7859914, 0.016487122)
+
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1649304955]
+transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
+mesh = SubResource("BoxMesh_0p5vt")

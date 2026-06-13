@@ -46,14 +46,14 @@ signal turn_ended
 signal actual_confirmation
 
 var healing_weight: float = 14.9862954393029
-var kill_weight: float = 50
-var damage_importance_weight: float = 11.0503428578377
-var healing_importance_weight: float = 20.6637550592422
+var kill_weight: float = 45.2582422494888
+var damage_importance_weight: float = 45.0503428578377
+var healing_importance_weight: float = 0.6637550592422
 var remove_status_weight: float = 37.6523693203926
 var give_self_status_weight: float = 33.7605845928192
-var remove_players_status_weight: float = 50
-var give_player_status_weight: float = 33.1900285482407
-var skill_importance: float = 16.6770209241658
+var remove_players_status_weight: float = 25.3082177639008
+var give_player_status_weight: float = 0
+var skill_importance: float = 0
 
 #[14.9862954393029, 50, 11.0503428578377, 20.6637550592422, 37.6523693203926, 33.7605845928192, 50, 33.1900285482407, 16.6770209241658]
 var p_healing_weight: float = 10
@@ -370,15 +370,11 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 			if not testing:
 				action_sequence.append(func(): await attacking_enemy.walk_animation())
 				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				match random_attack:
-					0:
-						action_sequence.append(func(): await attacking_enemy.attack_animation(0))
-						action_sequence.append(func(): $AudioStreamPlayer3D.play())
-					1:
-						action_sequence.append(func(): await attacking_enemy.attack_animation(1))
-						action_sequence.append(func(): $AudioStreamPlayer3D.play())
+				action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+				action_sequence.append(func(): $AudioStreamPlayer3D.play())
 
-				action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
+
+				action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
 
 			if not testing:
 				action_sequence.append(func(): await attacking_enemy.walk_animation())
@@ -433,9 +429,9 @@ func execute_enemy_skills(action):
 					continue
 				if skill_used.does_heal_party:
 					if get_skill_boost(skill_used) != 999:
-						parallel_tasks.append(func(): await enemy.update_health([-1 * (person_acting.obtain_stat(person_acting.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false))
+						parallel_tasks.append(func(): await enemy.update_health(-1 * (person_acting.obtain_stat(person_acting.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 					else:
-						parallel_tasks.append(func(): await enemy.update_health([-1 * enemy.stored_combatant.combatant_stats.max_health, "HEAL"], false))
+						parallel_tasks.append(func(): await enemy.update_health(-1 * enemy.stored_combatant.combatant_stats.max_health, "HEAL"))
 				# Does this skill apply a status to every party member
 				if skill_used.does_status:
 					parallel_tasks.append(func(): await enemy.handle_status(skill_used.status_type))
@@ -444,9 +440,9 @@ func execute_enemy_skills(action):
 		else:
 			if skill_used.does_heal_party:
 				if get_skill_boost(skill_used) != 999:
-					parallel_tasks.append(func(): await person_recieving.update_health([-1 * (person_recieving.obtain_stat(person_recieving.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false))
+					parallel_tasks.append(func(): await person_recieving.update_health(-1 * (person_recieving.obtain_stat(person_recieving.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 				else:
-					parallel_tasks.append(func(): await person_recieving.update_health([-1 * person_recieving.stored_combatant.combatant_stats.max_health, "HEAL"], false))
+					parallel_tasks.append(func(): await person_recieving.update_health(-1 * person_recieving.stored_combatant.combatant_stats.max_health, "HEAL"))
 			if skill_used.does_status:
 				action_sequence.append(func(): await person_recieving.handle_status(skill_used.status_type))
 			if skill_used.removes_status:
@@ -512,12 +508,13 @@ func handle_player_move_selection(current_combatant):
 			if testing:
 				action_sequence.append(func(): await deal_damage(current_combatant, target_node, false, null))
 			if not testing:
-				action_sequence.append(func(): await current_player.walk_animation())
+				action_sequence.append(func(): await current_player.walk_animation(false))
 				action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
+				action_sequence.append(func(): await current_player.attack_animation(0))
+				action_sequence.append(func(): $AudioStreamPlayer3D.play())
+				action_sequence.append(func(): deal_damage(current_player, target_node, false, null))
 
-				action_sequence.append(func(): await deal_damage(current_player, target_node, false, null))
-
-				action_sequence.append(func(): await current_player.walk_animation())
+				action_sequence.append(func(): await current_player.walk_animation(true))
 				action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
 				action_sequence.append(func(): await current_player.idle_animation())
 			
@@ -525,8 +522,26 @@ func handle_player_move_selection(current_combatant):
 			action_sequence.append(func(): await current_player.execute_defend())
 			gui.update_mana_display(2)
 		"SKILL":
-			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
+			var action_on_who = what_action[2] if get_num_selected()[0] == 1 else 0
+			
+			var skill_index = 0
+			for skill in range(current_player.stored_combatant.combatant_skills.size()):
+				if current_player.stored_combatant.combatant_skills[skill] == what_action[1]:
+					skill_index = skill
+			
+			var target_node = enemy_shit.get_child(action_on_who)
+
+			action_sequence.append(func(): await current_player.walk_animation(false))
+			action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
+			action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
+			action_sequence.append(func(): $AudioStreamPlayer3D.play())
 			action_sequence.append(func(): await execute_skills(what_action))
+
+			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
+			action_sequence.append(func(): await current_player.walk_animation(true))
+			action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
+
+			action_sequence.append(func(): await current_player.idle_animation())
 		"ITEM":
 			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_players, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
 			action_sequence.append(func(): await execute_item(what_action[1], what_action[3], what_action[2]))
@@ -538,6 +553,7 @@ func handle_player_move_selection(current_combatant):
 	gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
 	gui.get_player_portrait(active_player_turn).position.y += 10
 	selecting_entity = false
+
 	turn_ended.emit()
 
 func attack_button_pressed():
@@ -1025,9 +1041,9 @@ func get_skill_boost(skill_used: moves) -> float:
 			1: return 1.5
 			2: return 999.0
 	match skill_used.attack_power:
-		0: return 0.5
-		1: return 1.0
-		2: return 1.5
+		0: return 1.25
+		1: return 1.5
+		2: return 2
 	return 1.0
 
 func calculate_damage(attacker: combat_template, skill_power: float, target: combat_template, is_magic: bool) -> Array:
@@ -1496,7 +1512,7 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 				if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
 					new_weighting += kill_weight
 				else:
-					new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * damage_importance_weight
+					new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * (damage_importance_weight * 3)
 		new_weighting += skill_importance
 
 	else:
@@ -1505,7 +1521,7 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 		if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
 			new_weighting += kill_weight
 		else:
-			new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * damage_importance_weight
+			new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * (damage_importance_weight * 3)
 	return new_weighting + rng.randf_range(0.0, 2.0)
 
 func gather_player_action_weights(action_to_test: player_weighting) -> float:

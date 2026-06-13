@@ -1,21 +1,39 @@
 extends CharacterBody3D
 
 @export var move_speed : float = 5.0 # (Note: In 3D, 300.0 is extremely fast unless scale is massive)
-@onready var animated_sprite: AnimatedSprite3D = $AnimatedSprite3D
+@onready var animated_sprite: AnimatedSprite3D = $SpritePivot/AnimatedSprite3D
 @export var gravity: float = 20.0
 
+@onready var camera = $Node3D/Camera3D
+@onready var camera_ray = $Node3D/Camera3D/RayCast3D
+@onready var camera_pivot = $Node3D
+
+@onready var sprite_pivot = $SpritePivot
+
+signal entered_new_tile()
+
+var current_grid_pos: Vector2i = Vector2i(-1, -1)
+
+var is_moving
 var p_ref: explorable_dungeon
+
+var has_been_setup = false
 
 func _setup(parent_reference):
 	p_ref = parent_reference
+	entered_new_tile.connect(p_ref.mini_map._new_room_entered)
+	has_been_setup = true
 
 func _physics_process(delta: float) -> void:
-	if p_ref.free_cam:
+	if not has_been_setup:
 		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
+
+	if p_ref.movement_locked:
+		return
 
 	var input_dir : Vector2 = Vector2.ZERO
 	if not Global.using_controller:
@@ -28,39 +46,73 @@ func _physics_process(delta: float) -> void:
 			Global.controller_mapping["down"]
 		)
 		
-	var direction = Vector3(input_dir.x, 0, input_dir.y)
+	var forward: Vector3 = -camera.global_transform.basis.z
+	var right: Vector3 = camera.global_transform.basis.x
+	
+	forward.y = 0
+	right.y = 0
+	forward = forward.normalized()
+	right = right.normalized()
+	sprite_pivot.rotation_degrees.y = camera_pivot.rotation_degrees.y
+	var direction: Vector3 = (forward * -input_dir.y + right * input_dir.x).normalized()
 	
 	if direction != Vector3.ZERO:
-		direction = direction.normalized() 
+		is_moving = true
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, move_speed)
-		velocity.z = move_toward(velocity.z, 0, move_speed)
+		var deceleration = move_speed * 10.0 * delta 
+		velocity.x = move_toward(velocity.x, 0, deceleration)
+		velocity.z = move_toward(velocity.z, 0, deceleration)
 		
-	var anim_direction = Vector2(velocity.x, velocity.z)
-	sync(animated_sprite, anim_direction)
+	if velocity.x == 0 and velocity.z == 0:
+		is_moving = false
+		
 	move_and_slide()
+	_check_for_new_tile()
+	sync_animation(input_dir)
+
+func _check_for_new_tile() -> void:
+	if not has_been_setup:
+		return
+	var offset = p_ref.tile_size / 2.0
+	
+	var grid_x = int(floor((global_position.x + offset) / p_ref.tile_size))
+	var grid_y = int(floor((global_position.z + offset) / p_ref.tile_size)) 
+	
+	var calculated_pos = Vector2i(grid_x, grid_y)
+	
+	if calculated_pos != current_grid_pos:
+		current_grid_pos = calculated_pos
+		_on_tile_entered(current_grid_pos)
+		
+func _on_tile_entered(coords: Vector2i):
+	entered_new_tile.emit(coords)
 
 var last_direction: String = "down"
 
-func sync(sprite: Node, velocity: Vector2) -> void:
-	var anim_name: String = "idle"
-	
-	if velocity.length_squared() > 0.1:
-		var angle: float = velocity.angle()
-		var index: int = wrapi(int(round(angle / (PI / 2))), 0, 4)
-		var directions: Array[String] = ["right", "down", "left", "up"]
-		last_direction = directions[index]
-		
-		anim_name = "walk_" + last_direction
-	else:
+var anim_name: String = "idle"
+
+
+func sync_animation(input_dir: Vector2) -> void:
+	if input_dir == Vector2.ZERO:
 		anim_name = "idle"
-	
+	else:
+		if abs(input_dir.x) > abs(input_dir.y):
+			if input_dir.x > 0:
+				anim_name = "walk_right"
+			else:
+				anim_name = "walk_left"
+		else:
+			if input_dir.y < 0:
+				anim_name = "walk_up"
+			else:
+				anim_name = "walk_down"
+				
 	if anim_name == "walk_left":
 		animated_sprite.flip_h = true
 	else:
 		animated_sprite.flip_h = false
-	
-	if sprite.animation != anim_name:
-		sprite.play(anim_name)
+		
+	if animated_sprite.animation != anim_name:
+		animated_sprite.play(anim_name)

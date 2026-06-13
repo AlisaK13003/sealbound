@@ -19,6 +19,9 @@ class_name generic_combatants
 @export var death_speed: float
 @export var walk_speed: float
 @export var attack_speed: Array[float]
+@export var sprite_scale: float = 1.0
+
+@export var sprite_offset: Vector2 = Vector2(0, 0)
 
 @export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
 

@@ -50,6 +50,7 @@ folder_colors={
 
 3D_Player=""
 Ground=""
+Walls=""
 
 [gui]
 
