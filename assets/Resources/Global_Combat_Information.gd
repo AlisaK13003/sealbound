@@ -83,16 +83,27 @@ func load_saved_data(data):
 		var new_party_member: generic_combatants = load(party_member["path"])
 		new_party_member.load_save(party_member)
 		all_party_slots.append(new_party_member)
+		
 	for equipment_ in data["equipment_slots"]:
-		all_held_equipment.append(load(equipment_))
+		all_held_equipment.append(load(equipment_["path"]))
+		
 	for weapon_ in data["weapon_slots"]:
-		all_held_weapons.append(load(weapon_))
+		all_held_weapons.append(load(weapon_["path"]))
+		
 	for item_ in data["item_slots"]:
-		all_held_items.append(load(item_))
+		all_held_items.append(load(item_["path"]))
+		
 	for a_quest in data["active_quests"]:
-		active_quests.append(load(a_quest))
+		active_quests.append(load(a_quest["path"]))
+		
 	for com_quest in data["com_quests"]:
-		completed_quests.append(load(com_quest))
+		completed_quests.append(load(com_quest["path"]))
+		
+	for d_type in data["dungeon_types"]:
+		var new_d_type: dungeon_type = load(d_type["path"])
+		new_d_type.load_save_data(d_type)
+		dungeon_types.append(new_d_type)
+		
 	currency_held = data["held_currency"]
 
 func export_to_JSON():
@@ -103,6 +114,7 @@ func export_to_JSON():
 	var item_slots: Dictionary = {}
 	var active_quest_slots: Dictionary = {}
 	var completed_quest_list: Dictionary = {}
+	var d_types: Dictionary = {}
 	
 	for party_member in range(all_party_slots.size()):
 		var new_key = "slot_" + str(party_member)
@@ -129,12 +141,17 @@ func export_to_JSON():
 		var new_key = "quest_" + str(com_quest_)
 		completed_quest_list[new_key] = completed_quests[com_quest_]
 	
+	for d_type in range(dungeon_types.size()):
+		var new_key = "dtype_" + str(d_type)
+		d_types[new_key] = dungeon_types[d_type]
+	
 	ret_dict["player_slots"] = player_slots
 	ret_dict["equipment_slots"] = equipment_slots
 	ret_dict["weapon_slots"] = weapon_slots
 	ret_dict["item_slots"] = item_slots
 	ret_dict["active_quests"] = active_quest_slots
 	ret_dict["com_quests"] = completed_quest_list
+	ret_dict["dungeon_types"] = d_types
 	ret_dict["held_currency"] = currency_held
 	
 	return JSON.stringify(ret_dict, "\t")
