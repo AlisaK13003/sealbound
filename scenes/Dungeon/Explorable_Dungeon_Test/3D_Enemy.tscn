@@ -6,8 +6,9 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_kx1k8"]
 radius = 0.24665812
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_pvj4x"]
-radius = 3.2054327
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kx1k8"]
+height = 1.1147461
+radius = 5.4086914
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kx1k8"]
 radius = 0.40722656
@@ -28,12 +29,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004638672, 0.6511192, -0.0
 shape = SubResource("SphereShape3D_kx1k8")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1766453012]
+path_desired_distance = 1.5
+target_desired_distance = 0.5
+path_max_distance = 10.01
+avoidance_enabled = true
+radius = 2.0
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1909437788]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=399451672]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62654483, 0)
-shape = SubResource("SphereShape3D_pvj4x")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0691718, 0)
+shape = SubResource("CylinderShape3D_kx1k8")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1022114886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59019667, 0)

@@ -4,14 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="2_1f4cr"]
 [ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="3_oil67"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_hwxoc"]
-
 [node name="SpawnRoom" type="Node3D" unique_id=1131055366]
 script = ExtResource("1_laqkg")
 room_classification = 0
 
 [node name="Forest_Grid_Tile" parent="." unique_id=2097126478 instance=ExtResource("2_1f4cr")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="StaticBody3D" parent="Forest_Grid_Tile/Forest_dungeopn_grid" parent_id_path=PackedInt32Array(2097126478, 825095871) index="0" unique_id=134728836]
+collision_layer = 2
 
 [node name="Section_1_Dungeon_Wall" parent="." unique_id=1305257535 instance=ExtResource("3_oil67")]
 transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
@@ -22,6 +23,4 @@ transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.092784
 [node name="Section_1_Dungeon_Wall3" parent="." unique_id=76124639 instance=ExtResource("3_oil67")]
 transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5800432, 1.7859914, 0.016487122)
 
-[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1598074316]
-transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
-mesh = SubResource("BoxMesh_hwxoc")
+[editable path="Forest_Grid_Tile"]

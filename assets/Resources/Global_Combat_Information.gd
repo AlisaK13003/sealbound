@@ -40,8 +40,6 @@ func _ready():
 	
 	await get_tree().create_timer(0.5).timeout
 
-	print(export_to_JSON())
-
 	finished.emit()
 
 func transition_to_dungeon(selected_dungeon):

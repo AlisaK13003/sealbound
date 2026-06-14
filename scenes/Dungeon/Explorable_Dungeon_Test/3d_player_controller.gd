@@ -25,13 +25,12 @@ func _setup(parent_reference):
 	has_been_setup = true
 
 func _physics_process(delta: float) -> void:
-	if not has_been_setup:
-		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
-
+	if not has_been_setup:
+		return
 	if p_ref.movement_locked:
 		return
 

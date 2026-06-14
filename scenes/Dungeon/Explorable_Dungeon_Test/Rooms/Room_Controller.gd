@@ -5,6 +5,10 @@ class_name room
 @export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room") var room_classification
 var has_been_entered = false
 
+var room_coords: Vector2 = Vector2(0, 0)
+
+var room_directions
+
 signal entered
 
 var p_ref: explorable_dungeon

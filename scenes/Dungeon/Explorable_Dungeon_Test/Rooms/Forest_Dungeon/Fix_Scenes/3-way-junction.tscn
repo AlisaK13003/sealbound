@@ -11,12 +11,12 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 script = ExtResource("1_mytxw")
 room_classification = 4
 
-[node name="Forest_Grid_Tile" parent="." unique_id=275606809 instance=ExtResource("1_ldkxi")]
+[node name="Forest_Grid_Tile" parent="." unique_id=275606809 groups=["Ground"] instance=ExtResource("1_ldkxi")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="Section_1_Dungeon_Wall3" parent="." unique_id=644760535 instance=ExtResource("2_mytxw")]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.008356214, 1.7859914, -1.5633783)
 
 [node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1721811155]
-transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
+transform = Transform3D(3.65, 0, 0, 0, 0.806, 0, 0, 0, 3.301, 2.4687992e-08, -0.09, 0.13860226)
 mesh = SubResource("BoxMesh_mytxw")

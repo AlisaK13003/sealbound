@@ -9,6 +9,8 @@
 size = Vector3(0.30743408, 0.54174805, 0.048919678)
 
 [node name="3dPlayer" type="CharacterBody3D" unique_id=1611672739]
+collision_layer = 16777215
+collision_mask = 16777215
 script = ExtResource("1_wh5h5")
 move_speed = 20.0
 
@@ -21,7 +23,7 @@ transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 0
 script = ExtResource("3_trhba")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
-transform = Transform3D(-4.371139e-08, -0.34037957, 0.9402881, 0, 0.9402881, 0.34037957, -1, 1.4878464e-08, -4.11013e-08, 2, 1.049, 0)
+transform = Transform3D(-4.3711395e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711395e-08, 1.4035879, 0.9223851, -2.4541112e-07)
 script = ExtResource("3_3lwvn")
 player = NodePath("../..")
 

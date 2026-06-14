@@ -15,8 +15,9 @@ size = Vector3(11.0121765, 1, 4.1467285)
 size = Vector3(4.5248985, 1, 13.21936)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ov5eq"]
-geometry_parsed_geometry_type = 0
-agent_radius = 0.1
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 4278190081
+agent_radius = 0.15
 
 [sub_resource type="BoxMesh" id="BoxMesh_i6eaa"]
 
@@ -116,9 +117,6 @@ lock_z_camera_movement = true
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.137741, -0.1341759, -21.295547)
 lock_x_camera_movement = true
 
-[node name="3dEnemy" parent="." unique_id=185078977 instance=ExtResource("6_ov5eq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.762249, 0.95980406, -19.766718)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=350318906]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.449, 0)
 navigation_mesh = SubResource("NavigationMesh_ov5eq")
@@ -140,4 +138,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.798454, -0.04067421)
 offset_top = -2.0
 offset_bottom = -2.0
 
-[node name="Enemies" type="Node" parent="." unique_id=1182393121]
+[node name="Enemies" type="Node3D" parent="." unique_id=772093620]
+
+[node name="3dEnemy" parent="Enemies" unique_id=185078977 instance=ExtResource("6_ov5eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96, 0)

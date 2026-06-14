@@ -359,7 +359,7 @@ var free_cam = false
 var grid_size_x = 0
 var grid_size_y = 0
 
-var max_grid_size: Vector2 = Vector2(5, 5)
+var max_grid_size: Vector2 = Vector2(30, 30)
 
 var min_room_density: float = 0.02
 var max_room_density: float = 0.3
@@ -368,25 +368,18 @@ var max_room_density: float = 0.3
 var absolute_min_rooms: int = 10
 var absolute_max_rooms: int = 50
 
-var current_floor = 1
+var current_floor = 0
 
 var spawn_position: Vector2i
 
 var movement_locked = false
 
+var generation_failed
+
 func _ready():
-	#camera_player_displacement = dungeon_camera.position - player.position
-	#dungeon_camera.position.x = player.position.x + camera_player_displacement.x
-	movement_locked = true
-	await Fade.fade_in(0)
+	await entered_new_floor()	
 	$"3dPlayer2"._setup(self)
-	var bounding_box_arr: Array[Array] = []
-	await generate_dungeon(bounding_box_arr)
-	setting_up = false
-	print("ROOM GENERATED")
-	await Fade.fade_out(2)
-	print("FADED OUT")
-	movement_locked = false
+
 
 func remove_old_dungeon():
 	player.position = Vector3(-10, 0, -10)
@@ -407,15 +400,18 @@ func entered_new_floor():
 	if current_floor == floor_count:
 		get_tree().quit()
 	else:
+		setting_up_new_floor = true
 		current_floor += 1
 		movement_locked = true
 		await Fade.fade_in(2)
-		setting_up_new_floor = true
+
 		var bounding_box_arr: Array[Array] = []
 		await remove_old_dungeon()
 		setting_up = true
 
-		await generate_dungeon(bounding_box_arr)
+		while true:
+			if await generate_dungeon(bounding_box_arr):
+				break
 		await Fade.fade_out(2)
 		setting_up = false
 	setting_up_new_floor = false
@@ -423,7 +419,7 @@ func entered_new_floor():
 	
 var number_of_rooms = 0
 var spawn_room_location
-func generate_dungeon(bounding_box_arr) -> void:
+func generate_dungeon(bounding_box_arr):
 	var generated_rooms
 	var dungeon_clearable = false
 	while (not dungeon_clearable):
@@ -457,7 +453,9 @@ func generate_dungeon(bounding_box_arr) -> void:
 		for col in range(max_grid_size.y):
 			row_string += str(bounding_box_arr[row][col]) + " "
 		print(row_string)
-	await instantiate_rooms(generated_rooms, bounding_box_arr)
+	var ret_val = await instantiate_rooms(generated_rooms, bounding_box_arr)
+	if not ret_val:
+		return false
 	mini_map._setup(self, bounding_box_arr, generated_rooms, spawn_position)
 
 	await get_tree().physics_frame
@@ -476,10 +474,10 @@ func generate_dungeon(bounding_box_arr) -> void:
 	player.rotation_degrees.y = 0.0
 	player.camera.rotation.x = 0.0
 	player.camera_pivot.rotation.y = 0.0
-	player.camera_pivot.current_yaw = 0.0
-	player.camera_pivot.current_pitch = 0.0
-	player.camera_pivot.target_yaw = 0.0
-	player.camera_pivot.target_pitch = 0.0
+	#player.camera_pivot.current_yaw = 0.0
+	#player.camera_pivot.current_pitch = 0.0
+	#player.camera_pivot.target_yaw = 0.0
+	#player.camera_pivot.target_pitch = 0.0
 
 	
 	match current_start.rotation_degrees.y:
@@ -494,23 +492,29 @@ func generate_dungeon(bounding_box_arr) -> void:
 		360.0:
 			player.rotation_degrees.y += 90.0
 	player.sprite_pivot.rotation_degrees.y = 0
-	var number_of_enemies = ceili(navigation_region.get_child_count() / 2)
-	for room_ in navigation_region.get_children():
+	var number_of_enemies = ceili(navigation_region.get_child_count() / 10)
+	var enemy_spawnable_rooms = navigation_region.get_children()
+	var enemy_count = 0
+	enemy_spawnable_rooms.shuffle()
+	for room_ in enemy_spawnable_rooms:
 		if room_ is MeshInstance3D or room_.room_classification in [0, 1]:
 			continue
 		else:
+			if enemy_count > number_of_enemies:
+				break
 			var new_enemy = load(enemy_scene)
 			var new_enemy_instance = new_enemy.instantiate()
 			
 			#new_enemy_instance.position.y += 2.0
 			
-			new_enemy_instance.position.x += (room_.position.x) * tile_size
-			new_enemy_instance.position.z += (room_.position.z) * tile_size
+			new_enemy_instance.position.x = (room_.room_coords.x) * tile_size
+			new_enemy_instance.position.z = (room_.room_coords.y) * tile_size
 			new_enemy_instance.position.y = 2.0
 
 			enemy_container.add_child(new_enemy_instance)
 			new_enemy_instance._setup(self)
-	
+			enemy_count += 1
+	return true
 
 
 var number_of_allowed_2x2 = 1
@@ -519,6 +523,7 @@ func _build_room_geometry(bounding_box_arr):
 	grid_size_x = int(max_grid_size.x)
 	grid_size_y = int(max_grid_size.y)
 	
+
 	# Determining position and rotation of floor spawn	
 	#var spawn_room_index = rng.randi_range(0, (max_grid_size.x * max_grid_size.y) - 1)
 	
@@ -540,6 +545,7 @@ func _build_room_geometry(bounding_box_arr):
 	var spawn_pos = Vector2i(random_x, random_y)
 	spawn_position = spawn_pos
 	spawn_room_location = pos_to_index(spawn_pos)
+	var rooms_already_present : Array[dungeon_room]
 
 	print("SPAWN IS AT ", spawn_room_location)
 
@@ -557,80 +563,96 @@ func _build_room_geometry(bounding_box_arr):
 			valid_facings.append(dir)
 	var spawn_is_facing = valid_facings[rng.randi() % valid_facings.size()]
 	
-	# Determining position and rotation of stairs down
-	var exit_room_location = 0
-	var has_stairs_down_found_valid_position = false
-	var has_stairs_down_found_valid_rotation = false
+	var spawn_boss = false
+	if floor_count == current_floor - 1:
+		spawn_boss = true
+		grid_size_x = 30
+		grid_size_y = 30
+		var room_names = ["Spawn_Room", "Room_Cap", "4-Way_Junction", "3-Way_Junction", "Corner_Junction", "2x2_Room", "Stair_Room", "Straight_Room"]
 
-	while not has_stairs_down_found_valid_position:
-		exit_room_location = rng.randi_range(0, (grid_size_x * grid_size_y) - 1)
+
+		var what_edges_is_room_on = get_room_boundary_allignment(2)
 		
-		if exit_room_location == spawn_room_location:
-			continue
-			
-		var exit_pos = index_to_pos(exit_room_location)
 
+		
+		var boss_pos = Vector2i(grid_size_x / 2, grid_size_y / 2)
+		var pot_room = dungeon_room.new(boss_pos, boss_pos.x, boss_pos.y, [0, 1, 2, 3], what_edges_is_room_on, room_names[2], -1)
+		spawn_room(2, boss_pos, -1, pot_room, rooms_already_present, bounding_box_arr)
+	else:
+		# Determining position and rotation of stairs down
+		var exit_room_location = 0
+		var has_stairs_down_found_valid_position = false
+		var has_stairs_down_found_valid_rotation = false
+
+		while not has_stairs_down_found_valid_position:
+			exit_room_location = rng.randi_range(0, (grid_size_x * grid_size_y) - 1)
+			
+			if exit_room_location == spawn_room_location:
+				continue
+				
+			var exit_pos = index_to_pos(exit_room_location)
+
+			var on_left_exit = (exit_pos.x == 0)
+			var on_right_exit = (exit_pos.x == grid_size_x - 1)
+			var on_top_exit = (exit_pos.y == 0)
+			var on_bottom_exit = (exit_pos.y == grid_size_y - 1)
+
+			var exit_is_on_edge = on_left_exit or on_right_exit or on_top_exit or on_bottom_exit
+
+			if exit_is_on_edge:
+				continue
+			
+			var found_invalid = false
+			for offset in INVALID_OFFSETS:
+				for pos in INVALID_OFFSETS[offset]:
+					if (exit_pos + pos) == spawn_pos:
+						found_invalid = true
+						continue
+			if found_invalid:
+				continue
+
+			if not spawn_is_on_edge:
+				var forbidden_positions = []
+				for offset in INVALID_OFFSETS[spawn_is_facing]:
+					forbidden_positions.append(spawn_pos + offset)
+					
+				if exit_pos in forbidden_positions:
+					print("Invalid exit position")
+					continue
+			
+			has_stairs_down_found_valid_position = true
+		var exit_pos = index_to_pos(exit_room_location)
 		var on_left_exit = (exit_pos.x == 0)
 		var on_right_exit = (exit_pos.x == grid_size_x - 1)
 		var on_top_exit = (exit_pos.y == 0)
 		var on_bottom_exit = (exit_pos.y == grid_size_y - 1)
 
 		var exit_is_on_edge = on_left_exit or on_right_exit or on_top_exit or on_bottom_exit
-
-		if exit_is_on_edge:
-			continue
+		var what_edges_is_exit_on: Array[bool] = [on_left_exit, on_right_exit, on_top_exit, on_bottom_exit]
 		
-		var found_invalid = false
-		for offset in INVALID_OFFSETS:
-			for pos in INVALID_OFFSETS[offset]:
-				if (exit_pos + pos) == spawn_pos:
-					found_invalid = true
-					continue
-		if found_invalid:
-			continue
-
-		if not spawn_is_on_edge:
-			var forbidden_positions = []
-			for offset in INVALID_OFFSETS[spawn_is_facing]:
-				forbidden_positions.append(spawn_pos + offset)
-				
-			if exit_pos in forbidden_positions:
-				print("Invalid exit position")
+		var valid_facings_exit = []
+		for dir in range(4):
+			if not what_edges_is_exit_on[dir]:
+				valid_facings_exit.append(dir)
+		var exit_is_facing = 0
+		var exit_has_valid_rotation = false
+		while (not exit_has_valid_rotation):
+			exit_is_facing = valid_facings_exit[rng.randi() % valid_facings_exit.size()]
+			if exit_is_facing == 0 and spawn_is_facing == 1:
 				continue
-		
-		has_stairs_down_found_valid_position = true
-	var exit_pos = index_to_pos(exit_room_location)
-	var on_left_exit = (exit_pos.x == 0)
-	var on_right_exit = (exit_pos.x == grid_size_x - 1)
-	var on_top_exit = (exit_pos.y == 0)
-	var on_bottom_exit = (exit_pos.y == grid_size_y - 1)
+			elif exit_is_facing == 1 and spawn_is_facing == 0:
+				continue
+			elif exit_is_facing == 2 and spawn_is_facing == 3:
+				continue
+			elif exit_is_facing == 3 and spawn_is_facing == 2:
+				continue
+			else:
+				exit_has_valid_rotation = true
+		rooms_already_present.append(dungeon_room.new(exit_pos, int(exit_pos.x), int(exit_pos.y), exit_is_facing, what_edges_is_exit_on, "Stair_Room"))
+		bounding_box_arr[exit_pos.x][exit_pos.y] = "E"
 
-	var exit_is_on_edge = on_left_exit or on_right_exit or on_top_exit or on_bottom_exit
-	var what_edges_is_exit_on: Array[bool] = [on_left_exit, on_right_exit, on_top_exit, on_bottom_exit]
-	
-	var valid_facings_exit = []
-	for dir in range(4):
-		if not what_edges_is_exit_on[dir]:
-			valid_facings_exit.append(dir)
-	var exit_is_facing = 0
-	var exit_has_valid_rotation = false
-	while (not exit_has_valid_rotation):
-		exit_is_facing = valid_facings_exit[rng.randi() % valid_facings_exit.size()]
-		if exit_is_facing == 0 and spawn_is_facing == 1:
-			continue
-		elif exit_is_facing == 1 and spawn_is_facing == 0:
-			continue
-		elif exit_is_facing == 2 and spawn_is_facing == 3:
-			continue
-		elif exit_is_facing == 3 and spawn_is_facing == 2:
-			continue
-		else:
-			exit_has_valid_rotation = true
-	
 	# 	func _init(position_, x_coord, y_coord, facing, room_name):
-	var rooms_already_present : Array[dungeon_room]
 	rooms_already_present.append(dungeon_room.new(spawn_pos, int(spawn_pos.x), int(spawn_pos.y), spawn_is_facing, what_edges_is_spawn_on, "Spawn_Room"))
-	rooms_already_present.append(dungeon_room.new(exit_pos, int(exit_pos.x), int(exit_pos.y), exit_is_facing, what_edges_is_exit_on, "Stair_Room"))
 	
 	for x in range(max_grid_size.x):
 		var col: Array = []
@@ -639,7 +661,6 @@ func _build_room_geometry(bounding_box_arr):
 		bounding_box_arr.append(col)
 	
 	bounding_box_arr[spawn_pos.x][spawn_pos.y] = "S"
-	bounding_box_arr[exit_pos.x][exit_pos.y] = "E"
 	
 	var grid_size = grid_size_x * grid_size_y
 	
@@ -970,21 +991,27 @@ func instantiate_rooms(rooms_already_present, bounding_box_arr):
 			var new_room = new_instance.instantiate()
 
 			var base_position = Vector3(x * tile_size, 0.0, y * tile_size)
-
+			new_room.room_coords = Vector2(x, y)
 			if room_to_load == "Stair_Room":
 				new_room._setup(self)
 
 			var direction = get_directions_at(x, y, room_lookup, bounding_box_arr)
 			
+			new_room.room_directions = direction
 			new_room.rotation_degrees.y = get_rotation_degrees_(room_to_load, direction)
 
 
+			new_room.room_directions.sort()
+			if room_to_load == "3-Way_Junction":
+				if new_room.room_directions.size() <= 2:
+					return false
+					
 			new_room.position = base_position
 			navigation_region.add_child(new_room)
 			
 			var grid_pos = Vector2i(x, y)
 			active_room_nodes[grid_pos] = new_room
-			
+	return true
 
 const ASSET_OFFSETS = {
 	"Spawn_Room": 180.0,

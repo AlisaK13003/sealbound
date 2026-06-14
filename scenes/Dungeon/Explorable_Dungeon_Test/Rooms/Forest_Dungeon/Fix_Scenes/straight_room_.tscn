@@ -19,6 +19,6 @@ transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08,
 [node name="Section_1_Dungeon_Wall2" parent="." unique_id=1681810840 instance=ExtResource("2_s8wti")]
 transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5036634, 1.7859914, 0.016487122)
 
-[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=418904657]
-transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=418904657 groups=["Ground"]]
+transform = Transform3D(3.16, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
 mesh = SubResource("BoxMesh_s8wti")

@@ -25,7 +25,7 @@ func _setup(parent_reference) -> void:
 	p_ref = parent_reference
 	start_position = global_position
 	player_detector.body_entered.connect(_on_player_detected)
-	player_detector.body_exited.connect(_on_player_lost)
+	#player_detector.body_exited.connect(_on_player_lost)
 	
 	await get_tree().physics_frame
 	_pick_new_patrol_point()
@@ -51,13 +51,13 @@ func _physics_process(delta: float) -> void:
 			if target_player:
 				nav_agent.target_position = target_player.global_position
 				if not _has_line_of_sight():
-					_start_returning()
+					_pick_new_patrol_point()
 			_move_along_path(speed)
 			
-		State.RETURN:
-			if nav_agent.is_navigation_finished():
-				current_state = State.PATROL
-			_move_along_path(return_speed)
+		#State.RETURN:
+		#	if nav_agent.is_navigation_finished():
+		#		current_state = State.PATROL
+		#	_move_along_path(return_speed)
 
 func _move_along_path(current_speed: float) -> void:
 	var next_path_pos = nav_agent.get_next_path_position()
@@ -99,14 +99,14 @@ func _on_player_detected(body: Node3D) -> void:
 		if _has_line_of_sight():
 			current_state = State.CHASE
 
-func _on_player_lost(body: Node3D) -> void:
-	if body == target_player:
-		_start_returning()
+#func _on_player_lost(body: Node3D) -> void:
+#	if body == target_player:
+#		_start_returning()
 
-func _start_returning() -> void:
-	target_player = null
-	current_state = State.RETURN
-	nav_agent.target_position = start_position
+#func _start_returning() -> void:
+#	target_player = null
+#	current_state = State.RETURN
+#	nav_agent.target_position = start_position
 	
 	
 func _on_area_3d_2_body_entered(body):
