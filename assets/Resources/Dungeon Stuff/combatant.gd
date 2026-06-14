@@ -10,6 +10,8 @@ class_name generic_combatants
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
 
+@export var current_stored_slot: int
+
 @export var drop_table: drop_tables
 
 @export var combatant_skills : Array[moves]
@@ -36,3 +38,14 @@ func add_experience(amount_to_add):
 		combatant_stats.level += 1
 	
 	return (ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120) - (total_experience_points - ceili((100 * pow(1.2, combatant_stats.level)) - 120)))
+
+func export_to_JSON():
+	return {
+		"path": resource_path,
+		"combatant_stats": combatant_stats.export_to_JSON(),
+		"stored_equipment": stored_equipment.export_to_JSON(),
+		"stored_weapon": stored_weapon.export_to_JSON(),
+		"current_stored_slot": current_stored_slot,
+		"total_experience_points": total_experience_points,
+		"bond_level": bond_level,
+ 	}

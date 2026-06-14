@@ -1,0 +1,240 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://dbt45tuwoqu3c"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_26prq"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_d3o0m"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_n5n1p"]
+[ext_resource type="Texture2D" uid="uid://k8h3wryir8iy" path="res://assets/characters/lyra/lyra_walk.png" id="4_uwea6"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_7rixd"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_4bmwk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m3koh"]
+load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5l7vs"]
+load_path = "res://.godot/imported/Crowd_Breaker.png-04e109804fdd4ed04f0fd775c31a4815.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckux8"]
+load_path = "res://.godot/imported/Toggled_Crowd_Breaker.png-17d6b74b6ff203aad340fd0c46b1f4b1.ctex"
+
+[sub_resource type="Resource" id="Resource_pyue4"]
+script = ExtResource("1_26prq")
+move_name = "Crowdbreaker"
+move_description = "Damage all enemies. Enemies now target Lyra"
+attack_power = 2
+multi_hit = true
+guaranteed_hit_count = 2
+max_hit_count = 2
+status_type = 983040
+removes_status = null
+chance_of_status_condition = 0.75
+is_skill_aoe = true
+normal_sprite = SubResource("CompressedTexture2D_5l7vs")
+pressed_sprite = SubResource("CompressedTexture2D_ckux8")
+disabled_sprite = SubResource("CompressedTexture2D_m3koh")
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3gcfs"]
+load_path = "res://.godot/imported/Disabled_Heavy_Swing.png-4d0317366b1d6d985ba676e96e8e5c60.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0gn3v"]
+load_path = "res://.godot/imported/Heavy_Swing.png-6e9c998ba48e77c4ad546bb65163a690.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l0x8c"]
+load_path = "res://.godot/imported/Toggled_Heavy_Swing.png-bf00b963189c16e15e2c2eb3cc2dfb09.ctex"
+
+[sub_resource type="Resource" id="Resource_xg20h"]
+script = ExtResource("1_26prq")
+move_name = "Heavy Swing"
+move_description = "Strong single-target attack. "
+attack_power = 2
+accuracy = 80
+guaranteed_hit_count = 1
+max_hit_count = 1
+mana_cost = 2
+status_type = null
+removes_status = null
+normal_sprite = SubResource("CompressedTexture2D_0gn3v")
+pressed_sprite = SubResource("CompressedTexture2D_l0x8c")
+disabled_sprite = SubResource("CompressedTexture2D_3gcfs")
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjrvv"]
+load_path = "res://.godot/imported/Disabled_Second_Wind.png-31716abe71b770b4a3b1942e6ff838d9.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_megcg"]
+load_path = "res://.godot/imported/Second_Wind.png-f8d66af06893570ed8cfa1e5c2f0908c.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e4t31"]
+load_path = "res://.godot/imported/Toggled_Second_Wind.png-8d5a99258460366ed2817eb3037a24db.ctex"
+
+[sub_resource type="Resource" id="Resource_tyfxl"]
+script = ExtResource("1_26prq")
+move_name = "Second Wind"
+move_description = "Restore moderate HP to self. Gain increased defense and status immunity. Can't act for 2 turns"
+attack_power = null
+is_unlocked = false
+is_magic_skill = true
+mana_cost = 2
+status_type = null
+removes_status = null
+targets_party = true
+is_skill_aoe = true
+does_heal_party = true
+amount_healed = 2
+normal_sprite = SubResource("CompressedTexture2D_megcg")
+pressed_sprite = SubResource("CompressedTexture2D_e4t31")
+disabled_sprite = SubResource("CompressedTexture2D_fjrvv")
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_eke01"]
+script = ExtResource("1_26prq")
+attack_power = null
+does_status = true
+status_type = 65792
+removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 5
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_dx6g1"]
+script = ExtResource("2_d3o0m")
+max_health = 90
+health = 90
+attack = 95
+defense = 25
+magic = 24
+resistance = 40
+speed = 55
+luck = 20
+evasion = 10
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5863t"]
+load_path = "res://.godot/imported/Lyra_portraits.png-09513a34fd423f77f15fd74f837188aa.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7vod"]
+atlas = SubResource("CompressedTexture2D_5863t")
+region = Rect2(53, 5, 38, 64)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r1df8"]
+load_path = "res://.godot/imported/Lyra_portraits.png-09513a34fd423f77f15fd74f837188aa.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5noe"]
+atlas = SubResource("CompressedTexture2D_r1df8")
+region = Rect2(101, 5, 38, 64)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wqvqe"]
+load_path = "res://.godot/imported/Lyra_portraits.png-09513a34fd423f77f15fd74f837188aa.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyae5"]
+atlas = SubResource("CompressedTexture2D_wqvqe")
+region = Rect2(149, 5, 38, 64)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_cygc5"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_c7vod")
+frame_1/texture = SubResource("AtlasTexture_m5noe")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_lyae5")
+frame_2/duration = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhgbo"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dton"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfc3j"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o08b8"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ox042"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky0ar"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jpwl"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqao5"]
+atlas = ExtResource("4_uwea6")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54iog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhgbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dton")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfc3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o08b8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ox042")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ky0ar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jpwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqao5")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_gtipd"]
+script = ExtResource("2_d3o0m")
+defense = 30
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_jcqwx"]
+script = ExtResource("5_7rixd")
+equipment_name = "Adamant Armor"
+equipment_stats = SubResource("Resource_gtipd")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"
+
+[sub_resource type="Resource" id="Resource_pfgd8"]
+script = ExtResource("6_4bmwk")
+weapon_name = "Kokuseki Senjin"
+weapon_attack = 30
+attack_accuracy = 95
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
+
+[resource]
+script = ExtResource("3_n5n1p")
+combatant_name = "Lyra"
+party_member_portrait = SubResource("AnimatedTexture_cygc5")
+combatant_stats = SubResource("Resource_dx6g1")
+stored_weapon = SubResource("Resource_pfgd8")
+stored_equipment = SubResource("Resource_jcqwx")
+combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01")])
+sprite_frames = SubResource("SpriteFrames_54iog")
+idle_speed = 0.2
+walk_speed = 0.7
+sprite_scale = 0.001
+metadata/_custom_type_script = "uid://125iickqse23"

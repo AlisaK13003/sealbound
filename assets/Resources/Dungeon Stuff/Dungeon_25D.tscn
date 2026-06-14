@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ccdj2neuofomx"]
 
 [ext_resource type="Script" uid="uid://bftcak8hng7gw" path="res://scenes/Dungeon/dungeon.gd" id="1_xfoey"]
-[ext_resource type="Resource" uid="uid://brfvp6osp867i" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_1.tres" id="2_dgt0a"]
-[ext_resource type="Resource" uid="uid://bxctx8rnxsana" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_2.tres" id="3_x3t77"]
-[ext_resource type="Resource" uid="uid://xvh8favukow8" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/temp_party_3.tres" id="4_xal47"]
+[ext_resource type="Resource" uid="uid://cw3vpqck0mh18" path="res://assets/characters/player/MC_Combatant_Information.tres" id="2_t7hpr"]
+[ext_resource type="Resource" uid="uid://boqnrhovktrug" path="res://assets/characters/rowan/Rowan_Combatant_Information.tres" id="3_og2ux"]
+[ext_resource type="Resource" uid="uid://dbt45tuwoqu3c" path="res://assets/characters/lyra/Lyra_Combatant_Information.tres" id="4_edm4l"]
 [ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="7_og2ux"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
 [ext_resource type="PackedScene" uid="uid://dgs2lhgc5rktk" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_GUI.tscn" id="8_og2ux"]
@@ -22,9 +22,9 @@ ssao_enabled = true
 
 [node name="Dungeon25d" type="Node3D" unique_id=248229616]
 script = ExtResource("1_xfoey")
-party_slot_1 = ExtResource("2_dgt0a")
-party_slot_2 = ExtResource("3_x3t77")
-party_slot_3 = ExtResource("4_xal47")
+party_slot_1 = ExtResource("2_t7hpr")
+party_slot_2 = ExtResource("3_og2ux")
+party_slot_3 = ExtResource("4_edm4l")
 temp_item_list = Array[ExtResource("12_iegkx")]([ExtResource("7_og2ux"), ExtResource("7_og2ux")])
 
 [node name="UI" type="Control" parent="." unique_id=738875588]

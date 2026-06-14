@@ -7,3 +7,5 @@ class_name dungeon_type
 @export var max_number_of_waves: int
 @export var minimum_number_of_waves: int
 @export var potential_waves : Array[dungeon_wave]
+
+var has_beaten_boss: bool

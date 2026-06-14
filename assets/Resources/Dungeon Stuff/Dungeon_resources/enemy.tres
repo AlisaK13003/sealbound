@@ -75,7 +75,6 @@ metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 [sub_resource type="Resource" id="Resource_otd26"]
 script = ExtResource("5_w4ub5")
 attack_accuracy = 100
-status_conditions = null
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
