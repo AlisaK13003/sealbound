@@ -80,17 +80,19 @@ func transition_to_dungeon(selected_dungeon):
 
 func load_saved_data(data):
 	for party_member in data["player_slots"]:
-		all_party_slots.append(party_member)
+		var new_party_member: generic_combatants = load(party_member["path"])
+		new_party_member.load_save(party_member)
+		all_party_slots.append(new_party_member)
 	for equipment_ in data["equipment_slots"]:
-		all_held_equipment.append(equipment_)
+		all_held_equipment.append(load(equipment_))
 	for weapon_ in data["weapon_slots"]:
-		all_held_weapons.append(weapon_)
+		all_held_weapons.append(load(weapon_))
 	for item_ in data["item_slots"]:
-		all_held_items.append(item_)
+		all_held_items.append(load(item_))
 	for a_quest in data["active_quests"]:
-		active_quests.append(a_quest)
+		active_quests.append(load(a_quest))
 	for com_quest in data["com_quests"]:
-		completed_quests.append(com_quest)
+		completed_quests.append(load(com_quest))
 	currency_held = data["held_currency"]
 
 func export_to_JSON():

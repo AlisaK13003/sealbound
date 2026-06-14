@@ -49,3 +49,11 @@ func export_to_JSON():
 		"total_experience_points": total_experience_points,
 		"bond_level": bond_level,
  	}
+
+func load_save(save_info):
+	bond_level = save_info["bond_level"]
+	current_stored_slot = save_info["current_stored_slot"]
+	total_experience_points = save_info["total_experience_points"]
+	stored_weapon = load(save_info["stored_weapon"])
+	stored_equipment = load(save_info["stored_equipment"])
+	add_experience(total_experience_points)
