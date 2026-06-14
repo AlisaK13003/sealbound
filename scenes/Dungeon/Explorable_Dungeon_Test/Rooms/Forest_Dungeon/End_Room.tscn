@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cxyrafiendyrr"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_7osp8"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_im1r7"]
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="2_7osp8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7osp8"]
+
+[node name="EndRoom" type="Node3D" unique_id=2084489875]
+script = ExtResource("1_7osp8")
+room_classification = 1
+
+[node name="Forest_Grid_Tile" parent="." unique_id=2097126478 instance=ExtResource("1_im1r7")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Section_1_Dungeon_Wall" parent="." unique_id=1453800051 instance=ExtResource("2_7osp8")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
+
+[node name="Section_1_Dungeon_Wall2" parent="." unique_id=1922576984 instance=ExtResource("2_7osp8")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.014748335, 1.7859914, -1.5633721)
+
+[node name="Section_1_Dungeon_Wall4" parent="." unique_id=1938123026 instance=ExtResource("2_7osp8")]
+transform = Transform3D(-0.055, 0, 0, 0, 2.4041265e-09, 0.055, 0, -0.055, 2.4041265e-09, -0.014748335, 1.3701973, -0.19726706)
+
+[node name="Section_1_Dungeon_Wall3" parent="." unique_id=2092995920 instance=ExtResource("2_7osp8")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5800432, 1.7859914, 0.016487122)
+
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=902421930]
+transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
+mesh = SubResource("BoxMesh_7osp8")

@@ -30,3 +30,11 @@ signal speed_changed(new_value)
 
 func _init():
 	altered_speed = speed
+
+# Don't need to return actual stat values just yet since there are no planned items to permanently boost stats
+# Can just alter stats in the experience function
+# Like simulate level ups on boot
+func export_to_JSON():
+	return {
+		"path": resource_path,
+	}

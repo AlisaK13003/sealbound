@@ -9,7 +9,7 @@ class_name weapon
 
 @export var attack_accuracy : int
 
-@export var elemental_affinity : Elements 
-
-@export_enum("Sleep", "Shock", "Poision", "Burn", "Freeze") var status_conditions
-@export_range(0,1) var chance_of_status_condition : float
+func export_to_JSON():
+	return {
+		"path": resource_path,
+	}

@@ -10,6 +10,8 @@ class_name generic_combatants
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
 
+@export var current_stored_slot: int
+
 @export var drop_table: drop_tables
 
 @export var combatant_skills : Array[moves]
@@ -19,6 +21,9 @@ class_name generic_combatants
 @export var death_speed: float
 @export var walk_speed: float
 @export var attack_speed: Array[float]
+@export var sprite_scale: float = 1.0
+
+@export var sprite_offset: Vector2 = Vector2(0, 0)
 
 @export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
 
@@ -33,3 +38,22 @@ func add_experience(amount_to_add):
 		combatant_stats.level += 1
 	
 	return (ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120) - (total_experience_points - ceili((100 * pow(1.2, combatant_stats.level)) - 120)))
+
+func export_to_JSON():
+	return {
+		"path": resource_path,
+		"combatant_stats": combatant_stats.export_to_JSON(),
+		"stored_equipment": stored_equipment.export_to_JSON(),
+		"stored_weapon": stored_weapon.export_to_JSON(),
+		"current_stored_slot": current_stored_slot,
+		"total_experience_points": total_experience_points,
+		"bond_level": bond_level,
+ 	}
+
+func load_save(save_info):
+	bond_level = save_info["bond_level"]
+	current_stored_slot = save_info["current_stored_slot"]
+	total_experience_points = save_info["total_experience_points"]
+	stored_weapon = load(save_info["stored_weapon"])
+	stored_equipment = load(save_info["stored_equipment"])
+	add_experience(total_experience_points)

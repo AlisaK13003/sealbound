@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://k4xgkd3u8v5f"]
+
+[ext_resource type="Script" uid="uid://nvulh6gh6b3v" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/mini_map_handler.gd" id="1_wqiif"]
+[ext_resource type="Texture2D" uid="uid://5agq3odbpb4s" path="res://assets/tile sheets/Dungeon Arrow.png" id="2_idjb4"]
+
+[node name="MiniMap" type="Control" unique_id=1818784448]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqiif")
+
+[node name="Panel" type="Panel" parent="." unique_id=1401923685]
+z_index = 1
+clip_contents = true
+layout_mode = 0
+offset_left = 13.660278
+offset_top = 11.176582
+offset_right = 113.6714
+offset_bottom = 110.90009
+
+[node name="GridContainer" type="GridContainer" parent="Panel" unique_id=251210719]
+layout_mode = 0
+offset_left = -250.0
+offset_right = 350.0
+offset_bottom = 1120.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 15
+
+[node name="ColorRect" type="ColorRect" parent="Panel" unique_id=695387163]
+z_index = 1
+layout_mode = 0
+offset_left = 41.0
+offset_top = 41.0
+offset_right = 57.0
+offset_bottom = 57.0
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(8, 8)
+color = Color(1, 0, 1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/ColorRect" unique_id=1923535297]
+position = Vector2(17.890572, 18.167942)
+rotation = 3.1415927
+texture = ExtResource("2_idjb4")
+centered = false
+offset = Vector2(2.13, 1.64)
+region_enabled = true
+region_rect = Rect2(0.08010864, 0.023097515, 15.919891, 15.976902)
+
+[node name="Panel2" type="Panel" parent="." unique_id=341714087]
+layout_mode = 0
+offset_left = 9.704826
+offset_top = 5.8966026
+offset_right = 117.002014
+offset_bottom = 114.27672

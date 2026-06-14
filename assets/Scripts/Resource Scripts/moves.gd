@@ -87,3 +87,8 @@ class_name moves
 @export var pressed_sprite: Texture2D
 @export var hover_sprite: Texture2D
 @export var disabled_sprite: Texture2D
+
+func export_to_JSON():
+	return {
+		"path": resource_path,
+	}

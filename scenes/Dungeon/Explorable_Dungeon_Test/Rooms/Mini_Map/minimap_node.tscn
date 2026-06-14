@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cxn5c1dmhqkue"]
+
+[ext_resource type="Texture2D" uid="uid://ds1l153lalyyc" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/3-way_Junction.png" id="1_0agnx"]
+[ext_resource type="Script" uid="uid://boskk6xvpb5ee" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/minimap_node.gd" id="2_w4eol"]
+
+[node name="MinimapNode" type="TextureRect" unique_id=118350300]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_0agnx")
+flip_h = true
+flip_v = true
+script = ExtResource("2_w4eol")
+
+[node name="Special_thing" type="TextureRect" parent="." unique_id=1130974047]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

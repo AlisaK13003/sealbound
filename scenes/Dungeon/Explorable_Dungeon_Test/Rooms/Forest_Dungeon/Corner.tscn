@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bqcvhjetrb62l"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_dm66s"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="2_u7aq0"]
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="3_sgx21"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sgx21"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bomma"]
+size = Vector3(3.2113829, 0.3203125, 6.564396)
+
+[node name="Corner" type="Node3D" unique_id=1039891981 node_paths=PackedStringArray("entrance_markers")]
+script = ExtResource("1_dm66s")
+entrance_markers = {
+NodePath("Entrance"): false,
+NodePath("Entrance2"): false
+}
+
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1454025205]
+transform = Transform3D(2.175, 0, -2.842171e-14, 0, 1, 0, 0, 0, 2.6456747, 1.9785156, -0.8401957, -1.1694767)
+mesh = SubResource("BoxMesh_sgx21")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor_Piece_1" unique_id=367556745]
+transform = Transform3D(0.45977017, 0, 3.5527137e-15, 0, 1, 0, -7.1054274e-15, 0, 0.183318, -0.38052654, 1.5667198, 0.61970943)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_Piece_1/StaticBody3D" unique_id=855861081]
+transform = Transform3D(0.99998486, 0, -1.5489832e-12, 0, 0.9999849, 0, 5.8264483e-12, 0, 0.99999905, 0.7584112, -1.2095978, -3.310551)
+shape = SubResource("BoxShape3D_bomma")
+
+[node name="Entrance" type="Node3D" parent="." unique_id=2018363516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 1.2883172, -0.32659152, 0.2410717)
+
+[node name="Entrance" type="Marker3D" parent="Entrance" unique_id=172327295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9467864, -0.00999999, 0.41976503)
+
+[node name="Entrance2" type="Marker3D" parent="Entrance" unique_id=1008254245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2396946, -0.00999999, 0.4087215)
+
+[node name="Entrance2" type="Node3D" parent="." unique_id=1245536181]
+transform = Transform3D(-4.371139e-08, 0, 0.485, 0, 1, 0, -1, 0, -2.1200023e-08, 3.3147755, -0.32659152, -0.5497663)
+
+[node name="Entrance" type="Marker3D" parent="Entrance2" unique_id=942945859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.990482, -0.00999999, 0.41976506)
+
+[node name="Entrance2" type="Marker3D" parent="Entrance2" unique_id=1152637318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1580524, -0.00999999, 0.40872192)
+
+[node name="Walls" type="Node3D" parent="." unique_id=673804698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 2.174942, 0, -0.6753853)
+
+[node name="Spawn_Points" type="Node3D" parent="." unique_id=240728127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 1.4920113, 0, -1.1949877)
+
+[node name="Forest_Grid_Tile" parent="." unique_id=1587593078 instance=ExtResource("2_u7aq0")]
+transform = Transform3D(0.25, 0, 4.371139e-08, 0, 0.25, 0, -4.371139e-08, 0, 0.25, 1.9300468, -0.64741564, -1.1295843)
+
+[node name="Section_1_Dungeon_Wall2" parent="." unique_id=2081305483 instance=ExtResource("3_sgx21")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, 0.33025885, 1.249657, -1.1364185)
+
+[node name="Section_1_Dungeon_Wall3" parent="." unique_id=124906396 instance=ExtResource("3_sgx21")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.9683654, 1.249657, -2.7395592)

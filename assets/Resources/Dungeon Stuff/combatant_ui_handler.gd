@@ -110,9 +110,7 @@ func update_grid_size():
 	if status_container.get_child_count() <= 4:
 		status_visible_container.custom_minimum_size = Vector2(15 + (13 * (status_container.get_child_count() - 1)), 29)
 	else:
-		print("HIII")
 		status_visible_container.custom_minimum_size = Vector2(54, 29 + (9 * ((status_container.get_child_count() / 4 if status_container.get_child_count() & 4 == 0 else ceili(float(status_container.get_child_count()) / 4))) - 1))
-		print((status_container.get_child_count() / 4 if status_container.get_child_count() & 4 == 0 else ceili(float(status_container.get_child_count()) / 4)))
 	
 func update_damage_label(health_differential, type_of_damage):
 	match type_of_damage:
@@ -131,7 +129,7 @@ func update_damage_label(health_differential, type_of_damage):
 		"DAMAGE":
 			health_differential_label.modulate = Color.WHITE_SMOKE
 	
-	health_differential_label.position.y = 30
+	var previous_y_level =	health_differential_label.position.y
 	health_differential_label.visible = true
 	if type_of_damage != "MISS":
 		health_differential_label.text = str(health_differential)
@@ -139,15 +137,16 @@ func update_damage_label(health_differential, type_of_damage):
 	current_health_label.text = str(int(health_bar.value))
 	var tween = create_tween()
 	
-	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, -10.0), 0.3)
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, previous_y_level - 20.0), 0.3)
 	
 	await tween.finished
 
 	await get_tree().create_timer(0.1).timeout
 
 	tween = create_tween()
-	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, 20.0), 0.6)
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, previous_y_level + 10.0), 0.6)
 	await tween.finished
 	health_differential_label.visible = false
-	health_differential_label.position.y = 500
+	health_differential_label.position.y = previous_y_level
+	health_differential_label.modulate = Color.WHITE_SMOKE
 	await get_tree().create_timer(0.5).timeout

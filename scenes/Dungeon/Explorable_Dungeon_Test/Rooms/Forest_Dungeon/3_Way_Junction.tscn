@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dng0wvt578awa"]
+
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_3giuk"]
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_8odcw"]
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="3_x0u8m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8odcw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x0u8m"]
+size = Vector3(3.2113829, 0.3203125, 6.564396)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x0u8m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l2okc"]
+size = Vector3(3.2113829, 0.3203125, 6.564396)
+
+[node name="3WayJunction" type="Node3D" unique_id=95625810 node_paths=PackedStringArray("entrance_markers")]
+script = ExtResource("1_8odcw")
+entrance_markers = {
+NodePath("Entrance3"): false,
+NodePath("Entrance2"): false,
+NodePath("Entrance4"): false
+}
+
+[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=607376519]
+transform = Transform3D(2.175, 0, -2.842171e-14, 0, 1, 0, 0, 0, 2.6456747, 1.9785156, -0.8401957, -1.1694767)
+mesh = SubResource("BoxMesh_8odcw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor_Piece_1" unique_id=986091594]
+transform = Transform3D(0.45977017, 0, 3.5527137e-15, 0, 1, 0, -7.1054274e-15, 0, 0.183318, -0.38052654, 1.5667198, 0.61970943)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_Piece_1/StaticBody3D" unique_id=847644599]
+transform = Transform3D(0.99998486, 0, -1.5489832e-12, 0, 0.9999849, 0, 5.8264504e-12, 0, 0.99999905, 0.7584112, -1.2095978, -3.310551)
+shape = SubResource("BoxShape3D_x0u8m")
+
+[node name="Entrance3" type="Node3D" parent="." unique_id=946069619]
+transform = Transform3D(-1, 0, -4.2400046e-08, 0, 1, 0, 8.742278e-08, 0, -0.485, 2.565148, -0.32659152, -2.506169)
+
+[node name="Entrance" type="Marker3D" parent="Entrance3" unique_id=1485264427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9467864, -0.00999999, 0.41976503)
+
+[node name="Entrance2" type="Marker3D" parent="Entrance3" unique_id=1841903082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2396946, -0.00999999, 0.4087215)
+
+[node name="Entrance2" type="Node3D" parent="." unique_id=1957656163]
+transform = Transform3D(-4.371139e-08, 0, 0.485, 0, 1, 0, -1, 0, -2.1200023e-08, 3.3147755, -0.32659152, -0.5497663)
+
+[node name="Entrance" type="Marker3D" parent="Entrance2" unique_id=344668501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.990482, -0.00999999, 0.41976506)
+
+[node name="Entrance2" type="Marker3D" parent="Entrance2" unique_id=1665678091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1580524, -0.00999999, 0.40872192)
+
+[node name="Entrance4" type="Node3D" parent="." unique_id=608896432]
+transform = Transform3D(-4.371139e-08, 0, -0.485, 0, 1, 0, 1, 0, -2.1200023e-08, 0.53405905, -0.32659152, -1.7063448)
+
+[node name="Entrance" type="Marker3D" parent="Entrance4" unique_id=1696365323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.990482, -0.00999999, 0.41976506)
+
+[node name="Entrance2" type="Marker3D" parent="Entrance4" unique_id=107708341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1580524, -0.00999999, 0.40872192)
+
+[node name="Walls" type="Node3D" parent="." unique_id=722484958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 2.174942, 0, -0.6753853)
+
+[node name="Spawn_Points" type="Node3D" parent="." unique_id=1871216969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 1.4920113, 0, -1.1949877)
+
+[node name="Forest_Grid_Tile" parent="." unique_id=1587593078 instance=ExtResource("1_3giuk")]
+transform = Transform3D(0.25, 0, 4.371139e-08, 0, 0.25, 0, -4.371139e-08, 0, 0.25, 1.9300468, -0.64741564, -1.1295843)
+
+[node name="Section_1_Dungeon_Wall2" parent="." unique_id=2081305483 instance=ExtResource("3_x0u8m")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.995626, 1.249657, 0.4041611)
+
+[node name="Floor_Piece_2" type="MeshInstance3D" parent="." unique_id=1690523022]
+transform = Transform3D(2.175, 0, 0, 0, 1, 0, 0, 0, 2.6456747, 1.9785156, -0.8401957, -1.1694767)
+mesh = SubResource("BoxMesh_x0u8m")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor_Piece_2" unique_id=1937298801]
+transform = Transform3D(0.45977017, 0, 2.8330518e-15, 0, 1, 0, -7.1054274e-15, 0, 0.183318, -0.38052654, 1.5667198, 0.61970943)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_Piece_2/StaticBody3D" unique_id=1808318159]
+transform = Transform3D(0.99998486, 0, -5.826533e-12, 0, 0.9999849, 0, 5.8264504e-12, 0, 0.99999905, 0.7584112, -1.2095978, -3.310551)
+shape = SubResource("BoxShape3D_l2okc")

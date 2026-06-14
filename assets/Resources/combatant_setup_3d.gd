@@ -142,11 +142,13 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	stored_combatant = combatant
 	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
 
+	animated_sprite.offset = combatant.sprite_offset
+
 	current_mana = 3
 	if combatant.is_combatant_enemy:
 		currently_selectable = true
 		animated_sprite.sprite_frames = combatant.sprite_frames
-		animated_sprite.pixel_size = 0.004
+		animated_sprite.pixel_size = stored_combatant.sprite_scale
 		animated_sprite.speed_scale = stored_combatant.idle_speed
 		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 		animated_sprite.play("Idle")
@@ -154,7 +156,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		combatant_ui_.get_node("TextureProgressBar").visible = false
 		# combatant_sprite.texture = combatant.combatant_sprite
 		animated_sprite.sprite_frames = combatant.sprite_frames
-		animated_sprite.pixel_size = 0.001
+		animated_sprite.pixel_size = stored_combatant.sprite_scale
 		animated_sprite.speed_scale = stored_combatant.idle_speed
 		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 		animated_sprite.play("Idle")
@@ -171,12 +173,12 @@ func update_health(change_health_value, what_action):
 				if is_defending:
 					update_portrait._update_health(current_damage * 0.6)
 					stored_combatant.combatant_stats.health -= current_damage * 0.6
-					await combatant_ui_.update_damage_label(current_damage * 0.6, "DAMAGE")
+					await combatant_ui_.update_damage_label(current_damage * 0.6, what_action)
 				else:
 					if update_portrait != null:
 						update_portrait._update_health(current_damage)
 					stored_combatant.combatant_stats.health -= current_damage
-					await combatant_ui_.update_damage_label(current_damage, "DAMAGE")
+					await combatant_ui_.update_damage_label(current_damage, what_action)
 				await get_tree().create_timer(1.5)
 				change_health_value.pop_front()
 				if change_health_value.size() == 0:
@@ -192,17 +194,17 @@ func update_health(change_health_value, what_action):
 			if is_defending:
 				update_portrait._update_health(damage_to_take * 0.6)
 				stored_combatant.combatant_stats.health -= damage_to_take * 0.6
-				await combatant_ui_.update_damage_label(damage_to_take * 0.6, "DAMAGE")
+				await combatant_ui_.update_damage_label(damage_to_take * 0.6, what_action)
 			else:
 				if update_portrait != null:
 					update_portrait._update_health(damage_to_take)
 				stored_combatant.combatant_stats.health -= damage_to_take
-				await combatant_ui_.update_damage_label(damage_to_take, "DAMAGE")
+				await combatant_ui_.update_damage_label(damage_to_take, what_action)
 	else:
 		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
 			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
-		await combatant_ui_.update_damage_label(damage_to_take, "DAMAGE")
+		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
@@ -301,9 +303,7 @@ func _remove_active_status(type_to_remove: int):
 			break
 
 func take_turn(player_portrait: player_portraits = null):
-	if parent_reference.turn_count == 1:
-		return
-	elif stored_combatant.is_combatant_enemy:
+	if stored_combatant.is_combatant_enemy:
 		current_mana += 1
 	elif parent_reference.training:
 		current_mana += 1
@@ -427,7 +427,8 @@ func walk_towards_entity(node_to_walk_to):
 		else:
 			node_to_walk_to -= displacement
 	else:
-		animated_sprite.flip_h = true
+		if stored_combatant.is_combatant_enemy:
+			animated_sprite.flip_h = true
 	var tween = create_tween()
 
 	tween.tween_property(self, "global_position", node_to_walk_to, 2)
@@ -442,22 +443,37 @@ func idle_animation():
 	animated_sprite.play("Idle")
 	animated_sprite.sprite_frames.set_animation_loop("Idle", true)
 
-func walk_animation():
-	animated_sprite.speed_scale = stored_combatant.walk_speed
-	animated_sprite.play("Walk")
-	animated_sprite.sprite_frames.set_animation_loop("Walk", true)
+func walk_animation(walk_left = null):
+	if walk_left != null:
+		if walk_left:
+			animated_sprite.speed_scale = stored_combatant.walk_speed
+			animated_sprite.play("Walk_Left")
+			animated_sprite.sprite_frames.set_animation_loop("Walk_Left", true)
+		else:
+			animated_sprite.speed_scale = stored_combatant.walk_speed
+			animated_sprite.play("Walk_Right")
+			animated_sprite.sprite_frames.set_animation_loop("Walk_Right", true)
+	else:
+		animated_sprite.speed_scale = stored_combatant.walk_speed
+		animated_sprite.play("Walk")
+		animated_sprite.sprite_frames.set_animation_loop("Walk", true)
 
 func attack_animation(what_attack_anim):
-	if stored_combatant.is_combatant_enemy:
-		var what_attack
-		match what_attack_anim:
-			0:
-				what_attack = "On_Attack_1"
-			1:
-				what_attack = "On_Attack_2"
+	var what_attack
+	match what_attack_anim:
+		0:
+			what_attack = "On_Attack_Base"
+		1:
+			what_attack = "On_Attack_1"
+		2:
+			what_attack = "On_Attack_2"
+		_:
+			what_attack = "On_Attack_Base"
+	if stored_combatant.attack_speed.size() > 0 and not stored_combatant.is_combatant_enemy:
 		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
+		await animated_sprite.animation_finished
 	
 #endregion
 

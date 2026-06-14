@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dx8j1v8t4mmbl"]
+
+[ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MC_Walk.tres" id="1_4tiff"]
+[ext_resource type="Script" uid="uid://3yi8o14hgsf0" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3d_player_controller.gd" id="1_wh5h5"]
+[ext_resource type="Script" uid="uid://cw55w15k1gsud" path="res://scenes/Dungeon/3D_player_camera_script.gd" id="3_3lwvn"]
+[ext_resource type="Script" uid="uid://byii5wmv5ldu5" path="res://scenes/Dungeon/camera_pivot_controller.gd" id="3_trhba"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wh5h5"]
+size = Vector3(0.30743408, 0.54174805, 0.048919678)
+
+[node name="3dPlayer" type="CharacterBody3D" unique_id=1611672739]
+script = ExtResource("1_wh5h5")
+move_speed = 20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1268866802]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.018035889, 0.29089355, -0.0038909912)
+shape = SubResource("BoxShape3D_wh5h5")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=755670885]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 0, 0)
+script = ExtResource("3_trhba")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
+transform = Transform3D(-4.371139e-08, -0.34037957, 0.9402881, 0, 0.9402881, 0.34037957, -1, 1.4878464e-08, -4.11013e-08, 2, 1.049, 0)
+script = ExtResource("3_3lwvn")
+player = NodePath("../..")
+
+[node name="RayCast3D" type="RayCast3D" parent="Node3D/Camera3D" unique_id=1150284999]
+transform = Transform3D(1, 8.881784e-16, 0, 0, 1, -6.1152417e-16, 0, -6.1152417e-16, 1, 0, 0, 0)
+target_position = Vector3(0, -0.015, -2.325)
+
+[node name="SpritePivot" type="Node3D" parent="." unique_id=1947866688]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1654750113]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.29717374, 0)
+pixel_size = 0.002
+sprite_frames = ExtResource("1_4tiff")
+animation = &"idle"

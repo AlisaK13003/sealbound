@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://df7sc8ebc63bp"]
+
+[ext_resource type="Script" uid="uid://bbfblvbhnp01u" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/stairs_down_controller.gd" id="1_cv4i7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3f56h"]
+size = Vector3(1.6447754, 1.4073486, 1.2836914)
+
+[node name="StairDownTeleporter" type="Node3D" unique_id=2117485151]
+script = ExtResource("1_cv4i7")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2087824729]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=713242375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00036621094, 0.20367432, 0.1418457)
+shape = SubResource("BoxShape3D_3f56h")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

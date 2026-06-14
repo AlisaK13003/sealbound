@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://80bjxl0p5txx"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_y2g23"]
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="3_lryc1"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="3_thiwj"]
+
+[node name="BasicRoom" type="Node3D" unique_id=154083555]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, -1.5620382, 0, 1.2410908)
+script = ExtResource("1_y2g23")
+
+[node name="Entrance" type="Node3D" parent="." unique_id=395401296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 1.3133128, -0.32659152, 0.2410717)
+
+[node name="Entrance" type="Marker3D" parent="Entrance" unique_id=732694747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.990482, -0.00999999, 0.41976506)
+
+[node name="Entrance2" type="Marker3D" parent="Entrance" unique_id=1003303604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2396946, -0.00999999, 0.4087215)
+
+[node name="Walls" type="Node3D" parent="." unique_id=789909949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 2.174942, 0, -0.6753853)
+
+[node name="Spawn_Points" type="Node3D" parent="." unique_id=842478586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.485, 1.4920113, 0, -1.1949877)
+
+[node name="Forest_Grid_Tile" parent="." unique_id=1869189955 instance=ExtResource("3_thiwj")]
+transform = Transform3D(0.25, 0, 4.371139e-08, 0, 0.25, 0, -4.371139e-08, 0, 0.25, 1.9300468, -0.64741564, -1.1295843)
+
+[node name="Section_1_Dungeon_Wall2" parent="." unique_id=644760535 instance=ExtResource("3_lryc1")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 3.5318592, 1.249657, -1.1364185)
+
+[node name="Section_1_Dungeon_Wall3" parent="." unique_id=682000237 instance=ExtResource("3_lryc1")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.9050059, 1.249657, -2.6984062)
+
+[node name="Section_1_Dungeon_Wall4" parent="." unique_id=966958585 instance=ExtResource("3_lryc1")]
+transform = Transform3D(-1.0927849e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927849e-08, 4.776713e-16, 0.42367363, 1.249657, -1.0761054)

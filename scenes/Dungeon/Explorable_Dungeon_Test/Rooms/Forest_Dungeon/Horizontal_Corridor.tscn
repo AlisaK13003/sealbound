@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b75l6vg3x5rwq"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_go0uc"]
+[ext_resource type="PackedScene" uid="uid://80bjxl0p5txx" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Basic_Room.tscn" id="2_go0uc"]
+
+[node name="HorizontalCorridor" type="Node3D" unique_id=1562456626 node_paths=PackedStringArray("entrance_markers")]
+script = ExtResource("1_go0uc")
+entrance_markers = {
+NodePath("Floor/BasicRoom2/Exits/Entrance"): false,
+NodePath("Floor/BasicRoom/Exits/Entrance"): false
+}
+
+[node name="Walls" type="Node3D" parent="." unique_id=110105036]
+
+[node name="Floor" type="Node3D" parent="." unique_id=1173525579]
+
+[node name="BasicRoom2" parent="Floor" unique_id=154083555 node_paths=PackedStringArray("entrance_markers") instance=ExtResource("2_go0uc")]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, -2.608, -0.837, 1.103)
+entrance_markers = {
+NodePath("Exits/Entrance"): false
+}
+
+[node name="BasicRoom" parent="Floor" unique_id=341289359 node_paths=PackedStringArray("entrance_markers") instance=ExtResource("2_go0uc")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.252, -0.837, -4.355)
+entrance_markers = {
+NodePath("Exits/Entrance"): false
+}
+
+[node name="Spawn_Points" type="Node3D" parent="." unique_id=693959738]
+
+[node name="Exits" type="Node3D" parent="." unique_id=1177291603]
+
+[node name="Exit" type="Node3D" parent="Exits" unique_id=851172539]
+
+[node name="Entrance" type="Node3D" parent="Exits" unique_id=1414058103]
+
+[editable path="Floor/BasicRoom2"]
+[editable path="Floor/BasicRoom"]

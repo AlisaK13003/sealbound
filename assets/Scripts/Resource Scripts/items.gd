@@ -62,3 +62,8 @@ class_name Items
 	"CritChance+:524288",
 	"Accuracy+:1048576"
 	) var give_status
+
+func export_to_JSON():
+	return {
+		"path": resource_path,
+	}
