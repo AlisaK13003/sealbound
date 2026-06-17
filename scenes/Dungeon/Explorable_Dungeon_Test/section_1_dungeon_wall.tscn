@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bsppn151x0keg"]
+
+[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="1_gm13x"]
+
+[node name="Section_1_Dungeon_Wall" unique_id=1488638431 instance=ExtResource("1_gm13x")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0, 0, 0)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="1" unique_id=1967340173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3910087e-07, 5.4699903)
+height = 12.55
+vertices = PackedVector3Array(6.41, -0.75, -1.1, -6.54, -0.75, -1.1, -6.54, -0.75, 1.1, 6.41, -0.75, 1.1)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+avoidance_enabled = false

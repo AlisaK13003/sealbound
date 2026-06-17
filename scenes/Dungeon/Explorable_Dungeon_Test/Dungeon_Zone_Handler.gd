@@ -359,7 +359,7 @@ var free_cam = false
 var grid_size_x = 0
 var grid_size_y = 0
 
-var max_grid_size: Vector2 = Vector2(30, 30)
+var max_grid_size: Vector2 = Vector2(5, 5)
 
 var min_room_density: float = 0.02
 var max_room_density: float = 0.3
@@ -374,25 +374,23 @@ var spawn_position: Vector2i
 
 var movement_locked = false
 
-var generation_failed
+var generation_failed = false
 
 func _ready():
-	await entered_new_floor()	
 	$"3dPlayer2"._setup(self)
-
+	await Fade.fade_in(0.0)
+	if await entered_new_floor():
+		print("FINISHED")	
 
 func remove_old_dungeon():
 	player.position = Vector3(-10, 0, -10)
 	player.current_grid_pos = Vector2(-1, -1)
 	for child in navigation_region.get_children():
 		var child_to_remove = child
-	#	navigation_region.remove_child.call_deferred(child)
 		child.queue_free()
 	for child in enemy_container.get_children():
 		var child_to_remove = child
-	#	enemy_container.remove_child(child)
 		child.queue_free()
-	#active_room_nodes.clear()
 	await mini_map.clear_mini_map()
 
 var setting_up_new_floor = false
@@ -408,14 +406,19 @@ func entered_new_floor():
 		var bounding_box_arr: Array[Array] = []
 		await remove_old_dungeon()
 		setting_up = true
-
+		
 		while true:
 			if await generate_dungeon(bounding_box_arr):
 				break
-		await Fade.fade_out(2)
+			else:
+				await remove_old_dungeon()
+				bounding_box_arr.clear()
 		setting_up = false
 	setting_up_new_floor = false
+	await Fade.fade_out(2)
 	movement_locked = false
+
+	return true
 	
 var number_of_rooms = 0
 var spawn_room_location
@@ -459,10 +462,26 @@ func generate_dungeon(bounding_box_arr):
 	mini_map._setup(self, bounding_box_arr, generated_rooms, spawn_position)
 
 	await get_tree().physics_frame
+	await get_tree().physics_frame
 	
-	navigation_region.bake_navigation_mesh(true)
+	if navigation_region.navigation_mesh:
+		navigation_region.navigation_mesh.clear()
 	
-	await navigation_region.bake_finished
+	navigation_region.bake_navigation_mesh(false)
+	
+
+	var retries = 0
+	while navigation_region.navigation_mesh.get_polygon_count() == 0 and retries < 5:
+		await get_tree().physics_frame
+		
+		navigation_region.navigation_mesh.clear()
+		navigation_region.bake_navigation_mesh(false)
+		retries += 1
+		
+	if navigation_region.navigation_mesh.get_polygon_count() == 0:
+		return
+			
+	await get_tree().physics_frame
 	
 	player.position = Vector3(0, 2.0, 0)
 
@@ -472,14 +491,12 @@ func generate_dungeon(bounding_box_arr):
 	var current_start = get_room_node_at(index_to_pos(spawn_room_location))
 	player_start_position = Vector2(player.position.x, player.position.z)
 	player.rotation_degrees.y = 0.0
-	player.camera.rotation.x = 0.0
 	player.camera_pivot.rotation.y = 0.0
-	#player.camera_pivot.current_yaw = 0.0
-	#player.camera_pivot.current_pitch = 0.0
-	#player.camera_pivot.target_yaw = 0.0
-	#player.camera_pivot.target_pitch = 0.0
+	player.camera_pivot.current_yaw = 0.0
+	player.camera_pivot.current_pitch = 0.0
+	player.camera_pivot.target_yaw = 0.0
+	player.camera_pivot.target_pitch = 0.0
 
-	
 	match current_start.rotation_degrees.y:
 		0.0:
 			pass
@@ -492,9 +509,10 @@ func generate_dungeon(bounding_box_arr):
 		360.0:
 			player.rotation_degrees.y += 90.0
 	player.sprite_pivot.rotation_degrees.y = 0
-	var number_of_enemies = ceili(navigation_region.get_child_count() / 10)
+	var number_of_enemies = ceili(navigation_region.get_child_count() / 20)
 	var enemy_spawnable_rooms = navigation_region.get_children()
 	var enemy_count = 0
+	var enemy_array: Array[CharacterBody3D]
 	enemy_spawnable_rooms.shuffle()
 	for room_ in enemy_spawnable_rooms:
 		if room_ is MeshInstance3D or room_.room_classification in [0, 1]:
@@ -505,15 +523,15 @@ func generate_dungeon(bounding_box_arr):
 			var new_enemy = load(enemy_scene)
 			var new_enemy_instance = new_enemy.instantiate()
 			
-			#new_enemy_instance.position.y += 2.0
-			
 			new_enemy_instance.position.x = (room_.room_coords.x) * tile_size
 			new_enemy_instance.position.z = (room_.room_coords.y) * tile_size
 			new_enemy_instance.position.y = 2.0
 
 			enemy_container.add_child(new_enemy_instance)
 			new_enemy_instance._setup(self)
+			enemy_array.append(new_enemy_instance)
 			enemy_count += 1
+	mini_map.store_current_enemy_list(enemy_array)
 	return true
 
 
@@ -522,7 +540,11 @@ var number_of_allowed_2x2 = 1
 func _build_room_geometry(bounding_box_arr):
 	grid_size_x = int(max_grid_size.x)
 	grid_size_y = int(max_grid_size.y)
-	
+	for x in range(max_grid_size.x):
+		var col: Array = []
+		for y in range(max_grid_size.y):
+			col.append(0)
+		bounding_box_arr.append(col)
 
 	# Determining position and rotation of floor spawn	
 	#var spawn_room_index = rng.randi_range(0, (max_grid_size.x * max_grid_size.y) - 1)
@@ -562,7 +584,8 @@ func _build_room_geometry(bounding_box_arr):
 		if not what_edges_is_spawn_on[dir]:
 			valid_facings.append(dir)
 	var spawn_is_facing = valid_facings[rng.randi() % valid_facings.size()]
-	
+	rooms_already_present.append(dungeon_room.new(spawn_pos, int(spawn_pos.x), int(spawn_pos.y), spawn_is_facing, what_edges_is_spawn_on, "Spawn_Room"))
+
 	var spawn_boss = false
 	if floor_count == current_floor - 1:
 		spawn_boss = true
@@ -652,13 +675,8 @@ func _build_room_geometry(bounding_box_arr):
 		bounding_box_arr[exit_pos.x][exit_pos.y] = "E"
 
 	# 	func _init(position_, x_coord, y_coord, facing, room_name):
-	rooms_already_present.append(dungeon_room.new(spawn_pos, int(spawn_pos.x), int(spawn_pos.y), spawn_is_facing, what_edges_is_spawn_on, "Spawn_Room"))
 	
-	for x in range(max_grid_size.x):
-		var col: Array = []
-		for y in range(max_grid_size.y):
-			col.append(0)
-		bounding_box_arr.append(col)
+
 	
 	bounding_box_arr[spawn_pos.x][spawn_pos.y] = "S"
 	
@@ -1011,6 +1029,7 @@ func instantiate_rooms(rooms_already_present, bounding_box_arr):
 			
 			var grid_pos = Vector2i(x, y)
 			active_room_nodes[grid_pos] = new_room
+	print("TRUE")
 	return true
 
 const ASSET_OFFSETS = {

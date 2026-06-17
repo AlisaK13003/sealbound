@@ -2,9 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_ldkxi"]
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_mytxw"]
-[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="2_mytxw"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_mytxw"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_mytxw"]
 
 [node name="3WayJunction" type="Node3D" unique_id=312176759]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -14,9 +12,5 @@ room_classification = 4
 [node name="Forest_Grid_Tile" parent="." unique_id=275606809 groups=["Ground"] instance=ExtResource("1_ldkxi")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="Section_1_Dungeon_Wall3" parent="." unique_id=644760535 instance=ExtResource("2_mytxw")]
-transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.008356214, 1.7859914, -1.5633783)
-
-[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1721811155]
-transform = Transform3D(3.65, 0, 0, 0, 0.806, 0, 0, 0, 3.301, 2.4687992e-08, -0.09, 0.13860226)
-mesh = SubResource("BoxMesh_mytxw")
+[node name="Section_1_Dungeon_Wall" parent="." unique_id=1488638431 instance=ExtResource("3_mytxw")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.3984261e-07, 1.8, -1.5996131)

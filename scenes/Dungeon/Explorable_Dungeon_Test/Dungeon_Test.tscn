@@ -15,9 +15,14 @@ size = Vector3(11.0121765, 1, 4.1467285)
 size = Vector3(4.5248985, 1, 13.21936)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ov5eq"]
+sample_partition_type = 2
 geometry_parsed_geometry_type = 1
-geometry_collision_mask = 4278190081
-agent_radius = 0.15
+geometry_collision_mask = 4278190083
+cell_size = 0.1
+agent_radius = 0.3
+agent_max_climb = 0.0
+region_min_size = 30.0
+vertices_per_polygon = 12.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_i6eaa"]
 

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bokuwcjrjfj1j"]
+
+[ext_resource type="Script" uid="uid://4wftjfdlijsq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/].gd" id="1_efv7i"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="1_ihp0q"]
+
+[node name="DungeonOverlay" type="Control" unique_id=338282261]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_efv7i")
+
+[node name="Quest_Menu" parent="." unique_id=1034936178 instance=ExtResource("1_ihp0q")]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 346.0
+offset_right = 113.160034
+offset_bottom = 374.0
+input_event_that_will_activate = "Quest_Menu"
+button_name = "Open Quests"
+
+[node name="Label2" parent="Quest_Menu/HBoxContainer" parent_id_path=PackedInt32Array(1034936178, 1419648638) index="1" unique_id=698061328]
+text = "Quest Menu"
+
+[editable path="Quest_Menu"]

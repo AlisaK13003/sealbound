@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_i04p8"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_tussm"]
-[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="2_j08ur"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_i04p8"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_i04p8"]
 
 [node name="CornerJunction" type="Node3D" unique_id=365595035]
 script = ExtResource("1_i04p8")
@@ -13,12 +11,8 @@ room_classification = 3
 [node name="Forest_Grid_Tile" parent="." unique_id=275606809 instance=ExtResource("1_tussm")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="Section_1_Dungeon_Wall" parent="." unique_id=644760535 instance=ExtResource("2_j08ur")]
-transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
+[node name="Section_1_Dungeon_Wall3" parent="." unique_id=1488638431 instance=ExtResource("3_i04p8")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.589581, 1.8, 0)
 
-[node name="Section_1_Dungeon_Wall2" parent="." unique_id=351746559 instance=ExtResource("2_j08ur")]
-transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0.0029643774, 1.7859914, -1.5750322)
-
-[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1781900131]
-transform = Transform3D(3.1, 0, 0, 0, 0.806, 0, 0, 0, 2.891, 0.14008212, -0.09010136, 0.18208802)
-mesh = SubResource("BoxMesh_i04p8")
+[node name="Section_1_Dungeon_Wall4" parent="." unique_id=556781167 instance=ExtResource("3_i04p8")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0.009575069, 1.8, -1.5893306)

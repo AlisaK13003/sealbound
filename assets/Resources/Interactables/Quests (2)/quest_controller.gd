@@ -15,6 +15,8 @@ class_name quest
 
 @export var completion_requirements: Array[quest_item]
 
+@export_flags("Dungeon Room", "Enemy Drops") var dungeon_completion_location
+
 @export var reward_money: int
 @export var reward_items: Array[Items]
 @export var reward_weapons: Array[weapon]

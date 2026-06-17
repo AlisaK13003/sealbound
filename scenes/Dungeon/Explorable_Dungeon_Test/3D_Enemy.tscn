@@ -7,48 +7,56 @@
 radius = 0.24665812
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_kx1k8"]
-height = 1.1147461
-radius = 5.4086914
+height = 1.557373
+radius = 5.293457
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kx1k8"]
-radius = 0.40722656
-height = 0.8144531
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pvj4x"]
+height = 0.16491699
+radius = 0.7421875
 
 [node name="3dEnemy" type="CharacterBody3D" unique_id=185078977]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.44640642, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19635624, 0)
+collision_layer = 4294967295
+collision_mask = 4294967295
 script = ExtResource("1_kx1k8")
 speed = 1.0
+patrol_radius = 10.0
+time_to_wait_after_completing_path = 3.0
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=380480314]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7370329, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11235738, 0)
 sprite_frames = ExtResource("1_is31c")
 animation = &"Idle"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=81228155]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004638672, 0.6511192, -0.02017212)
 shape = SubResource("SphereShape3D_kx1k8")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1766453012]
-path_desired_distance = 1.5
-target_desired_distance = 0.5
+path_desired_distance = 0.8
+target_desired_distance = 10.0
+path_height_offset = 1.0
 path_max_distance = 10.01
-avoidance_enabled = true
-radius = 2.0
+path_postprocessing = 1
+simplify_path = true
+simplify_epsilon = 0.01
+radius = 0.3
+use_3d_avoidance = true
+debug_enabled = true
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1909437788]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=399451672]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0691718, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84785825, 0)
 shape = SubResource("CylinderShape3D_kx1k8")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1022114886]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59019667, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 0)
 target_position = Vector3(0, 0, 1)
 
 [node name="Area3D2" type="Area3D" parent="." unique_id=504451711]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2" unique_id=1546376642]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6241455, 0)
-shape = SubResource("CapsuleShape3D_kx1k8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13763893, 0)
+shape = SubResource("CylinderShape3D_pvj4x")
 
 [connection signal="body_entered" from="Area3D2" to="." method="_on_area_3d_2_body_entered"]

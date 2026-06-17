@@ -48,8 +48,11 @@ _subresources={
 "nodes": {
 "PATH:Section_1_Forest_Wall": {
 "generate/physics": true,
+"mesh_instance/layers": 2,
+"physics/layer": 2,
+"physics/mask": 2,
 "physics/shape_type": 3,
-"primitive/size": Vector3(12.625, 12.575, 3)
+"primitive/size": Vector3(12.625, 12.625, 1.085)
 }
 }
 }
