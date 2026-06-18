@@ -3,20 +3,36 @@
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_0p5vt"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_n8wpo"]
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_0p5vt"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="3_4q6ny"]
 
 [node name="RoomCap" type="Node3D" unique_id=596948473]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_0p5vt")
 room_classification = 2
 
-[node name="Forest_Grid_Tile" parent="." unique_id=275606809 groups=["Ground"] instance=ExtResource("1_n8wpo")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+[node name="Walls" type="Node3D" parent="." unique_id=1216623296]
 
-[node name="Section_1_Dungeon_Wall4" parent="." unique_id=1488638431 instance=ExtResource("3_0p5vt")]
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("3_0p5vt")]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.371325e-07, 1.8, -1.568613)
 
-[node name="Section_1_Dungeon_Wall5" parent="." unique_id=962850484 instance=ExtResource("3_0p5vt")]
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=962850484 instance=ExtResource("3_0p5vt")]
 transform = Transform3D(-1.0927845e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927845e-08, 4.776714e-16, -1.6186562, 1.8, 0.04881034)
 
-[node name="Section_1_Dungeon_Wall6" parent="." unique_id=1931132768 instance=ExtResource("3_0p5vt")]
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=1931132768 instance=ExtResource("3_0p5vt")]
 transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6086884, 1.8, 0.036270402)
+
+[node name="Floor" type="Node3D" parent="." unique_id=647261417]
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=16557298 instance=ExtResource("3_4q6ny")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=1358726698 instance=ExtResource("1_n8wpo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=1424478078]
+layers = 4
+
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=136381516]
+collision_layer = 4
+
+[editable path="Floor/Forest_Grid_Tile"]

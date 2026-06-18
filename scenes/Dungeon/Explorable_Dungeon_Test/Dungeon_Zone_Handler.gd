@@ -9,7 +9,7 @@ class_name explorable_dungeon
 @onready var enemy_container = $Enemies
 @onready var mini_map = $MiniMap
 
-@export var floor_count = 5
+
 
 var enemy_scene = "res://scenes/Dungeon/Explorable_Dungeon_Test/3D_Enemy.tscn"
 
@@ -17,6 +17,8 @@ var camera_player_displacement: Vector3
 
 var rng = RandomNumberGenerator.new()
 var player_start_position: Vector2
+
+var current_dungeon: dungeon_type
 
 var camera_speed = 3.0:
 	set(value):
@@ -33,7 +35,8 @@ var room_symbol_mapping: Dictionary = {
 	"C": "Corner_Junction",
 	"3": "3-Way_Junction",
 	"4": "4-Way_Junction",
-	"2": "2x2_Room",            
+	"2": "2x2_Room",
+	"T": "T_Chest_Room",            
 
 	# --- Hallways & Corridors ---
 	"H": "Generic_Hallway",      
@@ -49,7 +52,7 @@ var room_symbol_mapping: Dictionary = {
 
 var active_room_nodes: Dictionary = {}
 
-var room_names = ["Spawn_Room", "Room_Cap", "4-Way_Junction", "3-Way_Junction", "Corner_Junction", "2x2_Room", "Stair_Room", "Straight_Room"]
+var room_names = ["Spawn_Room", "Room_Cap", "4-Way_Junction", "3-Way_Junction", "Corner_Junction", "2x2_Room", "T_Chest_Room", "Stair_Room", "Straight_Room"]
 var rooms : Dictionary = {
 	"Spawn_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Spawn_Room.tscn",
 	"Room_Cap": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Room_Cap.tscn",
@@ -57,6 +60,7 @@ var rooms : Dictionary = {
 	"3-Way_Junction": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/3-way-junction.tscn",
 	"Corner_Junction": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Corner_Junction.tscn",
 	"2x2_Room": "",
+	"T_Chest_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Chest_Room_.tscn",
 	"Stair_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Stair_Room.tscn",
 	"Straight_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/straight_room_.tscn"
 }
@@ -69,7 +73,8 @@ var room_sizing : Dictionary = {
 	"3-Way_Junction": 1,
 	"Corner_Junction": 1,
 	"2x2_Room": 2,
-	"Stair_Room": 1
+	"Stair_Room": 1,
+	"T_Chest_Room": 1,
 }
 
 var room_exits: Dictionary = {
@@ -79,6 +84,7 @@ var room_exits: Dictionary = {
 	"4-Way_Junction": 4,
 	"3-Way_Junction": 3,
 	"Corner_Junction": 2,
+	"T_Chest_Room": 1,
 	"2x2_Room": 2,
 	"Stair_Room": 1
 }
@@ -94,6 +100,10 @@ var valid_directions: Dictionary = {
 	"Spawn_Room": [], 
 	"Room_Cap": [
 		[0], [1], [2], [3] 
+	],
+	"T_Chest_Room":
+		[
+		[0], [1], [2], [3]		
 	],
 	"Horizontal_Corridor": [
 		[0, 1], [1, 0], 
@@ -359,7 +369,7 @@ var free_cam = false
 var grid_size_x = 0
 var grid_size_y = 0
 
-var max_grid_size: Vector2 = Vector2(5, 5)
+var max_grid_size: Vector2 = Vector2(15, 15)
 
 var min_room_density: float = 0.02
 var max_room_density: float = 0.3
@@ -369,18 +379,32 @@ var absolute_min_rooms: int = 10
 var absolute_max_rooms: int = 50
 
 var current_floor = 0
+var floor_count = 5
 
 var spawn_position: Vector2i
 
 var movement_locked = false
 
 var generation_failed = false
+var potential_encounters: Array[generic_combatants]
 
 func _ready():
+	return
 	$"3dPlayer2"._setup(self)
 	await Fade.fade_in(0.0)
 	if await entered_new_floor():
 		print("FINISHED")	
+
+func _setup(dungeon_type_: dungeon_type):
+	await Fade.fade_in(0.0)
+	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
+	current_dungeon = dungeon_type_
+	if dungeon_type_.does_dungeon_have_boss:
+		if not dungeon_type_.has_beaten_boss:
+			floor_count = dungeon_type_.first_time_floor_count
+	player._setup(self)	
+	await entered_new_floor()
+	print("SETUP")
 
 func remove_old_dungeon():
 	player.position = Vector3(-10, 0, -10)
@@ -396,6 +420,7 @@ func remove_old_dungeon():
 var setting_up_new_floor = false
 func entered_new_floor():
 	if current_floor == floor_count:
+		return true
 		get_tree().quit()
 	else:
 		setting_up_new_floor = true
@@ -414,11 +439,10 @@ func entered_new_floor():
 				await remove_old_dungeon()
 				bounding_box_arr.clear()
 		setting_up = false
+	print("FADING OUT")
 	setting_up_new_floor = false
 	await Fade.fade_out(2)
 	movement_locked = false
-
-	return true
 	
 var number_of_rooms = 0
 var spawn_room_location
@@ -446,10 +470,25 @@ func generate_dungeon(bounding_box_arr):
 		
 		if all_rooms_connected:
 			dungeon_clearable = true
+			
+			var spawn_count = 0
+			var stair_count = 0
+			for row in range(max_grid_size.x):
+				for col in range(max_grid_size.y):
+					if str(bounding_box_arr[row][col]) == "E":
+						stair_count += 1
+					elif str(bounding_box_arr[row][col]) == "S":
+						spawn_count += 1
+			if spawn_count > 1 or stair_count > 1:
+				dungeon_clearable = false
+				bounding_box_arr.clear()
+				generated_rooms.clear()
 		else:
 			bounding_box_arr.clear()
 			generated_rooms.clear()
-			
+		
+
+		
 	
 	for row in range(max_grid_size.x):
 		var row_string = ""
@@ -691,8 +730,10 @@ func _build_room_geometry(bounding_box_arr):
 	number_of_rooms = randi_range(min_rooms, max_rooms)
 	
 	for i in range(number_of_rooms):
-		var random_room_to_spawn = randi_range(1, rooms.size() - 3)
+		var random_room_to_spawn = randi_range(1, rooms.size() - 2)
 
+		if random_room_to_spawn == 6:
+			print("YAY")
 		var random_room_position = rng.randi_range(0, (grid_size_x * grid_size_y) - 1)
 		var random_room_coords = index_to_pos(random_room_position)
 		
@@ -984,7 +1025,6 @@ func spawn_room(random_room_to_spawn, random_room_position, i, potential_room: d
 				
 		if is_invalid:
 			return false
-		
 		if check_room_placement(potential_room, rooms_already_present, random_room_to_spawn, bounding_box_arr):
 			rooms_already_present.append(potential_room)
 			bounding_box_arr[random_room_coords.x][random_room_coords.y] = room_names[random_room_to_spawn][0]
@@ -1005,13 +1045,14 @@ func instantiate_rooms(rooms_already_present, bounding_box_arr):
 			var room_to_load = room_symbol_mapping[str(bounding_box_arr[x][y])]
 			if room_to_load == "Empty_Space":
 				continue
+			if room_to_load == "T_Chest_Room":
+				print("YUAY TREASYRE")
 			var new_instance = load(rooms[room_symbol_mapping[bounding_box_arr[x][y]]])
 			var new_room = new_instance.instantiate()
 
 			var base_position = Vector3(x * tile_size, 0.0, y * tile_size)
 			new_room.room_coords = Vector2(x, y)
-			if room_to_load == "Stair_Room":
-				new_room._setup(self)
+			new_room._setup(self)
 
 			var direction = get_directions_at(x, y, room_lookup, bounding_box_arr)
 			
@@ -1042,7 +1083,8 @@ const ASSET_OFFSETS = {
 	"Vertical_Corridor": 90.0,
 	"3-Way_Junction": 180.0,       
 	"Hallway_3-Way_Junction": 0.0,
-	"Straight_Room": 90.0
+	"Straight_Room": 90.0,
+	"T_Chest_Room": 180.0
 }
 
 func get_rotation_degrees_(room_type: String, directions: Array[int]) -> float:
@@ -1051,7 +1093,7 @@ func get_rotation_degrees_(room_type: String, directions: Array[int]) -> float:
 	
 	var calculated_rot = 0.0
 	
-	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room"] and exits.size() == 1:
+	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room", "T_Chest_Room"] and exits.size() == 1:
 		match exits[0]:
 			2: calculated_rot = 0.0   # Facing Up (North)
 			1: calculated_rot = -90.0  # Facing Right (East)
@@ -1103,7 +1145,7 @@ func get_directions_at(x: int, y: int, room_lookup: Dictionary, bounding_box_arr
 
 func dynamically_retype_rooms(rooms_already_present: Array, bounding_box_arr):
 	for room_ in rooms_already_present:
-		if room_.room_name_type in ["Spawn_Room", "Stair_Room"]:
+		if room_.room_name_type in ["Spawn_Room", "Stair_Room", "T_Chest_Room"]:
 			continue 
 			
 		var active_exits: Array[int] = []
@@ -1467,7 +1509,7 @@ func is_dungeon_winnable(spawn_pos: Vector2i, exit_pos: Vector2i, bounding_box_a
 	validation_astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	validation_astar.update()
 	
-	var walkable_chars = ["H", "h", "-", "|", "c", "C", "t", "3", "+", "4", "S", "E", "R"]
+	var walkable_chars = ["H", "h", "-", "|", "c", "C", "t", "3", "+", "4", "S", "E", "R", "T"]
 	
 	for x in range(grid_size_x):
 		for y in range(grid_size_y):

@@ -2,10 +2,31 @@
 
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_agywj"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_uxic6"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_5vwff"]
+[ext_resource type="PackedScene" uid="uid://cmbl7st5je157" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_4_Way_Floor.glb" id="3_ktjh0"]
 
 [node name="4WayJunction2" type="Node3D" unique_id=66050579]
 script = ExtResource("1_agywj")
 room_classification = 5
 
-[node name="Forest_Grid_Tile" parent="." unique_id=275606809 instance=ExtResource("1_uxic6")]
+[node name="Walls" type="Node3D" parent="." unique_id=476413192]
+
+[node name="Section_1_Dungeon_Wall" parent="Walls" unique_id=1488638431 instance=ExtResource("3_5vwff")]
+transform = Transform3D(0.04, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.5980188, 1.9369967, -1.4854994)
+
+[node name="Section_1_Dungeon_Wall2" parent="Walls" unique_id=1551885122 instance=ExtResource("3_5vwff")]
+transform = Transform3D(0.04, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.5980188, 1.9369967, 1.6327069)
+
+[node name="Section_1_Dungeon_Wall3" parent="Walls" unique_id=2091691752 instance=ExtResource("3_5vwff")]
+transform = Transform3D(0.04, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -1.5637594, 1.9369967, 1.6327069)
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=792660207 instance=ExtResource("3_5vwff")]
+transform = Transform3D(0.04, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -1.5637594, 1.9369967, -1.4880943)
+
+[node name="Floor" type="Node3D" parent="." unique_id=1053430639]
+
+[node name="Creepy_Dungeon_4_Way_Floor" parent="Floor" unique_id=1864649792 instance=ExtResource("3_ktjh0")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.19698966, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=1358726698 instance=ExtResource("1_uxic6")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)

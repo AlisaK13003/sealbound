@@ -2,8 +2,6 @@ extends Node3D
 
 @export var mouse_sensitivity: float = 0.15
 @export var lerp_speed: float = 10.0 
-
-
 @onready var camera: Camera3D = $Camera3D
 
 var target_yaw: float = 0.0
@@ -11,6 +9,11 @@ var target_pitch: float = 0.0
 
 var current_yaw: float = 0.0
 var current_pitch: float = 0.0
+
+var has_been_setup: bool = false
+
+func _setup():
+	has_been_setup = true
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -34,6 +37,8 @@ func _input(event: InputEvent) -> void:
 		#target_pitch = clamp(target_pitch, -85.0, 85.0)
 
 func _process(delta: float) -> void:
+	if not has_been_setup:
+		return
 	if camera.player.p_ref.movement_locked:
 		return
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:

@@ -22,6 +22,7 @@ var tile_ = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/MiniMap
 
 var room_start = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room Start.png"
 var stairs_down = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Stairs Down.png"
+var chest_room = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Treasure_Room_Overlay.png"
 
 var room_symbol_mapping: Dictionary = {
 	"S": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room_Cap.png",
@@ -30,7 +31,8 @@ var room_symbol_mapping: Dictionary = {
 	"C": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Corner_Junction.png",
 	"3": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/3-way_Junction.png",
 	"4": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/4-way_Junction.png",
-	"2": "2x2_Room",            
+	"2": "2x2_Room",
+	"T": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room_Cap.png",   
 
 	"H": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Straight_Room.png",      
 	"h": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room_Cap.png",        
@@ -42,7 +44,6 @@ var room_symbol_mapping: Dictionary = {
 
 	"0": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Empty_Room.png"      
 }
-
 var room_symbol_mapping_2: Dictionary = {
 	"S": "Spawn_Room",
 	"E": "Stair_Room",
@@ -50,7 +51,8 @@ var room_symbol_mapping_2: Dictionary = {
 	"C": "Corner_Junction",
 	"3": "3-Way_Junction",
 	"4": "4-Way_Junction",
-	"2": "2x2_Room",            
+	"2": "2x2_Room",     
+	"T": "T_Chest_Room",       
 
 	# --- Hallways & Corridors ---
 	"H": "Generic_Hallway",      
@@ -63,7 +65,7 @@ var room_symbol_mapping_2: Dictionary = {
 
 	"0": "Empty_Space"      
 }
-@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room") var room_classification
+@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room") var room_classification
 
 var room_lookup: Dictionary = {
 	0: "S",
@@ -72,7 +74,8 @@ var room_lookup: Dictionary = {
 	3: "C",
 	4: "3", 
 	5: "4",
-	6: "-"
+	6: "-",
+	7: "T",
 }
 
 @onready var original_panel_position = $Full_Screen_Map/Panel.position
@@ -273,18 +276,20 @@ const ASSET_OFFSETS = {
 	"Vertical_Corridor": 0.0,
 	"3-Way_Junction": -270.0,       
 	"Hallway_3-Way_Junction": 0.0,
-	"Straight_Room": 0.0
+	"Straight_Room": 0.0,
+	"T_Chest_Room": 0.0,
 }
 
 func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 	
 	var calculated_rot = 0.0 
-	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room"]:
+	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room", "T_Chest_Room"]:
 		match previous_rotation:
 			180.0: calculated_rot = 0.0   # Facing Up 
 			90.0: calculated_rot = 90.0  # Facing Down 
 			360.0: calculated_rot = 180.0 # Facing Left 
 			270.0: calculated_rot = -90.0  # Facing Right 
+			0.0: calculated_rot = 180.0
 
 	elif room_type in ["Corner_Junction", "Hallway_Corner"]:
 		match previous_rotation:
@@ -375,6 +380,9 @@ func _new_room_entered(coords):
 			6:
 				grid_container.get_child(index)._change_texture(load(room_symbol_mapping["-"]))
 				full_screen_map.get_child(index)._change_texture(load(room_symbol_mapping["-"]))
+			7:
+				grid_container.get_child(index)._change_texture(load(room_symbol_mapping["T"]), load(chest_room))
+				full_screen_map.get_child(index)._change_texture(load(room_symbol_mapping["T"]), load(chest_room))
 				
 		grid_container.get_child(index).main_room_texture.rotation_degrees = get_rotation_degrees_(room_symbol_mapping_2[room_lookup[current_room.room_classification]], current_room.rotation_degrees.y)
 		full_screen_map.get_child(index).main_room_texture.rotation_degrees = get_rotation_degrees_(room_symbol_mapping_2[room_lookup[current_room.room_classification]], current_room.rotation_degrees.y)

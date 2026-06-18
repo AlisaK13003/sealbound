@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bpp3qekgta70l"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_o4ivh"]
+[ext_resource type="PackedScene" uid="uid://c813p1yk0y3l3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Chest.tscn" id="2_2u071"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_g5mx7"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="4_2u071"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="4_joj12"]
+
+[node name="ChestRoom" type="Node3D" unique_id=1968512589]
+script = ExtResource("1_o4ivh")
+room_classification = 7
+
+[node name="Chest" parent="." unique_id=572215512 instance=ExtResource("2_2u071")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.79556894, 0)
+
+[node name="Walls" type="Node3D" parent="." unique_id=82826717]
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("3_g5mx7")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0, 1.8, -1.596)
+
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=886674104 instance=ExtResource("3_g5mx7")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5975988, 1.8, 0.007053852)
+
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=1078464554 instance=ExtResource("3_g5mx7")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5884562, 1.8, 0.017942429)
+
+[node name="Floor" type="Node3D" parent="." unique_id=919956286]
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=859113851 instance=ExtResource("4_2u071")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.10424873, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=2097126478 instance=ExtResource("4_joj12")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=825095871]
+layers = 4
+
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=134728836]
+collision_layer = 4
+
+[editable path="Floor/Forest_Grid_Tile"]

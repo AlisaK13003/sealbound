@@ -2,22 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_eqpjp"]
 [ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="1_vh8sp"]
-[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_vh8sp"]
-[ext_resource type="Resource" uid="uid://deshssbe04tvd" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/enemy2.tres" id="3_r5wgs"]
-[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/enemy.tres" id="4_b8d5o"]
-[ext_resource type="Resource" uid="uid://dtpsy6s2gbhi3" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/enemy3.tres" id="5_v03pp"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="6_mka7e"]
-
-[sub_resource type="Resource" id="Resource_wehx1"]
-script = ExtResource("1_eqpjp")
-enemies = Array[ExtResource("2_vh8sp")]([ExtResource("3_r5wgs"), ExtResource("4_b8d5o"), ExtResource("5_v03pp"), ExtResource("5_v03pp"), ExtResource("4_b8d5o")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("6_mka7e")
 dungeon_name = "Forest Dungeon"
 dungeon_background = ExtResource("1_vh8sp")
-max_number_of_waves = 6
-minimum_number_of_waves = 4
-potential_waves = Array[ExtResource("1_eqpjp")]([SubResource("Resource_wehx1"), SubResource("Resource_wehx1")])
+max_number_of_floors = 10
+minimum_number_of_floors = 5
+type_of_dungeon = 2
+does_dungeon_have_boss = true
 metadata/_custom_type_script = "uid://3loyjc4d808j"

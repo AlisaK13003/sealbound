@@ -11,11 +11,11 @@ extends Control
 
 func _setup(dungeon_type_: dungeon_type):
 	dungeon_name_label.text = dungeon_type_.dungeon_name
-	floor_count_label.text = "Expect " + str(dungeon_type_.minimum_number_of_waves) + " - " + str(dungeon_type_.max_number_of_waves) + " floors."
+	floor_count_label.text = "Expect " + str(dungeon_type_.minimum_number_of_floors) + " - " + str(dungeon_type_.max_number_of_floors) + " floors."
 	var avg_level_count = 0
 	var total_level = 0
 	var unique_enemies = []
-	for possible_wave in dungeon_type_.potential_waves:
+	for possible_wave in dungeon_type_.potential_encounters:
 		for enemy in possible_wave.enemies:
 			if unique_enemies.find(enemy) == -1:
 				unique_enemies.append(enemy)
@@ -28,6 +28,8 @@ func _setup(dungeon_type_: dungeon_type):
 		enemy_slot.get_child(0).sprite_frames = unique_enemies[enemy_slot.get_index()].sprite_frames
 		enemy_slot.get_child(0).play("Idle")
 		enemy_slot.get_child(0).speed_scale = unique_enemies[enemy_slot.get_index()].idle_speed
-		
+	
+	if total_level == 0 or avg_level_count == 0:
+		return
 	average_level_label.text = "Avg Lv: " + str(total_level / avg_level_count)
 	dungeon_image.texture = dungeon_type_.dungeon_background

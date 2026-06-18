@@ -1,0 +1,274 @@
+[gd_scene format=3 uid="uid://c813p1yk0y3l3"]
+
+[ext_resource type="Script" uid="uid://pmm7yu2n66uh" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/chest_controller.gd" id="1_cphs6"]
+[ext_resource type="PackedScene" uid="uid://yft0dlrg05b5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest6.glb" id="1_x8aj0"]
+[ext_resource type="PackedScene" uid="uid://w4nl6be7icvr" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest5.glb" id="2_cphs6"]
+[ext_resource type="PackedScene" uid="uid://dva3e37e4vxxy" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest4.glb" id="3_a4fis"]
+[ext_resource type="PackedScene" uid="uid://dtmr7aohsyn2p" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest3.glb" id="4_s3um8"]
+[ext_resource type="PackedScene" uid="uid://cb3wyhp2vob6c" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest2.glb" id="5_41k74"]
+[ext_resource type="PackedScene" uid="uid://bhvbqdoal77y" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest1.glb" id="6_rk0bc"]
+[ext_resource type="Texture2D" uid="uid://d1doxk1im1tf6" path="res://assets/tile sheets/Chest_Star.png" id="8_a4fis"]
+
+[sub_resource type="Animation" id="Animation_hi5rv"]
+resource_name = "Chest_Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Chest6:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Chest5:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Chest4:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Chest3:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Chest2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Chest1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Chest7:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mdjer"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Chest6:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Chest5:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Chest4:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Chest3:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Chest2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Chest1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Chest7:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gsvb8"]
+_data = {
+&"Chest_Open": SubResource("Animation_hi5rv"),
+&"RESET": SubResource("Animation_mdjer")
+}
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cphs6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cphs6"]
+size = Vector3(3.9415283, 1.5488281, 2.155365)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cphs6"]
+height = 0.77783203
+radius = 3.1118164
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s3um8"]
+emission_shape_offset = Vector3(0, 1, 0)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41k74"]
+transparency = 1
+albedo_texture = ExtResource("8_a4fis")
+
+[sub_resource type="QuadMesh" id="QuadMesh_rk0bc"]
+material = SubResource("StandardMaterial3D_41k74")
+size = Vector2(0.25, 0.25)
+
+[node name="Chest" type="Node3D" unique_id=572215512]
+script = ExtResource("1_cphs6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1762063059]
+libraries/ = SubResource("AnimationLibrary_gsvb8")
+
+[node name="Chest6" parent="." unique_id=494292095 instance=ExtResource("1_x8aj0")]
+visible = false
+
+[node name="Chest5" parent="." unique_id=1970827786 instance=ExtResource("2_cphs6")]
+visible = false
+
+[node name="Chest4" parent="." unique_id=671343144 instance=ExtResource("3_a4fis")]
+visible = false
+
+[node name="Chest3" parent="." unique_id=320791102 instance=ExtResource("4_s3um8")]
+visible = false
+
+[node name="Chest2" parent="." unique_id=1942613269 instance=ExtResource("5_41k74")]
+visible = false
+
+[node name="Chest1" parent="." unique_id=842887786 instance=ExtResource("6_rk0bc")]
+visible = false
+
+[node name="Chest7" parent="." unique_id=2143428169 instance=ExtResource("6_rk0bc")]
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=983336030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6199738, 0)
+collision_layer = 3
+physics_material_override = SubResource("PhysicsMaterial_cphs6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1789576418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09088135, -0.27441406, -0.80274963)
+shape = SubResource("BoxShape3D_cphs6")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1797699215]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2039909263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.68425006, 0)
+shape = SubResource("CylinderShape3D_cphs6")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1431552518]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.45396543, 0)
+emitting = false
+amount = 15
+sub_emitter = NodePath(".")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_s3um8")
+draw_pass_1 = SubResource("QuadMesh_rk0bc")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

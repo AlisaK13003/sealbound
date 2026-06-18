@@ -48,7 +48,9 @@ _subresources={
 "nodes": {
 "PATH:Forest_dungeopn_grid": {
 "generate/physics": true,
-"physics/shape_type": 1
+"physics/shape_type": 3,
+"primitive/position": Vector3(0, 0, -0.58),
+"primitive/size": Vector3(13, 13, 1.5)
 }
 }
 }

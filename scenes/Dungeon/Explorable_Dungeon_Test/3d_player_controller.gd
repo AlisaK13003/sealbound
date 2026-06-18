@@ -23,6 +23,7 @@ func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(p_ref.mini_map._new_room_entered)
 	has_been_setup = true
+	camera_pivot._setup()
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

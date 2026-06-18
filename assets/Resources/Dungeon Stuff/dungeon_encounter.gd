@@ -4,9 +4,13 @@ class_name dungeon_type
 
 @export var dungeon_name : String
 @export var dungeon_background : Texture2D
-@export var max_number_of_waves: int
-@export var minimum_number_of_waves: int
-@export var potential_waves : Array[dungeon_wave]
+@export var max_number_of_floors: int
+@export var minimum_number_of_floors: int
+@export var potential_encounters : Array[dungeon_wave]
+
+@export var first_time_floor_count: int = 10
+
+@export_flags("Creepy_Dungeon", "Forest_Dungeon") var type_of_dungeon = 0
 
 var is_this_dungeon_unlocked: bool = false
 
