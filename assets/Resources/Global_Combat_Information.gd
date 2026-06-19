@@ -111,15 +111,24 @@ func initiate_combat(encounter, node_id):
 	
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	var output = await dungeon_loop_scene.setup(dungeon_types[selected_dungeon_], encounter)
 	var enemies_killed = output[0]
 	var did_players_win = output[1]
 	
+	# output[2] = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
+	
+	active_party_slots[0] = output[2][0].duplicate()
+	active_party_slots[1] = output[2][1].duplicate()
+	active_party_slots[2] = output[2][2].duplicate()
+	
+	current_BP = output[2][3]
+	cur_bond_attack_val = output[2][4]
+
 	if did_players_win:
-		print("YAY")
 		should_remove_enemy = true
 	else:
-		print("BOOOO")
+		print("Y'all dummies lost")
 		return
 	
 	var coins_gained: int = 0
@@ -129,7 +138,7 @@ func initiate_combat(encounter, node_id):
 	
 	for enemy: generic_combatants in enemies_killed:
 		coins_gained += int(randi_range(enemy.drop_table.coin_drop_range.x, enemy.drop_table.coin_drop_range.y) * randf_range(0.5, 1.5))
-		experience_gained += int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2))
+		experience_gained += clamp(int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2)), 1, enemy.experience_mult + 1 * 1.2)
 		bond_gained += int(randi_range(enemy.drop_table.bond_drop_range.x, enemy.drop_table.bond_drop_range.y) * randf_range(0.5, 1.2))
 		for item in enemy.drop_table.item_drop_chances:
 			var chance = rng.randf_range(0, 1)
@@ -165,6 +174,9 @@ func bring_back_combat(rewards_scene):
 	
 	is_combat_active = false
 	explorable_dungeon_scene.return_to_exploring()
+
+func update_stored_combat_information():
+	pass
 
 func load_saved_data(data):
 	for party_member in data["player_slots"]:

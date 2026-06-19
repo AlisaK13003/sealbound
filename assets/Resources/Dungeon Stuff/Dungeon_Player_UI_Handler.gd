@@ -54,9 +54,6 @@ func _setup(parent_reference):
 	black_box.visible = true
 	dungeon_floor_label.visible = true
 	if not has_been_setup:
-		#if test_mode:
-			
-
 		item_button.activated.connect(_item_menu_pressed)
 		skill_button.activated.connect(_skill_menu_pressed)
 		attack_button.activated.connect(_base_attack_emitted)
@@ -83,7 +80,7 @@ func _setup(parent_reference):
 	dungeon_floor_label.visible = false
 	floor_label_container.visible = true
 	bond_bar.value = GlobalCombatInformation.cur_bond_attack_val
-	bond_bar.max_value = GlobalCombatInformation.bond_attack_fill
+	bond_bar.max_value = GlobalCombatInformation.max_BP * 2
 	has_been_setup = true
 
 func unfurl_base_menu(open):
@@ -261,12 +258,18 @@ func get_player_portrait(portrait_to_get: int):
 		print("UGH")
 	return portrait_container.get_child(portrait_to_get)
 
-func update_mana_display(mana_used_or_gained):
-	if mana_used_or_gained != p_ref.max_bond_points_:
-		update_bond_attack(mana_used_or_gained)
+func update_mana_display(mana_used_or_gained, setup):
+	if setup:
+		mana_label.text = str(p_ref.current_bond_points) + "/" + str(p_ref.max_bond_points_)
+		set_bond_attack(GlobalCombatInformation.cur_bond_attack_val)
+		return p_ref.current_bond_points
 	p_ref.current_bond_points = clamp(p_ref.current_bond_points + mana_used_or_gained, 0, p_ref.max_bond_points_)
 	mana_label.text = str(p_ref.current_bond_points) + "/" + str(p_ref.max_bond_points_)
+	update_bond_attack(mana_used_or_gained)
 	return p_ref.current_bond_points
+
+func set_bond_attack(value):
+	bond_bar.value = clamp(abs(value), 0, bond_bar.max_value)
 
 func update_bond_attack(update_value):
 	bond_bar.value += clamp(abs(update_value), 0, bond_bar.max_value)

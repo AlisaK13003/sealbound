@@ -125,7 +125,7 @@ enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESIS
 
 #endregion
 
-func setup(combatant : generic_combatants, parent_ref, child_num):
+func setup(combatant : generic_combatants, parent_ref: dungeon_loop, child_num):
 	if combatant == null:
 		is_empty = true
 		return
@@ -133,17 +133,21 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	child_number = child_num
 	base_location = self.global_position
 	for status_ in active_statuses:
+		combatant_ui_.remove_active_status(status_)
 		_remove_active_status(status_.status_type)
+		
 	
 	all_active_effects = 0
 	active_statuses.clear()
+	if not combatant.is_combatant_enemy:
+		parent_ref.gui.get_player_portrait(child_num).update_statuses(self)
 	is_defending = false
-	combatant.combatant_stats.health = combatant.combatant_stats.max_health
+	combatant.combatant_stats.health = combatant.combatant_stats.health
 	stored_combatant = combatant
 	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
 
 	animated_sprite.offset = combatant.sprite_offset
-
+	animated_sprite.modulate = Color.WHITE
 	current_mana = 3
 	if combatant.is_combatant_enemy:
 		currently_selectable = true
@@ -204,15 +208,15 @@ func update_health(change_health_value, what_action):
 		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
 			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
+			stored_combatant.combatant_stats.health -= damage_to_take
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	
 	if stored_combatant.combatant_stats.health <= 0:
-		on_death()
+		await on_death()
 	parent_reference.turn_ended.emit()
-
 # Combat related stuff
 
 func on_death():
@@ -222,7 +226,7 @@ func on_death():
 	for status_ in active_statuses:
 		_remove_active_status(status_.status_type)
 	active_statuses.clear()
-
+	stored_combatant.is_dead = true
 	if not parent_reference.training:
 		await get_tree().create_timer(0.5).timeout
 		
@@ -237,6 +241,9 @@ func on_death():
 	else:
 		parent_reference.gui.update_bond_attack(0.5)
 	animated_sprite.modulate = Color.WHITE
+	if stored_combatant.is_combatant_enemy:
+		self.queue_free()
+	
 		
 func execute_defend():
 	is_defending = true

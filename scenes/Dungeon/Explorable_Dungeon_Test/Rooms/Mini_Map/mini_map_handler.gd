@@ -104,7 +104,6 @@ func _ready():
 
 func store_current_enemy_list(e_list):
 	enemy_list.clear()
-	print("FUCK")
 	for dot in f_dots.get_children():
 		dot.queue_free()
 	for dot in enemy_dots.get_children():

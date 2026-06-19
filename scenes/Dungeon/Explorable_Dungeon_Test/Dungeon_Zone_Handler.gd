@@ -578,6 +578,13 @@ func generate_dungeon(bounding_box_arr):
 
 var number_of_allowed_2x2 = 1
 
+
+@export var sector_cols: int = 3
+@export var sector_rows: int = 3
+
+@export var sector_width: int = 8
+@export var sector_height: int = 8
+
 func _build_room_geometry(bounding_box_arr):
 	grid_size_x = int(max_grid_size.x)
 	grid_size_y = int(max_grid_size.y)
@@ -1526,9 +1533,14 @@ func is_dungeon_winnable(spawn_pos: Vector2i, exit_pos: Vector2i, bounding_box_a
 func battle_initiated(with_what_enemy: generic_combatants, node_id):
 	in_combat = true
 	var potential_encounters: Array[dungeon_wave]
+	if potential_encounters == null:
+		print("jhgfdjhgfkhgfjh")
 	for encounter in current_dungeon.potential_encounters:
 		if encounter.encounterable_enemy.combatant_name == with_what_enemy.combatant_name:
 			potential_encounters.append(encounter)
+	for encounter in potential_encounters:
+		print(encounter.encounterable_enemy.combatant_name)
+
 	var random_encounter = randi_range(0, potential_encounters.size() - 1)
 	var enemy_to_potentially_remove
 	for enemy in enemy_container.get_children():
@@ -1546,10 +1558,12 @@ func return_to_exploring():
 	#in_combat = false
 	await Fade.fade_out(2.0)
 	in_combat = false
-	for i in range(10):
+	for i in range(Engine.get_frames_per_second() * 3):
 		await get_tree().process_frame
 	for enemy in enemy_container.get_children():
 		enemy.enable_player_detection()
+		
+	
 
 func on_zone_changed(x_lock, y_lock, z_lock):
 	camera_direction_locks["X"] = x_lock

@@ -42,7 +42,6 @@ z_index = 0
 layout_mode = 1
 offset_left = -1.0
 offset_right = -1.0
-how_long_should_base_menu_be = null
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.2720056, 2.0102215, 6.178326)
@@ -52,21 +51,6 @@ near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0919201, 0.43436444, 0.13796973)
-
-[node name="Enemy_Slot5" parent="Enemy_Container" unique_id=1804750138 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.5, -0.131, 0)
-
-[node name="Enemy_Slot4" parent="Enemy_Container" unique_id=85630224 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, -0.131, 0)
-
-[node name="Enemy_Slot3" parent="Enemy_Container" unique_id=2004831497 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.1, -0.131, 0)
-
-[node name="Enemy_Slot2" parent="Enemy_Container" unique_id=1397628051 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.1, -0.131, 0)
-
-[node name="Enemy_Slot1" parent="Enemy_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.3, -0.131, 0)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046935797, 0)

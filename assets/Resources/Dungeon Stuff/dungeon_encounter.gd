@@ -12,6 +12,9 @@ class_name dungeon_type
 
 @export_flags("Creepy_Dungeon", "Forest_Dungeon") var type_of_dungeon = 0
 
+@export var dungeon_floor_size_range: Vector2 = Vector2(5, 5)
+@export var dungeon_floor_size_max_range: Vector2 = Vector2(15, 15)
+
 var is_this_dungeon_unlocked: bool = false
 
 @export var does_dungeon_have_boss: bool = false

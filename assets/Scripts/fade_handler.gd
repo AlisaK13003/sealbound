@@ -17,9 +17,9 @@ func _ready():
 		fade_thing.visible = true
 		fade_thing_2.visible = false
 	return
-	await fade_in(2)
+	#await fade_in(2)
 
-	await fade_out(0.5)
+	#await fade_out(0.5)
 
 func change_scene(target_path: String):
 	get_tree().change_scene_to_file(target_path)
