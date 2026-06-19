@@ -42,9 +42,8 @@ func _physics_process(delta):
 
 func _leave_rewards_screen():
 	if not next_button.visible:
-		Global.current_loading_zone = "Infirmary_Spawn"
 		await Fade.fade_in(1)		
-		Fade.change_scene(Global.location_paths["Village"])
+		GlobalCombatInformation.bring_back_combat(self)
 
 func _setup(coins_gained: int , experience_gained: int, bond_gained: int, items_gained: Array[Items]):
 	gold_obtained = coins_gained

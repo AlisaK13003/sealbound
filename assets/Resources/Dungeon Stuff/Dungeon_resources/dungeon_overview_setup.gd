@@ -29,7 +29,7 @@ func _setup(dungeon_type_: dungeon_type):
 		enemy_slot.get_child(0).play("Idle")
 		enemy_slot.get_child(0).speed_scale = unique_enemies[enemy_slot.get_index()].idle_speed
 	
+	dungeon_image.texture = dungeon_type_.dungeon_background
 	if total_level == 0 or avg_level_count == 0:
 		return
 	average_level_label.text = "Avg Lv: " + str(total_level / avg_level_count)
-	dungeon_image.texture = dungeon_type_.dungeon_background

@@ -97,13 +97,21 @@ var enemy_dot = "res://assets/tile sheets/Enemy_locator.png"
 
 var found_offset = false
 
-var enemy_list: Array[CharacterBody3D]
+var enemy_list: Array
 
 func _ready():
 	map_button.activated.connect(open_map)
 
 func store_current_enemy_list(e_list):
-	enemy_list = e_list
+	enemy_list.clear()
+	print("FUCK")
+	for dot in f_dots.get_children():
+		dot.queue_free()
+	for dot in enemy_dots.get_children():
+		dot.queue_free()
+	
+	enemy_list = e_list.duplicate()
+	
 	for enemy in enemy_list:
 		var new_dot = Sprite2D.new()
 		new_dot.texture = load(enemy_dot)
@@ -123,7 +131,7 @@ func _process(delta):
 	var boundary = f_grid.size * f_grid.scale
 	var bounds = full_panel.size - boundary
 	
-	if not mini_map.visible and has_setup_run:
+	if not mini_map.visible and has_setup_run and not p_ref.in_combat:
 		if Global.get_continuous_input_mapping("up"):
 			f_grid.position.y = clamp(f_grid.position.y - 1, -off * 3 + bounds.y if bounds.y <= 0 else 0 , off * 3 if bounds.y <= 0 else bounds.y)
 			mov_cont.position.y = clamp(mov_cont.position.y - 1, -off * 3 + bounds.y if bounds.y <= 0 else 0 , off * 3 if bounds.y <= 0 else bounds.y)
@@ -160,6 +168,8 @@ func _process(delta):
 		
 func _physics_process(delta):
 	if not has_setup_run:
+		return
+	if p_ref.in_combat:
 		return
 
 	rect.rotation_degrees = -1 * (p_ref.player.camera_pivot.rotation_degrees.y + pointer_offset)
@@ -207,7 +217,9 @@ func clear_mini_map():
 	enemy_list.clear()
 	for enemy in enemy_dots.get_children():
 		enemy.queue_free()
-		
+	
+	for dot in f_dots.get_children():
+		dot.queue_free()
 	for child in full_screen_map.get_children():
 		child.queue_free()
 	

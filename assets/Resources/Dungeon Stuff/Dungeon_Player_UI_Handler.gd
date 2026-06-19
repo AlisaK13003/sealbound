@@ -44,28 +44,47 @@ var executing_skill = false
 var executing_item = false
 var is_aoe = false
 
+var has_been_setup: bool = false
+
 var selected_action = 3
 
 @export var how_long_should_base_menu_be: float = 210.0
 
-
-func _ready():
+func _setup(parent_reference):
 	black_box.visible = true
 	dungeon_floor_label.visible = true
-	if test_mode:
-		await GlobalCombatInformation.load_items()
-		item_menu._setup(GlobalCombatInformation.all_held_items, self, "I/nt/ne/nm/ns")
-		skill_menu._setup(GlobalCombatInformation.active_party_slots[2].combatant_skills, self, "S/nk/ni/nl/nl\ns")
-	item_button.activated.connect(_item_menu_pressed)
-	skill_button.activated.connect(_skill_menu_pressed)
-	attack_button.activated.connect(_base_attack_emitted)
-	defend_button.activated.connect(_defend_executed)
-	run_button.activated.connect(run_button_pressed)
-	confirmation_yes.activated.connect(confirmation_button_.bind(true))
-	confirmation_no.activated.connect(confirmation_button_.bind(false))
-	back_button_.activated.connect(_back_button_pressed)
-	confirm.activated.connect(_confirm_button_pressed)
+	if not has_been_setup:
+		#if test_mode:
+			
+
+		item_button.activated.connect(_item_menu_pressed)
+		skill_button.activated.connect(_skill_menu_pressed)
+		attack_button.activated.connect(_base_attack_emitted)
+		defend_button.activated.connect(_defend_executed)
+		run_button.activated.connect(run_button_pressed)
+		confirmation_yes.activated.connect(confirmation_button_.bind(true))
+		confirmation_no.activated.connect(confirmation_button_.bind(false))
+		back_button_.activated.connect(_back_button_pressed)
+		confirm.activated.connect(_confirm_button_pressed)
 	await unfurl_base_menu(true)
+	#await GlobalCombatInformation.load_items()
+	#item_menu._setup(GlobalCombatInformation.all_held_items, self, "I/nt/ne/nm/ns")
+	#skill_menu._setup(GlobalCombatInformation.active_party_slots[2].combatant_skills, self, "S/nk/ni/nl/nl\ns")
+	self.visible = true
+	p_ref = parent_reference
+	dungeon_floor_text.text = parent_reference.current_dungeon_run.dungeon_name
+	floor_label_container.visible = false
+
+	await get_tree().create_timer(2).timeout
+	var tween = create_tween()
+	tween.tween_property(black_box, "modulate:a", 0.0, 1)
+	await tween.finished
+	black_box.visible = false
+	dungeon_floor_label.visible = false
+	floor_label_container.visible = true
+	bond_bar.value = GlobalCombatInformation.cur_bond_attack_val
+	bond_bar.max_value = GlobalCombatInformation.bond_attack_fill
+	has_been_setup = true
 
 func unfurl_base_menu(open):
 	var tween = create_tween()
@@ -81,23 +100,9 @@ func unfurl_base_menu(open):
 func run_button_pressed():
 	p_ref.action_taken.emit(["RUN", ""])
 
-func _setup(parent_reference):
-	self.visible = true
-	p_ref = parent_reference
-	dungeon_floor_text.text = parent_reference.current_dungeon_run.dungeon_name
-	floor_label_container.visible = false
-
-	await get_tree().create_timer(2).timeout
-	var tween = create_tween()
-	tween.tween_property(black_box, "modulate:a", 0.0, 1)
-	await tween.finished
-	black_box.visible = false
-	dungeon_floor_label.visible = false
-	floor_label_container.visible = true
-	bond_bar.value = 0
-	bond_bar.max_value = 2 * p_ref.max_bond_points_
-
 func _input(event):
+	if not has_been_setup:
+		return
 	if Global.get_input_mapping("down"):
 		cycle_inside_menu(false)
 	elif Global.get_input_mapping("left"):
@@ -257,7 +262,8 @@ func get_player_portrait(portrait_to_get: int):
 	return portrait_container.get_child(portrait_to_get)
 
 func update_mana_display(mana_used_or_gained):
-	update_bond_attack(mana_used_or_gained)
+	if mana_used_or_gained != p_ref.max_bond_points_:
+		update_bond_attack(mana_used_or_gained)
 	p_ref.current_bond_points = clamp(p_ref.current_bond_points + mana_used_or_gained, 0, p_ref.max_bond_points_)
 	mana_label.text = str(p_ref.current_bond_points) + "/" + str(p_ref.max_bond_points_)
 	return p_ref.current_bond_points

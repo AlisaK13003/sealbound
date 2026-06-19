@@ -19,6 +19,9 @@ var max_BP: int = 0
 
 @onready var rng = RandomNumberGenerator.new()
 
+var bond_attack_fill 
+var cur_bond_attack_val = 0
+
 enum bonds {STRANGER, ACQAINTED, WARMED, KINDRED, BOUND, TRUEBOND}
 
 signal finished
@@ -45,18 +48,31 @@ func _ready():
 
 	finished.emit()
 
+var explorable_dungeon_scene: explorable_dungeon
+var dungeon_loop_scene: dungeon_loop
+
+var selected_dungeon_
+
 func transition_to_dungeon(selected_dungeon):
+	selected_dungeon_ = selected_dungeon
 	var dungeon_scene = await Fade.change_scene("res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Test.tscn")
+
+	#var temp = load("res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Test.tscn")
+	explorable_dungeon_scene = dungeon_scene
+	
+	var temp2 = load("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn")
+	dungeon_loop_scene = temp2.instantiate()
 
 	for party_member in active_party_slots:
 		max_BP += party_member.bond_level * 5
-
+	bond_attack_fill = 2 * max_BP
+	#get_tree().root.add_child(explorable_dungeon_scene)
 	current_BP = max_BP
 	await dungeon_scene._setup(dungeon_types[selected_dungeon])
 
 	if false:
-		await dungeon_scene.setup(active_party_slots, dungeon_types[selected_dungeon], all_held_items, selected_dungeon, max_BP)
-		var enemies_killed = await dungeon_scene.battle_loop()
+		#await dungeon_scene.setup(active_party_slots, dungeon_types[selected_dungeon], all_held_items, selected_dungeon, max_BP)
+		var enemies_killed = null #await dungeon_scene.battle_loop()
 		
 		var coins_gained: int = 0
 		var experience_gained: int = 0
@@ -81,6 +97,74 @@ func transition_to_dungeon(selected_dungeon):
 		await Fade.fade_in(1)
 		var rewards_scene = await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
 		rewards_scene._setup(coins_gained, experience_gained, bond_gained, stuff_gained)
+var is_combat_active: bool = false
+var previous_enemy_encountered
+var should_remove_enemy = false
+func initiate_combat(encounter, node_id):
+	if is_combat_active:
+		return
+	is_combat_active = true
+	previous_enemy_encountered = node_id
+	
+	get_tree().root.call_deferred("remove_child", explorable_dungeon_scene)
+	get_tree().root.call_deferred("add_child", dungeon_loop_scene)
+	
+	await get_tree().process_frame
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	var output = await dungeon_loop_scene.setup(dungeon_types[selected_dungeon_], encounter)
+	var enemies_killed = output[0]
+	var did_players_win = output[1]
+	
+	if did_players_win:
+		print("YAY")
+		should_remove_enemy = true
+	else:
+		print("BOOOO")
+		return
+	
+	var coins_gained: int = 0
+	var experience_gained: int = 0
+	var bond_gained: int = 0
+	var stuff_gained: Array[Items]
+	
+	for enemy: generic_combatants in enemies_killed:
+		coins_gained += int(randi_range(enemy.drop_table.coin_drop_range.x, enemy.drop_table.coin_drop_range.y) * randf_range(0.5, 1.5))
+		experience_gained += int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2))
+		bond_gained += int(randi_range(enemy.drop_table.bond_drop_range.x, enemy.drop_table.bond_drop_range.y) * randf_range(0.5, 1.2))
+		for item in enemy.drop_table.item_drop_chances:
+			var chance = rng.randf_range(0, 1)
+			if chance > enemy.drop_table.item_drop_chances[item]:
+				stuff_gained.append(item)
+	
+	for player: generic_combatants in active_party_slots:
+		player.add_experience(int(float(experience_gained) / (active_party_slots.size() - 1)))
+	currency_held += coins_gained
+	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
+	stuff_gained.append(new_item.duplicate())
+	
+	await Fade.fade_in(1)
+	get_tree().root.remove_child(dungeon_loop_scene)
+	var temp_rewards = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
+	var rewards_scene = temp_rewards.instantiate()
+	get_tree().root.add_child(rewards_scene)
+	
+	rewards_scene._setup(coins_gained, experience_gained, bond_gained, stuff_gained)
+	rewards_scene_ = rewards_scene
+	
+var rewards_scene_
+func bring_back_combat(rewards_scene):
+	get_tree().root.add_child(explorable_dungeon_scene)
+	if is_instance_valid(rewards_scene_):
+		rewards_scene_.queue_free()
+	
+	if should_remove_enemy:
+		var enemy_to_remove = instance_from_id(previous_enemy_encountered)
+		explorable_dungeon_scene.enemy_container.remove_child(enemy_to_remove)
+		enemy_to_remove.queue_free()
+		#explorable_dungeon_scene.enemy_container.remove_child(previous_enemy_encountered)
+	
+	is_combat_active = false
+	explorable_dungeon_scene.return_to_exploring()
 
 func load_saved_data(data):
 	for party_member in data["player_slots"]:

@@ -23,31 +23,46 @@ var last_known_player_position: Vector3 = Vector3.ZERO
 @onready var player_detector: Area3D = $Area3D
 @onready var los_ray: RayCast3D = $RayCast3D     
 
+@onready var player_combat_detector: Area3D = $Player_Detector
+
 @export var time_to_wait_after_completing_path: float = 0.0
+
+@onready var animator = $AnimatedSprite3D
+var enemy_sprite_frames: SpriteFrames
 
 var start_position: Vector3
 var target_player: Node3D = null
 var p_ref: explorable_dungeon
 var still_setting_up = true
 
+var stored_enemy: generic_combatants
+
 func _ready() -> void:
 	_auto_tune_navigation_agent()
 	nav_agent.velocity_computed.connect(_on_navigation_agent_3d_velocity_computed)
 
-func _setup(parent_reference) -> void:
+func _setup(parent_reference, enemy_that_I_am: generic_combatants) -> void:
 	p_ref = parent_reference
 	start_position = global_position
 	last_position = global_position
 	player_detector.body_entered.connect(_on_player_detected)
 	player_detector.body_exited.connect(_on_player_exited)
 	add_to_group("enemies")
+	stored_enemy = enemy_that_I_am
+	enemy_sprite_frames = enemy_that_I_am.sprite_frames
+	animator.sprite_frames = enemy_sprite_frames
+	animator.play("Idle")
 	await get_tree().physics_frame
 	_pick_new_patrol_point()
 	still_setting_up = false
 
 var wait_timer = 0.0
+var disabled_timer = 0.0
 func _physics_process(delta: float) -> void:
 	if still_setting_up:
+		return
+	
+	if disable_monitoring:
 		return
 	
 	# Gravity
@@ -199,9 +214,6 @@ func _auto_tune_navigation_agent() -> void:
 	nav_agent.target_desired_distance = max(r_phys, c_size)
 	nav_agent.path_height_offset = h_phys / 2.0
 
-
-
-
 func _pick_new_patrol_point() -> void:
 	var patrol_radius = (2 * p_ref.tile_size)
 	
@@ -273,3 +285,19 @@ func _flee_from_enemy(other_enemy: Node3D) -> void:
 	if current_state == State.CHASE:
 		target_player = null
 		current_state = State.PATROL
+
+func _on_area_3d_2_body_entered(body):
+	if disable_monitoring:
+		return
+	if body.is_in_group("3D_Player"):
+		print("BATTLE INITIATED")
+		p_ref.battle_initiated(stored_enemy, self.get_instance_id())
+
+var disable_monitoring = false
+func disable_player_detection():
+	disable_monitoring = true
+	player_combat_detector.set_deferred("monitoring", false)
+
+func enable_player_detection():
+	disable_monitoring = false
+	player_combat_detector.set_deferred("monitoring", true)

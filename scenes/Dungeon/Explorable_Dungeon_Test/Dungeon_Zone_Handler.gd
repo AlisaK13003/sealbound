@@ -9,7 +9,7 @@ class_name explorable_dungeon
 @onready var enemy_container = $Enemies
 @onready var mini_map = $MiniMap
 
-
+var in_combat: bool = false
 
 var enemy_scene = "res://scenes/Dungeon/Explorable_Dungeon_Test/3D_Enemy.tscn"
 
@@ -395,6 +395,7 @@ func _ready():
 	if await entered_new_floor():
 		print("FINISHED")	
 
+var combat_scene_: dungeon_loop
 func _setup(dungeon_type_: dungeon_type):
 	await Fade.fade_in(0.0)
 	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
@@ -487,9 +488,6 @@ func generate_dungeon(bounding_box_arr):
 			bounding_box_arr.clear()
 			generated_rooms.clear()
 		
-
-		
-	
 	for row in range(max_grid_size.x):
 		var row_string = ""
 		for col in range(max_grid_size.y):
@@ -553,12 +551,16 @@ func generate_dungeon(bounding_box_arr):
 	var enemy_count = 0
 	var enemy_array: Array[CharacterBody3D]
 	enemy_spawnable_rooms.shuffle()
+	
+
+	
 	for room_ in enemy_spawnable_rooms:
 		if room_ is MeshInstance3D or room_.room_classification in [0, 1]:
 			continue
 		else:
 			if enemy_count > number_of_enemies:
 				break
+			var potential_enemy_encounters = randi_range(0, current_dungeon.potential_encounters.size() - 1)
 			var new_enemy = load(enemy_scene)
 			var new_enemy_instance = new_enemy.instantiate()
 			
@@ -567,7 +569,7 @@ func generate_dungeon(bounding_box_arr):
 			new_enemy_instance.position.y = 2.0
 
 			enemy_container.add_child(new_enemy_instance)
-			new_enemy_instance._setup(self)
+			new_enemy_instance._setup(self, current_dungeon.potential_encounters[potential_enemy_encounters].encounterable_enemy)
 			enemy_array.append(new_enemy_instance)
 			enemy_count += 1
 	mini_map.store_current_enemy_list(enemy_array)
@@ -1045,8 +1047,6 @@ func instantiate_rooms(rooms_already_present, bounding_box_arr):
 			var room_to_load = room_symbol_mapping[str(bounding_box_arr[x][y])]
 			if room_to_load == "Empty_Space":
 				continue
-			if room_to_load == "T_Chest_Room":
-				print("YUAY TREASYRE")
 			var new_instance = load(rooms[room_symbol_mapping[bounding_box_arr[x][y]]])
 			var new_room = new_instance.instantiate()
 
@@ -1070,7 +1070,6 @@ func instantiate_rooms(rooms_already_present, bounding_box_arr):
 			
 			var grid_pos = Vector2i(x, y)
 			active_room_nodes[grid_pos] = new_room
-	print("TRUE")
 	return true
 
 const ASSET_OFFSETS = {
@@ -1524,7 +1523,33 @@ func is_dungeon_winnable(spawn_pos: Vector2i, exit_pos: Vector2i, bounding_box_a
 	
 	return not path.is_empty()
 
+func battle_initiated(with_what_enemy: generic_combatants, node_id):
+	in_combat = true
+	var potential_encounters: Array[dungeon_wave]
+	for encounter in current_dungeon.potential_encounters:
+		if encounter.encounterable_enemy.combatant_name == with_what_enemy.combatant_name:
+			potential_encounters.append(encounter)
+	var random_encounter = randi_range(0, potential_encounters.size() - 1)
+	var enemy_to_potentially_remove
+	for enemy in enemy_container.get_children():
+		if enemy.get_instance_id() == node_id:
+			enemy_to_potentially_remove = enemy
+			break
+	for enemy in enemy_container.get_children():
+		enemy.disable_player_detection()
+	GlobalCombatInformation.initiate_combat(potential_encounters[random_encounter], node_id)
+	#await combat_scene_.setup(current_dungeon, potential_encounters[random_encounter])
 
+func return_to_exploring():
+	await mini_map.store_current_enemy_list(enemy_container.get_children())
+	print("BACK")
+	#in_combat = false
+	await Fade.fade_out(2.0)
+	in_combat = false
+	for i in range(10):
+		await get_tree().process_frame
+	for enemy in enemy_container.get_children():
+		enemy.enable_player_detection()
 
 func on_zone_changed(x_lock, y_lock, z_lock):
 	camera_direction_locks["X"] = x_lock

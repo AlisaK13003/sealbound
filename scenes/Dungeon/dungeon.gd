@@ -74,6 +74,7 @@ var skills_enemies_have_used: int = 0
 var training: bool = false
 var testing: bool = false
 func _ready():
+	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
 	gui.hide_gui(false)
@@ -86,7 +87,7 @@ func _ready():
 
 		else:
 			await _reset()
-			await battle_loop()
+			#await battle_loop(encounter)
 
 			return (killed_enemies)
 		
@@ -119,14 +120,25 @@ func _reset() -> void:
 		await GlobalCombatInformation.load_items()
 		temp_item_list = GlobalCombatInformation.all_held_items
 
-func setup(active_combatants: Array[generic_combatants], current_dungeon_type: dungeon_type, current_item_list: Array[Items], what_dungeon, max_bond_points) -> void:
-	max_bond_points_ = max_bond_points
+func hide():
+	self.visible = false
+	gui.visible = false
+	gui.get_child(0).visible = false
+
+func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave):
+	Fade.fade_thing.visible = false
+	Fade.fade_thing_2.visible = false
+	gui.call_deferred("hide_gui", false)
+	max_bond_points_ = GlobalCombatInformation.max_BP
 	self.current_dungeon_run = current_dungeon_type
-	temp_item_list = current_item_list
-	gui._setup(self)
-	slot_1.setup(active_combatants[0], self, 0)
-	slot_2.setup(active_combatants[1], self, 1)
-	slot_3.setup(active_combatants[2], self, 2)
+	temp_item_list = GlobalCombatInformation.all_held_items
+	current_bond_points = GlobalCombatInformation.max_BP
+	max_bond_points_ = GlobalCombatInformation.max_BP
+
+	await gui._setup(self)
+	slot_1.setup(GlobalCombatInformation.active_party_slots[0], self, 0)
+	slot_2.setup(GlobalCombatInformation.active_party_slots[1], self, 1)
+	slot_3.setup(GlobalCombatInformation.active_party_slots[2], self, 2)
 
 	all_combatants.append(slot_1)
 	all_combatants.append(slot_2)
@@ -136,14 +148,18 @@ func setup(active_combatants: Array[generic_combatants], current_dungeon_type: d
 	gui.get_player_portrait(1)._setup(party_slot_2)
 	gui.get_player_portrait(2)._setup(party_slot_3)
 
-	match what_dungeon:
+	match current_dungeon_type.type_of_dungeon:
 		0:
 			dungeon_dungeon.visible = true
 			forest_dungeon.visible = false
 		1:
 			dungeon_dungeon.visible = false
 			forest_dungeon.visible = true
-
+	
+	await _reset()
+	
+	return await battle_loop(encounter)
+	
 	#item_menu.setup(temp_item_list, self)
 
 #endregion
@@ -174,10 +190,10 @@ func sort_enemy_actions(enemy_actions: Array[enemy_weighting]) -> Array[enemy_we
 	)
 	return enemy_actions
 
-func select_next_wave() -> void:
-	var number_of_possible_waves: int = current_dungeon_run.potential_waves.size()
-	var random_wave: int = rng.randi_range(0, number_of_possible_waves - 1)
-	var enemy_count_for_current_wave: int = current_dungeon_run.potential_waves[random_wave].enemies.size()
+func setup_encounter(new_encounter: dungeon_wave):
+	#var number_of_possible_waves: int = current_dungeon_run.potential_waves.size()
+	#var random_wave: int = rng.randi_range(0, number_of_possible_waves - 1)
+	var enemy_count_for_current_wave: int = new_encounter.enemies.size()
 	for i in range(enemy_shit.get_child_count()):
 		if i > enemy_count_for_current_wave - 1:
 			enemy_shit.get_child(i).visible = false
@@ -185,14 +201,14 @@ func select_next_wave() -> void:
 			continue
 		else:
 			enemy_shit.get_child(i).visible = true
-		enemy_shit.get_child(i).setup(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true), self, i)
+		enemy_shit.get_child(i).setup(new_encounter.enemies[i].duplicate(true), self, i)
 		all_combatants.append(enemy_shit.get_child(i))
 	turn_ended.emit()
 #endregion
 
 var turn_count: int = 0
 
-func battle_loop(training_weight = null, p_weights = null):
+func battle_loop(encounter, training_weight = null, p_weights = null):
 	skills_enemies_have_used = 0
 	training = false
 	
@@ -220,22 +236,22 @@ func battle_loop(training_weight = null, p_weights = null):
 		
 		training = true
 	
-	
 	var is_wave_over : bool = false
-	var number_of_waves_to_fight = rng.randi_range(current_dungeon_run.minimum_number_of_waves, current_dungeon_run.max_number_of_waves)
+	var number_of_waves_to_fight = 1#rng.randi_range(current_dungeon_run.minimum_number_of_floors, current_dungeon_run.max_number_of_floors)
 	
 	# Genetic algorithm return values
 	var number_of_killed_players = 0
 	var cum_player_health = 0
 	var number_of_killed_enemies = 0
 	var highest_wave_reached = 0
+	var did_players_win: bool = false
 	gui.update_mana_display(max_bond_points_)
 	# Main battle loop, continues until every wave has been fought, or party dies
 	for i in range(number_of_waves_to_fight):
 		highest_wave_reached += 1
 		turn_count = 0
 		is_wave_over = false
-		select_next_wave()
+		setup_encounter(encounter)
 
 		# Handles individual waves, continues until wave concludes
 		while(not is_wave_over):
@@ -281,26 +297,36 @@ func battle_loop(training_weight = null, p_weights = null):
 				# Wait so all animations can finish
 				if not training:
 					await get_tree().create_timer(1).timeout
-					
-				# If either are wiped then wave is over
-				if number_of_alive_enemies <= 0 or number_of_alive_players <= 0:
+				
+				
+				if number_of_alive_enemies == 0:
 					is_wave_over = true
-					for player in player_container.get_children():
-						if player.stored_combatant.is_dead:
-							number_of_killed_players += 1
-						else:
-							cum_player_health += player.stored_combatant.combatant_stats.health
-
-					for enemy in enemy_shit.get_children():
-						if enemy.stored_combatant == null:
-							continue
-						if enemy.stored_combatant.is_dead:
-							number_of_killed_enemies += 1
+					did_players_win = true
 					break
+				elif number_of_alive_players == 0:
+					is_wave_over = true
+					did_players_win = false
+					break
+				
+				# If either are wiped then wave is over
+				#if number_of_alive_enemies <= 0 or number_of_alive_players <= 0:
+				#	is_wave_over = true
+				#	for player in player_container.get_children():
+				#		if player.stored_combatant.is_dead:
+				#			number_of_killed_players += 1
+				#		else:
+				#			cum_player_health += player.stored_combatant.combatant_stats.health
+#
+				#	for enemy in enemy_shit.get_children():
+				#		if enemy.stored_combatant == null:
+				#			continue
+				#		if enemy.stored_combatant.is_dead:
+				#			number_of_killed_enemies += 1
+				#	break
 		if i != number_of_waves_to_fight - 1:
 			gui.next_floor(i)
 			await get_tree().create_timer(2).timeout
-	return (killed_enemies)
+	return [killed_enemies, did_players_win]
 	#return [number_of_killed_players, number_of_killed_enemies, player_container, highest_wave_reached, number_of_waves_to_fight, cum_player_health, skills_enemies_have_used]
 
 #region EntityTurns
@@ -364,53 +390,53 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 	var par_task : Array[Callable]
 	$AudioStreamPlayer3D.stream = load("res://assets/Resources/SFX/Eye-laser.wav")
 	if selected_action.is_base_attack:
-			var random_attack = rng.randi_range(0, 1)
-			if testing:
-				action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
-			if not testing:
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				action_sequence.append(func(): await attacking_enemy.attack_animation(0))
-				action_sequence.append(func(): $AudioStreamPlayer3D.play())
+		var random_attack = rng.randi_range(0, 1)
+		if testing:
+			action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
+		if not testing:
+			#action_sequence.append(func(): await attacking_enemy.walk_animation())
+			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
+			action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+			action_sequence.append(func(): $AudioStreamPlayer3D.play())
 
 
-				action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
+			action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
 
-			if not testing:
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
+		if not testing:
+			#action_sequence.append(func(): await attacking_enemy.walk_animation())
 
-				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-				action_sequence.append(func(): await attacking_enemy.idle_animation())
-			
-			#set_health_bar_values(selected_action.targetting_who.child_number)
-			await action_queue(action_sequence)
+			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
+			action_sequence.append(func(): await attacking_enemy.idle_animation())
+		
+		#set_health_bar_values(selected_action.targetting_who.child_number)
+		await action_queue(action_sequence)
 	else:
-			if not testing:
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-				if not selected_action.skill_type.targets_party and not selected_action.skill_type.is_skill_aoe:
-					action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				elif selected_action.skill_type.targets_party:
-					action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				else:
-					action_sequence.append(func(): await attacking_enemy.walk_towards_entity(get_player(0).global_position))
+		#if not testing:
+			#action_sequence.append(func(): await attacking_enemy.walk_animation())
+			#if not selected_action.skill_type.targets_party and not selected_action.skill_type.is_skill_aoe:
+			#	action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
+			#elif selected_action.skill_type.targets_party:
+			#	action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
+			#else:
+			#	action_sequence.append(func(): await attacking_enemy.walk_towards_entity(get_player(0).global_position))
 
-			if not testing:
-				var random_attack = rng.randi_range(0, 1)
-				match random_attack:
-					0:
-						action_sequence.append(func(): await attacking_enemy.attack_animation(0))
-					1:
-						action_sequence.append(func(): await attacking_enemy.attack_animation(1))
-				action_sequence.append(func(): await execute_enemy_skills(selected_action))
+		if not testing:
+			var random_attack = rng.randi_range(0, 1)
+			match random_attack:
+				0:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+				1:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(1))
+			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-				action_sequence.append(func(): await attacking_enemy.idle_animation())
-			else:
-				action_sequence.append(func(): await execute_enemy_skills(selected_action))
+			#action_sequence.append(func(): await attacking_enemy.walk_animation())
+			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
+			#action_sequence.append(func(): await attacking_enemy.idle_animation())
+		else:
+			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
-			skills_enemies_have_used += 1
-			await action_queue(action_sequence)
+		skills_enemies_have_used += 1
+		await action_queue(action_sequence)
 	turn_ended.emit()
 
 func execute_enemy_skills(action):
@@ -508,14 +534,14 @@ func handle_player_move_selection(current_combatant):
 			if testing:
 				action_sequence.append(func(): await deal_damage(current_combatant, target_node, false, null))
 			if not testing:
-				action_sequence.append(func(): await current_player.walk_animation(false))
-				action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
+				#action_sequence.append(func(): await current_player.walk_animation(false))
+				#action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
 				action_sequence.append(func(): await current_player.attack_animation(0))
 				action_sequence.append(func(): $AudioStreamPlayer3D.play())
 				action_sequence.append(func(): deal_damage(current_player, target_node, false, null))
 
-				action_sequence.append(func(): await current_player.walk_animation(true))
-				action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
+				#action_sequence.append(func(): await current_player.walk_animation(true))
+				#action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
 				action_sequence.append(func(): await current_player.idle_animation())
 			
 		"BASIC_DEFEND":
@@ -531,15 +557,15 @@ func handle_player_move_selection(current_combatant):
 			
 			var target_node = enemy_shit.get_child(action_on_who)
 
-			action_sequence.append(func(): await current_player.walk_animation(false))
-			action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
+			#action_sequence.append(func(): await current_player.walk_animation(false))
+			#action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
 			action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
 			action_sequence.append(func(): $AudioStreamPlayer3D.play())
 			action_sequence.append(func(): await execute_skills(what_action))
 
 			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
-			action_sequence.append(func(): await current_player.walk_animation(true))
-			action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
+			#action_sequence.append(func(): await current_player.walk_animation(true))
+			#action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
 
 			action_sequence.append(func(): await current_player.idle_animation())
 		"ITEM":

@@ -10,6 +10,7 @@
 size = Vector3(0.30743408, 0.54174805, 0.048919678)
 
 [node name="3dPlayer" type="CharacterBody3D" unique_id=1611672739]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 16777215
 collision_mask = 16777215
 script = ExtResource("1_wh5h5")
@@ -21,9 +22,10 @@ move_speed = 20.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.018035889, 0.29089355, -0.0038909912)
 shape = SubResource("BoxShape3D_wh5h5")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=755670885]
+[node name="Node3D" type="Node3D" parent="." unique_id=755670885 node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 0, 0)
 script = ExtResource("3_trhba")
+player = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
 transform = Transform3D(-4.371139e-08, -0.6427876, 0.76604444, 0, 0.76604444, 0.6427876, -1, 2.8097137e-08, -3.3484866e-08, 1.952, 2.5, 0)

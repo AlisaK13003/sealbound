@@ -23,7 +23,7 @@ func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(p_ref.mini_map._new_room_entered)
 	has_been_setup = true
-	camera_pivot._setup()
+	#camera_pivot._setup()
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -71,6 +71,20 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_check_for_new_tile()
 	sync_animation(input_dir)
+	update_sprite_scale()
+
+func update_sprite_scale():
+	if camera:
+		# Get the vertical pitch angle of the camera
+		var pitch_rad = camera.global_rotation.x 
+		var compression_factor = abs(cos(pitch_rad))
+
+		# Prevent division by zero if camera is perfectly top-down
+		if compression_factor < 0.1: 
+			compression_factor = 0.1 
+			
+		# Dynamically scale only the Y axis
+		animated_sprite.scale.y = 1.0 / compression_factor
 
 func _check_for_new_tile() -> void:
 	if not has_been_setup:
@@ -88,7 +102,8 @@ func _check_for_new_tile() -> void:
 		
 func _on_tile_entered(coords: Vector2i):
 	entered_new_tile.emit(coords)
-
+	# camera_pivot._on_player_entered_new_tile(p_ref.get_room_node_at(coords))
+	
 var last_direction: String = "down"
 
 var anim_name: String = "idle"

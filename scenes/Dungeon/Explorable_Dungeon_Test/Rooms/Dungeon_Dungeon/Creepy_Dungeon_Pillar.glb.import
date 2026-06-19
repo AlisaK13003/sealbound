@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://r2heq7ywdrqv"
-path="res://.godot/imported/Creepy_Dungeon_Section_1.glb-d35ad7912ed29dcc149347d1e9ee0ba1.scn"
+uid="uid://1g4gem0hp424"
+path="res://.godot/imported/Creepy_Dungeon_Pillar.glb-1dc7e4d2372e13a917edccaee480968f.scn"
 
 [deps]
 
-source_file="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Creepy_Dungeon_Section_1.glb"
-dest_files=["res://.godot/imported/Creepy_Dungeon_Section_1.glb-d35ad7912ed29dcc149347d1e9ee0ba1.scn"]
+source_file="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Creepy_Dungeon_Pillar.glb"
+dest_files=["res://.godot/imported/Creepy_Dungeon_Pillar.glb-1dc7e4d2372e13a917edccaee480968f.scn"]
 
 [params]
 
@@ -39,10 +39,11 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "nodes": {
-"PATH:Creepy_dungeon_section_wall": {
+"PATH:Untitled": {
 "generate/physics": true,
 "physics/shape_type": 3,
-"primitive/size": Vector3(13, 13, 2)
+"primitive/position": Vector3(0, 0, -2.925),
+"primitive/size": Vector3(2.5, 2.5, 6)
 }
 }
 }

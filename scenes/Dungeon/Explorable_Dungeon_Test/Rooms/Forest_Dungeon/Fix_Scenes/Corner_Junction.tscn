@@ -14,11 +14,8 @@ room_classification = 3
 [node name="Section_1_Dungeon_Wall3" parent="Walls" unique_id=1488638431 instance=ExtResource("3_i04p8")]
 transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.589581, 1.8, 0)
 
-[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=556781167 instance=ExtResource("3_i04p8")]
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=432977582 instance=ExtResource("3_i04p8")]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0.009575069, 1.8, -1.5893306)
-
-[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=993004772 instance=ExtResource("3_i04p8")]
-transform = Transform3D(0.04, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.5310189, 1.9369967, 1.6405263)
 
 [node name="Floor" type="Node3D" parent="." unique_id=1249421485]
 
@@ -27,3 +24,5 @@ transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-
 
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=275606809 instance=ExtResource("1_tussm")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Pillars" type="Node3D" parent="." unique_id=774371306]
