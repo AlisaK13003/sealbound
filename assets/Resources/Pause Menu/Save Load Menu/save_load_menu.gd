@@ -7,10 +7,10 @@ var selected_slot: int = -1
 const SAVE_DIR = "user://saves/"
 const SLOT_COUNT = 3
 
-@onready var slot_container = $SlotContainer
-@onready var save_btn = $ModeToggle/SaveBtn
-@onready var load_btn = $ModeToggle/LoadBtn
-@onready var delete_btn = $DeleteBtn
+@onready var slot_container = $Main/SlotContainer
+@onready var save_btn = $Main/ModeToggle/SaveBtn
+@onready var load_btn = $Main/ModeToggle/LoadBtn
+@onready var delete_btn = $Main/DeleteBtn
 
 func _ready():
 	save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
