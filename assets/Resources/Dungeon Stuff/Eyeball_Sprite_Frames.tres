@@ -129,7 +129,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -152,7 +152,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -175,7 +175,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -195,7 +195,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -221,7 +221,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]

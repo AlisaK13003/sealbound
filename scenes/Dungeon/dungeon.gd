@@ -89,7 +89,7 @@ func _ready():
 			await _reset()
 			#await battle_loop(encounter)
 
-			return (killed_enemies)
+			#return (killed_enemies)
 		
 func _reset() -> void:
 	all_combatants.clear()

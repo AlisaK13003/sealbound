@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="3_4q6ny"]
 
 [node name="RoomCap" type="Node3D" unique_id=596948473]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_0p5vt")
 room_classification = 2
 

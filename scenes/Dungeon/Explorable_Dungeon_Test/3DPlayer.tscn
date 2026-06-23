@@ -28,7 +28,7 @@ script = ExtResource("3_trhba")
 player = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
-transform = Transform3D(-4.371139e-08, -0.6427876, 0.76604444, 0, 0.76604444, 0.6427876, -1, 2.8097137e-08, -3.3484866e-08, 1.952, 2.5, 0)
+transform = Transform3D(0.98570347, 0.10830294, -0.12907042, 0, 0.7660444, 0.6427875, 0.16848949, -0.6335979, 0.7550926, 3.632, 16.315, -9.93)
 script = ExtResource("3_3lwvn")
 player = NodePath("../..")
 

@@ -27,7 +27,8 @@ func _setup(parent_reference):
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y -= gravity * delta
+		#velocity.y -= gravity * delta
+		pass
 	else:
 		velocity.y = 0.0
 	if not has_been_setup:

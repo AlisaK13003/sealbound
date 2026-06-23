@@ -9,7 +9,7 @@ class_name room
 @export var has_pillars: bool = false
 var has_been_entered = false
 
-var room_coords: Vector2 = Vector2(0, 0)
+var room_coords: Vector2i = Vector2i(0, 0)
 
 var room_directions
 
