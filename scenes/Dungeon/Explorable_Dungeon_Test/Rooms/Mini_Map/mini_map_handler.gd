@@ -46,6 +46,7 @@ var room_symbol_mapping: Dictionary = {
 }
 var room_symbol_mapping_2: Dictionary = {
 	"S": "Spawn_Room",
+	"D": "Stair_Room",
 	"E": "Stair_Room",
 	"R": "Room_Cap",
 	"C": "Corner_Junction",
@@ -127,6 +128,7 @@ func store_current_enemy_list(e_list):
 var max_zoom_in = 2.0
 var max_zoom_out = 0.5
 func _process(delta):
+	return
 	var boundary = f_grid.size * f_grid.scale
 	var bounds = full_panel.size - boundary
 	
@@ -177,7 +179,6 @@ func _physics_process(delta):
 		var current_enemy: Sprite2D = enemy_dots.get_child(enemy)
 		var current_enemy_2: Sprite2D = full_screen_fots.get_child(enemy)
 		
-
 		if grid_container.get_child(get_minimap_index(enemy_list[enemy].current_grid_pos.x, enemy_list[enemy].current_grid_pos.y)).main_room_texture.texture == null:
 			current_enemy.visible = false
 			current_enemy_2.visible = false
@@ -185,25 +186,30 @@ func _physics_process(delta):
 			current_enemy.visible = true
 			current_enemy_2.visible = true
 		
+		# MiniMap relative dot remains the same (because relative distance never changes)
 		current_enemy.position.x = (enemy_list[enemy].position.x * x_scale_factor) - (p_ref.player.position.x * x_scale_factor)
 		current_enemy.position.y = (enemy_list[enemy].position.z * y_scale_factor) - (p_ref.player.position.z * y_scale_factor)
 
-		current_enemy_2.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(p_ref.max_grid_size.x) * float(p_ref.tile_size))) * (float(enemy_list[enemy].position.x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
-		current_enemy_2.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(p_ref.max_grid_size.y) * float(p_ref.tile_size))) * (float(enemy_list[enemy].position.z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
+		# Full Screen Map dots MUST be offset by the true minimum bounds!
+		var shifted_enemy_x = enemy_list[enemy].position.x - (min_grid_x * p_ref.tile_size)
+		var shifted_enemy_z = enemy_list[enemy].position.z - (min_grid_y * p_ref.tile_size)
+
+		current_enemy_2.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(shifted_enemy_x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
+		current_enemy_2.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(shifted_enemy_z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
 		current_enemy_2.position.x += f_grid.scale.x * 20
 		current_enemy_2.position.y += f_grid.scale.y * 20
 
 	if has_entered_start_room and p_ref.player.is_moving:
-		grid_container.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * x_scale_factor
-		grid_container.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * y_scale_factor
+		grid_container.position.x = ((2 * p_ref.tile_size - p_ref.player.position.x) * x_scale_factor) + (min_grid_x * offset_)
+		grid_container.position.y = ((2 * p_ref.tile_size - p_ref.player.position.z) * y_scale_factor) + (min_grid_y * offset_)
 		
 		#$Full_Screen_Map/Panel/GridContainer.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * x_scale_factor
 		#f_grid.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * y_scale_factor
 		
-		f_rect.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(p_ref.max_grid_size.x) * float(p_ref.tile_size))) * (float(p_ref.player.position.x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
-		f_rect.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(p_ref.max_grid_size.y) * float(p_ref.tile_size))) * (float(p_ref.player.position.z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
-		f_rect.position.x += f_grid.scale.x * 20
-		f_rect.position.y += f_grid.scale.y * 20
+		#f_rect.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(p_ref.player.position.x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
+		#f_rect.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(p_ref.player.position.z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
+		#f_rect.position.x += f_grid.scale.x * 20
+		#f_rect.position.y += f_grid.scale.y * 20
 		
 # 460, -20
 # 39.484 0.755 0.014
@@ -240,32 +246,56 @@ func open_map():
 		p_ref.movement_locked = false
 
 func get_minimap_index(grid_x: int, grid_y: int) -> int:
-	var max_y = p_ref.max_grid_size.y
+	var shifted_x = grid_x - min_grid_x
+	var shifted_y = grid_y - min_grid_y
 	
-	var child_index = (grid_y * p_ref.max_grid_size.x) + grid_x
-	
-	return child_index
+	return (shifted_y * grid_size_x) + shifted_x
 
 var has_setup_run = false
-func _setup(parent_reference: explorable_dungeon, bounding_box_arr, generated_rooms, spawn_coords):
+var grid_size_x: int
+var grid_size_y: int
+var min_grid_x: int = 0
+var min_grid_y: int = 0
+
+func _setup(parent_reference: explorable_dungeon, generated_rooms):
 	p_ref = parent_reference
 	
-	grid_container.columns = p_ref.max_grid_size.x
-	full_screen_map.columns = p_ref.max_grid_size.x
+	if generated_rooms.is_empty():
+		return
+		
+	var max_x_key: int = 0
+	var max_y_key: int = 0
 	
-	f_grid.size = (40 * f_grid.scale) * Vector2(p_ref.max_grid_size.x, p_ref.max_grid_size.y) 
+	var first = true
+	for key: Vector2i in generated_rooms.keys():
+		if first:
+			min_grid_x = key.x
+			max_x_key = key.x
+			min_grid_y = key.y
+			max_y_key = key.y
+			first = false
+		else:
+			if key.x < min_grid_x: min_grid_x = key.x
+			elif key.x > max_x_key: max_x_key = key.x
+			
+			if key.y < min_grid_y: min_grid_y = key.y
+			elif key.y > max_y_key: max_y_key = key.y
+	
+	print("INSIDE MINI MAP")
+	
+	grid_size_x = max_x_key - min_grid_x + 1
+	grid_size_y = max_y_key - min_grid_y + 1
+
+	print("Grid Size: ", grid_size_x, "x", grid_size_y)
+	
+	grid_container.columns = grid_size_x 
+	full_screen_map.columns = grid_size_x
+	
+	f_grid.size = (40 * f_grid.scale) * Vector2(grid_size_x, grid_size_y) 
 	mov_cont.size = f_grid.size
 	
-	
-	var room_lookup = {}
-	for room_ in generated_rooms:
-		room_lookup[Vector2i(room_.room_x_coord, room_.room_y_coord)] = room_
-	
-	for y in range(p_ref.max_grid_size.y):
-		for x in range(p_ref.max_grid_size.x):
-			
-			var cell_string = str(bounding_box_arr[x][y])
-			
+	for y in range(grid_size_y):
+		for x in range(grid_size_x):
 			var new_map_node = load(tile_)
 			var new_map_node_instance: Control = new_map_node.instantiate()
 			
@@ -274,25 +304,80 @@ func _setup(parent_reference: explorable_dungeon, bounding_box_arr, generated_ro
 			
 			full_screen_map.add_child(new_map_node_instance_2)
 			grid_container.add_child(new_map_node_instance)
+			
 	has_setup_run = true
-	_new_room_entered(spawn_coords)
+	_new_room_entered(Vector2(0, 0)) # Remove this line, the player movement will trigger the first room.
 
 const ASSET_OFFSETS = {
-	"Spawn_Room": 0.0,
+	"Spawn_Room": 180.0,
 	"Stair_Room": 0.0,
-	"Room_Cap": 0.0,             
-	"Corner_Junction": 180.0,    
+	"Room_Cap": 180.0,             
+	"Corner_Junction": 0.0,    
 	"Hallway_Corner": 0.0,
 	"Horizontal_Corridor": 0.0,  
 	"Vertical_Corridor": 0.0,
-	"3-Way_Junction": -270.0,       
+	"3-Way_Junction": 180.0,       
 	"Hallway_3-Way_Junction": 0.0,
+	"4-Way_Junction": 0.0,
 	"Straight_Room": 0.0,
 	"T_Chest_Room": 0.0,
 }
 
-func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
+const DIR_VECTORS = {
+	0: Vector2i(0, -1), # Up    (North) - Y decreases going up
+	1: Vector2i(-1, 0), # Left  (West)
+	2: Vector2i(0, 1),  # Down  (South) - Y increases going down  
+	3: Vector2i(1, 0),  # Right (East)
+}
+
+
+# Call this function whenever the player enters a new room.
+# player_grid_pos should be the Vector2i coordinate of the room they just entered.
+func update_room_visibility(player_grid_pos: Vector2i):
+	# We will store all rooms that should be visible here
+	var visible_rooms: Array[Vector2i] = []
 	
+	# Queue stores dictionaries with the room position and how many "steps" away it is
+	var queue: Array = [{"pos": player_grid_pos, "depth": 0}]
+	
+	# Keep track of where we've been so we don't loop endlessly
+	var visited: Dictionary = {player_grid_pos: true}
+	
+	# 1. Calculate which rooms are connected within 2 steps
+	while queue.size() > 0:
+		var current = queue.pop_front()
+		var current_pos = current["pos"]
+		var current_depth = current["depth"]
+		
+		visible_rooms.append(current_pos)
+		
+		# If we haven't hit our radius limit, check the doors in this room
+		if current_depth <= 2:
+			if p_ref.generated_rooms.has(current_pos):
+				var room_data = p_ref.generated_rooms[current_pos]
+				
+				# Loop through the actual doors this room has
+				for dir in room_data.required_directions:
+					var neighbor_pos = current_pos + DIR_VECTORS[dir]
+					
+					# If the neighbor exists and we haven't checked it yet
+					if p_ref.generated_rooms.has(neighbor_pos) and not visited.has(neighbor_pos):
+						visited[neighbor_pos] = true
+						queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
+						
+	# 2. Apply the visibility to the actual 3D nodes
+	for pos in p_ref.generated_rooms.keys():
+		var room_node = p_ref.get_room_node_at(pos) # (Assuming you have a function or dict for instantiated nodes)
+		if room_node != null:
+			if pos in visible_rooms:
+				room_node.visible = true
+				# Optional: You can process enemies here too!
+				# e.g., enable_enemies_in_room(room_node)
+			else:
+				room_node.visible = false
+				# e.g., disable_enemies_in_room(room_node)
+
+func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 	var calculated_rot = 0.0 
 	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room", "T_Chest_Room"]:
 		match previous_rotation:
@@ -301,6 +386,7 @@ func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 			360.0: calculated_rot = 180.0 # Facing Left 
 			270.0: calculated_rot = -90.0  # Facing Right 
 			0.0: calculated_rot = 180.0
+			-90.0: calculated_rot = -90.0
 
 	elif room_type in ["Corner_Junction", "Hallway_Corner"]:
 		match previous_rotation:
@@ -308,11 +394,13 @@ func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 			0.0: calculated_rot = -180.0  # Connects Left & Down
 			270.0: calculated_rot = -90.0 # Connects Right & Down
 			180.0: calculated_rot = 0.0  # Connects Right & Up
+			-90.0: calculated_rot = -90.0
 
 	elif room_type in ["Horizontal_Corridor", "Vertical_Corridor", "Straight_Room"]:
 		match previous_rotation:
 			180.0 : calculated_rot = 90.0   # Vertical
 			90.0 : calculated_rot = 0.0  # Horizontal
+			0.0: calculated_rot = 90.0
 
 	elif room_type in ["3-Way_Junction", "Hallway_3-Way_Junction"]:
 		match previous_rotation:
@@ -320,6 +408,8 @@ func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 			90.0: calculated_rot = 90.0  # Solid wall is Left (West)
 			360.0: calculated_rot = 180.0 # Solid wall is Up (North)
 			270.0: calculated_rot = 270.0  # Solid wall is Down (East)
+			-90.0: calculated_rot = -90.0
+			0.0: calculated_rot = 180.0
 	
 	return calculated_rot
 var has_entered_start_room = false
@@ -331,29 +421,22 @@ var y_scale_factor_lower = 0
 var y_scale_factor_upper = 0
 
 func center_around_spawn(spawn_coords):
-	if spawn_coords.x < 3.0:
-		grid_container.position = Vector2(clamp((2 - spawn_coords.x), -2, p_ref.max_grid_size.x) * -1 *offset_, clamp((spawn_coords.y - 2 if spawn_coords.y < 3 else spawn_coords.y - 2), -2, p_ref.max_grid_size.y) * offset_) * Vector2(-1, -1)
-	else:
-		grid_container.position = Vector2(clamp((spawn_coords.x - 2), -2, p_ref.max_grid_size.x) * offset_, clamp((spawn_coords.y - 2 if spawn_coords.y < 3 else spawn_coords.y - 2), -2, p_ref.max_grid_size.y) * offset_) * Vector2(-1, -1)
+	x_scale_factor = float(offset_) / float(p_ref.tile_size)
+	y_scale_factor = float(offset_) / float(p_ref.tile_size)
+	
+	var shifted_x = spawn_coords.x - min_grid_x
+	var shifted_y = spawn_coords.y - min_grid_y
+	
+	grid_container.position.x = (2.0 * offset_) - (shifted_x * offset_)
+	grid_container.position.y = (2.0 * offset_) - (shifted_y * offset_)
+	
 	grid_offset = Vector2(grid_container.position.x, grid_container.position.y)
-	#Starts centered at 3
-	var x_scale_factor_lower = ((2 * offset_) + (float(offset_) / 2))
-	var x_scale_factor_upper = (p_ref.max_grid_size.x * offset_) - x_scale_factor_lower
 	
-	var y_scale_factor_lower = ((2 * offset_) + (float(offset_) / 2))
-	var y_scale_factor_upper = (p_ref.max_grid_size.y * offset_) - y_scale_factor_lower
-		
-	var main_grid_x_range = p_ref.max_grid_size.x * p_ref.tile_size
-	var main_grid_y_range = p_ref.max_grid_size.y * p_ref.tile_size
-	
-	x_scale_factor = float((abs(x_scale_factor_lower) + x_scale_factor_upper)) / main_grid_x_range
-	y_scale_factor = float((abs(y_scale_factor_lower) + y_scale_factor_upper)) / main_grid_y_range
-	
+
 func _new_room_entered(coords):
 	if has_setup_run:
-		if coords.x >= p_ref.max_grid_size.x or coords.y >= p_ref.max_grid_size.y:
-			return
-		var index = p_ref.pos_to_index(coords)
+		update_room_visibility(coords)
+		var index = get_minimap_index(coords.x, coords.y)
 
 		var current_room = p_ref.get_room_node_at(coords)
 		
@@ -394,6 +477,7 @@ func _new_room_entered(coords):
 			7:
 				grid_container.get_child(index)._change_texture(load(room_symbol_mapping["T"]), load(chest_room))
 				full_screen_map.get_child(index)._change_texture(load(room_symbol_mapping["T"]), load(chest_room))
+				
 				
 		grid_container.get_child(index).main_room_texture.rotation_degrees = get_rotation_degrees_(room_symbol_mapping_2[room_lookup[current_room.room_classification]], current_room.rotation_degrees.y)
 		full_screen_map.get_child(index).main_room_texture.rotation_degrees = get_rotation_degrees_(room_symbol_mapping_2[room_lookup[current_room.room_classification]], current_room.rotation_degrees.y)

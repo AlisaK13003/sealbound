@@ -92,7 +92,7 @@ func entered_new_floor():
 			if await generate_dungeon():
 				break
 			else:
-				await remove_old_dungeon()
+				remove_old_dungeon()
 
 		setting_up = false
 	print("FADING OUT")
@@ -100,16 +100,26 @@ func entered_new_floor():
 	await Fade.fade_out(2)
 	movement_locked = false
 	
+var generated_rooms
+	
+func get_room_node_at(coords):
+	if active_room_nodes.has(coords):
+		return active_room_nodes[coords]
+	
 func generate_dungeon():
+	print("GENERATING DUNGEON")
 	var new_room_generation: dungeon_generation = dungeon_generation.new()
 	
-	var room_storage = new_room_generation.build_dungeon()	
-
-	var ret_val = await instantiate_rooms(room_storage)
-	return true
+	
+	new_room_generation.build_dungeon()
+	new_room_generation.evaluate_room_names(new_room_generation.storage)
+	var room_storage = new_room_generation.storage
+	generated_rooms = room_storage
+	var ret_val = instantiate_rooms(room_storage)
+	
 	if not ret_val:
 		return false
-	mini_map._setup(room_storage)
+	mini_map._setup(self, room_storage)
 
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -133,12 +143,12 @@ func generate_dungeon():
 			
 	await get_tree().physics_frame
 	
-	player.position = Vector3(0, 5.0, 0)
+	player.position = Vector3(0, 2.0, 0)
 
 	#player.position.x += (generated_rooms[0].room_x_coord * tile_size)
 	#player.position.z += (generated_rooms[0].room_y_coord * tile_size)
 	
-	var current_start = 0 #get_room_node_at(index_to_pos(spawn_room_location))
+	var current_start = get_room_node_at(Vector2(0, 0))
 	player_start_position = Vector2(player.position.x, player.position.z)
 	player.rotation_degrees.y = 0.0
 	player.camera_pivot.rotation.y = 0.0
@@ -186,7 +196,7 @@ func generate_dungeon():
 	mini_map.store_current_enemy_list(enemy_array)
 	return true
 
-
+var active_room_nodes: Dictionary[Vector2i, Node3D]
 var tile_size = 0
 func instantiate_rooms(room_storage):
 	tile_size = 3.2
@@ -202,6 +212,8 @@ func instantiate_rooms(room_storage):
 		new_room.room_directions = room_storage[room_].required_directions
 		
 		new_room._setup(self)
+		
+		active_room_nodes[room_] = new_room
 		
 		new_room.rotation_degrees.y = room_storage[room_].get_rotation_degrees_()
 		

@@ -9,6 +9,7 @@ size = Vector3(1.6447754, 1.4073486, 1.2836914)
 script = ExtResource("1_cv4i7")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=2087824729]
+monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=713242375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00036621094, 0.20367432, 0.1418457)

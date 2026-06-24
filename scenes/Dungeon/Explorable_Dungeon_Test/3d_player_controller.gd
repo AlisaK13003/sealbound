@@ -27,8 +27,7 @@ func _setup(parent_reference):
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		#velocity.y -= gravity * delta
-		pass
+		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
 	if not has_been_setup:
@@ -85,7 +84,7 @@ func update_sprite_scale():
 			compression_factor = 0.1 
 			
 		# Dynamically scale only the Y axis
-		animated_sprite.scale.y = 1.0 / compression_factor
+		#animated_sprite.scale.y = 1.0 / compression_factor
 
 func _check_for_new_tile() -> void:
 	if not has_been_setup:

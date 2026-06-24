@@ -82,7 +82,7 @@ func _ready():
 		gui._setup(self)
 		
 		if training:
-			await EnemyGeneticAlgorithm._setup(self)
+			#await EnemyGeneticAlgorithm._setup(self)
 			get_tree().quit()
 
 		else:

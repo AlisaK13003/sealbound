@@ -9,6 +9,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_wh5h5"]
 size = Vector3(0.30743408, 0.54174805, 0.048919678)
 
+[sub_resource type="Environment" id="Environment_7ued3"]
+background_mode = 2
+
 [node name="3dPlayer" type="CharacterBody3D" unique_id=1611672739]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 16777215
@@ -28,7 +31,10 @@ script = ExtResource("3_trhba")
 player = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
-transform = Transform3D(0.98570347, 0.10830294, -0.12907042, 0, 0.7660444, 0.6427875, 0.16848949, -0.6335979, 0.7550926, 3.632, 16.315, -9.93)
+transform = Transform3D(-4.371139e-08, -0.57357645, 0.81915206, 0, 0.81915206, 0.57357645, -1, 2.5071824e-08, -3.5806274e-08, 2.656837, 2.1674857, -6.973488e-08)
+environment = SubResource("Environment_7ued3")
+projection = 1
+size = 4.416
 script = ExtResource("3_3lwvn")
 player = NodePath("../..")
 
@@ -42,5 +48,6 @@ collision_mask = 3
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1654750113]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.29717374, 0)
 pixel_size = 0.002
+billboard = 1
 sprite_frames = ExtResource("1_4tiff")
 animation = &"idle"

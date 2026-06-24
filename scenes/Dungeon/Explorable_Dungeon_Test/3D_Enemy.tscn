@@ -25,6 +25,7 @@ time_to_wait_after_completing_path = 3.0
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=380480314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11235738, 0)
+billboard = 1
 sprite_frames = ExtResource("1_is31c")
 animation = &"Idle"
 

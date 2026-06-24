@@ -19,7 +19,7 @@ var current_pitch: float = 0.0
 
 func _ready() -> void:
 	# Lock the mouse in the center of the screen
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# Initialize starting values
 	target_yaw = rotation_degrees.y
