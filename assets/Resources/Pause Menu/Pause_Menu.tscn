@@ -150,7 +150,7 @@ offset_top = -119.0
 offset_right = 611.0
 offset_bottom = 414.0
 scale = Vector2(0.8, 0.8)
-mouse_filter = 1
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qffmw")
 
 [node name="MenuChrome" type="Control" parent="." unique_id=1770658802]

@@ -24,6 +24,9 @@ var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
 
+var saved_position: Vector2
+var loading_from_save: bool = false
+
 var accepted_quest_list: Array[quests]
 
 @onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
@@ -321,6 +324,12 @@ func get_save_data() -> Dictionary:
 		"equipment_list": _get_path_array(equipment_list),
 		"weapon_list": _get_path_array(weapon_list),
 	}
+	var player = get_tree().get_first_node_in_group("Overworld_Player")
+	if player:
+		save_dict["player_position"] = {
+			"x": player.global_position.x,
+			"y": player.global_position.y
+		}
 	return save_dict
 
 func _get_path_array(arr: Array) -> Array[String]:

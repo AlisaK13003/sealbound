@@ -90,11 +90,21 @@ func _get_property_list():
 	return properties
 
 func _on_area_2d_body_entered(body):
+	
 	if body.is_in_group("Overworld_Player"):
+		print("[DOOR] ", name,
+			" | guard_sees='", Global.current_loading_zone, "'",
+			" | my_target_spot='", _target_spot, "'",
+			" | my_target_region='", _target_region, "'")
 		if Global.current_loading_zone != "":
 			Global.current_loading_zone = ""
 			return
 		Global.current_loading_zone = _target_spot
 		await Fade.fade_in(1)		
 		Fade.change_scene(Global.location_paths[_target_region])
+
+func _ready():
+	var p = Global.location_paths["Cliff Side"]
+	print("cliff path = ", p)
+	print("exists? ", ResourceLoader.exists(p))
 		
