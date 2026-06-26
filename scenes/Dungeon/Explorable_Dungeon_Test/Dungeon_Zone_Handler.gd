@@ -59,7 +59,7 @@ func _setup(dungeon_type_: dungeon_type):
 	if dungeon_type_.does_dungeon_have_boss:
 		if not dungeon_type_.has_beaten_boss:
 			floor_count = dungeon_type_.first_time_floor_count
-	player._setup(self)	
+	await player._setup(self)	
 	await entered_new_floor()
 	print("SETUP")
 
@@ -113,8 +113,11 @@ func generate_dungeon():
 	
 	new_room_generation.build_dungeon()
 	new_room_generation.evaluate_room_names(new_room_generation.storage)
+	
 	var room_storage = new_room_generation.storage
 	generated_rooms = room_storage
+	
+	player.update_pivot_rotation(generated_rooms[Vector2i(0, 0)])
 	
 	var keys = room_storage.keys()
 	var min_x_key: int = keys[0].x
@@ -122,7 +125,6 @@ func generate_dungeon():
 	var min_y_key: int = keys[0].y
 	var max_y_key: int = keys[0].y
 	
-	# Separate the IF statements (avoid "elif" for min/max calculations)
 	for key: Vector2i in keys:
 		if key.x < min_x_key:
 			min_x_key = key.x
@@ -145,30 +147,23 @@ func generate_dungeon():
 	for room_: Vector2i in room_storage:
 		bounding_box_arr[room_.x - min_x_key][room_.y - min_y_key] = room_storage[room_].room_name_type[0]
 	
-# 1. Print the Rows with perfectly aligned Y-labels
 	for y in range(height):
-		# "%4d" forces the Y-coordinate to take up exactly 4 characters.
-		# We then add 4 spaces, making the total margin exactly 8 characters!
 		var row = ("%4d" % (y + min_y_key)) + "    " 
 		for x in range(width):
 			row += bounding_box_arr[x][y] + " "
 		print(row)
 		
-	# 2. Print a Separator Line to divide the grid from the X-header
-	var separator = "        " # Exactly 8 spaces of padding
+	var separator = "        " 
 	for x in range(width):
-		separator += "--" # Draws a line matching the 2-character column width
+		separator += "--" 
 	print(separator)
 	
-	# 3. Print the X Coordinates perfectly aligned
-	var x_header = "        " # Exactly 8 spaces of padding
+	var x_header = "        " 
 	for x in range(width):
 		var world_x = x + min_x_key
-		# "%2d" forces the number to take up exactly 2 characters in the console,
-		# aligning it perfectly with your "cell + space" columns!
+
 		x_header += "%2d" % world_x 
 	print(x_header)
-	
 	
 	var ret_val = instantiate_rooms(room_storage)
 	
@@ -184,7 +179,6 @@ func generate_dungeon():
 	
 	navigation_region.bake_navigation_mesh(false)
 	
-
 	var retries = 0
 	while navigation_region.navigation_mesh.get_polygon_count() == 0 and retries < 5:
 		await get_tree().physics_frame

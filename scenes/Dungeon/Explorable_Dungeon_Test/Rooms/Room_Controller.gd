@@ -26,6 +26,7 @@ func give_player_chest_item():
 	for drop_chance in p_ref.current_dungeon.chest_drops.values():
 		if chance < drop_chance:
 			print("DROPPED ITEM")
+			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(drop_chance))
 
 func _setup(p_ref: explorable_dungeon):
 	self.p_ref = p_ref

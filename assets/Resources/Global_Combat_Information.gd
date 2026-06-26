@@ -33,6 +33,7 @@ func load_items():
 
 func add_item(item_to_add: Items):
 	all_held_items.append(item_to_add)
+	print("ADDED ", item_to_add.item_name)
 
 func _ready():
 	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))

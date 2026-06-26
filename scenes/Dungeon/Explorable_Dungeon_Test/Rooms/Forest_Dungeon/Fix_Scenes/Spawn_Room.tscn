@@ -16,11 +16,11 @@ transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.092784
 
 [node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=475416869 instance=ExtResource("2_laqkg")]
 transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.6, 1.8, 0.007)
-what_direction = 3
+what_direction = 1
 
 [node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=852625099 instance=ExtResource("2_laqkg")]
 transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6, 1.8, 0.018)
-what_direction = 1
+what_direction = 3
 
 [node name="Floor" type="Node3D" parent="." unique_id=1696627602]
 

@@ -8,6 +8,7 @@ var tracked_walls: Dictionary = {}
 var active_walls: Array[StaticBody3D] = []
 
 func _physics_process(_delta: float) -> void:
+	return
 	if not player:
 		return
 	

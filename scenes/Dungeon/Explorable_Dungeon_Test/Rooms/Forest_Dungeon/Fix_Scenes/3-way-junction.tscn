@@ -14,7 +14,6 @@ room_classification = 4
 
 [node name="Section_1_Dungeon_Wall" parent="Walls" unique_id=1488638431 instance=ExtResource("3_mytxw")]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.3984261e-07, 1.8, -1.5996131)
-what_direction = 2
 
 [node name="Floor" type="Node3D" parent="." unique_id=645125051]
 

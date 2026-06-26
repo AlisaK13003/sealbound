@@ -13,11 +13,11 @@ room_classification = 6
 
 [node name="Section_1_Dungeon_Wall3" parent="Walls" unique_id=1488638431 instance=ExtResource("3_s8wti")]
 transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.596, 1.8, 0)
-what_direction = 3
+what_direction = 1
 
 [node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=671529401 instance=ExtResource("3_s8wti")]
 transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6, 1.8, 0)
-what_direction = 1
+what_direction = 3
 
 [node name="Floor" type="Node3D" parent="." unique_id=1131465710]
 

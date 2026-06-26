@@ -185,11 +185,9 @@ func _physics_process(delta):
 			current_enemy.visible = true
 			current_enemy_2.visible = true
 		
-		# MiniMap relative dot remains the same (because relative distance never changes)
 		current_enemy.position.x = (enemy_list[enemy].position.x * x_scale_factor) - (p_ref.player.position.x * x_scale_factor)
 		current_enemy.position.y = (enemy_list[enemy].position.z * y_scale_factor) - (p_ref.player.position.z * y_scale_factor)
 
-		# Full Screen Map dots MUST be offset by the true minimum bounds!
 		var shifted_enemy_x = enemy_list[enemy].position.x - (min_grid_x * p_ref.tile_size)
 		var shifted_enemy_z = enemy_list[enemy].position.z - (min_grid_y * p_ref.tile_size)
 
@@ -202,19 +200,15 @@ func _physics_process(delta):
 		grid_container.position.x = ((2 * p_ref.tile_size - p_ref.player.position.x) * x_scale_factor) + (min_grid_x * offset_)
 		grid_container.position.y = ((2 * p_ref.tile_size - p_ref.player.position.z) * y_scale_factor) + (min_grid_y * offset_)
 		
-		# Scroll full-screen map container
 		$Full_Screen_Map/Panel/GridContainer.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * x_scale_factor
 		f_grid.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * y_scale_factor
 		
-		# Calculate player's shifted coordinates based on minimum bounds
 		var shifted_player_x = p_ref.player.position.x - (min_grid_x * p_ref.tile_size)
 		var shifted_player_z = p_ref.player.position.z - (min_grid_y * p_ref.tile_size)
 		
-		# Map the player pointer position on the Full Screen Panel using shifted coordinates
 		f_rect.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(shifted_player_x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
 		f_rect.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(shifted_player_z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
 		
-		# Centering offsets
 		f_rect.position.x += f_grid.scale.x * 20
 		f_rect.position.y += f_grid.scale.y * 20
 		
@@ -313,7 +307,7 @@ func _setup(parent_reference: explorable_dungeon, generated_rooms):
 			grid_container.add_child(new_map_node_instance)
 			
 	has_setup_run = true
-	_new_room_entered(Vector2(0, 0)) # Remove this line, the player movement will trigger the first room.
+	_new_room_entered(Vector2(0, 0)) 
 
 const ASSET_OFFSETS = {
 	"Spawn_Room": 180.0,

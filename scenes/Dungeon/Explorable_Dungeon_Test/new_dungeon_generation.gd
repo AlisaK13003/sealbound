@@ -77,7 +77,7 @@ class dungeon_room:
 		if required_directions.has(new_direction):
 			return true
 			
-		if required_directions.size() >= total_direction_count:
+		if required_directions.size() >= total_direction_count and group_id != -2:
 			if total_direction_count < 4:
 				total_direction_count += 1 
 			else:
@@ -276,6 +276,8 @@ var current_three_way_count = 0
 var current_four_way_count = 0
 var current_room_count = 0
 
+signal down_has_been_placed
+
 func build_rooms(room_storage):
 	print("BUILDING ROOMS")
 	var rng = RandomNumberGenerator.new()
@@ -287,7 +289,7 @@ func build_rooms(room_storage):
 
 	var spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
 	room_storage[spawn_location] = spawn_room
-	var main_walker_lifetime: int = rng.randi_range(20, 30)
+	var main_walker_lifetime: int = rng.randi_range(15, 25)
 	var main_walker_setps: int = 0
 	
 	var walker_current_location: Vector2i = spawn_location
@@ -298,11 +300,15 @@ func build_rooms(room_storage):
 	var t_way_chance = rng.randf_range(template_chance, 0.25)
 	var four_way_chance = rng.randf_range(t_way_chance, 0.3)
 	
-	var max_three_way_count = rng.randi_range(1, 6) * clamp(int(main_walker_lifetime / 5), 1, 5)
-	var max_four_way_count = rng.randi_range(0, 2) * clamp(int(main_walker_lifetime / 10), 1, 5)
-	var max_room_count = rng.randi_range(1, 5) * clamp(int(main_walker_lifetime) / 3, 1, 3)
+	var max_three_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 15), 1, 3)
+
+	var max_four_way_count = rng.randi_range(2, 4) * clamp(int(main_walker_lifetime / 20), 1, 3)
+
+	var max_room_count = rng.randi_range(2, 4) * clamp(int(main_walker_lifetime / 20), 1, 2)
 	
 	var chances = [template_chance, t_way_chance, four_way_chance, max_three_way_count, max_four_way_count, max_room_count]
+	
+
 	
 	# Iterates until all steps have found a valid position
 	while not valid_critical_path_found:
@@ -334,6 +340,7 @@ func build_rooms(room_storage):
 					
 		if placed_stairs_down:
 			valid_critical_path_found = true
+			#down_has_been_placed.emit()
 		else:
 			room_storage.clear()
 			spawn_location = Vector2i(0, 0)
@@ -344,6 +351,8 @@ func build_rooms(room_storage):
 	#return true
 	var has_all_directions_been_satisfied: bool = false
 	var num_of_other_walkers: Array[Vector2i] = []
+
+	#await down_has_been_placed
 
 	var max_number_of_complete_branched_paths: int = 10
 	var num_of_branched_paths: int = 0
@@ -779,7 +788,7 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 				tried_directions.append(currently_heading_in_x_direction)
 				if not is_main_path:
 					var loop_chance: float = rng.randf()
-					if loop_chance > 0.5 and (room_storage[next_step_location].group_id != -2):
+					if loop_chance > 0.5 and (room_storage[next_step_location].group_id == -1):
 						room_storage[next_step_location].add_direction(same_directions[currently_heading_in_x_direction])
 						room_storage[walker_current_location].add_direction(currently_heading_in_x_direction)
 						print("LOOPED AT ", walker_current_location, " room there is ", room_storage[walker_current_location].room_name_type)
@@ -821,7 +830,7 @@ func place_generic_path(
 		if current_3_way >= max_3_way:
 			can_place_junction = false
 	
-	if need_to_place_junction and (((max_4_way >= current_4_way) and is_main_path) or (max_3_way >= current_3_way)):
+	if need_to_place_junction and is_main_path:
 		var chance: float = rng.randf()
 		if (chance < 0.5 and max_3_way >= current_3_way) or not is_main_path:
 			should_place_junction = true
@@ -830,16 +839,25 @@ func place_generic_path(
 			should_place_junction = true
 			new_room.total_direction_count = 4
 	else:
-		if room_chance < (0.25 + steps_without_junction * 0.15) and can_place_junction and (max_3_way >= current_3_way):
-			should_place_junction = true
-			new_room.total_direction_count = 3
-		elif room_chance < (0.3 + steps_without_junction * 0.15) and can_place_junction and (max_4_way >= current_4_way) and is_main_path: 
-			should_place_junction = true
-			new_room.total_direction_count = 4
+		if need_to_place_junction and (((max_4_way >= current_4_way) and is_main_path) or (max_3_way >= current_3_way)):
+			var chance: float = rng.randf()
+			if (chance < 0.5 and max_3_way >= current_3_way) or not is_main_path:
+				should_place_junction = true
+				new_room.total_direction_count = 3
+			elif max_4_way >= current_4_way:
+				should_place_junction = true
+				new_room.total_direction_count = 4
 		else:
-			should_place_junction = false
-			new_room.total_direction_count = 2
-			steps_without_junction += 1
+			if room_chance < (0.25 + steps_without_junction * 0.15) and can_place_junction and (max_3_way >= current_3_way):
+				should_place_junction = true
+				new_room.total_direction_count = 3
+			elif room_chance < (0.3 + steps_without_junction * 0.15) and can_place_junction and (max_4_way >= current_4_way) and is_main_path: 
+				should_place_junction = true
+				new_room.total_direction_count = 4
+			else:
+				should_place_junction = false
+				new_room.total_direction_count = 2
+				steps_without_junction += 1
 
 	if should_place_junction:
 		var is_too_close_to_junction: bool = false
