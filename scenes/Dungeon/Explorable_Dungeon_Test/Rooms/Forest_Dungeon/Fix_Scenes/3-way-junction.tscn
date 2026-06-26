@@ -14,11 +14,12 @@ room_classification = 4
 
 [node name="Section_1_Dungeon_Wall" parent="Walls" unique_id=1488638431 instance=ExtResource("3_mytxw")]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.3984261e-07, 1.8, -1.5996131)
+what_direction = 2
 
 [node name="Floor" type="Node3D" parent="." unique_id=645125051]
 
 [node name="Creepy_Dungeon_3_Way_Floor2" parent="Floor" unique_id=2037763089 instance=ExtResource("3_q11iu")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.08059397, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=275606809 groups=["Ground"] instance=ExtResource("1_ldkxi")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
@@ -28,4 +29,7 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1278543024]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
 light_color = Color(1, 0.28627452, 0.10980392, 1)
-light_energy = 62.77
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0

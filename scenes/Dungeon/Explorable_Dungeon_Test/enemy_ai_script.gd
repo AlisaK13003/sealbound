@@ -61,7 +61,8 @@ var disabled_timer = 0.0
 func _physics_process(delta: float) -> void:
 	if still_setting_up:
 		return
-	
+	_check_for_new_tile()
+
 	if disable_monitoring:
 		return
 	
@@ -74,7 +75,6 @@ func _physics_process(delta: float) -> void:
 	if p_ref.movement_locked:
 		return
 		
-	_check_for_new_tile()
 	
 	if not nav_agent.is_navigation_finished():
 		_check_if_stuck(delta)	
@@ -128,8 +128,8 @@ var current_grid_pos: Vector2i
 
 func _check_for_new_tile() -> void:
 	if still_setting_up:
-
 		return
+		
 	var offset = p_ref.tile_size / 2.0
 	
 	var grid_x = int(floor((global_position.x + offset) / p_ref.tile_size))
@@ -139,6 +139,13 @@ func _check_for_new_tile() -> void:
 
 	if calculated_pos != current_grid_pos:
 		current_grid_pos = calculated_pos
+		
+	if not p_ref.get_room_node_at(current_grid_pos).is_visible:
+		self.visible = false
+		#disable_monitoring = true
+	else:
+		self.visible = true
+		#disable_monitoring = false
 
 
 func _move_along_path(current_speed: float) -> void:

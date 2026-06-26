@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c812bdeo2058y"
-path="res://.godot/imported/rowan_idle.png-d25698407a86e5fb8204e64fb988fb16.ctex"
+uid="uid://diqmginw8545h"
+path="res://.godot/imported/Rowan_Idle.png-3fa4e6c751fa5f1187ff1b68bf6c13aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/rowan/rowan_idle.png"
-dest_files=["res://.godot/imported/rowan_idle.png-d25698407a86e5fb8204e64fb988fb16.ctex"]
+source_file="res://assets/characters/rowan/Rowan_Idle.png"
+dest_files=["res://.godot/imported/Rowan_Idle.png-3fa4e6c751fa5f1187ff1b68bf6c13aa.ctex"]
 
 [params]
 

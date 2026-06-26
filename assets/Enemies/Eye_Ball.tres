@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://cicgt1fthbow0"]
 
-[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_jr63c"]
-[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_w4ub5"]
-[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_wn58t"]
-[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_8x0pw"]
-[ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="4_8x0pw"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_uyw4s"]
-[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_nw6bc"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_w4ub5"]
-[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Resources/Dungeon Stuff/Eyeball_Sprite_Frames.tres" id="7_8x0pw"]
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_8ulno"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_jx6af"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_72to5"]
+[ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="4_ovh1i"]
+[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_xbpj4"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_tfr1o"]
+[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="7_1sfu2"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="8_sx8g4"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="9_ritrn"]
 
 [sub_resource type="Resource" id="Resource_8x0pw"]
-script = ExtResource("1_w4ub5")
+script = ExtResource("1_8ulno")
 attack_power = null
 does_damage = false
 does_status = true
@@ -21,7 +21,7 @@ chance_of_status_condition = 1.0
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ho304"]
-script = ExtResource("1_w4ub5")
+script = ExtResource("1_8ulno")
 attack_power = 1
 mana_cost = 2
 status_type = null
@@ -29,7 +29,7 @@ removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_nw6bc"]
-script = ExtResource("1_w4ub5")
+script = ExtResource("1_8ulno")
 attack_power = null
 is_magic_skill = true
 does_damage = false
@@ -41,7 +41,7 @@ does_heal_party = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_uyw4s"]
-script = ExtResource("2_wn58t")
+script = ExtResource("2_jx6af")
 level = 2
 max_health = 65
 health = 65
@@ -55,42 +55,42 @@ evasion = 3
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_yakan"]
-script = ExtResource("5_nw6bc")
+script = ExtResource("5_xbpj4")
 coin_drop_range = Vector2(10, 15)
 bond_drop_range = Vector2(2, 5)
-item_drop_chances = Dictionary[ExtResource("3_8x0pw"), int]({
-ExtResource("4_8x0pw"): 50
+item_drop_chances = Dictionary[ExtResource("3_72to5"), int]({
+ExtResource("4_ovh1i"): 50
 })
 metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
 
 [sub_resource type="Resource" id="Resource_o16x7"]
-script = ExtResource("2_wn58t")
+script = ExtResource("2_jx6af")
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_f2dqj"]
-script = ExtResource("4_uyw4s")
+script = ExtResource("8_sx8g4")
 equipment_stats = SubResource("Resource_o16x7")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_otd26"]
-script = ExtResource("5_w4ub5")
+script = ExtResource("9_ritrn")
 attack_accuracy = 100
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
-script = ExtResource("1_jr63c")
-combatant_name = "NON-PUPPY"
+script = ExtResource("6_tfr1o")
+combatant_name = "Eye-Ball"
 combatant_stats = SubResource("Resource_uyw4s")
 is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
 drop_table = SubResource("Resource_yakan")
-combatant_skills = Array[ExtResource("1_w4ub5")]([SubResource("Resource_8x0pw"), SubResource("Resource_ho304"), SubResource("Resource_nw6bc")])
-sprite_frames = ExtResource("7_8x0pw")
+combatant_skills = Array[ExtResource("1_8ulno")]([SubResource("Resource_8x0pw"), SubResource("Resource_ho304"), SubResource("Resource_nw6bc")])
+sprite_frames = ExtResource("7_1sfu2")
 idle_speed = 0.25
 death_speed = 1.0
 walk_speed = 2.0
 attack_speed = Array[float]([2.0, 2.0])
 sprite_scale = 0.004
-sprite_offset = Vector2(-35, -47)
+sprite_offset = Vector2(-36, -34)
 metadata/_custom_type_script = "uid://125iickqse23"

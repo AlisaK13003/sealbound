@@ -20,14 +20,16 @@ transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.092784
 
 [node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=382764131 instance=ExtResource("3_g5mx7")]
 transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5975988, 1.8, 0.007053852)
+what_direction = 3
 
 [node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=1406485742 instance=ExtResource("3_g5mx7")]
-transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5884562, 1.8, 0.017942429)
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.588, 1.8, 0.018)
+what_direction = 1
 
 [node name="Floor" type="Node3D" parent="." unique_id=919956286]
 
 [node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=859113851 instance=ExtResource("4_2u071")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.10424873, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=2097126478 instance=ExtResource("4_joj12")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
@@ -43,6 +45,9 @@ collision_layer = 4
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1897019323]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
 light_color = Color(1, 0.28627452, 0.10980392, 1)
-light_energy = 62.77
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
 
 [editable path="Floor/Forest_Grid_Tile"]

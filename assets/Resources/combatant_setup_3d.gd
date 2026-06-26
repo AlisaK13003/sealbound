@@ -149,22 +149,17 @@ func setup(combatant : generic_combatants, parent_ref: dungeon_loop, child_num):
 	animated_sprite.offset = combatant.sprite_offset
 	animated_sprite.modulate = Color.WHITE
 	current_mana = 3
+	animated_sprite.flip_h = combatant.should_flip_sprite
 	if combatant.is_combatant_enemy:
 		currently_selectable = true
-		animated_sprite.sprite_frames = combatant.sprite_frames
-		animated_sprite.pixel_size = stored_combatant.sprite_scale
-		animated_sprite.speed_scale = stored_combatant.idle_speed
-		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
-		animated_sprite.play("Idle")
 	else:
 		combatant_ui_.get_node("TextureProgressBar").visible = false
 		# combatant_sprite.texture = combatant.combatant_sprite
-		animated_sprite.sprite_frames = combatant.sprite_frames
-		animated_sprite.pixel_size = stored_combatant.sprite_scale
-		animated_sprite.speed_scale = stored_combatant.idle_speed
-		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
-		animated_sprite.play("Idle")
-		animated_sprite.flip_h = false
+	animated_sprite.sprite_frames = combatant.sprite_frames
+	animated_sprite.pixel_size = stored_combatant.sprite_scale
+	animated_sprite.speed_scale = stored_combatant.idle_speed
+	animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
+	animated_sprite.play("Idle")
 	
 func update_health(change_health_value, what_action):
 	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
@@ -476,7 +471,7 @@ func attack_animation(what_attack_anim):
 			what_attack = "On_Attack_2"
 		_:
 			what_attack = "On_Attack_Base"
-	if stored_combatant.attack_speed.size() > 0 and not stored_combatant.is_combatant_enemy:
+	if stored_combatant.attack_speed.size() > 0:
 		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)

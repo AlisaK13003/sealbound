@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bd3pbfb2hc77r"]
 
-[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Resources/Dungeon Stuff/Eyeball_Sprite_Frames.tres" id="1_is31c"]
+[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="1_is31c"]
 [ext_resource type="Script" uid="uid://b5snq2negmo3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/enemy_ai_script.gd" id="1_kx1k8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kx1k8"]

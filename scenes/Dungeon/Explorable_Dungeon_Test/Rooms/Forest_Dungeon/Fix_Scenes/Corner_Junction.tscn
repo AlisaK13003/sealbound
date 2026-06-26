@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_i04p8"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_tussm"]
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_i04p8"]
-[ext_resource type="PackedScene" uid="uid://vkx1mdnc7lii" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Corner_Floor.glb" id="3_k6cr3"]
+[ext_resource type="PackedScene" uid="uid://bhwsflne3sykv" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Corner_Fixed_2.0.glb" id="3_k6cr3"]
 
 [node name="CornerJunction" type="Node3D" unique_id=365595035]
 script = ExtResource("1_i04p8")
@@ -13,14 +13,15 @@ room_classification = 3
 
 [node name="Section_1_Dungeon_Wall3" parent="Walls" unique_id=1488638431 instance=ExtResource("3_i04p8")]
 transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.589581, 1.8, 0)
+what_direction = 3
 
 [node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=432977582 instance=ExtResource("3_i04p8")]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0.009575069, 1.8, -1.5893306)
 
 [node name="Floor" type="Node3D" parent="." unique_id=1249421485]
 
-[node name="Creepy_Dungeon_Corner_Floor2" parent="Floor" unique_id=73635135 instance=ExtResource("3_k6cr3")]
-transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, 0, -0.07613239, 0)
+[node name="Creepy_Dungeon_Corner_Fixed_2_0" parent="Floor" unique_id=1435406057 instance=ExtResource("3_k6cr3")]
+transform = Transform3D(-2.1855692e-08, 0, 0.49999997, 0, 0.5, 0, -0.49999997, 0, -2.1855692e-08, 0, 0, 0)
 
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=275606809 instance=ExtResource("1_tussm")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
@@ -30,4 +31,7 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1869433829]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
 light_color = Color(1, 0.28627452, 0.10980392, 1)
-light_energy = 62.77
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0

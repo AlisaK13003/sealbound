@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_eqpjp"]
 [ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="1_vh8sp"]
-[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/enemy.tres" id="3_t75kh"]
+[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="3_t75kh"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_eqpjp"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="6_mka7e"]
 

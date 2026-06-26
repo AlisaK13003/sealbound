@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	forward = forward.normalized()
 	right = right.normalized()
 	sprite_pivot.rotation_degrees.y = camera_pivot.rotation_degrees.y
-	var direction: Vector3 = (forward * -input_dir.y + right * input_dir.x).normalized()
+	var direction: Vector3 = (forward * (-input_dir.y) + right * (input_dir.x)).normalized()
 	
 	if direction != Vector3.ZERO:
 		is_moving = true
@@ -75,16 +75,14 @@ func _physics_process(delta: float) -> void:
 
 func update_sprite_scale():
 	if camera:
-		# Get the vertical pitch angle of the camera
 		var pitch_rad = camera.global_rotation.x 
 		var compression_factor = abs(cos(pitch_rad))
 
-		# Prevent division by zero if camera is perfectly top-down
 		if compression_factor < 0.1: 
 			compression_factor = 0.1 
 			
-		# Dynamically scale only the Y axis
 		#animated_sprite.scale.y = 1.0 / compression_factor
+
 
 func _check_for_new_tile() -> void:
 	if not has_been_setup:
@@ -100,6 +98,17 @@ func _check_for_new_tile() -> void:
 		current_grid_pos = calculated_pos
 		_on_tile_entered(current_grid_pos)
 		
+	if has_been_setup and calculated_pos == Vector2i(0, 0):
+		match p_ref.get_room_node_at(Vector2i(0, 0)).room_directions[0]:
+			0:
+				camera_pivot.rotation_degrees.y = 0.0
+			1:
+				camera_pivot.rotation_degrees.y = -90.0
+			2:
+				camera_pivot.rotation_degrees.y = -180.0
+			3:
+				camera_pivot.rotation_degrees.y = -270.0
+		
 func _on_tile_entered(coords: Vector2i):
 	entered_new_tile.emit(coords)
 	# camera_pivot._on_player_entered_new_tile(p_ref.get_room_node_at(coords))
@@ -107,7 +116,6 @@ func _on_tile_entered(coords: Vector2i):
 var last_direction: String = "down"
 
 var anim_name: String = "idle"
-
 
 func sync_animation(input_dir: Vector2) -> void:
 	if input_dir == Vector2.ZERO:

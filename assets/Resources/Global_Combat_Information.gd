@@ -31,6 +31,9 @@ func load_items():
 	for i in range(5):
 		all_held_items.append(new_item.duplicate())
 
+func add_item(item_to_add: Items):
+	all_held_items.append(item_to_add)
+
 func _ready():
 	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
 	active_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))

@@ -115,6 +115,61 @@ func generate_dungeon():
 	new_room_generation.evaluate_room_names(new_room_generation.storage)
 	var room_storage = new_room_generation.storage
 	generated_rooms = room_storage
+	
+	var keys = room_storage.keys()
+	var min_x_key: int = keys[0].x
+	var max_x_key: int = keys[0].x
+	var min_y_key: int = keys[0].y
+	var max_y_key: int = keys[0].y
+	
+	# Separate the IF statements (avoid "elif" for min/max calculations)
+	for key: Vector2i in keys:
+		if key.x < min_x_key:
+			min_x_key = key.x
+		if key.x > max_x_key:
+			max_x_key = key.x
+			
+		if key.y < min_y_key:
+			min_y_key = key.y
+		if key.y > max_y_key:
+			max_y_key = key.y
+	var bounding_box_arr : Array[Array] = []
+	var width = max_x_key - min_x_key + 1
+	var height = max_y_key - min_y_key + 1
+	
+	for x in range(width):
+		bounding_box_arr.append([])
+		for y in range(height):
+			bounding_box_arr[x].append("0")
+	
+	for room_: Vector2i in room_storage:
+		bounding_box_arr[room_.x - min_x_key][room_.y - min_y_key] = room_storage[room_].room_name_type[0]
+	
+# 1. Print the Rows with perfectly aligned Y-labels
+	for y in range(height):
+		# "%4d" forces the Y-coordinate to take up exactly 4 characters.
+		# We then add 4 spaces, making the total margin exactly 8 characters!
+		var row = ("%4d" % (y + min_y_key)) + "    " 
+		for x in range(width):
+			row += bounding_box_arr[x][y] + " "
+		print(row)
+		
+	# 2. Print a Separator Line to divide the grid from the X-header
+	var separator = "        " # Exactly 8 spaces of padding
+	for x in range(width):
+		separator += "--" # Draws a line matching the 2-character column width
+	print(separator)
+	
+	# 3. Print the X Coordinates perfectly aligned
+	var x_header = "        " # Exactly 8 spaces of padding
+	for x in range(width):
+		var world_x = x + min_x_key
+		# "%2d" forces the number to take up exactly 2 characters in the console,
+		# aligning it perfectly with your "cell + space" columns!
+		x_header += "%2d" % world_x 
+	print(x_header)
+	
+	
 	var ret_val = instantiate_rooms(room_storage)
 	
 	if not ret_val:
@@ -151,11 +206,11 @@ func generate_dungeon():
 	var current_start = get_room_node_at(Vector2(0, 0))
 	player_start_position = Vector2(player.position.x, player.position.z)
 	player.rotation_degrees.y = 0.0
-	player.camera_pivot.rotation.y = 0.0
-	player.camera_pivot.current_yaw = 0.0
-	player.camera_pivot.current_pitch = 0.0
-	player.camera_pivot.target_yaw = 0.0
-	player.camera_pivot.target_pitch = 0.0
+	#player.camera_pivot.rotation.y = 0.0
+	#player.camera_pivot.current_yaw = 0.0
+	#player.camera_pivot.current_pitch = 0.0
+	#player.camera_pivot.target_yaw = 0.0
+	#player.camera_pivot.target_pitch = 0.0
 
 	match current_start.rotation_degrees.y:
 		0.0:
@@ -211,14 +266,11 @@ func instantiate_rooms(room_storage):
 		new_room.position = Vector3(room_.x * tile_size, 0, room_.y * tile_size)
 		new_room.room_directions = room_storage[room_].required_directions
 		
-		new_room._setup(self)
-		
 		active_room_nodes[room_] = new_room
 		
 		new_room.rotation_degrees.y = room_storage[room_].get_rotation_degrees_()
-		
 		navigation_region.add_child(new_room)
-		
+		new_room._setup(self)
 		
 
 	return true

@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://dyxb3w4ehxlon"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_1rk34"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_ftsl5"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_lfjh6"]
+[ext_resource type="SpriteFrames" uid="uid://dwqx7akwnnm6c" path="res://assets/Enemies/Slime_Sprite_Frames.tres" id="4_ftsl5"]
+
+[sub_resource type="Resource" id="Resource_bvd8k"]
+script = ExtResource("1_1rk34")
+move_name = "Slimer"
+attack_power = 1
+accuracy = 85
+guaranteed_hit_count = 1
+max_hit_count = 1
+is_magic_skill = true
+does_status = true
+status_type = 8
+removes_status = null
+chance_of_status_condition = 0.5
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_ftsl5"]
+script = ExtResource("2_ftsl5")
+level = 5
+max_health = 85
+health = 85
+attack = 26
+defense = 13
+magic = 29
+resistance = 2
+speed = 3
+luck = 1
+evasion = 17
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("2_lfjh6")
+combatant_name = "Slime-Creature"
+combatant_stats = SubResource("Resource_ftsl5")
+is_combatant_enemy = true
+should_flip_sprite = true
+combatant_skills = Array[ExtResource("1_1rk34")]([SubResource("Resource_bvd8k")])
+sprite_frames = ExtResource("4_ftsl5")
+idle_speed = 1.0
+death_speed = 1.0
+walk_speed = 1.0
+attack_speed = Array[float]([1.0, 1.0])
+sprite_scale = 0.004
+sprite_offset = Vector2(-67, -42)
+experience_mult = 1
+metadata/_custom_type_script = "uid://125iickqse23"

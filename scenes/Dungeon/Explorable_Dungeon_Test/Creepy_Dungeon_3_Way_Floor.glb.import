@@ -44,7 +44,7 @@ _subresources={
 "PATH:Creepy_Dungeon_3_Way_Floor": {
 "generate/physics": true,
 "physics/shape_type": 3,
-"primitive/size": Vector3(6.5, 6.5, 0.5)
+"primitive/size": Vector3(6.4, 6.4, 0.4)
 }
 }
 }

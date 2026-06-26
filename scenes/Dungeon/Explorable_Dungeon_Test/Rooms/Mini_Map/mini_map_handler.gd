@@ -128,7 +128,6 @@ func store_current_enemy_list(e_list):
 var max_zoom_in = 2.0
 var max_zoom_out = 0.5
 func _process(delta):
-	return
 	var boundary = f_grid.size * f_grid.scale
 	var bounds = full_panel.size - boundary
 	
@@ -165,7 +164,7 @@ func _process(delta):
 				$Full_Screen_Map/Panel.scale = Vector2(1, 1) * max_zoom_out
 				$Full_Screen_Map/Panel.size *= 1.0 / max_zoom_out
 			$Full_Screen_Map/Panel.position = original_panel_position
-		f_grid.size = p_ref.max_grid_size * 40
+		f_grid.size = Vector2(grid_size_x, grid_size_y) * 40
 		
 func _physics_process(delta):
 	if not has_setup_run:
@@ -203,13 +202,21 @@ func _physics_process(delta):
 		grid_container.position.x = ((2 * p_ref.tile_size - p_ref.player.position.x) * x_scale_factor) + (min_grid_x * offset_)
 		grid_container.position.y = ((2 * p_ref.tile_size - p_ref.player.position.z) * y_scale_factor) + (min_grid_y * offset_)
 		
-		#$Full_Screen_Map/Panel/GridContainer.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * x_scale_factor
-		#f_grid.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * y_scale_factor
+		# Scroll full-screen map container
+		$Full_Screen_Map/Panel/GridContainer.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * x_scale_factor
+		f_grid.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * y_scale_factor
 		
-		#f_rect.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(p_ref.player.position.x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
-		#f_rect.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(p_ref.player.position.z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
-		#f_rect.position.x += f_grid.scale.x * 20
-		#f_rect.position.y += f_grid.scale.y * 20
+		# Calculate player's shifted coordinates based on minimum bounds
+		var shifted_player_x = p_ref.player.position.x - (min_grid_x * p_ref.tile_size)
+		var shifted_player_z = p_ref.player.position.z - (min_grid_y * p_ref.tile_size)
+		
+		# Map the player pointer position on the Full Screen Panel using shifted coordinates
+		f_rect.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(shifted_player_x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
+		f_rect.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(shifted_player_z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
+		
+		# Centering offsets
+		f_rect.position.x += f_grid.scale.x * 20
+		f_rect.position.y += f_grid.scale.y * 20
 		
 # 460, -20
 # 39.484 0.755 0.014
@@ -331,19 +338,15 @@ const DIR_VECTORS = {
 }
 
 
-# Call this function whenever the player enters a new room.
-# player_grid_pos should be the Vector2i coordinate of the room they just entered.
 func update_room_visibility(player_grid_pos: Vector2i):
-	# We will store all rooms that should be visible here
 	var visible_rooms: Array[Vector2i] = []
 	
-	# Queue stores dictionaries with the room position and how many "steps" away it is
 	var queue: Array = [{"pos": player_grid_pos, "depth": 0}]
 	
-	# Keep track of where we've been so we don't loop endlessly
 	var visited: Dictionary = {player_grid_pos: true}
 	
-	# 1. Calculate which rooms are connected within 2 steps
+	var current_group = p_ref.generated_rooms[player_grid_pos].group_id
+	
 	while queue.size() > 0:
 		var current = queue.pop_front()
 		var current_pos = current["pos"]
@@ -351,30 +354,34 @@ func update_room_visibility(player_grid_pos: Vector2i):
 		
 		visible_rooms.append(current_pos)
 		
-		# If we haven't hit our radius limit, check the doors in this room
 		if current_depth <= 2:
 			if p_ref.generated_rooms.has(current_pos):
 				var room_data = p_ref.generated_rooms[current_pos]
 				
-				# Loop through the actual doors this room has
 				for dir in room_data.required_directions:
 					var neighbor_pos = current_pos + DIR_VECTORS[dir]
 					
-					# If the neighbor exists and we haven't checked it yet
 					if p_ref.generated_rooms.has(neighbor_pos) and not visited.has(neighbor_pos):
-						visited[neighbor_pos] = true
-						queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
+						if p_ref.generated_rooms[neighbor_pos].group_id == current_group or p_ref.generated_rooms[neighbor_pos].group_id == -2: # or ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y))
+							if current_group == -1 or current_group == -2:
+								if ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)):
+									visited[neighbor_pos] = true
+									queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
+									continue
+							else:
+								visited[neighbor_pos] = true
+								queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
 						
-	# 2. Apply the visibility to the actual 3D nodes
 	for pos in p_ref.generated_rooms.keys():
-		var room_node = p_ref.get_room_node_at(pos) # (Assuming you have a function or dict for instantiated nodes)
+		var room_node = p_ref.get_room_node_at(pos) 
 		if room_node != null:
 			if pos in visible_rooms:
 				room_node.visible = true
-				# Optional: You can process enemies here too!
+				room_node.is_visible = true
 				# e.g., enable_enemies_in_room(room_node)
 			else:
 				room_node.visible = false
+				room_node.is_visible = false
 				# e.g., disable_enemies_in_room(room_node)
 
 func get_rotation_degrees_(room_type: String, previous_rotation) -> float:

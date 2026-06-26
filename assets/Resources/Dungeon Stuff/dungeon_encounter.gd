@@ -8,6 +8,8 @@ class_name dungeon_type
 @export var minimum_number_of_floors: int
 @export var potential_encounters : Array[dungeon_wave]
 
+@export var dungeon_light_color: Color = Color.WHITE
+
 @export var first_time_floor_count: int = 10
 
 @export_flags("Creepy_Dungeon", "Forest_Dungeon") var type_of_dungeon = 0
@@ -16,6 +18,8 @@ class_name dungeon_type
 @export var dungeon_floor_size_max_range: Vector2 = Vector2(15, 15)
 
 var is_this_dungeon_unlocked: bool = false
+
+@export var chest_drops: Dictionary[Items, float]
 
 @export var does_dungeon_have_boss: bool = false
 var has_beaten_boss: bool = false

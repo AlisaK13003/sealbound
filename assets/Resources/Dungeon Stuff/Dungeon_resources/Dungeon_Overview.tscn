@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bf6inxm7vnjpp" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/dungeon_overview_setup.gd" id="1_wiht4"]
 [ext_resource type="Texture2D" uid="uid://cpwt5olgmynmt" path="res://assets/tile sheets/EyeBall/Idle/Dungeon_Wall.png" id="2_8e04e"]
-[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Resources/Dungeon Stuff/Eyeball_Sprite_Frames.tres" id="3_sjfyd"]
+[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="3_sjfyd"]
 
 [node name="DungeonOverview" type="Control" unique_id=2129955901]
 layout_mode = 3

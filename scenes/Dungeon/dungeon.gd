@@ -191,13 +191,20 @@ func sort_enemy_actions(enemy_actions: Array[enemy_weighting]) -> Array[enemy_we
 
 var enemy_scene = "res://assets/Resources/Combat_Template_3D.tscn"
 func setup_encounter(new_encounter: dungeon_wave):
-	var enemy_count_for_current_wave: int = new_encounter.enemies.size()
+	var enemy_list = new_encounter.enemies.duplicate()
+	enemy_list.shuffle()
+	var enemy_count_for_current_wave: int = enemy_list.size()
 	for i in range(0, enemy_count_for_current_wave):
 		var new_enemy = load(enemy_scene)
 		var new_enemy_instance = new_enemy.instantiate()
 		enemy_shit.add_child(new_enemy_instance)
-		new_enemy_instance.position = Vector3(-0.5 + (i * 0.25), -0.131, 0.0)
-		new_enemy_instance.setup(new_encounter.enemies[i].duplicate(true), self, i)
+		#new_enemy_instance.position = Vector3(-0.5 + (i * 0.25), -0.131, 0.0)
+		if i < 3:
+			new_enemy_instance.position = Vector3((i * 0.1), (i * -0.15), (i * 0.4))
+		elif i >= 3:
+			new_enemy_instance.position = Vector3(0.8 - ((i - 3) * 0.2), 0.0, 0.35 + ((i - 3) * 0.55))
+
+		new_enemy_instance.setup(enemy_list[i].duplicate(true), self, i)
 		all_combatants.append(new_enemy_instance)
 	turn_ended.emit()
 #endregion
@@ -403,7 +410,6 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 	var par_task : Array[Callable]
 	$AudioStreamPlayer3D.stream = load("res://assets/Resources/SFX/Eye-laser.wav")
 	if selected_action.is_base_attack:
-		var random_attack = rng.randi_range(0, 1)
 		if testing:
 			action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
 		if not testing:
@@ -444,7 +450,7 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 
 			#action_sequence.append(func(): await attacking_enemy.walk_animation())
 			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-			#action_sequence.append(func(): await attacking_enemy.idle_animation())
+			action_sequence.append(func(): await attacking_enemy.idle_animation())
 		else:
 			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
@@ -583,11 +589,11 @@ func handle_player_move_selection(current_combatant):
 
 			action_sequence.append(func(): await current_player.idle_animation())
 		"ITEM":
-			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_players, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
+			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_players, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
 			action_sequence.append(func(): await execute_item(what_action[1], what_action[3], what_action[2]))
 		"RUN":
 			return "RUN"
-	action_sequence.append(func(): await revert_camera())
+	#action_sequence.append(func(): await revert_camera())
 	await action_queue(action_sequence)
 	await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
 	gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))

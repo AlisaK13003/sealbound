@@ -2,15 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://cpwt5olgmynmt" path="res://assets/tile sheets/EyeBall/Idle/Dungeon_Wall.png" id="1_4d527"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_2thd2"]
+[ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="2_jlcea"]
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="3_mrykc"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="4_6d074"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_7dqhu"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="5_jlcea"]
 [ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="6_moqdr"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="7_jlcea"]
-[ext_resource type="Texture2D" uid="uid://mskbhhgulx06" path="res://assets/tile sheets/All_Eyeball_Animations-sheet.png" id="8_dfnx5"]
+[ext_resource type="Texture2D" uid="uid://mskbhhgulx06" path="res://assets/Enemies/All_Eyeball_Animations-sheet.png" id="8_dfnx5"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="9_onnqj"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_dbcgt"]
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="11_6d074"]
 
 [sub_resource type="Resource" id="Resource_c75ql"]
 script = ExtResource("3_mrykc")
@@ -208,7 +210,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -231,7 +233,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -254,7 +256,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -274,7 +276,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -300,7 +302,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -421,7 +423,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -444,7 +446,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -467,7 +469,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -487,7 +489,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -513,7 +515,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -553,7 +555,7 @@ metadata/_custom_type_script = "uid://125iickqse23"
 [sub_resource type="Resource" id="Resource_hc7dq"]
 script = ExtResource("2_2thd2")
 encounterable_enemy = SubResource("Resource_tixdq")
-enemies = Array[ExtResource("4_7dqhu")]([SubResource("Resource_bhqqc"), SubResource("Resource_bhqqc")])
+enemies = Array[ExtResource("4_7dqhu")]([SubResource("Resource_bhqqc"), SubResource("Resource_bhqqc"), ExtResource("11_6d074"), ExtResource("11_6d074"), ExtResource("11_6d074")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [sub_resource type="Resource" id="Resource_26xmb"]
@@ -640,7 +642,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -663,7 +665,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -686,7 +688,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -706,7 +708,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -732,7 +734,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -853,7 +855,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -876,7 +878,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -899,7 +901,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -919,7 +921,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -945,7 +947,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -985,7 +987,7 @@ metadata/_custom_type_script = "uid://125iickqse23"
 [sub_resource type="Resource" id="Resource_kk88i"]
 script = ExtResource("2_2thd2")
 encounterable_enemy = SubResource("Resource_3fd7y")
-enemies = Array[ExtResource("4_7dqhu")]([SubResource("Resource_auw8a"), SubResource("Resource_auw8a"), SubResource("Resource_auw8a")])
+enemies = Array[ExtResource("4_7dqhu")]([SubResource("Resource_auw8a"), SubResource("Resource_auw8a"), SubResource("Resource_auw8a"), ExtResource("11_6d074"), ExtResource("11_6d074")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [sub_resource type="Resource" id="Resource_pvadq"]
@@ -1072,7 +1074,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -1095,7 +1097,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -1118,7 +1120,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -1138,7 +1140,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -1164,7 +1166,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -1285,7 +1287,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rjg5f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -1308,7 +1310,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3kow")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -1331,7 +1333,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4pl5x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Death",
 "speed": 5.0
 }, {
@@ -1351,7 +1353,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqcem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Special_Attack_1",
 "speed": 5.0
 }, {
@@ -1377,7 +1379,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj55h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -1417,7 +1419,7 @@ metadata/_custom_type_script = "uid://125iickqse23"
 [sub_resource type="Resource" id="Resource_8ysbo"]
 script = ExtResource("2_2thd2")
 encounterable_enemy = SubResource("Resource_vffhm")
-enemies = Array[ExtResource("4_7dqhu")]([SubResource("Resource_iey3s")])
+enemies = Array[ExtResource("4_7dqhu")]([SubResource("Resource_iey3s"), ExtResource("11_6d074"), ExtResource("11_6d074"), ExtResource("11_6d074"), ExtResource("11_6d074")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
@@ -1427,5 +1429,9 @@ dungeon_background = ExtResource("1_4d527")
 max_number_of_floors = 10
 minimum_number_of_floors = 5
 potential_encounters = Array[ExtResource("2_2thd2")]([SubResource("Resource_hc7dq"), SubResource("Resource_kk88i"), SubResource("Resource_8ysbo")])
+dungeon_light_color = Color(0.5176471, 0.5529412, 0.8352941, 1)
 type_of_dungeon = 1
+chest_drops = Dictionary[ExtResource("5_jlcea"), float]({
+ExtResource("2_jlcea"): 1.0
+})
 metadata/_custom_type_script = "uid://3loyjc4d808j"

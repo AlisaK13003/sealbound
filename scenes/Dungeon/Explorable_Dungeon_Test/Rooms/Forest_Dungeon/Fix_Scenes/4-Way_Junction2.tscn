@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_agywj"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_uxic6"]
 [ext_resource type="PackedScene" uid="uid://cmbl7st5je157" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_4_Way_Floor.glb" id="3_ktjh0"]
-[ext_resource type="PackedScene" uid="uid://1g4gem0hp424" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Creepy_Dungeon_Pillar.glb" id="4_ktjh0"]
 
 [node name="4WayJunction2" type="Node3D" unique_id=66050579]
 script = ExtResource("1_agywj")
@@ -15,28 +14,15 @@ has_pillars = true
 [node name="Floor" type="Node3D" parent="." unique_id=1053430639]
 
 [node name="Creepy_Dungeon_4_Way_Floor" parent="Floor" unique_id=1864649792 instance=ExtResource("3_ktjh0")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.19698966, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=1358726698 instance=ExtResource("1_uxic6")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="Pillars" type="Node3D" parent="." unique_id=1033068148]
-
-[node name="Creepy_Dungeon_Pillars" type="Node3D" parent="Pillars" unique_id=1583417019]
-
-[node name="Creepy_Dungeon_Pillar" parent="Pillars/Creepy_Dungeon_Pillars" unique_id=1846789809 instance=ExtResource("4_ktjh0")]
-transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.5, 0, -0.25, 0, -1.0927847e-08, -1.2971182, 0.3377018, -1.2937131)
-
-[node name="Creepy_Dungeon_Pillar2" parent="Pillars/Creepy_Dungeon_Pillars" unique_id=536886881 instance=ExtResource("4_ktjh0")]
-transform = Transform3D(0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.25, -1.2971182, 0.3377018, 1.3093317)
-
-[node name="Creepy_Dungeon_Pillar3" parent="Pillars/Creepy_Dungeon_Pillars" unique_id=2064234648 instance=ExtResource("4_ktjh0")]
-transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.5, 0, -0.25, 0, -1.0927847e-08, 1.2838492, 0.3377018, 1.267462)
-
-[node name="Creepy_Dungeon_Pillar4" parent="Pillars/Creepy_Dungeon_Pillars" unique_id=2114298716 instance=ExtResource("4_ktjh0")]
-transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.5, 0, -0.25, 0, -1.0927847e-08, 1.2758, 0.3377018, -1.2687967)
-
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=315570105]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
 light_color = Color(1, 0.28627452, 0.10980392, 1)
-light_energy = 62.77
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0

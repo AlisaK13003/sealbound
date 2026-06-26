@@ -8,7 +8,7 @@ extends Node3D
 var player_in_range: bool = false
 var has_chest_been_opened: bool = false
 
-var stored_items: Array[Items]
+signal chest_opened
 
 func _ready():
 	animator.stop()
@@ -17,13 +17,13 @@ func _ready():
 func _input(event):
 	if player_in_range and not has_chest_been_opened:
 		if Global.get_input_mapping("Confirm"):
-			print("Chest Opened")
 			var anim: Animation = animator.get_animation("Chest_Open")
 			anim.loop_mode = Animation.LOOP_NONE
 			animator.play("Chest_Open")
 			await animator.animation_finished
 			particles.emitting = true
 			has_chest_been_opened = true
+			chest_opened.emit()
 
 func _on_area_3d_body_entered(body):
 	if body.is_in_group("3D_Player"): 

@@ -10,6 +10,8 @@ class_name generic_combatants
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
 
+@export var should_flip_sprite: bool = false
+
 @export var current_stored_slot: int
 
 @export var drop_table: drop_tables

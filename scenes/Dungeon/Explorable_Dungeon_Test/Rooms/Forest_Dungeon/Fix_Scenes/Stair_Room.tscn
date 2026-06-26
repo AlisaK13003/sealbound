@@ -16,28 +16,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76751614, 0)
 [node name="Walls" type="Node3D" parent="." unique_id=1359277869]
 
 [node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("4_clbun")]
-transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.03304267, 1.8, -1.5749501)
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0, 1.8, -1.575)
 
 [node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=579986419 instance=ExtResource("4_clbun")]
-transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5899129, 1.8, 0.022358298)
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6, 1.8, 0.022)
+what_direction = 1
 
 [node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=295563345 instance=ExtResource("4_clbun")]
-transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5737336, 1.8, 0.023020983)
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.6, 1.8, 0.023)
+what_direction = 3
 
 [node name="Floor" type="Node3D" parent="." unique_id=2045024194]
 
 [node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=859113851 instance=ExtResource("4_fd4qu")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.10424873, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=2097126478 instance=ExtResource("2_xk7v4")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=1375431471]
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=768332970]
 layers = 4
 
-[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1301355024]
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1745636589]
 collision_layer = 4
 
 [node name="Pillars" type="Node3D" parent="." unique_id=1993852658]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=156951342]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
+light_color = Color(1, 0.28627452, 0.10980392, 1)
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
 
 [editable path="Floor/Forest_Grid_Tile"]
