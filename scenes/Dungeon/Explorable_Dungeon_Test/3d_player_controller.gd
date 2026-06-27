@@ -19,6 +19,10 @@ var p_ref: explorable_dungeon
 
 var has_been_setup = false
 
+func display_obtained_items(obtained_items):
+	for item: Items in obtained_items:
+		print(item.item_name)
+
 func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(p_ref.mini_map._new_room_entered)

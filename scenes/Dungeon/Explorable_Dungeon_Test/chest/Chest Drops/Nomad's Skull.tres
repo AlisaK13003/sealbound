@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://c2jaij1f2xa7p"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_6i0vg"]
+
+[resource]
+script = ExtResource("1_6i0vg")
+item_name = "Nomad's Skull"
+item_description = "The skull of an unfortunate adventurer. Could be sold for a moderate price."
+sell_price = 35
+is_a_valuable = true
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

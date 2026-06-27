@@ -21,12 +21,15 @@ signal entered
 var p_ref: explorable_dungeon
 
 func give_player_chest_item():
-	print("GAVE PLAYER ITEM")
 	var chance: float = randf()
+	var items_gotten: Array
 	for drop_chance in p_ref.current_dungeon.chest_drops.values():
-		if chance < drop_chance:
-			print("DROPPED ITEM")
+		if chance > drop_chance:
 			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(drop_chance))
+			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(drop_chance))
+			break
+
+
 
 func _setup(p_ref: explorable_dungeon):
 	self.p_ref = p_ref

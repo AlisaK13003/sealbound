@@ -8,6 +8,7 @@ var currency_held: int = 200
 var all_held_equipment: Array[equipment]
 var all_held_weapons: Array[weapon]
 var all_held_items: Array[Items]
+var all_held_valuables: Array
 
 var dungeon_types: Array[dungeon_type] = []
 
@@ -31,9 +32,12 @@ func load_items():
 	for i in range(5):
 		all_held_items.append(new_item.duplicate())
 
-func add_item(item_to_add: Items):
-	all_held_items.append(item_to_add)
-	print("ADDED ", item_to_add.item_name)
+func add_item(item_to_add):
+	for item: Items in item_to_add:
+		if item.is_a_valuable:
+			all_held_valuables.append(item_to_add)
+		else:
+			all_held_items.append(item_to_add)
 
 func _ready():
 	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))

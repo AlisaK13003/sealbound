@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://q4akbkqas0vf"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_ph4kg"]
+
+[resource]
+script = ExtResource("1_ph4kg")
+item_name = "Common Mineral"
+item_description = "A clump of minerals, hard to discern what kind. Could be sold for a moderate price."
+sell_price = 12
+is_a_valuable = true
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

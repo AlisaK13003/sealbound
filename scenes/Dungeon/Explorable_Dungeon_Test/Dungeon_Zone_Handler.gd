@@ -53,7 +53,7 @@ func _ready():
 
 var combat_scene_: dungeon_loop
 func _setup(dungeon_type_: dungeon_type):
-	await Fade.fade_in(0.0)
+	#await Fade.fade_in(0.0)
 	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
 	current_dungeon = dungeon_type_
 	if dungeon_type_.does_dungeon_have_boss:
@@ -83,7 +83,8 @@ func entered_new_floor():
 		setting_up_new_floor = true
 		current_floor += 1
 		movement_locked = true
-		await Fade.fade_in(2)
+		if current_floor != 1:
+			await Fade.fade_in(2)
 
 		await remove_old_dungeon()
 		setting_up = true
@@ -95,10 +96,10 @@ func entered_new_floor():
 				remove_old_dungeon()
 
 		setting_up = false
-	print("FADING OUT")
 	setting_up_new_floor = false
-	await Fade.fade_out(2)
 	movement_locked = false
+	await Fade.fade_out(2)
+	
 	
 var generated_rooms
 	

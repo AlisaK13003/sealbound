@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://cs7e37xcnkdur"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_bhugv"]
+
+[resource]
+script = ExtResource("1_bhugv")
+item_name = "Chunk of Gold"
+item_description = "A very heavy piece of gold, could be sold for a high price."
+sell_price = 250
+is_a_valuable = true
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"
