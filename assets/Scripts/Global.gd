@@ -197,7 +197,7 @@ var keyboard_mouse_icon_mapping: Dictionary = {
 	"Dungeon_Skill": 25,
 	"Dungeon_Defend": 22,
 	"Dungeon_Items": 8,
-	"Cancel": 25,
+	"Cancel": 22,
 	"Confirm": 2,
 	"Quest_Menu": 16,
 	"Open_Map": 12,
@@ -229,17 +229,27 @@ var using_controller: bool = false
 const CONTROLLER_DEADZONE = 0.2
 signal swapped_to_controller
 
+const MOUSE_DEADZONE: float = 2.0 
+
 func _input(event):
 	if event is InputEventJoypadButton:
 		set_using_controller(true)
 		swapped_to_controller.emit(true)
+		
 	elif event is InputEventJoypadMotion:
 		if abs(event.axis_value) > CONTROLLER_DEADZONE:
 			set_using_controller(true)
 			swapped_to_controller.emit(true)
-	else:
-		set_using_controller(false)
-		swapped_to_controller.emit(false)
+			
+	elif event is InputEventMouseMotion:
+		if event.relative.length() > MOUSE_DEADZONE:
+			set_using_controller(false)
+			swapped_to_controller.emit(false)
+			
+	elif event is InputEventKey or event is InputEventMouseButton:
+		if event.is_pressed():
+			set_using_controller(false)
+			swapped_to_controller.emit(false)
 		
 func set_using_controller(do_it):
 	if do_it:

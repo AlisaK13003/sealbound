@@ -1,7 +1,7 @@
 extends Control
 
-@onready var item_name = $HBoxContainer/Container/Item_Name
-@onready var item_texture = $HBoxContainer/Container/Item_Texture
+@onready var item_name = $HBoxContainer/Container/HBoxContainer/Item_Name
+@onready var item_texture = $HBoxContainer/Container/HBoxContainer/Item_Texture
 @onready var selection_arrow = $HBoxContainer/AnimatedSprite2D
 
 var trying_to_be_used: bool = false

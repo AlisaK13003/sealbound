@@ -8,7 +8,7 @@ var currency_held: int = 200
 var all_held_equipment: Array[equipment]
 var all_held_weapons: Array[weapon]
 var all_held_items: Array[Items]
-var all_held_valuables: Array
+var all_held_valuables: Array[Items]
 
 var dungeon_types: Array[dungeon_type] = []
 
@@ -24,6 +24,7 @@ var bond_attack_fill
 var cur_bond_attack_val = 0
 
 enum bonds {STRANGER, ACQAINTED, WARMED, KINDRED, BOUND, TRUEBOND}
+enum dungeon_types_names {CREEPY, FOREST}
 
 signal finished
 
@@ -35,9 +36,9 @@ func load_items():
 func add_item(item_to_add):
 	for item: Items in item_to_add:
 		if item.is_a_valuable:
-			all_held_valuables.append(item_to_add)
+			all_held_valuables.append(item)
 		else:
-			all_held_items.append(item_to_add)
+			all_held_items.append(item)
 
 func _ready():
 	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
@@ -105,6 +106,7 @@ func transition_to_dungeon(selected_dungeon):
 		await Fade.fade_in(1)
 		var rewards_scene = await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
 		rewards_scene._setup(coins_gained, experience_gained, bond_gained, stuff_gained)
+		
 var is_combat_active: bool = false
 var previous_enemy_encountered
 var should_remove_enemy = false
@@ -113,7 +115,7 @@ func initiate_combat(encounter, node_id):
 		return
 	is_combat_active = true
 	previous_enemy_encountered = node_id
-	
+	await Fade.fade_in(0.5)
 	get_tree().root.call_deferred("remove_child", explorable_dungeon_scene)
 	get_tree().root.call_deferred("add_child", dungeon_loop_scene)
 	
@@ -169,8 +171,9 @@ func initiate_combat(encounter, node_id):
 	rewards_scene_ = rewards_scene
 	
 var rewards_scene_
-func bring_back_combat(rewards_scene):
+func bring_back_combat(_rewards_scene):
 	get_tree().root.add_child(explorable_dungeon_scene)
+	explorable_dungeon_scene.movement_locked = false
 	if is_instance_valid(rewards_scene_):
 		rewards_scene_.queue_free()
 	
@@ -182,6 +185,7 @@ func bring_back_combat(rewards_scene):
 	
 	is_combat_active = false
 	explorable_dungeon_scene.return_to_exploring()
+
 
 func update_stored_combat_information():
 	pass

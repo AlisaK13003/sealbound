@@ -294,11 +294,11 @@ func _flee_from_enemy(other_enemy: Node3D) -> void:
 		current_state = State.PATROL
 
 func _on_area_3d_2_body_entered(body):
-	return
 	if disable_monitoring:
 		return
 	if body.is_in_group("3D_Player"):
 		print("BATTLE INITIATED")
+		p_ref.movement_locked = true
 		p_ref.battle_initiated(stored_enemy, self.get_instance_id())
 
 var disable_monitoring = false

@@ -14,7 +14,7 @@ func _ready():
 	animator.stop()
 	default_chest_state.visible = true
 
-func _input(event):
+func _input(_event):
 	if player_in_range and not has_chest_been_opened:
 		if Global.get_input_mapping("Confirm"):
 			var anim: Animation = animator.get_animation("Chest_Open")

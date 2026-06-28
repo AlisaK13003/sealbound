@@ -7,7 +7,6 @@ class_name dungeon_loop
 @export var party_slot_2: generic_combatants
 @export var party_slot_3: generic_combatants
 
-
 @export var temp_item_list : Array[Items]
 
 @onready var gui: dungeon_gui = $UI/DungeonPlayerGui
@@ -22,8 +21,8 @@ class_name dungeon_loop
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-@onready var dungeon_dungeon: Node = $Background/Dungeon_Dungeon
-@onready var forest_dungeon: Node = $Background/Forest_Dungeon
+@onready var floor_tiles: Node = $Background/Floor_Tiles
+@onready var walls: Node = $Background/Walls
 
 var all_combatants : Array[combat_template] = []
 var killed_enemies: Array[generic_combatants] = []
@@ -126,13 +125,22 @@ func hide():
 	gui.get_child(0).visible = false
 
 func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave):
-	Fade.fade_thing.visible = false
-	Fade.fade_thing_2.visible = false
+	#Fade.fade_thing.visible = false
+	#Fade.fade_thing_2.visible = false
 	gui.call_deferred("hide_gui", false)
 	self.current_dungeon_run = current_dungeon_type
 	temp_item_list = GlobalCombatInformation.all_held_items
 	current_bond_points = GlobalCombatInformation.current_BP
 	max_bond_points_ = GlobalCombatInformation.max_BP
+
+	for child in floor_tiles.get_children():
+		if child.get_index() == current_dungeon_type.type_of_dungeon:
+			child.visible = true
+		else:
+			child.visible = false
+			
+	for wall in walls.get_children():
+		wall._setup(current_dungeon_type.type_of_dungeon)
 
 	gui.get_player_portrait(0)._setup(GlobalCombatInformation.active_party_slots[0])
 	gui.get_player_portrait(1)._setup(GlobalCombatInformation.active_party_slots[1])
@@ -146,14 +154,6 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave):
 	all_combatants.append(slot_1)
 	all_combatants.append(slot_2)
 	all_combatants.append(slot_3)
-	
-	match current_dungeon_type.type_of_dungeon:
-		0:
-			dungeon_dungeon.visible = true
-			forest_dungeon.visible = false
-		1:
-			dungeon_dungeon.visible = false
-			forest_dungeon.visible = true
 	
 	await _reset()
 	
@@ -255,7 +255,7 @@ func battle_loop(encounter, training_weight = null, p_weights = null):
 		turn_count = 0
 		is_wave_over = false
 		setup_encounter(encounter)
-
+		await Fade.fade_out(1)
 		# Handles individual waves, continues until wave concludes
 		while(not is_wave_over):
 			turn_count += 1
@@ -420,12 +420,6 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 
 
 			action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
-
-		if not testing:
-			#action_sequence.append(func(): await attacking_enemy.walk_animation())
-
-			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-			action_sequence.append(func(): await attacking_enemy.idle_animation())
 		
 		#set_health_bar_values(selected_action.targetting_who.child_number)
 		await action_queue(action_sequence)
@@ -448,9 +442,6 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 					action_sequence.append(func(): await attacking_enemy.attack_animation(1))
 			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
-			#action_sequence.append(func(): await attacking_enemy.walk_animation())
-			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-			action_sequence.append(func(): await attacking_enemy.idle_animation())
 		else:
 			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
@@ -540,7 +531,7 @@ func handle_player_move_selection(current_combatant):
 	var what_action = null
 	selecting_entity = false
 	await gui.new_player_turn(temp_item_list)
-	gui.get_player_portrait(active_player_turn).position.y -=10
+	#gui.get_player_portrait(active_player_turn).position.y -=10
 	make_enemies_selectable()
 	select_individual(false, 0)
 	what_action = await action_taken
@@ -553,19 +544,12 @@ func handle_player_move_selection(current_combatant):
 			if testing:
 				action_sequence.append(func(): await deal_damage(current_combatant, target_node, false, null))
 			if not testing:
-				#action_sequence.append(func(): await current_player.walk_animation(false))
-				#action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
 				action_sequence.append(func(): await current_player.attack_animation(0))
 				action_sequence.append(func(): $AudioStreamPlayer3D.play())
 				action_sequence.append(func(): await deal_damage(current_player, target_node, false, null))
 
-				#action_sequence.append(func(): await current_player.walk_animation(true))
-				#action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
-				action_sequence.append(func(): await current_player.idle_animation())
-			
 		"BASIC_DEFEND":
 			action_sequence.append(func(): await current_player.execute_defend())
-			#gui.update_mana_display(2, false)
 		"SKILL":
 			var action_on_who = what_action[2] if get_num_selected()[0] == 1 else 0
 			
@@ -577,17 +561,9 @@ func handle_player_move_selection(current_combatant):
 			if action_on_who != 6:
 				var target_node = enemy_shit.get_child(action_on_who)
 
-			#action_sequence.append(func(): await current_player.walk_animation(false))
-			#action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
 			action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
 			action_sequence.append(func(): $AudioStreamPlayer3D.play())
 			action_sequence.append(func(): await execute_skills(what_action))
-
-			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
-			#action_sequence.append(func(): await current_player.walk_animation(true))
-			#action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
-
-			action_sequence.append(func(): await current_player.idle_animation())
 		"ITEM":
 			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_players, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
 			action_sequence.append(func(): await execute_item(what_action[1], what_action[3], what_action[2]))
@@ -597,7 +573,7 @@ func handle_player_move_selection(current_combatant):
 	await action_queue(action_sequence)
 	await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
 	gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
-	gui.get_player_portrait(active_player_turn).position.y += 10
+	#gui.get_player_portrait(active_player_turn).position.y += 10
 	selecting_entity = false
 
 	turn_ended.emit()
@@ -628,12 +604,12 @@ func skill_selected(what_skill: moves):
 	highlight_check(what_skill.is_skill_aoe, what_skill.targets_party, what_skill.targets_self)
 	#sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, 6 if not what_skill.targets_party else 4))
 	gui.hide_gui(true)
-	gui._executing_skill(true, what_skill.is_skill_aoe)
+	gui._executing_skill(true, what_skill)
 	action_on_who = await confirmation
 	if not action_on_who is bool:
-		await no_one_can_be_selected()
-		await sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
+		#await sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
 		action_taken.emit("SKILL", what_skill, action_on_who)
+		await no_one_can_be_selected()
 		return
 	else:
 		if action_on_who:
@@ -658,7 +634,7 @@ func skill_selected(what_skill: moves):
 				else:
 					action_on_who = 6
 			
-			sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
+			#sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
 			action_taken.emit("SKILL", what_skill, action_on_who)
 			await no_one_can_be_selected()
 		else:
@@ -670,12 +646,12 @@ func item_selected(item_used: Items, index_of_item_used):
 	highlight_check(item_used.is_aoe_item, item_used.targets_players, false)
 	#sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, 6 if not item_used.targets_players else 4))
 	gui.hide_gui(true)
-	gui._executing_item(true, item_used.is_aoe_item)
+	gui._executing_item(true, item_used)
 	selecting_entity = true
 	action_on_who = await confirmation
 	if not (action_on_who is bool):
 		await no_one_can_be_selected()
-		await sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
+		#await sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
 		action_taken.emit("ITEM", item_used, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4), index_of_item_used)
 	else:
 		if action_on_who:
@@ -700,7 +676,7 @@ func item_selected(item_used: Items, index_of_item_used):
 				else:
 					action_on_who = 6
 			await no_one_can_be_selected()
-			sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
+			#sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
 			action_taken.emit("ITEM", item_used, action_on_who if not item_used.is_aoe_item else 4, index_of_item_used)
 		else:
 			revert_camera()
@@ -713,7 +689,7 @@ func execute_skills(what_action):
 	var current_player = get_player(active_player_turn)
 	var action_sequence : Array[Callable]
 	var parallel_tasks : Array[Callable]
-	
+	#update_health(change_health_value, what_action)
 	if skill_used.targets_party:
 		if skill_used.is_skill_aoe:
 			for player: combat_template in player_container.get_children():
@@ -741,9 +717,9 @@ func execute_skills(what_action):
 			var targetted_player: combat_template = player_container.get_child(what_action[2])
 			if skill_used.does_heal_party:
 				if get_skill_boost(skill_used) != 999:
-					parallel_tasks.append(func(): await targetted_player.update_health([-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false))
+					parallel_tasks.append(func(): await targetted_player.update_health(-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 				else:
-					parallel_tasks.append(func(): await targetted_player.update_health([-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"], false))
+					parallel_tasks.append(func(): await targetted_player.update_health(-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"))
 			if skill_used.does_status:
 				action_sequence.append(func(): await targetted_player.handle_status(skill_used.status_type))
 			if skill_used.removes_status:
@@ -1668,31 +1644,35 @@ func get_alive_player_or_enemy_count(is_player):
 
 func get_num_selected():
 	var count = 0
-	var player_ret_val
-	var enemy_ret_val
+	var player_ret_val = 0
+	var enemy_ret_val = 0
 	for player in player_container.get_children():
 		if player.selection_area_sprite.visible:
 			count += 1
-	if count < player_container.get_child_count() - 1:
+	if count > 0:
 		player_ret_val = count
-	else:
+	elif count == player_container.get_child_count() - 1:
 		player_ret_val = 4
+	count = 0
 	for enemy in enemy_shit.get_children():
 		if enemy.selection_area_sprite.visible:
 			count += 1
-	if count < 5:
+	if count > 0:
 		enemy_ret_val = enemy_shit.get_child_count() - 1
-	else:
+	elif count == enemy_shit.get_child_count() - 1:
 		enemy_ret_val = 6
 		
-	if enemy_ret_val >= 0:
+	if enemy_ret_val > 0:
 		return [enemy_ret_val, false]
-	elif player_ret_val >= 0:
+	elif player_ret_val > 0:
 		return [player_ret_val, true]
 		
 		
 func update_selected_enemy(what_direction):
+	print(current_selected_person)
+	
 	var ret = get_num_selected()
+	print(ret)
 	if ret[1]:
 		if ret[0] == 4:
 			return

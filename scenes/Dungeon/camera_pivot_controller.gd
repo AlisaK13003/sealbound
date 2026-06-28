@@ -19,10 +19,10 @@ func _ready() -> void:
 	return
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	target_yaw = rotation_degrees.y
-	target_pitch = camera.rotation_degrees.x
-	current_yaw = target_yaw
-	current_pitch = target_pitch
+	#target_yaw = rotation_degrees.y
+	#target_pitch = camera.rotation_degrees.x
+	#current_yaw = target_yaw
+	#current_pitch = target_pitch
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -40,17 +40,17 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	return
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		current_yaw = lerp(current_yaw, target_yaw, lerp_speed * delta)
+	#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	#	current_yaw = lerp(current_yaw, target_yaw, lerp_speed * delta)
 		#current_pitch = lerp(current_pitch, target_pitch, lerp_speed * delta)
 		
-		rotation_degrees.y = wrapf(current_yaw, 0, 360)
+	#	rotation_degrees.y = wrapf(current_yaw, 0, 360)
 		#camera.rotation_degrees.x = current_pitch
 		
 func _physics_process(delta):
 	return
-	if not player: return
+	#if not player: return
 
-	global_position = player.global_position + Vector3(0, pivot_height_offset, 0)
+	#global_position = player.global_position + Vector3(0, pivot_height_offset, 0)
 	
-	global_rotation.y = lerp_angle(global_rotation.y, deg_to_rad(target_yaw), delta * follow_speed)
+	#global_rotation.y = lerp_angle(global_rotation.y, deg_to_rad(target_yaw), delta * follow_speed)

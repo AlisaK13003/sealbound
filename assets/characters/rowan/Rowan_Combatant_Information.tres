@@ -170,6 +170,6 @@ sprite_frames = ExtResource("4_r1wuo")
 idle_speed = 0.2
 walk_speed = 0.7
 sprite_scale = 0.007
-sprite_offset = Vector2(-15, -16)
+sprite_offset = Vector2(-38, 0)
 bond_level = 1
 metadata/_custom_type_script = "uid://125iickqse23"

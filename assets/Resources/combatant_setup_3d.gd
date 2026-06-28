@@ -125,6 +125,8 @@ enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESIS
 
 #endregion
 
+var has_been_setup: bool = false
+
 func setup(combatant : generic_combatants, parent_ref: dungeon_loop, child_num):
 	if combatant == null:
 		is_empty = true
@@ -160,6 +162,7 @@ func setup(combatant : generic_combatants, parent_ref: dungeon_loop, child_num):
 	animated_sprite.speed_scale = stored_combatant.idle_speed
 	animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 	animated_sprite.play("Idle")
+	has_been_setup = true
 	
 func update_health(change_health_value, what_action):
 	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
@@ -440,7 +443,7 @@ func walk_towards_entity(node_to_walk_to):
 		animated_sprite.flip_h = false
 
 func idle_animation():
-	animated_sprite.flip_h = false
+	animated_sprite.flip_h = stored_combatant.should_flip_sprite
 	animated_sprite.speed_scale = stored_combatant.idle_speed
 	animated_sprite.play("Idle")
 	animated_sprite.sprite_frames.set_animation_loop("Idle", true)
@@ -476,11 +479,15 @@ func attack_animation(what_attack_anim):
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 		await animated_sprite.animation_finished
+	animated_sprite.play("Idle")
+	animated_sprite.speed_scale = stored_combatant.idle_speed
 	
 #endregion
 
 func _on_enemy_collision_mouse_entered():
-	if currently_selectable and not stored_combatant.is_dead:
+	if not has_been_setup:
+		return
+	if currently_selectable and not stored_combatant.is_dead :
 		selection_area_sprite.visible = true
 		selection_area_sprite.play("selectable")
 		if can_be_unselected:
@@ -496,7 +503,7 @@ func _apply_stun(): print("STUN")
 func _apply_sleep(): print("SLEEP")
 func _apply_shock(): print("SHOCK")
 func _apply_poison(): 
-	update_health(20, "STATUS")
+	update_health(int(stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
 	animated_sprite.modulate = Color.PURPLE
 
 func _apply_burn(): 

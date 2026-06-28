@@ -78,7 +78,7 @@ var setting_up_new_floor = false
 func entered_new_floor():
 	if current_floor == floor_count:
 		return true
-		get_tree().quit()
+		#get_tree().quit()
 	else:
 		setting_up_new_floor = true
 		current_floor += 1
@@ -249,18 +249,20 @@ func generate_dungeon():
 var active_room_nodes: Dictionary[Vector2i, Node3D]
 var tile_size = 0
 func instantiate_rooms(room_storage):
-	tile_size = 3.2
+	var normal_tile_size = 3.2
+	tile_size = 2.5
 	
 	var room_count = 0
 	for room_ in room_storage:
 		room_count += 1
-		var room_to_load = load(room_storage[room_].asset_path)
+		
+		var room_to_load = load(room_storage[room_].get_asset_path())
 		
 		var new_room: room = room_to_load.instantiate()
 		new_room.room_coords = room_
 		new_room.position = Vector3(room_.x * tile_size, 0, room_.y * tile_size)
 		new_room.room_directions = room_storage[room_].required_directions
-		
+		new_room.scale *= float(tile_size / normal_tile_size)
 		active_room_nodes[room_] = new_room
 		
 		new_room.rotation_degrees.y = room_storage[room_].get_rotation_degrees_()
@@ -302,8 +304,7 @@ func instantiate_rooms(room_storage):
 func battle_initiated(with_what_enemy: generic_combatants, node_id):
 	in_combat = true
 	var potential_encounters: Array[dungeon_wave]
-	if potential_encounters == null:
-		print("jhgfdjhgfkhgfjh")
+
 	for encounter in current_dungeon.potential_encounters:
 		if encounter.encounterable_enemy.combatant_name == with_what_enemy.combatant_name:
 			potential_encounters.append(encounter)
@@ -315,9 +316,8 @@ func battle_initiated(with_what_enemy: generic_combatants, node_id):
 	for enemy in enemy_container.get_children():
 		if enemy.get_instance_id() == node_id:
 			enemy_to_potentially_remove = enemy
-			break
-	for enemy in enemy_container.get_children():
 		enemy.disable_player_detection()
+		
 	GlobalCombatInformation.initiate_combat(potential_encounters[random_encounter], node_id)
 	#await combat_scene_.setup(current_dungeon, potential_encounters[random_encounter])
 
@@ -331,3 +331,4 @@ func return_to_exploring():
 		await get_tree().process_frame
 	for enemy in enemy_container.get_children():
 		enemy.enable_player_detection()
+	movement_locked = false

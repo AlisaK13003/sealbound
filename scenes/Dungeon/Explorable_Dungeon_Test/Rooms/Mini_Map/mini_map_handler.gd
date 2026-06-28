@@ -348,7 +348,7 @@ func update_room_visibility(player_grid_pos: Vector2i):
 		
 		visible_rooms.append(current_pos)
 		
-		if current_depth <= 2:
+		if current_depth <= 5:
 			if p_ref.generated_rooms.has(current_pos):
 				var room_data = p_ref.generated_rooms[current_pos]
 				
@@ -356,13 +356,18 @@ func update_room_visibility(player_grid_pos: Vector2i):
 					var neighbor_pos = current_pos + DIR_VECTORS[dir]
 					
 					if p_ref.generated_rooms.has(neighbor_pos) and not visited.has(neighbor_pos):
-						if p_ref.generated_rooms[neighbor_pos].group_id == current_group or p_ref.generated_rooms[neighbor_pos].group_id == -2: # or ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y))
-							if current_group == -1 or current_group == -2:
-								if ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)):
+						if p_ref.generated_rooms[neighbor_pos].group_id != -1:
+							visited[neighbor_pos] = true
+							queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
+						else:
+							if p_ref.generated_rooms[neighbor_pos].group_id == current_group:
+								if current_group == -1 and ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)):
 									visited[neighbor_pos] = true
 									queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
-									continue
-							else:
+								elif current_group != -1:
+									visited[neighbor_pos] = true
+									queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
+							elif ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)) and (p_ref.generated_rooms[neighbor_pos].group_id == -1 or p_ref.generated_rooms[neighbor_pos].group_id == -2):
 								visited[neighbor_pos] = true
 								queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
 						
@@ -370,10 +375,12 @@ func update_room_visibility(player_grid_pos: Vector2i):
 		var room_node = p_ref.get_room_node_at(pos) 
 		if room_node != null:
 			if pos in visible_rooms:
+				#room_node.set_room_visible(true, 0.5)
 				room_node.visible = true
 				room_node.is_visible = true
 				# e.g., enable_enemies_in_room(room_node)
 			else:
+				#room_node.set_room_visible(false, 0.5)
 				room_node.visible = false
 				room_node.is_visible = false
 				# e.g., disable_enemies_in_room(room_node)

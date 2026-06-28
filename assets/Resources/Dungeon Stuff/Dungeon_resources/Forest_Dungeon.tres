@@ -19,6 +19,6 @@ dungeon_background = ExtResource("1_vh8sp")
 max_number_of_floors = 10
 minimum_number_of_floors = 5
 potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp")])
-type_of_dungeon = 2
+type_of_dungeon = 1
 does_dungeon_have_boss = true
 metadata/_custom_type_script = "uid://3loyjc4d808j"

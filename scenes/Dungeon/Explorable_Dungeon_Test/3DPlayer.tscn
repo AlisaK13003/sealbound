@@ -22,7 +22,6 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 16777215
 collision_mask = 16777215
 script = ExtResource("1_wh5h5")
-move_speed = 3.0
 
 [node name="DungeonOverlay" parent="." unique_id=338282261 instance=ExtResource("2_v0fbd")]
 

@@ -12,7 +12,7 @@ class_name dungeon_type
 
 @export var first_time_floor_count: int = 10
 
-@export_flags("Creepy_Dungeon", "Forest_Dungeon") var type_of_dungeon = 0
+@export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 
 @export var dungeon_floor_size_range: Vector2 = Vector2(5, 5)
 @export var dungeon_floor_size_max_range: Vector2 = Vector2(15, 15)

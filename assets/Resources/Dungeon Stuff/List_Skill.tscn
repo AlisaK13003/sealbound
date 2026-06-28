@@ -42,7 +42,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d63qj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -68,10 +68,10 @@ script = ExtResource("1_fitij")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=966767686]
 layout_mode = 0
-offset_left = 25.0
-offset_top = -1.0
-offset_right = 65.0
-offset_bottom = 39.0
+offset_left = 31.45
+offset_top = -20.47
+offset_right = 71.45
+offset_bottom = 19.53
 theme_override_constants/separation = -19
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=648964495]
@@ -94,20 +94,21 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_45w41")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Container" unique_id=909466418]
 layout_mode = 2
-theme_override_constants/separation = -1157
+theme_override_constants/separation = -253
 
 [node name="Skill_Name" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=2081972802]
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(1275.905, 40.185)
+custom_minimum_size = Vector2(380.58, 40.185)
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_color = Color(0.68235296, 0.52156866, 0.8509804, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 0
-theme_override_constants/shadow_outline_size = 0
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_fitij")
 theme_override_font_sizes/font_size = 16
 text = "Potion"
@@ -118,12 +119,13 @@ texture_filter = 1
 texture_repeat = 1
 custom_minimum_size = Vector2(50.42, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.68235296, 0.52156866, 0.8509804, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 0
-theme_override_constants/shadow_outline_size = 0
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_fitij")
 theme_override_font_sizes/font_size = 16
 text = "2"
@@ -136,12 +138,13 @@ layout_mode = 0
 offset_left = 66.255
 offset_right = 193.25519
 offset_bottom = 121.0
+theme_override_colors/font_color = Color(0.68235296, 0.52156866, 0.8509804, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 0
-theme_override_constants/shadow_outline_size = 0
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_fitij")
 theme_override_font_sizes/font_size = 16
 text = "BP"

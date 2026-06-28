@@ -2,6 +2,8 @@ extends Node3D
 
 class_name dungeon_generation
 
+var max_walker_count = 250
+var current_walker_count = 0
 var storage
 
 class dungeon_room:
@@ -98,6 +100,16 @@ class dungeon_room:
 	
 	func update_asset_path():
 		asset_path = rooms[room_symbol_mapping[room_name_type[0]]]
+		
+	func get_asset_path():
+		if required_directions.size() > 2:
+			match required_directions.size():
+				3:
+					return rooms["3-Way_Junction"]
+				4:
+					return rooms["4-Way_Junction"]
+		else:
+			return asset_path
 		
 	func get_rotation_degrees_() -> float:		
 		var temp_directions = required_directions.duplicate()
@@ -311,150 +323,167 @@ func build_rooms(room_storage):
 	
 	var chances = [template_chance, t_way_chance, four_way_chance, max_three_way_count, max_four_way_count, max_room_count]
 	
+	var dont_need_to_restart: bool = true
+	var break_out_to_restart: bool = false
+	while dont_need_to_restart:
+		# Iterates until all steps have found a valid position
+		while not valid_critical_path_found:
+			# walker_algorithm can return false, true, and current location
+			var end_location = await walker_algorithm(main_walker_lifetime, walker_current_location, room_storage, true, chances)
 
-	
-	# Iterates until all steps have found a valid position
-	while not valid_critical_path_found:
-		# walker_algorithm can return false, true, and current location
-		var end_location = await walker_algorithm(main_walker_lifetime, walker_current_location, room_storage, true, chances)
-
-		if end_location is bool and not end_location:
-			continue
-
-		if end_location == spawn_location:
-			# Failed to build a critical path from spawn, reset and try again
-			room_storage.clear()
-			spawn_location = Vector2i(0, 0)
-			spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
-			room_storage[spawn_location] = spawn_room
-			continue
-		var placed_stairs_down: bool = false
-		for dir in [0, 1, 2, 3]:
-			var adjacent_pos = end_location + DIR_VECTORS[dir]
-			if room_storage.has(adjacent_pos):
-				var adjacent_room = room_storage[adjacent_pos]
-				var door_to_stairs = same_directions[dir]
-				
-				# Simplify: Just check if the door is in the array!
-				if door_to_stairs in adjacent_room.required_directions:
-					room_storage[end_location] = dungeon_room.new(end_location, [door_to_stairs], 1, "Down", -2)
-					placed_stairs_down = true
-					break
-					
-		if placed_stairs_down:
-			valid_critical_path_found = true
-			#down_has_been_placed.emit()
-		else:
-			room_storage.clear()
-			spawn_location = Vector2i(0, 0)
-			spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room")
-			room_storage[spawn_location] = spawn_room
-			continue
-	#evaluate_room_names(room_storage)
-	#return true
-	var has_all_directions_been_satisfied: bool = false
-	var num_of_other_walkers: Array[Vector2i] = []
-	print("STARTED OTHER PATHS")
-	#await down_has_been_placed
-
-	while not has_all_directions_been_satisfied:
-		# Check all current rooms to see if the amount of directions that have matches the number they should
-		#    If it doesn't then they need a continuation
-		num_of_other_walkers.clear()
-		for room_: dungeon_room in room_storage.values():
-			if room_.group_id == -2:
+			if end_location is bool and not end_location:
 				continue
-				
-			if (room_.required_directions.size()) != room_.total_direction_count:
-				num_of_other_walkers.append(room_.room_pos)
-				
-		if num_of_other_walkers.size() == 0:
-			has_all_directions_been_satisfied = true
-			continue
-			
-		var small_walker_allowed_steps = randi_range(2, 6)
-		if current_four_way_count == max_four_way_count:
-			small_walker_allowed_steps = 2
-		elif current_three_way_count == max_three_way_count:
-			small_walker_allowed_steps = 2
-		elif max_room_count == current_room_count:
-			small_walker_allowed_steps = 2
-		for pos in num_of_other_walkers:
-			if room_storage[pos].required_directions.size() == room_storage[pos].total_direction_count:
-				continue
-			
-			var valid_path_found: bool = false
-			
-			var max_attempts: int = 10
-			var attempts: int = 0
-			while not valid_path_found:
-				attempts += 1
-				if attempts == max_attempts:
-					room_storage[pos].total_direction_count = room_storage[pos].required_directions.size()
-					valid_path_found = true
-					print("MAX ATTEMPTED REACHED at ", pos)
-					break
-				
-				
-				var simulated_storage = duplicate_dungeon_dict(room_storage)
-				
-				# walker_algorithm can return false, true, and current location
-				var end_location = walker_algorithm(small_walker_allowed_steps, pos, simulated_storage, false, chances)
-				
-				if end_location is bool:
-					if end_location:
-						valid_path_found = true
-						room_storage.clear()
-						room_storage.merge(simulated_storage)
-					else:
-						valid_path_found = false
-					continue
-				
-				if end_location == pos:
-					# Walker was trapped and didn't move
-					valid_path_found = false
-					continue
-				elif simulated_storage.has(end_location) and simulated_storage[end_location].group_id != -1:
-					valid_path_found = false
-					continue
 
-					
-				var chance = rng.randf()
-				
-				var correct_direction = 0
-				for dir in [0, 1, 2, 3]:
-					var adjacent_pos = end_location + DIR_VECTORS[dir]
-					
-					if simulated_storage.has(adjacent_pos):
-						var adjacent_room = simulated_storage[adjacent_pos]
-						
-						var dir_from_cap_to_adj = dir
-						var dir_from_adj_to_cap = same_directions[dir]
-						
-						# If the adjacent room has a door pointing AT us, we point our door back AT it!
-						if dir_from_adj_to_cap in adjacent_room.required_directions:
-							correct_direction = dir_from_cap_to_adj
-							break
-				
-				# Spawn end room template
-				if chance < 0.2:
-					simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
-				# Spawn basic treasure room
-				elif chance < 0.3:
-					simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
-				else:
-					simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "R")
-
+			if end_location == spawn_location:
 				room_storage.clear()
-				room_storage.merge(simulated_storage)
-				valid_path_found = true
-				#for room_pos in simulated_storage:
-				#	room_storage[room_pos] = simulated_storage[room_pos].duplicate()
+				spawn_location = Vector2i(0, 0)
+				spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
+				room_storage[spawn_location] = spawn_room
+				continue
+			var placed_stairs_down: bool = false
+			for dir in [0, 1, 2, 3]:
+				var adjacent_pos = end_location + DIR_VECTORS[dir]
+				if room_storage.has(adjacent_pos):
+					var adjacent_room = room_storage[adjacent_pos]
+					var door_to_stairs = same_directions[dir]
+					
+					if door_to_stairs in adjacent_room.required_directions:
+						room_storage[end_location] = dungeon_room.new(end_location, [door_to_stairs], 1, "Down", -2)
+						placed_stairs_down = true
+						break
+						
+			if placed_stairs_down:
+				valid_critical_path_found = true
+				#down_has_been_placed.emit()
+			else:
+				room_storage.clear()
+				spawn_location = Vector2i(0, 0)
+				spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
+				room_storage[spawn_location] = spawn_room
+				continue
+		#evaluate_room_names(room_storage)
+		#return true
+		var has_all_directions_been_satisfied: bool = false
+		var num_of_other_walkers: Array[Vector2i] = []
+		print("STARTED OTHER PATHS")
+		#await down_has_been_placed
+
+		while not has_all_directions_been_satisfied:
+			# Check all current rooms to see if the amount of directions that have matches the number they should
+			#    If it doesn't then they need a continuation
+			num_of_other_walkers.clear()
+			for room_: dungeon_room in room_storage.values():
+				if room_.group_id == -2:
+					continue
+					
+				if (room_.required_directions.size()) != room_.total_direction_count:
+					num_of_other_walkers.append(room_.room_pos)
+					
+			if num_of_other_walkers.size() == 0:
+				has_all_directions_been_satisfied = true
+				continue
 				
-			if not valid_path_found:
-				room_storage[pos].total_direction_count = room_storage[pos].required_directions.size()
+			var small_walker_allowed_steps = randi_range(2, 6)
+			if current_four_way_count == max_four_way_count:
+				small_walker_allowed_steps = 2
+			elif current_three_way_count == max_three_way_count:
+				small_walker_allowed_steps = 2
+			elif max_room_count == current_room_count:
+				small_walker_allowed_steps = 2
+			for pos in num_of_other_walkers:
+				if room_storage[pos].required_directions.size() == room_storage[pos].total_direction_count:
+					continue
+				
+				var valid_path_found: bool = false
+				
+				var max_attempts: int = 10
+				var attempts: int = 0
+				while not valid_path_found:
+					attempts += 1
+					if attempts == max_attempts:
+						room_storage[pos].total_direction_count = room_storage[pos].required_directions.size()
+						valid_path_found = true
+						print("MAX ATTEMPTED REACHED at ", pos)
+						break
+					
+					var simulated_storage = duplicate_dungeon_dict(room_storage)
+					
+					# walker_algorithm can return false, true, and current location
+					var end_location = walker_algorithm(small_walker_allowed_steps, pos, simulated_storage, false, chances)
+					
+					if end_location is bool:
+						if end_location:
+							valid_path_found = true
+							room_storage.clear()
+							room_storage.merge(simulated_storage)
+						else:
+							if current_walker_count > max_walker_count:
+								break_out_to_restart = true
+								break
+							valid_path_found = false
+						continue
+					
+					if end_location == pos:
+						# Walker was trapped and didn't move
+						valid_path_found = false
+						continue
+					elif simulated_storage.has(end_location) and simulated_storage[end_location].group_id != -1:
+						valid_path_found = false
+						continue
 
+						
+					var chance = rng.randf()
+					
+					var correct_direction = 0
+					for dir in [0, 1, 2, 3]:
+						var adjacent_pos = end_location + DIR_VECTORS[dir]
+						
+						if simulated_storage.has(adjacent_pos):
+							var adjacent_room = simulated_storage[adjacent_pos]
+							
+							var dir_from_cap_to_adj = dir
+							var dir_from_adj_to_cap = same_directions[dir]
+							
+							# If the adjacent room has a door pointing AT us, we point our door back AT it!
+							if dir_from_adj_to_cap in adjacent_room.required_directions:
+								correct_direction = dir_from_cap_to_adj
+								break
+					
+					# Spawn end room template
+					if chance < 0.2:
+						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
+					# Spawn basic treasure room
+					elif chance < 0.3:
+						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
+					else:
+						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "R")
 
+					for dir in DIR_VECTORS.values():
+						if end_location == dir and simulated_storage[end_location].required_directions.has(DIR_VECTORS.find_key(dir)):
+							print("TOO CLOSE TO SPAWN")
+							print(end_location)
+					
+
+					room_storage.clear()
+					room_storage.merge(simulated_storage)
+					valid_path_found = true
+					#for room_pos in simulated_storage:
+					#	room_storage[room_pos] = simulated_storage[room_pos].duplicate()
+					
+					
+				if break_out_to_restart:
+					break
+				if not valid_path_found:
+					room_storage[pos].total_direction_count = room_storage[pos].required_directions.size()
+			if break_out_to_restart:
+				break
+		if break_out_to_restart:
+			current_walker_count = 0
+			room_storage.clear()
+			break_out_to_restart = false
+			continue
+		dont_need_to_restart = false
+	print("COUNT: ", current_walker_count)
 	return true
 
 func get_writeable_room(sim_storage: Dictionary, pos: Vector2, room_storage) -> dungeon_room:
@@ -513,6 +542,12 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 	var rng = RandomNumberGenerator.new()
 	randomize()
 	rng.randomize()
+	
+	current_walker_count += 1
+	
+	if current_walker_count > max_walker_count:
+		print(current_walker_count)
+		return false
 	
 	#if is_main_path:
 	#	print("TRYING TO PLACE ON MAIN PATH")
@@ -706,7 +741,6 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 								if current_steps + 1 == step_limit:
 									current_steps -= 1
 							else:
-								print("FAILED TO PLACE A ROOM AT ", next_step_location)
 								var result = place_generic_path(
 									next_step_location, 
 									currently_heading_in_x_direction, 
@@ -820,14 +854,20 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 				if not is_main_path:
 					var loop_chance: float = rng.randf()
 					if loop_chance > 0.5 and (room_storage[next_step_location].group_id == -1) and (room_storage[walker_current_location].group_id == -1):
+						var already_has_dir_1 = room_storage[next_step_location].required_directions.has(same_directions[currently_heading_in_x_direction])
+						var already_has_dir_2 = room_storage[walker_current_location].required_directions.has(currently_heading_in_x_direction)
+						
 						var success_1 = room_storage[next_step_location].add_direction(same_directions[currently_heading_in_x_direction])
 						var success_2 = room_storage[walker_current_location].add_direction(currently_heading_in_x_direction)
 						
 						if success_1 and success_2:
-							print("LOOPED AT ", walker_current_location, " room there is ", room_storage[walker_current_location].room_name_type)
-							print("LOOKED WITH ", next_step_location, " room there is ", room_storage[next_step_location].room_name_type)
 							return true
 						else:
+							if not already_has_dir_1:
+								room_storage[next_step_location].required_directions.erase(same_directions[currently_heading_in_x_direction])
+							if not already_has_dir_2:
+								room_storage[walker_current_location].required_directions.erase(currently_heading_in_x_direction)
+							
 							return walker_current_location
 					return walker_current_location
 						

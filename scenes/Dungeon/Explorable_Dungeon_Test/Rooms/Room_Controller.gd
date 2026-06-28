@@ -21,18 +21,29 @@ signal entered
 var p_ref: explorable_dungeon
 
 func give_player_chest_item():
-	var chance: float = randf()
+	var rng = RandomNumberGenerator.new()
+	randomize()
+	rng.randomize()
+	var chance: float = rng.randf()
 	var items_gotten: Array
+	print("ROLLED CHANCE: ", chance)
+	p_ref.current_dungeon.chest_drops.sort()
+	var accumulated_chance: float = 0.0
+	var drop_chances_: Array[float]
 	for drop_chance in p_ref.current_dungeon.chest_drops.values():
-		if chance > drop_chance:
-			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(drop_chance))
-			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(drop_chance))
+		drop_chances_.append(drop_chance)
+		
+	drop_chances_.sort_custom(func(a, b): return drop_chances_[a] < drop_chances_[b])
+		
+	for new_chance in drop_chances_:
+		if chance < new_chance + accumulated_chance:
+			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(new_chance))
+			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
 			break
+		accumulated_chance += new_chance
 
-
-
-func _setup(p_ref: explorable_dungeon):
-	self.p_ref = p_ref
+func _setup(p_ref_: explorable_dungeon):
+	self.p_ref = p_ref_
 	var wall_children = $Walls.get_children()
 	if room_classification == 1:
 		get_node("StairDownTeleporter").go_down_floor.connect(p_ref.entered_new_floor)
@@ -40,7 +51,7 @@ func _setup(p_ref: explorable_dungeon):
 		$Chest.chest_opened.connect(give_player_chest_item)	
 	
 	for floor_panel in $Floor.get_children():
-		if floor_panel.get_index() == p_ref.current_dungeon.type_of_dungeon - 1:
+		if p_ref.current_dungeon.type_of_dungeon == floor_panel.get_index():
 			floor_panel.visible = true
 		else:
 			floor_panel.visible = false

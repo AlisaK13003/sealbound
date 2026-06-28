@@ -30,7 +30,7 @@ class_name dungeon_gui
 @onready var current_floor_label = $NinePatchRect3/Dungeon_Floor/MarginContainer/VBoxContainer/Current_Floor
 @onready var floor_label_container = $NinePatchRect3/Dungeon_Floor/MarginContainer
 
-@onready var portrait_container = $Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer
+@onready var portrait_container = $Party_Portrait_Container
 @onready var mana_label = $"Mana Bar/Label"
 @onready var bond_bar = $Bond_Attack
 
@@ -72,7 +72,7 @@ func _setup(parent_reference):
 	dungeon_floor_text.text = parent_reference.current_dungeon_run.dungeon_name
 	floor_label_container.visible = false
 
-	await get_tree().create_timer(2).timeout
+	#await get_tree().create_timer(2).timeout
 	var tween = create_tween()
 	tween.tween_property(black_box, "modulate:a", 0.0, 1)
 	await tween.finished
@@ -120,9 +120,10 @@ func cycle_inside_menu(up_or_down):
 func hide_gui(show_back_button):
 	item_menu.visible = false
 	skill_menu.visible = false
-	await unfurl_base_menu(false)
 	back_button_.visible = show_back_button
 	selection_area.visible = false
+	await unfurl_base_menu(false)
+
 
 func show_base_gui():
 	await unfurl_base_menu(true)
@@ -210,29 +211,34 @@ func _item_menu_pressed():
 		back_button_.visible = true
 	update_action_hints()
 
-func _executing_item(yes_or_no, item_aoe):
+func _executing_item(yes_or_no, item: Items):
 	executing_item = yes_or_no
-	is_aoe = item_aoe
+	is_aoe = item.is_aoe_item
+	selected_item = item
 
-func _executing_skill(yes_or_no, skill_aoe):
+var selected_skill: moves
+var selected_item: Items
+func _executing_skill(yes_or_no, skill: moves):
+	selection_area.visible = not skill.is_skill_aoe
 	executing_skill = yes_or_no
-	is_aoe = skill_aoe
+	is_aoe = skill.is_skill_aoe
+	selected_skill = skill
 
 func confirmation_button_(confirm_or_deny):
 	p_ref.actual_confirmation.emit(confirm_or_deny)
 
 func setup_confirmation_button(move_name, entity_used_on_name, used_on):
-	if used_on is generic_combatants and not used_on.is_combatant_enemy:
-		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, p_ref.active_player_turn))
-	elif used_on is combat_template:
-		if used_on.stored_combatant.is_combatant_enemy:
-			p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(false, used_on.child_number))
-		else:
-			p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, used_on.child_number))
-	elif used_on == 4:
-		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, 4))
-	elif used_on == 5:
-		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(false, 6))
+	#if used_on is generic_combatants and not used_on.is_combatant_enemy:
+	#	p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, p_ref.active_player_turn))
+	#elif used_on is combat_template:
+	#	if used_on.stored_combatant.is_combatant_enemy:
+	#		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(false, used_on.child_number))
+	#	else:
+	#		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, used_on.child_number))
+	#elif used_on == 4:
+	#	p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, 4))
+	#elif used_on == 5:
+	#	p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(false, 6))
 	confirmation_button.visible = true
 	var question_label = confirmation_button.get_child(0)
 	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"

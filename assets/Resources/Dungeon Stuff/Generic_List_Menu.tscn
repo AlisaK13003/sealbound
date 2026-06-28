@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cmuy52sot1frj" path="res://assets/Resources/Dungeon Stuff/dungeon_item_menu.gd" id="1_7ukf3"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_7ukf3"]
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="3_04tce"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_qj71s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04tce"]
 bg_color = Color(0.6403759, 0.530691, 0.85747075, 0.5568628)
@@ -42,10 +43,10 @@ node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Skill.tscn"
 [node name="Panel3" type="Panel" parent="." unique_id=1231143411]
 z_index = -1
 layout_mode = 0
-offset_left = 302.0
-offset_top = 65.0
-offset_right = 587.2604
-offset_bottom = 136.0
+offset_left = -244.0
+offset_top = 97.0
+offset_right = 41.260376
+offset_bottom = 168.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_04tce")
 
@@ -61,34 +62,12 @@ text = "Restores party to full"
 autowrap_mode = 2
 autowrap_trim_flags = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1436117978]
-z_index = 3
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.053000003
-anchor_top = -0.055000003
-anchor_right = 0.33900002
-anchor_bottom = 0.31500003
-offset_left = -54.920002
-offset_top = 83.6
-offset_right = 10.639999
-offset_bottom = 68.80001
-theme_override_constants/margin_left = 77
-theme_override_constants/margin_top = -21
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=929929337]
-z_index = 3
-layout_mode = 2
-mouse_filter = 0
-theme_override_constants/h_separation = 154
-theme_override_constants/v_separation = -5
-
 [node name="NinePatchRect3" type="NinePatchRect" parent="." unique_id=121743169]
 layout_mode = 0
-offset_left = 1.1650391
-offset_top = 58.0
-offset_right = 271.16504
-offset_bottom = 161.0
+offset_left = 45.0
+offset_top = 24.0
+offset_right = 283.0
+offset_bottom = 175.0
 texture = ExtResource("2_7ukf3")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -97,21 +76,45 @@ patch_margin_bottom = 8
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect3" unique_id=1436117978]
+z_index = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053000003
+anchor_top = -0.055000003
+anchor_right = 0.33900002
+anchor_bottom = 0.31500003
+offset_left = -39.652
+offset_top = 31.885
+offset_right = 25.90857
+offset_bottom = 17.08477
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = -6
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect3/MarginContainer" unique_id=929929337]
+z_index = 3
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = -5
+
 [node name="TextureRect" type="TextureRect" parent="NinePatchRect3" unique_id=339399417]
+modulate = Color(1, 1, 1, 0.78431374)
 z_index = -1
 layout_mode = 0
-offset_left = 6.333336
-offset_top = 5.333335
-offset_right = 265.00003
-offset_bottom = 96.0
+offset_left = 5.999996
+offset_top = 4.0000076
+offset_right = 466.60608
+offset_bottom = 292.88885
+scale = Vector2(0.495, 0.495)
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_qj71s")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=164521297]
 layout_mode = 0
-offset_top = 35.0
-offset_right = 113.0
-offset_bottom = 66.66667
+offset_left = 160.0
+offset_right = 273.0
+offset_bottom = 31.666672
 texture = ExtResource("3_04tce")
 patch_margin_left = 13
 patch_margin_top = 7
@@ -124,8 +127,14 @@ axis_stretch_vertical = 2
 layout_mode = 0
 offset_left = 1.6666641
 offset_top = 1.6666665
-offset_right = 112.0
+offset_right = 111.99999
 offset_bottom = 30.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_qj71s")
 text = "Skills"
 horizontal_alignment = 1
 vertical_alignment = 1

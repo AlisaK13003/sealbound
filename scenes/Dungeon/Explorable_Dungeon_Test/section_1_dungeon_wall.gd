@@ -5,17 +5,19 @@ extends Node3D
 
 @export_enum("Down", "Left", "Up", "Right") var what_direction: int = 0
 
-func _setup(what_dungeon_to_use, pivot_rotation, parent_rotation):
+func _setup(what_dungeon_to_use, pivot_rotation = 0.0, parent_rotation = 0.0, for_combat: bool = false):
 	var direction = what_direction
 	
 	for child in get_children():
 		if child is NavigationObstacle3D:
 			continue
-		elif child.get_index() == what_dungeon_to_use:
+		elif child.get_index() -1 == what_dungeon_to_use:
 			child.visible = true
 		else:
 			child.visible = false
-
+	
+	if for_combat:
+		return
 	
 	match parent_rotation:
 		0.0:
