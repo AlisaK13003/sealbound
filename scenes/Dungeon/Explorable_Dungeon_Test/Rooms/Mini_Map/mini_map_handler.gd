@@ -33,6 +33,7 @@ var room_symbol_mapping: Dictionary = {
 	"4": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/4-way_Junction.png",
 	"2": "2x2_Room",
 	"T": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room_Cap.png",   
+	"Q": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room_Cap.png",
 
 	"H": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Straight_Room.png",      
 	"h": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room_Cap.png",        
@@ -53,7 +54,8 @@ var room_symbol_mapping_2: Dictionary = {
 	"3": "3-Way_Junction",
 	"4": "4-Way_Junction",
 	"2": "2x2_Room",     
-	"T": "T_Chest_Room",       
+	"T": "T_Chest_Room",    
+	"Q": "Quest_Room",   
 
 	# --- Hallways & Corridors ---
 	"H": "Generic_Hallway",      
@@ -66,7 +68,7 @@ var room_symbol_mapping_2: Dictionary = {
 
 	"0": "Empty_Space"      
 }
-@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room") var room_classification
+@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room", "Quest_Room") var room_classification
 
 var room_lookup: Dictionary = {
 	0: "S",
@@ -77,6 +79,7 @@ var room_lookup: Dictionary = {
 	5: "4",
 	6: "-",
 	7: "T",
+	8: "Q"
 }
 
 @onready var original_panel_position = $Full_Screen_Map/Panel.position
@@ -322,6 +325,7 @@ const ASSET_OFFSETS = {
 	"4-Way_Junction": 0.0,
 	"Straight_Room": 0.0,
 	"T_Chest_Room": 0.0,
+	"Quest_Room": 0.0,
 }
 
 const DIR_VECTORS = {
@@ -387,7 +391,7 @@ func update_room_visibility(player_grid_pos: Vector2i):
 
 func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 	var calculated_rot = 0.0 
-	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room", "T_Chest_Room"]:
+	if room_type in ["Room_Cap", "Spawn_Room", "Stair_Room", "T_Chest_Room", "Quest_Room"]:
 		match previous_rotation:
 			180.0: calculated_rot = 0.0   # Facing Up 
 			90.0: calculated_rot = 90.0  # Facing Down 
@@ -485,6 +489,9 @@ func _new_room_entered(coords):
 			7:
 				grid_container.get_child(index)._change_texture(load(room_symbol_mapping["T"]), load(chest_room))
 				full_screen_map.get_child(index)._change_texture(load(room_symbol_mapping["T"]), load(chest_room))
+			8:
+				grid_container.get_child(index)._change_texture(load(room_symbol_mapping["R"]))
+				full_screen_map.get_child(index)._change_texture(load(room_symbol_mapping["R"]))
 				
 				
 		grid_container.get_child(index).main_room_texture.rotation_degrees = get_rotation_degrees_(room_symbol_mapping_2[room_lookup[current_room.room_classification]], current_room.rotation_degrees.y)

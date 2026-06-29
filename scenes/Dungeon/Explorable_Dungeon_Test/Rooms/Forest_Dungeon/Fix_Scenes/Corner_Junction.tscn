@@ -4,6 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_tussm"]
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_i04p8"]
 [ext_resource type="PackedScene" uid="uid://bhwsflne3sykv" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Corner_Fixed_2.0.glb" id="3_k6cr3"]
+[ext_resource type="PackedScene" uid="uid://1g4gem0hp424" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Creepy_Dungeon_Pillar.glb" id="5_5vf35"]
+[ext_resource type="PackedScene" uid="uid://bu76rj6ibjgsl" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Wall_Torch.glb" id="6_yyrf0"]
+[ext_resource type="PackedScene" uid="uid://brrmr5qygcka3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Weapon_Rack.glb" id="7_p3qj1"]
+[ext_resource type="PackedScene" uid="uid://bu5j1pkfgv0ed" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Tattered_Banner.glb" id="8_jb7hi"]
+[ext_resource type="PackedScene" uid="uid://tf6vv1xcrpuq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Puddle.glb" id="9_ahq4l"]
+[ext_resource type="PackedScene" uid="uid://t5tlg206u21g" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Muddy Puddle.glb" id="10_5l22g"]
+[ext_resource type="PackedScene" uid="uid://ctvccan5i3d00" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Crate.glb" id="11_qyqhn"]
+[ext_resource type="PackedScene" uid="uid://dg1wp6sibba24" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Lamp Post.glb" id="12_3sjqr"]
 
 [node name="CornerJunction" type="Node3D" unique_id=365595035]
 script = ExtResource("1_i04p8")
@@ -35,3 +43,95 @@ light_energy = 15.0
 spot_range = 6.0
 spot_angle = 60.0
 spot_angle_attenuation = 5.0
+
+[node name="Clutter" type="Node3D" parent="." unique_id=1744763921]
+visible = false
+
+[node name="Creepy" type="Node3D" parent="Clutter" unique_id=311673812]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Creepy" unique_id=1137173932]
+visible = false
+
+[node name="Creepy_Dungeon_Pillar" parent="Clutter/Creepy/Template" unique_id=29783347 instance=ExtResource("5_5vf35")]
+transform = Transform3D(0.24999999, 0, 0, 0, 0.49999997, 0, 0, 0, 0.25, 0.33181834, 0.09503019, 0.16162646)
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=1024850352]
+visible = false
+
+[node name="Wall_Torch" parent="Clutter/Creepy/Non-template" unique_id=1375627822 instance=ExtResource("6_yyrf0")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.2846346, -1.1308061)
+visible = false
+
+[node name="Wall_Torch2" parent="Clutter/Creepy/Non-template" unique_id=943876762 instance=ExtResource("6_yyrf0")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -1.2078662, 2.2846346, 0.2718562)
+visible = false
+
+[node name="Weapon_Rack" parent="Clutter/Creepy/Non-template" unique_id=1979409833 instance=ExtResource("7_p3qj1")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -0.7680477)
+visible = false
+
+[node name="Creepy_Dungeon_Pillar2" parent="Clutter/Creepy/Non-template" unique_id=1188521850 instance=ExtResource("5_5vf35")]
+transform = Transform3D(0.17677669, -0.35355338, 7.727155e-09, 0, -2.1855694e-08, -0.25, 0.17677669, 0.35355338, -7.727155e-09, 0.9044523, 0.6997273, -1.4010589)
+visible = false
+
+[node name="Untitled" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2" index="0" unique_id=1879172578]
+visible = false
+
+[node name="StaticBody3D" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2/Untitled" index="0" unique_id=1771115128]
+visible = false
+
+[node name="CollisionShape3D" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2/Untitled/StaticBody3D" index="0" unique_id=385135132]
+visible = false
+
+[node name="Tattered_Banner" parent="Clutter/Creepy/Non-template" unique_id=403087030 instance=ExtResource("8_jb7hi")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.8444097, -0.7844314)
+visible = false
+
+[node name="Tattered_Banner2" parent="Clutter/Creepy/Non-template" unique_id=610540347 instance=ExtResource("8_jb7hi")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.77339005, 0.8444097, 0.5852962)
+visible = false
+
+[node name="Forest" type="Node3D" parent="Clutter" unique_id=1410832133]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Forest" unique_id=809343805]
+visible = false
+
+[node name="Lamp Post" parent="Clutter/Forest/Template" unique_id=1511889460 instance=ExtResource("12_3sjqr")]
+transform = Transform3D(0.35355338, 0, -0.35355338, 0, 0.5, 0, 0.35355338, 0, 0.35355338, 0.05427265, 0.29189706, 0)
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=2104350847]
+visible = false
+
+[node name="Puddle" parent="Clutter/Forest/Non-template" unique_id=462178462 instance=ExtResource("9_ahq4l")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.56301117, 0.29406726, 0.6768656)
+visible = false
+
+[node name="Puddle2" parent="Clutter/Forest/Non-template" unique_id=837729387 instance=ExtResource("9_ahq4l")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.5158205, 0.29406726, -0.4620242)
+visible = false
+
+[node name="Muddy Puddle" parent="Clutter/Forest/Non-template" unique_id=1394213662 instance=ExtResource("10_5l22g")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.5876306, 0.2953329, -0.3104881)
+visible = false
+
+[node name="Muddy Puddle2" parent="Clutter/Forest/Non-template" unique_id=1049943083 instance=ExtResource("10_5l22g")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.5955465, 0.2953329, 0.74301183)
+visible = false
+
+[node name="Crate" parent="Clutter/Forest/Non-template" unique_id=301876627 instance=ExtResource("11_qyqhn")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.0365875, 0.33540833, 0)
+visible = false
+
+[node name="Crate2" parent="Clutter/Forest/Non-template" unique_id=836536031 instance=ExtResource("11_qyqhn")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.088432, 0.39486766, -0.9982232)
+visible = false
+
+[node name="Crate3" parent="Clutter/Forest/Non-template" unique_id=1431010122 instance=ExtResource("11_qyqhn")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.15989864, 0.39486766, -0.9982232)
+visible = false
+
+[editable path="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2"]

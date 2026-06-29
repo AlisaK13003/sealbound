@@ -14,7 +14,10 @@ class_name generic_combatants
 
 @export var current_stored_slot: int
 
-@export var drop_table: drop_tables
+@export var drop_table: Dictionary[Resource, float]
+@export var quest_item_drop: Items
+@export var coin_drop_range: Vector2i
+@export var bond_drop_range: Vector2i
 
 @export var combatant_skills : Array[moves]
 

@@ -4,6 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_n8wpo"]
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_0p5vt"]
 [ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="3_4q6ny"]
+[ext_resource type="PackedScene" uid="uid://brrmr5qygcka3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Weapon_Rack.glb" id="5_58m37"]
+[ext_resource type="PackedScene" uid="uid://bu76rj6ibjgsl" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Wall_Torch.glb" id="5_bgaqx"]
+[ext_resource type="PackedScene" uid="uid://bu5j1pkfgv0ed" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Tattered_Banner.glb" id="6_58m37"]
+[ext_resource type="PackedScene" uid="uid://ikfgy23we35e" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Giant Dirt Pile.glb" id="8_giybc"]
+[ext_resource type="PackedScene" uid="uid://ctvccan5i3d00" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Crate.glb" id="9_i32jx"]
+[ext_resource type="PackedScene" uid="uid://nt7nwr8la26d" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Bad CampDir.glb" id="10_3keqy"]
 
 [node name="RoomCap" type="Node3D" unique_id=596948473]
 script = ExtResource("1_0p5vt")
@@ -45,5 +51,66 @@ light_energy = 15.0
 spot_range = 6.0
 spot_angle = 60.0
 spot_angle_attenuation = 5.0
+
+[node name="Clutter" type="Node3D" parent="." unique_id=1271704707]
+visible = false
+
+[node name="Creepy" type="Node3D" parent="Clutter" unique_id=847074343]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Creepy" unique_id=1826751512]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=287501571]
+visible = false
+
+[node name="Weapon_Rack" parent="Clutter/Creepy/Non-template" unique_id=1979409833 instance=ExtResource("5_58m37")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.28121877, -0.7212951)
+visible = false
+
+[node name="Wall_Torch" parent="Clutter/Creepy/Non-template" unique_id=1375627822 instance=ExtResource("5_bgaqx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.1059852, -1.1081352)
+visible = false
+
+[node name="Tattered_Banner" parent="Clutter/Creepy/Non-template" unique_id=403087030 instance=ExtResource("6_58m37")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.73741674, 1.1724194, -0.7728586)
+visible = false
+
+[node name="Tattered_Banner2" parent="Clutter/Creepy/Non-template" unique_id=1974737277 instance=ExtResource("6_58m37")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.7911899, 1.1724194, 0.0057588816)
+visible = false
+
+[node name="Tattered_Banner3" parent="Clutter/Creepy/Non-template" unique_id=1341776781 instance=ExtResource("6_58m37")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 0.8085786, 1.1724194, 0.0057588816)
+visible = false
+
+[node name="Forest" type="Node3D" parent="Clutter" unique_id=2131599522]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Forest" unique_id=555840887]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=2140228803]
+visible = false
+
+[node name="Giant Dirt Pile" parent="Clutter/Forest/Non-template" unique_id=1207094387 instance=ExtResource("8_giybc")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.28642607, 0)
+visible = false
+
+[node name="Crates" type="Node3D" parent="Clutter/Forest/Non-template" unique_id=1019870276]
+visible = false
+
+[node name="Crate" parent="Clutter/Forest/Non-template/Crates" unique_id=301876627 instance=ExtResource("9_i32jx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.3795867, 0.32521367, -1.0232186)
+
+[node name="Crate2" parent="Clutter/Forest/Non-template/Crates" unique_id=859555822 instance=ExtResource("9_i32jx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.125961, -1.0802176)
+
+[node name="Crate3" parent="Clutter/Forest/Non-template/Crates" unique_id=76130138 instance=ExtResource("9_i32jx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.568172, 0.3252042, -1.0423031)
+
+[node name="Bad CampDir" parent="Clutter/Forest/Non-template" unique_id=1823011883 instance=ExtResource("10_3keqy")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.2789539, 0)
+visible = false
 
 [editable path="Floor/Forest_Grid_Tile"]

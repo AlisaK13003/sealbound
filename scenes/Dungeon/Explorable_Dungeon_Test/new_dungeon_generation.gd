@@ -13,6 +13,7 @@ class dungeon_room:
 	var room_name_type: String
 	var group_id: int = -1 
 	var asset_path: String
+	var is_center: bool
 	
 	const ASSET_OFFSETS = {
 		"Spawn_Room": 180.0,
@@ -37,6 +38,7 @@ class dungeon_room:
 		"4": "4-Way_Junction",
 		"2": "2x2_Room",
 		"T": "T_Chest_Room",            
+		"Q": "Quest_Room",
 
 		# --- Hallways & Corridors ---
 		"H": "Generic_Hallway",      
@@ -58,15 +60,18 @@ class dungeon_room:
 		"Corner_Junction": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Corner_Junction.tscn",
 		"2x2_Room": "",
 		"T_Chest_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Chest_Room_.tscn",
+		"Quest_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Quest_Room.tscn",
 		"Stair_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Stair_Room.tscn",
 		"Straight_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/straight_room_.tscn"
 	}
 	
-	func _init(position_, facing, total_dir_count, room_name, grp_id = -1):
+	func _init(position_, facing, total_dir_count, room_name, grp_id = -1, is_center_ = false):
 		required_directions = []
 		room_pos = position_
 		room_name_type = room_name
 		group_id = grp_id
+		is_center = is_center_
+
 		if facing == null:
 			pass
 		elif facing != null or facing.size() != 0:
@@ -79,7 +84,7 @@ class dungeon_room:
 		if required_directions.has(new_direction):
 			return true
 			
-		if group_id == -2 and required_directions.size() == total_direction_count:
+		if group_id == -2 and required_directions.size() >= total_direction_count:
 			return false
 			
 		if required_directions.size() >= total_direction_count and group_id != -2:
@@ -89,14 +94,19 @@ class dungeon_room:
 				return false 
 		
 				
-		required_directions.push_front(new_direction)
+		required_directions.append(new_direction)
 		return true
 	
 	func update_location(new_pos):
 		self.room_pos = new_pos
 		
 	func duplicate():
-		return dungeon_room.new(room_pos, required_directions.duplicate(), total_direction_count, room_name_type, group_id)
+		var dup = dungeon_room.new(room_pos, required_directions.duplicate(), total_direction_count, room_name_type)
+
+		dup.group_id = self.group_id
+		dup.is_center = self.is_center
+
+		return dup
 	
 	func update_asset_path():
 		asset_path = rooms[room_symbol_mapping[room_name_type[0]]]
@@ -225,6 +235,10 @@ func build_dungeon():
 			room_storage.clear()
 	
 	storage = room_storage
+	for room_: dungeon_room in room_storage.values():
+		if room_.is_center:
+			print("YAYYYYYY")
+	
 
 func build_room_templates():
 	# TEMPLATE 1: 2x2 with 2 corners and 2 3-ways
@@ -255,13 +269,13 @@ func build_room_templates():
 	var bottom_right_3 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 3)
 	
 	var middle_left_3 = dungeon_room.new(Vector2i(-1, 1), [0, 2, 3], 4, "4_way_junction", 3)
-	var middle_center_3 = dungeon_room.new(Vector2i(0, 1), [0, 1, 2, 3], 4, "4_way_junction", 3)
+	var middle_center_3 = dungeon_room.new(Vector2i(0, 1), [0, 1, 2, 3], 4, "4_way_junction", 3, true)
 	var middle_right_3 = dungeon_room.new(Vector2i(1, 1), [0, 1, 2], 4, "4_way_junction", 3)
 	
 	var top_left_3 = dungeon_room.new(Vector2i(-1, 2), [0, 3], 2, "Corner_Junction", 3)
 	var top_center_3 = dungeon_room.new(Vector2i(0, 2), [0, 1, 3], 4, "4_way_junction", 3)
 	var top_right_3 = dungeon_room.new(Vector2i(1, 2), [0, 1], 2, "Corner_Junction", 3)
-	
+	middle_center_3.is_center = true
 	potential_rooms.append(room_template.new([bottom_center_3, bottom_left_3, bottom_right_3, middle_left_3, middle_center_3, middle_right_3, top_left_3, top_center_3, top_right_3], Vector2i(3, 3)))
 
 	# TEMPLATE 4: 2x2 with 4 way as pivot
@@ -295,43 +309,59 @@ signal down_has_been_placed
 
 func build_rooms(room_storage):
 	print("BUILDING ROOMS")
-	var rng = RandomNumberGenerator.new()
-	randomize()
-	rng.randomize()
 
 	# Sets up spawn location
 	var spawn_location: Vector2i = Vector2i(0, 0)
 
 	var spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
 	room_storage[spawn_location] = spawn_room
-	var main_walker_lifetime: int = rng.randi_range(15, 40)
-	var main_walker_setps: int = 0
+
 	
 	var walker_current_location: Vector2i = spawn_location
 	
 	var valid_critical_path_found: bool = false
 	
-	var template_chance = rng.randf_range(0.4, 0.16)
-	var t_way_chance = rng.randf_range(template_chance, 0.25)
-	var four_way_chance = rng.randf_range(t_way_chance, 0.3)
-	
-	var max_three_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 15), 1, 3)
 
-	var max_four_way_count = rng.randi_range(2, 4) * clamp(int(main_walker_lifetime / 20), 1, 3)
-
-	var max_room_count = rng.randi_range(2, 4) * clamp(int(main_walker_lifetime / 20), 1, 2)
 	
-	var chances = [template_chance, t_way_chance, four_way_chance, max_three_way_count, max_four_way_count, max_room_count]
+	var should_spawn_quest_room: bool = false
+	for quest_: quest in GlobalCombatInformation.active_quests:
+		if quest_.should_spawn_dungeon_room and not quest_.does_player_have_special_item and quest_.dungeon_location == GlobalCombatInformation.selected_dungeon_:
+			print("Gonna try spawning the special room")
+			should_spawn_quest_room = true
+			break
 	
 	var dont_need_to_restart: bool = true
 	var break_out_to_restart: bool = false
 	while dont_need_to_restart:
+		var rng = RandomNumberGenerator.new()
+		randomize()
+		rng.randomize()
+		var template_chance = rng.randf_range(0.4, 0.16)
+		var t_way_chance = rng.randf_range(template_chance, 0.25)
+		var four_way_chance = rng.randf_range(t_way_chance, 0.3)
+		var main_walker_lifetime: int = rng.randi_range(15, 40)
+		var main_walker_setps: int = 0
+		var max_three_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 15), 1, 3)
+
+		var max_four_way_count = rng.randi_range(2, 4) * clamp(int(main_walker_lifetime / 20), 1, 3)
+
+		var max_room_count = rng.randi_range(2, 4) * clamp(int(main_walker_lifetime / 20), 1, 2)
+
+		var chances = [template_chance, t_way_chance, four_way_chance, max_three_way_count, max_four_way_count, max_room_count]
 		# Iterates until all steps have found a valid position
 		while not valid_critical_path_found:
 			# walker_algorithm can return false, true, and current location
 			var end_location = await walker_algorithm(main_walker_lifetime, walker_current_location, room_storage, true, chances)
 
 			if end_location is bool and not end_location:
+				if current_walker_count > max_walker_count:
+					break_out_to_restart = true
+					break
+					
+				room_storage.clear()
+				spawn_location = Vector2i(0, 0)
+				spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
+				room_storage[spawn_location] = spawn_room
 				continue
 
 			if end_location == spawn_location:
@@ -361,6 +391,13 @@ func build_rooms(room_storage):
 				spawn_room = dungeon_room.new(spawn_location, [], 1, "Spawn_Room", -2)
 				room_storage[spawn_location] = spawn_room
 				continue
+				
+		if break_out_to_restart:
+			current_walker_count = 0
+			room_storage.clear()
+			break_out_to_restart = false
+			continue
+				
 		#evaluate_room_names(room_storage)
 		#return true
 		var has_all_directions_been_satisfied: bool = false
@@ -427,9 +464,13 @@ func build_rooms(room_storage):
 						# Walker was trapped and didn't move
 						valid_path_found = false
 						continue
-					elif simulated_storage.has(end_location) and simulated_storage[end_location].group_id != -1:
-						valid_path_found = false
-						continue
+					elif simulated_storage.has(end_location):
+						if simulated_storage[end_location].group_id != -1:
+							valid_path_found = false
+							continue
+						if simulated_storage[end_location].total_direction_count > 2:
+							valid_path_found = false
+							continue
 
 						
 					var chance = rng.randf()
@@ -453,8 +494,10 @@ func build_rooms(room_storage):
 					if chance < 0.2:
 						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
 					# Spawn basic treasure room
-					elif chance < 0.3:
-						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
+					elif chance < 0.3 and should_spawn_quest_room:
+						print("SPAWNING QUEST ROOM")
+						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "Q", -2)
+						should_spawn_quest_room = false
 					else:
 						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "R")
 
@@ -498,13 +541,8 @@ func duplicate_dungeon_dict(original_dict: Dictionary) -> Dictionary:
 		# Deep copy the array so the doors are truly isolated
 		var copied_dirs = old_room.required_directions.duplicate() 
 		
-		var new_room = dungeon_room.new(
-			old_room.room_pos, 
-			copied_dirs, 
-			old_room.total_direction_count, 
-			old_room.room_name_type, 
-			old_room.group_id
-		)
+		var new_room = old_room.duplicate()
+
 		new_dict[key] = new_room
 		
 	return new_dict
@@ -658,8 +696,11 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 			if not (next_step_location in room_storage):
 				if not room_storage[walker_current_location].required_directions.has(currently_heading_in_x_direction):
 					room_storage[walker_current_location] = room_storage[walker_current_location].duplicate()
-					room_storage[walker_current_location].add_direction(currently_heading_in_x_direction)
-
+					var success = room_storage[walker_current_location].add_direction(currently_heading_in_x_direction)
+					if not success:
+						tried_directions.append(currently_heading_in_x_direction)
+						continue
+				
 				var early_termination_change = rng.randf()
 				if (not is_main_path and early_termination_change < 0.05 + (room_storage.size() * 0.001)) and room_storage[walker_current_location].group_id == -1:
 					return next_step_location
@@ -734,7 +775,7 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 							if valid_position_was_found:
 								for room_: dungeon_room in rand_rot.sub_rooms.values():
 									room_storage[room_.room_pos] = room_
-								
+
 								
 								walker_current_location = potential_position.pick_random()
 								current_room_count += 1
@@ -853,7 +894,7 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 				tried_directions.append(currently_heading_in_x_direction)
 				if not is_main_path:
 					var loop_chance: float = rng.randf()
-					if loop_chance > 0.5 and (room_storage[next_step_location].group_id == -1) and (room_storage[walker_current_location].group_id == -1):
+					if loop_chance > 0.8 and (room_storage[next_step_location].group_id == -1) and (room_storage[walker_current_location].group_id == -1):
 						var already_has_dir_1 = room_storage[next_step_location].required_directions.has(same_directions[currently_heading_in_x_direction])
 						var already_has_dir_2 = room_storage[walker_current_location].required_directions.has(currently_heading_in_x_direction)
 						

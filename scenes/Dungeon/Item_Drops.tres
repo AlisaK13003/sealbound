@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://ba8gew3w266te"]
+
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="1_kq83s"]
+
+[resource]
+font = ExtResource("1_kq83s")
+shadow_color = Color(0, 0, 0, 1)

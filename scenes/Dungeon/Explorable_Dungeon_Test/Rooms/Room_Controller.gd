@@ -6,7 +6,7 @@ class_name room
 #@onready var pillars = $Pillars
 @onready var lights = $SpotLight3D
 
-@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room") var room_classification
+@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room", "Quest_Room") var room_classification
 @export var has_pillars: bool = false
 var has_been_entered = false
 
@@ -24,9 +24,10 @@ func give_player_chest_item():
 	var rng = RandomNumberGenerator.new()
 	randomize()
 	rng.randomize()
+	
 	var chance: float = rng.randf()
 	var items_gotten: Array
-	print("ROLLED CHANCE: ", chance)
+
 	p_ref.current_dungeon.chest_drops.sort()
 	var accumulated_chance: float = 0.0
 	var drop_chances_: Array[float]
@@ -42,7 +43,7 @@ func give_player_chest_item():
 			break
 		accumulated_chance += new_chance
 
-func _setup(p_ref_: explorable_dungeon):
+func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest_type: quest = null):
 	self.p_ref = p_ref_
 	var wall_children = $Walls.get_children()
 	if room_classification == 1:
@@ -60,6 +61,68 @@ func _setup(p_ref_: explorable_dungeon):
 		child._setup(p_ref.current_dungeon.type_of_dungeon, p_ref.player.camera_pivot.rotation_degrees.y, self.rotation_degrees.y)
 	
 	$SpotLight3D.light_color = Color(p_ref.current_dungeon.dungeon_light_color)
+	
+	if quest_type != null:
+		$SpinningSprite._setup(quest_type)
+		
+	
+	if group_id == -2:
+		return
+	var rng = RandomNumberGenerator.new()
+	randomize()
+	rng.randomize()
+	var spawn_clutter = rng.randf()
+	var clutter_spawn_chance = 1
+	if group_id == -1:
+		clutter_spawn_chance = 0.3
+	
+	if spawn_clutter < clutter_spawn_chance:
+		var clutter = $Clutter
+		clutter.visible = true
+		match group_id:
+			-1:
+				var non_templated_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
+				non_templated_clutter.visible = true
+				non_templated_clutter.get_child(1).visible = true
+				var children = non_templated_clutter.get_child(1).get_children()
+				if children.is_empty():
+					return
+					
+				for child in children:
+					child.visible = false
+					
+				var picked_child = non_templated_clutter.get_child(1).get_children().pick_random()
+				picked_child.visible = true
+				var template_clutter = clutter.find_children("*", "CollisionShape3D", true, false)
+				if not template_clutter.is_empty():
+					for child in template_clutter.get_children():
+						child.set_deferred("disabled", true)
+				picked_child.set_deferred("disabled", false)
+			1:
+				pass
+			2:
+				pass
+			3:
+				if room_classification == 5 and is_center:
+					var template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
+					template_clutter.visible = true
+					template_clutter.get_child(0).visible = true
+					template_clutter.get_child(0).get_children().pick_random().visible = true
+					
+				elif room_classification == 3:
+					var template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
+					template_clutter.visible = true
+					template_clutter.get_child(0).visible = true
+					template_clutter.get_child(0).get_children().pick_random().visible = true
+					
+					var non_template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon).get_child(1).find_children("*", "CollisionShape3D", true, false)
+					if not non_template_clutter.is_empty():
+						non_template_clutter[0].set_deferred("disabled", true)
+			4:
+				pass
+			5:
+				pass
+
 	
 	#if has_pillars:
 	#	for pillar in $Pillars.get_children():

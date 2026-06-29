@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_agywj"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_uxic6"]
 [ext_resource type="PackedScene" uid="uid://cmbl7st5je157" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_4_Way_Floor.glb" id="3_ktjh0"]
+[ext_resource type="PackedScene" uid="uid://cdfgr4segh6aa" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Summoning_Circle.glb" id="4_ktjh0"]
+[ext_resource type="PackedScene" uid="uid://d3ksc8ymqpe85" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Pond.glb" id="5_8r73p"]
 
 [node name="4WayJunction2" type="Node3D" unique_id=66050579]
 script = ExtResource("1_agywj")
@@ -26,3 +28,32 @@ light_energy = 15.0
 spot_range = 6.0
 spot_angle = 60.0
 spot_angle_attenuation = 5.0
+
+[node name="Clutter" type="Node3D" parent="." unique_id=960254323]
+visible = false
+
+[node name="Creepy" type="Node3D" parent="Clutter" unique_id=1102258060]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Creepy" unique_id=691675744]
+visible = false
+
+[node name="Summoning_Circle" parent="Clutter/Creepy/Template" unique_id=672330951 instance=ExtResource("4_ktjh0")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.07128888, 0)
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=1630949188]
+visible = false
+
+[node name="Forest" type="Node3D" parent="Clutter" unique_id=1115307192]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Forest" unique_id=762413875]
+visible = false
+
+[node name="Pond" parent="Clutter/Forest/Template" unique_id=1565282665 instance=ExtResource("5_8r73p")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.28449893, 0)
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=1879839159]
+visible = false

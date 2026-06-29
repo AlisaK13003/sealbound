@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_8ulno"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_jx6af"]
-[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_72to5"]
-[ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="4_ovh1i"]
-[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="5_xbpj4"]
+[ext_resource type="Resource" uid="uid://dmw404labrblk" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Fallen Adventurer Blade.tres" id="3_5k1ry"]
+[ext_resource type="Resource" uid="uid://b7g01c5jo4trt" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/The Whole Eye.tres" id="4_5k1ry"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_tfr1o"]
 [ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="7_1sfu2"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="8_sx8g4"]
@@ -54,15 +53,6 @@ luck = 3
 evasion = 3
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
-[sub_resource type="Resource" id="Resource_yakan"]
-script = ExtResource("5_xbpj4")
-coin_drop_range = Vector2(10, 15)
-bond_drop_range = Vector2(2, 5)
-item_drop_chances = Dictionary[ExtResource("3_72to5"), int]({
-ExtResource("4_ovh1i"): 50
-})
-metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
-
 [sub_resource type="Resource" id="Resource_o16x7"]
 script = ExtResource("2_jx6af")
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
@@ -84,7 +74,12 @@ combatant_stats = SubResource("Resource_uyw4s")
 is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
-drop_table = SubResource("Resource_yakan")
+drop_table = Dictionary[Resource, float]({
+ExtResource("3_5k1ry"): 0.1
+})
+quest_item_drop = ExtResource("4_5k1ry")
+coin_drop_range = Vector2i(0, 10)
+bond_drop_range = Vector2i(0, 3)
 combatant_skills = Array[ExtResource("1_8ulno")]([SubResource("Resource_8x0pw"), SubResource("Resource_ho304"), SubResource("Resource_nw6bc")])
 sprite_frames = ExtResource("7_1sfu2")
 idle_speed = 0.25

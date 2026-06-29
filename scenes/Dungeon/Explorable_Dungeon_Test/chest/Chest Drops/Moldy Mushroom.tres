@@ -8,6 +8,7 @@ item_name = "Moldy Mushroom"
 item_description = "A moldy mushroom, has a funky smell, try eating it."
 sell_price = 8
 does_what = 2
+what_is_it = 1
 amount_to_heal_or_deal = 30
 removes_status = null
 give_status = 8

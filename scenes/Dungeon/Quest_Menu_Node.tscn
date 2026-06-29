@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://s587i3qavhlt"]
+
+[ext_resource type="Script" uid="uid://dqr26gtcvpdqb" path="res://scenes/Dungeon/setup_quest_node.gd" id="1_gi6lh"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="2_rl2v4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ued3"]
+bg_color = Color(0.6206016, 0.5506847, 0.81578594, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 20
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ekxs0"]
+
+[node name="QuestMenuNode" type="Control" unique_id=1876961211]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gi6lh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1185739208]
+layout_mode = 0
+offset_top = 4.575
+offset_right = 305.0
+offset_bottom = 53.575
+theme_override_constants/separation = 0
+
+[node name="Quest_Name" type="Label" parent="VBoxContainer" unique_id=454236749]
+layout_mode = 2
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("2_rl2v4")
+theme_override_font_sizes/font_size = 12
+text = "Slime Balls"
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=50224822]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = -14
+
+[node name="Quest_Description" type="Label" parent="VBoxContainer/MarginContainer" unique_id=1225978544]
+layout_mode = 2
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("2_rl2v4")
+theme_override_font_sizes/font_size = 12
+text = "Gather Slime balls, someone might like it"
+autowrap_mode = 2
+
+[node name="Quest_Completion" type="Control" parent="VBoxContainer/MarginContainer" unique_id=1522714844]
+custom_minimum_size = Vector2(300, 50.7)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/Quest_Completion" unique_id=1853135712]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 30.0
+offset_right = 112.0
+offset_bottom = 70.00004
+
+[node name="Panel" type="Panel" parent="." unique_id=1299495141]
+z_index = -1
+layout_mode = 0
+offset_left = -3.0
+offset_top = 2.0
+offset_right = 295.0
+offset_bottom = 51.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
+
+[node name="Panel2" type="Panel" parent="." unique_id=268711906]
+z_index = -1
+layout_mode = 0
+offset_left = 2.0
+offset_top = 20.0
+offset_right = 290.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxLine_ekxs0")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://b3w4gvlcnkv0l"]
+
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_861lm"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_ukn72"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_p26es"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_u1p45"]
+
+[resource]
+script = ExtResource("4_u1p45")
+dungeon_location = 1
+metadata/_custom_type_script = "uid://npoqdralsply"

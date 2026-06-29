@@ -12,7 +12,7 @@ radius = 5.293457
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_pvj4x"]
 height = 0.16491699
-radius = 0.7421875
+radius = 0.38964844
 
 [node name="3dEnemy" type="CharacterBody3D" unique_id=185078977]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19635624, 0)

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://b7g01c5jo4trt"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_k4g6e"]
+
+[resource]
+script = ExtResource("1_k4g6e")
+item_name = "Large Eye"
+item_description = "A really big eye"
+what_is_it = 4
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

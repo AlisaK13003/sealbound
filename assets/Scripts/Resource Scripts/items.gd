@@ -11,7 +11,7 @@ class_name Items
 
 @export_flags("Deal_Damage", "Heal") var does_what : int
 
-@export var is_a_valuable: bool = false
+@export_flags("Consumable", "Valuable", "Quest_Item") var what_is_it = 0
 
 @export var targets_players: bool = true
 @export var is_aoe_item: bool = false

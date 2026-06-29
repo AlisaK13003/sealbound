@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_1rk34"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_ftsl5"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_lfjh6"]
-[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_33e0x"]
+[ext_resource type="Resource" uid="uid://c2jaij1f2xa7p" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Nomad's Skull.tres" id="3_bvd8k"]
+[ext_resource type="Resource" uid="uid://bb57x0jdso0sf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Slime Ball.tres" id="4_33e0x"]
 [ext_resource type="SpriteFrames" uid="uid://dwqx7akwnnm6c" path="res://assets/Enemies/Slime_Sprite_Frames.tres" id="4_ftsl5"]
-[ext_resource type="Script" uid="uid://dn8lx1tud4cm5" path="res://assets/Scripts/Resource Scripts/drop_tables.gd" id="4_rctbe"]
 
 [sub_resource type="Resource" id="Resource_bvd8k"]
 script = ExtResource("1_1rk34")
@@ -35,19 +35,18 @@ luck = 1
 evasion = 17
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
-[sub_resource type="Resource" id="Resource_2123j"]
-script = ExtResource("4_rctbe")
-coin_drop_range = Vector2(0, 100)
-bond_drop_range = Vector2(0, 2)
-metadata/_custom_type_script = "uid://dn8lx1tud4cm5"
-
 [resource]
 script = ExtResource("2_lfjh6")
 combatant_name = "Slime-Creature"
 combatant_stats = SubResource("Resource_ftsl5")
 is_combatant_enemy = true
 should_flip_sprite = true
-drop_table = SubResource("Resource_2123j")
+drop_table = Dictionary[Resource, float]({
+ExtResource("3_bvd8k"): 0.05
+})
+quest_item_drop = ExtResource("4_33e0x")
+coin_drop_range = Vector2i(1, 15)
+bond_drop_range = Vector2i(0, 5)
 combatant_skills = Array[ExtResource("1_1rk34")]([SubResource("Resource_bvd8k")])
 sprite_frames = ExtResource("4_ftsl5")
 idle_speed = 1.0

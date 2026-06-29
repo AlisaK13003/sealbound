@@ -195,17 +195,9 @@ func generate_dungeon():
 	
 	player.position = Vector3(0, 2.0, 0)
 
-	#player.position.x += (generated_rooms[0].room_x_coord * tile_size)
-	#player.position.z += (generated_rooms[0].room_y_coord * tile_size)
-	
 	var current_start = get_room_node_at(Vector2(0, 0))
 	player_start_position = Vector2(player.position.x, player.position.z)
 	player.rotation_degrees.y = 0.0
-	#player.camera_pivot.rotation.y = 0.0
-	#player.camera_pivot.current_yaw = 0.0
-	#player.camera_pivot.current_pitch = 0.0
-	#player.camera_pivot.target_yaw = 0.0
-	#player.camera_pivot.target_pitch = 0.0
 
 	match current_start.rotation_degrees.y:
 		0.0:
@@ -257,7 +249,6 @@ func instantiate_rooms(room_storage):
 		room_count += 1
 		
 		var room_to_load = load(room_storage[room_].get_asset_path())
-		
 		var new_room: room = room_to_load.instantiate()
 		new_room.room_coords = room_
 		new_room.position = Vector3(room_.x * tile_size, 0, room_.y * tile_size)
@@ -267,7 +258,17 @@ func instantiate_rooms(room_storage):
 		
 		new_room.rotation_degrees.y = room_storage[room_].get_rotation_degrees_()
 		navigation_region.add_child(new_room)
-		new_room._setup(self)
+		
+		var is_center = room_storage[room_].is_center
+		
+		if room_storage[room_].room_name_type == "Q":
+			var possible_quests = []
+			for quest_: quest in GlobalCombatInformation.active_quests:
+				if quest_.dungeon_location == GlobalCombatInformation.selected_dungeon_ and quest_.should_spawn_dungeon_room and not quest_.does_player_have_special_item:
+					possible_quests.append(quest_)
+			new_room._setup(self, room_storage[room_].group_id, is_center, possible_quests.pick_random())
+		else:
+			new_room._setup(self, room_storage[room_].group_id, is_center)
 		
 
 	return true

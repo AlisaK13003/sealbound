@@ -8,6 +8,7 @@ item_name = "Altho Eh Pinto"
 item_description = "Basic healing potion, seems to be of great value."
 sell_price = 10
 does_what = 2
+what_is_it = 1
 amount_to_heal_or_deal = 100
 removes_status = null
 give_status = null

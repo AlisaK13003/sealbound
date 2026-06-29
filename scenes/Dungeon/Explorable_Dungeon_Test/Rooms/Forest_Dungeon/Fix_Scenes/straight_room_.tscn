@@ -4,6 +4,13 @@
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_s8wti"]
 [ext_resource type="PackedScene" uid="uid://cu8qbaijw82v4" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Straight_Floor.glb" id="3_ahf8y"]
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_s8wti"]
+[ext_resource type="PackedScene" uid="uid://bu76rj6ibjgsl" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Wall_Torch.glb" id="5_1hy8c"]
+[ext_resource type="PackedScene" uid="uid://bu5j1pkfgv0ed" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Tattered_Banner.glb" id="5_2ofhu"]
+[ext_resource type="PackedScene" uid="uid://brrmr5qygcka3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Weapon_Rack.glb" id="5_3h78i"]
+[ext_resource type="PackedScene" uid="uid://t3v63rrourww" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Moss Carpet.glb" id="8_ck0r2"]
+[ext_resource type="PackedScene" uid="uid://cy0y6gi5eltdf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Mushrooms_2.glb" id="9_ysbt7"]
+[ext_resource type="PackedScene" uid="uid://dywn0lklhvq8s" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Mushrooms_3.glb" id="10_x4fnh"]
+[ext_resource type="PackedScene" uid="uid://c34ugh7tl4ecm" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Mushrooms.glb" id="11_25aoo"]
 
 [node name="StraightRoom" type="Node3D" unique_id=1935276085]
 script = ExtResource("1_s8wti")
@@ -36,3 +43,56 @@ light_energy = 15.0
 spot_range = 6.0
 spot_angle = 60.0
 spot_angle_attenuation = 5.0
+
+[node name="Clutter" type="Node3D" parent="." unique_id=1165136795]
+visible = false
+
+[node name="Creepy" type="Node3D" parent="Clutter" unique_id=1305583972]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Creepy" unique_id=1944286912]
+
+[node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=2075796544]
+
+[node name="Weapon_Rack" parent="Clutter/Creepy/Non-template" unique_id=1979409833 instance=ExtResource("5_3h78i")]
+transform = Transform3D(-2.6226834e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.6226834e-08, -0.45125568, 0.34770226, 0)
+
+[node name="Weapon_Rack2" parent="Clutter/Creepy/Non-template" unique_id=2146370592 instance=ExtResource("5_3h78i")]
+transform = Transform3D(-2.6226834e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.6226834e-08, 0.5182999, 0.34770226, -0.5414158)
+
+[node name="Wall_Torch" parent="Clutter/Creepy/Non-template" unique_id=1375627822 instance=ExtResource("5_1hy8c")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -1.1349888, 1.9536545, 0.786664)
+
+[node name="Wall_Torch2" parent="Clutter/Creepy/Non-template" unique_id=784212921 instance=ExtResource("5_1hy8c")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 1.1315103, 2.2512815, -0.9635782)
+
+[node name="Tattered_Banner" parent="Clutter/Creepy/Non-template" unique_id=403087030 instance=ExtResource("5_2ofhu")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.7974067, 1.3144424, 0)
+
+[node name="Tattered_Banner2" parent="Clutter/Creepy/Non-template" unique_id=938677823 instance=ExtResource("5_2ofhu")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 0.80778694, 1.3144424, 0)
+
+[node name="Forest" type="Node3D" parent="Clutter" unique_id=1257098721]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Forest" unique_id=1437462583]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=948711574]
+visible = false
+
+[node name="Moss Carpet" parent="Clutter/Forest/Non-template" unique_id=1345404099 instance=ExtResource("8_ck0r2")]
+transform = Transform3D(-1.9670125e-08, 0, 0.45, 0, 0.45, 0, -0.45, 0, -1.9670125e-08, 0, 0.29210448, 0)
+visible = false
+
+[node name="Mushrooms_2" parent="Clutter/Forest/Non-template" unique_id=649293654 instance=ExtResource("9_ysbt7")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.0278418, 0.2566936, 0)
+visible = false
+
+[node name="Mushrooms_3" parent="Clutter/Forest/Non-template" unique_id=1190205436 instance=ExtResource("10_x4fnh")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.1727242, 0, -0.9625299)
+visible = false
+
+[node name="Mushrooms" parent="Clutter/Forest/Non-template" unique_id=1000427243 instance=ExtResource("11_25aoo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.1902949, 0.2230537, 0.8945031)
+visible = false

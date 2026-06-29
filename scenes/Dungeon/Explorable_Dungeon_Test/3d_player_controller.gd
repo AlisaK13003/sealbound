@@ -29,6 +29,7 @@ func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(p_ref.mini_map._new_room_entered)
 	has_been_setup = true
+	dungeon_overlay._setup(parent_reference)
 	#camera_pivot._setup()
 
 func update_pivot_rotation(spawn_room):

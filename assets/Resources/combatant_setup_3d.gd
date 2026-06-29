@@ -502,16 +502,17 @@ func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_
 func _apply_stun(): print("STUN")
 func _apply_sleep(): print("SLEEP")
 func _apply_shock(): print("SHOCK")
-func _apply_poison(): 
-	update_health(int(stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
-	animated_sprite.modulate = Color.PURPLE
-
-func _apply_burn(): 
-	update_health(20, "STATUS")
-	
 func _apply_freeze(): print("FREEZE")
 func _apply_agro(): print("AGRO")
 func _apply_momentum(): print("momentum")
-func _apply_regen():  print("regen")
 func _apply_stun_imm():  print("stun imun")
+func _apply_poison(): 
+	update_health(int(stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
+	animated_sprite.modulate = Color.PURPLE
+func _apply_burn(): 
+	update_health(int(stored_combatant.combatant_stats.max_health * 0.16), "STATUS")
+	animated_sprite.modulate = Color.FIREBRICK
+func _apply_regen():  
+	update_health(int(-1 * stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
+	
 func stat_does_nothing(): return
