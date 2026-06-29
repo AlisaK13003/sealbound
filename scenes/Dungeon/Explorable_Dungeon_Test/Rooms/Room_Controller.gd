@@ -95,7 +95,7 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest
 				picked_child.visible = true
 				var template_clutter = clutter.find_children("*", "CollisionShape3D", true, false)
 				if not template_clutter.is_empty():
-					for child in template_clutter.get_children():
+					for child in template_clutter:
 						child.set_deferred("disabled", true)
 				picked_child.set_deferred("disabled", false)
 			1:
