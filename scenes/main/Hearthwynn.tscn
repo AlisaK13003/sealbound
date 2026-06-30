@@ -22,11 +22,13 @@
 [ext_resource type="Resource" uid="uid://bf7gu5cs8o732" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres" id="20_5its2"]
 
 [node name="Hearthwynn" type="Node2D" unique_id=981634707 node_paths=PackedStringArray("player_node")]
+y_sort_enabled = true
 position = Vector2(-46, -5)
 script = ExtResource("1_ofm1v")
 player_node = NodePath("Player")
 
 [node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
+y_sort_enabled = true
 position = Vector2(2058, -1549)
 
 [node name="Buildings" type="Node2D" parent="." unique_id=2101509992]
@@ -51,7 +53,8 @@ position = Vector2(2284, 687)
 "Destination Location/Spot" = "Infirmary"
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
-position = Vector2(3667, -1127)
+y_sort_enabled = true
+position = Vector2(3669, -1127)
 move_speed = 200.0
 
 [node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]

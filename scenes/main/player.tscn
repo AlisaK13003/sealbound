@@ -138,7 +138,7 @@ move_speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305105354 groups=["Overworld_Player"]]
 z_index = 5
-position = Vector2(-1, 0)
+position = Vector2(0, -26)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_riacy")
 
@@ -153,11 +153,13 @@ sprite_frames = SubResource("SpriteFrames_tmp5k")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.8544937
+offset = Vector2(0, -120)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1736247091 groups=["Overworld_Player"]]
+position = Vector2(0, -48)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_3y00o")
 
@@ -168,18 +170,22 @@ position_smoothing_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
-visible = false
 z_index = 100
-offset_left = 422.54498
-offset_top = 423.99994
-offset_right = 422.54492
-offset_bottom = 424.0
-scale = Vector2(1.57, 1.57)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -47.0
+offset_bottom = -47.0
+scale = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]
 anchors_preset = -1
 anchor_left = 0.196875
+anchor_top = -0.13125
+anchor_right = 0.196875
 anchor_bottom = -0.13125
 offset_left = 344.0
 offset_top = 20.0

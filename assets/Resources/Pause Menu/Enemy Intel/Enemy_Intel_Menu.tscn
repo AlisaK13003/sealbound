@@ -1,5 +1,18 @@
 [gd_scene format=3 uid="uid://cq0wehm0dm6yb"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmumn"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8ctl"]
+
 [node name="EnemyIntelMenu" type="Control" unique_id=1554089330]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +20,158 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=1860579290]
+z_index = -2
+layout_mode = 0
+offset_left = -305.0
+offset_top = -112.0
+offset_right = 650.0
+offset_bottom = 421.0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_rmumn")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2088081007]
+z_index = -1
+layout_mode = 0
+offset_left = -264.0
+offset_top = -48.0
+offset_right = -152.0
+offset_bottom = 100.0
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=162198825]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 118.0
+offset_right = 119.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Enemy Type 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="ColorRect" unique_id=223734022]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 179.0
+offset_right = 117.0
+offset_bottom = 209.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8ctl")
+
+[node name="Label" type="Label" parent="ColorRect/Panel2" unique_id=161989833]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Weak TO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=214608225]
+z_index = -1
+layout_mode = 0
+offset_left = -83.0
+offset_top = -50.0
+offset_right = 29.0
+offset_bottom = 98.0
+
+[node name="Label" type="Label" parent="ColorRect2" unique_id=332213927]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 116.0
+offset_right = 114.0
+offset_bottom = 147.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Enemy Type 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="ColorRect2" unique_id=1523194218]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 179.0
+offset_right = 117.0
+offset_bottom = 209.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8ctl")
+
+[node name="Label" type="Label" parent="ColorRect2/Panel2" unique_id=1769922928]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Weak TO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=634367289]
+z_index = -1
+layout_mode = 0
+offset_left = 112.0
+offset_top = -48.0
+offset_right = 224.0
+offset_bottom = 100.0
+
+[node name="Label" type="Label" parent="ColorRect3" unique_id=416132550]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 116.0
+offset_right = 114.0
+offset_bottom = 147.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Enemy Type 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="ColorRect3" unique_id=1375391123]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 179.0
+offset_right = 117.0
+offset_bottom = 209.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8ctl")
+
+[node name="Label" type="Label" parent="ColorRect3/Panel2" unique_id=332276862]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Weak TO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=1578074981]
+z_index = -1
+layout_mode = 0
+offset_left = 297.0
+offset_top = -45.0
+offset_right = 409.0
+offset_bottom = 103.0
+
+[node name="Label" type="Label" parent="ColorRect4" unique_id=10602043]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 116.0
+offset_right = 114.0
+offset_bottom = 147.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Enemy Type 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="ColorRect4" unique_id=1614031672]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 179.0
+offset_right = 117.0
+offset_bottom = 209.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8ctl")
+
+[node name="Label" type="Label" parent="ColorRect4/Panel2" unique_id=910664223]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Weak TO"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -26,10 +26,13 @@ expand_margin_right = 20.0
 shadow_size = 18
 
 [node name="PauseMenu" type="Control" unique_id=569257666]
+process_mode = 3
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -135,6 +138,10 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="SaveLoadMenu_old" parent="Sub_Menus" unique_id=1125761418 instance=ExtResource("10_mqkyk")]
+visible = false
+layout_mode = 1
+
 [node name="Panel" type="Panel" parent="." unique_id=1925848033]
 z_index = -2
 layout_mode = 0
@@ -146,14 +153,19 @@ scale = Vector2(0.8, 0.8)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_qffmw")
 
-[node name="Timer" type="Label" parent="." unique_id=61528486]
+[node name="MenuChrome" type="Control" parent="." unique_id=1770658802]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Timer" type="Label" parent="MenuChrome" unique_id=61528486]
 layout_mode = 0
 offset_left = -351.0
 offset_top = 269.0
 offset_right = -311.0
-offset_bottom = 286.0
+offset_bottom = 292.0
 
-[node name="Party_Cards" type="HBoxContainer" parent="." unique_id=7640826]
+[node name="Party_Cards" type="HBoxContainer" parent="MenuChrome" unique_id=7640826]
 layout_mode = 0
 offset_left = -52.0
 offset_top = 50.0
@@ -161,19 +173,19 @@ offset_right = 298.0
 offset_bottom = 90.0
 theme_override_constants/separation = 175
 
-[node name="BasePartyCardInfo" parent="Party_Cards" unique_id=988666486 instance=ExtResource("13_o57t2")]
+[node name="BasePartyCardInfo" parent="MenuChrome/Party_Cards" unique_id=988666486 instance=ExtResource("13_o57t2")]
 layout_mode = 2
 
-[node name="BasePartyCardInfo2" parent="Party_Cards" unique_id=690046593 instance=ExtResource("13_o57t2")]
+[node name="BasePartyCardInfo2" parent="MenuChrome/Party_Cards" unique_id=690046593 instance=ExtResource("13_o57t2")]
 layout_mode = 2
 
-[node name="BasePartyCardInfo3" parent="Party_Cards" unique_id=202349447 instance=ExtResource("13_o57t2")]
+[node name="BasePartyCardInfo3" parent="MenuChrome/Party_Cards" unique_id=202349447 instance=ExtResource("13_o57t2")]
 layout_mode = 2
 
-[node name="Money" type="Label" parent="." unique_id=1182323937]
+[node name="Money" type="Label" parent="MenuChrome" unique_id=1182323937]
 layout_mode = 0
 offset_left = 244.0
 offset_top = -68.0
 offset_right = 305.0
-offset_bottom = -51.0
+offset_bottom = -45.666664
 text = "Money"

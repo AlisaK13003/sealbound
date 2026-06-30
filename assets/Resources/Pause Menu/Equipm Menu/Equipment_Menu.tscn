@@ -55,7 +55,6 @@ theme_override_constants/separation = 60
 alignment = 1
 
 [node name="Armor" type="VBoxContainer" parent="." unique_id=848947295]
-visible = false
 layout_mode = 0
 offset_left = 180.0
 offset_top = -30.0

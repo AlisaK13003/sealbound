@@ -1,9 +1,55 @@
 [gd_scene format=3 uid="uid://b3dw3d21upxin"]
 
+[ext_resource type="Script" uid="uid://c20a621eq3fnv" path="res://assets/Resources/Pause Menu/Save Load Menu/save_load_menu.gd" id="1_c2cs2"]
+
 [node name="SaveLoadMenu" type="Control" unique_id=1676534613]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c2cs2")
+
+[node name="Main" type="VBoxContainer" parent="." unique_id=1921249711]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.0
+offset_right = 55.0
+offset_bottom = 79.0
+grow_horizontal = 2
+scale = Vector2(1.5, 1.5)
+
+[node name="ModeToggle" type="HBoxContainer" parent="Main" unique_id=1555396832]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SaveBtn" type="Button" parent="Main/ModeToggle" unique_id=1718933244]
+layout_mode = 2
+text = "Save"
+
+[node name="LoadBtn" type="Button" parent="Main/ModeToggle" unique_id=608209566]
+layout_mode = 2
+text = "Load"
+
+[node name="SlotContainer" type="VBoxContainer" parent="Main" unique_id=1411966905]
+layout_mode = 2
+
+[node name="Slot1" type="Button" parent="Main/SlotContainer" unique_id=46466002]
+layout_mode = 2
+text = "Slot 1"
+
+[node name="Slot2" type="Button" parent="Main/SlotContainer" unique_id=1816145122]
+layout_mode = 2
+text = "Slot 2"
+
+[node name="Slot3" type="Button" parent="Main/SlotContainer" unique_id=195000458]
+layout_mode = 2
+text = "Slot 3"
+
+[node name="DeleteBtn" type="Button" parent="Main" unique_id=802177104]
+layout_mode = 2
+text = "Delete Save"
