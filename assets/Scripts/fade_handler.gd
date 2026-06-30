@@ -17,9 +17,9 @@ func _ready():
 		fade_thing.visible = true
 		fade_thing_2.visible = false
 	return
-	await fade_in(2)
+	#await fade_in(2)
 
-	await fade_out(0.5)
+	#await fade_out(0.5)
 
 func change_scene(target_path: String):
 	get_tree().change_scene_to_file(target_path)
@@ -35,7 +35,7 @@ func fade_in(duration: float):
 	if is_fading:
 		return
 	is_fading = true
-	
+	print("FADING")
 	if use_gradient:
 		fade_thing.texture = fade_thing.texture.duplicate()
 		grad_tex = fade_thing.texture
@@ -61,7 +61,7 @@ func fade_out(duration: float):
 	if is_fading:
 		return
 	is_fading = true
-	
+	print("FADING")
 	if use_gradient:
 		var tween = create_tween().set_parallel(true)
 		

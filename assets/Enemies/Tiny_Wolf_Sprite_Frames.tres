@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b0wou18gkoe7f"]
+
+[ext_resource type="Texture2D" uid="uid://dutsh7a1dqnom" path="res://assets/Enemies/Enemy_Sprites/Small_wolf.png" id="1_uvcij"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kcbo"]
+atlas = ExtResource("1_uvcij")
+region = Rect2(0, 0, 37, 20)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kcbo")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]

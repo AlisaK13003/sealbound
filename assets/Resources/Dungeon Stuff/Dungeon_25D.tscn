@@ -7,17 +7,17 @@
 [ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="7_og2ux"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
 [ext_resource type="PackedScene" uid="uid://dgs2lhgc5rktk" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_GUI.tscn" id="8_og2ux"]
+[ext_resource type="PackedScene" uid="uid://cmbl7st5je157" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_4_Way_Floor.glb" id="9_a4wc1"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="9_w732d"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="11_t7hpr"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="12_iegkx"]
 [ext_resource type="AudioStream" uid="uid://eg4iog2p3170" path="res://assets/Resources/SFX/Eye-laser.wav" id="14_7uj4b"]
-[ext_resource type="PackedScene" uid="uid://cnqf3p8mnno2t" path="res://scenes/Dungeon/Final_Dungeon_Wall_Mario_2.glb" id="14_edm4l"]
-[ext_resource type="PackedScene" uid="uid://btij2pma38ddj" path="res://assets/tile sheets/Dungeon_Backgrounds/Forest_Dungeon_Background.glb" id="14_og2ux"]
-[ext_resource type="PackedScene" uid="uid://ci2lmevgrkq15" path="res://assets/tile sheets/Dungeon_Backgrounds/Forest_Floor.glb" id="15_edm4l"]
-[ext_resource type="PackedScene" uid="uid://b4111xsabmhhp" path="res://assets/tile sheets/Dungeon_Backgrounds/Dungeon_Dungeon_Floor.glb" id="16_7uj4b"]
 
 [sub_resource type="Environment" id="Environment_a4wc1"]
 background_mode = 1
-background_color = Color(1, 1, 0.96862745, 1)
-background_energy_multiplier = 0.42
+background_color = Color(0.32889554, 0.15117607, 0.1512739, 0.3764706)
+background_energy_multiplier = 0.25
+reflected_light_source = 1
 ssao_enabled = true
 
 [node name="Dungeon25d" type="Node3D" unique_id=248229616]
@@ -44,28 +44,15 @@ offset_left = -1.0
 offset_right = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
-transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.2720056, 2.0102215, 6.178326)
+transform = Transform3D(0.72496986, 0.2238917, -0.6513764, 0.0658624, 0.9188279, 0.38912398, 0.6856245, -0.32500437, 0.6513764, -0.334, 1.954, 4.729)
 environment = SubResource("Environment_a4wc1")
+projection = 1
 fov = 15.0
+size = 3.0
 near = 0.068
 
 [node name="Enemy_Container" type="Node3D" parent="." unique_id=1866762753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0919201, 0.43436444, 0.13796973)
-
-[node name="Enemy_Slot5" parent="Enemy_Container" unique_id=1804750138 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.5, -0.131, 0)
-
-[node name="Enemy_Slot4" parent="Enemy_Container" unique_id=85630224 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.3, -0.131, 0)
-
-[node name="Enemy_Slot3" parent="Enemy_Container" unique_id=2004831497 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, -0.1, -0.131, 0)
-
-[node name="Enemy_Slot2" parent="Enemy_Container" unique_id=1397628051 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.1, -0.131, 0)
-
-[node name="Enemy_Slot1" parent="Enemy_Container" unique_id=240556923 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21643962, 0, -0.21643962, 0.976296, 0.3, -0.131, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.114, 0.434, 1.815)
 
 [node name="Background" type="Node3D" parent="." unique_id=507638438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046935797, 0)
@@ -78,46 +65,84 @@ sky_mode = 1
 [node name="Dungeon_Dungeon" type="Node3D" parent="Background" unique_id=847566466]
 visible = false
 
-[node name="Final_Dungeon_Wall_Mario_2" parent="Background/Dungeon_Dungeon" unique_id=1260364898 instance=ExtResource("14_edm4l")]
-transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, -0.26657003, 0.76829386, -0.99052817)
+[node name="SpotLight3D" type="SpotLight3D" parent="Background" unique_id=893694391]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7526412, 1.9938134, -0.02320695)
 
-[node name="Final_Dungeon_Wall_Mario_6" parent="Background/Dungeon_Dungeon" unique_id=1245794519 instance=ExtResource("14_edm4l")]
-transform = Transform3D(0.1, 0, 0, 0, 0.017364822, -0.098480776, 0, 0.098480776, 0.017364822, 2.0819876, 0.76829386, -0.99052817)
+[node name="SpotLight3D2" type="SpotLight3D" parent="Background" unique_id=1399918265]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 5.6435122, 1.9938134, -0.02320695)
+light_color = Color(1, 0.12941177, 0.07450981, 1)
 
-[node name="Dungeon_Dungeon_Floor2" parent="Background/Dungeon_Dungeon" unique_id=320012077 instance=ExtResource("16_7uj4b")]
-transform = Transform3D(-0.28998756, 0.00037070725, 0.0026600545, -0.0003240836, -0.2899554, 0.0050781993, 0.0026661356, 0.005075009, 0.2899433, 0.16042018, -0.20104289, -0.32642925)
+[node name="Walls" type="Node3D" parent="Background" unique_id=1212649921]
 
-[node name="Forest_Dungeon" type="Node3D" parent="Background" unique_id=1171691469]
+[node name="Section_1_Dungeon_Wall" parent="Background/Walls" unique_id=1488638431 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 0.82436585, 0.3597523, -0.14147305)
 
-[node name="Forest_Floor" parent="Background/Forest_Dungeon" unique_id=308570016 instance=ExtResource("15_edm4l")]
-transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.554487, -1.138669)
+[node name="Section_1_Dungeon_Wall2" parent="Background/Walls" unique_id=1701125532 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 1.7515721, 0.3597523, 0.0973157)
 
-[node name="Forest_Floor2" parent="Background/Forest_Dungeon" unique_id=1580522416 instance=ExtResource("15_edm4l")]
-transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.554487, -2.9016361)
+[node name="Section_1_Dungeon_Wall3" parent="Background/Walls" unique_id=1928143560 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 2.6221635, 0.35972315, 0.3217908)
 
-[node name="Forest_Dungeon_Background" parent="Background/Forest_Dungeon" unique_id=1863807259 instance=ExtResource("14_og2ux")]
-transform = Transform3D(-0.080523215, -0.067145005, 0.005705797, -0.0010702424, -0.0076151644, -0.10471801, 0.067378506, -0.08036512, 0.0051555834, -1.49215, 0.44343746, -1.598243)
+[node name="Section_1_Dungeon_Wall4" parent="Background/Walls" unique_id=141224132 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 3.5572925, 0.35972315, 0.5561157)
 
-[node name="Forest_Dungeon_Background2" parent="Background/Forest_Dungeon" unique_id=163128704 instance=ExtResource("14_og2ux")]
-transform = Transform3D(0.105, 0, 0, 0, 0.0076900045, -0.104718015, 0, 0.104718015, 0.0076900045, 0.2899325, 0.44343746, -2.519319)
+[node name="Section_1_Dungeon_Wall5" parent="Background/Walls" unique_id=633825614 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 4.493923, 0.35972315, 0.7935729)
 
-[node name="Forest_Dungeon_Background3" parent="Background/Forest_Dungeon" unique_id=1410993559 instance=ExtResource("14_og2ux")]
-transform = Transform3D(-0.10070537, 0.029303376, -0.004973816, 0.0031278075, -0.0070251683, -0.10471801, -0.029557472, -0.100583084, 0.0058649224, 2.1966925, 0.44343746, -2.019648)
+[node name="Section_1_Dungeon_Wall11" parent="Background/Walls" unique_id=981801012 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 5.432851, 0.35972315, 1.0317162)
+
+[node name="Section_1_Dungeon_Wall6" parent="Background/Walls" unique_id=2091756185 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267619, -0.018524924, -8.0974977e-10, 2.8660284e-16, 3.2783543e-09, -0.074999996, 0.018524924, 0.07267619, 3.1767768e-09, 0.07917118, -0.4293142, 2.400593)
+
+[node name="Section_1_Dungeon_Wall7" parent="Background/Walls" unique_id=1979508263 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267619, -0.018524924, -8.0974977e-10, 2.8660284e-16, 3.2783543e-09, -0.074999996, 0.018524924, 0.07267619, 3.1767768e-09, 1.0063775, -0.4293142, 2.6393816)
+
+[node name="Section_1_Dungeon_Wall8" parent="Background/Walls" unique_id=2012833257 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267619, -0.018524924, -8.0974977e-10, 2.8660284e-16, 3.2783543e-09, -0.074999996, 0.018524924, 0.07267619, 3.1767768e-09, 1.8769689, -0.42934334, 2.8638568)
+
+[node name="Section_1_Dungeon_Wall9" parent="Background/Walls" unique_id=257923677 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267619, -0.018524924, -8.0974977e-10, 2.8660284e-16, 3.2783543e-09, -0.074999996, 0.018524924, 0.07267619, 3.1767768e-09, 2.8120978, -0.42934334, 3.0981817)
+
+[node name="Section_1_Dungeon_Wall10" parent="Background/Walls" unique_id=482535660 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267619, -0.018524924, -8.0974977e-10, 2.8660284e-16, 3.2783543e-09, -0.074999996, 0.018524924, 0.07267619, 3.1767768e-09, 3.7487285, -0.42934334, 3.3356388)
+
+[node name="Section_1_Dungeon_Wall12" parent="Background/Walls" unique_id=915951719 instance=ExtResource("11_t7hpr")]
+transform = Transform3D(0.07267619, -0.018524924, -8.0974977e-10, 2.8660284e-16, 3.2783543e-09, -0.074999996, 0.018524924, 0.07267619, 3.1767768e-09, 4.688452, -0.42934334, 3.5794625)
+
+[node name="Floor_Tiles" type="Node3D" parent="Background" unique_id=123061932]
+
+[node name="Dungeon_1" type="Node3D" parent="Background/Floor_Tiles" unique_id=103525384]
+visible = false
+
+[node name="Creepy_Dungeon_4_Way_Floor" parent="Background/Floor_Tiles/Dungeon_1" unique_id=285974475 instance=ExtResource("9_a4wc1")]
+transform = Transform3D(0.42636693, 0, -0.10250459, 0, 2.08, 0, 0.10867956, 0, 0.4021415, 1.5124538, -0.53036827, 1.2627358)
+
+[node name="Creepy_Dungeon_4_Way_Floor2" parent="Background/Floor_Tiles/Dungeon_1" unique_id=16116695 instance=ExtResource("9_a4wc1")]
+transform = Transform3D(-0.42636693, 0, 0.10250454, 0, 2.08, 0, -0.10867951, 0, -0.40214154, 4.2097416, -0.53036827, 1.9547229)
+
+[node name="Dungeon_2" type="Node3D" parent="Background/Floor_Tiles" unique_id=940084801]
+
+[node name="Forest_Grid_Tile" parent="Background/Floor_Tiles/Dungeon_2" unique_id=1480615734 instance=ExtResource("9_w732d")]
+transform = Transform3D(0.21318346, 0, -0.049399804, 0, 0.66, 0, 0.054339785, 0, 0.19380315, 1.4338025, -0.9913455, 1.2825886)
+
+[node name="Forest_Grid_Tile2" parent="Background/Floor_Tiles/Dungeon_2" unique_id=2023437079 instance=ExtResource("9_w732d")]
+transform = Transform3D(0.21318346, 0, -0.049399804, 0, 0.66, 0, 0.054339785, 0, 0.19380315, 4.1433454, -0.9913455, 2.0432725)
 
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
-transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, -0.0071456432, -0.046935797, -0.034164637)
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 1.605, -0.047, 1.034)
 
 [node name="Player_Slot1" parent="Player_Container" unique_id=617855372 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.97629666, 0.21643981, 0, -0.21643981, 0.97629666, 0, 0.369, 0.3)
+transform = Transform3D(1, 0, 0, 0, 0.97629714, 0.21643998, 0, -0.21643998, 0.97629714, 0.2, 0, 0)
 
 [node name="Player_Slot2" parent="Player_Container" unique_id=1573487760 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.97629666, 0.21643981, 0, -0.21643981, 0.97629666, -0.3, 0.369, 0.8)
+transform = Transform3D(1, 0, 0, 0, 0.97629714, 0.21643998, 0, -0.21643998, 0.97629714, -0.3, 0, 0.8)
 
 [node name="Player_Slot3" parent="Player_Container" unique_id=498151818 instance=ExtResource("7_x3t77")]
-transform = Transform3D(1, 0, 0, 0, 0.97629666, 0.21643981, 0, -0.21643981, 0.97629666, -0.6, 0.369, 1.2)
+transform = Transform3D(1, 0, 0, 0, 0.97629714, 0.21643998, 0, -0.21643998, 0.97629714, -0.8, 0, 1.6)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1639238937]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38658774, 1.0366468)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29058766, 0.38658774, 1.0833447)
 stream = ExtResource("14_7uj4b")
 attenuation_model = 1
 volume_db = 80.0

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cwfvkw21sg7c7" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_3.tres" id="5_schd3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gctrq"]
-size = Vector2(555, 296)
+size = Vector2(393.5, 226)
 
 [node name="QuestUi" type="Control" unique_id=490027118]
 layout_mode = 3
@@ -21,79 +21,91 @@ script = ExtResource("1_qwsrt")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1700042292]
 layout_mode = 0
-offset_left = -183.0
-offset_top = -135.0
-offset_right = 375.0
-offset_bottom = 284.0
+offset_left = 123.0
+offset_top = 17.0
+offset_right = 514.5322
+offset_bottom = 311.0
 texture = ExtResource("1_gctrq")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=140806472]
 z_index = 2
 layout_mode = 0
-offset_left = -25.0
-offset_top = -44.0
-offset_right = 15.0
-offset_bottom = 148.0
+offset_left = 161.0
+offset_top = 50.0
+offset_right = 201.0
+offset_bottom = 242.0
+scale = Vector2(0.685, 0.685)
 theme_override_constants/separation = 64
 
 [node name="MissionPaper1" type="Sprite2D" parent="." unique_id=1948265229]
-position = Vector2(-102, -28)
+position = Vector2(177, 67)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("3_qwsrt")
 
 [node name="MissionPaper2" type="Sprite2D" parent="." unique_id=1319409742]
 z_index = 1
-position = Vector2(-142, 1)
+position = Vector2(154, 89)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("4_lsis7")
 
 [node name="MissionPaper3" type="Sprite2D" parent="." unique_id=340416691]
 z_index = 1
-position = Vector2(-76, 20)
+position = Vector2(196.99998, 105)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("5_schd3")
 
 [node name="MissionPaper4" type="Sprite2D" parent="." unique_id=742608395]
-position = Vector2(330, 47)
+position = Vector2(433, 115)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("4_lsis7")
 
 [node name="MissionPaper5" type="Sprite2D" parent="." unique_id=342816750]
-position = Vector2(304, -23)
+position = Vector2(421, 71.99999)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("3_qwsrt")
 
 [node name="MissionPaper6" type="Sprite2D" parent="." unique_id=529128654]
-position = Vector2(-138, 111)
+position = Vector2(158.99998, 150.99998)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("4_lsis7")
 
 [node name="MissionPaper7" type="Sprite2D" parent="." unique_id=307177301]
-position = Vector2(-119, 67)
+position = Vector2(166.99998, 128)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("3_qwsrt")
 
 [node name="MissionPaper8" type="Sprite2D" parent="." unique_id=35414800]
-position = Vector2(270, 147)
+position = Vector2(479, 207)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("4_lsis7")
 
 [node name="MissionPaper9" type="Sprite2D" parent="." unique_id=160101844]
-position = Vector2(252, 13)
+position = Vector2(485, 67)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("4_lsis7")
 
 [node name="MissionPaper10" type="Sprite2D" parent="." unique_id=163039254]
-position = Vector2(287, 47)
+position = Vector2(459, 84)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("5_schd3")
 
 [node name="MissionPaper11" type="Sprite2D" parent="." unique_id=880486587]
-position = Vector2(312, 113)
+position = Vector2(475, 159)
+scale = Vector2(0.585, 0.585)
 texture = ExtResource("3_qwsrt")
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=122661650]
 layout_mode = 0
-offset_left = 330.0
-offset_top = -84.0
-offset_right = 338.0
-offset_bottom = 168.0
+offset_left = 522.0
+offset_top = 23.0
+offset_right = 530.0
+offset_bottom = 245.0
 step = 1.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1649746297]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1722646443]
-position = Vector2(95.5, 40)
+position = Vector2(320, 132)
 shape = SubResource("RectangleShape2D_gctrq")
 
 [connection signal="scrolling" from="VScrollBar" to="." method="_on_v_scroll_bar_scrolling"]

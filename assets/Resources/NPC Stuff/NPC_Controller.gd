@@ -44,14 +44,14 @@ func _ready():
 			schedule_info = JSON.parse_string(json_string)
 	
 	dialogue_data = load_json_file(dialogue_path)
-	if DialogueSystem != null and DialogueSystem.has_signal("dialogue_closed"):
-		var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
-		if not DialogueSystem.dialogue_closed.is_connected(dialogue_closed_callback):
-			DialogueSystem.dialogue_closed.connect(dialogue_closed_callback)
-	if DialogueSystem != null and DialogueSystem.has_signal("choice_action_requested"):
-		var choice_action_callback = Callable(self, "_on_dialogue_system_choice_action_requested")
-		if not DialogueSystem.choice_action_requested.is_connected(choice_action_callback):
-			DialogueSystem.choice_action_requested.connect(choice_action_callback)
+	#if DialogueSystem != null and DialogueSystem.has_signal("dialogue_closed"):
+	#	var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
+	#	if not DialogueSystem.dialogue_closed.is_connected(dialogue_closed_callback):
+	#		DialogueSystem.dialogue_closed.connect(dialogue_closed_callback)
+	#if DialogueSystem != null and DialogueSystem.has_signal("choice_action_requested"):
+	#	var choice_action_callback = Callable(self, "_on_dialogue_system_choice_action_requested")
+	#	if not DialogueSystem.choice_action_requested.is_connected(choice_action_callback):
+	#		DialogueSystem.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
 
 
@@ -241,21 +241,21 @@ func begin_dialogue() -> void:
 	pending_choice_action = ""
 	Global.is_in_menu = true
 
-	if DialogueSystem != null and DialogueSystem.has_method("show_dialog"):
-		if dialogue_path.is_empty():
-			push_warning("NPC_Controller: dialogue_path is empty.")
-			player_is_speaking_to_me = false
-			Global.is_in_menu = false
-			return
-		DialogueSystem.dialogue_file_path = dialogue_path
-		DialogueSystem.show_dialog()
+	#if DialogueSystem != null and DialogueSystem.has_method("show_dialog"):
+	#	if dialogue_path.is_empty():
+	#		push_warning("NPC_Controller: dialogue_path is empty.")
+	#		player_is_speaking_to_me = false
+	#		Global.is_in_menu = false
+	#		return
+	#	DialogueSystem.dialogue_file_path = dialogue_path
+	#	DialogueSystem.show_dialog()
 
 func end_dialogue() -> void:
 	if not player_is_speaking_to_me:
 		return
 
-	if DialogueSystem != null and DialogueSystem.has_method("hide_dialog"):
-		DialogueSystem.hide_dialog()
+	#if DialogueSystem != null and DialogueSystem.has_method("hide_dialog"):
+	#	DialogueSystem.hide_dialog()
 
 func _on_dialogue_system_dialogue_closed() -> void:
 	if not player_is_speaking_to_me:

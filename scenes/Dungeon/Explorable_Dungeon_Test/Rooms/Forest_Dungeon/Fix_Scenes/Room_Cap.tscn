@@ -2,27 +2,125 @@
 
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_0p5vt"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="1_n8wpo"]
-[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="2_j2l4o"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_0p5vt"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_0p5vt"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="3_4q6ny"]
+[ext_resource type="PackedScene" uid="uid://brrmr5qygcka3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Weapon_Rack.glb" id="5_58m37"]
+[ext_resource type="PackedScene" uid="uid://bu76rj6ibjgsl" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Wall_Torch.glb" id="5_bgaqx"]
+[ext_resource type="PackedScene" uid="uid://bu5j1pkfgv0ed" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Tattered_Banner.glb" id="6_58m37"]
+[ext_resource type="PackedScene" uid="uid://ikfgy23we35e" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Giant Dirt Pile.glb" id="8_giybc"]
+[ext_resource type="PackedScene" uid="uid://ctvccan5i3d00" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Crate.glb" id="9_i32jx"]
+[ext_resource type="PackedScene" uid="uid://nt7nwr8la26d" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Bad CampDir.glb" id="10_3keqy"]
+[ext_resource type="PackedScene" uid="uid://btqr1mqs06pw7" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Spinning_Sprite.tscn" id="11_3keqy"]
+[ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="12_ibdge"]
 
 [node name="RoomCap" type="Node3D" unique_id=596948473]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_0p5vt")
 room_classification = 2
 
-[node name="Forest_Grid_Tile" parent="." unique_id=275606809 instance=ExtResource("1_n8wpo")]
+[node name="Walls" type="Node3D" parent="." unique_id=1216623296]
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("3_0p5vt")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.371325e-07, 1.8, -1.568613)
+
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=1680869391 instance=ExtResource("3_0p5vt")]
+transform = Transform3D(-1.0927845e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927845e-08, 4.776714e-16, -1.6, 1.8, 0.049)
+what_direction = 1
+
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=425725578 instance=ExtResource("3_0p5vt")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6, 1.8, 0.036)
+what_direction = 3
+
+[node name="Floor" type="Node3D" parent="." unique_id=647261417]
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=16557298 instance=ExtResource("3_4q6ny")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=1358726698 instance=ExtResource("1_n8wpo")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="Section_1_Dungeon_Wall" parent="." unique_id=644760535 instance=ExtResource("2_j2l4o")]
-transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=768332970]
+layers = 4
 
-[node name="Section_1_Dungeon_Wall2" parent="." unique_id=1733922240 instance=ExtResource("2_j2l4o")]
-transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.014748335, 1.7859914, -1.5633721)
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1745636589]
+collision_layer = 4
 
-[node name="Section_1_Dungeon_Wall3" parent="." unique_id=244579811 instance=ExtResource("2_j2l4o")]
-transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5800432, 1.7859914, 0.016487122)
+[node name="Pillars" type="Node3D" parent="." unique_id=1639498074]
 
-[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=1649304955]
-transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
-mesh = SubResource("BoxMesh_0p5vt")
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=391565559]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
+light_color = Color(1, 0.28627452, 0.10980392, 1)
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
+
+[node name="Clutter" type="Node3D" parent="." unique_id=1271704707]
+visible = false
+
+[node name="Creepy" type="Node3D" parent="Clutter" unique_id=847074343]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Creepy" unique_id=1826751512]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=287501571]
+visible = false
+
+[node name="Weapon_Rack" parent="Clutter/Creepy/Non-template" unique_id=1979409833 instance=ExtResource("5_58m37")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.28121877, -0.7212951)
+visible = false
+
+[node name="Wall_Torch" parent="Clutter/Creepy/Non-template" unique_id=1375627822 instance=ExtResource("5_bgaqx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.1059852, -1.1081352)
+visible = false
+
+[node name="Tattered_Banner" parent="Clutter/Creepy/Non-template" unique_id=403087030 instance=ExtResource("6_58m37")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.73741674, 1.1724194, -0.7728586)
+visible = false
+
+[node name="Tattered_Banner2" parent="Clutter/Creepy/Non-template" unique_id=1974737277 instance=ExtResource("6_58m37")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.7911899, 1.1724194, 0.0057588816)
+visible = false
+
+[node name="Tattered_Banner3" parent="Clutter/Creepy/Non-template" unique_id=1341776781 instance=ExtResource("6_58m37")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 0.8085786, 1.1724194, 0.0057588816)
+visible = false
+
+[node name="Forest" type="Node3D" parent="Clutter" unique_id=2131599522]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Forest" unique_id=555840887]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=2140228803]
+visible = false
+
+[node name="Giant Dirt Pile" parent="Clutter/Forest/Non-template" unique_id=1207094387 instance=ExtResource("8_giybc")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.28642607, 0)
+visible = false
+
+[node name="Crates" type="Node3D" parent="Clutter/Forest/Non-template" unique_id=1019870276]
+visible = false
+
+[node name="Crate" parent="Clutter/Forest/Non-template/Crates" unique_id=301876627 instance=ExtResource("9_i32jx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.3795867, 0.32521367, -1.0232186)
+
+[node name="Crate2" parent="Clutter/Forest/Non-template/Crates" unique_id=859555822 instance=ExtResource("9_i32jx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.125961, -1.0802176)
+
+[node name="Crate3" parent="Clutter/Forest/Non-template/Crates" unique_id=76130138 instance=ExtResource("9_i32jx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.568172, 0.3252042, -1.0423031)
+
+[node name="Bad CampDir" parent="Clutter/Forest/Non-template" unique_id=1823011883 instance=ExtResource("10_3keqy")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.2789539, 0)
+visible = false
+
+[node name="SpinningSprite" parent="." unique_id=884794250 instance=ExtResource("11_3keqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
+visible = false
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+texture = ExtResource("12_ibdge")
+
+[editable path="Floor/Forest_Grid_Tile"]

@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://bpp3qekgta70l"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_o4ivh"]
+[ext_resource type="PackedScene" uid="uid://c813p1yk0y3l3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Chest.tscn" id="2_2u071"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="3_g5mx7"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="4_2u071"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="4_joj12"]
+[ext_resource type="Script" uid="uid://rwbgr4oorlid" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Locked_Room_Controller.gd" id="6_hddcl"]
+[ext_resource type="Texture2D" uid="uid://bmgewdmdlfigh" path="res://assets/tile sheets/Door_Lock.png" id="6_joj12"]
+[ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="7_hddcl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7tpxp"]
+size = Vector3(3.104004, 2.734314, 2.956543)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7tpxp"]
+height = 0.73095703
+radius = 1.6455078
+
+[node name="ChestRoom" type="Node3D" unique_id=1968512589]
+script = ExtResource("1_o4ivh")
+room_classification = 7
+
+[node name="Chest" parent="." unique_id=572215512 instance=ExtResource("2_2u071")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.79556894, 0)
+
+[node name="Walls" type="Node3D" parent="." unique_id=82826717]
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("3_g5mx7")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0, 1.8, -1.596)
+
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=382764131 instance=ExtResource("3_g5mx7")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5975988, 1.8, 0.007053852)
+what_direction = 1
+
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=1406485742 instance=ExtResource("3_g5mx7")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.588, 1.8, 0.018)
+what_direction = 3
+
+[node name="Floor" type="Node3D" parent="." unique_id=919956286]
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=859113851 instance=ExtResource("4_2u071")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=2097126478 instance=ExtResource("4_joj12")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=768332970]
+layers = 4
+
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1745636589]
+collision_layer = 4
+
+[node name="Pillars" type="Node3D" parent="." unique_id=1315306104]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1897019323]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
+light_color = Color(1, 0.28627452, 0.10980392, 1)
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
+
+[node name="Room_Lock" type="Node3D" parent="." unique_id=2003270128]
+visible = false
+script = ExtResource("6_hddcl")
+
+[node name="Sprite3D" type="Sprite3D" parent="Room_Lock" unique_id=1147123475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.596426, 1.4387875)
+pixel_size = 0.2
+texture_filter = 5
+texture = ExtResource("6_joj12")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_Lock/Sprite3D" unique_id=507843551]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Lock/Sprite3D/StaticBody3D" unique_id=599757326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03881836, 0.16983032, -1.4567871)
+shape = SubResource("BoxShape3D_7tpxp")
+disabled = true
+
+[node name="Sprite3D" type="Sprite3D" parent="Room_Lock/Sprite3D" unique_id=482079975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2691207, 0.016115189)
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("7_hddcl")
+
+[node name="Area3D" type="Area3D" parent="Room_Lock" unique_id=570458261]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Lock/Area3D" unique_id=105184342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8121387, 1.0490752)
+shape = SubResource("CylinderShape3D_7tpxp")
+disabled = true
+
+[editable path="Floor/Forest_Grid_Tile"]

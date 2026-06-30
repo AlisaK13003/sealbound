@@ -290,7 +290,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h46wi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -328,7 +328,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_imcne")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_1",
 "speed": 5.0
 }, {
@@ -351,7 +351,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_51p7i")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_2",
 "speed": 5.0
 }, {
@@ -380,7 +380,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uioe6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"On_Attack_Base",
 "speed": 5.0
 }, {
@@ -397,7 +397,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n8b3i")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk_Left",
 "speed": 5.0
 }, {
@@ -414,7 +414,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sxdej")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk_Right",
 "speed": 5.0
 }]
@@ -449,4 +449,5 @@ idle_speed = 1.0
 walk_speed = 0.7
 attack_speed = Array[float]([1.0, 1.5])
 sprite_scale = 0.007
+sprite_offset = Vector2(-28, 14)
 metadata/_custom_type_script = "uid://125iickqse23"

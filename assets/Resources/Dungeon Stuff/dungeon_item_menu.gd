@@ -1,7 +1,7 @@
 extends Control
 
 @export var node_to_instantiate: String
-@onready var item_container = $MarginContainer/GridContainer
+@onready var item_container = $NinePatchRect3/MarginContainer/GridContainer
 @onready var menu_name = $NinePatchRect/Label
 @onready var description = $Panel3/Description_Label
 var p_ref
@@ -47,6 +47,11 @@ func _setup(items_to_setup, parent_reference, m_name):
 
 	var already_selected = false
 	var index_difference = 0
+	if items_to_setup[0] is Items:
+		item_container.columns = 2
+		item_container.add_theme_constant_override("v_separation", -11)
+		item_container.add_theme_constant_override("h_separation", 40)
+
 	for item in range(items_to_setup.size()):
 		var item_to_create = items_to_setup[item]
 		if item_to_create is moves:
@@ -55,6 +60,8 @@ func _setup(items_to_setup, parent_reference, m_name):
 				continue
 		var new_item = list_item_scene.instantiate()
 		item_container.add_child(new_item)
+		
+		
 		await new_item._setup(items_to_setup[item], item - index_difference, self)
 		if not already_selected and items_to_setup[item] is moves:
 			if p_ref.current_bond_points >= items_to_setup[item].mana_cost:

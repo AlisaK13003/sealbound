@@ -7,7 +7,6 @@ class_name dungeon_loop
 @export var party_slot_2: generic_combatants
 @export var party_slot_3: generic_combatants
 
-
 @export var temp_item_list : Array[Items]
 
 @onready var gui: dungeon_gui = $UI/DungeonPlayerGui
@@ -22,8 +21,8 @@ class_name dungeon_loop
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-@onready var dungeon_dungeon: Node = $Background/Dungeon_Dungeon
-@onready var forest_dungeon: Node = $Background/Forest_Dungeon
+@onready var floor_tiles: Node = $Background/Floor_Tiles
+@onready var walls: Node = $Background/Walls
 
 var all_combatants : Array[combat_template] = []
 var killed_enemies: Array[generic_combatants] = []
@@ -74,6 +73,7 @@ var skills_enemies_have_used: int = 0
 var training: bool = false
 var testing: bool = false
 func _ready():
+	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
 	gui.hide_gui(false)
@@ -81,14 +81,14 @@ func _ready():
 		gui._setup(self)
 		
 		if training:
-			await EnemyGeneticAlgorithm._setup(self)
+			#await EnemyGeneticAlgorithm._setup(self)
 			get_tree().quit()
 
 		else:
 			await _reset()
-			await battle_loop()
+			#await battle_loop(encounter)
 
-			return (killed_enemies)
+			#return (killed_enemies)
 		
 func _reset() -> void:
 	all_combatants.clear()
@@ -119,31 +119,46 @@ func _reset() -> void:
 		await GlobalCombatInformation.load_items()
 		temp_item_list = GlobalCombatInformation.all_held_items
 
-func setup(active_combatants: Array[generic_combatants], current_dungeon_type: dungeon_type, current_item_list: Array[Items], what_dungeon, max_bond_points) -> void:
-	max_bond_points_ = max_bond_points
-	self.current_dungeon_run = current_dungeon_type
-	temp_item_list = current_item_list
-	gui._setup(self)
-	slot_1.setup(active_combatants[0], self, 0)
-	slot_2.setup(active_combatants[1], self, 1)
-	slot_3.setup(active_combatants[2], self, 2)
+func hide():
+	self.visible = false
+	gui.visible = false
+	gui.get_child(0).visible = false
 
+func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss: bool ):
+	#Fade.fade_thing.visible = false
+	#Fade.fade_thing_2.visible = false
+	gui.call_deferred("hide_gui", false)
+	self.current_dungeon_run = current_dungeon_type
+	temp_item_list = GlobalCombatInformation.all_held_items
+	current_bond_points = GlobalCombatInformation.current_BP
+	max_bond_points_ = GlobalCombatInformation.max_BP
+
+	for child in floor_tiles.get_children():
+		if child.get_index() == current_dungeon_type.type_of_dungeon:
+			child.visible = true
+		else:
+			child.visible = false
+			
+	for wall in walls.get_children():
+		wall._setup(current_dungeon_type.type_of_dungeon)
+
+	gui.get_player_portrait(0)._setup(GlobalCombatInformation.active_party_slots[0])
+	gui.get_player_portrait(1)._setup(GlobalCombatInformation.active_party_slots[1])
+	gui.get_player_portrait(2)._setup(GlobalCombatInformation.active_party_slots[2])
+
+	await gui._setup(self)
+	slot_1.setup(GlobalCombatInformation.active_party_slots[0], self, 0)
+	slot_2.setup(GlobalCombatInformation.active_party_slots[1], self, 1)
+	slot_3.setup(GlobalCombatInformation.active_party_slots[2], self, 2)
+	
 	all_combatants.append(slot_1)
 	all_combatants.append(slot_2)
 	all_combatants.append(slot_3)
 	
-	gui.get_player_portrait(0)._setup(party_slot_1)
-	gui.get_player_portrait(1)._setup(party_slot_2)
-	gui.get_player_portrait(2)._setup(party_slot_3)
-
-	match what_dungeon:
-		0:
-			dungeon_dungeon.visible = true
-			forest_dungeon.visible = false
-		1:
-			dungeon_dungeon.visible = false
-			forest_dungeon.visible = true
-
+	await _reset()
+	
+	return await battle_loop(encounter, is_boss)
+	
 	#item_menu.setup(temp_item_list, self)
 
 #endregion
@@ -174,25 +189,31 @@ func sort_enemy_actions(enemy_actions: Array[enemy_weighting]) -> Array[enemy_we
 	)
 	return enemy_actions
 
-func select_next_wave() -> void:
-	var number_of_possible_waves: int = current_dungeon_run.potential_waves.size()
-	var random_wave: int = rng.randi_range(0, number_of_possible_waves - 1)
-	var enemy_count_for_current_wave: int = current_dungeon_run.potential_waves[random_wave].enemies.size()
-	for i in range(enemy_shit.get_child_count()):
-		if i > enemy_count_for_current_wave - 1:
-			enemy_shit.get_child(i).visible = false
-			enemy_shit.get_child(i).empty()
-			continue
+var enemy_scene = "res://assets/Resources/Combat_Template_3D.tscn"
+func setup_encounter(new_encounter: dungeon_wave, is_boss):
+	var enemy_list = new_encounter.enemies.duplicate()
+	enemy_list.shuffle()
+	var enemy_count_for_current_wave: int = enemy_list.size()
+	for i in range(0, enemy_count_for_current_wave):
+		var new_enemy = load(enemy_scene)
+		var new_enemy_instance = new_enemy.instantiate()
+		enemy_shit.add_child(new_enemy_instance)
+		#new_enemy_instance.position = Vector3(-0.5 + (i * 0.25), -0.131, 0.0)
+		if not is_boss:
+			if i < 3:
+				new_enemy_instance.position = Vector3((i * 0.1), (i * -0.15), (i * 0.4))
+			elif i >= 3:
+				new_enemy_instance.position = Vector3(0.8 - ((i - 3) * 0.2), 0.0, 0.35 + ((i - 3) * 0.55))
 		else:
-			enemy_shit.get_child(i).visible = true
-		enemy_shit.get_child(i).setup(current_dungeon_run.potential_waves[random_wave].enemies[i].duplicate(true), self, i)
-		all_combatants.append(enemy_shit.get_child(i))
+			new_enemy_instance.position = Vector3(0.0, 0.0, 1.5)
+		new_enemy_instance.setup(enemy_list[i].duplicate(true), self, i)
+		all_combatants.append(new_enemy_instance)
 	turn_ended.emit()
 #endregion
 
 var turn_count: int = 0
 
-func battle_loop(training_weight = null, p_weights = null):
+func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	skills_enemies_have_used = 0
 	training = false
 	
@@ -220,23 +241,23 @@ func battle_loop(training_weight = null, p_weights = null):
 		
 		training = true
 	
-	
 	var is_wave_over : bool = false
-	var number_of_waves_to_fight = rng.randi_range(current_dungeon_run.minimum_number_of_waves, current_dungeon_run.max_number_of_waves)
+	var number_of_waves_to_fight = 1#rng.randi_range(current_dungeon_run.minimum_number_of_floors, current_dungeon_run.max_number_of_floors)
 	
 	# Genetic algorithm return values
 	var number_of_killed_players = 0
 	var cum_player_health = 0
 	var number_of_killed_enemies = 0
 	var highest_wave_reached = 0
-	gui.update_mana_display(max_bond_points_)
+	var did_players_win: bool = false
+	gui.update_mana_display(current_bond_points, true)
 	# Main battle loop, continues until every wave has been fought, or party dies
 	for i in range(number_of_waves_to_fight):
 		highest_wave_reached += 1
 		turn_count = 0
 		is_wave_over = false
-		select_next_wave()
-
+		setup_encounter(encounter, is_boss)
+		await Fade.fade_out(1)
 		# Handles individual waves, continues until wave concludes
 		while(not is_wave_over):
 			turn_count += 1
@@ -244,9 +265,45 @@ func battle_loop(training_weight = null, p_weights = null):
 			for j in range(all_combatants.size()):
 				if j >= all_combatants.size():
 					continue
+					
+				# After each turn checks if all players or all enemies are dead
+				var number_of_alive_enemies = 0
+				var number_of_alive_players = 0
+				
+				if slot_1.stored_combatant.is_dead:
+					is_wave_over = true
+					did_players_win = false
+					break
+				
+				# Enemy Check
+				for enemy in enemy_shit.get_children():
+					if enemy.stored_combatant == null:
+						continue
+					if not enemy.stored_combatant.is_dead:
+						number_of_alive_enemies += 1
+				# Player check
+				for player in player_container.get_children():
+					if not player.stored_combatant.is_dead:
+						number_of_alive_players += 1
+				# Wait so all animations can finish
+				if not training:
+					await get_tree().create_timer(1).timeout
+				
+				
+				if number_of_alive_enemies == 0:
+					is_wave_over = true
+					did_players_win = true
+					break
+				elif number_of_alive_players == 0:
+					is_wave_over = true
+					did_players_win = false
+					break
+					
 				var current_combatant = all_combatants[j]
 				if current_combatant.stored_combatant.is_dead:
-					pass
+					all_combatants.remove_at(j)
+					j -= 1
+					continue
 				# Enemy Turn
 				elif current_combatant.stored_combatant.is_combatant_enemy:
 					active_player_turn = current_combatant.child_number
@@ -264,43 +321,34 @@ func battle_loop(training_weight = null, p_weights = null):
 							return killed_enemies
 				hidden_default()
 				
-				# After each turn checks if all players or all enemies are dead
-				var number_of_alive_enemies = 0
-				var number_of_alive_players = 0
-				
-				# Enemy Check
-				for enemy in enemy_shit.get_children():
-					if enemy.stored_combatant == null:
-						continue
-					if not enemy.stored_combatant.is_dead:
-						number_of_alive_enemies += 1
-				# Player check
-				for player in player_container.get_children():
-					if not player.stored_combatant.is_dead:
-						number_of_alive_players += 1
-				# Wait so all animations can finish
-				if not training:
-					await get_tree().create_timer(1).timeout
-					
-				# If either are wiped then wave is over
-				if number_of_alive_enemies <= 0 or number_of_alive_players <= 0:
-					is_wave_over = true
-					for player in player_container.get_children():
-						if player.stored_combatant.is_dead:
-							number_of_killed_players += 1
-						else:
-							cum_player_health += player.stored_combatant.combatant_stats.health
 
-					for enemy in enemy_shit.get_children():
-						if enemy.stored_combatant == null:
-							continue
-						if enemy.stored_combatant.is_dead:
-							number_of_killed_enemies += 1
-					break
+				
+				# If either are wiped then wave is over
+				#if number_of_alive_enemies <= 0 or number_of_alive_players <= 0:
+				#	is_wave_over = true
+				#	for player in player_container.get_children():
+				#		if player.stored_combatant.is_dead:
+				#			number_of_killed_players += 1
+				#		else:
+				#			cum_player_health += player.stored_combatant.combatant_stats.health
+#
+				#	for enemy in enemy_shit.get_children():
+				#		if enemy.stored_combatant == null:
+				#			continue
+				#		if enemy.stored_combatant.is_dead:
+				#			number_of_killed_enemies += 1
+				#	break
 		if i != number_of_waves_to_fight - 1:
 			gui.next_floor(i)
 			await get_tree().create_timer(2).timeout
-	return (killed_enemies)
+			
+	party_slot_1 = get_player(0).stored_combatant.duplicate()
+	party_slot_2 = get_player(1).stored_combatant.duplicate()
+	party_slot_3 = get_player(2).stored_combatant.duplicate()
+			
+	var ret_val = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
+	print(current_bond_points)
+	return [killed_enemies, did_players_win, ret_val]
 	#return [number_of_killed_players, number_of_killed_enemies, player_container, highest_wave_reached, number_of_waves_to_fight, cum_player_health, skills_enemies_have_used]
 
 #region EntityTurns
@@ -364,53 +412,43 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 	var par_task : Array[Callable]
 	$AudioStreamPlayer3D.stream = load("res://assets/Resources/SFX/Eye-laser.wav")
 	if selected_action.is_base_attack:
-			var random_attack = rng.randi_range(0, 1)
-			if testing:
-				action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
-			if not testing:
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				action_sequence.append(func(): await attacking_enemy.attack_animation(0))
-				action_sequence.append(func(): $AudioStreamPlayer3D.play())
+		if testing:
+			action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
+		if not testing:
+			#action_sequence.append(func(): await attacking_enemy.walk_animation())
+			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
+			action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+			action_sequence.append(func(): $AudioStreamPlayer3D.play())
 
 
-				action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
-
-			if not testing:
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-
-				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-				action_sequence.append(func(): await attacking_enemy.idle_animation())
-			
-			#set_health_bar_values(selected_action.targetting_who.child_number)
-			await action_queue(action_sequence)
+			action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
+		
+		#set_health_bar_values(selected_action.targetting_who.child_number)
+		await action_queue(action_sequence)
 	else:
-			if not testing:
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-				if not selected_action.skill_type.targets_party and not selected_action.skill_type.is_skill_aoe:
-					action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				elif selected_action.skill_type.targets_party:
-					action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
-				else:
-					action_sequence.append(func(): await attacking_enemy.walk_towards_entity(get_player(0).global_position))
+		#if not testing:
+			#action_sequence.append(func(): await attacking_enemy.walk_animation())
+			#if not selected_action.skill_type.targets_party and not selected_action.skill_type.is_skill_aoe:
+			#	action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
+			#elif selected_action.skill_type.targets_party:
+			#	action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
+			#else:
+			#	action_sequence.append(func(): await attacking_enemy.walk_towards_entity(get_player(0).global_position))
 
-			if not testing:
-				var random_attack = rng.randi_range(0, 1)
-				match random_attack:
-					0:
-						action_sequence.append(func(): await attacking_enemy.attack_animation(0))
-					1:
-						action_sequence.append(func(): await attacking_enemy.attack_animation(1))
-				action_sequence.append(func(): await execute_enemy_skills(selected_action))
+		if not testing:
+			var random_attack = rng.randi_range(0, 1)
+			match random_attack:
+				0:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(0))
+				1:
+					action_sequence.append(func(): await attacking_enemy.attack_animation(1))
+			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
-				action_sequence.append(func(): await attacking_enemy.walk_animation())
-				action_sequence.append(func(): await attacking_enemy.walk_towards_entity(attacking_enemy.base_location))
-				action_sequence.append(func(): await attacking_enemy.idle_animation())
-			else:
-				action_sequence.append(func(): await execute_enemy_skills(selected_action))
+		else:
+			action_sequence.append(func(): await execute_enemy_skills(selected_action))
 
-			skills_enemies_have_used += 1
-			await action_queue(action_sequence)
+		skills_enemies_have_used += 1
+		await action_queue(action_sequence)
 	turn_ended.emit()
 
 func execute_enemy_skills(action):
@@ -462,7 +500,7 @@ func execute_enemy_skills(action):
 				if skill_used.removes_status:
 					chance = rng.randf_range(0, 1)
 					if chance <= skill_used.chance_of_status_condition:
-						parallel_tasks.append(func(): await player.remove_status(skill_used.removes_status))				
+						parallel_tasks.append(func(): await player.remove_status(skill_used.removes_status))
 		else:
 			var check_evasion = calculate_evasion(person_recieving, skill_used.accuracy)
 			var chance = rng.randf_range(0, 1)
@@ -479,7 +517,7 @@ func execute_enemy_skills(action):
 					if chance <= check_evasion:
 						parallel_tasks.append(func(): await deal_damage(action.person_acting, person_recieving, true, skill_used))
 					else:
-						parallel_tasks.append(func(): await person_recieving.update_health("MISS"))
+						parallel_tasks.append(func(): await person_recieving.update_health(0, "MISS"))
 	person_acting.current_mana = clamp(person_acting.current_mana - skill_used.mana_cost, 0, 3)
 
 	action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
@@ -495,7 +533,7 @@ func handle_player_move_selection(current_combatant):
 	var what_action = null
 	selecting_entity = false
 	await gui.new_player_turn(temp_item_list)
-	gui.get_player_portrait(active_player_turn).position.y -=10
+	#gui.get_player_portrait(active_player_turn).position.y -=10
 	make_enemies_selectable()
 	select_individual(false, 0)
 	what_action = await action_taken
@@ -508,19 +546,12 @@ func handle_player_move_selection(current_combatant):
 			if testing:
 				action_sequence.append(func(): await deal_damage(current_combatant, target_node, false, null))
 			if not testing:
-				action_sequence.append(func(): await current_player.walk_animation(false))
-				action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
 				action_sequence.append(func(): await current_player.attack_animation(0))
 				action_sequence.append(func(): $AudioStreamPlayer3D.play())
-				action_sequence.append(func(): deal_damage(current_player, target_node, false, null))
+				action_sequence.append(func(): await deal_damage(current_player, target_node, false, null))
 
-				action_sequence.append(func(): await current_player.walk_animation(true))
-				action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
-				action_sequence.append(func(): await current_player.idle_animation())
-			
 		"BASIC_DEFEND":
 			action_sequence.append(func(): await current_player.execute_defend())
-			gui.update_mana_display(2)
 		"SKILL":
 			var action_on_who = what_action[2] if get_num_selected()[0] == 1 else 0
 			
@@ -529,29 +560,22 @@ func handle_player_move_selection(current_combatant):
 				if current_player.stored_combatant.combatant_skills[skill] == what_action[1]:
 					skill_index = skill
 			
-			var target_node = enemy_shit.get_child(action_on_who)
+			if action_on_who != 6:
+				var target_node = enemy_shit.get_child(action_on_who)
 
-			action_sequence.append(func(): await current_player.walk_animation(false))
-			action_sequence.append(func(): await current_player.walk_towards_entity(target_node.global_position))
 			action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
 			action_sequence.append(func(): $AudioStreamPlayer3D.play())
 			action_sequence.append(func(): await execute_skills(what_action))
-
-			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_party, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
-			action_sequence.append(func(): await current_player.walk_animation(true))
-			action_sequence.append(func(): await current_player.walk_towards_entity(current_player.base_location))
-
-			action_sequence.append(func(): await current_player.idle_animation())
 		"ITEM":
-			action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_players, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
+			#action_sequence.append(func(): await sci_fi_enhance_zoom(get_camera_offset(what_action[1].targets_players, what_action[2] if what_action[2] < 5 else (6 if not what_action[1].targets_party else 4))))
 			action_sequence.append(func(): await execute_item(what_action[1], what_action[3], what_action[2]))
 		"RUN":
 			return "RUN"
-	action_sequence.append(func(): await revert_camera())
+	#action_sequence.append(func(): await revert_camera())
 	await action_queue(action_sequence)
 	await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
 	gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
-	gui.get_player_portrait(active_player_turn).position.y += 10
+	#gui.get_player_portrait(active_player_turn).position.y += 10
 	selecting_entity = false
 
 	turn_ended.emit()
@@ -582,12 +606,12 @@ func skill_selected(what_skill: moves):
 	highlight_check(what_skill.is_skill_aoe, what_skill.targets_party, what_skill.targets_self)
 	#sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, 6 if not what_skill.targets_party else 4))
 	gui.hide_gui(true)
-	gui._executing_skill(true, what_skill.is_skill_aoe)
+	gui._executing_skill(true, what_skill)
 	action_on_who = await confirmation
 	if not action_on_who is bool:
-		await no_one_can_be_selected()
-		await sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
+		#await sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
 		action_taken.emit("SKILL", what_skill, action_on_who)
+		await no_one_can_be_selected()
 		return
 	else:
 		if action_on_who:
@@ -611,10 +635,10 @@ func skill_selected(what_skill: moves):
 					action_on_who = last_selectable_entity
 				else:
 					action_on_who = 6
-			await no_one_can_be_selected()
-			sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
+			
+			#sci_fi_enhance_zoom(get_camera_offset(what_skill.targets_party, action_on_who if not what_skill.is_skill_aoe else (6 if not what_skill.targets_party else 4)))
 			action_taken.emit("SKILL", what_skill, action_on_who)
-
+			await no_one_can_be_selected()
 		else:
 			revert_camera()
 			no_one_can_be_selected()
@@ -624,12 +648,12 @@ func item_selected(item_used: Items, index_of_item_used):
 	highlight_check(item_used.is_aoe_item, item_used.targets_players, false)
 	#sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, 6 if not item_used.targets_players else 4))
 	gui.hide_gui(true)
-	gui._executing_item(true, item_used.is_aoe_item)
+	gui._executing_item(true, item_used)
 	selecting_entity = true
 	action_on_who = await confirmation
 	if not (action_on_who is bool):
 		await no_one_can_be_selected()
-		await sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
+		#await sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
 		action_taken.emit("ITEM", item_used, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4), index_of_item_used)
 	else:
 		if action_on_who:
@@ -654,7 +678,7 @@ func item_selected(item_used: Items, index_of_item_used):
 				else:
 					action_on_who = 6
 			await no_one_can_be_selected()
-			sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
+			#sci_fi_enhance_zoom(get_camera_offset(item_used.targets_players, action_on_who if not item_used.is_aoe_item else (6 if not item_used.targets_players else 4)))
 			action_taken.emit("ITEM", item_used, action_on_who if not item_used.is_aoe_item else 4, index_of_item_used)
 		else:
 			revert_camera()
@@ -667,7 +691,7 @@ func execute_skills(what_action):
 	var current_player = get_player(active_player_turn)
 	var action_sequence : Array[Callable]
 	var parallel_tasks : Array[Callable]
-	
+	#update_health(change_health_value, what_action)
 	if skill_used.targets_party:
 		if skill_used.is_skill_aoe:
 			for player: combat_template in player_container.get_children():
@@ -695,9 +719,9 @@ func execute_skills(what_action):
 			var targetted_player: combat_template = player_container.get_child(what_action[2])
 			if skill_used.does_heal_party:
 				if get_skill_boost(skill_used) != 999:
-					parallel_tasks.append(func(): await targetted_player.update_health([-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"], false))
+					parallel_tasks.append(func(): await targetted_player.update_health(-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 				else:
-					parallel_tasks.append(func(): await targetted_player.update_health([-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"], false))
+					parallel_tasks.append(func(): await targetted_player.update_health(-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"))
 			if skill_used.does_status:
 				action_sequence.append(func(): await targetted_player.handle_status(skill_used.status_type))
 			if skill_used.removes_status:
@@ -743,7 +767,7 @@ func execute_skills(what_action):
 						parallel_tasks.append(func(): await deal_damage(current_player, targetted_enemy, true, skill_used))
 					else:
 						parallel_tasks.append(func(): await targetted_enemy.update_health(0, "MISS"))
-	parallel_tasks.append(func(): await gui.update_mana_display(-1 * skill_used.mana_cost))
+	parallel_tasks.append(func(): await gui.update_mana_display(-1 * skill_used.mana_cost, false))
 	action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
 	await action_queue(action_sequence)
 	return
@@ -897,14 +921,14 @@ func select_individual(is_player, index):
 	while(true):
 		index += 1
 		if is_player:
-			if index > 3:
+			if index >= 3:
 				break
 			if get_player(index).stored_combatant.is_dead:
 				continue
 			get_player(index).selected(true)
 			break
 		else:
-			if index > 5:
+			if index >= 5:
 				break
 			if enemy_shit.get_child(index) == null or not enemy_shit.get_child(index).visible or enemy_shit.get_child(index).stored_combatant.is_dead:
 				continue
@@ -1622,30 +1646,35 @@ func get_alive_player_or_enemy_count(is_player):
 
 func get_num_selected():
 	var count = 0
-	var player_ret_val
-	var enemy_ret_val
+	var player_ret_val = -1
+	var enemy_ret_val = -1
 	for player in player_container.get_children():
 		if player.selection_area_sprite.visible:
 			count += 1
-	if count < player_container.get_child_count() - 1:
+	if count > 0:
 		player_ret_val = count
-	else:
+	elif count == player_container.get_child_count() - 1:
 		player_ret_val = 4
+	count = 0
 	for enemy in enemy_shit.get_children():
 		if enemy.selection_area_sprite.visible:
 			count += 1
-	if count < 5:
+	if count > 0:
 		enemy_ret_val = enemy_shit.get_child_count() - 1
-	else:
+	elif count == enemy_shit.get_child_count() - 1:
 		enemy_ret_val = 6
 		
-	if enemy_ret_val > 0:
+	if enemy_ret_val >= 0:
 		return [enemy_ret_val, false]
-	elif player_ret_val > 0:
+	elif player_ret_val >= 0:
 		return [player_ret_val, true]
 		
+		
 func update_selected_enemy(what_direction):
+	print(current_selected_person)
+	
 	var ret = get_num_selected()
+	print(ret)
 	if ret[1]:
 		if ret[0] == 4:
 			return

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dpxacf1ejkclj"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_ynxid"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="2_gyrga"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="3_scc5d"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="4_wegpq"]
+[ext_resource type="PackedScene" uid="uid://btqr1mqs06pw7" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Spinning_Sprite.tscn" id="5_gyrga"]
+
+[node name="QuestRoom" type="Node3D" unique_id=2000562024]
+script = ExtResource("1_ynxid")
+room_classification = 8
+
+[node name="Walls" type="Node3D" parent="." unique_id=823305852]
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("2_gyrga")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0, 1.8, -1.596)
+
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=1182679680 instance=ExtResource("2_gyrga")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5975988, 1.8, 0.007053852)
+what_direction = 1
+
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=694856057 instance=ExtResource("2_gyrga")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.588, 1.8, 0.018)
+what_direction = 3
+
+[node name="Floor" type="Node3D" parent="." unique_id=98302043]
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=1985323941 instance=ExtResource("3_scc5d")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=1480615734 instance=ExtResource("4_wegpq")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=768332970]
+layers = 4
+
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1745636589]
+collision_layer = 4
+
+[node name="Pillars" type="Node3D" parent="." unique_id=55276554]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=500066291]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
+light_color = Color(1, 0.28627452, 0.10980392, 1)
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
+
+[node name="SpinningSprite" parent="." unique_id=884794250 instance=ExtResource("5_gyrga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
+pixel_size = 0.002
+
+[editable path="Floor/Forest_Grid_Tile"]

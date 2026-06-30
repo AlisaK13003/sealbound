@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dw54xqs30htgf"]
+
+[ext_resource type="Script" uid="uid://dfxdjlcxghanu" path="res://scenes/Dungeon/quest_menu.gd" id="1_amt4u"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="1_b5m2l"]
+
+[node name="QuestMenu" type="Control" unique_id=1054594618]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 50.0
+offset_right = 160.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_amt4u")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=550895361]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -2.0
+offset_right = 317.0
+offset_bottom = 221.0
+texture = ExtResource("1_b5m2l")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=507903364]
+z_index = -1
+layout_mode = 0
+offset_top = 3.0
+offset_right = 312.0
+offset_bottom = 216.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=848374606]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 50.0
+offset_bottom = 73.0
+theme_override_constants/separation = 50

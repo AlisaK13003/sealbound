@@ -2,30 +2,52 @@
 
 [ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_05thy"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="2_xk7v4"]
-[ext_resource type="PackedScene" uid="uid://brenfrkgtqwtx" path="res://assets/tile sheets/Dungeon_Backgrounds/Section_1_Dungeon_Wall.glb" id="3_clbun"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="4_clbun"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="4_fd4qu"]
 [ext_resource type="PackedScene" uid="uid://df7sc8ebc63bp" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Stair_Down_Teleporter.tscn" id="4_xk7v4"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_fd4qu"]
 
 [node name="StairRoom" type="Node3D" unique_id=1923021298]
 script = ExtResource("1_05thy")
 room_classification = 1
 
-[node name="Forest_Grid_Tile" parent="." unique_id=2097126478 instance=ExtResource("2_xk7v4")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-
-[node name="Section_1_Dungeon_Wall" parent="." unique_id=1305257535 instance=ExtResource("3_clbun")]
-transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.5689546, 1.7859914, 0.016487122)
-
-[node name="Section_1_Dungeon_Wall2" parent="." unique_id=212956390 instance=ExtResource("3_clbun")]
-transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, -0.014748335, 1.7859914, -1.5633721)
-
-[node name="Section_1_Dungeon_Wall3" parent="." unique_id=190250627 instance=ExtResource("3_clbun")]
-transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.5800432, 1.7859914, 0.016487122)
-
-[node name="Floor_Piece_1" type="MeshInstance3D" parent="." unique_id=626965247]
-transform = Transform3D(3.415, 0, 0, 0, 0.806, 0, 0, 0, 3.346, 0, -0.09010136, 0)
-mesh = SubResource("BoxMesh_fd4qu")
-
 [node name="StairDownTeleporter" parent="." unique_id=2117485151 instance=ExtResource("4_xk7v4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76751614, 0)
+
+[node name="Walls" type="Node3D" parent="." unique_id=1359277869]
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("4_clbun")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 0, 1.8, -1.575)
+
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=579986419 instance=ExtResource("4_clbun")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6, 1.8, 0.022)
+what_direction = 3
+
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=295563345 instance=ExtResource("4_clbun")]
+transform = Transform3D(-1.0927847e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927847e-08, 4.7767137e-16, -1.6, 1.8, 0.023)
+what_direction = 1
+
+[node name="Floor" type="Node3D" parent="." unique_id=2045024194]
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=859113851 instance=ExtResource("4_fd4qu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=2097126478 instance=ExtResource("2_xk7v4")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=768332970]
+layers = 4
+
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1745636589]
+collision_layer = 4
+
+[node name="Pillars" type="Node3D" parent="." unique_id=1993852658]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=156951342]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
+light_color = Color(1, 0.28627452, 0.10980392, 1)
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
+
+[editable path="Floor/Forest_Grid_Tile"]

@@ -2,37 +2,61 @@
 
 [ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MC_Walk.tres" id="1_4tiff"]
 [ext_resource type="Script" uid="uid://3yi8o14hgsf0" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3d_player_controller.gd" id="1_wh5h5"]
+[ext_resource type="PackedScene" uid="uid://bokuwcjrjfj1j" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Overlay.tscn" id="2_v0fbd"]
 [ext_resource type="Script" uid="uid://cw55w15k1gsud" path="res://scenes/Dungeon/3D_player_camera_script.gd" id="3_3lwvn"]
 [ext_resource type="Script" uid="uid://byii5wmv5ldu5" path="res://scenes/Dungeon/camera_pivot_controller.gd" id="3_trhba"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wh5h5"]
 size = Vector3(0.30743408, 0.54174805, 0.048919678)
 
+[sub_resource type="Environment" id="Environment_7ued3"]
+background_energy_multiplier = 0.13
+glow_levels/1 = 6.72
+fog_mode = 1
+fog_density = 0.3442
+fog_depth_begin = 1.3
+fog_depth_end = 174.5
+
 [node name="3dPlayer" type="CharacterBody3D" unique_id=1611672739]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+collision_layer = 16777215
+collision_mask = 16777215
 script = ExtResource("1_wh5h5")
-move_speed = 20.0
+
+[node name="DungeonOverlay" parent="." unique_id=338282261 instance=ExtResource("2_v0fbd")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1268866802]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.018035889, 0.29089355, -0.0038909912)
 shape = SubResource("BoxShape3D_wh5h5")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=755670885]
-transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 0, 0)
+[node name="Node3D" type="Node3D" parent="." unique_id=755670885 node_paths=PackedStringArray("player")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
 script = ExtResource("3_trhba")
+player = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
-transform = Transform3D(-4.371139e-08, -0.34037957, 0.9402881, 0, 0.9402881, 0.34037957, -1, 1.4878464e-08, -4.11013e-08, 2, 1.049, 0)
+transform = Transform3D(0.70710677, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.70710677, -0.35355338, 0.6123724, 6.485, 7.19, 9.225)
+environment = SubResource("Environment_7ued3")
+h_offset = 1.935
+projection = 1
+current = true
+size = 7.205
+near = 0.001
 script = ExtResource("3_3lwvn")
 player = NodePath("../..")
 
 [node name="RayCast3D" type="RayCast3D" parent="Node3D/Camera3D" unique_id=1150284999]
 transform = Transform3D(1, 8.881784e-16, 0, 0, 1, -6.1152417e-16, 0, -6.1152417e-16, 1, 0, 0, 0)
-target_position = Vector3(0, -0.015, -2.325)
+visible = false
+target_position = Vector3(0, -0.985, -2.985)
+collision_mask = 3
 
 [node name="SpritePivot" type="Node3D" parent="." unique_id=1947866688]
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1654750113]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.29717374, 0)
 pixel_size = 0.002
+billboard = 1
+texture_filter = 0
 sprite_frames = ExtResource("1_4tiff")
 animation = &"idle"

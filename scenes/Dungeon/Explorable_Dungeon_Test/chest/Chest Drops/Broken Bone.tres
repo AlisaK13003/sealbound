@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://dpypuosigpukc"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_dvrww"]
+
+[resource]
+script = ExtResource("1_dvrww")
+item_name = "Broken Bones"
+item_description = "The remains of a fallen adventurer, some may want to buy this"
+sell_price = 5
+what_is_it = 2
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

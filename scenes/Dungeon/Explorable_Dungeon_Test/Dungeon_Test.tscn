@@ -15,8 +15,14 @@ size = Vector3(11.0121765, 1, 4.1467285)
 size = Vector3(4.5248985, 1, 13.21936)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ov5eq"]
-geometry_parsed_geometry_type = 0
-agent_radius = 0.1
+sample_partition_type = 2
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 4278190083
+cell_size = 0.1
+agent_radius = 0.3
+agent_max_climb = 0.0
+region_min_size = 30.0
+vertices_per_polygon = 12.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_i6eaa"]
 
@@ -27,19 +33,22 @@ script = ExtResource("1_d40sb")
 
 [node name="Forest_Floor" parent="Walls" unique_id=1580522416 instance=ExtResource("1_c061y")]
 transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.93256235, -19.109142)
+visible = false
 
 [node name="Forest_Floor2" parent="Walls" unique_id=1141468865 instance=ExtResource("1_c061y")]
 transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, -0.0006752014, -0.93256235, -20.707415)
+visible = false
 
 [node name="Forest_Floor3" parent="Walls" unique_id=1071163659 instance=ExtResource("1_c061y")]
 transform = Transform3D(-1.792167e-08, 0, -0.41, 0, 0.41, 0, 0.41, 0, -1.792167e-08, 7.8059883, -0.93256235, -23.475153)
+visible = false
 
 [node name="Forest_Floor4" parent="Walls" unique_id=1053918956 instance=ExtResource("1_c061y")]
 transform = Transform3D(-1.792167e-08, 0, -0.41, 0, 0.41, 0, 0.41, 0, -1.792167e-08, 6.103758, -0.93256235, -23.423347)
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Walls" unique_id=2122991489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.970472)
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D" unique_id=893529955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8011322, -1.1405039, -1.5733641)
@@ -48,7 +57,6 @@ shape = SubResource("BoxShape3D_c061y")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Walls" unique_id=1337772240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.970472)
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D3" unique_id=1667025695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8285084, -1.1405039, -6.10968)
@@ -57,12 +65,15 @@ shape = SubResource("BoxShape3D_sxgfm")
 
 [node name="Forest_Floor5" parent="Walls" unique_id=685110585 instance=ExtResource("1_c061y")]
 transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, 13.745447, -0.93256235, -19.109142)
+visible = false
 
 [node name="Forest_Floor6" parent="Walls" unique_id=904697756 instance=ExtResource("1_c061y")]
 transform = Transform3D(0.41, 0, 0, 0, 0.41, 0, 0, 0, 0.41, 13.745447, -0.93256235, -20.707415)
+visible = false
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Walls" unique_id=476835154]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.746122, 0, -17.970472)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D2" unique_id=403165998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8011322, -1.1405039, -1.5733641)
@@ -71,36 +82,47 @@ shape = SubResource("BoxShape3D_c061y")
 
 [node name="Forest_Dungeon_Background3" parent="Walls" unique_id=711629055 instance=ExtResource("3_vfo45")]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, 2.2442553, 0.28211725, -21.448109)
+visible = false
 
 [node name="Forest_Dungeon_Background6" parent="Walls" unique_id=1410993559 instance=ExtResource("3_vfo45")]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, -0.5953984, 0.28211725, -21.448109)
+visible = false
 
 [node name="Forest_Dungeon_Background7" parent="Walls" unique_id=2010212842 instance=ExtResource("3_vfo45")]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, -3.3742814, 0.28211725, -21.448109)
+visible = false
 
 [node name="Forest_Dungeon_Background4" parent="Walls" unique_id=1612501613 instance=ExtResource("3_vfo45")]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, 15.807944, 0.28211725, -21.448109)
+visible = false
 
 [node name="Forest_Dungeon_Background8" parent="Walls" unique_id=1901084094 instance=ExtResource("3_vfo45")]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, 12.96829, 0.28211725, -21.448109)
+visible = false
 
 [node name="Forest_Dungeon_Background9" parent="Walls" unique_id=993510436 instance=ExtResource("3_vfo45")]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, 10.189407, 0.28211725, -21.448109)
+visible = false
 
 [node name="Forest_Dungeon_Background10" parent="Walls" unique_id=666165973 instance=ExtResource("3_vfo45")]
 transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09, -0.15, -0.15, -6.5567085e-09, 2.8660284e-16, 3.4048672, 0.28211725, -22.887177)
+visible = false
 
 [node name="Forest_Dungeon_Background13" parent="Walls" unique_id=585424132 instance=ExtResource("3_vfo45")]
 transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09, -0.15, -0.15, -6.5567085e-09, 2.8660284e-16, 8.919113, 0.28211725, -22.887177)
+visible = false
 
 [node name="Forest_Dungeon_Background14" parent="Walls" unique_id=175125359 instance=ExtResource("3_vfo45")]
 transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09, -0.15, -0.15, -6.5567085e-09, 2.8660284e-16, 8.919113, 0.28211725, -25.282337)
+visible = false
 
 [node name="Forest_Dungeon_Background11" parent="Walls" unique_id=827620020 instance=ExtResource("3_vfo45")]
 transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09, -0.15, -0.15, -6.5567085e-09, 2.8660284e-16, 3.4048672, 0.28211725, -25.64869)
+visible = false
 
 [node name="Forest_Dungeon_Background12" parent="Walls" unique_id=483145738 instance=ExtResource("3_vfo45")]
 transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09, -0.15, -0.15, -6.5567085e-09, 2.8660284e-16, 3.4048672, 0.28211725, -28.420862)
+visible = false
 
 [node name="3dPlayer2" parent="." unique_id=1611672739 groups=["3D_Player"] instance=ExtResource("2_c061y")]
 transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, -19.612)
@@ -115,9 +137,6 @@ lock_z_camera_movement = true
 [node name="DungeonZones3" parent="Zones" unique_id=200438235 instance=ExtResource("4_sxgfm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.137741, -0.1341759, -21.295547)
 lock_x_camera_movement = true
-
-[node name="3dEnemy" parent="." unique_id=185078977 instance=ExtResource("6_ov5eq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.762249, 0.95980406, -19.766718)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=350318906]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.449, 0)
@@ -140,4 +159,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.798454, -0.04067421)
 offset_top = -2.0
 offset_bottom = -2.0
 
-[node name="Enemies" type="Node" parent="." unique_id=1182393121]
+[node name="Enemies" type="Node3D" parent="." unique_id=772093620]
+
+[node name="3dEnemy" parent="Enemies" unique_id=185078977 instance=ExtResource("6_ov5eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96, 0)

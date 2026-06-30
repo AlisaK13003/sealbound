@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="2_sg15t"]
 [ext_resource type="PackedScene" uid="uid://c84uqx1xugq71" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Reward_Screen_Portrait.tscn" id="3_rcxy4"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="5_plwbi"]
+[ext_resource type="LabelSettings" uid="uid://ba8gew3w266te" path="res://scenes/Dungeon/Item_Drops.tres" id="6_plwbi"]
 
 [sub_resource type="Gradient" id="Gradient_m12gh"]
 offsets = PackedFloat32Array(0, 0.8240741)
@@ -103,7 +104,7 @@ button_name = "Return"
 visible = false
 offset_left = 60.0
 offset_top = 44.000004
-offset_right = 100.00001
+offset_right = 99.99997
 offset_bottom = 84.0
 mouse_filter = 2
 
@@ -152,11 +153,16 @@ theme_override_fonts/font = ExtResource("5_plwbi")
 theme_override_font_sizes/font_size = 16
 text = "Items Gained:"
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=1081285176]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=693029812]
+layout_mode = 2
+theme_override_constants/margin_left = 23
+theme_override_constants/margin_top = -30
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer" unique_id=1081285176]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/v_separation = 2
-columns = 3
+columns = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1141436618]
 z_index = 1
@@ -186,3 +192,20 @@ offset_top = -114.0
 offset_right = 754.13727
 offset_bottom = 399.0
 color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=577542636]
+visible = false
+z_index = 14
+layout_mode = 0
+offset_left = -224.0
+offset_top = -38.0
+offset_right = -184.0
+offset_bottom = -20.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.18431373)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("5_plwbi")
+text = "hiii"
+label_settings = ExtResource("6_plwbi")

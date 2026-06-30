@@ -83,7 +83,7 @@ clip_contents = true
 layout_mode = 0
 offset_left = -53.0
 offset_top = 232.0
-offset_right = 157.0
+offset_right = -25.0
 offset_bottom = 290.0
 mouse_filter = 1
 texture = ExtResource("11_irdl1")
@@ -131,23 +131,21 @@ input_event_that_will_activate = "Dungeon_Defend"
 button_name = "Defend"
 
 [node name="Item_Menu" parent="." unique_id=1100506542 instance=ExtResource("9_irdl1")]
-visible = false
 z_index = -1
 layout_mode = 1
-offset_left = 12.0
-offset_top = -47.0
-offset_right = -627.999
-offset_bottom = -367.0
+offset_left = 356.0
+offset_top = 134.0
+offset_right = -283.99902
+offset_bottom = -186.0
 node_to_instantiate = "res://assets/Resources/Dungeon Stuff/List_Item.tscn"
 
 [node name="Skill_Menu" parent="." unique_id=1366619319 instance=ExtResource("9_irdl1")]
-visible = false
 z_index = -1
 layout_mode = 1
-offset_left = 12.0
-offset_top = -49.0
-offset_right = -627.999
-offset_bottom = -369.0
+offset_left = 356.0
+offset_top = 132.0
+offset_right = -283.99902
+offset_bottom = -188.0
 
 [node name="GenericButton" parent="." unique_id=397479680 instance=ExtResource("12_0ob4l")]
 visible = false
@@ -209,10 +207,10 @@ button_name = "Target"
 
 [node name="Selection_Indicator" type="NinePatchRect" parent="." unique_id=1210431277]
 layout_mode = 0
-offset_left = 8.0
-offset_top = -45.0
-offset_right = 180.0
-offset_bottom = -10.0
+offset_left = 211.0
+offset_top = 14.0
+offset_right = 383.0
+offset_bottom = 49.0
 texture = ExtResource("12_m12gh")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -227,7 +225,7 @@ offset_left = 8.0
 offset_top = -2.0
 offset_right = 341.99997
 offset_bottom = 39.0
-theme_override_constants/separation = -81
+theme_override_constants/separation = 0
 
 [node name="Enemy_Level" type="Label" parent="Selection_Indicator/HBoxContainer" unique_id=1340457795]
 layout_mode = 2
@@ -239,7 +237,7 @@ theme_override_font_sizes/font_size = 16
 text = "Lv 1"
 
 [node name="Enemy_Name" type="Label" parent="Selection_Indicator/HBoxContainer" unique_id=715042902]
-custom_minimum_size = Vector2(252.035, 0)
+custom_minimum_size = Vector2(121.9, 0)
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -247,7 +245,7 @@ theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.201863
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 16
 text = "Puppy"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="Panel" type="Panel" parent="Selection_Indicator" unique_id=1193801347]
 z_index = -1
@@ -278,12 +276,13 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2033600652]
+visible = false
 z_index = 20
 layout_mode = 0
-offset_left = -37.0
-offset_top = -83.0
-offset_right = 742.0
-offset_bottom = 369.0
+offset_left = -86.0
+offset_top = -104.0
+offset_right = 693.0
+offset_bottom = 348.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
@@ -376,57 +375,6 @@ theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("9_4wwtq")
 theme_override_font_sizes/font_size = 10
 text = "2F"
-
-[node name="Upper_Bar" type="Container" parent="." unique_id=1755790857]
-custom_minimum_size = Vector2(206.51, 0)
-layout_mode = 0
-offset_left = 258.0
-offset_top = 201.0
-offset_right = 894.0
-offset_bottom = 253.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Upper_Bar" unique_id=1704224335]
-layout_mode = 2
-theme_override_constants/separation = 372
-
-[node name="MarginContainer" type="MarginContainer" parent="Upper_Bar/HBoxContainer" unique_id=259223748]
-layout_mode = 2
-theme_override_constants/margin_left = 96
-theme_override_constants/margin_top = 56
-
-[node name="Party_Portraits" type="Control" parent="Upper_Bar/HBoxContainer/MarginContainer" unique_id=138988480]
-z_index = 5
-texture_filter = 1
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits" unique_id=1863211688]
-z_index = 5
-layout_mode = 0
-offset_left = -111.99999
-offset_top = -7.0
-offset_right = 238.0
-offset_bottom = 33.0
-theme_override_constants/separation = 135
-
-[node name="PartyPortrait_1" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=812714871 instance=ExtResource("10_bvf2b")]
-z_index = 5
-texture_filter = 1
-layout_mode = 2
-mouse_filter = 1
-
-[node name="PartyPortrait_2" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=777293950 instance=ExtResource("10_bvf2b")]
-z_index = 5
-texture_filter = 1
-layout_mode = 2
-mouse_filter = 1
-
-[node name="PartyPortrait_3" parent="Upper_Bar/HBoxContainer/MarginContainer/Party_Portraits/HBoxContainer" unique_id=2074810481 instance=ExtResource("10_bvf2b")]
-z_index = 5
-texture_filter = 1
-layout_mode = 2
-mouse_filter = 1
 
 [node name="Confirmation" type="NinePatchRect" parent="." unique_id=1020214608]
 visible = false
@@ -538,3 +486,55 @@ offset_right = 41.00006
 offset_bottom = 56.0
 theme_override_font_sizes/font_size = 16
 text = "Mana"
+
+[node name="Party_Portrait_Container" type="Control" parent="." unique_id=1266545485]
+anchors_preset = 0
+offset_left = -5.0
+offset_top = 12.0
+offset_right = 35.0
+offset_bottom = 51.99996
+
+[node name="PartyPortrait_1" parent="Party_Portrait_Container" unique_id=812714871 instance=ExtResource("10_bvf2b")]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 8.0
+offset_bottom = 48.999954
+grow_horizontal = 1
+grow_vertical = 1
+mouse_filter = 1
+
+[node name="PartyPortrait_2" parent="Party_Portrait_Container" unique_id=777293950 instance=ExtResource("10_bvf2b")]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 35.0
+offset_top = -21.0
+offset_right = 35.0
+offset_bottom = 19.0
+grow_horizontal = 1
+grow_vertical = 1
+mouse_filter = 1
+
+[node name="PartyPortrait_3" parent="Party_Portrait_Container" unique_id=2074810481 instance=ExtResource("10_bvf2b")]
+z_index = 5
+texture_filter = 1
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 61.0
+offset_top = -51.0
+offset_right = 61.0
+offset_bottom = -11.0
+grow_horizontal = 1
+grow_vertical = 1
+mouse_filter = 1

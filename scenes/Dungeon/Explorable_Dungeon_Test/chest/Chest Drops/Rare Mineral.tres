@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://dn84u0cbfueny"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_qkqof"]
+
+[resource]
+script = ExtResource("1_qkqof")
+item_name = "Rare Mineral"
+item_description = "This seems to have a high concentration of gold at its center. Could be sold for a high price."
+sell_price = 80
+what_is_it = 2
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://brfcjbwudjdgt"]
+
+[ext_resource type="Script" uid="uid://imog8sjm2mk7" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/chest_reward_display_node_setup.gd" id="1_q5exr"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_vqxo7"]
+[ext_resource type="Texture2D" uid="uid://cp5wwcww3wfaa" path="res://assets/Sprites/sprite1.png" id="3_vgj7n"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_vqxo7"]
+
+[sub_resource type="Gradient" id="Gradient_uhnbt"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nr68q"]
+gradient = SubResource("Gradient_uhnbt")
+width = 16
+height = 16
+fill_to = Vector2(0.77991456, 0.77991456)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s4lwt"]
+texture = SubResource("GradientTexture2D_nr68q")
+region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
+
+[node name="ChestRewardDisplayNode" type="Control" unique_id=929094294]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q5exr")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=555834843]
+clip_contents = true
+layout_mode = 0
+offset_right = 272.0
+offset_bottom = 46.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vqxo7")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Panel" type="Panel" parent="NinePatchRect" unique_id=1759888246]
+z_index = -1
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 268.0
+offset_bottom = 42.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_s4lwt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1086049057]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 319.0
+offset_bottom = 42.999992
+scale = Vector2(0.4, 0.4)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1388710981]
+layout_mode = 2
+texture = ExtResource("3_vgj7n")
+expand_mode = 2
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1821465797]
+custom_minimum_size = Vector2(271.705, 36.34)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vqxo7")
+theme_override_font_sizes/font_size = 16
+text = "Fallen Adventurers Blade"
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 2
