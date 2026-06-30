@@ -35,6 +35,7 @@ func _ready():
 	Global.save_loaded.connect(_on_game_start)
 
 func _on_game_start():
+	return
 	for child in start_menu.get_children():
 		child.option_selected.connect(menu_swap)
 		child.option_hovered.connect(change_selection)

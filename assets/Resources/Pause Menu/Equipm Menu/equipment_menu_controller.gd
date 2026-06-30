@@ -41,9 +41,6 @@ func _on_game_start():
 		new_item.item_clicked.connect(display_item_clicked)
 		weapon_container.add_child(new_item)
 	
-	setup_party_card(Global.party_slot_1, 0)
-	setup_party_card(Global.party_slot_2, 1)
-	setup_party_card(Global.party_slot_3, 2)
 	update_display(0)
 
 func tab_clicked(selected_tab):

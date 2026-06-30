@@ -9,12 +9,15 @@ var in_menu : bool = false
 @onready var over_the_head_sprite = $OvertheHead
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+@export var camera_zoom: Vector2 = Vector2(1, 1)
+
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready() -> void:
 	$Camera2D.reset_smoothing()
 	Global.load_save_data()
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
+	$Camera2D.zoom = camera_zoom
 
 func _process(_delta: float) -> void:
 	var direction : Vector2 = Vector2.ZERO

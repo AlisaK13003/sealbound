@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3go0bpsqqpe7"
-path="res://.godot/imported/rowan_idle.png-d25698407a86e5fb8204e64fb988fb16.ctex"
+uid="uid://df2fapg5qkd1s"
+path="res://.godot/imported/Building_Insides_3_.0.png-83f032808ed26d017e271c14441310cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/rowan/rowan_idle.png"
-dest_files=["res://.godot/imported/rowan_idle.png-d25698407a86e5fb8204e64fb988fb16.ctex"]
+source_file="res://assets/tile sheets/Building_Insides_3_.0.png"
+dest_files=["res://.godot/imported/Building_Insides_3_.0.png-83f032808ed26d017e271c14441310cc.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

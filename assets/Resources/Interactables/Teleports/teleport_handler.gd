@@ -4,10 +4,10 @@ extends Node
 @onready var loading_zone_position = self.global_position
 
 @export var location_data: Dictionary = {
-	"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"],
+	"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"],
 	"Forest": ["Left Side", "Right Side"],
 	"Cliff Side": ["Cliff Entrance"],
-	"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"]
+	"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Tavern"]
 }:
 	set(value):
 		location_data = value
@@ -95,6 +95,7 @@ func _on_area_2d_body_entered(body):
 			Global.current_loading_zone = ""
 			return
 		Global.current_loading_zone = _target_spot
+		Global.current_region = _target_region
 		await Fade.fade_in(1)		
 		Fade.change_scene(Global.location_paths[_target_region])
 		

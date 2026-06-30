@@ -11,7 +11,6 @@ var entire_party : Array[PartyMember]
 
 var money : int
 
-var current_location: String = "[Forest Dungeon: Floor 1]"
 var previous_coordinates : Vector2
 
 var current_encounter : encounters
@@ -23,14 +22,6 @@ var planted_crops: Array[crops]
 var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
-
-var accepted_quest_list: Array[quests]
-
-@onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
-@onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
-@onready var party_slot_3 : PartyMember = load("res://assets/Party Members/Paladin.tres")
-
-@onready var party_list = [party_slot_1, party_slot_2, party_slot_3]
 
 enum Progression_Flags {
 	SEAL_1,
@@ -57,6 +48,7 @@ enum locations {
 }
 
 var current_loading_zone: String = ""
+var current_region: String = ""
 
 var location_paths = {
 	"Village": "res://scenes/main/Hearthwynn.tscn",
@@ -300,17 +292,8 @@ func load_save_data():
 		var data = json.data
 		
 		money = data["money"]
-		current_location = data["current_location"]
 		
 		previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
-		
-		party_slot_1 = load(data["party_slots"][0]["path"])
-		party_slot_2 = load(data["party_slots"][1]["path"])
-		party_slot_3 = load(data["party_slots"][2]["path"])
-				
-		party_slot_1.load_save_data(data["party_slots"][0])
-		party_slot_2.load_save_data(data["party_slots"][1])
-		party_slot_3.load_save_data(data["party_slots"][2])
 		
 		item_list.clear()
 		for path in data["item_list"]:
@@ -333,19 +316,12 @@ func get_save_data() -> Dictionary:
 	var save_dict = {
 		"money": money,
 		"entire_party": _get_path_array(entire_party),
-		"current_location": current_location, 
 		"previous_coordinates": {
 			"x": previous_coordinates.x,
 			"y": previous_coordinates.y
 		},
 		"progression_state": progression_state,
-		
-		"party_slots": [
-			party_slot_1.get_save_stats(),
-			party_slot_2.get_save_stats(),
-			party_slot_3.get_save_stats()
-		],
-		
+	
 		"item_list": _get_path_array(item_list),
 		"equipment_list": _get_path_array(equipment_list),
 		"weapon_list": _get_path_array(weapon_list),

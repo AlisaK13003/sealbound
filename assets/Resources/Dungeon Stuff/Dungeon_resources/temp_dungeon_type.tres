@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://5763agr87acy"]
+[gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://cov5aa508wobj"]
 
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_dof4r"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_m55de"]

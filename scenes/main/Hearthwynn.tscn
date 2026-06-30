@@ -27,10 +27,6 @@ position = Vector2(-46, -5)
 script = ExtResource("1_ofm1v")
 player_node = NodePath("Player")
 
-[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
-y_sort_enabled = true
-position = Vector2(2058, -1549)
-
 [node name="Buildings" type="Node2D" parent="." unique_id=2101509992]
 position = Vector2(2116, -1513)
 
@@ -38,6 +34,12 @@ position = Vector2(2116, -1513)
 position = Vector2(805, 794)
 
 [node name="LoadingZone" parent="Buildings/WeaponShop" unique_id=1216423571 instance=ExtResource("4_jt62i")]
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Blacksmith"
 "Destination Location/Region" = "Buildings_Insides"
@@ -52,19 +54,45 @@ position = Vector2(2284, 687)
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Infirmary"
 
+[node name="Tavern" type="Node2D" parent="Buildings" unique_id=996321483]
+
+[node name="LoadingZone" parent="Buildings/Tavern" unique_id=1432167011 instance=ExtResource("4_jt62i")]
+z_index = -2
+position = Vector2(2151, 284)
+"Current Location/Region" = "Village"
+"Current Location/Spot" = "Tavern"
+"Destination Location/Region" = "Buildings_Insides"
+"Destination Location/Spot" = "Tavern"
+
+[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
+y_sort_enabled = true
+position = Vector2(2058, -1549)
+
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
 y_sort_enabled = true
-position = Vector2(3669, -1127)
+position = Vector2(4320, -1160)
 move_speed = 200.0
 
 [node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]
 position = Vector2(4013, -2517)
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Spooky Forest"
 "Destination Location/Spot" = "Left Side"
 
 [node name="Cliff Side" parent="." unique_id=563595575 instance=ExtResource("4_jt62i")]
 position = Vector2(4084, -1070)
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Cliff Side"
 "Destination Location/Region" = "Cliff Side"
