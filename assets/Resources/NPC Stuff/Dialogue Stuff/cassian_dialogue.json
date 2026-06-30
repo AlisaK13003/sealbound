@@ -1,79 +1,445 @@
 {
-	"id": "cassian_001",
-	"start": "intro",
-	"nodes": {
-		"intro": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "neutral",
-			"text": "Need something? Buy it or don't.",
-			"choices": [
-				{
-					"text": "Talk",
-					"next": "talk_hub"
-				},
-				{
-					"text": "Gift (WIP)",
-					"next": "gift_wip"
-				},
-				{
-					"text": "Shop",
-					"action": "open_shop"
-				}
-			]
-		},
-		"gift_wip": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "awkward",
-			"text": "this feature is not yet implemented!",
-			"next": "intro"
-		},
-		"talk_hub": {
-			"random_next": [
-				"talk_a_1",
-				"talk_b_1",
-				"talk_c_1"
-			]
-		},
-		"talk_a_1": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "neutral",
-			"text": "You picked talk. Bold choice.",
-			"next": "talk_a_2"
-		},
-		"talk_a_2": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "smile",
-			"text": "If you need potions, say it before I lose patience."
-		},
-		"talk_b_1": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "awkward",
-			"text": "Rowan can forge a weapon. I keep people alive with bottles.",
-			"next": "talk_b_2"
-		},
-		"talk_b_2": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "neutral",
-			"text": "Different tools. Same chaos."
-		},
-		"talk_c_1": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "sad",
-			"text": "If you're here because you got hurt again, I already know this is going to be tedious.",
-			"next": "talk_c_2"
-		},
-		"talk_c_2": {
-			"speaker": "Cassian",
-			"portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
-			"portrait_frame": "neutral",
-			"text": "Fine. Stand still. I will fix it before you make it worse."
-		}
-	}
+  "id": "cassian_001",
+  "start": "intro_stranger",
+  "bond_starts": {
+    "Stranger": "intro_stranger",
+    "Acquainted": "intro_acquainted",
+    "Warmed": "intro_warmed",
+    "Kindred": "intro_kindred",
+    "Bound": "intro_bound",
+    "True Bond": "intro_bound"
+  },
+  "nodes": {
+    "intro_stranger": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Need something? Buy it or do not.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_acquainted": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You again. Need supplies, or are you browsing for fun?",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_warmed": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You are back. Good. I restocked antidotes.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_kindred": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "There you are. I was starting to wonder if you got yourself killed.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_bound": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Shop is closed soon, but you can stay. Do not touch the labeled shelves.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "gift_wip": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "This feature is not implemented yet.",
+      "next": ""
+    },
+    "talk_hub": {
+      "bond_random_next": {
+        "Stranger": [
+          "stranger_flavor_a",
+          "stranger_flavor_b",
+          "stranger_branch"
+        ],
+        "Acquainted": [
+          "acquainted_flavor_a",
+          "acquainted_flavor_b",
+          "acquainted_branch"
+        ],
+        "Warmed": [
+          "warmed_flavor_a",
+          "warmed_flavor_b",
+          "warmed_branch"
+        ],
+        "Kindred": [
+          "kindred_flavor_a",
+          "kindred_flavor_b",
+          "kindred_branch"
+        ],
+        "Bound": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ],
+        "True Bond": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ]
+      }
+    },
+    "stranger_flavor_a": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "The green bottles are for burns. The blue ones are not. Somehow people confuse them."
+    },
+    "stranger_flavor_b": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "If you are going into the wilds, take antidotes. That is not advice. It is basic sense."
+    },
+    "stranger_branch": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "People keep ignoring dosage instructions. Why do you think that is?",
+      "choices": [
+        {
+          "text": "They trust you to fix it anyway.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "stranger_good"
+        },
+        {
+          "text": "People panic when they are hurt.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "stranger_neutral"
+        },
+        {
+          "text": "Maybe your labels are unclear.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "stranger_bad"
+        }
+      ]
+    },
+    "stranger_good": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Unfortunately, yes. They do."
+    },
+    "stranger_neutral": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "True. Panic makes everyone worse at reading."
+    },
+    "stranger_bad": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "sad",
+      "text": "My labels are perfectly clear."
+    },
+    "acquainted_flavor_a": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I remembered your usual supplies. Do not look pleased about it."
+    },
+    "acquainted_flavor_b": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Rowan makes sturdy gear. Mine keeps you alive when sturdy is not enough."
+    },
+    "acquainted_branch": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You are still alive. Should I be impressed or concerned?",
+      "choices": [
+        {
+          "text": "Both. I use your potions.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "acquainted_good"
+        },
+        {
+          "text": "Concerned is probably fair.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "acquainted_neutral"
+        },
+        {
+          "text": "Neither. I manage fine without you.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "acquainted_bad"
+        }
+      ]
+    },
+    "acquainted_good": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Good. At least someone reads instructions."
+    },
+    "acquainted_neutral": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I usually am."
+    },
+    "acquainted_bad": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Sure. Keep telling yourself that."
+    },
+    "warmed_flavor_a": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I made an extra batch of salve. No reason. It just seemed useful."
+    },
+    "warmed_flavor_b": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "The shop is quieter when you are not here. Not better. Quieter."
+    },
+    "warmed_branch": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Do you need anything before you go? Answer honestly for once.",
+      "choices": [
+        {
+          "text": "Yes. I could use your help.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "warmed_good"
+        },
+        {
+          "text": "Maybe. What do you recommend?",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "warmed_neutral"
+        },
+        {
+          "text": "No. I do not need help.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "warmed_bad"
+        }
+      ]
+    },
+    "warmed_good": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Finally. A sensible answer."
+    },
+    "warmed_neutral": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Antidotes, bandages, and better judgment. I can provide two."
+    },
+    "warmed_bad": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "sad",
+      "text": "That is usually what people say before bleeding on my floor."
+    },
+    "kindred_flavor_a": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I set aside better arrow oil for you. It was going to expire eventually."
+    },
+    "kindred_flavor_b": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Did you sleep? That is a real question, not small talk."
+    },
+    "kindred_branch": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I am not good at saying when I am worried about someone.",
+      "choices": [
+        {
+          "text": "You do not have to say it perfectly.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "kindred_good"
+        },
+        {
+          "text": "You show it in other ways.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "kindred_neutral"
+        },
+        {
+          "text": "Then maybe do not say it.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "kindred_bad"
+        }
+      ]
+    },
+    "kindred_good": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Convenient. Perfect was not on the table."
+    },
+    "kindred_neutral": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Apparently not subtly enough."
+    },
+    "kindred_bad": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Fine. I will not."
+    },
+    "bound_flavor_a": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I made a custom infusion case. It fits your pack. Do not make a thing of it."
+    },
+    "bound_flavor_b": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "The place is less irritating when you are here. That is as generous as I am getting."
+    },
+    "bound_branch": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "If I tell you to be careful, are you actually going to listen?",
+      "choices": [
+        {
+          "text": "Yes. Especially from you.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "bound_good"
+        },
+        {
+          "text": "I will try.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "bound_neutral"
+        },
+        {
+          "text": "Probably not.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "bound_bad"
+        }
+      ]
+    },
+    "bound_good": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Good. Saves me the lecture."
+    },
+    "bound_neutral": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Trying is better than your usual track record."
+    },
+    "bound_bad": {
+      "speaker": "Cassian",
+      "portrait_sheet": "res://assets/characters/cassian/cassian_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Of course. Why would this be easy?"
+    }
+  }
 }

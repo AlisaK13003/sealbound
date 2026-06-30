@@ -1,75 +1,425 @@
 {
   "id": "orion_001",
-  "start": "intro",
+  "start": "intro_stranger",
+  "bond_starts": {
+	"Stranger": "intro_stranger",
+	"Acquainted": "intro_acquainted",
+	"Warmed": "intro_warmed",
+	"Kindred": "intro_kindred",
+	"Bound": "intro_bound",
+	"True Bond": "intro_bound"
+  },
   "nodes": {
-    "intro": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "Alright — let’s move!",
-      "choices": [
-        {
-          "text": "Talk",
-          "next": "talk_hub"
-        },
-        {
-          "text": "Gift (WIP)",
-          "next": "gift_wip"
-        }
-      ]
-    },
-    "gift_wip": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "Huh? A gift? I, uh... appreciate it. Seriously.",
-      "next": "intro"
-    },
-    "talk_hub": {
-      "random_next": [
-        "talk_a_1",
-        "talk_b_1",
-        "talk_c_1"
-      ]
-    },
-    "talk_a_1": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "smile",
-      "text": "I was just checking the routes again. Habit, I guess.",
-      "next": "talk_a_2"
-    },
-    "talk_a_2": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "If something's coming, I want to know before it gets here."
-    },
-    "talk_b_1": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "No, I am not waiting for Lyra. Why would you even say that?",
-      "next": "talk_b_2"
-    },
-    "talk_b_2": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "...I mean. Tavern food is good. That is all."
-    },
-    "talk_c_1": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "sad",
-      "text": "I know I can be a little much.",
-      "next": "talk_c_2"
-    },
-    "talk_c_2": {
-      "speaker": "Orion",
-      "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
-      "portrait_frame": "smile",
-      "text": "Still sticking around? Good. I like that."
-    }
+	"intro_stranger": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Need something? Make it quick. I have a patrol route soon, and I am not great at standing still.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_acquainted": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Oh, it is you. Good timing. What is on your mind?",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_warmed": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Good timing. I was about to go run drills, but talking sounds... better. Maybe.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_kindred": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "There you are. I was starting to think you were not going to talk to me today.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_bound": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "You are stuck with me now. Sorry. Come on, stay a while.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"gift_wip": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "This feature is not implemented yet.",
+	  "next": ""
+	},
+	"talk_hub": {
+	  "bond_random_next": {
+		"Stranger": [
+		  "stranger_flavor_route",
+		  "stranger_flavor_watch",
+          "stranger_branch"
+		],
+		"Acquainted": [
+		  "acquainted_flavor_supplies",
+		  "acquainted_flavor_map",
+          "acquainted_branch"
+		],
+		"Warmed": [
+		  "warmed_flavor_break",
+		  "warmed_flavor_rain",
+          "warmed_branch"
+		],
+		"Kindred": [
+		  "kindred_flavor_family",
+		  "kindred_flavor_silence",
+          "kindred_branch"
+		],
+		"Bound": [
+		  "bound_flavor_trust",
+		  "bound_flavor_future",
+          "bound_branch"
+		],
+		"True Bond": [
+		  "bound_flavor_trust",
+		  "bound_flavor_future",
+          "bound_branch"
+		]
+	  }
+	},
+	"stranger_flavor_route": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I check the eastern road twice before dusk. People call it restless. I just like knowing the route is clear."
+	},
+	"stranger_flavor_watch": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "If I seem distracted, I am probably watching the road. Or the tavern door. Old habit."
+	},
+	"stranger_branch": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "Most people ask why I keep my lance within reach. What do you think?",
+	  "choices": [
+		{
+		  "text": "You want people to feel safe.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "stranger_good"
+		},
+		{
+		  "text": "Everyone has their quirks.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "stranger_neutral"
+		},
+		{
+		  "text": "It makes you look like you cannot relax.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "stranger_bad"
+		}
+	  ]
+	},
+	"stranger_good": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "That is... pretty much it. You noticed fast."
+	},
+	"stranger_neutral": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "True enough. Everyone has something they do without thinking."
+	},
+	"stranger_bad": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Maybe. Still better than being caught unready."
+	},
+	"acquainted_flavor_supplies": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I started keeping extra bandages by the south gate. It is practical, not fussing."
+	},
+	"acquainted_flavor_map": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "The old map is wrong near the creek. I fixed my copy after a caravan wheel got stuck there."
+	},
+	"acquainted_branch": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "I am bad at small talk. Is that obvious?",
+	  "choices": [
+		{
+		  "text": "A little, but you are honest.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "acquainted_good"
+		},
+		{
+		  "text": "Small talk is hard.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "acquainted_neutral"
+		},
+		{
+		  "text": "Very obvious.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "acquainted_bad"
+		}
+	  ]
+	},
+	"acquainted_good": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Honest I can do. Smooth is harder."
+	},
+	"acquainted_neutral": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Good. Then we can both be bad at it."
+	},
+	"acquainted_bad": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Right. I did ask."
+	},
+	"warmed_flavor_break": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "I took an actual break today. Sat down and everything."
+	},
+	"warmed_flavor_rain": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Rain makes patrols miserable, but the town sounds calmer under it. Lyra usually makes soup when it rains, too."
+	},
+	"warmed_branch": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I keep wondering if people would still want me around if I stopped charging at every problem first.",
+	  "choices": [
+		{
+		  "text": "They care about you, not just what you do.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "warmed_good"
+		},
+		{
+		  "text": "People notice effort.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "warmed_neutral"
+		},
+		{
+		  "text": "Maybe people need you to be useful.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "warmed_bad"
+		}
+	  ]
+	},
+	"warmed_good": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "That is hard to believe. But when you say it, I want to try."
+	},
+	"warmed_neutral": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Effort is easier to trust than affection, I suppose. You can prove effort."
+	},
+	"warmed_bad": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "That sounds practical. Not exactly comforting."
+	},
+	"kindred_flavor_family": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "My family used to say I listened better when I was sharpening something. They were not wrong."
+	},
+	"kindred_flavor_silence": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Silence with you does not feel like waiting for bad news. That is new."
+	},
+	"kindred_branch": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "I still think people will leave if I am not strong enough when it counts. Foolish?",
+	  "choices": [
+		{
+		  "text": "Not foolish. Just lonely.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "kindred_good"
+		},
+		{
+		  "text": "It is a fear. Everyone has them.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "kindred_neutral"
+		},
+		{
+		  "text": "You should be over that by now.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "kindred_bad"
+		}
+	  ]
+	},
+	"kindred_good": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "You make the truth sound less sharp. I hate how much that helps."
+	},
+	"kindred_neutral": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "A fear. Right. That sounds smaller when you say it."
+	},
+	"kindred_bad": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "I know. I am trying."
+	},
+	"bound_flavor_trust": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "I trust your read on people. You are right more often than I expect."
+	},
+	"bound_flavor_future": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "I used to plan only for emergencies. Lately I catch myself planning for quieter things too."
+	},
+	"bound_branch": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "If I asked you to come with me before charging into trouble, would that be unfair?",
+	  "choices": [
+		{
+		  "text": "No. That is what trust is for.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "bound_good"
+		},
+		{
+		  "text": "It depends, but I would try.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "bound_neutral"
+		},
+		{
+		  "text": "You should handle your own trouble.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "bound_bad"
+		}
+	  ]
+	},
+	"bound_good": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Then I will try to ask before I run off alone."
+	},
+	"bound_neutral": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Trying counts. More than people admit. I can work with trying."
+	},
+	"bound_bad": {
+	  "speaker": "Orion",
+	  "portrait_sheet": "res://assets/characters/orion/orion_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Right. Forget I asked."
+	}
   }
 }

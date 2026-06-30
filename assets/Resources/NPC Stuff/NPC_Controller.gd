@@ -21,6 +21,8 @@ var current_location
 @onready var shop_controller: Node = get_node_or_null("ShopController")
 
 @export_file("*.json") var dialogue_path: String
+@export var npc_id: String = ""
+@export var bond_combatant: generic_combatants
 @export var location_container: Node2D
 @export var speed: float = 300.0
 @export_file("*.json") var schedule_path: String
@@ -44,14 +46,15 @@ func _ready():
 			schedule_info = JSON.parse_string(json_string)
 	
 	dialogue_data = load_json_file(dialogue_path)
-	#if DialogueSystem != null and DialogueSystem.has_signal("dialogue_closed"):
-	#	var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
-	#	if not DialogueSystem.dialogue_closed.is_connected(dialogue_closed_callback):
-	#		DialogueSystem.dialogue_closed.connect(dialogue_closed_callback)
-	#if DialogueSystem != null and DialogueSystem.has_signal("choice_action_requested"):
-	#	var choice_action_callback = Callable(self, "_on_dialogue_system_choice_action_requested")
-	#	if not DialogueSystem.choice_action_requested.is_connected(choice_action_callback):
-	#		DialogueSystem.choice_action_requested.connect(choice_action_callback)
+	var dialogue_system = get_node_or_null("/root/DialogueSystem")
+	if dialogue_system != null and dialogue_system.has_signal("dialogue_closed"):
+		var dialogue_closed_callback = Callable(self, "_on_dialogue_system_dialogue_closed")
+		if not dialogue_system.dialogue_closed.is_connected(dialogue_closed_callback):
+			dialogue_system.dialogue_closed.connect(dialogue_closed_callback)
+	if dialogue_system != null and dialogue_system.has_signal("choice_action_requested"):
+		var choice_action_callback = Callable(self, "_on_dialogue_system_choice_action_requested")
+		if not dialogue_system.choice_action_requested.is_connected(choice_action_callback):
+			dialogue_system.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
 
 
@@ -237,25 +240,58 @@ func begin_dialogue() -> void:
 	if player_is_speaking_to_me:
 		return
 
-	player_is_speaking_to_me = true
 	pending_choice_action = ""
-	Global.is_in_menu = true
+	var dialogue_system = get_node_or_null("/root/DialogueSystem")
+	if dialogue_system == null or not dialogue_system.has_method("show_dialog"):
+		push_warning("NPC_Controller: DialogueSystem autoload is missing.")
+		return
+	if dialogue_path.is_empty():
+		push_warning("NPC_Controller: dialogue_path is empty.")
+		return
 
-	#if DialogueSystem != null and DialogueSystem.has_method("show_dialog"):
-	#	if dialogue_path.is_empty():
-	#		push_warning("NPC_Controller: dialogue_path is empty.")
-	#		player_is_speaking_to_me = false
-	#		Global.is_in_menu = false
-	#		return
-	#	DialogueSystem.dialogue_file_path = dialogue_path
-	#	DialogueSystem.show_dialog()
+	dialogue_system.dialogue_file_path = dialogue_path
+	dialogue_system.dialogue_start_node_id = get_dialogue_start_node_id()
+	dialogue_system.dialogue_context = get_dialogue_context()
+	sync_bond_to_combatant()
+	if dialogue_system.show_dialog():
+		player_is_speaking_to_me = true
+
+func get_dialogue_start_node_id() -> String:
+	if npc_id.is_empty():
+		return ""
+	var bond_info = Global.get_npc_bond_info(npc_id)
+	var bond_starts = dialogue_data.get("bond_starts", {})
+	if typeof(bond_starts) == TYPE_DICTIONARY and bond_starts.has(bond_info["tier_name"]):
+		return str(bond_starts[bond_info["tier_name"]])
+	return ""
+
+func get_dialogue_context() -> Dictionary:
+	if npc_id.is_empty():
+		return {}
+	var bond_info = Global.get_npc_bond_info(npc_id)
+	return {
+		"npc_id": npc_id,
+		"bond_tier": bond_info["tier_name"],
+		"bond_exp": bond_info["exp"],
+		"last_talk_day": bond_info["last_talk_day"],
+		"can_daily_talk": int(bond_info["last_talk_day"]) != Global.current_day
+	}
+
+func sync_bond_to_combatant() -> void:
+	if npc_id.is_empty() or bond_combatant == null:
+		return
+	var bond_info = Global.get_npc_bond_info(npc_id)
+	bond_combatant.bond_points = int(bond_info["exp"])
 
 func end_dialogue() -> void:
 	if not player_is_speaking_to_me:
 		return
 
-	#if DialogueSystem != null and DialogueSystem.has_method("hide_dialog"):
-	#	DialogueSystem.hide_dialog()
+	var dialogue_system = get_node_or_null("/root/DialogueSystem")
+	if dialogue_system != null and dialogue_system.has_method("hide_dialog"):
+		dialogue_system.hide_dialog()
+	else:
+		_on_dialogue_system_dialogue_closed()
 
 func _on_dialogue_system_dialogue_closed() -> void:
 	if not player_is_speaking_to_me:
@@ -270,9 +306,18 @@ func _on_dialogue_system_dialogue_closed() -> void:
 		return
 	pending_choice_action = ""
 
-func _on_dialogue_system_choice_action_requested(action: String, _choice_data: Dictionary) -> void:
+func _on_dialogue_system_choice_action_requested(action: String, choice_data: Dictionary) -> void:
 	if not player_is_speaking_to_me:
 		return
+
+	if not npc_id.is_empty():
+		if bool(choice_data.get("daily_talk_bond", false)):
+			Global.add_daily_talk_bond(npc_id)
+		var bond_delta: int = int(choice_data.get("bond_delta", 0))
+		if bond_delta != 0:
+			var reason = action if not action.is_empty() else "dialogue choice"
+			Global.add_npc_bond_exp(npc_id, bond_delta, reason)
+		sync_bond_to_combatant()
 
 	pending_choice_action = action
 

@@ -1,87 +1,445 @@
 {
   "id": "rowan_001",
-  "start": "intro",
+  "start": "intro_stranger",
+  "bond_starts": {
+    "Stranger": "intro_stranger",
+    "Acquainted": "intro_acquainted",
+    "Warmed": "intro_warmed",
+    "Kindred": "intro_kindred",
+    "Bound": "intro_bound",
+    "True Bond": "intro_bound"
+  },
   "nodes": {
-	"intro": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "neutral",
-	  "text": "Forge's hot. Watch your step.",
-	  "choices": [
-		{
-		  "text": "Talk",
-		  "next": "talk_hub"
-		},
-		{
-		  "text": "Gift (WIP)",
-		  "next": "gift_wip"
-		},
-		{
-		  "text": "Shop",
-		  "action": "open_shop"
-		}
-	  ]
-	},
-
-	"gift_wip": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "awkward",
-	  "text": "Haven't figured that part out yet.",
-	  "next": "intro"
-	},
-
-	"talk_hub": {
-	  "random_next": [
-		"talk_a_1",
-		"talk_b_1",
-        "talk_c_1"
-	  ]
-	},
-
-	"talk_a_1": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "neutral",
-	  "text": "Long day?",
-	  "next": "talk_a_2"
-	},
-
-	"talk_a_2": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "soft",
-	  "text": "Tea's still warm if you want some."
-	},
-
-	"talk_b_1": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "neutral",
-	  "text": "Most people come here for weapons.",
-	  "next": "talk_b_2"
-	},
-
-	"talk_b_2": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "soft_smile",
-	  "text": "Half of them just needed somewhere to sit for a while."
-	},
-
-	"talk_c_1": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "concerned",
-	  "text": "You eat today?",
-	  "next": "talk_c_2"
-	},
-
-	"talk_c_2": {
-	  "speaker": "Rowan",
-	  "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
-	  "portrait_frame": "small_smile",
-	  "text": "Good. If not, fix that before you head back out."
-	}
+    "intro_stranger": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Forge is hot. Watch your step.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_acquainted": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You again. Need something mended?",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_warmed": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Good timing. I was about to take a short break.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_kindred": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "There you are. Tea is still warm if you want some.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "intro_bound": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Come in. I saved you a seat away from the sparks.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        },
+        {
+          "text": "Shop",
+          "action": "open_shop"
+        }
+      ]
+    },
+    "gift_wip": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "This feature is not implemented yet.",
+      "next": ""
+    },
+    "talk_hub": {
+      "bond_random_next": {
+        "Stranger": [
+          "stranger_flavor_a",
+          "stranger_flavor_b",
+          "stranger_branch"
+        ],
+        "Acquainted": [
+          "acquainted_flavor_a",
+          "acquainted_flavor_b",
+          "acquainted_branch"
+        ],
+        "Warmed": [
+          "warmed_flavor_a",
+          "warmed_flavor_b",
+          "warmed_branch"
+        ],
+        "Kindred": [
+          "kindred_flavor_a",
+          "kindred_flavor_b",
+          "kindred_branch"
+        ],
+        "Bound": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ],
+        "True Bond": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ]
+      }
+    },
+    "stranger_flavor_a": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Most people come here when something breaks. Tools, mostly."
+    },
+    "stranger_flavor_b": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "A good hinge tells you when a house has been cared for."
+    },
+    "stranger_branch": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "People keep asking why I work late. What would you tell them?",
+      "choices": [
+        {
+          "text": "You care more than you say.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "stranger_good"
+        },
+        {
+          "text": "Work needs doing.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "stranger_neutral"
+        },
+        {
+          "text": "You probably just like being alone.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "stranger_bad"
+        }
+      ]
+    },
+    "stranger_good": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Hm. Maybe. Do not spread that around."
+    },
+    "stranger_neutral": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "That is usually reason enough."
+    },
+    "stranger_bad": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Sometimes. Not always."
+    },
+    "acquainted_flavor_a": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Your gear is wearing down at the straps. Keep an eye on it."
+    },
+    "acquainted_flavor_b": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I keep spare nails by the door. Saves everyone time."
+    },
+    "acquainted_branch": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You look tired. Been eating enough?",
+      "choices": [
+        {
+          "text": "I will eat if you take a break too.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "acquainted_good"
+        },
+        {
+          "text": "I am fine. Thanks for checking.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "acquainted_neutral"
+        },
+        {
+          "text": "That is not really your business.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "acquainted_bad"
+        }
+      ]
+    },
+    "acquainted_good": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Fair. Sit down, then. We will both fix it."
+    },
+    "acquainted_neutral": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Fine is not always the same as well."
+    },
+    "acquainted_bad": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "sad",
+      "text": "No. But I asked anyway."
+    },
+    "warmed_flavor_a": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Sometimes people linger near the forge just for the warmth. I do not mind."
+    },
+    "warmed_flavor_b": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I repaired a kettle this morning. Owner looked happier than if I had made a sword."
+    },
+    "warmed_branch": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I am better at fixing things than talking. Obvious, I assume?",
+      "choices": [
+        {
+          "text": "You show care clearly enough.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "warmed_good"
+        },
+        {
+          "text": "Talking is not everything.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "warmed_neutral"
+        },
+        {
+          "text": "It would not hurt to try harder.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "warmed_bad"
+        }
+      ]
+    },
+    "warmed_good": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Good. I hoped so."
+    },
+    "warmed_neutral": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "No. It is not."
+    },
+    "warmed_bad": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Maybe. I will think on it."
+    },
+    "kindred_flavor_a": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I set aside better leather for your armor. No charge. It was extra."
+    },
+    "kindred_flavor_b": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Quiet company is underrated. People talk too much when silence would do."
+    },
+    "kindred_branch": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Sometimes I forget people can help without getting in the way.",
+      "choices": [
+        {
+          "text": "Letting people help is not weakness.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "kindred_good"
+        },
+        {
+          "text": "It depends who is helping.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "kindred_neutral"
+        },
+        {
+          "text": "You are better off doing it yourself.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "kindred_bad"
+        }
+      ]
+    },
+    "kindred_good": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "I know. Still learning it."
+    },
+    "kindred_neutral": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "True. Judgment matters."
+    },
+    "kindred_bad": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "sad",
+      "text": "That is what I used to think."
+    },
+    "bound_flavor_a": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I made stew. Too much of it. Take some before I change my mind."
+    },
+    "bound_flavor_b": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "The forge feels different when you stop by. Quieter, somehow."
+    },
+    "bound_branch": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "If I start carrying too much again, tell me.",
+      "choices": [
+        {
+          "text": "I will. And I will help.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "bound_good"
+        },
+        {
+          "text": "I can try to notice.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "bound_neutral"
+        },
+        {
+          "text": "You should know your own limits.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "bound_bad"
+        }
+      ]
+    },
+    "bound_good": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Good. I will listen."
+    },
+    "bound_neutral": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "That is enough."
+    },
+    "bound_bad": {
+      "speaker": "Rowan",
+      "portrait_sheet": "res://assets/characters/rowan/rowan_portraits.png",
+      "portrait_frame": "sad",
+      "text": "I should. Does not mean I always do."
+    }
   }
 }

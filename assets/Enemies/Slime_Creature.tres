@@ -56,4 +56,5 @@ attack_speed = Array[float]([1.0, 1.0])
 sprite_scale = 0.008
 sprite_offset = Vector2(-55, -10)
 experience_mult = 1
+bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

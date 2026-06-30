@@ -15,7 +15,7 @@ general/accessibility_driver="dummy"
 [application]
 
 config/name="Sealbound"
-run/main_scene="uid://c08f16jmfwsgy"
+run/main_scene="uid://c0ydpk5qjlay4"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -25,6 +25,7 @@ config/icon="res://icon.svg"
 Fade="*uid://bp4nraurt5ifw"
 GlobalCombatInformation="*uid://bba2tvdjwats"
 Global="*uid://c8yegl8nrw5mx"
+DialogueSystem="*res://GUI/dialogue_system/dialogue_system.tscn"
 
 [display]
 
