@@ -164,7 +164,7 @@ func setup(combatant : generic_combatants, parent_ref: dungeon_loop, child_num):
 	animated_sprite.play("Idle")
 	has_been_setup = true
 	
-func update_health(change_health_value, what_action):
+func update_health(change_health_value, what_action = null):
 	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
 	if what_action != "STATUS":
 		if what_action == "MISS":

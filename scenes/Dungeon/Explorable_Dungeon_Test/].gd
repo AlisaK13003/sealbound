@@ -23,7 +23,7 @@ func _open_quest_menu():
 	else:
 		quest_menu.visible = true
 		p_ref.movement_locked = true
-	
+
 func display_gotten_chest_items(item_got):
 	for item in item_got:
 		var new_node = load(chest_got_node_path)

@@ -124,7 +124,7 @@ func hide():
 	gui.visible = false
 	gui.get_child(0).visible = false
 
-func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave):
+func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss: bool ):
 	#Fade.fade_thing.visible = false
 	#Fade.fade_thing_2.visible = false
 	gui.call_deferred("hide_gui", false)
@@ -157,7 +157,7 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave):
 	
 	await _reset()
 	
-	return await battle_loop(encounter)
+	return await battle_loop(encounter, is_boss)
 	
 	#item_menu.setup(temp_item_list, self)
 
@@ -190,7 +190,7 @@ func sort_enemy_actions(enemy_actions: Array[enemy_weighting]) -> Array[enemy_we
 	return enemy_actions
 
 var enemy_scene = "res://assets/Resources/Combat_Template_3D.tscn"
-func setup_encounter(new_encounter: dungeon_wave):
+func setup_encounter(new_encounter: dungeon_wave, is_boss):
 	var enemy_list = new_encounter.enemies.duplicate()
 	enemy_list.shuffle()
 	var enemy_count_for_current_wave: int = enemy_list.size()
@@ -199,11 +199,13 @@ func setup_encounter(new_encounter: dungeon_wave):
 		var new_enemy_instance = new_enemy.instantiate()
 		enemy_shit.add_child(new_enemy_instance)
 		#new_enemy_instance.position = Vector3(-0.5 + (i * 0.25), -0.131, 0.0)
-		if i < 3:
-			new_enemy_instance.position = Vector3((i * 0.1), (i * -0.15), (i * 0.4))
-		elif i >= 3:
-			new_enemy_instance.position = Vector3(0.8 - ((i - 3) * 0.2), 0.0, 0.35 + ((i - 3) * 0.55))
-
+		if not is_boss:
+			if i < 3:
+				new_enemy_instance.position = Vector3((i * 0.1), (i * -0.15), (i * 0.4))
+			elif i >= 3:
+				new_enemy_instance.position = Vector3(0.8 - ((i - 3) * 0.2), 0.0, 0.35 + ((i - 3) * 0.55))
+		else:
+			new_enemy_instance.position = Vector3(0.0, 0.0, 1.5)
 		new_enemy_instance.setup(enemy_list[i].duplicate(true), self, i)
 		all_combatants.append(new_enemy_instance)
 	turn_ended.emit()
@@ -211,7 +213,7 @@ func setup_encounter(new_encounter: dungeon_wave):
 
 var turn_count: int = 0
 
-func battle_loop(encounter, training_weight = null, p_weights = null):
+func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	skills_enemies_have_used = 0
 	training = false
 	
@@ -254,7 +256,7 @@ func battle_loop(encounter, training_weight = null, p_weights = null):
 		highest_wave_reached += 1
 		turn_count = 0
 		is_wave_over = false
-		setup_encounter(encounter)
+		setup_encounter(encounter, is_boss)
 		await Fade.fade_out(1)
 		# Handles individual waves, continues until wave concludes
 		while(not is_wave_over):
@@ -515,7 +517,7 @@ func execute_enemy_skills(action):
 					if chance <= check_evasion:
 						parallel_tasks.append(func(): await deal_damage(action.person_acting, person_recieving, true, skill_used))
 					else:
-						parallel_tasks.append(func(): await person_recieving.update_health("MISS"))
+						parallel_tasks.append(func(): await person_recieving.update_health(0, "MISS"))
 	person_acting.current_mana = clamp(person_acting.current_mana - skill_used.mana_cost, 0, 3)
 
 	action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
@@ -1644,8 +1646,8 @@ func get_alive_player_or_enemy_count(is_player):
 
 func get_num_selected():
 	var count = 0
-	var player_ret_val = 0
-	var enemy_ret_val = 0
+	var player_ret_val = -1
+	var enemy_ret_val = -1
 	for player in player_container.get_children():
 		if player.selection_area_sprite.visible:
 			count += 1
@@ -1662,9 +1664,9 @@ func get_num_selected():
 	elif count == enemy_shit.get_child_count() - 1:
 		enemy_ret_val = 6
 		
-	if enemy_ret_val > 0:
+	if enemy_ret_val >= 0:
 		return [enemy_ret_val, false]
-	elif player_ret_val > 0:
+	elif player_ret_val >= 0:
 		return [player_ret_val, true]
 		
 		

@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var gui = $CanvasLayer
-@export var stored_quests_: Array[quests]
+@export var stored_quests_: Array[quest]
 
 var player_is_in_range: bool = false
 

@@ -52,6 +52,7 @@ func _ready():
 		print("FINISHED")	
 
 var combat_scene_: dungeon_loop
+var should_spawn_boss_floor: bool = false
 func _setup(dungeon_type_: dungeon_type):
 	#await Fade.fade_in(0.0)
 	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
@@ -59,6 +60,7 @@ func _setup(dungeon_type_: dungeon_type):
 	if dungeon_type_.does_dungeon_have_boss:
 		if not dungeon_type_.has_beaten_boss:
 			floor_count = dungeon_type_.first_time_floor_count
+			
 	await player._setup(self)	
 	await entered_new_floor()
 	print("SETUP")
@@ -110,11 +112,15 @@ func get_room_node_at(coords):
 func generate_dungeon():
 	print("GENERATING DUNGEON")
 	var new_room_generation: dungeon_generation = dungeon_generation.new()
+	var boss_floor = false
+	current_floor = floor_count
+	if current_floor == floor_count and current_dungeon.does_dungeon_have_boss and not current_dungeon.has_beaten_boss:
+		boss_floor = true
 	
 	
-	new_room_generation.build_dungeon()
+
+	new_room_generation.build_dungeon(boss_floor)
 	new_room_generation.evaluate_room_names(new_room_generation.storage)
-	
 	var room_storage = new_room_generation.storage
 	generated_rooms = room_storage
 	
@@ -166,7 +172,7 @@ func generate_dungeon():
 		x_header += "%2d" % world_x 
 	print(x_header)
 	
-	var ret_val = instantiate_rooms(room_storage)
+	var ret_val = instantiate_rooms(room_storage, boss_floor)
 	
 	if not ret_val:
 		return false
@@ -240,7 +246,7 @@ func generate_dungeon():
 
 var active_room_nodes: Dictionary[Vector2i, Node3D]
 var tile_size = 0
-func instantiate_rooms(room_storage):
+func instantiate_rooms(room_storage, boss_floor):
 	var normal_tile_size = 3.2
 	tile_size = 2.5
 	
@@ -260,6 +266,11 @@ func instantiate_rooms(room_storage):
 		navigation_region.add_child(new_room)
 		
 		var is_center = room_storage[room_].is_center
+		var is_locked = room_storage[room_].is_locked
+		
+		var spawn_boss_in_room: bool = false
+		if room_storage[room_].group_id == 6 and room_storage[room_].is_center:
+			spawn_boss_in_room = true
 		
 		if room_storage[room_].room_name_type == "Q":
 			var possible_quests = []
@@ -268,58 +279,63 @@ func instantiate_rooms(room_storage):
 					possible_quests.append(quest_)
 			new_room._setup(self, room_storage[room_].group_id, is_center, possible_quests.pick_random())
 		else:
-			new_room._setup(self, room_storage[room_].group_id, is_center)
-		
+			new_room._setup(self, room_storage[room_].group_id, is_center, spawn_boss_in_room)
+			
+		if is_locked:
+			new_room.lock_room(true)
 
+	var spawn_locked_room = rng.randf()
+	if boss_floor:
+		var spawned_key: bool = false
+		var room_caps = []
+		for room_ in active_room_nodes.values():
+			if room_.room_classification == 2:
+				room_caps.append(room_)
+		while not spawned_key:
+			var room_to_have_key = room_caps.pick_random()
+			if not room_to_have_key.is_locked and not room_to_have_key.has_key:
+				room_to_have_key.set_key_spawn(true)
+				spawned_key = true
+	if spawn_locked_room < 1.0:
+		var room_caps = []
+		var chest_rooms = []
+		for room_ in active_room_nodes.values():
+			if room_.room_classification == 2:
+				room_caps.append(room_)
+			if room_.room_classification == 7:
+				chest_rooms.append(room_)
+		
+		if not room_caps.is_empty() and not chest_rooms.is_empty():
+			var room_to_be_locked = chest_rooms.pick_random()
+			var room_to_have_key = room_caps.pick_random()
+			
+			if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
+				room_to_be_locked.lock_room(false)
+				room_to_have_key.set_key_spawn()
+		
 	return true
-#	for x in range(max_grid_size.x):
-#		for y in range(max_grid_size.y):
-#			var room_to_load = room_symbol_mapping[str(bounding_box_arr[x][y])]
-#			if room_to_load == "Empty_Space":
-#				continue
-#			var new_instance = load(rooms[room_symbol_mapping[bounding_box_arr[x][y]]])
-#			var new_room = new_instance.instantiate()
-#
-#			var base_position = Vector3(x * tile_size, 0.0, y * tile_size)
-#			new_room.room_coords = Vector2(x, y)
-#			new_room._setup(self)
-#
-#			var direction = get_directions_at(x, y, room_lookup, bounding_box_arr)
-#			
-#			new_room.room_directions = direction
-#			new_room.rotation_degrees.y = get_rotation_degrees_(room_to_load, direction)
-#
-#
-#			new_room.room_directions.sort()
-#			if room_to_load == "3-Way_Junction":
-#				if new_room.room_directions.size() <= 2:
-#					return false
-#					
-#			new_room.position = base_position
-#			navigation_region.add_child(new_room)
-#			
-#			var grid_pos = Vector2i(x, y)
-#			active_room_nodes[grid_pos] = new_room
-#	return true
 
-func battle_initiated(with_what_enemy: generic_combatants, node_id):
+func battle_initiated(with_what_enemy: generic_combatants, node_id, is_boss: bool = false):
 	in_combat = true
-	var potential_encounters: Array[dungeon_wave]
+	if not is_boss:
+		var potential_encounters: Array[dungeon_wave]
 
-	for encounter in current_dungeon.potential_encounters:
-		if encounter.encounterable_enemy.combatant_name == with_what_enemy.combatant_name:
-			potential_encounters.append(encounter)
-	for encounter in potential_encounters:
-		print(encounter.encounterable_enemy.combatant_name)
+		for encounter in current_dungeon.potential_encounters:
+			if encounter.encounterable_enemy.combatant_name == with_what_enemy.combatant_name:
+				potential_encounters.append(encounter)
+		for encounter in potential_encounters:
+			print(encounter.encounterable_enemy.combatant_name)
 
-	var random_encounter = randi_range(0, potential_encounters.size() - 1)
-	var enemy_to_potentially_remove
-	for enemy in enemy_container.get_children():
-		if enemy.get_instance_id() == node_id:
-			enemy_to_potentially_remove = enemy
-		enemy.disable_player_detection()
-		
-	GlobalCombatInformation.initiate_combat(potential_encounters[random_encounter], node_id)
+		var random_encounter = randi_range(0, potential_encounters.size() - 1)
+		var enemy_to_potentially_remove
+		for enemy in enemy_container.get_children():
+			if enemy.get_instance_id() == node_id:
+				enemy_to_potentially_remove = enemy
+			enemy.disable_player_detection()
+			
+		GlobalCombatInformation.initiate_combat(potential_encounters[random_encounter], node_id)
+	else:
+		GlobalCombatInformation.initiate_combat(current_dungeon.boss_encounter, node_id, is_boss)
 	#await combat_scene_.setup(current_dungeon, potential_encounters[random_encounter])
 
 func return_to_exploring():

@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dtdnwj17184h" path="res://assets/tile sheets/Darker foliage.png" id="12_kpu0j"]
 [ext_resource type="Texture2D" uid="uid://sfbrfqf4pjbi" path="res://assets/Sprites/Screenshot_20260210_144204_Discord.jpg" id="13_kpu0j"]
 [ext_resource type="Texture2D" uid="uid://dhl5585bopbcs" path="res://assets/tile sheets/Well.png" id="14_flgwn"]
-[ext_resource type="Texture2D" uid="uid://bfmfqtbi4afjp" path="res://assets/Resources/Interactables/Quests (2)/MissionBoard.tres" id="15_5sdqa"]
 [ext_resource type="Texture2D" uid="uid://dba06qgxsrbc8" path="res://assets/tile sheets/Bench.tres" id="16_flgwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xif04"]
@@ -2729,9 +2728,6 @@ sources/1 = SubResource("TileSetAtlasSource_x80cq")
 radius = 13.0
 height = 42.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6nesu"]
-size = Vector2(112.595695, 359.68182)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oelih"]
 size = Vector2(154.5, 101.5)
 
@@ -2924,19 +2920,6 @@ texture = ExtResource("14_flgwn")
 position = Vector2(-7, 28)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_5sdqa")
-
-[node name="MissionBoard" type="Sprite2D" parent="." unique_id=1436437233]
-z_index = 3
-position = Vector2(1745, 1015)
-scale = Vector2(0.3197279, 0.3197279)
-texture = ExtResource("15_5sdqa")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="MissionBoard" unique_id=279086071]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionBoard/StaticBody2D" unique_id=1055250083]
-position = Vector2(1.5634766, 81.31909)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_6nesu")
 
 [node name="TempHouseVert2" type="Sprite2D" parent="." unique_id=564115371]
 z_index = 3

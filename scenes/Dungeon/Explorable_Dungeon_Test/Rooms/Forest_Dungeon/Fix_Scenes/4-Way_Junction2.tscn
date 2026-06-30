@@ -5,6 +5,21 @@
 [ext_resource type="PackedScene" uid="uid://cmbl7st5je157" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_4_Way_Floor.glb" id="3_ktjh0"]
 [ext_resource type="PackedScene" uid="uid://cdfgr4segh6aa" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Dungeon_Dungeon/Clutter/Summoning_Circle.glb" id="4_ktjh0"]
 [ext_resource type="PackedScene" uid="uid://d3ksc8ymqpe85" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Pond.glb" id="5_8r73p"]
+[ext_resource type="Script" uid="uid://rwbgr4oorlid" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Locked_Room_Controller.gd" id="6_5567f"]
+[ext_resource type="Texture2D" uid="uid://bmgewdmdlfigh" path="res://assets/tile sheets/Door_Lock.png" id="6_rnaik"]
+[ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="7_l1jve"]
+[ext_resource type="SpriteFrames" uid="uid://c0ntd54xbioc6" path="res://assets/Enemies/Wolf_Boss_Sprite_Frames.tres" id="9_5567f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5567f"]
+size = Vector3(3.104004, 2.734314, 2.956543)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7tpxp"]
+height = 1.9577637
+radius = 2.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ekxs0"]
+height = 3.0170898
+radius = 2.0893555
 
 [node name="4WayJunction2" type="Node3D" unique_id=66050579]
 script = ExtResource("1_agywj")
@@ -57,3 +72,87 @@ visible = false
 
 [node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=1879839159]
 visible = false
+
+[node name="Room_Lock" type="Node3D" parent="." unique_id=259273888]
+visible = false
+script = ExtResource("6_5567f")
+
+[node name="Sprite3D" type="Sprite3D" parent="Room_Lock" unique_id=1228885856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.596426, 1.5879617)
+pixel_size = 0.2
+texture_filter = 5
+texture = ExtResource("6_rnaik")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_Lock/Sprite3D" unique_id=1017073156]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Lock/Sprite3D/StaticBody3D" unique_id=3438787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03881836, 0.16983032, -1.4567871)
+shape = SubResource("BoxShape3D_5567f")
+disabled = true
+
+[node name="Sprite3D" type="Sprite3D" parent="Room_Lock/Sprite3D" unique_id=1506558320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2691207, 0.016115189)
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("7_l1jve")
+
+[node name="Sprite3D2" type="Sprite3D" parent="Room_Lock" unique_id=1525582004]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.5847075, 1.596426, -0.014678836)
+pixel_size = 0.2
+texture_filter = 5
+texture = ExtResource("6_rnaik")
+
+[node name="Sprite3D3" type="Sprite3D" parent="Room_Lock/Sprite3D2" unique_id=398499845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.048816204, 0.2691207, 0.04928589)
+flip_h = true
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("7_l1jve")
+
+[node name="Sprite3D3" type="Sprite3D" parent="Room_Lock" unique_id=1549353343]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5747104, 1.596426, 0.0053814054)
+pixel_size = 0.2
+texture_filter = 5
+texture = ExtResource("6_rnaik")
+
+[node name="Sprite3D4" type="Sprite3D" parent="Room_Lock/Sprite3D3" unique_id=2000098427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028755961, 0.2691207, -0.028427124)
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("7_l1jve")
+
+[node name="Sprite3D4" type="Sprite3D" parent="Room_Lock" unique_id=1685976662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.596426, -1.585902)
+pixel_size = 0.2
+texture_filter = 5
+texture = ExtResource("6_rnaik")
+
+[node name="Sprite3D4" type="Sprite3D" parent="Room_Lock/Sprite3D4" unique_id=603779940]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2691207, 0.06698513)
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("7_l1jve")
+
+[node name="Area3D" type="Area3D" parent="Room_Lock" unique_id=1236860453]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Lock/Area3D" unique_id=2143654006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2662666, 0)
+shape = SubResource("CylinderShape3D_7tpxp")
+disabled = true
+
+[node name="Boss_Sprite" type="Node3D" parent="." unique_id=1933182886]
+visible = false
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Boss_Sprite" unique_id=346659445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.621422, 0)
+pixel_size = 0.04
+billboard = 1
+texture_filter = 0
+sprite_frames = ExtResource("9_5567f")
+animation = &"Idle"
+
+[node name="Area3D" type="Area3D" parent="Boss_Sprite" unique_id=1263452890]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boss_Sprite/Area3D" unique_id=757119629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6149902, 0)
+shape = SubResource("CylinderShape3D_ekxs0")

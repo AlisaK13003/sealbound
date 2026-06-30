@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c0ntd54xbioc6"]
+
+[ext_resource type="Texture2D" uid="uid://cl61vqq0p0xrc" path="res://assets/Enemies/Enemy_Sprites/Big_Wolf.png" id="1_0ccoh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7orb"]
+atlas = ExtResource("1_0ccoh")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ccoh"]
+atlas = ExtResource("1_0ccoh")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp44y"]
+atlas = ExtResource("1_0ccoh")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvtus"]
+atlas = ExtResource("1_0ccoh")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkeod"]
+atlas = ExtResource("1_0ccoh")
+region = Rect2(0, 0, 80, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7orb")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ccoh")
+}],
+"loop": 1,
+"name": &"On_Attack_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp44y")
+}],
+"loop": 1,
+"name": &"On_Attack_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvtus")
+}],
+"loop": 1,
+"name": &"On_Attack_Base",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkeod")
+}],
+"loop": 1,
+"name": &"On_Death",
+"speed": 5.0
+}]

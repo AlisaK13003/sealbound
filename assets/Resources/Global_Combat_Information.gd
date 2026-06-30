@@ -27,6 +27,9 @@ enum bonds {STRANGER, ACQAINTED, WARMED, KINDRED, BOUND, TRUEBOND}
 enum dungeon_types_names {CREEPY, FOREST}
 enum difficulty_multiplier {EASY, MEDIUM, DIFFICULT, REALLYHARD}
 
+var holding_boss_key: bool = false
+var holding_basic_room_key: bool = false
+
 signal finished
 
 func load_items():
@@ -115,7 +118,7 @@ var should_remove_enemy = false
 
 var current_dungeon
 
-func initiate_combat(encounter, node_id):
+func initiate_combat(encounter, node_id, is_boss: bool = false):
 	if is_combat_active:
 		return
 	is_combat_active = true
@@ -127,7 +130,7 @@ func initiate_combat(encounter, node_id):
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	var output = await dungeon_loop_scene.setup(dungeon_types[selected_dungeon_], encounter)
+	var output = await dungeon_loop_scene.setup(dungeon_types[selected_dungeon_], encounter, is_boss)
 	var enemies_killed = output[0]
 	var did_players_win = output[1]
 	
@@ -185,6 +188,9 @@ func initiate_combat(encounter, node_id):
 		stuff_gained = quest_items_gained
 	elif stuff_gained != null and quest_items_gained != null:
 		stuff_gained += quest_items_gained
+
+	if is_boss:
+		get_tree().quit()
 
 	await Fade.fade_in(1)
 	get_tree().root.remove_child(dungeon_loop_scene)

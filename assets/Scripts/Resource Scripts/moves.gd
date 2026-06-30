@@ -17,6 +17,11 @@ class_name moves
 @export var does_damage: bool = true
 @export_range(1,3) var mana_cost : int = 1
 
+@export_group("Summoning")
+@export var does_summon: bool = false
+@export var summons_who: generic_combatants
+@export var summon_count_range: Vector2i = Vector2i(1, 2)
+
 @export_group("Status")
 @export var does_status: bool
 @export var does_remove_status: bool

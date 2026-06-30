@@ -14,14 +14,13 @@ class_name dungeon_type
 
 @export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 
-@export var dungeon_floor_size_range: Vector2 = Vector2(5, 5)
-@export var dungeon_floor_size_max_range: Vector2 = Vector2(15, 15)
-
 var is_this_dungeon_unlocked: bool = false
 
 @export var chest_drops: Dictionary[Array, float]
 
 @export var does_dungeon_have_boss: bool = false
+@export var boss_encounter: dungeon_wave
+
 var has_beaten_boss: bool = false
 
 func load_save_data(save_data):

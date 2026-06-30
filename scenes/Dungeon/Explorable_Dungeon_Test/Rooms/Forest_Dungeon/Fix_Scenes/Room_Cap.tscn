@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://ikfgy23we35e" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Giant Dirt Pile.glb" id="8_giybc"]
 [ext_resource type="PackedScene" uid="uid://ctvccan5i3d00" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Crate.glb" id="9_i32jx"]
 [ext_resource type="PackedScene" uid="uid://nt7nwr8la26d" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Bad CampDir.glb" id="10_3keqy"]
+[ext_resource type="PackedScene" uid="uid://btqr1mqs06pw7" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Spinning_Sprite.tscn" id="11_3keqy"]
+[ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="12_ibdge"]
 
 [node name="RoomCap" type="Node3D" unique_id=596948473]
 script = ExtResource("1_0p5vt")
@@ -112,5 +114,13 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.568172, 0.3252042, -
 [node name="Bad CampDir" parent="Clutter/Forest/Non-template" unique_id=1823011883 instance=ExtResource("10_3keqy")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.2789539, 0)
 visible = false
+
+[node name="SpinningSprite" parent="." unique_id=884794250 instance=ExtResource("11_3keqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
+visible = false
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+texture = ExtResource("12_ibdge")
 
 [editable path="Floor/Forest_Grid_Tile"]

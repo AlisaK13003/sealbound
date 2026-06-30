@@ -4,10 +4,11 @@
 [ext_resource type="Script" uid="uid://b8708cth1tcnh" path="res://scenes/Dungeon/Explorable_Dungeon_Test/spinning_sprite_controller.gd" id="2_1l8ua"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7tpxp"]
-radius = 1.5172292
+radius = 2.9813845
 
 [node name="SpinningSprite" type="Sprite3D" unique_id=884794250]
 pixel_size = 0.005
+billboard = 2
 texture = ExtResource("1_kdnse")
 script = ExtResource("2_1l8ua")
 

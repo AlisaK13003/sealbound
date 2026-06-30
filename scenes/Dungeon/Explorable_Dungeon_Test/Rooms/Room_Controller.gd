@@ -6,7 +6,7 @@ class_name room
 #@onready var pillars = $Pillars
 @onready var lights = $SpotLight3D
 
-@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room", "Quest_Room") var room_classification
+@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room", "Quest_Room", "Special_Room") var room_classification
 @export var has_pillars: bool = false
 var has_been_entered = false
 
@@ -15,6 +15,9 @@ var is_visible: bool = false
 var room_coords: Vector2i = Vector2i(0, 0)
 
 var room_directions
+
+var is_locked: bool = false
+var has_key: bool = false
 
 signal entered
 
@@ -43,13 +46,43 @@ func give_player_chest_item():
 			break
 		accumulated_chance += new_chance
 
-func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest_type: quest = null):
+func set_key_spawn(boss_key: bool = false):
+	$SpinningSprite._setup(null, true, boss_key)
+	has_key = true
+
+func lock_room(boss_room):
+	$Room_Lock.visible = true
+	is_locked = true
+	$Room_Lock._setup(boss_room)
+	for clutter_child in $Room_Lock.find_children("*", "CollisionShape3D", true, false):
+		clutter_child.set_deferred("disabled", false)
+
+func initiate_boss_fight(body):
+	if body.is_in_group("3D_Player"):
+		p_ref.movement_locked = true
+		p_ref.battle_initiated(p_ref.current_dungeon.boss_encounter.encounterable_enemy, 0, true)
+
+func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, spawn_boss_sprite: bool = false, is_locked_ = false, quest_type: quest = null):
 	self.p_ref = p_ref_
 	var wall_children = $Walls.get_children()
 	if room_classification == 1:
 		get_node("StairDownTeleporter").go_down_floor.connect(p_ref.entered_new_floor)
 	elif room_classification == 7:
 		$Chest.chest_opened.connect(give_player_chest_item)	
+	elif room_classification == 8:
+		if quest_type != null:
+			$SpinningSprite._setup(quest_type)
+	elif room_classification == 9:
+		$SpinningSprite._setup()
+	
+	if spawn_boss_sprite:
+		var boss_sprite_node = $Boss_Sprite/AnimatedSprite3D
+		$Boss_Sprite.visible = true
+		boss_sprite_node.sprite_frames = p_ref.current_dungeon.boss_encounter.encounterable_enemy.sprite_frames
+		boss_sprite_node.play("Idle")
+		boss_sprite_node.visible = true
+		$Boss_Sprite/Area3D.connect("body_entered", initiate_boss_fight)
+
 	
 	for floor_panel in $Floor.get_children():
 		if p_ref.current_dungeon.type_of_dungeon == floor_panel.get_index():
@@ -62,10 +95,6 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest
 	
 	$SpotLight3D.light_color = Color(p_ref.current_dungeon.dungeon_light_color)
 	
-	if quest_type != null:
-		$SpinningSprite._setup(quest_type)
-		
-	
 	if group_id == -2:
 		return
 	var rng = RandomNumberGenerator.new()
@@ -75,10 +104,13 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest
 	var clutter_spawn_chance = 1
 	if group_id == -1:
 		clutter_spawn_chance = 0.3
-	
+	var clutter = $Clutter
+	for clutter_child in clutter.find_children("*", "CollisionShape3D", true, false):
+		clutter_child.set_deferred("disabled", true)
 	if spawn_clutter < clutter_spawn_chance:
-		var clutter = $Clutter
+		
 		clutter.visible = true
+		
 		match group_id:
 			-1:
 				var non_templated_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
@@ -93,10 +125,7 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest
 					
 				var picked_child = non_templated_clutter.get_child(1).get_children().pick_random()
 				picked_child.visible = true
-				var template_clutter = clutter.find_children("*", "CollisionShape3D", true, false)
-				if not template_clutter.is_empty():
-					for child in template_clutter:
-						child.set_deferred("disabled", true)
+
 				picked_child.set_deferred("disabled", false)
 			1:
 				pass
@@ -114,15 +143,11 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, quest
 					template_clutter.visible = true
 					template_clutter.get_child(0).visible = true
 					template_clutter.get_child(0).get_children().pick_random().visible = true
-					
-					var non_template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon).get_child(1).find_children("*", "CollisionShape3D", true, false)
-					if not non_template_clutter.is_empty():
-						non_template_clutter[0].set_deferred("disabled", true)
+
 			4:
 				pass
 			5:
 				pass
-
 	
 	#if has_pillars:
 	#	for pillar in $Pillars.get_children():

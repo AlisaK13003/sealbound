@@ -23,6 +23,7 @@ var does_player_have_special_item: bool = false
 
 @export_category("Quest Rewards")
 @export var reward_money: Vector2i
+@export var reward_bond: Vector2i
 @export var reward_items: Array[Items]
 @export var reward_weapons: Array[weapon]
 @export var reward_equipment: Array[equipment]
