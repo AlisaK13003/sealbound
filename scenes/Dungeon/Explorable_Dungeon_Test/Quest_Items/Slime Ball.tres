@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://bb57x0jdso0sf"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_7ga5t"]
+
+[resource]
+script = ExtResource("1_7ga5t")
+item_name = "Slime Ball"
+item_description = "Icky, someone might want this"
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

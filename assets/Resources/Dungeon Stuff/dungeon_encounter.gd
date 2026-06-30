@@ -4,13 +4,23 @@ class_name dungeon_type
 
 @export var dungeon_name : String
 @export var dungeon_background : Texture2D
-@export var max_number_of_waves: int
-@export var minimum_number_of_waves: int
-@export var potential_waves : Array[dungeon_wave]
+@export var max_number_of_floors: int
+@export var minimum_number_of_floors: int
+@export var potential_encounters : Array[dungeon_wave]
+
+@export var dungeon_light_color: Color = Color.WHITE
+
+@export var first_time_floor_count: int = 10
+
+@export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 
 var is_this_dungeon_unlocked: bool = false
 
+@export var chest_drops: Dictionary[Array, float]
+
 @export var does_dungeon_have_boss: bool = false
+@export var boss_encounter: dungeon_wave
+
 var has_beaten_boss: bool = false
 
 func load_save_data(save_data):

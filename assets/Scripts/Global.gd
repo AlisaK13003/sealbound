@@ -181,6 +181,10 @@ var controller_mapping: Dictionary = {
 	"Dungeon_Items": "Controller_Dungeon_Items",
 	"Cancel": "Controller_Cancel",
 	"Confirm": "Controller_Confirm",
+	"Quest_Menu": "Controller_Quest_Menu",
+	"Open_Map": "Controller_Open_Map",
+	"Camera_Zoom_In": "Controller_Right_Stick_Up",
+	"Camera_Zoom_Out": "Controller_Right_Stick_Down"
 }
 
 var keyboard_mouse_icon_mapping: Dictionary = {
@@ -193,8 +197,12 @@ var keyboard_mouse_icon_mapping: Dictionary = {
 	"Dungeon_Skill": 25,
 	"Dungeon_Defend": 22,
 	"Dungeon_Items": 8,
-	"Cancel": 25,
+	"Cancel": 22,
 	"Confirm": 2,
+	"Quest_Menu": 16,
+	"Open_Map": 12,
+	"Camera_Zoom_In": 4,
+	"Camera_Zoom_Out": 16,
 }
 
 var controller_icon_mapping: Dictionary = {
@@ -209,23 +217,39 @@ var controller_icon_mapping: Dictionary = {
 	"Controller_Dungeon_Targeting": 34,
 	"Controller_Cancel": 1,
 	"Controller_Confirm": 2,
+	"Controller_Quest_Menu": 0,
+	"Controller_Open_Map": 41,
+	"Controller_Right_Stick_Up": 27,
+	"Controller_Right_Stick_Down": 27,
+	"Controller_Right_Stick_Left": 0,
+	"Controller_Right_Stick_Right": 0,
 }
 
 var using_controller: bool = false
 const CONTROLLER_DEADZONE = 0.2
 signal swapped_to_controller
 
+const MOUSE_DEADZONE: float = 2.0 
+
 func _input(event):
 	if event is InputEventJoypadButton:
 		set_using_controller(true)
 		swapped_to_controller.emit(true)
+		
 	elif event is InputEventJoypadMotion:
 		if abs(event.axis_value) > CONTROLLER_DEADZONE:
 			set_using_controller(true)
 			swapped_to_controller.emit(true)
-	else:
-		set_using_controller(false)
-		swapped_to_controller.emit(false)
+			
+	elif event is InputEventMouseMotion:
+		if event.relative.length() > MOUSE_DEADZONE:
+			set_using_controller(false)
+			swapped_to_controller.emit(false)
+			
+	elif event is InputEventKey or event is InputEventMouseButton:
+		if event.is_pressed():
+			set_using_controller(false)
+			swapped_to_controller.emit(false)
 		
 func set_using_controller(do_it):
 	if do_it:
@@ -239,7 +263,12 @@ func get_input_mapping(input_string):
 		return Input.is_action_just_pressed(controller_mapping[input_string])
 	else:
 		return Input.is_action_just_pressed(input_string)
-	
+
+func get_continuous_input_mapping(input_string):
+	if using_controller:
+		return Input.is_action_pressed(controller_mapping[input_string])
+	else:
+		return Input.is_action_pressed(input_string)
 
 # Save data manager
 # --------------------------------------------------------------------------------------------------

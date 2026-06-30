@@ -8,6 +8,8 @@ var main_room_text: Texture2D
 var special_text: Texture2D
 
 func _ready():
+	if main_room_text == null:
+		return
 	main_room_texture.texture = main_room_text
 	
 	if special_text != null and something_special_in_room != null:

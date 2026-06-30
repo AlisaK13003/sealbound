@@ -17,7 +17,7 @@ func _ready():
 	button_name_text.text = button_name
 	if input_event_that_will_activate != "":
 		var event_to_check = InputMap.action_get_events(input_event_that_will_activate)[0]
-		var incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
+		var _incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
 
 	Global.swapped_to_controller.connect(swap_to_controller_icons)
 	swap_to_controller_icons(Global.using_controller)
@@ -43,7 +43,7 @@ func swap_to_controller_icons(do_it):
 			button_icon.frame = position_to_get
 		
 
-func _input(event):
+func _input(_event):
 	if input_event_that_will_activate != "":
 		if Global.get_input_mapping(input_event_that_will_activate):
 			activated.emit()

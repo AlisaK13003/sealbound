@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://cr5n3ayg82obo"]
+
+[ext_resource type="Script" uid="uid://pqf8lw6u6dbr" path="res://assets/Resources/Interactables/Quests (2)/quest_item.gd" id="1_c74my"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="2_avrom"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_d8h6c"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="4_vli6d"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="5_umy1p"]
+
+[resource]
+script = ExtResource("5_umy1p")
+metadata/_custom_type_script = "uid://npoqdralsply"

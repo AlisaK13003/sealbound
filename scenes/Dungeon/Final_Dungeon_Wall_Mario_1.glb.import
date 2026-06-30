@@ -16,6 +16,8 @@ dest_files=["res://.godot/imported/Final_Dungeon_Wall_Mario_1.glb-8b9fc8783c2c5f
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -37,6 +39,16 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Dungeon_Wall": {
+"generate/physics": true,
+"physics/layer": 4294967295,
+"physics/shape_type": 3,
+"primitive/size": Vector3(23, 14, 2)
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=3
+gltf/texture_map_mode=0

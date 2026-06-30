@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var camera_pivot = $Node3D
 
 @onready var sprite_pivot = $SpritePivot
+@onready var dungeon_overlay = $DungeonOverlay
 
 signal entered_new_tile()
 
@@ -19,19 +20,37 @@ var p_ref: explorable_dungeon
 
 var has_been_setup = false
 
+func display_obtained_items(obtained_items):
+	for item: Items in obtained_items:
+		print(item.item_name)
+	dungeon_overlay.display_gotten_chest_items(obtained_items)
+
 func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(p_ref.mini_map._new_room_entered)
 	has_been_setup = true
+	dungeon_overlay._setup(parent_reference)
+	#camera_pivot._setup()
+
+func update_pivot_rotation(spawn_room):
+	match spawn_room.required_directions[0]:
+		0:
+			camera_pivot.rotation_degrees.y = 0.0
+		1:
+			camera_pivot.rotation_degrees.y = -90.0
+		2:
+			camera_pivot.rotation_degrees.y = -180.0
+		3:
+			camera_pivot.rotation_degrees.y = -270.0
+	#camera_pivot.rotation_degrees.y = 0.0
 
 func _physics_process(delta: float) -> void:
-	if not has_been_setup:
-		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
-
+	if not has_been_setup:
+		return
 	if p_ref.movement_locked:
 		return
 
@@ -54,7 +73,7 @@ func _physics_process(delta: float) -> void:
 	forward = forward.normalized()
 	right = right.normalized()
 	sprite_pivot.rotation_degrees.y = camera_pivot.rotation_degrees.y
-	var direction: Vector3 = (forward * -input_dir.y + right * input_dir.x).normalized()
+	var direction: Vector3 = (forward * (-input_dir.y) + right * (input_dir.x)).normalized()
 	
 	if direction != Vector3.ZERO:
 		is_moving = true
@@ -71,6 +90,18 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_check_for_new_tile()
 	sync_animation(input_dir)
+	update_sprite_scale()
+
+func update_sprite_scale():
+	if camera:
+		var pitch_rad = camera.global_rotation.x 
+		var compression_factor = abs(cos(pitch_rad))
+
+		if compression_factor < 0.1: 
+			compression_factor = 0.1 
+			
+		#animated_sprite.scale.y = 1.0 / compression_factor
+
 
 func _check_for_new_tile() -> void:
 	if not has_been_setup:
@@ -88,11 +119,11 @@ func _check_for_new_tile() -> void:
 		
 func _on_tile_entered(coords: Vector2i):
 	entered_new_tile.emit(coords)
-
+	# camera_pivot._on_player_entered_new_tile(p_ref.get_room_node_at(coords))
+	
 var last_direction: String = "down"
 
 var anim_name: String = "idle"
-
 
 func sync_animation(input_dir: Vector2) -> void:
 	if input_dir == Vector2.ZERO:

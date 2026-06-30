@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://bf7gu5cs8o732"]
+
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="1_a06yf"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="2_quk2g"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="3_7e6ik"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="4_15ldq"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="5_ricml"]
+
+[resource]
+script = ExtResource("5_ricml")
+quest_name = "Gather Slime"
+quest_giver = "Someone"
+quest_description = "Kill Slimes"
+completion_requirements = {
+ExtResource("1_a06yf"): 10
+}
+reward_money = Vector2i(0, 50)
+metadata/_custom_type_script = "uid://npoqdralsply"

@@ -42,7 +42,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d63qj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -62,28 +62,34 @@ script = ExtResource("1_4bq8n")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=660287717]
 layout_mode = 0
-offset_right = 239.0
-offset_bottom = 64.0
+offset_left = 38.57
+offset_top = -9.19
+offset_right = 283.57007
+offset_bottom = 54.81
+scale = Vector2(0.77, 0.77)
 
 [node name="Container" type="Container" parent="HBoxContainer" unique_id=743724128]
 custom_minimum_size = Vector2(244.38, 0)
 layout_mode = 2
 
-[node name="Item_Name" type="Label" parent="HBoxContainer/Container" unique_id=1412283802]
-custom_minimum_size = Vector2(157.61, 42.18)
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Container" unique_id=1097013752]
+layout_mode = 2
+
+[node name="Item_Texture" type="TextureRect" parent="HBoxContainer/Container/HBoxContainer" unique_id=1564032927]
+z_index = -1
+layout_mode = 2
+texture = ExtResource("2_ud1yq")
+stretch_mode = 2
+
+[node name="Item_Name" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=1412283802]
+custom_minimum_size = Vector2(200, 42.18)
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 text = "Potion"
-horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Item_Texture" type="TextureRect" parent="HBoxContainer/Container" unique_id=1564032927]
-z_index = -1
-layout_mode = 2
-texture = ExtResource("2_ud1yq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=577751092]
 visible = false

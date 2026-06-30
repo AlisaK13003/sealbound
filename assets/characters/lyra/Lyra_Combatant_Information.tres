@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_26prq"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_d3o0m"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_n5n1p"]
-[ext_resource type="Texture2D" uid="uid://k8h3wryir8iy" path="res://assets/characters/lyra/lyra_walk.png" id="4_uwea6"]
+[ext_resource type="SpriteFrames" uid="uid://cbtk43ca1obs0" path="res://assets/characters/lyra/Lyra_dungeon_animation.tres" id="4_26prq"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_7rixd"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_4bmwk"]
 
@@ -72,7 +72,6 @@ script = ExtResource("1_26prq")
 move_name = "Second Wind"
 move_description = "Restore moderate HP to self. Gain increased defense and status immunity. Can't act for 2 turns"
 attack_power = null
-is_unlocked = false
 is_magic_skill = true
 mana_cost = 2
 status_type = null
@@ -138,75 +137,6 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_lyae5")
 frame_2/duration = 1.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mhgbo"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(0, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5dton"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(192, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xfc3j"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(384, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o08b8"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(576, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ox042"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(0, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ky0ar"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(192, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5jpwl"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(384, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wqao5"]
-atlas = ExtResource("4_uwea6")
-region = Rect2(576, 0, 192, 288)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_54iog"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mhgbo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5dton")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xfc3j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o08b8")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ox042")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ky0ar")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5jpwl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wqao5")
-}],
-"loop": true,
-"name": &"Walk",
-"speed": 5.0
-}]
-
 [sub_resource type="Resource" id="Resource_gtipd"]
 script = ExtResource("2_d3o0m")
 defense = 30
@@ -233,8 +163,10 @@ combatant_stats = SubResource("Resource_dx6g1")
 stored_weapon = SubResource("Resource_pfgd8")
 stored_equipment = SubResource("Resource_jcqwx")
 combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01")])
-sprite_frames = SubResource("SpriteFrames_54iog")
+sprite_frames = ExtResource("4_26prq")
 idle_speed = 0.2
 walk_speed = 0.7
-sprite_scale = 0.001
+sprite_scale = 0.007
+sprite_offset = Vector2(-38, -8)
+bond_level = 1
 metadata/_custom_type_script = "uid://125iickqse23"

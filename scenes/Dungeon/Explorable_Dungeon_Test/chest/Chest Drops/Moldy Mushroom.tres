@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://cbvm0syhki303"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_q8s0m"]
+
+[resource]
+script = ExtResource("1_q8s0m")
+item_name = "Moldy Mushroom"
+item_description = "A moldy mushroom, has a funky smell, try eating it."
+sell_price = 8
+does_what = 2
+what_is_it = 1
+amount_to_heal_or_deal = 30
+removes_status = null
+give_status = 8
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

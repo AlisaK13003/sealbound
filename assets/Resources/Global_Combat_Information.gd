@@ -8,15 +8,27 @@ var currency_held: int = 200
 var all_held_equipment: Array[equipment]
 var all_held_weapons: Array[weapon]
 var all_held_items: Array[Items]
+var all_held_valuables: Array[Items]
 
 var dungeon_types: Array[dungeon_type] = []
 
 var active_quests: Array[quest]
 var completed_quests: Array[quest]
 
+var current_BP: int = 0
+var max_BP: int = 0
+
 @onready var rng = RandomNumberGenerator.new()
 
+var bond_attack_fill 
+var cur_bond_attack_val = 0
+
 enum bonds {STRANGER, ACQAINTED, WARMED, KINDRED, BOUND, TRUEBOND}
+enum dungeon_types_names {CREEPY, FOREST}
+enum difficulty_multiplier {EASY, MEDIUM, DIFFICULT, REALLYHARD}
+
+var holding_boss_key: bool = false
+var holding_basic_room_key: bool = false
 
 signal finished
 
@@ -24,6 +36,19 @@ func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 	for i in range(5):
 		all_held_items.append(new_item.duplicate())
+
+func add_item(item_to_add):
+	if item_to_add is Array:
+		for item in item_to_add:
+			if item.what_is_it & 010:
+				all_held_valuables.append(item)
+			elif item.what_is_it & 100:
+				all_held_items.append(item)
+		return
+	if item_to_add.what_is_it & 010:
+		all_held_valuables.append(item_to_add)
+	elif item_to_add.what_is_it & 100:
+		all_held_items.append(item_to_add)
 
 func _ready():
 	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
@@ -37,46 +62,164 @@ func _ready():
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
 
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
 	
 	await get_tree().create_timer(0.5).timeout
 
-	print(export_to_JSON())
-
 	finished.emit()
 
-func transition_to_dungeon(selected_dungeon):
-	var dungeon_scene = await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn")
+var explorable_dungeon_scene: explorable_dungeon
+var dungeon_loop_scene: dungeon_loop
 
-	var max_BP = 5
+var selected_dungeon_
+
+func transition_to_dungeon(selected_dungeon):
+	selected_dungeon_ = selected_dungeon
+	current_dungeon = dungeon_types[selected_dungeon_]
+	var dungeon_scene = await Fade.change_scene("res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Test.tscn")
+
+	explorable_dungeon_scene = dungeon_scene
+	
+	var temp2 = load("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn")
+	dungeon_loop_scene = temp2.instantiate()
+
 	for party_member in active_party_slots:
 		max_BP += party_member.bond_level * 5
+	bond_attack_fill = 2 * max_BP
+	current_BP = max_BP
+	await dungeon_scene._setup(dungeon_types[selected_dungeon])
+		
+func return_dropped_items(drops, player = null):
+	drops.sort()
+	var accumulated_chance: float = 0.0
+	var drop_chances_: Array[float]
+	for drop_chance in drops.values():
+		drop_chances_.append(drop_chance)
+		
+	drop_chances_.sort_custom(func(a, b): return drop_chances_[a] < drop_chances_[b])
+	var chance = rng.randf()
+	var dropped_items
+	for new_chance in drop_chances_:
+		if chance < new_chance + accumulated_chance:
+			GlobalCombatInformation.add_item(drops.find_key(new_chance))
+			if player != null:
+				player.display_obtained_items(drops.find_key(new_chance))
+			dropped_items = drops.find_key(new_chance)
+			break
+		accumulated_chance += new_chance
+	if player == null:
+		return dropped_items
+	
+var is_combat_active: bool = false
+var previous_enemy_encountered
+var should_remove_enemy = false
 
-	await dungeon_scene.setup(active_party_slots, dungeon_types[selected_dungeon], all_held_items, selected_dungeon, max_BP)
-	var enemies_killed = await dungeon_scene.battle_loop()
+var current_dungeon
+
+func initiate_combat(encounter, node_id, is_boss: bool = false):
+	if is_combat_active:
+		return
+	is_combat_active = true
+	previous_enemy_encountered = node_id
+	await Fade.fade_in(0.5)
+	get_tree().root.call_deferred("remove_child", explorable_dungeon_scene)
+	get_tree().root.call_deferred("add_child", dungeon_loop_scene)
+	
+	await get_tree().process_frame
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	var output = await dungeon_loop_scene.setup(dungeon_types[selected_dungeon_], encounter, is_boss)
+	var enemies_killed = output[0]
+	var did_players_win = output[1]
+	
+	# output[2] = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
+	
+	active_party_slots[0] = output[2][0].duplicate()
+	active_party_slots[1] = output[2][1].duplicate()
+	active_party_slots[2] = output[2][2].duplicate()
+	
+	current_BP = output[2][3]
+	cur_bond_attack_val = output[2][4]
+
+	if did_players_win:
+		should_remove_enemy = true
+	else:
+		print("Y'all dummies lost")
+		return
 	
 	var coins_gained: int = 0
 	var experience_gained: int = 0
 	var bond_gained: int = 0
-	var stuff_gained: Array[Items]
+	var stuff_gained = []
+	var quest_items_gained = []
+	
+	var enemies_to_check = []
+	for quest_: quest in active_quests:
+		for thing in quest_.completion_requirements.keys():
+			if thing is Items:
+				break
+			elif thing is generic_combatants:
+				enemies_to_check.append(thing)
 	
 	for enemy: generic_combatants in enemies_killed:
-		coins_gained += int(randi_range(enemy.drop_table.coin_drop_range.x, enemy.drop_table.coin_drop_range.y) * randf_range(0.5, 1.5))
-		experience_gained += int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2))
-		bond_gained += int(randi_range(enemy.drop_table.bond_drop_range.x, enemy.drop_table.bond_drop_range.y) * randf_range(0.5, 1.2))
-		for item in enemy.drop_table.item_drop_chances:
-			var chance = rng.randf_range(0, 1)
-			if chance > enemy.drop_table.item_drop_chances[item]:
-				stuff_gained.append(item)
+		var is_quest_target = enemies_to_check.any(func(e): return e.combatant_name == enemy.combatant_name)
+		
+		if is_quest_target:
+			var chance = rng.randf()
+			if chance > 0.6:
+				var drop_num = rng.randi_range(1, 3)
+				for i in range(drop_num):
+					quest_items_gained.append(enemy.quest_item_drop.duplicate())
+				
+		coins_gained += int(randi_range(enemy.coin_drop_range.x, enemy.coin_drop_range.y) * randf_range(0.5, 1.5))
+		experience_gained += clamp(int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2)), 1, enemy.experience_mult + 1 * 1.2)
+		var returned_items = return_dropped_items(enemy.drop_table)
+		if returned_items != null:
+			stuff_gained.append(returned_items)
+		bond_gained += int(randi_range(enemy.bond_drop_range.x, enemy.bond_drop_range.y) * randf_range(0.5, 1.2))
 	
 	for player: generic_combatants in active_party_slots:
 		player.add_experience(int(float(experience_gained) / (active_party_slots.size() - 1)))
 	currency_held += coins_gained
-	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
-	stuff_gained.append(new_item.duplicate())
-	
+
+	if stuff_gained == null and quest_items_gained != null: 
+		stuff_gained = quest_items_gained
+	elif stuff_gained != null and quest_items_gained != null:
+		stuff_gained += quest_items_gained
+
+	if is_boss:
+		get_tree().quit()
+
 	await Fade.fade_in(1)
-	var rewards_scene = await Fade.change_scene("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
+	get_tree().root.remove_child(dungeon_loop_scene)
+	var temp_rewards = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
+	var rewards_scene = temp_rewards.instantiate()
+	get_tree().root.add_child(rewards_scene)
+	
 	rewards_scene._setup(coins_gained, experience_gained, bond_gained, stuff_gained)
+	rewards_scene_ = rewards_scene
+	
+var rewards_scene_
+func bring_back_combat(_rewards_scene):
+	get_tree().root.add_child(explorable_dungeon_scene)
+	explorable_dungeon_scene.movement_locked = false
+	if is_instance_valid(rewards_scene_):
+		rewards_scene_.queue_free()
+	
+	if should_remove_enemy:
+		var enemy_to_remove = instance_from_id(previous_enemy_encountered)
+		explorable_dungeon_scene.enemy_container.remove_child(enemy_to_remove)
+		enemy_to_remove.queue_free()
+		#explorable_dungeon_scene.enemy_container.remove_child(previous_enemy_encountered)
+	
+	is_combat_active = false
+	explorable_dungeon_scene.return_to_exploring()
+
+
+func update_stored_combat_information():
+	pass
 
 func load_saved_data(data):
 	for party_member in data["player_slots"]:

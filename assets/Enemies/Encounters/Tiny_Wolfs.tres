@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="dungeon_wave" format=3 uid="uid://ds136auw6ifkt"]
+
+[ext_resource type="Resource" uid="uid://bxfbuhkvgd1bg" path="res://assets/Enemies/Tiny_Wolf.tres" id="1_kdqlt"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_wmyaq"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_kdqlt"]
+
+[resource]
+script = ExtResource("2_kdqlt")
+encounterable_enemy = ExtResource("1_kdqlt")
+enemies = Array[ExtResource("1_wmyaq")]([ExtResource("1_kdqlt"), ExtResource("1_kdqlt"), ExtResource("1_kdqlt")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"

@@ -15,16 +15,16 @@ var am_i_accepted: bool
 
 signal on_click(quest_, quest_index)
 
-func setup_(quest_: quests, i):
+func setup_(quest_: quest, i):
 	quest_name_label.text = quest_.quest_name
 	quest_giver_label.text = quest_.quest_giver
-	quest_location_label.text = quest_.quest_location_descriptor
+	quest_location_label.text = quest_.quest_description
 	
 	what_quest_am_i = quest_
 	index = i
 	# Will be adjusted
-	quest_gold_reward_label.text = str(clamp(quest_.quest_rewards.coin_drop_range[0] * (quest_.quest_difficulty), quest_.quest_rewards.coin_drop_range[0], quest_.quest_rewards.coin_drop_range[1]))
-	quest_bond_reward_label.text = str(clamp(quest_.quest_rewards.bond_drop_range[0] * quest_.quest_difficulty, quest_.quest_rewards.bond_drop_range[0], quest_.quest_rewards.bond_drop_range[1]))
+	quest_gold_reward_label.text = str(quest_.reward_money.x) + "-" + str(quest_.reward_money.y)
+	quest_bond_reward_label.text = str(quest_.reward_bond.x) + "-" + str(quest_.reward_bond.y)
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not am_i_accepted: 

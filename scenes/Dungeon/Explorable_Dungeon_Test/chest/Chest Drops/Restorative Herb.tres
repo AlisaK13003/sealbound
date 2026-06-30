@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://d4ncsf2bs5nw1"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_dxt73"]
+
+[resource]
+script = ExtResource("1_dxt73")
+item_name = "Restorative Herb"
+item_description = "A healing herb that is said to bring people back from the brink of collapse, use it wisely."
+sell_price = 20
+does_what = 2
+what_is_it = 1
+does_revive = true
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

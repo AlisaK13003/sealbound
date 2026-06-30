@@ -38,7 +38,7 @@ func _ready():
 	await Fade.fade_out(0.5)
 
 var in_cycle = false
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not in_cycle:
 		in_cycle = true
 		background.rotation_degrees = -360

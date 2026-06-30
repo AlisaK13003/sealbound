@@ -213,15 +213,16 @@ func toggle_player_ui(player_to_toggle):
 		get_player(player_to_toggle).reset_ui()
 
 func set_health_bar_values(player_to_set_for):
-	get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
-	get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
+	return
+	#get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
+	#get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
 
 # Helper Functions
 func get_player(player_to_get: int):
 	return $Player_Container.get_child(player_to_get)
 
-func get_player_portrait(portrait_to_get: int):
-	return $UI/Party_Portraits/VBoxContainer.get_child(portrait_to_get)
+#func get_player_portrait(portrait_to_get: int):
+	#return .get_child(portrait_to_get)
 
 func check_if_critical_hit(current_individual: combat_template):
 	var chance_of_crit_hit = rng.randf_range(0,1)
