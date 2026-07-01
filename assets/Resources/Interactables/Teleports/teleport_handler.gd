@@ -108,6 +108,7 @@ func _on_area_2d_body_entered(body):
 			
 			AreaStateManager.currently_transitioning = true
 			Global.current_loading_zone = _target_spot
+			Global.current_location = _target_region
 			Global.current_region = _target_region
 
 			await Fade.fade_in(1)

@@ -13,6 +13,7 @@ const SLOT_COUNT = 3
 @onready var delete_btn = $Main/DeleteBtn
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
 	load_btn.pressed.connect(_set_mode.bind(Mode.LOAD))
 	delete_btn.pressed.connect(_delete_selected)
@@ -114,6 +115,11 @@ func _apply_save_data(data: Dictionary):
 	Global.time_updated.emit()
 	
 	# Unpause and load the scene
+	if data.has("player_position"):
+		Global.saved_position = Vector2(data["player_position"]["x"], data["player_position"]["y"])
+		Global.loading_from_save = true
+
+	Global.current_loading_zone = ""
 	get_tree().paused = false
 	get_tree().change_scene_to_file(Global.location_paths.get(data["current_location"], "res://scenes/main/Hearthwynn.tscn"))
 

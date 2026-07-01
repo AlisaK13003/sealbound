@@ -14,8 +14,10 @@ var in_menu : bool = false
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready() -> void:
+	if Global.loading_from_save:
+		global_position = Global.saved_position
+		Global.loading_from_save = false
 	$Camera2D.reset_smoothing()
-	Global.load_save_data()
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 	$Camera2D.zoom = camera_zoom
 

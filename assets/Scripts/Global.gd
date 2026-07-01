@@ -11,6 +11,7 @@ var entire_party : Array[PartyMember]
 
 var money : int
 
+var current_location: String = "Village"
 var previous_coordinates : Vector2
 
 var current_encounter : encounters
@@ -395,9 +396,10 @@ func load_save_data():
 		item_list.clear()
 		for path in data["item_list"]:
 			item_list.append(load(path))
-		
+		equipment_list.clear()
 		for path in data["equipment_list"]:
 			equipment_list.append(load(path))
+		weapon_list.clear()
 		for path in data["weapon_list"]:
 			weapon_list.append(load(path))
 		
