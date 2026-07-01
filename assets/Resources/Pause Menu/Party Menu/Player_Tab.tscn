@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bxgw32h1sb70f"]
+
+[ext_resource type="Texture2D" uid="uid://bq8g0sunifuyi" path="res://assets/characters/player/playerFemale_portraits.png" id="1_8d751"]
+[ext_resource type="Script" uid="uid://1g0wfhs8npow" path="res://assets/Resources/Pause Menu/Party Menu/player_tab_controller.gd" id="1_fx3ht"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx3ht"]
+skew = Vector2(0.1, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="PlayerTab" type="Control" unique_id=248087180]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_fx3ht")
+
+[node name="Panel" type="Panel" parent="." unique_id=228203175]
+layout_mode = 0
+offset_right = 74.0
+offset_bottom = 30.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_fx3ht")
+
+[node name="Label" type="Label" parent="." unique_id=462013437]
+layout_mode = 0
+offset_left = 22.0
+offset_top = -1.0
+offset_right = 91.0
+offset_bottom = 31.0
+text = "Cassian"
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=808291165]
+position = Vector2(11, 15)
+scale = Vector2(0.41666666, 0.41666666)
+texture = ExtResource("1_8d751")

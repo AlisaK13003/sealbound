@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_mqkyk"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
 [ext_resource type="PackedScene" uid="uid://cwogyg7mocf2x" path="res://assets/Resources/Pause Menu/Base_Party_Card_Info.tscn" id="13_o57t2"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="14_j01ox"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qffmw"]
 bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
@@ -33,16 +34,65 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = 27.0
+offset_top = -71.0
+offset_right = 27.0
+offset_bottom = -71.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6a6ya")
+tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "Bond", "System"])
+
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
+layout_mode = 0
+offset_left = -325.66
+offset_top = -67.46
+offset_right = -298.66
+offset_bottom = -67.46
+scale = Vector2(0.85, 0.85)
+
+[node name="Windows" type="Control" parent="." unique_id=1877301607]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
+layout_mode = 1
+offset_left = -44.0
+offset_top = 29.0
+offset_right = -44.0
+offset_bottom = 29.0
+
+[node name="SkillsMenu" parent="Windows" unique_id=824969245 instance=ExtResource("4_qffmw")]
+visible = false
+layout_mode = 1
+
+[node name="EquipmentMenu" parent="Windows" unique_id=1214371089 node_paths=PackedStringArray("menu_parent") instance=ExtResource("5_o57t2")]
+visible = false
+layout_mode = 1
+script = ExtResource("6_qffmw")
+menu_parent = NodePath("../..")
+
+[node name="ItemsMenu" parent="Windows" unique_id=1671049951 node_paths=PackedStringArray("menu_parent") instance=ExtResource("3_0hfbc")]
+visible = false
+layout_mode = 1
+menu_parent = NodePath("../..")
+
+[node name="BondMenu" parent="Windows" unique_id=1832381352 instance=ExtResource("7_68nh3")]
+visible = false
+layout_mode = 1
+
+[node name="SystemMenu" parent="Windows" unique_id=893803557 instance=ExtResource("11_35xr2")]
+visible = false
+layout_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
-position = Vector2(37, 95)
-zoom = Vector2(2, 2)
+position = Vector2(-27.999996, 69.99999)
+scale = Vector2(-0.34, -0.34)
 
 [node name="Initial_Menu" type="Control" parent="." unique_id=1700268886]
+visible = false
 anchors_preset = 0
 offset_left = -344.0
 offset_right = -304.0
@@ -94,33 +144,11 @@ layout_mode = 2
 selection_name = "System"
 
 [node name="Sub_Menus" type="Control" parent="." unique_id=201055189]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
-
-[node name="PartyMenu" parent="Sub_Menus" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
-visible = false
-layout_mode = 1
-
-[node name="SkillsMenu" parent="Sub_Menus" unique_id=824969245 instance=ExtResource("4_qffmw")]
-visible = false
-layout_mode = 1
-
-[node name="EquipmentMenu" parent="Sub_Menus" unique_id=1214371089 node_paths=PackedStringArray("menu_parent") instance=ExtResource("5_o57t2")]
-visible = false
-layout_mode = 1
-script = ExtResource("6_qffmw")
-menu_parent = NodePath("../..")
-
-[node name="ItemsMenu" parent="Sub_Menus" unique_id=1671049951 node_paths=PackedStringArray("menu_parent") instance=ExtResource("3_0hfbc")]
-visible = false
-layout_mode = 1
-menu_parent = NodePath("../..")
-
-[node name="BondMenu" parent="Sub_Menus" unique_id=1832381352 instance=ExtResource("7_68nh3")]
-visible = false
-layout_mode = 1
 
 [node name="EnemyIntelMenu" parent="Sub_Menus" unique_id=1554089330 instance=ExtResource("8_djh7v")]
 visible = false
@@ -134,26 +162,24 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[node name="SystemMenu" parent="Sub_Menus" unique_id=893803557 instance=ExtResource("11_35xr2")]
-visible = false
-layout_mode = 1
-
 [node name="SaveLoadMenu_old" parent="Sub_Menus" unique_id=1125761418 instance=ExtResource("10_mqkyk")]
 visible = false
 layout_mode = 1
 
 [node name="Panel" type="Panel" parent="." unique_id=1925848033]
+visible = false
 z_index = -2
 layout_mode = 0
-offset_left = -344.0
-offset_top = -119.0
-offset_right = 611.0
-offset_bottom = 414.0
+offset_left = -358.0
+offset_top = -105.99994
+offset_right = 597.0
+offset_bottom = 427.00006
 scale = Vector2(0.8, 0.8)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_qffmw")
 
 [node name="MenuChrome" type="Control" parent="." unique_id=1770658802]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

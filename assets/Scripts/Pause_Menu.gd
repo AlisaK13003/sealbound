@@ -11,6 +11,11 @@ extends Control
 
 @onready var party_cards = $MenuChrome/Party_Cards
 
+@onready var menu_tab = $MenuTabs
+@onready var windows = $Windows
+
+@export var tab_names: Array[String]
+
 var selected_option : int = 0
 
 var current_menu = " "
@@ -33,7 +38,18 @@ var time: float = 0
 
 func _ready():
 	Global.save_loaded.connect(_on_game_start)
-
+	menu_tab._setup(tab_names)
+	menu_tab.selection_changed.connect(tab_changed)
+	menu_tab.cycle_input(null, 0)
+	
+func tab_changed(which_tab):
+	for child in range(windows.get_child_count()):
+		if which_tab == child:
+			windows.get_child(child).visible = true
+		else:
+			windows.get_child(child).visible = false
+	
+	
 func _on_game_start():
 	return
 	for child in start_menu.get_children():
