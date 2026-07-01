@@ -127,6 +127,7 @@ radius = 245.58908
 [node name="NpcTemplate" type="Node2D" unique_id=823861238]
 script = ExtResource("1_kaela1")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/kaela_dialogue.json"
+npc_id = "kaela"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736804]
 

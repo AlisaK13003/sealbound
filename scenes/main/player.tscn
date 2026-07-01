@@ -73,7 +73,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u2d4w")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -90,7 +90,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0r2ug")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_down",
 "speed": 5.0
 }, {
@@ -107,7 +107,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_i4vh7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_side",
 "speed": 5.0
 }, {
@@ -124,7 +124,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2m6ln")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_up",
 "speed": 7.0
 }]
@@ -170,12 +170,8 @@ position_smoothing_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
+visible = false
 z_index = 100
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 offset_top = -47.0
 offset_bottom = -47.0
 scale = Vector2(0.5, 0.5)
@@ -202,6 +198,7 @@ script = ExtResource("3_2gs60")
 metadata/_edit_use_anchors_ = true
 
 [node name="VillageInventory" parent="CanvasLayer" unique_id=1392521463 instance=ExtResource("4_wqvcu")]
+visible = false
 offset_left = 4.0
 offset_top = 3.9999995
 offset_right = -47.0

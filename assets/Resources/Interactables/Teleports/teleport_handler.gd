@@ -3,11 +3,13 @@ extends Node
 
 @onready var loading_zone_position = self.global_position
 
+@export var disable_teleport: bool = false
+
 @export var location_data: Dictionary = {
-	"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"],
+	"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"],
 	"Forest": ["Left Side", "Right Side"],
 	"Cliff Side": ["Cliff Entrance"],
-	"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"]
+	"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom"]
 }:
 	set(value):
 		location_data = value
@@ -18,6 +20,9 @@ var _current_spot: String = ""
 
 var _target_region: String = "Forest"
 var _target_spot: String = ""
+
+func _enter_tree():
+	is_disabled = false
 
 func _set(property, value):
 	match property:
@@ -89,12 +94,25 @@ func _get_property_list():
 		
 	return properties
 
+var is_disabled: bool = false
+
 func _on_area_2d_body_entered(body):
-	if body.is_in_group("Overworld_Player"):
-		if Global.current_loading_zone != "":
-			Global.current_loading_zone = ""
-			return
-		Global.current_loading_zone = _target_spot
-		await Fade.fade_in(1)		
-		Fade.change_scene(Global.location_paths[_target_region])
+	if disable_teleport:
+		return
 		
+	if body.is_in_group("Overworld_Player") and not is_disabled:
+		if AreaStateManager.currently_transitioning:
+			is_disabled = true
+		if not is_disabled:
+			is_disabled = true 
+			
+			AreaStateManager.currently_transitioning = true
+			Global.current_loading_zone = _target_spot
+			Global.current_region = _target_region
+
+			await Fade.fade_in(1)
+			AreaStateManager.swap_scene()
+		
+func _on_area_2d_body_exited(body):
+	if body.is_in_group("Overworld_Player"):
+		is_disabled = false

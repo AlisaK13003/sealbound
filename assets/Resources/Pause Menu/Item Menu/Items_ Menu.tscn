@@ -23,10 +23,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rt5t2")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=741447973]
-position = Vector2(37, 95)
-zoom = Vector2(2, 2)
-
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=842037469]
 layout_mode = 0
 offset_left = 79.0

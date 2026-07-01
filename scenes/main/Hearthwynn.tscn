@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="11_ujx4y"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Kaela_NPC.tscn" id="12_kaela1"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Orion_NPC.tscn" id="13_orion1"]
-[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
+[ext_resource type="PackedScene" uid="uid://crhnr8t70jy1" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
 [ext_resource type="PackedScene" uid="uid://d2l54oy03qbul" path="res://scenes/main/temp_thing.tscn" id="15_lg162"]
 [ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Interactables/Quests (2)/Quest Board.tscn" id="16_f16d7"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="17_hx6s5"]
@@ -27,10 +27,6 @@ position = Vector2(-46, -5)
 script = ExtResource("1_ofm1v")
 player_node = NodePath("Player")
 
-[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
-y_sort_enabled = true
-position = Vector2(2058, -1549)
-
 [node name="Buildings" type="Node2D" parent="." unique_id=2101509992]
 position = Vector2(2116, -1513)
 
@@ -38,33 +34,87 @@ position = Vector2(2116, -1513)
 position = Vector2(805, 794)
 
 [node name="LoadingZone" parent="Buildings/WeaponShop" unique_id=1216423571 instance=ExtResource("4_jt62i")]
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Blacksmith"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Blacksmith"
 
-[node name="Infirmary_Spawn" type="Node2D" parent="Buildings" unique_id=2085898168]
+[node name="Infirmary" type="Node2D" parent="Buildings" unique_id=2085898168]
 position = Vector2(2284, 687)
 
-[node name="LoadingZone" parent="Buildings/Infirmary_Spawn" unique_id=1269289252 instance=ExtResource("4_jt62i")]
+[node name="LoadingZone" parent="Buildings/Infirmary" unique_id=1269289252 instance=ExtResource("4_jt62i")]
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Tavern"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Infirmary"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Infirmary"
 
+[node name="Tavern" type="Node2D" parent="Buildings" unique_id=996321483]
+
+[node name="LoadingZone" parent="Buildings/Tavern" unique_id=1432167011 instance=ExtResource("4_jt62i")]
+z_index = -2
+position = Vector2(2151, 284)
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Tavern"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
+}
+"Current Location/Region" = "Village"
+"Current Location/Spot" = "Tavern"
+"Destination Location/Region" = "Buildings_Insides"
+"Destination Location/Spot" = "Tavern"
+
+[node name="Library" type="Node2D" parent="Buildings" unique_id=428195102]
+position = Vector2(1106, -139)
+
+[node name="LoadingZone" parent="Buildings/Library" unique_id=1621542184 instance=ExtResource("4_jt62i")]
+z_index = -2
+"Current Location/Region" = "Village"
+"Current Location/Spot" = "Library"
+"Destination Location/Region" = "Buildings_Insides"
+"Destination Location/Spot" = "Library"
+
+[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
+y_sort_enabled = true
+position = Vector2(2058, -1549)
+
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
 y_sort_enabled = true
-position = Vector2(3669, -1127)
-move_speed = 200.0
+position = Vector2(4320, -1160)
+move_speed = 300.0
 
 [node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]
 position = Vector2(4013, -2517)
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Spooky Forest"
 "Destination Location/Spot" = "Left Side"
 
 [node name="Cliff Side" parent="." unique_id=563595575 instance=ExtResource("4_jt62i")]
-position = Vector2(4084, -1070)
+position = Vector2(5009, -1085)
+location_data = {
+"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Left Side", "Right Side"],
+"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Cliff Side"
 "Destination Location/Region" = "Cliff Side"
@@ -227,9 +277,13 @@ scale = Vector2(0.42, 0.42)
 position = Vector2(3358, -942)
 scale = Vector2(0.44, 0.44)
 
+[node name="Rowan_NPC" parent="." unique_id=823861240 instance=ExtResource("14_lyra1")]
+position = Vector2(3818, -1404)
+scale = Vector2(0.44, 0.44)
+
 [node name="TempThing2" parent="." unique_id=760205585 instance=ExtResource("15_lg162")]
 position = Vector2(3685, -411)
 
 [node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("16_f16d7")]
-position = Vector2(3800, -512)
+position = Vector2(3884, -573)
 stored_quests_ = Array[ExtResource("17_hx6s5")]([ExtResource("18_0ctb6"), ExtResource("19_6j7d3"), ExtResource("20_5its2")])

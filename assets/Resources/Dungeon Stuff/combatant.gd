@@ -33,7 +33,9 @@ class_name generic_combatants
 @export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
 
 @export var total_experience_points: int
+@export var toatl_bond_points: int = 0
 
+@export var bond_points: int = 0
 @export var bond_level: GlobalCombatInformation.bonds
 
 func add_experience(amount_to_add):
@@ -52,11 +54,13 @@ func export_to_JSON():
 		"stored_weapon": stored_weapon.export_to_JSON(),
 		"current_stored_slot": current_stored_slot,
 		"total_experience_points": total_experience_points,
+		"bond_points": bond_points,
 		"bond_level": bond_level,
  	}
 
 func load_save(save_info):
-	bond_level = save_info["bond_level"]
+	bond_points = int(save_info.get("bond_points", bond_points))
+	bond_level = save_info.get("bond_level", bond_level)
 	current_stored_slot = save_info["current_stored_slot"]
 	total_experience_points = save_info["total_experience_points"]
 	stored_weapon = load(save_info["stored_weapon"])

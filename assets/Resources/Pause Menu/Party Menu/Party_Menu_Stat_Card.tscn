@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://cyel1j6l1mst3"]
+
+[ext_resource type="Script" uid="uid://32hova5qgtul" path="res://assets/Resources/Pause Menu/Party Menu/party_menu_stat_card_controller.gd" id="1_n7ich"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="2_034c3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoipl"]
+bg_color = Color(0.7269004, 0.53850585, 0.610114, 1)
+skew = Vector2(0.1, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[node name="PartyMenuStatCard" type="Control" unique_id=1574348551]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n7ich")
+
+[node name="Panel" type="Panel" parent="." unique_id=533229209]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 210.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eoipl")
+
+[node name="GridContainer2" type="GridContainer" parent="." unique_id=2125992868]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 3.0
+offset_right = 497.0
+offset_bottom = 257.0
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer2" unique_id=1355603647]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="GridContainer2/HBoxContainer" unique_id=1651736490]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Health:"
+horizontal_alignment = 2
+
+[node name="Health2" type="Label" parent="GridContainer2/HBoxContainer" unique_id=1098025497]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GridContainer2" unique_id=484272134]
+layout_mode = 2
+
+[node name="Attack" type="Label" parent="GridContainer2/HBoxContainer2" unique_id=545423428]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Attack:"
+horizontal_alignment = 2
+
+[node name="Attack2" type="Label" parent="GridContainer2/HBoxContainer2" unique_id=761609847]
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GridContainer2" unique_id=1894234366]
+layout_mode = 2
+
+[node name="Defense" type="Label" parent="GridContainer2/HBoxContainer3" unique_id=118827948]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Defense:"
+horizontal_alignment = 2
+
+[node name="Defense2" type="Label" parent="GridContainer2/HBoxContainer3" unique_id=1011373003]
+custom_minimum_size = Vector2(98, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="GridContainer2" unique_id=351809663]
+layout_mode = 2
+
+[node name="Magic" type="Label" parent="GridContainer2/HBoxContainer4" unique_id=2017981324]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Magic:"
+horizontal_alignment = 2
+
+[node name="Magic2" type="Label" parent="GridContainer2/HBoxContainer4" unique_id=1630550775]
+custom_minimum_size = Vector2(118, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="GridContainer2" unique_id=1906114239]
+layout_mode = 2
+
+[node name="Resistance" type="Label" parent="GridContainer2/HBoxContainer5" unique_id=523388062]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Resistance:"
+horizontal_alignment = 2
+
+[node name="Resistance2" type="Label" parent="GridContainer2/HBoxContainer5" unique_id=53959772]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="GridContainer2" unique_id=715004399]
+layout_mode = 2
+
+[node name="Speed" type="Label" parent="GridContainer2/HBoxContainer6" unique_id=1476704917]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Speed:"
+horizontal_alignment = 2
+
+[node name="Speed2" type="Label" parent="GridContainer2/HBoxContainer6" unique_id=753746912]
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="GridContainer2" unique_id=987108685]
+layout_mode = 2
+
+[node name="Luck" type="Label" parent="GridContainer2/HBoxContainer7" unique_id=1809640499]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Luck:"
+horizontal_alignment = 2
+
+[node name="Luck2" type="Label" parent="GridContainer2/HBoxContainer7" unique_id=1553889883]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="GridContainer2" unique_id=832470501]
+layout_mode = 2
+
+[node name="Evasion" type="Label" parent="GridContainer2/HBoxContainer8" unique_id=597196952]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Evasion:"
+horizontal_alignment = 2
+
+[node name="Evasion2" type="Label" parent="GridContainer2/HBoxContainer8" unique_id=933897140]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=574574025]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 110
+
+[node name="GridContainer3" type="GridContainer" parent="VBoxContainer" unique_id=1235203110]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+columns = 2
+
+[node name="Level" type="Label" parent="VBoxContainer/GridContainer3" unique_id=629639595]
+custom_minimum_size = Vector2(103.025, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Level: 1"
+
+[node name="Total Exp" type="Label" parent="VBoxContainer/GridContainer3" unique_id=437878133]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "EXP: "
+
+[node name="Level2" type="Label" parent="VBoxContainer/GridContainer3" unique_id=76052338]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+
+[node name="Exp to next level" type="Label" parent="VBoxContainer/GridContainer3" unique_id=664713499]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "next level: 1243"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=11870456]
+layout_mode = 2
+theme_override_constants/v_separation = 21
+
+[node name="Current Weapon" type="Label" parent="VBoxContainer/GridContainer" unique_id=676135734]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Current Weapon: "
+
+[node name="Current Equipment" type="Label" parent="VBoxContainer/GridContainer" unique_id=836151550]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_034c3")
+text = "Current Equipment: "

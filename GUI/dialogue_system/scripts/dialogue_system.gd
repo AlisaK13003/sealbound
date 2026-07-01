@@ -1,5 +1,5 @@
 @tool
-@icon("res://assets/icons/star_bubble.svg")
+@icon("res://GUI/dialogue_system/icons/star_bubble.svg")
 
 class_name DialogueSystemNode extends CanvasLayer
 
@@ -20,6 +20,12 @@ var current_text_character_count: int = 0
 var current_node_has_choices: bool = false
 var current_choices: Array = []
 var ignore_next_input: bool = false
+var dialogue_start_node_id: String = ""
+var dialogue_context: Dictionary = {}
+
+const CHOICE_MIN_WIDTH: float = 96.0
+const CHOICE_MAX_WIDTH: float = 379.0
+const CHOICE_TEXT_PADDING: float = 56.0
 
 const PORTRAIT_EMOTION_FRAMES: Dictionary = {
 	"neutral": 0,
@@ -71,12 +77,20 @@ func _ready() -> void:
 			continue
 		choice_button.process_mode = Node.PROCESS_MODE_ALWAYS
 		choice_button.mouse_filter = Control.MOUSE_FILTER_STOP
+		choice_button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		choice_button.clip_text = true
+		choice_button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		var callback := Callable(self, "_on_choice_button_pressed").bind(index)
 		if not choice_button.pressed.is_connected(callback):
 			choice_button.pressed.connect(callback)
 
 	hide_dialog()
 	
+
+func _input(event: InputEvent) -> void:
+	if is_active and is_close_dialogue_event(event):
+		hide_dialog()
+		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if ignore_next_input:
@@ -88,19 +102,27 @@ func _unhandled_input(event: InputEvent) -> void:
 			show_dialog()
 		return
 
+	if is_close_dialogue_event(event):
+		hide_dialog()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event.is_action_pressed("Interact") or event.is_action_pressed("Mouse_Left_Click"):
 		if current_node_has_choices and not is_typing:
 			# Manually check if click hit a choice button
 			var mouse_pos := get_viewport().get_mouse_position()
 			for index in range(choice_buttons.size()):
 				var btn: Button = choice_buttons[index]
-				if btn != null and btn.visible and btn.get_global_rect().has_point(mouse_pos):
+				if btn != null and btn.visible and not btn.disabled and btn.get_global_rect().has_point(mouse_pos):
 					_on_choice_button_pressed(index)
 					get_viewport().set_input_as_handled()
 					return
 			# Clicked but missed all buttons — do nothing
 			return
 		advance_dialogue()
+
+func is_close_dialogue_event(event: InputEvent) -> bool:
+	return event.is_action_pressed("ui_cancel") or event.is_action_pressed("Pause") or event.is_action_pressed("Exit Menu")
 
 func _process(delta: float) -> void:
 	if not is_active or not is_typing:
@@ -123,12 +145,12 @@ func _process(delta: float) -> void:
 	if text_label.visible_characters >= current_text_character_count:
 		finish_typewriter()
 
-func show_dialog() -> void:
+func show_dialog() -> bool:
 	if dialog_ui == null:
-		return
+		return false
 
 	if not load_dialogue_file(dialogue_file_path):
-		return
+		return false
 
 	is_active = true
 	process_mode = Node.PROCESS_MODE_ALWAYS 
@@ -137,7 +159,11 @@ func show_dialog() -> void:
 	Global.is_in_menu = true
 	get_tree().paused = true
 	ignore_next_input = true
-	show_node(dialogue_data.get("start", ""))
+	var start_node = dialogue_start_node_id.strip_edges()
+	if start_node.is_empty():
+		start_node = str(dialogue_data.get("start", ""))
+	show_node(start_node)
+	return is_active
 
 func hide_dialog() -> void:
 	if dialog_ui == null:
@@ -153,6 +179,8 @@ func hide_dialog() -> void:
 	typewriter_current_delay = typewriter_base_delay
 	current_text_character_count = 0
 	ignore_next_input = false
+	dialogue_start_node_id = ""
+	dialogue_context = {}
 	if speaker_label != null:
 		speaker_label.text = ""
 	var text_label := get_active_body_text()
@@ -201,6 +229,14 @@ func show_node(node_id: String) -> void:
 		return
 
 	var node_data: Dictionary = dialogue_nodes[node_id]
+	var bond_random_next: Variant = node_data.get("bond_random_next", {})
+	if typeof(bond_random_next) == TYPE_DICTIONARY:
+		var bond_tier = str(dialogue_context.get("bond_tier", ""))
+		var possible_next: Variant = bond_random_next.get(bond_tier, bond_random_next.get("default", []))
+		if typeof(possible_next) == TYPE_ARRAY and possible_next.size() > 0:
+			show_node(str(possible_next.pick_random()))
+			return
+
 	var random_next: Variant = node_data.get("random_next", [])
 	if typeof(random_next) == TYPE_ARRAY and random_next.size() > 0:
 		show_node(str(random_next.pick_random()))
@@ -330,11 +366,37 @@ func update_choices(node_data: Dictionary) -> void:
 			var choice_data: Dictionary = current_choices[index]
 			choice_button.text = str(choice_data.get("text", "Choice"))
 			choice_button.visible = true
-			choice_button.disabled = false
+			choice_button.disabled = is_choice_disabled(choice_data)
+			if choice_button.disabled and bool(choice_data.get("daily_talk_bond", false)):
+				choice_button.text = "%s (Done)" % choice_button.text
 		else:
 			choice_button.visible = false
 
+	update_choice_container_width()
 	set_choices_visible(false)
+
+func is_choice_disabled(choice_data: Dictionary) -> bool:
+	if bool(choice_data.get("daily_talk_bond", false)):
+		return not bool(dialogue_context.get("can_daily_talk", true))
+	return false
+
+func update_choice_container_width() -> void:
+	if choices_container == null:
+		return
+
+	var widest_text_width: float = 0.0
+	for index in range(choice_buttons.size()):
+		var choice_button: Button = choice_buttons[index]
+		if choice_button == null or not choice_button.visible:
+			continue
+
+		var font := choice_button.get_theme_font("font")
+		var font_size := choice_button.get_theme_font_size("font_size")
+		if font != null:
+			widest_text_width = max(widest_text_width, font.get_string_size(choice_button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x)
+
+	var desired_width: float = clampf(widest_text_width + CHOICE_TEXT_PADDING, CHOICE_MIN_WIDTH, CHOICE_MAX_WIDTH)
+	choices_container.offset_left = choices_container.offset_right - desired_width
 
 
 
@@ -344,10 +406,14 @@ func show_choices() -> void:
 func _on_choice_button_pressed(choice_index: int) -> void:
 	if choice_index < 0 or choice_index >= current_choices.size():
 		return
+	if choice_index < choice_buttons.size():
+		var choice_button: Button = choice_buttons[choice_index]
+		if choice_button != null and choice_button.disabled:
+			return
 
 	var choice_data: Dictionary = current_choices[choice_index]
 	var action: String = str(choice_data.get("action", "")).strip_edges()
-	if not action.is_empty():
+	if not action.is_empty() or choice_data.has("bond_delta") or bool(choice_data.get("daily_talk_bond", false)):
 		choice_action_requested.emit(action, choice_data)
 
 	var next_node: String = str(choice_data.get("next", ""))

@@ -127,6 +127,7 @@ radius = 245.58908
 [node name="NpcTemplate" type="Node2D" unique_id=823861239]
 script = ExtResource("1_orion1")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/orion_dialogue.json"
+npc_id = "orion"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736805]
 

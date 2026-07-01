@@ -11,7 +11,6 @@ var entire_party : Array[PartyMember]
 
 var money : int
 
-var current_location: String = "[Forest Dungeon: Floor 1]"
 var previous_coordinates : Vector2
 
 var current_encounter : encounters
@@ -24,13 +23,18 @@ var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
 
-var accepted_quest_list: Array[quests]
+const BOND_TIER_NAMES: Array[String] = [
+	"Stranger",
+	"Acquainted",
+	"Warmed",
+	"Kindred",
+	"Bound",
+	"True Bond"
+]
+const BOND_TIER_SIZE: int = 15
+const DAILY_TALK_BOND_EXP: int = 5
 
-@onready var party_slot_1 : PartyMember = load("res://assets/Party Members/Dwarf.tres")
-@onready var party_slot_2 : PartyMember = load("res://assets/Party Members/Mage.tres")
-@onready var party_slot_3 : PartyMember = load("res://assets/Party Members/Paladin.tres")
-
-@onready var party_list = [party_slot_1, party_slot_2, party_slot_3]
+var npc_bonds: Dictionary = {}
 
 enum Progression_Flags {
 	SEAL_1,
@@ -57,6 +61,7 @@ enum locations {
 }
 
 var current_loading_zone: String = ""
+var current_region: String = ""
 
 var location_paths = {
 	"Village": "res://scenes/main/Hearthwynn.tscn",
@@ -121,7 +126,10 @@ signal time_updated
 # Updates the current time
 func _physics_process(delta):
 	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
-
+	
+	if AreaStateManager.currently_transitioning:
+		return
+	
 	running_time += delta
 	if floor(running_time) == 1:
 		update_time()
@@ -168,6 +176,53 @@ func player_advanced_day(did_they_pass_out):
 	
 	if did_they_pass_out:
 		spawn_location = null
+
+func debug_skip_day() -> void:
+	player_advanced_day(false)
+	print("[Debug] Skipped to day ", current_day, ", year ", current_year)
+
+func ensure_npc_bond(npc_id: String) -> Dictionary:
+	if not npc_bonds.has(npc_id):
+		npc_bonds[npc_id] = {
+			"exp": 0,
+			"last_talk_day": -1
+		}
+	return npc_bonds[npc_id]
+
+func get_bond_tier_index(bond_exp: int) -> int:
+	if bond_exp <= BOND_TIER_SIZE:
+		return 0
+	return clampi(int((bond_exp - 1) / BOND_TIER_SIZE), 0, BOND_TIER_NAMES.size() - 1)
+
+func get_npc_bond_info(npc_id: String) -> Dictionary:
+	var bond_data = ensure_npc_bond(npc_id)
+	var bond_exp: int = int(bond_data.get("exp", 0))
+	var tier_index: int = get_bond_tier_index(bond_exp)
+	return {
+		"exp": bond_exp,
+		"tier_index": tier_index,
+		"tier_name": BOND_TIER_NAMES[tier_index],
+		"last_talk_day": int(bond_data.get("last_talk_day", -1))
+	}
+
+func add_npc_bond_exp(npc_id: String, amount: int, reason: String = "") -> Dictionary:
+	var bond_data = ensure_npc_bond(npc_id)
+	var old_exp: int = int(bond_data.get("exp", 0))
+	var new_exp: int = max(0, old_exp + amount)
+	bond_data["exp"] = new_exp
+	var info = get_npc_bond_info(npc_id)
+	print("[Bond] ", npc_id, " ", reason, " ", amount, " exp: ", old_exp, " -> ", new_exp, " tier: ", info["tier_name"])
+	return info
+
+func add_daily_talk_bond(npc_id: String) -> Dictionary:
+	var bond_data = ensure_npc_bond(npc_id)
+	if int(bond_data.get("last_talk_day", -1)) == current_day:
+		var info = get_npc_bond_info(npc_id)
+		print("[Bond] ", npc_id, " daily talk already claimed on day ", current_day, " exp: ", info["exp"], " tier: ", info["tier_name"])
+		return info
+
+	bond_data["last_talk_day"] = current_day
+	return add_npc_bond_exp(npc_id, DAILY_TALK_BOND_EXP, "daily talk")
 
 var controller_mapping: Dictionary = {
 	"up": "Controller_Up",
@@ -232,6 +287,16 @@ signal swapped_to_controller
 const MOUSE_DEADZONE: float = 2.0 
 
 func _input(event):
+	if event.is_action_pressed("test"):
+		if event is InputEventKey and event.echo:
+			return
+		if is_in_menu:
+			get_viewport().set_input_as_handled()
+			return
+		debug_skip_day()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event is InputEventJoypadButton:
 		set_using_controller(true)
 		swapped_to_controller.emit(true)
@@ -300,17 +365,8 @@ func load_save_data():
 		var data = json.data
 		
 		money = data["money"]
-		current_location = data["current_location"]
 		
 		previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
-		
-		party_slot_1 = load(data["party_slots"][0]["path"])
-		party_slot_2 = load(data["party_slots"][1]["path"])
-		party_slot_3 = load(data["party_slots"][2]["path"])
-				
-		party_slot_1.load_save_data(data["party_slots"][0])
-		party_slot_2.load_save_data(data["party_slots"][1])
-		party_slot_3.load_save_data(data["party_slots"][2])
 		
 		item_list.clear()
 		for path in data["item_list"]:
@@ -320,6 +376,8 @@ func load_save_data():
 			equipment_list.append(load(path))
 		for path in data["weapon_list"]:
 			weapon_list.append(load(path))
+		
+		npc_bonds = data.get("npc_bonds", {})
 		
 		progression_state.clear()
 		for key in data["progression_state"]:
@@ -333,22 +391,16 @@ func get_save_data() -> Dictionary:
 	var save_dict = {
 		"money": money,
 		"entire_party": _get_path_array(entire_party),
-		"current_location": current_location, 
 		"previous_coordinates": {
 			"x": previous_coordinates.x,
 			"y": previous_coordinates.y
 		},
 		"progression_state": progression_state,
-		
-		"party_slots": [
-			party_slot_1.get_save_stats(),
-			party_slot_2.get_save_stats(),
-			party_slot_3.get_save_stats()
-		],
-		
+	
 		"item_list": _get_path_array(item_list),
 		"equipment_list": _get_path_array(equipment_list),
 		"weapon_list": _get_path_array(weapon_list),
+		"npc_bonds": npc_bonds,
 	}
 	return save_dict
 

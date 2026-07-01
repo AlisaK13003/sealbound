@@ -1,15 +1,97 @@
 {
   "id": "kaela_001",
-  "start": "intro",
+  "start": "intro_stranger",
+  "bond_starts": {
+    "Stranger": "intro_stranger",
+    "Acquainted": "intro_acquainted",
+    "Warmed": "intro_warmed",
+    "Kindred": "intro_kindred",
+    "Bound": "intro_bound",
+    "True Bond": "intro_bound"
+  },
   "nodes": {
-    "intro": {
+    "intro_stranger": {
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "neutral",
-      "text": "Hello. If you're looking for the archive, I can point you the right way.",
+      "text": "Hello. If you are looking for the archive, I can point you the right way.",
       "choices": [
         {
           "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "intro_acquainted": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Hello again. I was just sorting records, but I can pause.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "intro_warmed": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Oh. Hi. I do not mind the company, if you are not in a rush.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "intro_kindred": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "I was hoping you might come by. I found something interesting.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
+    },
+    "intro_bound": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Come sit with me a while. The archive is quiet today.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
           "next": "talk_hub"
         },
         {
@@ -22,54 +104,322 @@
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "awkward",
-      "text": "You didn't need to bring anything. But... thank you.",
-      "next": "intro"
+      "text": "This feature is not implemented yet.",
+      "next": ""
     },
     "talk_hub": {
-      "random_next": [
-        "talk_a_1",
-        "talk_b_1",
-        "talk_c_1"
-      ]
+      "bond_random_next": {
+        "Stranger": [
+          "stranger_flavor_a",
+          "stranger_flavor_b",
+          "stranger_branch"
+        ],
+        "Acquainted": [
+          "acquainted_flavor_a",
+          "acquainted_flavor_b",
+          "acquainted_branch"
+        ],
+        "Warmed": [
+          "warmed_flavor_a",
+          "warmed_flavor_b",
+          "warmed_branch"
+        ],
+        "Kindred": [
+          "kindred_flavor_a",
+          "kindred_flavor_b",
+          "kindred_branch"
+        ],
+        "Bound": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ],
+        "True Bond": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ]
+      }
     },
-    "talk_a_1": {
+    "stranger_flavor_a": {
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "neutral",
-      "text": "I spend most of my time sorting old blueprints and repair notes.",
-      "next": "talk_a_2"
+      "text": "Most of these blueprints are older than they look. Dust hides good work."
     },
-    "talk_a_2": {
+    "stranger_flavor_b": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I play violin when no one is around. It helps me think."
+    },
+    "stranger_branch": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "People usually forget this room exists. Is that strange?",
+      "choices": [
+        {
+          "text": "It sounds important, even if it is quiet.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "stranger_good"
+        },
+        {
+          "text": "Some places are easy to miss.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "stranger_neutral"
+        },
+        {
+          "text": "Maybe it is forgotten for a reason.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "stranger_bad"
+        }
+      ]
+    },
+    "stranger_good": {
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "smile",
-      "text": "Someone has to remember what the village used to be built like."
+      "text": "I think so too. I am glad you said that."
     },
-    "talk_b_1": {
-      "speaker": "Kaela",
-      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "Attention is... not really my favorite thing.",
-      "next": "talk_b_2"
-    },
-    "talk_b_2": {
+    "stranger_neutral": {
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "neutral",
-      "text": "But quiet company is different. I do not mind that."
+      "text": "Yes. That is probably true."
     },
-    "talk_c_1": {
+    "stranger_bad": {
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "sad",
-      "text": "Sometimes I think the archive is easier to restore than people are.",
-      "next": "talk_c_2"
+      "text": "Maybe. I still think it is worth keeping."
     },
-    "talk_c_2": {
+    "acquainted_flavor_a": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I found a drainage plan for the lower road. It explains a lot, actually."
+    },
+    "acquainted_flavor_b": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Attention makes me nervous. Quiet questions are easier."
+    },
+    "acquainted_branch": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Do I seem distant? I do not mean to be rude.",
+      "choices": [
+        {
+          "text": "No. You just take your time.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "acquainted_good"
+        },
+        {
+          "text": "A little, but that is okay.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "acquainted_neutral"
+        },
+        {
+          "text": "Yes. It is hard to talk to you.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "acquainted_bad"
+        }
+      ]
+    },
+    "acquainted_good": {
       "speaker": "Kaela",
       "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
       "portrait_frame": "smile",
-      "text": "Still... I keep trying."
+      "text": "Thank you. That is a kind way to put it."
+    },
+    "acquainted_neutral": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I can live with a little."
+    },
+    "acquainted_bad": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "sad",
+      "text": "I see. I will... think about that."
+    },
+    "warmed_flavor_a": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I redrew part of the village layout last night. Just for practice."
+    },
+    "warmed_flavor_b": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I like being alone. But I like this too, somehow."
+    },
+    "warmed_branch": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Sometimes I have ideas and keep them to myself because no one asked.",
+      "choices": [
+        {
+          "text": "Good ideas are worth sharing.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "warmed_good"
+        },
+        {
+          "text": "It can be hard to know when.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "warmed_neutral"
+        },
+        {
+          "text": "If no one asked, maybe wait.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "warmed_bad"
+        }
+      ]
+    },
+    "warmed_good": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Maybe. I would like to believe that."
+    },
+    "warmed_neutral": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Exactly. That is the difficult part."
+    },
+    "warmed_bad": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "sad",
+      "text": "That is what I usually do."
+    },
+    "kindred_flavor_a": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I wrote a small melody today. It is unfinished, but I do not hate it."
+    },
+    "kindred_flavor_b": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You make it easier to talk before I have every sentence planned."
+    },
+    "kindred_branch": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Being seen still makes me nervous. Even by people I trust.",
+      "choices": [
+        {
+          "text": "We can go slowly.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "kindred_good"
+        },
+        {
+          "text": "Trust does not erase nerves.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "kindred_neutral"
+        },
+        {
+          "text": "You should be used to it by now.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "kindred_bad"
+        }
+      ]
+    },
+    "kindred_good": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Slowly sounds good. Thank you."
+    },
+    "kindred_neutral": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "No. I suppose it does not."
+    },
+    "kindred_bad": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Maybe. I am not there yet."
+    },
+    "bound_flavor_a": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I added a garden space to one of my archive plans. It felt unnecessary. Then it felt right."
+    },
+    "bound_flavor_b": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I am glad you know this part of me. Nervous, but glad."
+    },
+    "bound_branch": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "If I show people what I have been working on, will you stand with me?",
+      "choices": [
+        {
+          "text": "Of course. You should not have to do it alone.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "bound_good"
+        },
+        {
+          "text": "I can be there if you want me.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "bound_neutral"
+        },
+        {
+          "text": "You need to handle your own work.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "bound_bad"
+        }
+      ]
+    },
+    "bound_good": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Thank you. That makes it feel possible."
+    },
+    "bound_neutral": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I do want that. I think."
+    },
+    "bound_bad": {
+      "speaker": "Kaela",
+      "portrait_sheet": "res://assets/characters/kaela/Kaela_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Right. I know it is mine."
     }
   }
 }

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dm0c2qg03a00n"]
+
+[ext_resource type="Script" uid="uid://7r40t3f4ovnb" path="res://scenes/main/start_screen_handler.gd" id="1_ux88v"]
+
+[node name="BasicStartScreen" type="Control" unique_id=1723522419]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ux88v")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=215174806]
+position = Vector2(324, 161)
+
+[node name="Button" type="Button" parent="." unique_id=544804266]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 131.0
+offset_right = 314.0
+offset_bottom = 157.0
+text = "Start"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -14,16 +14,13 @@ func _ready():
 	Global.save_loaded.connect(_on_game_start)
 
 func _on_game_start():
+	return
 	Global.item_list_updated.connect(update_item_menu)
 	for item in Global.item_list:
 		var new_item = item_scene.instantiate()
 		new_item.setup(item)
 		new_item.item_clicked.connect(display_item_clicked)
 		item_container.add_child(new_item)
-		
-	setup_party_card(Global.party_slot_1, 0)
-	setup_party_card(Global.party_slot_2, 1)
-	setup_party_card(Global.party_slot_3, 2)
 
 
 func setup_party_card(member: PartyMember, which_thing):

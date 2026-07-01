@@ -106,6 +106,7 @@ layout_mode = 2
 text = "Forest Dungeon, 7g"
 
 [node name="Am_I_Accepted" type="TextureRect" parent="." unique_id=968134524]
+visible = false
 layout_mode = 0
 offset_left = 414.0
 offset_top = 25.0
