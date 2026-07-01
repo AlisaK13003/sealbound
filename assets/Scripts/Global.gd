@@ -23,6 +23,19 @@ var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
 
+const BOND_TIER_NAMES: Array[String] = [
+	"Stranger",
+	"Acquainted",
+	"Warmed",
+	"Kindred",
+	"Bound",
+	"True Bond"
+]
+const BOND_TIER_SIZE: int = 15
+const DAILY_TALK_BOND_EXP: int = 5
+
+var npc_bonds: Dictionary = {}
+
 enum Progression_Flags {
 	SEAL_1,
 	SEAL_2,
@@ -164,6 +177,53 @@ func player_advanced_day(did_they_pass_out):
 	if did_they_pass_out:
 		spawn_location = null
 
+func debug_skip_day() -> void:
+	player_advanced_day(false)
+	print("[Debug] Skipped to day ", current_day, ", year ", current_year)
+
+func ensure_npc_bond(npc_id: String) -> Dictionary:
+	if not npc_bonds.has(npc_id):
+		npc_bonds[npc_id] = {
+			"exp": 0,
+			"last_talk_day": -1
+		}
+	return npc_bonds[npc_id]
+
+func get_bond_tier_index(bond_exp: int) -> int:
+	if bond_exp <= BOND_TIER_SIZE:
+		return 0
+	return clampi(int((bond_exp - 1) / BOND_TIER_SIZE), 0, BOND_TIER_NAMES.size() - 1)
+
+func get_npc_bond_info(npc_id: String) -> Dictionary:
+	var bond_data = ensure_npc_bond(npc_id)
+	var bond_exp: int = int(bond_data.get("exp", 0))
+	var tier_index: int = get_bond_tier_index(bond_exp)
+	return {
+		"exp": bond_exp,
+		"tier_index": tier_index,
+		"tier_name": BOND_TIER_NAMES[tier_index],
+		"last_talk_day": int(bond_data.get("last_talk_day", -1))
+	}
+
+func add_npc_bond_exp(npc_id: String, amount: int, reason: String = "") -> Dictionary:
+	var bond_data = ensure_npc_bond(npc_id)
+	var old_exp: int = int(bond_data.get("exp", 0))
+	var new_exp: int = max(0, old_exp + amount)
+	bond_data["exp"] = new_exp
+	var info = get_npc_bond_info(npc_id)
+	print("[Bond] ", npc_id, " ", reason, " ", amount, " exp: ", old_exp, " -> ", new_exp, " tier: ", info["tier_name"])
+	return info
+
+func add_daily_talk_bond(npc_id: String) -> Dictionary:
+	var bond_data = ensure_npc_bond(npc_id)
+	if int(bond_data.get("last_talk_day", -1)) == current_day:
+		var info = get_npc_bond_info(npc_id)
+		print("[Bond] ", npc_id, " daily talk already claimed on day ", current_day, " exp: ", info["exp"], " tier: ", info["tier_name"])
+		return info
+
+	bond_data["last_talk_day"] = current_day
+	return add_npc_bond_exp(npc_id, DAILY_TALK_BOND_EXP, "daily talk")
+
 var controller_mapping: Dictionary = {
 	"up": "Controller_Up",
 	"down": "Controller_Down",
@@ -227,6 +287,16 @@ signal swapped_to_controller
 const MOUSE_DEADZONE: float = 2.0 
 
 func _input(event):
+	if event.is_action_pressed("test"):
+		if event is InputEventKey and event.echo:
+			return
+		if is_in_menu:
+			get_viewport().set_input_as_handled()
+			return
+		debug_skip_day()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event is InputEventJoypadButton:
 		set_using_controller(true)
 		swapped_to_controller.emit(true)
@@ -307,6 +377,8 @@ func load_save_data():
 		for path in data["weapon_list"]:
 			weapon_list.append(load(path))
 		
+		npc_bonds = data.get("npc_bonds", {})
+		
 		progression_state.clear()
 		for key in data["progression_state"]:
 			progression_state[int(key)] = data["progression_state"][key]
@@ -328,6 +400,7 @@ func get_save_data() -> Dictionary:
 		"item_list": _get_path_array(item_list),
 		"equipment_list": _get_path_array(equipment_list),
 		"weapon_list": _get_path_array(weapon_list),
+		"npc_bonds": npc_bonds,
 	}
 	return save_dict
 

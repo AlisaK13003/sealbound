@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://datq6qhi06hr1"]
 
-[ext_resource type="Texture2D" uid="uid://3go0bpsqqpe7" path="res://assets/characters/rowan/Rowan_Idle.png" id="1_41pb7"]
+[ext_resource type="Texture2D" uid="uid://3go0bpsqqpe7" path="res://assets/characters/rowan/rowan_idle.png" id="1_41pb7"]
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="1_ju324"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_207i5"]
