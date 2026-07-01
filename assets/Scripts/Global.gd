@@ -13,6 +13,8 @@ var money : int
 
 var current_location: String = "Village"
 var previous_coordinates : Vector2
+var saved_position: Vector2 = Vector2.ZERO
+var loading_from_save: bool = false
 
 var current_encounter : encounters
 

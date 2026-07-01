@@ -775,4 +775,4 @@ z_index = 10
 position = Vector2(1777, -1070)
 scale = Vector2(0.27999023, 0.27999023)
 location_container = NodePath("../BuildingLocationContainer")
-speed = 200.0
+speed = 50.0
