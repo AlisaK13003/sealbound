@@ -15,20 +15,24 @@ const SLOT_COUNT = 3
 	
 func _ready():
 	print("overworld player count: ", get_tree().get_nodes_in_group("Overworld_Player").size())
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
-	load_btn.pressed.connect(_set_mode.bind(Mode.LOAD))
-	delete_btn.pressed.connect(_delete_selected)
+	if Global.loading_from_save:
+		global_position = Global.saved_position
+		Global.loading_from_save = false
+	else:
+		process_mode = Node.PROCESS_MODE_ALWAYS
+		save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
+		load_btn.pressed.connect(_set_mode.bind(Mode.LOAD))
+		delete_btn.pressed.connect(_delete_selected)
 	
-	for i in SLOT_COUNT:
-		slot_container.get_child(i).pressed.connect(_slot_pressed.bind(i))
+		for i in SLOT_COUNT:
+			slot_container.get_child(i).pressed.connect(_slot_pressed.bind(i))
 	
 	# Make sure save directory exists
-	if not DirAccess.dir_exists_absolute(SAVE_DIR):
-		DirAccess.make_dir_absolute(SAVE_DIR)
+		if not DirAccess.dir_exists_absolute(SAVE_DIR):
+			DirAccess.make_dir_absolute(SAVE_DIR)
 	
-	_set_mode(Mode.SAVE)
-	refresh_slots()
+		_set_mode(Mode.SAVE)
+		refresh_slots()
 
 func _set_mode(mode: Mode):
 	current_mode = mode
@@ -121,8 +125,6 @@ func _apply_save_data(data: Dictionary):
 	if data.has("player_position"):
 		Global.saved_position = Vector2(data["player_position"]["x"], data["player_position"]["y"])
 		Global.loading_from_save = true
-		
-	Global.current_loading_zone = "" 
 	get_tree().paused = false
 	get_tree().change_scene_to_file(Global.location_paths.get(data["current_location"], "res://scenes/main/Hearthwynn.tscn"))
 
