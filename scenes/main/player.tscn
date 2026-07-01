@@ -168,9 +168,9 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
-visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
+visible = false
 z_index = 100
 offset_top = -47.0
 offset_bottom = -47.0

@@ -113,7 +113,10 @@ signal time_updated
 # Updates the current time
 func _physics_process(delta):
 	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
-
+	
+	if AreaStateManager.currently_transitioning:
+		return
+	
 	running_time += delta
 	if floor(running_time) == 1:
 		update_time()

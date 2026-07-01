@@ -14,6 +14,7 @@ func _ready():
 	Global.save_loaded.connect(_on_game_start)
 
 func _on_game_start():
+	return
 	Global.item_list_updated.connect(update_item_menu)
 	for item in Global.item_list:
 		var new_item = item_scene.instantiate()

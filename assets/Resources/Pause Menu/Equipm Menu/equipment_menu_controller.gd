@@ -24,6 +24,7 @@ func _ready():
 	Global.save_loaded.connect(_on_game_start)
 
 func _on_game_start():
+	return
 	Global.item_list_updated.connect(update_menu)
 	
 	for child in sub_menus.get_children():

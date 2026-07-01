@@ -21,7 +21,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	var direction : Vector2 = Vector2.ZERO
-	if Global.is_in_menu or Fade.is_fading:
+	if Global.is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return

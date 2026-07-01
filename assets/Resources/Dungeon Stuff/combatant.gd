@@ -33,6 +33,7 @@ class_name generic_combatants
 @export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
 
 @export var total_experience_points: int
+@export var toatl_bond_points: int = 0
 
 @export var bond_level: GlobalCombatInformation.bonds
 

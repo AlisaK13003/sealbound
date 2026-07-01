@@ -113,13 +113,15 @@ func navigate():
 		return
 	if walking == true:
 		return
+	if not is_inside_tree() or get_tree().current_scene == null:
+		return
 	for schedule_name in schedule_info["schedules"]:
 		var details = schedule_info["schedules"][schedule_name]
 		var path = get_tree().current_scene.scene_file_path
 		if details["scene_swap"] == 1 and details["2_start_time_hour"] != 0:
 			if details["start_scene"] == path:
 				if check_time(details["start_time_hour"], details["start_time_minute"], 2):
-					print("NOT TIME YET")
+					#print("NOT TIME YET")
 					return
 				elif check_time(details["start_time_hour"], details["start_time_minute"], 1):
 					self.visible = true

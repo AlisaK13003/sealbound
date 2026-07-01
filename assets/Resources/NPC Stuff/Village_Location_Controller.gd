@@ -16,7 +16,6 @@ func convert_to_int(child):
 	for thing in child.connected_node_names:
 		if thing == null:
 			break
-		print(thing)
 		new_thing.append(self.get_node(thing).get_index())
 	return new_thing
 
