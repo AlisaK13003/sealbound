@@ -68,6 +68,7 @@ func _save_to_slot(index: int):
 	data["play_time_hours"] = Global.play_time_hours
 	data["play_time_minutes"] = Global.play_time_minutes
 	data["play_time_seconds"] = Global.play_time_seconds
+	data["combat"] = GlobalCombatInformation.export_to_JSON()
 	
 	var json_string = JSON.stringify(data, "\t")
 	var file = FileAccess.open(SAVE_DIR + "slot_%d.json" % index, FileAccess.WRITE)
@@ -117,6 +118,10 @@ func _apply_save_data(data: Dictionary):
 	Global.save_loaded.emit()
 	Global.time_updated.emit()
 	
+	
+	if data.has("combat"):
+		GlobalCombatInformation.load_saved_data(data["combat"]) 
+		
 	# Unpause and load the scene
 	if data.has("player_position"):
 		Global.saved_position = Vector2(data["player_position"]["x"], data["player_position"]["y"])

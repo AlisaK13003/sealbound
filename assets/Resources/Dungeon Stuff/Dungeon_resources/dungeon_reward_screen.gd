@@ -42,6 +42,7 @@ func _physics_process(delta):
 
 func _leave_rewards_screen():
 	if not next_button.visible:
+		Global.money = GlobalCombatInformation.currency_held 
 		Global.current_location = "Village"
 		Global.current_loading_zone = "Infirmary_Spawn"
 		await Fade.fade_in(1)		
