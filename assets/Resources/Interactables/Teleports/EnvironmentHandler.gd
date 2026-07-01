@@ -7,7 +7,7 @@ extends Node2D
 func swap_to_me():
 	teleport_player_to_spawn()
 	set_camera_limits()
-	await get_tree().create_timer(0.75).timeout
+	#await get_tree().create_timer(0.75).timeout
 	await Fade.fade_out(0.5)
 
 func teleport_player_to_spawn():
@@ -15,15 +15,15 @@ func teleport_player_to_spawn():
 	if Global.current_loading_zone == "":
 		return
 	elif Global.current_loading_zone == "Bedroom":
-		spawn_point = find_child(Global.current_loading_zone, true, false).get_child(0)
+		spawn_point = find_child(Global.current_loading_zone, true, false).find_child("LoadingZone", true, false)
 	else:
-		spawn_point = find_child(Global.current_loading_zone, true, false)
+		spawn_point = find_child(Global.current_loading_zone, true, false).find_child("LoadingZone", true, false)
 	
-	if is_building_insides:
-		spawn_point = spawn_point.get_child(1)
-	else:
-		spawn_point = spawn_point.get_child(0)
-
+	#if is_building_insides:
+	#	spawn_point = spawn_point
+	#else:
+	#	spawn_point = spawn_point.get_child(0)
+	spawn_point.is_disabled = true
 	if spawn_point:
 		if player_node:
 			player_node.global_position = spawn_point.global_position

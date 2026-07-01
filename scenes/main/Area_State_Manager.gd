@@ -30,14 +30,20 @@ func _ready():
 	building_insides_instance = building_insides.instantiate()
 
 func swap_scene(scene_to_remove = null):
+	_perform_swap_scene.call_deferred(scene_to_remove)
+
+func _perform_swap_scene(scene_to_remove = null):
 	currently_transitioning = true
 	var scene_to_swap_to: Node = null
-	print(get_tree().current_scene.get_path())
 	
 	if scene_to_remove != null:
 		active_scene = scene_to_remove
-	if active_scene != null:
-		get_tree().root.call_deferred("remove_child", active_scene)
+		
+	if active_scene == null:
+		active_scene = get_tree().current_scene
+		
+	if active_scene != null and active_scene.get_parent() != null:
+		active_scene.get_parent().remove_child(active_scene)
 		
 	match Global.current_region:
 		"Buildings_Insides":
@@ -51,13 +57,16 @@ func swap_scene(scene_to_remove = null):
 		_:
 			scene_to_swap_to = hearthwynn_instance 
 	
-	get_tree().root.call_deferred("add_child", scene_to_swap_to)
+	get_tree().root.add_child(scene_to_swap_to)
 	
-	await get_tree().process_frame
-		
-	active_scene = scene_to_swap_to
-	active_scene.swap_to_me()
+	scene_to_swap_to.swap_to_me()
+	
 	get_tree().current_scene = scene_to_swap_to
-	await get_tree().process_frame
+	
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	
+	active_scene = scene_to_swap_to
+	Global.current_loading_zone = "" 
 	currently_transitioning = false
 	

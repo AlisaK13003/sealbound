@@ -35,7 +35,6 @@ func fade_in(duration: float):
 	if is_fading:
 		return
 	is_fading = true
-	print("FADING")
 	if use_gradient:
 		fade_thing.texture = fade_thing.texture.duplicate()
 		grad_tex = fade_thing.texture
