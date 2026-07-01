@@ -15,8 +15,11 @@ func _ready() -> void:
 	print("[PLAYER] scene=", get_tree().current_scene.scene_file_path,
 		" parent=", get_parent().get_path(),
 		" total=", get_tree().get_nodes_in_group("Overworld_Player").size())
+		
+	if Global.loading_from_save:
+		global_position = Global.saved_position
+		Global.loading_from_save = false
 	$Camera2D.reset_smoothing()
-	Global.load_save_data()
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
 func _process(_delta: float) -> void:
