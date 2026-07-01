@@ -52,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6a6ya")
-tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "System"])
+tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "Save/Load", "System"])
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
 layout_mode = 0
@@ -88,6 +88,10 @@ menu_parent = NodePath("../..")
 visible = false
 layout_mode = 1
 menu_parent = NodePath("../..")
+
+[node name="SaveLoadMenu" parent="Windows" unique_id=253660476 instance=ExtResource("10_mqkyk")]
+visible = false
+layout_mode = 1
 
 [node name="SystemMenu" parent="Windows" unique_id=893803557 instance=ExtResource("11_35xr2")]
 visible = false
@@ -181,7 +185,7 @@ offset_top = -105.99994
 offset_right = 597.0
 offset_bottom = 427.00006
 scale = Vector2(0.8, 0.8)
-mouse_filter = 1
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qffmw")
 
 [node name="MenuChrome" type="Control" parent="." unique_id=1770658802]
@@ -230,5 +234,5 @@ offset_top = -36.0
 offset_right = 280.33508
 offset_bottom = 250.50006
 scale = Vector2(0.8, 0.8)
-mouse_filter = 1
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rk1u6")

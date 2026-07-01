@@ -42,12 +42,13 @@ func refresh_slots():
 			var json = JSON.new()
 			if json.parse(file.get_as_text()) == OK:
 				var data = json.data
+				var saved_location = _get_saved_location(data)
 				var playtime = "%d:%02d:%02d" % [
 					data.get("play_time_hours", 0),
 					data.get("play_time_minutes", 0),
 					data.get("play_time_seconds", 0)
 				]
-				btn.text = "Slot %d  |  %s  |  %s" % [i + 1, data.get("current_location", "???"), playtime]
+				btn.text = "Slot %d  |  %s  |  %s" % [i + 1, saved_location, playtime]
 			else:
 				btn.text = "Slot %d  |  Corrupted" % (i + 1)
 		else:
@@ -71,7 +72,9 @@ func _save_to_slot(index: int):
 	var file = FileAccess.open(SAVE_DIR + "slot_%d.json" % index, FileAccess.WRITE)
 	if file:
 		file.store_string(json_string)
-	refresh_slots()
+		file.flush()
+		file = null
+	call_deferred("refresh_slots")
 
 func _load_from_slot(index: int):
 	var path = SAVE_DIR + "slot_%d.json" % index
@@ -85,32 +88,32 @@ func _load_from_slot(index: int):
 		_apply_save_data(json.data)
 
 func _apply_save_data(data: Dictionary):
-	# Same logic as your load_save_data but takes a dict directly
-	Global.money = data["money"]
-	Global.current_location = data["current_location"]
-	Global.previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
+	var saved_location = _get_saved_location(data)
+	Global.money = data.get("money", Global.money)
+	Global.current_location = saved_location
+	Global.current_region = saved_location
 	
-	Global.party_slot_1 = load(data["party_slots"][0]["path"])
-	Global.party_slot_2 = load(data["party_slots"][1]["path"])
-	Global.party_slot_3 = load(data["party_slots"][2]["path"])
-	Global.party_slot_1.load_save_data(data["party_slots"][0])
-	Global.party_slot_2.load_save_data(data["party_slots"][1])
-	Global.party_slot_3.load_save_data(data["party_slots"][2])
+	if data.has("previous_coordinates"):
+		Global.previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
 	
 	Global.item_list.clear()
-	for path in data["item_list"]:
+	for path in data.get("item_list", []):
 		Global.item_list.append(load(path))
 	Global.equipment_list.clear()
-	for path in data["equipment_list"]:
+	for path in data.get("equipment_list", []):
 		Global.equipment_list.append(load(path))
 	Global.weapon_list.clear()
-	for path in data["weapon_list"]:
+	for path in data.get("weapon_list", []):
 		Global.weapon_list.append(load(path))
 	
-	Global.progression_state.clear()
-	for key in data["progression_state"]:
-		Global.progression_state[int(key)] = data["progression_state"][key]
+	if data.has("npc_bonds"):
+		Global.npc_bonds = data["npc_bonds"]
 	
+	if data.has("progression_state"):
+		Global.progression_state.clear()
+		for key in data["progression_state"]:
+			Global.progression_state[key] = data["progression_state"][key]
+
 	Global.save_loaded.emit()
 	Global.time_updated.emit()
 	
@@ -119,9 +122,15 @@ func _apply_save_data(data: Dictionary):
 		Global.saved_position = Vector2(data["player_position"]["x"], data["player_position"]["y"])
 		Global.loading_from_save = true
 
-	Global.current_loading_zone = ""
+	Global.current_loading_zone = data.get("current_loading_zone", "")
 	get_tree().paused = false
-	get_tree().change_scene_to_file(Global.location_paths.get(data["current_location"], "res://scenes/main/Hearthwynn.tscn"))
+	get_tree().change_scene_to_file(Global.location_paths.get(saved_location, "res://scenes/main/Hearthwynn.tscn"))
+
+func _get_saved_location(data: Dictionary) -> String:
+	var region = data.get("current_region", "")
+	if Global.location_paths.has(region):
+		return region
+	return data.get("current_location", "Village")
 
 func _delete_selected():
 	if selected_slot < 0:

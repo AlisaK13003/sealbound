@@ -414,17 +414,33 @@ func load_save_data():
 		time_updated.emit()
 	else:
 		print("Parse Error: ", json.get_error_message())
-	
+
 func get_save_data() -> Dictionary:
+	var player_node = get_tree().get_first_node_in_group("Overworld_Player")
+	var player_position = saved_position
+	if player_node:
+		player_position = player_node.global_position
+
+	var save_region = current_region
+	if not location_paths.has(save_region):
+		save_region = current_location
+
 	var save_dict = {
 		"money": money,
+		"current_location": save_region,
+		"current_loading_zone": current_loading_zone,
+		"current_region": save_region,
+		"player_position": {
+			"x": player_position.x,
+			"y": player_position.y
+		},
 		"entire_party": _get_path_array(entire_party),
 		"previous_coordinates": {
 			"x": previous_coordinates.x,
 			"y": previous_coordinates.y
 		},
 		"progression_state": progression_state,
-	
+
 		"item_list": _get_path_array(item_list),
 		"equipment_list": _get_path_array(equipment_list),
 		"weapon_list": _get_path_array(weapon_list),

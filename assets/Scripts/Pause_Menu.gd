@@ -41,6 +41,11 @@ func _ready():
 	menu_tab._setup(tab_names)
 	menu_tab.selection_changed.connect(tab_changed)
 	menu_tab.cycle_input(null, 0)
+	_reset_tabbed_menu()
+
+func _notification(what):
+	if what == NOTIFICATION_VISIBILITY_CHANGED and is_node_ready() and visible:
+		_reset_tabbed_menu()
 	
 func tab_changed(which_tab):
 	for child in range(windows.get_child_count()):
@@ -113,13 +118,21 @@ func change_selection(option):
 func close_menu():
 	visible = false
 	get_tree().paused = false
-	# Reset sub-menu state
+	_reset_tabbed_menu()
+	in_sub_menu = false
+
+func _reset_tabbed_menu():
 	for child in sub_menus.get_children():
 		child.visible = false
-	menu_chrome.visible = true
-	start_menu.visible = true
+	sub_menus.visible = false
+	menu_chrome.visible = false
+	start_menu.visible = false
 	in_sub_menu = false
 	
+	if is_instance_valid(menu_tab):
+		menu_tab.current_selection = 0
+		menu_tab.change_selection()
+
 func menu_swap(selected_option_):
 	for child in sub_menus.get_children():
 		child.visible = false

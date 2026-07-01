@@ -41,7 +41,7 @@ func _setup(tab_names_, custom_tab: String = ""):
 			child._update_size(largest_name)
 			
 		if not be_vertical:
-			self.add_theme_constant_override("h_separation", largest_name + 5)
+			self.add_theme_constant_override("h_separation", 8)
 			
 
 func _input(event):
