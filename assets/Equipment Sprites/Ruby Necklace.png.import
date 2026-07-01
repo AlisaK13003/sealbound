@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mx71qgegni6"
-path="res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"
+uid="uid://o4q3ds3kg3k"
+path="res://.godot/imported/Ruby Necklace.png-6b6658a9e0a2b0ba34a4a3b54b2912be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Interactables/Quests (2)/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"]
+source_file="res://assets/Equipment Sprites/Ruby Necklace.png"
+dest_files=["res://.godot/imported/Ruby Necklace.png-6b6658a9e0a2b0ba34a4a3b54b2912be.ctex"]
 
 [params]
 

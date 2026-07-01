@@ -1,19 +1,13 @@
 [gd_scene format=3 uid="uid://bueo7m313ndrv"]
 
-[ext_resource type="PackedScene" uid="uid://cwogyg7mocf2x" path="res://assets/Resources/Pause Menu/Base_Party_Card_Info.tscn" id="1_5xuh3"]
+[ext_resource type="Texture2D" uid="uid://cxr605a4myfc8" path="res://assets/Sprites/Under.png" id="1_yerfj"]
+[ext_resource type="Script" uid="uid://nttxmw3i6x8f" path="res://assets/Resources/Pause Menu/Bond Menu/bond_menu_controller.gd" id="1_yf0pv"]
+[ext_resource type="Texture2D" uid="uid://c0brccdfdhkyo" path="res://assets/Sprites/Over.png" id="2_yf0pv"]
+[ext_resource type="Texture2D" uid="uid://bosjxi2j4hwlj" path="res://assets/Sprites/Progress.png" id="3_0xduo"]
+[ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="4_px6aj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bl72"]
-bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
-skew = Vector2(0.105, 0)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-expand_margin_left = 20.0
-expand_margin_right = 20.0
-shadow_size = 18
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar5ax"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
+skew = Vector2(0.1, 0)
 
 [node name="BondMenu" type="Control" unique_id=1832381352]
 layout_mode = 3
@@ -22,101 +16,118 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yf0pv")
 
-[node name="Panel" type="Panel" parent="." unique_id=388529420]
-z_index = -2
+[node name="Panel" type="Panel" parent="." unique_id=1445247596]
 layout_mode = 0
-offset_left = -344.0
-offset_top = -119.0
-offset_right = 611.0
-offset_bottom = 414.0
-scale = Vector2(0.8, 0.8)
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_3bl72")
+offset_left = -15.0
+offset_top = -7.0
+offset_right = 443.0
+offset_bottom = 95.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
 
-[node name="BasePartyCardInfo" parent="." unique_id=988666486 instance=ExtResource("1_5xuh3")]
-layout_mode = 1
-offset_left = 38.0
-offset_top = 4.0
-offset_right = 38.0
-offset_bottom = 4.0
-
-[node name="Panel2" type="Panel" parent="BasePartyCardInfo" unique_id=606601185]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.009000001
-anchor_top = 0.16600001
-anchor_right = 0.009000001
-anchor_bottom = 0.18
-offset_left = -110.28
-offset_top = -20.280014
-offset_right = 24.72
-offset_bottom = -4.400009
-theme_override_styles/panel = SubResource("StyleBoxFlat_ar5ax")
-
-[node name="Label" type="Label" parent="BasePartyCardInfo/Panel2" unique_id=1199733885]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1251484645]
 layout_mode = 0
-offset_right = 125.0
-offset_bottom = 31.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Bond Level"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 17.0
+offset_top = 7.0
+offset_right = 404.0
+offset_bottom = 23.0
+nine_patch_stretch = true
+stretch_margin_left = 122
+stretch_margin_top = 5
+stretch_margin_right = 122
+stretch_margin_bottom = 6
+texture_under = ExtResource("1_yerfj")
+texture_over = ExtResource("2_yf0pv")
+texture_progress = ExtResource("3_0xduo")
 
-[node name="BasePartyCardInfo2" parent="." unique_id=1452607455 instance=ExtResource("1_5xuh3")]
-layout_mode = 1
-offset_left = 291.0
-offset_top = 121.0
-offset_right = 291.0
-offset_bottom = 121.0
-
-[node name="Panel2" type="Panel" parent="BasePartyCardInfo2" unique_id=1536718459]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.009000001
-anchor_top = 0.16600001
-anchor_right = 0.009000001
-anchor_bottom = 0.18
-offset_left = -85.28
-offset_top = -390.28003
-offset_right = 36.72
-offset_bottom = -372.40002
-theme_override_styles/panel = SubResource("StyleBoxFlat_ar5ax")
-
-[node name="Label" type="Label" parent="BasePartyCardInfo2/Panel2" unique_id=2143884298]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1550151519]
 layout_mode = 0
-offset_right = 125.0
-offset_bottom = 31.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Bond Level"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 419.0
+offset_bottom = 38.0
+theme_override_constants/separation = 45
 
-[node name="BasePartyCardInfo3" parent="." unique_id=1468029342 instance=ExtResource("1_5xuh3")]
-layout_mode = 1
-offset_left = -231.0
-offset_top = 121.0
-offset_right = -231.0
-offset_bottom = 121.0
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=154694661]
+layout_mode = 2
+texture = ExtResource("4_px6aj")
+stretch_mode = 2
 
-[node name="Panel2" type="Panel" parent="BasePartyCardInfo3" unique_id=1502232635]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.009000001
-anchor_top = 0.16600001
-anchor_right = 0.009000001
-anchor_bottom = 0.18
-offset_left = -85.28
-offset_top = -390.28003
-offset_right = 36.72
-offset_bottom = -372.40002
-theme_override_styles/panel = SubResource("StyleBoxFlat_ar5ax")
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=2026805755]
+layout_mode = 2
+texture = ExtResource("4_px6aj")
+stretch_mode = 2
 
-[node name="Label" type="Label" parent="BasePartyCardInfo3/Panel2" unique_id=795583204]
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer" unique_id=1427841435]
+layout_mode = 2
+texture = ExtResource("4_px6aj")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="HBoxContainer" unique_id=53383797]
+layout_mode = 2
+texture = ExtResource("4_px6aj")
+stretch_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="HBoxContainer" unique_id=1255269269]
+layout_mode = 2
+texture = ExtResource("4_px6aj")
+stretch_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="HBoxContainer" unique_id=546530949]
+layout_mode = 2
+texture = ExtResource("4_px6aj")
+stretch_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1034762398]
 layout_mode = 0
-offset_right = 125.0
-offset_bottom = 31.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Bond Level"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = -14.0
+offset_top = 20.0
+offset_right = 439.0
+offset_bottom = 60.0
+theme_override_constants/separation = 22
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=335115885]
+layout_mode = 2
+text = "Stranger"
+
+[node name="Label2" type="Label" parent="HBoxContainer2" unique_id=708106269]
+layout_mode = 2
+text = "Acquainted"
+
+[node name="Label3" type="Label" parent="HBoxContainer2" unique_id=1015356608]
+layout_mode = 2
+text = "Warmed"
+
+[node name="Label4" type="Label" parent="HBoxContainer2" unique_id=1290910086]
+layout_mode = 2
+text = "Kindred"
+
+[node name="Label5" type="Label" parent="HBoxContainer2" unique_id=878197636]
+layout_mode = 2
+text = "Bound"
+
+[node name="Label6" type="Label" parent="HBoxContainer2" unique_id=929335094]
+layout_mode = 2
+text = "True Bond"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=667258601]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 52.0
+offset_right = 378.0
+offset_bottom = 92.0
+columns = 2
+
+[node name="Current Bond Exp" type="Label" parent="GridContainer" unique_id=738258925]
+custom_minimum_size = Vector2(227.3, 0)
+layout_mode = 2
+text = "Current Bond EXP:"
+
+[node name="Days since last talked" type="Label" parent="GridContainer" unique_id=1698288529]
+layout_mode = 2
+text = "Days since last talked: "
+
+[node name="Current Tier" type="Label" parent="GridContainer" unique_id=236468831]
+layout_mode = 2
+text = "Current Bond Tier: "

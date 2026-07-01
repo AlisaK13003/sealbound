@@ -276,6 +276,7 @@ scale = Vector2(0.42, 0.42)
 [node name="Lyra_NPC" parent="." unique_id=1711293043 instance=ExtResource("14_lyra1")]
 position = Vector2(3358, -942)
 scale = Vector2(0.44, 0.44)
+npc_id = "lyra"
 
 [node name="Rowan_NPC" parent="." unique_id=823861240 instance=ExtResource("14_lyra1")]
 position = Vector2(3818, -1404)
