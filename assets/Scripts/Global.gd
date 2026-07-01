@@ -593,6 +593,8 @@ func _ready():
 		progression_state[flag] = false
 	time_updated.emit()
 
+	add_npc_bond_exp("lyra", 20, "YAY")
+
 # Quest System
 # --------------------------------------------------------------------------------------------------
 

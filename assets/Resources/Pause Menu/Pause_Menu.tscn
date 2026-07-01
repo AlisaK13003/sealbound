@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dv7w3jr2b60ts" path="res://assets/Resources/Pause Menu/Skills Menu/Skills_Menu.tscn" id="4_qffmw"]
 [ext_resource type="PackedScene" uid="uid://c15yeiolqmy63" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Menu.tscn" id="5_o57t2"]
 [ext_resource type="Script" uid="uid://cnp6wabbskx27" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_menu_controller.gd" id="6_qffmw"]
-[ext_resource type="PackedScene" uid="uid://bueo7m313ndrv" path="res://assets/Resources/Pause Menu/Bond Menu/Bond_Menu.tscn" id="7_68nh3"]
 [ext_resource type="PackedScene" uid="uid://cq0wehm0dm6yb" path="res://assets/Resources/Pause Menu/Enemy Intel/Enemy_Intel_Menu.tscn" id="8_djh7v"]
 [ext_resource type="PackedScene" uid="uid://vu351201k44" path="res://assets/Resources/Pause Menu/Journal Menu/Journal_Menu.tscn" id="9_sjmh0"]
 [ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_mqkyk"]
@@ -18,6 +17,17 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qffmw"]
 bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
 skew = Vector2(0.105, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rk1u6"]
+bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
+skew = Vector2(0.1, 0)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
@@ -42,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6a6ya")
-tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "Bond", "System"])
+tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "System"])
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
 layout_mode = 0
@@ -78,10 +88,6 @@ menu_parent = NodePath("../..")
 visible = false
 layout_mode = 1
 menu_parent = NodePath("../..")
-
-[node name="BondMenu" parent="Windows" unique_id=1832381352 instance=ExtResource("7_68nh3")]
-visible = false
-layout_mode = 1
 
 [node name="SystemMenu" parent="Windows" unique_id=893803557 instance=ExtResource("11_35xr2")]
 visible = false
@@ -215,3 +221,14 @@ offset_top = -68.0
 offset_right = 305.0
 offset_bottom = -45.666664
 text = "Money"
+
+[node name="Panel2" type="Panel" parent="." unique_id=346209793]
+z_index = -2
+layout_mode = 0
+offset_left = -233.0
+offset_top = -36.0
+offset_right = 280.33508
+offset_bottom = 250.50006
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_rk1u6")

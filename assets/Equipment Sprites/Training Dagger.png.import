@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mx71qgegni6"
-path="res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"
+uid="uid://cnx3mg38e4mty"
+path="res://.godot/imported/Training Dagger.png-efd814232780be77e3a9f51027165a98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Interactables/Quests (2)/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"]
+source_file="res://assets/Equipment Sprites/Training Dagger.png"
+dest_files=["res://.godot/imported/Training Dagger.png-efd814232780be77e3a9f51027165a98.ctex"]
 
 [params]
 

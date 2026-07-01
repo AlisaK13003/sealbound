@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mx71qgegni6"
-path="res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"
+uid="uid://c4xn8k77upbpx"
+path="res://.godot/imported/Rusty Sword.png-894e5f2f280207bd639a40ce3fbf2e11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Interactables/Quests (2)/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"]
+source_file="res://assets/Equipment Sprites/Rusty Sword.png"
+dest_files=["res://.godot/imported/Rusty Sword.png-894e5f2f280207bd639a40ce3fbf2e11.ctex"]
 
 [params]
 

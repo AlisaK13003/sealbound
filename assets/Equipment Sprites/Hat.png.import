@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mx71qgegni6"
-path="res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"
+uid="uid://bxyjgy50f11se"
+path="res://.godot/imported/Hat.png-df0c9d075a35b7c599cbb259f04d4a21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Interactables/Quests (2)/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"]
+source_file="res://assets/Equipment Sprites/Hat.png"
+dest_files=["res://.godot/imported/Hat.png-df0c9d075a35b7c599cbb259f04d4a21.ctex"]
 
 [params]
 

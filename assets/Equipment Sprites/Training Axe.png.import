@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mx71qgegni6"
-path="res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"
+uid="uid://eke53x6p5mk1"
+path="res://.godot/imported/Training Axe.png-17ab01b5252ea28ba58915b94612dbe0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Interactables/Quests (2)/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"]
+source_file="res://assets/Equipment Sprites/Training Axe.png"
+dest_files=["res://.godot/imported/Training Axe.png-17ab01b5252ea28ba58915b94612dbe0.ctex"]
 
 [params]
 

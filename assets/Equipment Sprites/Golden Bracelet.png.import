@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4mx71qgegni6"
-path="res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"
+uid="uid://csmwv83w8gi3t"
+path="res://.godot/imported/Golden Bracelet.png-5cd58c6100e4076930c9fac09ed926f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Resources/Interactables/Quests (2)/Heart.png"
-dest_files=["res://.godot/imported/Heart.png-f4796d607f4edeac11ba6498198c1c31.ctex"]
+source_file="res://assets/Equipment Sprites/Golden Bracelet.png"
+dest_files=["res://.godot/imported/Golden Bracelet.png-5cd58c6100e4076930c9fac09ed926f8.ctex"]
 
 [params]
 
