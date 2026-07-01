@@ -181,6 +181,20 @@ func debug_skip_day() -> void:
 	player_advanced_day(false)
 	print("[Debug] Skipped to day ", current_day, ", year ", current_year)
 
+func debug_advance_time(minutes: int = 5) -> void:
+	current_minute += minutes
+	while current_minute >= 60:
+		current_minute -= 60
+		current_hour += 1
+		if current_hour % 12 == 1:
+			am_or_pm = true
+		elif am_or_pm and current_hour % 12 == 0:
+			player_advanced_day(true)
+			am_or_pm = false
+			return
+	time_updated.emit()
+	print("[Debug] Advanced time to day ", current_day, " ", current_hour, ":", "%02d" % current_minute)
+
 func ensure_npc_bond(npc_id: String) -> Dictionary:
 	if not npc_bonds.has(npc_id):
 		npc_bonds[npc_id] = {
@@ -287,6 +301,16 @@ signal swapped_to_controller
 const MOUSE_DEADZONE: float = 2.0 
 
 func _input(event):
+	if event.is_action_pressed("debug_advance_time"):
+		if event is InputEventKey and event.echo:
+			return
+		if is_in_menu:
+			get_viewport().set_input_as_handled()
+			return
+		debug_advance_time(5)
+		get_viewport().set_input_as_handled()
+		return
+
 	if event.is_action_pressed("test"):
 		if event is InputEventKey and event.echo:
 			return

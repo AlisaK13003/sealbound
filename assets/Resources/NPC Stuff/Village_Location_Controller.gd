@@ -52,12 +52,34 @@ func run_floyd_warshall():
 					dist_matrix[ij] = dist_matrix[ik] + dist_matrix[kj]
 					next_matrix[ij] = next_matrix[ik]
 					
-# Given start location and end location, returns path to traverse to get between them
-func get_path_between(start_spot: int, end_spot: int) -> Array[int]:
-	if start_spot == end_spot:
+# Given start location and end location, returns path to traverse to get between them.
+# Schedules can use child indexes or child node names from this container.
+func get_location_index(location) -> int:
+	match typeof(location):
+		TYPE_INT:
+			return location
+		TYPE_FLOAT:
+			return int(location)
+		TYPE_STRING:
+			var location_name = str(location).strip_edges()
+			if location_name.is_empty():
+				return -1
+			if location_name.is_valid_int():
+				return int(location_name)
+			var location_node = get_node_or_null(NodePath(location_name))
+			if location_node != null:
+				return location_node.get_index()
+
+	push_warning("VillageLocationContainer: Could not find schedule location '%s'." % str(location))
+	return -1
+
+func get_path_between(start_spot, end_spot) -> Array[int]:
+	var start_id = get_location_index(start_spot)
+	var end_id = get_location_index(end_spot)
+	if start_id < 0 or end_id < 0 or start_id >= node_count or end_id >= node_count:
 		return []
-	var start_id = start_spot
-	var end_id = end_spot
+	if start_id == end_id:
+		return [start_id]
 	if next_matrix[start_id * node_count + end_id] == -1:
 		return []
 	

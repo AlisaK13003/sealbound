@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ckp71tv7lpfj5"]
 
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_q6rq3"]
-[ext_resource type="Texture2D" uid="uid://c812bdeo2058y" path="res://assets/characters/rowan/rowan_idle.png" id="2_q6rq3"]
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="3_1gx6e"]
 [ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="4_bd4on"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_4xdjx"]
@@ -9,9 +8,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_caf75"]
-atlas = ExtResource("2_q6rq3")
-region = Rect2(0, 0, 150, 288)
+[sub_resource type="AtlasTexture" id="AtlasTexture_md64o"]
+atlas = ExtResource("3_1gx6e")
+region = Rect2(0, 0, 192, 288)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bd4on"]
 atlas = ExtResource("3_1gx6e")
@@ -65,9 +64,9 @@ region = Rect2(2112, 0, 192, 288)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_caf75")
+"texture": SubResource("AtlasTexture_md64o")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -84,7 +83,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lei18")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_down",
 "speed": 5.0
 }, {
@@ -101,7 +100,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c4r1i")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_side",
 "speed": 5.0
 }, {
@@ -118,7 +117,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_06hir")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_up",
 "speed": 3.5
 }]
@@ -142,7 +141,6 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_l0ocd")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.68993026
 
 [node name="Player_In_Range" type="Area2D" parent="." unique_id=289574461]
 

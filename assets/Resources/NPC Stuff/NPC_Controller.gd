@@ -208,11 +208,12 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 
 func set_path(start_point, end_point):
 	var path_ids = location_container.get_path_between(start_point, end_point)
+	var start_index = location_container.get_location_index(start_point)
 	path_nodes.clear()
 	for vertex_id in path_ids:
 		var target_node = location_container.get_child(vertex_id)
 		var target_pos = target_node.location_position[2] 
-		if vertex_id == start_point:
+		if vertex_id == start_index:
 			self.position = target_pos
 		path_nodes.append(target_pos)
 

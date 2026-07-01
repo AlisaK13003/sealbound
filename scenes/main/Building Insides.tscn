@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_0o3x6"]
 [ext_resource type="Texture2D" uid="uid://derl56a4xm6qh" path="res://assets/tile sheets/Building_Insides.png" id="1_r1w2i"]
 [ext_resource type="Texture2D" uid="uid://puqpjx16p5uh" path="res://assets/tile sheets/Building Insides 2.png" id="2_f5vtb"]
+[ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="2_kwhot"]
+[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="3_24omh"]
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="3_f5vtb"]
 [ext_resource type="Texture2D" uid="uid://df2fapg5qkd1s" path="res://assets/tile sheets/Building_Insides_3_.0.png" id="4_bi516"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="4_yn88j"]
+[ext_resource type="PackedScene" uid="uid://drkj78alfmusa" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="9_24omh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0o3x6"]
 texture = ExtResource("1_r1w2i")
@@ -472,6 +475,67 @@ script = ExtResource("1_0o3x6")
 player_node = NodePath("Player")
 is_building_insides = true
 
+[node name="BuildingLocationContainer" parent="." unique_id=364046489 instance=ExtResource("2_kwhot")]
+
+[node name="Tavern_Entrance" parent="BuildingLocationContainer" unique_id=1976910115 instance=ExtResource("3_24omh")]
+position = Vector2(1725, -487)
+connected_node_names = ["Tavern_Path1", "Tavern_Path0"]
+"Connected To" = ["Tavern_Path1", "Tavern_Path0"]
+
+[node name="Tavern_Path1" parent="BuildingLocationContainer" unique_id=509300343 instance=ExtResource("3_24omh")]
+position = Vector2(1725, -681)
+connected_node_names = ["Tavern_Entrance", "Tavern_Path2"]
+"Connected To" = ["Tavern_Entrance", "Tavern_Path2"]
+
+[node name="Tavern_Path0" parent="BuildingLocationContainer" unique_id=877527208 instance=ExtResource("3_24omh")]
+position = Vector2(1725, -407)
+connected_node_names = ["Tavern_Entrance"]
+"Connected To" = ["Tavern_Entrance"]
+
+[node name="Tavern_Path2" parent="BuildingLocationContainer" unique_id=862552759 instance=ExtResource("3_24omh")]
+position = Vector2(1553, -681)
+connected_node_names = ["Tavern_Path1", "Tavern_Path3"]
+"Connected To" = ["Tavern_Path1", "Tavern_Path3"]
+
+[node name="Tavern_Path3" parent="BuildingLocationContainer" unique_id=126568477 instance=ExtResource("3_24omh")]
+position = Vector2(1553, -966)
+connected_node_names = ["Tavern_Path4", "Tavern_Path2"]
+"Connected To" = ["Tavern_Path4", "Tavern_Path2"]
+
+[node name="Tavern_Path4" parent="BuildingLocationContainer" unique_id=670036284 instance=ExtResource("3_24omh")]
+position = Vector2(1695, -966)
+connected_node_names = ["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"]
+"Connected To" = ["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"]
+
+[node name="Tavern_Path5" parent="BuildingLocationContainer" unique_id=166055671 instance=ExtResource("3_24omh")]
+position = Vector2(1695, -739)
+connected_node_names = ["Tavern_Counter", "Tavern_Path4"]
+"Connected To" = ["Tavern_Counter", "Tavern_Path4"]
+
+[node name="Tavern_Counter" parent="BuildingLocationContainer" unique_id=2065408732 instance=ExtResource("3_24omh")]
+position = Vector2(1730, -739)
+connected_node_names = ["Tavern_Path5"]
+"Connected To" = ["Tavern_Path5"]
+
+[node name="Tavern_TableLeft" parent="BuildingLocationContainer" unique_id=1132322646 instance=ExtResource("3_24omh")]
+position = Vector2(1599, -661)
+"Connected To" = []
+
+[node name="Tavern_TableRight" parent="BuildingLocationContainer" unique_id=676775726 instance=ExtResource("3_24omh")]
+position = Vector2(1822, -516)
+"Connected To" = []
+
+[node name="Tavern_Path6" parent="BuildingLocationContainer" unique_id=583700760 instance=ExtResource("3_24omh")]
+position = Vector2(1778, -965)
+scale = Vector2(1, 1.0027484)
+connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
+"Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
+
+[node name="Tavern_LyraRoom" parent="BuildingLocationContainer" unique_id=860912794 instance=ExtResource("3_24omh")]
+position = Vector2(1778, -1051)
+connected_node_names = ["Tavern_Path6"]
+"Connected To" = ["Tavern_Path6"]
+
 [node name="Blacksmith" type="Node2D" parent="." unique_id=1037602788]
 position = Vector2(235, -674)
 
@@ -693,8 +757,8 @@ tile_set = SubResource("TileSet_bi516")
 z_index = 12
 position = Vector2(815, 23)
 scale = Vector2(0.7, 0.7)
-move_speed = 500.0
-camera_zoom = Vector2(1.8, 1.8)
+move_speed = 200.0
+camera_zoom = Vector2(1.4, 1.5)
 
 [node name="Bedroom" type="Node2D" parent="." unique_id=938564508]
 
@@ -705,3 +769,10 @@ disable_teleport = true
 "Current Location/Spot" = "Bedroom"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Bedroom"
+
+[node name="Lyra_NPC" parent="." unique_id=823861240 node_paths=PackedStringArray("location_container") instance=ExtResource("9_24omh")]
+z_index = 10
+position = Vector2(1777, -1070)
+scale = Vector2(0.27999023, 0.27999023)
+location_container = NodePath("../BuildingLocationContainer")
+speed = 200.0
