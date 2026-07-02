@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o4q3ds3kg3k"
-path="res://.godot/imported/Ruby Necklace.png-6b6658a9e0a2b0ba34a4a3b54b2912be.ctex"
+uid="uid://csmwv83w8gi3t"
+path="res://.godot/imported/Golden Bracelet.png-dcf0919d3c9a65dcfa205572d4581009.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Equipment Sprites/Ruby Necklace.png"
-dest_files=["res://.godot/imported/Ruby Necklace.png-6b6658a9e0a2b0ba34a4a3b54b2912be.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Golden Bracelet.png"
+dest_files=["res://.godot/imported/Golden Bracelet.png-dcf0919d3c9a65dcfa205572d4581009.ctex"]
 
 [params]
 

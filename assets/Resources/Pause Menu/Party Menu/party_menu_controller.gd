@@ -27,7 +27,6 @@ func _ready():
 func _reset():
 	menu_tabs.cycle_input(null, -10)
 
-
 func tab_changed(which_tab):
 	for child in range(stat_pages.get_child_count()):
 		if which_tab == child:

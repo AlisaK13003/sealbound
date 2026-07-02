@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://18r8dgv2cgkk"
-path="res://.godot/imported/Shirt.png-aa6949612a4d2f40a4a05346f9c870f0.ctex"
+uid="uid://dcwd08p5c6ook"
+path="res://.godot/imported/Rusty Dagger.png-bfe2e64f2c40c5b9536b90bd6618cd62.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Equipment Sprites/Shirt.png"
-dest_files=["res://.godot/imported/Shirt.png-aa6949612a4d2f40a4a05346f9c870f0.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Rusty Dagger.png"
+dest_files=["res://.godot/imported/Rusty Dagger.png-bfe2e64f2c40c5b9536b90bd6618cd62.ctex"]
 
 [params]
 

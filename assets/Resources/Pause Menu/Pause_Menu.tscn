@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cpa28f8vmbub2" path="res://assets/Resources/Pause Menu/Party Menu/Party_Menu_.tscn" id="3_8ocdr"]
 [ext_resource type="PackedScene" uid="uid://dv7w3jr2b60ts" path="res://assets/Resources/Pause Menu/Skills Menu/Skills_Menu.tscn" id="4_qffmw"]
 [ext_resource type="PackedScene" uid="uid://c15yeiolqmy63" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Menu.tscn" id="5_o57t2"]
-[ext_resource type="Script" uid="uid://cnp6wabbskx27" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_menu_controller.gd" id="6_qffmw"]
 [ext_resource type="PackedScene" uid="uid://cq0wehm0dm6yb" path="res://assets/Resources/Pause Menu/Enemy Intel/Enemy_Intel_Menu.tscn" id="8_djh7v"]
 [ext_resource type="PackedScene" uid="uid://vu351201k44" path="res://assets/Resources/Pause Menu/Journal Menu/Journal_Menu.tscn" id="9_sjmh0"]
 [ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_mqkyk"]
@@ -57,15 +56,17 @@ tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "Save/Lo
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
 layout_mode = 0
 offset_left = -325.66
-offset_top = -67.46
+offset_top = -98.605
 offset_right = -298.66
-offset_bottom = -67.46
+offset_bottom = -98.605
 scale = Vector2(0.85, 0.85)
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
 anchors_preset = 0
-offset_right = 40.0
+offset_left = -13.29
+offset_right = 26.71
 offset_bottom = 40.0
+scale = Vector2(1.25, 1.25)
 
 [node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
 layout_mode = 1
@@ -78,11 +79,13 @@ offset_bottom = 29.0
 visible = false
 layout_mode = 1
 
-[node name="EquipmentMenu" parent="Windows" unique_id=1214371089 node_paths=PackedStringArray("menu_parent") instance=ExtResource("5_o57t2")]
-visible = false
+[node name="EquipmentMenu" parent="Windows" unique_id=1214371089 instance=ExtResource("5_o57t2")]
 layout_mode = 1
-script = ExtResource("6_qffmw")
-menu_parent = NodePath("../..")
+offset_left = -44.0
+offset_top = 58.255
+offset_right = -44.0
+offset_bottom = 58.25492
+scale = Vector2(0.52, 0.52)
 
 [node name="ItemsMenu" parent="Windows" unique_id=1671049951 node_paths=PackedStringArray("menu_parent") instance=ExtResource("3_0hfbc")]
 visible = false
@@ -98,8 +101,7 @@ visible = false
 layout_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
-position = Vector2(-27.999996, 69.99999)
-scale = Vector2(-0.34, -0.34)
+position = Vector2(-27, 70)
 
 [node name="Initial_Menu" type="Control" parent="." unique_id=1700268886]
 visible = false
@@ -229,10 +231,10 @@ text = "Money"
 [node name="Panel2" type="Panel" parent="." unique_id=346209793]
 z_index = -2
 layout_mode = 0
-offset_left = -233.0
-offset_top = -36.0
-offset_right = 280.33508
-offset_bottom = 250.50006
+offset_left = -288.0
+offset_top = -50.21
+offset_right = 350.75
+offset_bottom = 305.95505
 scale = Vector2(0.8, 0.8)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rk1u6")

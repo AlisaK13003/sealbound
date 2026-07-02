@@ -1,9 +1,242 @@
 [gd_scene format=3 uid="uid://vhrwi7dkb0b3"]
 
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="1_2kwft"]
+[ext_resource type="Script" uid="uid://coqs4t1ikf0rf" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_card_controller.gd" id="1_yi0mm"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_yi0mm"]
+[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="3_ln7px"]
+[ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="4_afx7m"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_ln7px"]
+[ext_resource type="Texture2D" uid="uid://o4q3ds3kg3k" path="res://assets/Equipment/Equipment Sprites/Ruby Necklace.png" id="5_gdc6p"]
+[ext_resource type="Texture2D" uid="uid://18r8dgv2cgkk" path="res://assets/Equipment/Equipment Sprites/Shirt.png" id="6_1itkr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
+bg_color = Color(0.4753688, 0.64840907, 0.5228421, 1)
+skew = Vector2(0.1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
+bg_color = Color(0.68455464, 0.5293625, 0.7718792, 1)
+skew = Vector2(0.1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
 [node name="EquipmentCard" type="Control" unique_id=1015162363]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 1.0
+offset_right = -3.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yi0mm")
+
+[node name="Panel" type="Panel" parent="." unique_id=2007935690]
+layout_mode = 0
+offset_left = -18.0
+offset_top = -5.0
+offset_right = 570.0
+offset_bottom = 311.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1120351908]
+position = Vector2(93, 127)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_2kwft")
+animation = &"Idle"
+frame_progress = 0.6574928
+
+[node name="Weapon_Slot" type="Panel" parent="." unique_id=1608655098]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 127.0
+offset_right = 130.0
+offset_bottom = 159.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Weapon_Slot" unique_id=1424916995]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_yi0mm")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Weapon_Slot" unique_id=1544489112]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 51.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Weapon"
+
+[node name="Helmet_Slot" type="Panel" parent="." unique_id=461164521]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 65.0
+offset_right = 79.0
+offset_bottom = 97.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Helmet_Slot" unique_id=1678531162]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_ln7px")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Helmet_Slot" unique_id=433887599]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -14.0
+offset_right = 46.0
+offset_bottom = 4.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Helmet"
+
+[node name="Boots_Slot" type="Panel" parent="." unique_id=781361171]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 210.89
+offset_right = 38.0
+offset_bottom = 242.89
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Boots_Slot" unique_id=1095514278]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_afx7m")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Boots_Slot" unique_id=55395233]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Boots"
+
+[node name="Charm_Slot" type="Panel" parent="." unique_id=1298982983]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 210.89
+offset_right = 117.0
+offset_bottom = 242.89
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Charm_Slot" unique_id=705787310]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_gdc6p")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Charm_Slot" unique_id=1685438206]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -15.0
+offset_right = 43.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Charm"
+
+[node name="Chestplat_Slot" type="Panel" parent="." unique_id=822629057]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 127.0
+offset_right = 29.0
+offset_bottom = 159.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Chestplat_Slot" unique_id=565163477]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_1itkr")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Chestplat_Slot" unique_id=1584971663]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -15.0
+offset_right = 42.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Chest"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=80998122]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 6.0
+offset_right = 436.0
+offset_bottom = 184.0
+theme_override_constants/separation = 27
+
+[node name="Helmet" type="Label" parent="VBoxContainer" unique_id=1422483425]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Beanie: 
+     0 Health, 0 Resistance"
+
+[node name="Weapon" type="Label" parent="VBoxContainer" unique_id=1808666244]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Lucifer's Blade: 
+     30 Attack, 0.0 Crit Chance0.0 Crit Damage"
+
+[node name="Chestplate" type="Label" parent="VBoxContainer" unique_id=1173052540]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Lather Chestplate: 
+     0 Health0 Defense"
+
+[node name="Boots" type="Label" parent="VBoxContainer" unique_id=116171846]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Leather Boots: 
+     0 Speed, 0 Evasion"
+
+[node name="Charm" type="Label" parent="VBoxContainer" unique_id=2141971698]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_ln7px")
+text = "Gold Bracelet: 
+     0 Magic, 0 Luck"

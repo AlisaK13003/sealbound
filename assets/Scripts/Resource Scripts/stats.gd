@@ -14,6 +14,10 @@ class_name stats
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var defense: int
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var magic: int
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var resistance: int
+
+@export_range(0, 1, 0.01, "prefer_slider", "or_greater") var crit_chance: float
+@export_range(0, 1, 0.01, "prefer_slider", "or_greater") var crit_damage: int
+
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var speed: int:
 	set(value):
 		speed = clamp(value, 0, 10000)
