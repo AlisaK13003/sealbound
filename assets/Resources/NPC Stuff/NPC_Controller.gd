@@ -220,6 +220,9 @@ func set_path(start_point, end_point):
 # This shouldn't really exist (the cancel operation), only does for testing purposes
 # Currently only makes it so when you press cancel (x) it closes the dialogue box
 func _input(event):
+	if Global.is_in_menu and not player_is_speaking_to_me:
+		return
+
 	if not player_in_range:
 		return
 
@@ -235,6 +238,9 @@ func _input(event):
 # Will be set up so different dialogue happens depending on state, not there yet
 # Currently just specify which scene and it'll go through that set till conclusion and repeat
 func _on_npc_clickable_input_event(_viewport, event, _shape_idx):
+	if Global.is_in_menu:
+		return
+
 	if player_in_range:
 		if event.is_action_pressed("Mouse_Right_Click"):
 			begin_dialogue()

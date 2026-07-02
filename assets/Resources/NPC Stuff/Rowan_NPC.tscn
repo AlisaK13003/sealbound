@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="3_1gx6e"]
 [ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="4_bd4on"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_4xdjx"]
+[ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="6_shop_portrait"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
@@ -125,6 +126,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
 radius = 245.58908
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_shop_portrait"]
+atlas = ExtResource("6_shop_portrait")
+region = Rect2(0, 0, 48, 75)
+
 [node name="NpcTemplate" type="Node2D" unique_id=823861237]
 script = ExtResource("1_q6rq3")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/rowan_dialogue.json"
@@ -150,14 +155,22 @@ shape = SubResource("CircleShape2D_ilmyp")
 [node name="ShopController" type="Node2D" parent="." unique_id=827537280]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_bd4on")
+shop_owner_portrait = SubResource("AtlasTexture_shop_portrait")
+shop_name = "Blacksmith"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ShopController" unique_id=617435556]
 
 [node name="ShopInterface" parent="ShopController/CanvasLayer" unique_id=1487542661 node_paths=PackedStringArray("parent") instance=ExtResource("5_4xdjx")]
-offset_left = 325.0
-offset_top = 209.0
-offset_right = 325.0
-offset_bottom = 209.0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 145.0
+offset_top = 72.0
+offset_right = 145.0
+offset_bottom = 72.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.5636769, 0.5636769)
 parent = NodePath("../..")
 
 [connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]
