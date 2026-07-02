@@ -210,7 +210,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	await Fade.fade_in(0.5)
 	get_tree().root.call_deferred("remove_child", explorable_dungeon_scene)
 	get_tree().root.call_deferred("add_child", dungeon_loop_scene)
-	get_tree().current_scene = dungeon_loop_scene
+	#get_tree().current_scene = dungeon_loop_scene
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
@@ -275,7 +275,8 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 		stuff_gained += quest_items_gained
 
 	if is_boss:
-		get_tree().quit()
+		dungeon_over()
+		return
 
 	if stuff_gained != null:
 		add_item(stuff_gained)

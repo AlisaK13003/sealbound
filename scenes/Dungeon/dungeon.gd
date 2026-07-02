@@ -827,7 +827,12 @@ func execute_item(what_item: Items, item_index, targets_who):
 				seq_task.append(func(): await await_parallel(par_task))
 				parallel_tasks.append(func(): await action_queue(seq_task))
 		else:
-			var targetted_enemy = enemy_shit.get_child(targets_who)
+			var targetted_enemy
+			if enemy_shit.get_child_count() == 1:
+				targetted_enemy = enemy_shit.get_child(0)
+			else:
+				targetted_enemy = enemy_shit.get_child(targets_who)
+
 			if what_item.does_what == 1:
 				parallel_tasks.append(func(): await targetted_enemy.update_health(what_item.amount_to_heal_or_deal, "DAMAGE"))
 			if what_item.removes_status != null:
