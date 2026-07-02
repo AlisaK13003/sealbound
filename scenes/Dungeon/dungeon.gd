@@ -300,7 +300,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 					break
 					
 				var current_combatant = all_combatants[j]
-				if current_combatant.stored_combatant == null or current_combatant.stored_combatant.is_dead:
+				if current_combatant == null or current_combatant.stored_combatant.is_dead:
 					all_combatants.remove_at(j)
 					j -= 1
 					continue
