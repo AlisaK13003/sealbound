@@ -9,6 +9,7 @@ class_name shop_controller
 @onready var currency_display = shop_ui.get_node("Money Counter/HBoxContainer/Total_Currency")
 @onready var shop_owner_portrait_rect: TextureRect = shop_ui.get_node_or_null("Buy Menu/Panel3/TextureRect")
 @onready var shop_name_label: Label = shop_ui.get_node_or_null("Buy Menu/Panel3/Label")
+@onready var shop_owner_name_label: Label = shop_ui.get_node_or_null("Buy Menu/Panel3/Label2")
 
 var shop_item_scene = preload("res://assets/Resources/Shop_Stock_Node.tscn")
 
@@ -21,6 +22,7 @@ signal shop_populated
 @export var test_sell_menu : bool
 @export var shop_owner_portrait: Texture2D
 @export var shop_name: String = ""
+@export var shop_owner_name: String = ""
 
 func _ready():
 	self.visible = false
@@ -51,6 +53,8 @@ func update_shop_details() -> void:
 		shop_owner_portrait_rect.texture = shop_owner_portrait
 	if shop_name_label != null and not shop_name.is_empty():
 		shop_name_label.text = shop_name
+	if shop_owner_name_label != null and not shop_owner_name.is_empty():
+		shop_owner_name_label.text = shop_owner_name
 	
 func _input(event):
 	if event.is_action_pressed("Interact") and can_open_shop:

@@ -14,6 +14,7 @@ var player_just_stopped_talking_to_me: bool = false
 var pending_choice_action: String = ""
 
 var current_location
+const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
 
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
@@ -26,10 +27,15 @@ var current_location
 @export var location_container: Node2D
 @export var speed: float = 300.0
 @export_file("*.json") var schedule_path: String
+@export var default_z_index: int = 0
+@export var counter_z_index: int = 0
+@export var counter_draw_order_y: float = -720.0
+@export var use_counter_draw_order: bool = false
 
 var schedule_info
 var traveling_to : int
 var just_swapped_scenes: bool = false
+var last_applied_schedule_key: String = ""
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
@@ -56,12 +62,14 @@ func _ready():
 		if not dialogue_system.choice_action_requested.is_connected(choice_action_callback):
 			dialogue_system.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
+	navigate.call_deferred()
 
 
 # If there is no schedule to execute, or if player is talking, do nothing
 # If player stopped talking, wait 3 seconds till they start going again 
 # Otherwise have the npc move towards their destination
 func _process(delta):
+	update_schedule_draw_order()
 	if path_nodes.is_empty():
 		walking = false
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
@@ -92,6 +100,14 @@ func _process(delta):
 		global_position = current_target
 		path_nodes.pop_front() 
 
+func update_schedule_draw_order() -> void:
+	if not use_counter_draw_order:
+		return
+	if global_position.y <= counter_draw_order_y:
+		z_index = counter_z_index
+	else:
+		z_index = default_z_index
+
 # Loads the NPCs dialogue "tree" into memory
 func load_json_file(path: String) -> Dictionary:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
@@ -114,13 +130,11 @@ func load_json_file(path: String) -> Dictionary:
 func navigate():
 	if not (schedule_info is Dictionary) or not schedule_info.has("schedules"):
 		return
-	if walking == true:
-		return
 	if not is_inside_tree() or get_tree().current_scene == null:
 		return
+	var path = get_tree().current_scene.scene_file_path
 	for schedule_name in schedule_info["schedules"]:
 		var details = schedule_info["schedules"][schedule_name]
-		var path = get_tree().current_scene.scene_file_path
 		if details["scene_swap"] == 1 and details["2_start_time_hour"] != 0:
 			if details["start_scene"] == path:
 				if check_time(details["start_time_hour"], details["start_time_minute"], 2):
@@ -149,28 +163,103 @@ func navigate():
 					self.visible = false
 				return
 		elif details["start_scene"] == path and check_time(details["start_time_hour"], details["start_time_minute"], 1):
+			last_applied_schedule_key = get_schedule_key(schedule_name, details)
 			self.visible = true
 			setup_navigation(details, 0)
 			leaving_scene = false
 			if details["should_disappear"] == 1:
 				self.visible = false
 			return
-		elif details["start_scene"] == path and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
-			self.visible = true
-			setup_navigation(details, 3)
-			leaving_scene = false
-			if details["should_disappear"] == 1:
-				self.visible = false
-	return
+	catch_up_to_scene_schedule(path)
+
+func get_schedule_minutes(details: Dictionary) -> int:
+	return (int(details["start_time_hour"]) * 60) + int(details["start_time_minute"])
+
+func get_current_day_minutes() -> int:
+	return (Global.current_hour * 60) + Global.current_minute
+
+func get_schedule_key(schedule_name: String, details: Dictionary) -> String:
+	return str(Global.current_year) + ":" + str(Global.current_day) + ":" + schedule_name + ":" + str(details["start_time_hour"]) + ":" + str(details["start_time_minute"])
+
+func catch_up_to_scene_schedule(path: String) -> void:
+	if walking or not path_nodes.is_empty():
+		return
+	var current_minutes = get_current_day_minutes()
+	var latest_schedule_name = ""
+	var latest_details: Dictionary = {}
+	var latest_minutes = -1
+	for schedule_name in schedule_info["schedules"]:
+		var details: Dictionary = schedule_info["schedules"][schedule_name]
+		if details["scene_swap"] != 0 or details["start_scene"] != path:
+			continue
+		var schedule_minutes = get_schedule_minutes(details)
+		if schedule_minutes <= current_minutes and schedule_minutes > latest_minutes:
+			latest_schedule_name = schedule_name
+			latest_details = details
+			latest_minutes = schedule_minutes
+	if latest_details.is_empty():
+		return
+	var schedule_key = get_schedule_key(latest_schedule_name, latest_details)
+	if schedule_key == last_applied_schedule_key:
+		return
+	last_applied_schedule_key = schedule_key
+	path_nodes.clear()
+	walking = false
+	leaving_scene = false
+	self.visible = latest_details["should_disappear"] != 1
+	catch_up_along_path(latest_details, current_minutes - latest_minutes)
+
+func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
+	var travel_minutes = max(1, int(details.get("travel_minutes", DEFAULT_SCHEDULE_TRAVEL_MINUTES)))
+	var path_ids = location_container.get_path_between(details["start_location"], details["end_location"])
+	if path_ids.is_empty():
+		return
+	if elapsed_minutes >= travel_minutes:
+		place_at_location(details["end_location"])
+		return
+	var points: Array[Vector2] = []
+	for vertex_id in path_ids:
+		points.append(location_container.get_child(vertex_id).location_position[2])
+	var total_distance = get_path_distance(points)
+	if total_distance <= 0.0:
+		place_at_location(details["end_location"])
+		return
+	var target_distance = total_distance * (float(elapsed_minutes) / float(travel_minutes))
+	place_along_points(points, target_distance)
+
+func get_path_distance(points: Array[Vector2]) -> float:
+	var distance = 0.0
+	for index in range(points.size() - 1):
+		distance += points[index].distance_to(points[index + 1])
+	return distance
+
+func place_along_points(points: Array[Vector2], target_distance: float) -> void:
+	path_nodes.clear()
+	var distance_left = target_distance
+	for index in range(points.size() - 1):
+		var segment_start = points[index]
+		var segment_end = points[index + 1]
+		var segment_length = segment_start.distance_to(segment_end)
+		if distance_left <= segment_length:
+			var segment_progress = 0.0
+			if segment_length > 0.0:
+				segment_progress = distance_left / segment_length
+			self.position = segment_start.lerp(segment_end, segment_progress)
+			path_nodes.append(segment_end)
+			for remaining_index in range(index + 2, points.size()):
+				path_nodes.append(points[remaining_index])
+			return
+		distance_left -= segment_length
+	self.position = points[points.size() - 1]
 
 func check_time(start_time_hour, start_time_minutes, before_equal_after):
 	match before_equal_after:
 		0:
-			if start_time_hour < Global.current_hour and start_time_minutes < Global.current_minute:
-				return true
+			var schedule_total = Global.get_time_total_minutes(Global.current_day, start_time_hour, start_time_minutes)
+			var current_total = Global.get_time_total_minutes(Global.current_day, Global.current_hour, Global.current_minute)
+			return schedule_total < current_total
 		1:
-			if start_time_hour == Global.current_hour and start_time_minutes == Global.current_minute:
-				return true
+			return Global.did_time_reach(start_time_hour, start_time_minutes)
 		2:
 			if start_time_hour > Global.current_hour:
 				return true
@@ -183,9 +272,9 @@ func check_time(start_time_hour, start_time_minutes, before_equal_after):
 func setup_navigation(schedule_info_basic, which_sub_schedule):
 	match which_sub_schedule:
 		0:
-			set_path(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
+			set_path(schedule_info_basic["start_location"], schedule_info_basic["end_location"], true)
 		1:
-			set_path(schedule_info_basic["2_start_location"], schedule_info_basic["2_end_location"])
+			set_path(schedule_info_basic["2_start_location"], schedule_info_basic["2_end_location"], true)
 		# resume schedule
 		2:
 			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
@@ -195,7 +284,7 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 			var path_start = (temp_path.size() - 1) * final_diff
 			if floor(path_start) == location_container.get_child_count():
 				path_start -= 1
-			set_path(floor(path_start), schedule_info_basic["end_location"])
+			set_path(floor(path_start), schedule_info_basic["end_location"], true)
 		3:
 			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
 			var time_diff = ((schedule_info_basic["end_time_hour"] - Global.current_hour) * 60) - (Global.current_minute)
@@ -203,19 +292,28 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 			var final_diff = time_diff / start_diff
 			var path_start = temp_path.size() * final_diff
 
-			set_path(floor(path_start), schedule_info_basic["end_location"])
+			set_path(floor(path_start), schedule_info_basic["end_location"], true)
 			
 
-func set_path(start_point, end_point):
+func set_path(start_point, end_point, snap_to_start: bool = false):
 	var path_ids = location_container.get_path_between(start_point, end_point)
 	var start_index = location_container.get_location_index(start_point)
 	path_nodes.clear()
+	if snap_to_start:
+		place_at_location(start_point)
 	for vertex_id in path_ids:
 		var target_node = location_container.get_child(vertex_id)
 		var target_pos = target_node.location_position[2] 
-		if vertex_id == start_index:
+		if vertex_id == start_index and not snap_to_start:
 			self.position = target_pos
 		path_nodes.append(target_pos)
+
+func place_at_location(location):
+	var location_index = location_container.get_location_index(location)
+	if location_index < 0 or location_index >= location_container.get_child_count():
+		return
+	var target_node = location_container.get_child(location_index)
+	self.position = target_node.location_position[2]
 
 # This shouldn't really exist (the cancel operation), only does for testing purposes
 # Currently only makes it so when you press cancel (x) it closes the dialogue box

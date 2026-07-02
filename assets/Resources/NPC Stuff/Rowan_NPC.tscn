@@ -157,6 +157,7 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("4_bd4on")
 shop_owner_portrait = SubResource("AtlasTexture_shop_portrait")
 shop_name = "Blacksmith"
+shop_owner_name = "Rowan"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ShopController" unique_id=617435556]
 

@@ -829,8 +829,12 @@ disable_teleport = true
 "Destination Location/Spot" = "Bedroom"
 
 [node name="Lyra_NPC" parent="." unique_id=823861240 node_paths=PackedStringArray("location_container") instance=ExtResource("9_24omh")]
-z_index = 10
+z_index = 12
 position = Vector2(1777, -1070)
 scale = Vector2(0.27999023, 0.27999023)
 location_container = NodePath("../BuildingLocationContainer")
-speed = 50.0
+speed = 80.0
+default_z_index = 12
+counter_z_index = 9
+counter_draw_order_y = -720.0
+use_counter_draw_order = true

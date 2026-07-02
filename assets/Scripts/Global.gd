@@ -119,12 +119,37 @@ var current_day: int = 0
 var current_year: int = 0
 var current_hour: int = 6
 var current_minute: int
+var previous_day: int = 0
+var previous_year: int = 0
+var previous_hour: int = 6
+var previous_minute: int = 0
 var time_since_last_update: float
 var seconds_since_day_started: float
 
 var time_scale: int = 60
+const TIME_STEP_MINUTES: int = 10
+const TIME_STEP_SECONDS: int = TIME_STEP_MINUTES * 60
 
 signal time_updated
+
+func record_previous_time() -> void:
+	previous_year = current_year
+	previous_day = current_day
+	previous_hour = current_hour
+	previous_minute = current_minute
+
+func get_time_total_minutes(day: int, hour: int, minute: int) -> int:
+	return (day * 24 * 60) + (hour * 60) + minute
+
+func did_time_reach(hour: int, minute: int) -> bool:
+	if current_hour == hour and current_minute == minute:
+		return true
+	if previous_year != current_year:
+		return false
+	var previous_total = get_time_total_minutes(previous_day, previous_hour, previous_minute)
+	var current_total = get_time_total_minutes(current_day, current_hour, current_minute)
+	var target_total = get_time_total_minutes(current_day, hour, minute)
+	return previous_total < target_total and target_total <= current_total
 
 # Updates the current time
 func _physics_process(delta):
@@ -142,9 +167,9 @@ func update_time():
 	play_time_seconds += 1
 	seconds_since_day_started += 1
 	
-	if (seconds_since_day_started * time_scale) - time_since_last_update >= 300:
-		time_updated.emit()
-		current_minute += 5
+	if (seconds_since_day_started * time_scale) - time_since_last_update >= TIME_STEP_SECONDS:
+		record_previous_time()
+		current_minute += TIME_STEP_MINUTES
 		if current_minute >= 60:
 			current_minute -= 60
 			current_hour += 1
@@ -154,6 +179,7 @@ func update_time():
 				player_advanced_day(true)
 				am_or_pm = false
 		time_since_last_update = (seconds_since_day_started * time_scale)
+		time_updated.emit()
 	if play_time_seconds == 60:
 		play_time_minutes += 1
 		play_time_seconds = 0
@@ -163,6 +189,7 @@ func update_time():
 		play_time_minutes = 0
 
 func player_advanced_day(did_they_pass_out):
+	record_previous_time()
 	current_day += 1
 	
 	if current_day == 366:
@@ -184,7 +211,8 @@ func debug_skip_day() -> void:
 	player_advanced_day(false)
 	print("[Debug] Skipped to day ", current_day, ", year ", current_year)
 
-func debug_advance_time(minutes: int = 5) -> void:
+func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
+	record_previous_time()
 	current_minute += minutes
 	while current_minute >= 60:
 		current_minute -= 60
@@ -310,7 +338,7 @@ func _input(event):
 		if is_in_menu:
 			get_viewport().set_input_as_handled()
 			return
-		debug_advance_time(5)
+		debug_advance_time()
 		get_viewport().set_input_as_handled()
 		return
 
