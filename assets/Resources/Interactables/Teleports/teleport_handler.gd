@@ -6,10 +6,10 @@ extends Node
 @export var disable_teleport: bool = false
 
 @export var location_data: Dictionary = {
-	"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"],
-	"Forest": ["Left Side", "Right Side"],
+	"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"],
+	"Forest": ["Apothecary", "Left Side"],
 	"Cliff Side": ["Cliff Entrance"],
-	"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom"]
+	"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom"]
 }:
 	set(value):
 		location_data = value

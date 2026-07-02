@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="3_f5vtb"]
 [ext_resource type="Texture2D" uid="uid://df2fapg5qkd1s" path="res://assets/tile sheets/Building_Insides_3_.0.png" id="4_bi516"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="4_yn88j"]
+[ext_resource type="PackedScene" uid="uid://bg1uxu604kh6j" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="8_ahl7k"]
 [ext_resource type="PackedScene" uid="uid://drkj78alfmusa" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="9_24omh"]
+[ext_resource type="PackedScene" uid="uid://ckp71tv7lpfj5" path="res://assets/Resources/NPC Stuff/Rowan_NPC.tscn" id="9_y5k7i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0o3x6"]
 texture = ExtResource("1_r1w2i")
@@ -551,10 +553,10 @@ position = Vector2(271, -3)
 [node name="LoadingZone" parent="Blacksmith" unique_id=1216423571 instance=ExtResource("4_yn88j")]
 position = Vector2(-3, 21)
 location_data = {
-"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
 "Cliff Side": ["Cliff Entrance"],
-"Forest": ["Left Side", "Right Side"],
-"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
 }
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Blacksmith"
@@ -585,6 +587,62 @@ offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0o3x6")
 metadata/_edit_use_anchors_ = true
 
+[node name="Apothecary" type="Node2D" parent="." unique_id=1260228072]
+position = Vector2(235, -1220)
+
+[node name="Camera Bounds" type="Node2D" parent="Apothecary" unique_id=1007082331]
+position = Vector2(-148, 19)
+
+[node name="Upper Left" type="Node2D" parent="Apothecary/Camera Bounds" unique_id=138713512]
+position = Vector2(3, -199)
+
+[node name="Bottom Right" type="Node2D" parent="Apothecary/Camera Bounds" unique_id=1402489632]
+position = Vector2(271, -3)
+
+[node name="LoadingZone" parent="Apothecary" unique_id=1315281009 instance=ExtResource("4_yn88j")]
+position = Vector2(-3, 21)
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
+"Current Location/Region" = "Buildings_Insides"
+"Current Location/Spot" = "Apothecary"
+"Destination Location/Spot" = "Apothecary"
+
+[node name="Floor" type="TileMapLayer" parent="Apothecary" unique_id=1577477817]
+position = Vector2(-185, -202)
+tile_map_data = PackedByteArray("AAADAAMAAQAHAAIAAAADAAQAAQAHAAMAAAAEAAMAAQAIAAIAAAAEAAQAAQAIAAMAAAAFAAMAAQAIAAIAAAAFAAQAAQAIAAMAAAAGAAMAAQAIAAIAAAAGAAQAAQAIAAMAAAAHAAMAAQAJAAIAAAAHAAQAAQAJAAMAAAAIAAMAAQAXAAAAAAAIAAQAAQAXAAEAAAAJAAMAAQAWAAAAAAAJAAQAAQAWAAEAAAAKAAMAAQAXAAAAAAAKAAQAAQAXAAEAAAALAAMAAQAWAAAAAAALAAQAAQAWAAEAAAAMAAMAAQAXAAAAAAAMAAQAAQAXAAEAAAANAAMAAQAWAAAAAAANAAQAAQAWAAEAAAAOAAMAAQAXAAAAAAAOAAQAAQAXAAEAAAAPAAMAAQAWAAAAAAAPAAQAAQAWAAEAAAAQAAMAAQAXAAAAAAAQAAQAAQAXAAEAAAARAAMAAQAWAAAAAAARAAQAAQAWAAEAAAASAAMAAQAXAAAAAAASAAQAAQAXAAEAAAADAAUAAQAHAAMAAAADAAYAAQAHAAQAAAAEAAUAAQAIAAMAAAAEAAYAAQAIAAQAAAAFAAUAAQAIAAMAAAAFAAYAAQAIAAQAAAAGAAUAAQAIAAMAAAAGAAYAAQAIAAQAAAAHAAUAAQAJAAMAAAAHAAYAAQAJAAQAAAAIAAUAAQAXAAAAAAAIAAYAAQAXAAEAAAAJAAUAAQAWAAAAAAAJAAYAAQAWAAEAAAAKAAUAAQAXAAAAAAAKAAYAAQAXAAEAAAALAAUAAQAWAAAAAAALAAYAAQAWAAEAAAAMAAUAAQAXAAAAAAAMAAYAAQAXAAEAAAANAAUAAQAWAAAAAAANAAYAAQAWAAEAAAAOAAUAAQAXAAAAAAAOAAYAAQAXAAEAAAAPAAUAAQAWAAAAAAAPAAYAAQAWAAEAAAAQAAUAAQAXAAAAAAAQAAYAAQAXAAEAAAARAAUAAQAWAAAAAAARAAYAAQAWAAEAAAASAAUAAQAXAAAAAAASAAYAAQAXAAEAAAADAAcAAQAWAAAAAAADAAgAAQAWAAEAAAAEAAcAAQAXAAAAAAAEAAgAAQAXAAEAAAAFAAcAAQAWAAAAAAAFAAgAAQAWAAEAAAAGAAcAAQAXAAAAAAAGAAgAAQAXAAEAAAAHAAcAAQAWAAAAAAAHAAgAAQAWAAEAAAAIAAcAAQAXAAAAAAAIAAgAAQAXAAEAAAAJAAcAAQAWAAAAAAAJAAgAAQAWAAEAAAAKAAcAAQAXAAAAAAAKAAgAAQAXAAEAAAALAAcAAQAWAAAAAAALAAgAAQAWAAEAAAAMAAcAAQAXAAAAAAAMAAgAAQAXAAEAAAANAAcAAQAWAAAAAAANAAgAAQAWAAEAAAAOAAcAAQAXAAAAAAAOAAgAAQAXAAEAAAAPAAcAAQAWAAAAAAAPAAgAAQAWAAEAAAAQAAcAAQAXAAAAAAAQAAgAAQAXAAEAAAARAAcAAQAWAAAAAAARAAgAAQAWAAEAAAASAAcAAQAXAAAAAAASAAgAAQAXAAEAAAADAAkAAQAWAAAAAAADAAoAAQAWAAEAAAAEAAkAAQAXAAAAAAAEAAoAAQAXAAEAAAAFAAkAAQAWAAAAAAAFAAoAAQAWAAEAAAAGAAkAAQAXAAAAAAAGAAoAAQAXAAEAAAAHAAkAAQAWAAAAAAAHAAoAAQAWAAEAAAAIAAkAAQAXAAAAAAAIAAoAAQAXAAEAAAAJAAkAAQAWAAAAAAAJAAoAAQAWAAEAAAAKAAkAAQAXAAAAAAAKAAoAAQAXAAEAAAALAAkAAQAWAAAAAAALAAoAAQAWAAEAAAAMAAkAAQAXAAAAAAAMAAoAAQAXAAEAAAANAAkAAQAWAAAAAAANAAoAAQAWAAEAAAAOAAkAAQAXAAAAAAAOAAoAAQAXAAEAAAAPAAkAAQAWAAAAAAAPAAoAAQAWAAEAAAAQAAkAAQAXAAAAAAAQAAoAAQAXAAEAAAARAAkAAQAWAAAAAAARAAoAAQAWAAEAAAASAAkAAQAXAAAAAAASAAoAAQAXAAEAAAADAAsAAQAWAAAAAAADAAwAAQAWAAEAAAAEAAsAAQAXAAAAAAAEAAwAAQAXAAEAAAAFAAsAAQAWAAAAAAAFAAwAAQAWAAEAAAAGAAsAAQAXAAAAAAAGAAwAAQAXAAEAAAAHAAsAAQAWAAAAAAAHAAwAAQAWAAEAAAAIAAsAAQAXAAAAAAAIAAwAAQAXAAEAAAAJAAsAAQAWAAAAAAAJAAwAAQAWAAEAAAAKAAsAAQAXAAAAAAAKAAwAAQAXAAEAAAALAAsAAQAWAAAAAAALAAwAAQAWAAEAAAAMAAsAAQAXAAAAAAAMAAwAAQAXAAEAAAANAAsAAQAWAAAAAAANAAwAAQAWAAEAAAAOAAsAAQAXAAAAAAAOAAwAAQAXAAEAAAAPAAsAAQAWAAAAAAAPAAwAAQAWAAEAAAAQAAsAAQAXAAAAAAAQAAwAAQAXAAEAAAARAAsAAQAWAAAAAAARAAwAAQAWAAEAAAASAAsAAQAXAAAAAAASAAwAAQAXAAEAAAAKAA0AAQAWAAAAAAALAA0AAQAWAAAAAAAMAA0AAQAWAAAAAAA=")
+tile_set = SubResource("TileSet_bi516")
+
+[node name="Walls" type="TileMapLayer" parent="Apothecary" unique_id=429694993]
+position = Vector2(-185, -202)
+tile_map_data = PackedByteArray("AAADAAIAAQAYAAEAAAAFAAIAAQAYAAEAAAAHAAIAAQAZAAEAAAAJAAIAAQAGAAAAAAARAAIAAQAIAAAAAAATAAEAAQAOAAAAAAATAAIAAQAOAAEAAAATAAMAAQAOAAEAAAATAAQAAQAOAAEAAAATAAUAAQAOAAEAAAATAAYAAQAOAAEAAAATAAcAAQAOAAEAAAATAAgAAQAOAAEAAAATAAkAAQAOAAEAAAATAAoAAQAOAAEAAAATAAsAAQAOAAEAAAATAAwAAQAOAAIAAAACAAEAAQANAAAAAAACAAIAAQANAAEAAAACAAMAAQANAAEAAAACAAQAAQANAAEAAAACAAUAAQANAAEAAAACAAYAAQANAAEAAAACAAcAAQANAAEAAAACAAgAAQANAAEAAAACAAkAAQANAAEAAAACAAoAAQANAAEAAAACAAsAAQANAAEAAAACAAwAAQANAAIAAAADAA0AAQAMAAMAAAAEAA0AAQANAAMAAAAFAA0AAQANAAMAAAAGAA0AAQANAAMAAAAHAA0AAQANAAMAAAAIAA0AAQANAAMAAAANAA0AAQAMAAMAAAAOAA0AAQANAAMAAAAPAA0AAQANAAMAAAAQAA0AAQANAAMAAAARAA0AAQANAAMAAAASAA0AAQANAAMAAAATAA0AAQAOAAMAAAALAAIAAQAGAAAAAAANAAIAAQAGAAAAAAAPAAIAAQAGAAAAAAADAAEAAQAYAAAAAAAEAAEAAQAZAAAAAAAEAAIAAQAZAAEAAAAFAAEAAQAYAAAAAAAGAAEAAQAZAAAAAAAGAAIAAQAZAAEAAAAHAAEAAQAZAAAAAAAIAAIAAQAEAAAAAAAJAA0AAQANAAMAAAAKAA0AAQAOAAMAAAA=")
+tile_set = SubResource("TileSet_bi516")
+
+[node name="Wall Mounts" type="TileMapLayer" parent="Apothecary" unique_id=883006338]
+position = Vector2(-185, -202)
+tile_map_data = PackedByteArray("AAADAAMAAQAKAAAAAAAGAAMAAQAQAAMAAAAIAAEAAQAPAAIAAAAIAAIAAQAPAAMAAAAIAAQAAQAPAAMAAAAIAAUAAQAPAAUAAAAIAAcAAQAPAAYAAAAJAAcAAQAVAAIAAAAKAAcAAQAWAAIAAAALAAcAAQAWAAIAAAAMAAcAAQAWAAIAAAANAAcAAQAWAAIAAAAOAAcAAQAWAAIAAAAPAAcAAQAWAAIAAAAQAAcAAQAWAAIAAAARAAcAAQAXAAIAAAARAAMAAQAYAAIAAAALAAMAAQAYAAIAAAANAAIAAQAPAAAAAAA=")
+tile_set = SubResource("TileSet_bi516")
+
+[node name="Panel" type="Panel" parent="Apothecary" unique_id=1743440390]
+z_index = -2
+offset_left = -191.0
+offset_top = -206.0
+offset_right = 215.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0o3x6")
+metadata/_edit_use_anchors_ = true
+
+[node name="NpcTemplate" parent="Apothecary" unique_id=823861237 instance=ExtResource("8_ahl7k")]
+position = Vector2(-3, -118)
+scale = Vector2(0.32, 0.32)
+
+[node name="NpcTemplate2" parent="Apothecary" unique_id=741802667 instance=ExtResource("9_y5k7i")]
+position = Vector2(-2.0000038, 427.99994)
+scale = Vector2(0.36, 0.36)
+
 [node name="Library" type="Node2D" parent="." unique_id=714570653]
 position = Vector2(1017, -598)
 
@@ -601,10 +659,10 @@ position = Vector2(595, 108)
 position = Vector2(-48, 100)
 scale = Vector2(5.03, 1)
 location_data = {
-"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Tavern"],
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern"],
 "Cliff Side": ["Cliff Entrance"],
-"Forest": ["Left Side", "Right Side"],
-"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
 }
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Library"
@@ -656,10 +714,10 @@ position = Vector2(387, 75)
 position = Vector2(16, 61)
 scale = Vector2(3, 1)
 location_data = {
-"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
 "Cliff Side": ["Cliff Entrance"],
-"Forest": ["Left Side", "Right Side"],
-"Village": ["Potion Shop", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
 }
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Infirmary"

@@ -55,7 +55,7 @@ enum Progression_Flags {
 }
 
 enum locations {
-	Potion_Shop,
+	Apothecary,
 	Weapon_Shop,
 	Library,
 	Infirmary,
