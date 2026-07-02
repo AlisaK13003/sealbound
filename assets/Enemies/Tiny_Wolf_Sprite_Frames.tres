@@ -6,6 +6,18 @@
 atlas = ExtResource("1_uvcij")
 region = Rect2(0, 0, 37, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvcij"]
+atlas = ExtResource("1_uvcij")
+region = Rect2(0, 0, 37, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oij4f"]
+atlas = ExtResource("1_uvcij")
+region = Rect2(0, 0, 37, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw3mg"]
+atlas = ExtResource("1_uvcij")
+region = Rect2(0, 0, 37, 20)
+
 [resource]
 animations = [{
 "frames": [{
@@ -14,5 +26,29 @@ animations = [{
 }],
 "loop": 1,
 "name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvcij")
+}],
+"loop": 1,
+"name": &"On_Attack_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oij4f")
+}],
+"loop": 1,
+"name": &"On_Attack_Base",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw3mg")
+}],
+"loop": 1,
+"name": &"On_Death",
 "speed": 5.0
 }]

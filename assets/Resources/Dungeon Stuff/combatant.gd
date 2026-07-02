@@ -50,7 +50,7 @@ func restore_health():
 
 func add_experience(amount_to_add):
 	total_experience_points += amount_to_add
-	combatant_stats.level
+	#combatant_stats.level
 	while(total_experience_points >= ceili((100 * pow(1.2, combatant_stats.level)) - 120)):
 		combatant_stats.level += 1
 	
