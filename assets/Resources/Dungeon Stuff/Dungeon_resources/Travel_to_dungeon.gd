@@ -64,3 +64,4 @@ func travel(set_off_for_dungeon):
 	else:
 		await Fade.fade_in(1)
 		Fade.change_scene("res://scenes/main/Hearthwynn.tscn")
+		GlobalCombatInformation.in_dungeon = false

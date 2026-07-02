@@ -45,6 +45,9 @@ class_name generic_combatants
 @export var bond_points: int = 0
 @export var bond_level: GlobalCombatInformation.bonds
 
+func restore_health():
+	combatant_stats.health = combatant_stats.max_health
+
 func add_experience(amount_to_add):
 	total_experience_points += amount_to_add
 	combatant_stats.level

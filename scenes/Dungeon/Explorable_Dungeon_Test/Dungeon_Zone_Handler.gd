@@ -79,8 +79,8 @@ func remove_old_dungeon():
 var setting_up_new_floor = false
 func entered_new_floor():
 	if current_floor == floor_count:
-		return true
-		#get_tree().quit()
+		GlobalCombatInformation.dungeon_over()
+		return
 	else:
 		setting_up_new_floor = true
 		current_floor += 1

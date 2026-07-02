@@ -29,8 +29,8 @@ func _ready():
 	spooky_forest_instance = spooky_forest.instantiate()
 	building_insides_instance = building_insides.instantiate()
 
-func _setup():
-	currently_transitioning = true
+func _setup(transition = true):
+	currently_transitioning = transition
 	Fade.fade_out(0.0)
 	var hearthwynn = load(hearthwynn_hub_scene)
 	var cliff_side = load(cliff_side_scene)

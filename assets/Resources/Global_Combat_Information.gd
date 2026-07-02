@@ -1,5 +1,7 @@
 extends Node
 
+var in_dungeon: bool = false
+
 var active_party_slots: Array[generic_combatants]
 var all_party_slots: Array[generic_combatants]
 
@@ -33,6 +35,7 @@ var holding_basic_room_key: bool = false
 signal finished
 
 signal check_quest_progress
+signal reached_end_of_dungeon
 
 func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
@@ -98,14 +101,14 @@ func add_equipment(player_index, equip, is_weapon):
 	return ret_equipment
 	
 func _ready():
-	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
-	active_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
-	active_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
-	
 	all_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
-
+	
+	active_party_slots.append(all_party_slots[0])
+	active_party_slots.append(all_party_slots[1])
+	active_party_slots.append(all_party_slots[2])
+	
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
 
@@ -175,6 +178,28 @@ var is_combat_active: bool = false
 var previous_enemy_encountered
 var should_remove_enemy = false
 
+func dungeon_over():
+	await Fade.fade_in(1.0)
+	for member in all_party_slots:
+		member.restore_health()
+	dungeon_loop_scene.queue_free()
+	explorable_dungeon_scene.queue_free()
+	Global.current_region = "Buildings_Insides"
+	Global.current_loading_zone = "Bedroom"
+	AreaStateManager._setup(false)
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/main/Building Insides.tscn")
+	
+	await get_tree().process_frame
+	await get_tree().physics_frame
+	get_tree().current_scene.swap_to_me()
+	await Fade.fade_out(1.0)
+	Global.player_advanced_day(true)
+	
+	#AreaStateManager.swap_scene(null)
+	
+	in_dungeon = false
+	
+
 var current_dungeon
 
 func initiate_combat(encounter, node_id, is_boss: bool = false):
@@ -185,7 +210,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	await Fade.fade_in(0.5)
 	get_tree().root.call_deferred("remove_child", explorable_dungeon_scene)
 	get_tree().root.call_deferred("add_child", dungeon_loop_scene)
-	
+	get_tree().current_scene = dungeon_loop_scene
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
@@ -205,7 +230,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	if did_players_win:
 		should_remove_enemy = true
 	else:
-		print("Y'all dummies lost")
+		dungeon_over()
 		return
 	
 	var coins_gained: int = 0
@@ -260,7 +285,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	var temp_rewards = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
 	var rewards_scene = temp_rewards.instantiate()
 	get_tree().root.add_child(rewards_scene)
-	
+	get_tree().current_scene = rewards_scene
 	rewards_scene._setup(coins_gained, experience_gained, bond_gained, stuff_gained)
 	rewards_scene_ = rewards_scene
 	
@@ -278,6 +303,7 @@ func bring_back_combat(_rewards_scene):
 		#explorable_dungeon_scene.enemy_container.remove_child(previous_enemy_encountered)
 	
 	is_combat_active = false
+	get_tree().current_scene = explorable_dungeon_scene
 	explorable_dungeon_scene.return_to_exploring()
 
 

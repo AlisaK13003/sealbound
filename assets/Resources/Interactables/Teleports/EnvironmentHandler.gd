@@ -13,6 +13,9 @@ func swap_to_me():
 func teleport_player_to_spawn():
 	if Global.current_loading_zone == "":
 		return
+		
+	print("Current Loading Zone ", Global.current_loading_zone)
+	print("Current Region ", Global.current_region)
 	var spawn_point = find_loading_zone_spawn(Global.current_loading_zone)
 	if spawn_point == null:
 		push_warning("EnvironmentHandler: Could not find loading zone spawn '%s' in %s." % [Global.current_loading_zone, scene_file_path])

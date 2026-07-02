@@ -836,5 +836,4 @@ location_container = NodePath("../BuildingLocationContainer")
 speed = 80.0
 default_z_index = 12
 counter_z_index = 9
-counter_draw_order_y = -720.0
 use_counter_draw_order = true

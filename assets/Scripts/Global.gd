@@ -157,7 +157,7 @@ func did_time_reach(hour: int, minute: int) -> bool:
 func _physics_process(delta):
 	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
 	
-	if AreaStateManager.currently_transitioning:
+	if AreaStateManager.currently_transitioning or GlobalCombatInformation.in_dungeon:
 		return
 	
 	running_time += delta
