@@ -32,6 +32,8 @@ var holding_basic_room_key: bool = false
 
 signal finished
 
+signal check_quest_progress
+
 func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 	for i in range(5):
@@ -42,14 +44,16 @@ func add_item(item_to_add):
 		for item in item_to_add:
 			if item.what_is_it & 010:
 				all_held_valuables.append(item)
-			elif item.what_is_it & 100:
+			else:
 				all_held_items.append(item)
+		check_quest_progress.emit()
 		return
 	if item_to_add.what_is_it & 010:
 		all_held_valuables.append(item_to_add)
-	elif item_to_add.what_is_it & 100:
+	else:
 		all_held_items.append(item_to_add)
-
+	check_quest_progress.emit()
+	
 func add_equipment(player_index, equip, is_weapon):
 	var ret_equipment = null
 	if is_weapon:
@@ -120,7 +124,6 @@ func _ready():
 	all_held_equipment.append(load("res://assets/Equipment/Iron_Helmet.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Iron_Chestplate.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Lather_Chestplate.tres"))
-
 	
 	await get_tree().create_timer(0.5).timeout
 
@@ -189,7 +192,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	var output = await dungeon_loop_scene.setup(dungeon_types[selected_dungeon_], encounter, is_boss)
 	var enemies_killed = output[0]
 	var did_players_win = output[1]
-	
+	print("YOU KJILLED ", enemies_killed)
 	# output[2] = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
 	
 	active_party_slots[0] = output[2][0].duplicate()
@@ -221,10 +224,10 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	
 	for enemy: generic_combatants in enemies_killed:
 		var is_quest_target = enemies_to_check.any(func(e): return e.combatant_name == enemy.combatant_name)
-		
+		print("ARE YOU A QUEST TARGET ", is_quest_target )
 		if is_quest_target:
 			var chance = rng.randf()
-			if chance > 0.6:
+			if chance < 1.0:
 				var drop_num = rng.randi_range(1, 3)
 				for i in range(drop_num):
 					quest_items_gained.append(enemy.quest_item_drop.duplicate())
@@ -239,6 +242,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	for player: generic_combatants in active_party_slots:
 		player.add_experience(int(float(experience_gained) / (active_party_slots.size() - 1)))
 	currency_held += coins_gained
+	check_quest_progress.emit()
 
 	if stuff_gained == null and quest_items_gained != null: 
 		stuff_gained = quest_items_gained
@@ -247,6 +251,9 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 
 	if is_boss:
 		get_tree().quit()
+
+	if stuff_gained != null:
+		add_item(stuff_gained)
 
 	await Fade.fade_in(1)
 	get_tree().root.remove_child(dungeon_loop_scene)

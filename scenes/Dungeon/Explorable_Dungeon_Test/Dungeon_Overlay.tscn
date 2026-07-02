@@ -39,6 +39,7 @@ theme_override_constants/separation = 25
 layout_mode = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=1509274551]
+visible = false
 layout_mode = 0
 offset_left = 569.0
 offset_top = 1.0

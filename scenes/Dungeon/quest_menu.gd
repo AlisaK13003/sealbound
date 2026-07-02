@@ -14,3 +14,9 @@ func _setup(p_ref):
 	
 		new_quest_node_instance._setup(quest_)
 		quest_node_container.add_child(new_quest_node_instance)
+	GlobalCombatInformation.check_quest_progress.connect(update_quests)
+	
+func update_quests():
+	for item: Items in GlobalCombatInformation.all_held_items:
+		for quest_ in quest_node_container.get_children():
+			quest_.update_quest_progress()

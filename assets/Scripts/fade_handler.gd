@@ -77,3 +77,8 @@ func fade_out(duration: float):
 
 
 	is_fading = false
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/main/Basic Start Screen.tscn")
+	#get_tree().current_scene._setup()
