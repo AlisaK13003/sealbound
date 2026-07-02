@@ -38,7 +38,7 @@ class_name dungeon_gui
 
 var test_mode = false
 
-var p_ref: dungeon_loop
+var p_ref
 
 var executing_skill = false
 var executing_item = false

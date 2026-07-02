@@ -51,7 +51,7 @@ func _ready():
 	if await entered_new_floor():
 		print("FINISHED")	
 
-var combat_scene_: dungeon_loop
+var combat_scene_#: dungeon_loop
 var should_spawn_boss_floor: bool = false
 func _setup(dungeon_type_: dungeon_type):
 	#await Fade.fade_in(0.0)

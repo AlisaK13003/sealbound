@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 var active_party_slots: Array[generic_combatants]
 var all_party_slots: Array[generic_combatants]
@@ -70,8 +70,8 @@ func _ready():
 
 	finished.emit()
 
-var explorable_dungeon_scene: explorable_dungeon
-var dungeon_loop_scene: dungeon_loop
+var explorable_dungeon_scene# : explorable_dungeon
+var dungeon_loop_scene #: dungeon_loop
 
 var selected_dungeon_
 

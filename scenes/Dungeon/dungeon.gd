@@ -1212,7 +1212,7 @@ func execute_player_auto_turn(player_to_act, _turn_number, testing):
 				if chance < current_sum:
 					selected_action = action
 					break
-	\
+	
 	await attacking_player.take_turn(gui.get_player_portrait(attacking_player.child_number))
 		
 	var action_sequence: Array[Callable]
