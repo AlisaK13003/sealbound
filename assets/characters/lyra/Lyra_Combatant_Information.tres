@@ -5,7 +5,10 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_n5n1p"]
 [ext_resource type="SpriteFrames" uid="uid://cbtk43ca1obs0" path="res://assets/characters/lyra/Lyra_dungeon_animation.tres" id="4_26prq"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_7rixd"]
+[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_d3o0m"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_4bmwk"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_uwea6"]
+[ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="7_7rixd"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m3koh"]
 load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
@@ -162,6 +165,9 @@ party_member_portrait = SubResource("AnimatedTexture_cygc5")
 combatant_stats = SubResource("Resource_dx6g1")
 stored_weapon = SubResource("Resource_pfgd8")
 stored_equipment = SubResource("Resource_jcqwx")
+stored_charm = ExtResource("6_uwea6")
+stored_boots = ExtResource("5_d3o0m")
+stored_chestplate = ExtResource("7_7rixd")
 combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01")])
 sprite_frames = ExtResource("4_26prq")
 idle_speed = 0.2

@@ -3,6 +3,9 @@ class_name equipment
 
 @export var equipment_name : String
 @export var equipment_description : String
+@export var equipment_sprite: Texture2D
+
+@export_enum("Helmet", "Chestplate", "Boots", "Charm") var equipment_type = 0
 
 @export var equipment_stats : stats
 
@@ -10,3 +13,42 @@ class_name equipment
 
 func export_to_JSON():
 	pass
+
+func return_stuff():
+	match equipment_type:
+		# Helmet
+		0:
+			return {
+				"name": equipment_name,
+				"description": equipment_description,
+				"texture": equipment_sprite,
+				"health": equipment_stats.health,
+				"resistance": equipment_stats.resistance,
+			}
+		# Chestplate
+		1:
+			return {
+				"name": equipment_name,
+				"description": equipment_description,
+				"texture": equipment_sprite,
+				"defense": equipment_stats.defense,
+				"health": equipment_stats.health,
+			}
+		# Boots
+		2:
+			return {
+				"name": equipment_name,
+				"description": equipment_description,
+				"texture": equipment_sprite,
+				"speed": equipment_stats.speed,
+				"evasion": equipment_stats.evasion,
+			}
+		# Charm
+		3:
+			return {
+				"name": equipment_name,
+				"description": equipment_description,
+				"texture": equipment_sprite,
+				"magic": equipment_stats.magic,
+				"luck": equipment_stats.luck,
+			}

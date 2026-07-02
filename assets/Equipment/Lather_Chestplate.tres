@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://b0vnqhsws2d6e"]
+
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_1qoeg"]
+[ext_resource type="Texture2D" uid="uid://18r8dgv2cgkk" path="res://assets/Equipment/Equipment Sprites/Shirt.png" id="1_v8pdy"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_idada"]
+
+[sub_resource type="Resource" id="Resource_tha0o"]
+script = ExtResource("2_idada")
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_1qoeg")
+equipment_name = "Lather Chestplate"
+equipment_sprite = ExtResource("1_v8pdy")
+equipment_type = 1
+equipment_stats = SubResource("Resource_tha0o")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

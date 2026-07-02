@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://d1n4h27bsp3i6"]
+
+[ext_resource type="Texture2D" uid="uid://csmwv83w8gi3t" path="res://assets/Equipment/Equipment Sprites/Golden Bracelet.png" id="1_ayi4r"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_i6lge"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_jjiem"]
+
+[sub_resource type="Resource" id="Resource_tb8uc"]
+script = ExtResource("2_jjiem")
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_i6lge")
+equipment_name = "Gold Bracelet"
+equipment_sprite = ExtResource("1_ayi4r")
+equipment_type = 3
+equipment_stats = SubResource("Resource_tb8uc")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csmwv83w8gi3t"
-path="res://.godot/imported/Golden Bracelet.png-5cd58c6100e4076930c9fac09ed926f8.ctex"
+uid="uid://cpe47p6wgp3ca"
+path="res://.godot/imported/Rusty Axe.png-d1b81d4548e0b9b5b1b93426f1e7452e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Equipment Sprites/Golden Bracelet.png"
-dest_files=["res://.godot/imported/Golden Bracelet.png-5cd58c6100e4076930c9fac09ed926f8.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Rusty Axe.png"
+dest_files=["res://.godot/imported/Rusty Axe.png-d1b81d4548e0b9b5b1b93426f1e7452e.ctex"]
 
 [params]
 

@@ -7,8 +7,14 @@ class_name generic_combatants
 @export var combatant_stats: stats
 @export var is_combatant_enemy: bool
 @export var is_dead: bool = false
+
+@export_category("Equipped Items")
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
+@export var stored_charm: equipment
+@export var stored_boots: equipment
+@export var stored_chestplate: equipment
+
 
 @export var should_flip_sprite: bool = false
 

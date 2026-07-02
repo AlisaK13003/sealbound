@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxsaotvndhkov"
-path="res://.godot/imported/Amethystt Ring.png-4e6766c4ab7c742a1fd5ed74b07a03d3.ctex"
+uid="uid://d0i0eybic4oqc"
+path="res://.godot/imported/Feet.png-cb2ab2a99c7266e92d448ff34bf6cef7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Equipment Sprites/Amethystt Ring.png"
-dest_files=["res://.godot/imported/Amethystt Ring.png-4e6766c4ab7c742a1fd5ed74b07a03d3.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Feet.png"
+dest_files=["res://.godot/imported/Feet.png-cb2ab2a99c7266e92d448ff34bf6cef7.ctex"]
 
 [params]
 

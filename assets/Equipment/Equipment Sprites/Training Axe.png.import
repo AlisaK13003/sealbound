@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxyjgy50f11se"
-path="res://.godot/imported/Hat.png-df0c9d075a35b7c599cbb259f04d4a21.ctex"
+uid="uid://eke53x6p5mk1"
+path="res://.godot/imported/Training Axe.png-da836eea331dc60a7ee3b8fb42875204.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Equipment Sprites/Hat.png"
-dest_files=["res://.godot/imported/Hat.png-df0c9d075a35b7c599cbb259f04d4a21.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Training Axe.png"
+dest_files=["res://.godot/imported/Training Axe.png-da836eea331dc60a7ee3b8fb42875204.ctex"]
 
 [params]
 
