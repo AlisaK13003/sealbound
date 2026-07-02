@@ -3,6 +3,8 @@ extends Node2D
 # When these gain more functionality they will be added to their own areas
 # --------------------------------------------------------------------------------------------------
 
+var is_paused: bool = false
+
 var spawn_location
 
 var current_weather : weather = weather.Normal

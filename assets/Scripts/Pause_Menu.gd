@@ -48,6 +48,8 @@ func _notification(what):
 		_reset_tabbed_menu()
 	
 func tab_changed(which_tab):
+	if not Global.is_paused:
+		return
 	for child in range(windows.get_child_count()):
 		if which_tab == child:
 			windows.get_child(child).visible = true

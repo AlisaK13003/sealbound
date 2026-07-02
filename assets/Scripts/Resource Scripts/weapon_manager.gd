@@ -8,8 +8,8 @@ class_name weapon
 @export var weapon_attack : int = 0
 @export var weapon_magic : int = 0
 
-@export var weapon_crit_chance: float = 0.0
-@export var weapon_crit_damage: float = 0.0
+@export var weapon_crit_chance: int = 0
+@export var weapon_crit_damage: int = 0
 
 @export var attack_accuracy : int = 0
 
@@ -29,3 +29,6 @@ func return_stuff():
 		"crit chance": weapon_crit_chance,
 		"crit damage": weapon_crit_damage,
 	}
+
+func get_stat_string():
+	return str(weapon_attack) + " Attack, " + str(weapon_crit_chance) + "% Crit C, " + str(weapon_crit_damage) + " Crit D"

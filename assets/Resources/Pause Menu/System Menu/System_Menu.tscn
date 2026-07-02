@@ -1,16 +1,5 @@
 [gd_scene format=3 uid="uid://cq3emt0b1euib"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ix3rr"]
-bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
-skew = Vector2(0.105, 0)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-expand_margin_left = 20.0
-expand_margin_right = 20.0
-shadow_size = 18
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kar08"]
 
 [node name="SystemMenu" type="Control" unique_id=893803557]
@@ -21,49 +10,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="." unique_id=1413150098]
-z_index = -2
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=501561416]
 layout_mode = 0
-offset_left = -344.0
-offset_top = -119.0
-offset_right = 611.0
-offset_bottom = 414.0
-scale = Vector2(0.8, 0.8)
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_ix3rr")
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 132
 
-[node name="Panel2" type="Panel" parent="." unique_id=563051445]
-layout_mode = 0
-offset_left = -232.0
-offset_top = 57.0
-offset_right = -108.0
-offset_bottom = 87.0
+[node name="Panel2" type="Panel" parent="HBoxContainer" unique_id=563051445]
+custom_minimum_size = Vector2(94.905, 0)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kar08")
 
-[node name="Label" type="Label" parent="Panel2" unique_id=1487357879]
+[node name="Label" type="Label" parent="HBoxContainer/Panel2" unique_id=1487357879]
 layout_mode = 0
 offset_left = -1.0
-offset_top = 9.0
-offset_right = 124.0
+offset_top = 1.0
+offset_right = 95.0
 offset_bottom = 40.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel3" type="Panel" parent="." unique_id=1595734881]
-layout_mode = 0
-offset_left = 153.0
-offset_top = 62.0
-offset_right = 277.0
-offset_bottom = 92.0
+[node name="Panel3" type="Panel" parent="HBoxContainer" unique_id=1595734881]
+custom_minimum_size = Vector2(94.905, 0)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kar08")
 
-[node name="Label" type="Label" parent="Panel3" unique_id=1130391750]
+[node name="Label" type="Label" parent="HBoxContainer/Panel3" unique_id=1130391750]
 layout_mode = 0
 offset_left = -1.0
 offset_top = 9.0
-offset_right = 124.0
+offset_right = 95.0
 offset_bottom = 40.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Quit To Menu"

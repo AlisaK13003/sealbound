@@ -50,6 +50,49 @@ func add_item(item_to_add):
 	elif item_to_add.what_is_it & 100:
 		all_held_items.append(item_to_add)
 
+func add_equipment(player_index, equip, is_weapon):
+	var ret_equipment = null
+	if is_weapon:
+		
+		if all_party_slots[player_index].stored_weapon != null:
+			all_held_weapons.append(all_party_slots[player_index].stored_weapon)
+			ret_equipment = all_party_slots[player_index].stored_weapon
+		all_held_weapons.erase(equip)
+		all_party_slots[player_index].stored_weapon = equip
+	else:
+		var equip_: equipment = equip
+		match equip_.equipment_type:
+			# Helmet
+			0:
+				if all_party_slots[player_index].stored_equipment != null:
+					all_held_equipment.append(all_party_slots[player_index].stored_equipment)
+					ret_equipment = all_party_slots[player_index].stored_equipment
+				all_held_equipment.erase(equip_)
+				all_party_slots[player_index].stored_equipment = equip
+				
+			# Chestplate
+			1:
+				if all_party_slots[player_index].stored_chestplate != null:
+					all_held_equipment.append(all_party_slots[player_index].stored_chestplate)
+					ret_equipment = all_party_slots[player_index].stored_chestplate
+				all_held_equipment.erase(equip_)
+				all_party_slots[player_index].stored_chestplate = equip
+			# Boots
+			2:
+				if all_party_slots[player_index].stored_boots != null:
+					all_held_equipment.append(all_party_slots[player_index].stored_boots)
+					ret_equipment = all_party_slots[player_index].stored_boots
+				all_held_equipment.erase(equip_)
+				all_party_slots[player_index].stored_boots = equip.duplicate()
+			# Charm
+			3:
+				if all_party_slots[player_index].stored_charm != null:
+					all_held_equipment.append(all_party_slots[player_index].stored_charm)
+					ret_equipment = all_party_slots[player_index].stored_charm
+				all_held_equipment.erase(equip_)
+				all_party_slots[player_index].stored_charm = equip
+	return ret_equipment
+	
 func _ready():
 	active_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
 	active_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
@@ -65,6 +108,19 @@ func _ready():
 	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
 	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
 	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	
+	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
+
+	all_held_equipment.append(load("res://assets/Equipment/Gold_Bracelet.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Ruby Necklace.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Plated_Boots.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Leather_Helmet.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Leather_Boots.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Iron_Helmet.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Iron_Chestplate.tres"))
+	all_held_equipment.append(load("res://assets/Equipment/Lather_Chestplate.tres"))
+
 	
 	await get_tree().create_timer(0.5).timeout
 

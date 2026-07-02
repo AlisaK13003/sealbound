@@ -6,11 +6,15 @@
 
 [sub_resource type="Resource" id="Resource_tha0o"]
 script = ExtResource("2_idada")
+max_health = 50
+health = 50
+defense = 25
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("1_1qoeg")
-equipment_name = "Lather Chestplate"
+equipment_name = "Leather Chestplate"
+equipment_description = "This ain't minecraft"
 equipment_sprite = ExtResource("1_v8pdy")
 equipment_type = 1
 equipment_stats = SubResource("Resource_tha0o")

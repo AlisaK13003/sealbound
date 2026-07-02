@@ -20,6 +20,7 @@ func _ready() -> void:
 	$Camera2D.reset_smoothing()
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 	$Camera2D.zoom = camera_zoom
+	pause_menu.visible = false
 
 func _process(_delta: float) -> void:
 	var direction : Vector2 = Vector2.ZERO
@@ -43,7 +44,7 @@ func _process(_delta: float) -> void:
 	
 func _input(event):
 	
-	if event.is_action_pressed("Inventory"):
+	if event.is_action_pressed("Inventory") and false:
 		if Global.is_in_menu:
 			return
 		if not in_menu:
@@ -53,17 +54,21 @@ func _input(event):
 			full_inventory.manage_visibility(false)
 			in_menu = false
 			
-# In Player _input
+	# In Player _input
 	if event.is_action_pressed("Pause"):
 		if Global.is_in_menu:
 			return
 		if not pause_menu.visible:
+			Global.is_paused = true
 			pause_menu.visible = true
 			get_tree().paused = true
 			in_menu = true
 			full_inventory.manage_visibility(false)
 			get_viewport().set_input_as_handled()
-				
+		else:
+			Global.is_paused = false
+			in_menu = false
+			
 	if not Global.is_in_menu:
 		if event.is_action_pressed("Mouse Scroll Up"):
 			full_inventory.update_selection(-1)

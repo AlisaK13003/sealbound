@@ -174,5 +174,6 @@ idle_speed = 0.2
 walk_speed = 0.7
 sprite_scale = 0.007
 sprite_offset = Vector2(-38, -8)
+equip_sprite_offset = Vector2(-12, 17)
 bond_level = 1
 metadata/_custom_type_script = "uid://125iickqse23"

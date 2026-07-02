@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bibhye4kxwh7p"]
+
+[ext_resource type="Script" uid="uid://cm5afb4g2xdon" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_list_controller.gd" id="1_75o8k"]
+
+[node name="EquipmentList" type="GridContainer" unique_id=1746209712]
+script = ExtResource("1_75o8k")

@@ -69,6 +69,7 @@ offset_bottom = 40.0
 scale = Vector2(1.25, 1.25)
 
 [node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
+visible = false
 layout_mode = 1
 offset_left = -44.0
 offset_top = 29.0
@@ -80,6 +81,7 @@ visible = false
 layout_mode = 1
 
 [node name="EquipmentMenu" parent="Windows" unique_id=1214371089 instance=ExtResource("5_o57t2")]
+visible = false
 layout_mode = 1
 offset_left = -44.0
 offset_top = 58.255
@@ -95,10 +97,18 @@ menu_parent = NodePath("../..")
 [node name="SaveLoadMenu" parent="Windows" unique_id=253660476 instance=ExtResource("10_mqkyk")]
 visible = false
 layout_mode = 1
+offset_left = -54.305
+offset_top = -37.055
+offset_right = -54.305
+offset_bottom = -37.055
 
 [node name="SystemMenu" parent="Windows" unique_id=893803557 instance=ExtResource("11_35xr2")]
 visible = false
 layout_mode = 1
+offset_left = -186.305
+offset_top = 48.96
+offset_right = -186.305
+offset_bottom = 48.960045
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
 position = Vector2(-27, 70)

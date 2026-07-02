@@ -6,11 +6,14 @@
 
 [sub_resource type="Resource" id="Resource_tb8uc"]
 script = ExtResource("2_jjiem")
+magic = 10
+luck = 3
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("1_i6lge")
 equipment_name = "Gold Bracelet"
+equipment_description = "Valuable"
 equipment_sprite = ExtResource("1_ayi4r")
 equipment_type = 3
 equipment_stats = SubResource("Resource_tb8uc")

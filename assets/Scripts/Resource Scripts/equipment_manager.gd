@@ -52,3 +52,18 @@ func return_stuff():
 				"magic": equipment_stats.magic,
 				"luck": equipment_stats.luck,
 			}
+
+func get_stat_string():
+	match equipment_type:
+		# Helmet
+		0:
+			return str(equipment_stats.health) + " Health, " + str(equipment_stats.resistance) + " Resistance"
+		# Chestplate
+		1:
+			return str(equipment_stats.health) + " Health, " + str(equipment_stats.defense) + " Defense"
+		# Boots
+		2:
+			return str(equipment_stats.speed) + " Speed, " + str(equipment_stats.evasion) + " Evasion"
+		# Charm
+		3:
+			return str(equipment_stats.magic) + " Magic, " + str(equipment_stats.luck) + " Luck"

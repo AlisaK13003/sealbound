@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cnp6wabbskx27" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_menu_controller.gd" id="1_7krcb"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_6c37x"]
+[ext_resource type="PackedScene" uid="uid://bibhye4kxwh7p" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_List.tscn" id="3_6c37x"]
 
 [node name="EquipmentMenu" type="Control" unique_id=1214371089]
 layout_mode = 3
@@ -33,3 +34,52 @@ offset_top = -100.0
 offset_right = -292.18
 offset_bottom = -60.0
 mouse_filter = 1
+
+[node name="Label" type="Label" parent="." unique_id=414245451]
+custom_minimum_size = Vector2(260.745, 7.595)
+layout_mode = 0
+offset_left = 169.285
+offset_top = -84.5
+offset_right = 430.03006
+offset_bottom = 311.5
+theme_override_font_sizes/font_size = 32
+text = "Chestplates"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Container" type="Container" parent="." unique_id=1797554766]
+z_index = 195
+layout_mode = 0
+offset_left = 167.045
+offset_top = -48.605
+offset_right = 207.04497
+offset_bottom = -8.605
+
+[node name="Weapon_List" parent="Container" unique_id=1746209712 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 54
+
+[node name="Helmet_List" parent="Container" unique_id=1844179643 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 54
+what_equipment_am_i = 1
+
+[node name="Boots_List" parent="Container" unique_id=987091836 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 54
+what_equipment_am_i = 3
+
+[node name="Charm_List" parent="Container" unique_id=1353107630 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 54
+what_equipment_am_i = 4
+
+[node name="Chestplate_List" parent="Container" unique_id=1699206467 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 54
+what_equipment_am_i = 2

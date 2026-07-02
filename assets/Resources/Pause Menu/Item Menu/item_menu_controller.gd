@@ -1,7 +1,7 @@
 extends Control
 
-@onready var item_container = $VBoxContainer
-@onready var party_cards = $Party_Cards
+#@onready var item_container = $VBoxContainer
+#@onready var party_cards = $Party_Cards
 var item_scene = preload("res://assets/Resources/Pause Menu/Item Menu/Display_item.tscn")
 var start_range = 0
 var end_range = 7
@@ -20,18 +20,20 @@ func _on_game_start():
 		var new_item = item_scene.instantiate()
 		new_item.setup(item)
 		new_item.item_clicked.connect(display_item_clicked)
-		item_container.add_child(new_item)
+		#item_container.add_child(new_item)
 
 
-func setup_party_card(member: PartyMember, which_thing):
-	if party_cards.get_child(which_thing) == null:
-		return
-	var current_card = party_cards.get_child(which_thing)
-	current_card.get_node("Sprite").texture = member.player_sprite
-	current_card.get_node("Name").text = member.member_name
-	current_card.get_node("Health").text = str(member.player_stats.health)
+#func setup_party_card(member: PartyMember, which_thing):
+	#if party_cards.get_child(which_thing) == null:
+	#	return
+	#var current_card = party_cards.get_child(which_thing)
+	#current_card.get_node("Sprite").texture = member.player_sprite
+	#current_card.get_node("Name").text = member.member_name
+	#current_card.get_node("Health").text = str(member.player_stats.health)
 
 func _input(event):
+	if not Global.is_paused:
+		return
 	if menu_parent == null:
 		return
 	
@@ -51,18 +53,18 @@ func update_display(change_range_by: int):
 		end_range = clamp(end_range + change_range_by, start_range + 7, Global.item_list.size())
 	selected_item = clamp(selected_item + change_range_by, 0, Global.item_list.size() - 1)
 
-	for i in range(Global.item_list.size()):
-		if item_container.get_child(i) == null:
-			return
-		if i == selected_item:
-			item_container.get_child(i).change_color(Color.AQUAMARINE)
-		else:
-			item_container.get_child(i).change_color(Color.YELLOW)
-		
-		if i >= start_range and i < end_range:
-			item_container.get_child(i).visible = true
-		else:
-			item_container.get_child(i).visible = false
+	#for i in range(Global.item_list.size()):
+	#	if item_container.get_child(i) == null:
+	#		return
+	#	if i == selected_item:
+	#		item_container.get_child(i).change_color(Color.AQUAMARINE)
+	#	else:
+	#		item_container.get_child(i).change_color(Color.YELLOW)
+	#	
+	#	if i >= start_range and i < end_range:
+	#		item_container.get_child(i).visible = true
+	#	else:
+	#		item_container.get_child(i).visible = false
 	if Global.item_list.size() > 0:
 		$ColorRect2.get_child(0).text = Global.item_list.get(selected_item).item_description
 
@@ -76,6 +78,6 @@ func update_item_menu(item_index, item):
 		var new_item = item_scene.instantiate()
 		new_item.setup(item)
 		new_item.item_clicked.connect(display_item_clicked)
-		item_container.add_child(new_item)
-	else:
-		item_container.remove_child_at(item_index)
+	#	item_container.add_child(new_item)
+	#else:
+	#	item_container.remove_child_at(item_index)

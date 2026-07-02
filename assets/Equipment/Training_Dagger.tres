@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="weapon" format=3 uid="uid://bq3082pwx4i6h"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_qhfb7"]
+[ext_resource type="Texture2D" uid="uid://cnx3mg38e4mty" path="res://assets/Equipment/Equipment Sprites/Training Dagger.png" id="2_epsqu"]
+
+[resource]
+script = ExtResource("1_qhfb7")
+weapon_name = "Training Dagger"
+weapon_description = "Pointy"
+weapon_texture = ExtResource("2_epsqu")
+weapon_attack = 15
+weapon_crit_chance = 20
+weapon_crit_damage = 10
+metadata/_custom_type_script = "uid://c8pcj6siqledr"

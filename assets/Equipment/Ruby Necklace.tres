@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://8qkw77ujasd7"]
+
+[ext_resource type="Texture2D" uid="uid://o4q3ds3kg3k" path="res://assets/Equipment/Equipment Sprites/Ruby Necklace.png" id="1_2rfm5"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_3hoe2"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_wo6y6"]
+
+[sub_resource type="Resource" id="Resource_c56y2"]
+script = ExtResource("2_wo6y6")
+magic = 5
+luck = 2
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("1_3hoe2")
+equipment_name = "Ruby Necklace"
+equipment_description = "Preeetttyyyy"
+equipment_sprite = ExtResource("1_2rfm5")
+equipment_type = 3
+equipment_stats = SubResource("Resource_c56y2")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

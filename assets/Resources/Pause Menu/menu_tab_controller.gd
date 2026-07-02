@@ -45,6 +45,8 @@ func _setup(tab_names_, custom_tab: String = ""):
 			
 
 func _input(event):
+	if not Global.is_paused:
+		return
 	if not be_vertical:
 		if Global.get_input_mapping("left"):
 			cycle_input(null, -1)
