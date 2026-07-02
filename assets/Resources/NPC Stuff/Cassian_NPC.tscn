@@ -191,6 +191,7 @@ script = ExtResource("4_gjqij")
 shop_stock = Array[ExtResource("5_3k3xb")]([SubResource("Resource_ysr08"), SubResource("Resource_3k3xb"), SubResource("Resource_f7jk0"), SubResource("Resource_5455o"), SubResource("Resource_leaap")])
 shop_owner_portrait = SubResource("AtlasTexture_shop_portrait")
 shop_name = "Apothecary"
+shop_owner_name = "Cassian"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ShopController" unique_id=617435556]
 

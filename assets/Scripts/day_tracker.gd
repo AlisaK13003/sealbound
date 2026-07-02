@@ -3,7 +3,9 @@ extends Label
 @onready var clock_label: Label = self
 
 func _ready():
-	Global.time_updated.connect(update_time)
+	if not Global.time_updated.is_connected(update_time):
+		Global.time_updated.connect(update_time)
+	update_time()
 
 func update_time():
 	var clock_label_text = str(Global.current_day) + " day " + str(Global.current_year) + " year\n" + ("%02d" % (12 if Global.current_hour % 12 == 0 else (Global.current_hour % 12))) + ":" + ("%02d" % Global.current_minute)
