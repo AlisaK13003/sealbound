@@ -281,17 +281,20 @@ location_container = NodePath("../VillageLocationContainer")
 position = Vector2(2883, -1220)
 scale = Vector2(0.48000002, 0.48000002)
 
-[node name="Sera_NPC" parent="." unique_id=1051293040 instance=ExtResource("11_ujx4y")]
+[node name="Sera_NPC" parent="." unique_id=1051293040 node_paths=PackedStringArray("location_container") instance=ExtResource("11_ujx4y")]
 position = Vector2(3983, -758.9999)
 scale = Vector2(0.44, 0.44)
+location_container = NodePath("../VillageLocationContainer")
 
-[node name="Kaela_NPC" parent="." unique_id=1711293041 instance=ExtResource("12_kaela1")]
+[node name="Kaela_NPC" parent="." unique_id=1711293041 node_paths=PackedStringArray("location_container") instance=ExtResource("12_kaela1")]
 position = Vector2(3296, -1246.0001)
 scale = Vector2(0.42, 0.42)
+location_container = NodePath("../VillageLocationContainer")
 
-[node name="Orion_NPC" parent="." unique_id=1711293042 instance=ExtResource("13_orion1")]
+[node name="Orion_NPC" parent="." unique_id=1711293042 node_paths=PackedStringArray("location_container") instance=ExtResource("13_orion1")]
 position = Vector2(3530, -1267)
 scale = Vector2(0.42, 0.42)
+location_container = NodePath("../VillageLocationContainer")
 
 [node name="TempThing2" parent="." unique_id=760205585 instance=ExtResource("15_lg162")]
 position = Vector2(3685, -411)
@@ -306,6 +309,7 @@ scale = Vector2(0.4148609, 0.4148609)
 location_container = NodePath("../VillageLocationContainer")
 speed = 80.0
 
-[node name="Rowan_NPC" parent="." unique_id=1588257618 instance=ExtResource("10_ofm1v")]
+[node name="Rowan_NPC" parent="." unique_id=1588257618 node_paths=PackedStringArray("location_container") instance=ExtResource("10_ofm1v")]
 position = Vector2(2875, -644)
 scale = Vector2(0.44, 0.44)
+location_container = NodePath("../VillageLocationContainer")

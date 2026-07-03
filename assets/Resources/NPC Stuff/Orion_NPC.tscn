@@ -128,6 +128,7 @@ radius = 245.58908
 script = ExtResource("1_orion1")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/orion_dialogue.json"
 npc_id = "orion"
+schedule_path = "res://assets/Resources/NPC Stuff/Schedules/orion/Weekly.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736805]
 

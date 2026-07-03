@@ -1,0 +1,150 @@
+{
+  "id": "opening_tutorial_scene_0",
+  "beats": [
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.25
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Ugh..."
+	},
+	{
+	  "type": "sfx",
+	  "caption": "A high, dull ringing presses against your skull."
+	},
+	{
+	  "type": "sfx",
+	  "caption": "Footsteps approach."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Unknown Voice",
+	  "text": "...No..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Unknown Voice",
+	  "text": "No, no, no..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "A shadowed figure kneels beside you. Their hands hover, like they are afraid to touch you."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Unknown Voice",
+	  "text": "I... I didn't mean-"
+	},
+	{
+	  "type": "sfx",
+	  "caption": "A breath catches. Panic. Shame."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Unknown Voice",
+	  "text": "Why were you that close...?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Unknown Voice",
+	  "text": "You're- You're alive. Thank god."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "A hand reaches to help you up... then stops."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "I know him...?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Or... I used to."
+	},
+	{
+	  "type": "sfx",
+	  "caption": "Faster footsteps in the distance. A faint lantern click."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "The figure freezes, listening."
+	},
+	{
+	  "type": "sfx",
+	  "caption": "Footsteps retreat into the brush. Gone."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "A lantern glow grows closer from the right."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "text": "Hello...?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "text": "Oh!"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "She rushes to your side. One hand hovers over you, careful not to hurt you more."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "text": "Oh, poor thing... you must have been caught in that awful blast..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Someone... talking...? I can't... understand..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "It's like the words slide off me..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "text": "I'm sorry... You probably can't hear me right."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "text": "But I'm taking you back to my village."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "text": "I'll tend to your wounds there."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "She looks around at the scorched ground and the faint crackle in the air, then looks away like she does not want to name it."
+	},
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.35
+	}
+  ]
+}

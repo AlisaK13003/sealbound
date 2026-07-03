@@ -27,6 +27,15 @@ var planted_crops: Array[crops]
 var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
+var player_name: String = "MC"
+var player_gender: String = "female"
+var tutorial_flags: Dictionary = {}
+var current_tutorial_objective: String = ""
+var pending_cutscene_path: String = ""
+var has_pending_player_spawn_position: bool = false
+var pending_player_spawn_position: Vector2 = Vector2.ZERO
+
+signal player_identity_changed
 
 const BOND_TIER_NAMES: Array[String] = [
 	"Stranger",
@@ -38,6 +47,17 @@ const BOND_TIER_NAMES: Array[String] = [
 ]
 const BOND_TIER_SIZE: int = 15
 const DAILY_TALK_BOND_EXP: int = 5
+const STORY_FLAG_OPENING_CUTSCENE_SEEN: String = "opening_cutscene_seen"
+const STORY_FLAG_SERA_SENT_TO_LYRA: String = "sera_sent_to_lyra"
+const STORY_FLAG_LYRA_AXE_QUEST_STARTED: String = "lyra_axe_quest_started"
+const STORY_FLAG_QUEST_BOARD_UNLOCKED: String = "quest_board_unlocked"
+const STORY_FLAG_CAVE_DUNGEON_UNLOCKED: String = "cave_dungeon_unlocked"
+const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
+const LYRA_TAVERN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_tavern_room_quest.json"
+const LYRA_TAVERN_PLAYER_POSITION: Vector2 = Vector2(1732.0, -686.0)
+const DUNGEON_INDEX_CAVE: int = 0
+const DUNGEON_INDEX_FOREST: int = 1
+const LYRA_FIRST_OBJECTIVE_TEXT: String = "Sera mentioned I should talk to Lyra. I can find her at the tavern."
 
 var npc_bonds: Dictionary = {}
 
@@ -228,6 +248,17 @@ func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
 	time_updated.emit()
 	print("[Debug] Advanced time to day ", current_day, " ", current_hour, ":", "%02d" % current_minute)
 
+func debug_unlock_cave_dungeon() -> void:
+	set_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
+	set_story_flag(STORY_FLAG_CAVE_DUNGEON_UNLOCKED)
+	print("[Debug] Cave dungeon unlocked for testing.")
+
+	var current_scene = get_tree().current_scene
+	if current_scene != null and current_scene.has_method("apply_demo_dungeon_locks"):
+		current_scene.apply_demo_dungeon_locks()
+		if current_scene.has_method("show_selected_dungeon"):
+			current_scene.show_selected_dungeon()
+
 func ensure_npc_bond(npc_id: String) -> Dictionary:
 	if not npc_bonds.has(npc_id):
 		npc_bonds[npc_id] = {
@@ -270,6 +301,110 @@ func add_daily_talk_bond(npc_id: String) -> Dictionary:
 
 	bond_data["last_talk_day"] = current_day
 	return add_npc_bond_exp(npc_id, DAILY_TALK_BOND_EXP, "daily talk")
+
+func set_player_identity(new_name: String, new_gender: String) -> void:
+	player_name = new_name.strip_edges()
+	if player_name.is_empty():
+		player_name = "MC"
+	player_gender = new_gender.to_lower()
+	if player_gender != "male":
+		player_gender = "female"
+	player_identity_changed.emit()
+
+func start_new_game(new_name: String, new_gender: String) -> void:
+	set_player_identity(new_name, new_gender)
+	current_location = "Buildings_Insides"
+	current_region = "Buildings_Insides"
+	current_loading_zone = "Infirmary"
+	saved_position = Vector2.ZERO
+	loading_from_save = false
+	has_pending_player_spawn_position = false
+	npc_bonds.clear()
+	tutorial_flags.clear()
+	current_tutorial_objective = ""
+	if GlobalCombatInformation != null:
+		GlobalCombatInformation.active_quests.clear()
+		GlobalCombatInformation.completed_quests.clear()
+	record_previous_time()
+	current_year = 0
+	current_day = 0
+	current_hour = 6
+	current_minute = 0
+	play_time_seconds = 0
+	play_time_minutes = 0
+	play_time_hours = 0
+	seconds_since_day_started = 0
+	time_since_last_update = 0
+	time_updated.emit()
+
+func set_pending_player_spawn_position(spawn_position: Vector2) -> void:
+	pending_player_spawn_position = spawn_position
+	has_pending_player_spawn_position = true
+
+func set_story_flag(key: String, value: bool = true) -> void:
+	if key.is_empty():
+		return
+	tutorial_flags[key] = value
+
+func has_story_flag(key: String) -> bool:
+	return bool(tutorial_flags.get(key, false))
+
+func get_player_portrait_sheet() -> String:
+	if player_gender == "male":
+		return "res://GUI/dialogue_system/sprites/portraits/MCmale_portraits.png"
+	return "res://GUI/dialogue_system/sprites/portraits/MCfemale_portraits.png"
+
+func show_mc_thought(text: String) -> void:
+	var dialogue_system = get_node_or_null("/root/DialogueSystem")
+	if dialogue_system == null or not dialogue_system.has_method("show_cutscene_node"):
+		return
+
+	dialogue_system.show_cutscene_node({
+		"speaker": player_name,
+		"text": text,
+		"portrait_sheet": get_player_portrait_sheet(),
+		"portrait_frame": "neutral"
+	})
+
+func start_lyra_axe_quest() -> void:
+	set_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
+
+	for existing_quest in GlobalCombatInformation.active_quests:
+		if existing_quest != null and existing_quest.resource_path == LYRA_AXE_QUEST_PATH:
+			print("[Story] Lyra axe quest already active.")
+			return
+
+	var lyra_quest: quest = load(LYRA_AXE_QUEST_PATH)
+	if lyra_quest == null:
+		push_warning("Global: Could not load Lyra axe quest: %s" % LYRA_AXE_QUEST_PATH)
+		return
+
+	GlobalCombatInformation.active_quests.append(lyra_quest)
+	print("[Story] Started Lyra axe quest.")
+
+func should_start_lyra_tavern_cutscene(loading_zone_name: String) -> bool:
+	return current_region == "Buildings_Insides" and loading_zone_name == "Tavern" and has_story_flag(STORY_FLAG_SERA_SENT_TO_LYRA) and not has_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
+
+func is_demo_dungeon_unlocked(dungeon_index: int) -> bool:
+	match dungeon_index:
+		DUNGEON_INDEX_FOREST:
+			return has_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
+		DUNGEON_INDEX_CAVE:
+			return has_story_flag(STORY_FLAG_CAVE_DUNGEON_UNLOCKED)
+	return false
+
+func apply_loaded_player_profile(data: Dictionary) -> void:
+	set_player_identity(data.get("player_name", player_name), data.get("player_gender", player_gender))
+	tutorial_flags = data.get("tutorial_flags", tutorial_flags)
+	current_tutorial_objective = data.get("current_tutorial_objective", current_tutorial_objective)
+	current_day = int(data.get("current_day", current_day))
+	current_year = int(data.get("current_year", current_year))
+	current_hour = int(data.get("current_hour", current_hour))
+	current_minute = int(data.get("current_minute", current_minute))
+	play_time_hours = int(data.get("play_time_hours", play_time_hours))
+	play_time_minutes = int(data.get("play_time_minutes", play_time_minutes))
+	play_time_seconds = int(data.get("play_time_seconds", play_time_seconds))
+	record_previous_time()
 
 var controller_mapping: Dictionary = {
 	"up": "Controller_Up",
@@ -334,6 +469,11 @@ signal swapped_to_controller
 const MOUSE_DEADZONE: float = 2.0 
 
 func _input(event):
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_BRACKETLEFT:
+		debug_unlock_cave_dungeon()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event.is_action_pressed("debug_advance_time"):
 		if event is InputEventKey and event.echo:
 			return
@@ -422,6 +562,7 @@ func load_save_data():
 		var data = json.data
 		
 		money = data["money"]
+		apply_loaded_player_profile(data)
 		
 		previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
 		
@@ -457,6 +598,14 @@ func get_save_data() -> Dictionary:
 
 	var save_dict = {
 		"money": money,
+		"player_name": player_name,
+		"player_gender": player_gender,
+		"tutorial_flags": tutorial_flags,
+		"current_tutorial_objective": current_tutorial_objective,
+		"current_day": current_day,
+		"current_year": current_year,
+		"current_hour": current_hour,
+		"current_minute": current_minute,
 		"current_location": save_region,
 		"current_loading_zone": current_loading_zone,
 		"current_region": save_region,

@@ -1,14 +1,26 @@
 extends Node2D
 
+const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
+
 @export var player_node : Node2D
 
 @export var is_building_insides: bool = false
 
 func swap_to_me():
+	var entry_loading_zone: String = Global.current_loading_zone
+	var should_start_entry_cutscene := Global.should_start_lyra_tavern_cutscene(entry_loading_zone)
 	teleport_player_to_spawn()
+	if should_start_entry_cutscene:
+		prepare_lyra_tavern_cutscene()
 	set_camera_limits()
+	if should_start_entry_cutscene:
+		refresh_player_camera()
+		await get_tree().process_frame
+		refresh_player_camera()
 	#await get_tree().create_timer(0.75).timeout
 	await Fade.fade_out(0.5)
+	if should_start_entry_cutscene:
+		start_lyra_tavern_cutscene()
 
 func teleport_player_to_spawn():
 	if Global.current_loading_zone == "":
@@ -28,6 +40,41 @@ func teleport_player_to_spawn():
 	spawn_point.is_disabled = true
 	if player_node:
 		player_node.global_position = spawn_point.global_position
+		if Global.has_pending_player_spawn_position:
+			player_node.global_position = Global.pending_player_spawn_position
+			Global.has_pending_player_spawn_position = false
+
+func prepare_lyra_tavern_cutscene() -> void:
+	if player_node != null:
+		player_node.global_position = Global.LYRA_TAVERN_PLAYER_POSITION
+
+	var lyra_node = find_child("Lyra_NPC", true, false)
+	if lyra_node != null and lyra_node.has_method("pin_to_location_for_cutscene"):
+		lyra_node.pin_to_location_for_cutscene("Tavern_Counter")
+
+func refresh_player_camera() -> void:
+	if player_node == null:
+		return
+	var camera = player_node.get_node_or_null("Camera2D")
+	if camera == null:
+		return
+	if camera.has_method("reset_smoothing"):
+		camera.reset_smoothing()
+	if camera.has_method("force_update_scroll"):
+		camera.force_update_scroll()
+
+func start_lyra_tavern_cutscene() -> void:
+	var runner = CUTSCENE_RUNNER_SCRIPT.new()
+	get_tree().current_scene.add_child(runner)
+	runner.finished.connect(runner.queue_free)
+	var lyra_node = find_child("Lyra_NPC", true, false)
+	if lyra_node != null and lyra_node.has_method("restore_after_cutscene"):
+		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
+	runner.play(Global.LYRA_TAVERN_CUTSCENE_PATH)
+
+func restore_cutscene_actor(actor: Node) -> void:
+	if is_instance_valid(actor) and actor.has_method("restore_after_cutscene"):
+		actor.restore_after_cutscene()
 
 func find_loading_zone_spawn(loading_zone_name: String) -> Node2D:
 	var named_node = find_child(loading_zone_name, true, false)

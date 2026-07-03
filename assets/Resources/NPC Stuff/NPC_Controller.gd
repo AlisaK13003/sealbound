@@ -33,9 +33,12 @@ const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
 @export var use_counter_draw_order: bool = false
 
 var schedule_info
+var loaded_schedule_day: int = -1
 var traveling_to : int
 var just_swapped_scenes: bool = false
 var last_applied_schedule_key: String = ""
+var schedule_paused_for_cutscene: bool = false
+var cutscene_restore_state: Dictionary = {}
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
@@ -45,11 +48,8 @@ func _ready():
 		return
 	schedule_info = {}
 	if not schedule_path.is_empty():
-		var file = FileAccess.open(schedule_path, FileAccess.READ)
-		if file != null:
-			var json_string = file.get_as_text()
-			file.close()
-			schedule_info = JSON.parse_string(json_string)
+		load_schedule_info()
+	ensure_location_container()
 	
 	dialogue_data = load_json_file(dialogue_path)
 	var dialogue_system = get_node_or_null("/root/DialogueSystem")
@@ -70,6 +70,9 @@ func _ready():
 # Otherwise have the npc move towards their destination
 func _process(delta):
 	update_schedule_draw_order()
+	if schedule_paused_for_cutscene:
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
+		return
 	if path_nodes.is_empty():
 		walking = false
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
@@ -128,9 +131,15 @@ func load_json_file(path: String) -> Dictionary:
 # Is called by a signal in global that emits every time the clock updates
 # Checks if there is a schedule that can be executed, if yes, send them on their merry way
 func navigate():
+	if schedule_paused_for_cutscene:
+		return
+	if not schedule_path.is_empty() and loaded_schedule_day != Global.current_day:
+		load_schedule_info()
 	if not (schedule_info is Dictionary) or not schedule_info.has("schedules"):
 		return
 	if not is_inside_tree() or get_tree().current_scene == null:
+		return
+	if not ensure_location_container():
 		return
 	var path = get_tree().current_scene.scene_file_path
 	for schedule_name in schedule_info["schedules"]:
@@ -172,6 +181,45 @@ func navigate():
 			return
 	catch_up_to_scene_schedule(path)
 
+func load_schedule_info() -> void:
+	loaded_schedule_day = Global.current_day
+	schedule_info = {}
+	var file = FileAccess.open(schedule_path, FileAccess.READ)
+	if file == null:
+		push_warning("NPC_Controller: Could not open schedule file %s." % schedule_path)
+		return
+	var parsed = JSON.parse_string(file.get_as_text())
+	file.close()
+	if not (parsed is Dictionary):
+		return
+	if parsed.has("days"):
+		var day_name = get_weekday_name(Global.current_day)
+		var days: Dictionary = parsed["days"]
+		if days.has(day_name):
+			schedule_info = days[day_name]
+		elif days.has("default"):
+			schedule_info = days["default"]
+		else:
+			schedule_info = {}
+	else:
+		schedule_info = parsed
+
+func ensure_location_container() -> bool:
+	if location_container != null and location_container.has_method("get_path_between"):
+		return true
+	if not is_inside_tree() or get_tree().current_scene == null:
+		return false
+	for container_name in ["VillageLocationContainer", "BuildingLocationContainer"]:
+		var container = get_tree().current_scene.get_node_or_null(NodePath(container_name))
+		if container != null and container.has_method("get_path_between"):
+			location_container = container
+			return true
+	return false
+
+func get_weekday_name(day_index: int) -> String:
+	var day_names: Array[String] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+	return day_names[posmod(day_index, day_names.size())]
+
 func get_schedule_minutes(details: Dictionary) -> int:
 	return (int(details["start_time_hour"]) * 60) + int(details["start_time_minute"])
 
@@ -210,6 +258,8 @@ func catch_up_to_scene_schedule(path: String) -> void:
 	catch_up_along_path(latest_details, current_minutes - latest_minutes)
 
 func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
+	if not ensure_location_container():
+		return
 	var travel_minutes = max(1, int(details.get("travel_minutes", DEFAULT_SCHEDULE_TRAVEL_MINUTES)))
 	var path_ids = location_container.get_path_between(details["start_location"], details["end_location"])
 	if path_ids.is_empty():
@@ -296,6 +346,8 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 			
 
 func set_path(start_point, end_point, snap_to_start: bool = false):
+	if not ensure_location_container():
+		return
 	var path_ids = location_container.get_path_between(start_point, end_point)
 	var start_index = location_container.get_location_index(start_point)
 	path_nodes.clear()
@@ -309,11 +361,53 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 		path_nodes.append(target_pos)
 
 func place_at_location(location):
+	if not ensure_location_container():
+		return
 	var location_index = location_container.get_location_index(location)
 	if location_index < 0 or location_index >= location_container.get_child_count():
 		return
 	var target_node = location_container.get_child(location_index)
 	self.position = target_node.location_position[2]
+
+func pin_to_location_for_cutscene(location) -> void:
+	if schedule_paused_for_cutscene:
+		return
+
+	cutscene_restore_state = {
+		"global_position": global_position,
+		"path_nodes": path_nodes.duplicate(),
+		"walking": walking,
+		"leaving_scene": leaving_scene,
+		"visible": visible,
+		"player_just_stopped_talking_to_me": player_just_stopped_talking_to_me,
+		"running_time": running_time,
+		"z_index": z_index
+	}
+	schedule_paused_for_cutscene = true
+	path_nodes.clear()
+	walking = false
+	leaving_scene = false
+	player_just_stopped_talking_to_me = false
+	running_time = 0
+	visible = true
+	place_at_location(location)
+	animation_driver.sync(animated_sprite, Vector2.ZERO)
+
+func restore_after_cutscene() -> void:
+	if not schedule_paused_for_cutscene:
+		return
+
+	global_position = cutscene_restore_state.get("global_position", global_position)
+	path_nodes = cutscene_restore_state.get("path_nodes", []).duplicate()
+	walking = bool(cutscene_restore_state.get("walking", false))
+	leaving_scene = bool(cutscene_restore_state.get("leaving_scene", false))
+	visible = bool(cutscene_restore_state.get("visible", visible))
+	player_just_stopped_talking_to_me = bool(cutscene_restore_state.get("player_just_stopped_talking_to_me", false))
+	running_time = float(cutscene_restore_state.get("running_time", 0.0))
+	z_index = int(cutscene_restore_state.get("z_index", z_index))
+	cutscene_restore_state = {}
+	schedule_paused_for_cutscene = false
+	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
 # This shouldn't really exist (the cancel operation), only does for testing purposes
 # Currently only makes it so when you press cancel (x) it closes the dialogue box
@@ -325,6 +419,10 @@ func _input(event):
 		return
 
 	if player_is_speaking_to_me:
+		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_BRACKETRIGHT:
+			debug_skip_dialogue()
+			get_viewport().set_input_as_handled()
+			return
 		if event.is_action_pressed("Cancel"):
 			end_dialogue()
 		return
@@ -400,6 +498,9 @@ func end_dialogue() -> void:
 	else:
 		_on_dialogue_system_dialogue_closed()
 
+func debug_skip_dialogue() -> void:
+	end_dialogue()
+
 func _on_dialogue_system_dialogue_closed() -> void:
 	if not player_is_speaking_to_me:
 		return
@@ -416,6 +517,9 @@ func _on_dialogue_system_dialogue_closed() -> void:
 func _on_dialogue_system_choice_action_requested(action: String, choice_data: Dictionary) -> void:
 	if not player_is_speaking_to_me:
 		return
+
+	if action == "start_lyra_axe_quest":
+		Global.start_lyra_axe_quest()
 
 	if not npc_id.is_empty():
 		if bool(choice_data.get("daily_talk_bond", false)):

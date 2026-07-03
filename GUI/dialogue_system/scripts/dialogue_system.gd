@@ -5,6 +5,7 @@ class_name DialogueSystemNode extends CanvasLayer
 
 signal dialogue_closed
 signal choice_action_requested(action: String, choice_data: Dictionary)
+signal dialogue_choice_selected(choice_index: int, choice_data: Dictionary)
 
 var is_active : bool = false
 var dialogue_data: Dictionary = {}
@@ -22,6 +23,7 @@ var current_choices: Array = []
 var ignore_next_input: bool = false
 var dialogue_start_node_id: String = ""
 var dialogue_context: Dictionary = {}
+var is_cutscene_inline_mode: bool = false
 
 const CHOICE_MIN_WIDTH: float = 96.0
 const CHOICE_MAX_WIDTH: float = 379.0
@@ -88,8 +90,21 @@ func _ready() -> void:
 	
 
 func _input(event: InputEvent) -> void:
-	if is_active and is_close_dialogue_event(event):
+	if not is_active:
+		return
+
+	if ignore_next_input and is_dialogue_input_event(event):
+		ignore_next_input = false
+		get_viewport().set_input_as_handled()
+		return
+
+	if is_close_dialogue_event(event):
 		hide_dialog()
+		get_viewport().set_input_as_handled()
+		return
+
+	if is_advance_dialogue_event(event):
+		handle_dialogue_advance_input()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -124,6 +139,23 @@ func _unhandled_input(event: InputEvent) -> void:
 func is_close_dialogue_event(event: InputEvent) -> bool:
 	return event.is_action_pressed("ui_cancel") or event.is_action_pressed("Pause") or event.is_action_pressed("Exit Menu")
 
+func is_advance_dialogue_event(event: InputEvent) -> bool:
+	return event.is_action_pressed("Interact") or event.is_action_pressed("Mouse_Left_Click") or event.is_action_pressed("Confirm") or event.is_action_pressed("ui_accept")
+
+func is_dialogue_input_event(event: InputEvent) -> bool:
+	return is_close_dialogue_event(event) or is_advance_dialogue_event(event)
+
+func handle_dialogue_advance_input() -> void:
+	if current_node_has_choices and not is_typing:
+		var mouse_pos := get_viewport().get_mouse_position()
+		for index in range(choice_buttons.size()):
+			var btn: Button = choice_buttons[index]
+			if btn != null and btn.visible and not btn.disabled and btn.get_global_rect().has_point(mouse_pos):
+				_on_choice_button_pressed(index)
+				return
+		return
+	advance_dialogue()
+
 func _process(delta: float) -> void:
 	if not is_active or not is_typing:
 		return
@@ -149,21 +181,42 @@ func show_dialog() -> bool:
 	if dialog_ui == null:
 		return false
 
+	is_cutscene_inline_mode = false
 	if not load_dialogue_file(dialogue_file_path):
 		return false
 
-	is_active = true
-	process_mode = Node.PROCESS_MODE_ALWAYS 
-	dialog_ui.visible = true
-	dialog_ui.process_mode = Node.PROCESS_MODE_ALWAYS
-	Global.is_in_menu = true
-	get_tree().paused = true
-	ignore_next_input = true
+	activate_dialogue_ui()
 	var start_node = dialogue_start_node_id.strip_edges()
 	if start_node.is_empty():
 		start_node = str(dialogue_data.get("start", ""))
 	show_node(start_node)
 	return is_active
+
+func show_cutscene_node(node_data: Dictionary) -> bool:
+	if dialog_ui == null:
+		return false
+
+	is_cutscene_inline_mode = true
+	dialogue_data = {
+		"start": "__cutscene",
+		"nodes": {
+			"__cutscene": node_data
+		}
+	}
+	dialogue_nodes = dialogue_data["nodes"]
+	dialogue_start_node_id = "__cutscene"
+	activate_dialogue_ui(false)
+	show_node("__cutscene")
+	return is_active
+
+func activate_dialogue_ui(ignore_initial_input: bool = true) -> void:
+	is_active = true
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	dialog_ui.visible = true
+	dialog_ui.process_mode = Node.PROCESS_MODE_ALWAYS
+	Global.is_in_menu = true
+	get_tree().paused = true
+	ignore_next_input = ignore_initial_input
 
 func hide_dialog() -> void:
 	if dialog_ui == null:
@@ -181,6 +234,7 @@ func hide_dialog() -> void:
 	ignore_next_input = false
 	dialogue_start_node_id = ""
 	dialogue_context = {}
+	is_cutscene_inline_mode = false
 	if speaker_label != null:
 		speaker_label.text = ""
 	var text_label := get_active_body_text()
@@ -250,12 +304,15 @@ func show_node(node_id: String) -> void:
 	current_node_has_choices = false
 	current_choices = []
 
+	var speaker_name := str(node_data.get("speaker", ""))
+	if speaker_name == "MC":
+		speaker_name = Global.player_name
 	if speaker_label != null:
-		speaker_label.text = str(node_data.get("speaker", ""))
+		speaker_label.text = speaker_name
 
 	var text_label := get_active_body_text()
 	if text_label != null:
-		text_label.text = str(node_data.get("text", ""))
+		text_label.text = str(node_data.get("text", "")).replace("{player_name}", Global.player_name)
 		text_label.visible_characters = 0
 		current_text_character_count = text_label.get_total_character_count()
 		typewriter_current_delay = typewriter_base_delay
@@ -329,7 +386,17 @@ func update_portrait(node_data: Dictionary) -> void:
 	if portrait_target == null:
 		return
 
+	if bool(node_data.get("hide_portrait", false)):
+		if portrait_target is CanvasItem:
+			portrait_target.visible = false
+		return
+
+	if portrait_target is CanvasItem:
+		portrait_target.visible = true
+
 	var portrait_sheet_path: String = str(node_data.get("portrait_sheet", "")).strip_edges()
+	if str(node_data.get("speaker", "")) == "MC":
+		portrait_sheet_path = Global.get_player_portrait_sheet()
 	if portrait_sheet_path != "" and portrait_target is Sprite2D:
 		var portrait_texture := load(portrait_sheet_path)
 		if portrait_texture is Texture2D:
@@ -412,6 +479,7 @@ func _on_choice_button_pressed(choice_index: int) -> void:
 			return
 
 	var choice_data: Dictionary = current_choices[choice_index]
+	dialogue_choice_selected.emit(choice_index, choice_data)
 	var action: String = str(choice_data.get("action", "")).strip_edges()
 	if not action.is_empty() or choice_data.has("bond_delta") or bool(choice_data.get("daily_talk_bond", false)):
 		choice_action_requested.emit(action, choice_data)

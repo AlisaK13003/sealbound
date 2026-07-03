@@ -111,10 +111,6 @@ func _ready():
 	
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
-
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
 	
 	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
 	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))

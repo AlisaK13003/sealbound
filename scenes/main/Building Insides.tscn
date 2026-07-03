@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bg1uxu604kh6j" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="8_ahl7k"]
 [ext_resource type="PackedScene" uid="uid://drkj78alfmusa" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="9_24omh"]
 [ext_resource type="PackedScene" uid="uid://ckp71tv7lpfj5" path="res://assets/Resources/NPC Stuff/Rowan_NPC.tscn" id="9_y5k7i"]
+[ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="10_sera"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0o3x6"]
 texture = ExtResource("1_r1w2i")
@@ -761,6 +762,11 @@ offset_bottom = 65.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0o3x6")
 metadata/_edit_use_anchors_ = true
 
+[node name="Sera_NPC" parent="Infirmary" unique_id=1076509440 instance=ExtResource("10_sera")]
+z_index = 12
+position = Vector2(105, -202.00002)
+scale = Vector2(0.28000003, 0.28000003)
+
 [node name="Tavern" type="Node2D" parent="." unique_id=1826999818]
 
 [node name="Camera Bounds" type="Node2D" parent="Tavern" unique_id=1613830353]
@@ -813,7 +819,7 @@ tile_set = SubResource("TileSet_bi516")
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("3_f5vtb")]
 z_index = 12
-position = Vector2(815, 23)
+position = Vector2(1731.9999, -686)
 scale = Vector2(0.7, 0.7)
 move_speed = 200.0
 camera_zoom = Vector2(1.4, 1.5)

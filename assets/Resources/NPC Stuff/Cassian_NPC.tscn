@@ -166,6 +166,7 @@ region = Rect2(0, 0, 48, 75)
 script = ExtResource("1_eooly")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/cassian_dialogue.json"
 npc_id = "cassian"
+schedule_path = "res://assets/Resources/NPC Stuff/Schedules/cassian/Weekly.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
 

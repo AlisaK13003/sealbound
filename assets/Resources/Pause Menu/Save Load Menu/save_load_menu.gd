@@ -1,6 +1,10 @@
 extends Control
 
 enum Mode { SAVE, LOAD }
+@export var start_in_load_mode: bool = false
+@export var allow_saving: bool = true
+@export var show_delete: bool = true
+
 var current_mode: Mode = Mode.SAVE
 var selected_slot: int = -1
 
@@ -25,10 +29,14 @@ func _ready():
 	if not DirAccess.dir_exists_absolute(SAVE_DIR):
 		DirAccess.make_dir_absolute(SAVE_DIR)
 	
-	_set_mode(Mode.SAVE)
+	save_btn.visible = allow_saving
+	delete_btn.visible = show_delete
+	_set_mode(Mode.LOAD if start_in_load_mode else Mode.SAVE)
 	refresh_slots()
 
 func _set_mode(mode: Mode):
+	if mode == Mode.SAVE and not allow_saving:
+		mode = Mode.LOAD
 	current_mode = mode
 	save_btn.disabled = (mode == Mode.SAVE)
 	load_btn.disabled = (mode == Mode.LOAD)
@@ -89,6 +97,7 @@ func _load_from_slot(index: int):
 
 func _apply_save_data(data: Dictionary):
 	var saved_location = _get_saved_location(data)
+	Global.apply_loaded_player_profile(data)
 	Global.money = data.get("money", Global.money)
 	Global.current_location = saved_location
 	Global.current_region = saved_location
