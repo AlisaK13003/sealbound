@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://noly64u4lge5" path="res://assets/characters/weapons/IMG_0688.png" id="1_8rjlo"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_qgj2p"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_8rjlo"]
-[ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="2_lvomc"]
+[ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://assets/characters/lyra/Lyra_portraits.png" id="2_lvomc"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_lvomc"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_00gfj"]
 
