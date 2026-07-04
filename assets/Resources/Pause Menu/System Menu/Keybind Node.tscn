@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b1ua6k77u621q"]
+
+[ext_resource type="Texture2D" uid="uid://d2xkgw2mut2bu" path="res://assets/Input_Icons/Keyboard_Mouse/Alt/T_Keyboard_Mouse_Key_Alt_Sprite.svg" id="1_778ew"]
+[ext_resource type="Script" uid="uid://g21u1n3wmdh5" path="res://assets/Resources/Pause Menu/System Menu/keybind_node_setup.gd" id="1_gf2wi"]
+[ext_resource type="Texture2D" uid="uid://cfpgrcj2b7b1u" path="res://assets/tile sheets/Centered_Controller_Inputs.png" id="2_gf2wi"]
+
+[node name="KeybindNode" type="Control" unique_id=1608093952]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_gf2wi")
+
+[node name="Keyboard Icons" type="Sprite2D" parent="." unique_id=1654497951]
+position = Vector2(58.58, 23.51)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_778ew")
+offset = Vector2(4.84, 5.24)
+hframes = 10
+vframes = 10
+frame = 99
+
+[node name="Controller Icons" type="Sprite2D" parent="." unique_id=1201912537]
+visible = false
+position = Vector2(58.58, 23.51)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gf2wi")
+hframes = 4
+vframes = 11
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1738720924]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = -3
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1533664396]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+text = "Confirm"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1675955815]
+visible = false
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+text = "Press Key"
+horizontal_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_new_key_selected"]

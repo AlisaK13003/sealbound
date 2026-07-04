@@ -23,6 +23,7 @@ offset_right = 113.160034
 offset_bottom = 374.0
 input_event_that_will_activate = "Quest_Menu"
 button_name = "Open Quests"
+disabled_ = true
 
 [node name="Label2" parent="Quest_Menu/HBoxContainer" parent_id_path=PackedInt32Array(1034936178, 1419648638) index="1" unique_id=698061328]
 text = "Quest Menu"

@@ -325,11 +325,11 @@ func _input(event):
 		return
 
 	if player_is_speaking_to_me:
-		if event.is_action_pressed("Cancel"):
+		if Global.get_input_mapping("cancel"):
 			end_dialogue()
 		return
 
-	if event.is_action_pressed("Confirm") or event.is_action_pressed("Mouse_Right_Click"):
+	if Global.get_input_mapping("confirm") or event.is_action_pressed("Mouse_Right_Click"):
 		begin_dialogue()
 
 # Upon click, start dialogue

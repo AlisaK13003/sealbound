@@ -39,7 +39,7 @@ signal reached_end_of_dungeon
 
 func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
-	for i in range(5):
+	for i in range(15):
 		all_held_items.append(new_item.duplicate())
 
 func add_item(item_to_add):
@@ -104,6 +104,8 @@ func _ready():
 	all_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
+	
+	load_items()
 	
 	active_party_slots.append(all_party_slots[0])
 	active_party_slots.append(all_party_slots[1])

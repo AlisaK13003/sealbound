@@ -211,3 +211,4 @@ offset_right = 69.878006
 offset_bottom = 376.0
 input_event_that_will_activate = "Open_Map"
 button_name = "Map"
+disabled_ = true

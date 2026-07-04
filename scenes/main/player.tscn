@@ -133,6 +133,7 @@ animations = [{
 size = Vector2(120, 216)
 
 [node name="Player" type="CharacterBody2D" unique_id=355956441 groups=["Overworld_Player"]]
+process_mode = 3
 script = ExtResource("1_2hlsy")
 move_speed = 100.0
 
@@ -172,10 +173,10 @@ position_smoothing_enabled = true
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
 visible = false
 z_index = 100
-offset_left = 29.0
-offset_top = -68.0
-offset_right = 29.0
-offset_bottom = -68.0
+offset_left = 328.83
+offset_top = 100.0
+offset_right = 328.82996
+offset_bottom = 100.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]

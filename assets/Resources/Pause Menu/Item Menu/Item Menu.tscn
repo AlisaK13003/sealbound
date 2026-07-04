@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://de675y0f2h5hk"]
+
+[ext_resource type="Script" uid="uid://dsv8bokxttjyr" path="res://assets/Resources/Pause Menu/Item Menu/item_menu_controller.gd" id="1_b362w"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_wns33"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
+bg_color = Color(0.34605238, 0.6561284, 0.6952566, 1)
+
+[node name="ItemMenu" type="Control" unique_id=893943130]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b362w")
+
+[node name="Panel" type="Panel" parent="." unique_id=1865894170]
+layout_mode = 0
+offset_left = -48.28
+offset_top = -11.94
+offset_right = -48.28
+offset_bottom = -11.94
+
+[node name="Panel2" type="Panel" parent="." unique_id=241421097]
+z_index = 1
+layout_mode = 0
+offset_left = -117.525
+offset_top = -26.745
+offset_right = 186.01001
+offset_bottom = 180.255
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="Label" type="Label" parent="." unique_id=192883700]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 3.0
+offset_right = 157.0
+offset_bottom = 21.0
+text = "Items"
+
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_wns33")]
+layout_mode = 0
+offset_left = -5.48
+offset_top = -36.93
+offset_right = -5.48
+offset_bottom = -36.93
+scale = Vector2(0.465, 0.465)
+
+[node name="Container" type="Container" parent="." unique_id=492396638]
+z_index = 1
+layout_mode = 0
+offset_left = -23.605
+offset_top = 12.31
+offset_right = 16.395
+offset_bottom = 52.31
+
+[node name="GridContainer" type="GridContainer" parent="Container" unique_id=296080803]
+z_index = 1
+layout_mode = 2
+theme_override_constants/h_separation = 150
+theme_override_constants/v_separation = 37
+columns = 2
+
+[node name="GridContainer2" type="GridContainer" parent="Container" unique_id=1978050830]
+z_index = 1
+layout_mode = 2
+theme_override_constants/h_separation = 150
+theme_override_constants/v_separation = 37
+columns = 2
+
+[node name="GridContainer3" type="GridContainer" parent="Container" unique_id=1719938611]
+z_index = 1
+layout_mode = 2
+theme_override_constants/h_separation = 150
+theme_override_constants/v_separation = 37
+columns = 2

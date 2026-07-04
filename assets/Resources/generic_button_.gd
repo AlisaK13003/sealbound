@@ -12,8 +12,11 @@ extends TextureButton
 @onready var controller_icon_sprites = load("res://assets/tile sheets/Centered_Controller_Inputs.png")
 signal activated
 
-func _ready():
+@export var disabled_: bool = false
 
+func _ready():
+	if disabled_:
+		return
 	button_name_text.text = button_name
 	if input_event_that_will_activate != "":
 		var event_to_check = InputMap.action_get_events(input_event_that_will_activate)[0]
@@ -30,7 +33,7 @@ func update_name(new_name: String):
 func swap_to_controller_icons(do_it):
 	if input_event_that_will_activate != "":
 		if not do_it:
-			var position_to_get = Global.keyboard_mouse_icon_mapping[input_event_that_will_activate]
+			var position_to_get = Global.key_sprite_map[get_key_for_action(input_event_that_will_activate)]
 			button_icon.hframes = 10
 			button_icon.vframes = 10
 			button_icon.texture = keyboard_mouse_icon_sprites
@@ -41,7 +44,23 @@ func swap_to_controller_icons(do_it):
 			button_icon.vframes = 11
 			button_icon.texture = controller_icon_sprites
 			button_icon.frame = position_to_get
+			
+func get_key_for_action(action_name: String) -> int:
+	var events = InputMap.action_get_events(action_name)
+	
+	for event in events:
+		if event is InputEventKey:
+			return event.physical_keycode
+			
+	return KEY_NONE
+
+func get_key_name_for_action(action_name: String) -> String:
+	var keycode = get_key_for_action(action_name)
+	
+	if keycode != KEY_NONE:
+		return OS.get_keycode_string(keycode)
 		
+	return "Unbound"
 
 func _input(_event):
 	if input_event_that_will_activate != "":

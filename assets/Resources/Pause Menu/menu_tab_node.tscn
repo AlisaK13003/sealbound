@@ -1,11 +1,7 @@
 [gd_scene format=3 uid="uid://c1yi6afplfiht"]
 
 [ext_resource type="Script" uid="uid://g28vnthw7obt" path="res://assets/Resources/Pause Menu/manu_tab_node_controller.gd" id="1_bv88e"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
-bg_color = Color(0.32172796, 0.32172796, 0.32172787, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
+[ext_resource type="Texture2D" uid="uid://dl8xl2bbba7s4" path="res://assets/tile sheets/Menu-tab.png" id="2_1o7tl"]
 
 [node name="MenuTabNode" type="Control" unique_id=1768051441]
 layout_mode = 3
@@ -17,14 +13,19 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_bv88e")
 
-[node name="Panel" type="Panel" parent="." unique_id=1334189433]
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=498286812]
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 24.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+texture = ExtResource("2_1o7tl")
+patch_margin_left = 2
+patch_margin_top = 5
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
-[node name="Label" type="Label" parent="Panel" unique_id=109266871]
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=109266871]
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 24.0

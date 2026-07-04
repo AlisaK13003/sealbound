@@ -56,7 +56,7 @@ func _input(event):
 			update_display(scroll_value, false)
 		if event.is_action_pressed("Mouse Scroll Up"):
 			update_display(-scroll_value, false)
-	if Global.get_input_mapping("Cancel"):
+	if Global.get_input_mapping("cancel"):
 		pass
 
 func quest_clicked(what_quest_was_clicked, quest_index):

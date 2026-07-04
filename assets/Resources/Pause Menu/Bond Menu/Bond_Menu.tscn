@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="4_px6aj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
-skew = Vector2(0.1, 0)
 
 [node name="BondMenu" type="Control" unique_id=1832381352]
 layout_mode = 3

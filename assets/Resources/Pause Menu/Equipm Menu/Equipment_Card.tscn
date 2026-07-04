@@ -2,6 +2,7 @@
 
 [ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="1_2kwft"]
 [ext_resource type="Script" uid="uid://coqs4t1ikf0rf" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_card_controller.gd" id="1_yi0mm"]
+[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_ln7px"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_yi0mm"]
 [ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="3_ln7px"]
 [ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="4_afx7m"]
@@ -51,7 +52,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yi0mm")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1893686698]
+modulate = Color(1, 0.7921569, 1, 1)
+layout_mode = 0
+offset_left = -34.0
+offset_top = -6.0
+offset_right = 790.505
+offset_bottom = 337.0
+texture = ExtResource("2_ln7px")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="Panel" type="Panel" parent="." unique_id=2007935690]
+visible = false
 layout_mode = 0
 offset_left = -18.0
 offset_top = -5.0

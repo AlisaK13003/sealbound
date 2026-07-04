@@ -109,7 +109,7 @@ columns = 2
 [node name="Item" parent="NinePatchRect/Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-input_event_that_will_activate = "Dungeon_Items"
+input_event_that_will_activate = "Dungeon_Item"
 button_name = "Items"
 
 [node name="Skill" parent="NinePatchRect/Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
@@ -121,13 +121,13 @@ button_name = "Skill"
 [node name="Attack" parent="NinePatchRect/Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-input_event_that_will_activate = "Dungeon_Attack"
+input_event_that_will_activate = "confirm"
 button_name = "Attack"
 
 [node name="Defend" parent="NinePatchRect/Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-input_event_that_will_activate = "Dungeon_Defend"
+input_event_that_will_activate = "cancel"
 button_name = "Defend"
 
 [node name="Item_Menu" parent="." unique_id=1100506542 instance=ExtResource("9_irdl1")]
@@ -179,13 +179,13 @@ theme_override_constants/separation = 25
 
 [node name="Back_Button" parent="Action_Hint/MarginContainer/HBoxContainer" unique_id=1218238259 instance=ExtResource("12_0ob4l")]
 layout_mode = 2
-input_event_that_will_activate = "Cancel"
+input_event_that_will_activate = "cancel"
 button_name = "Back"
 
 [node name="Confirm" parent="Action_Hint/MarginContainer/HBoxContainer" unique_id=727393993 instance=ExtResource("12_0ob4l")]
 custom_minimum_size = Vector2(102.715, 17.48)
 layout_mode = 2
-input_event_that_will_activate = "Confirm"
+input_event_that_will_activate = "confirm"
 button_name = "Confirm"
 
 [node name="Targetting" type="HBoxContainer" parent="Action_Hint" unique_id=1873226986]
@@ -413,7 +413,7 @@ offset_left = 132.0
 offset_top = 50.0
 offset_right = 197.16
 offset_bottom = 68.32001
-input_event_that_will_activate = "Confirm"
+input_event_that_will_activate = "confirm"
 button_name = "Yes"
 
 [node name="Panel" type="Panel" parent="Confirmation/GenericButton" unique_id=877147368]
@@ -432,7 +432,7 @@ offset_left = 16.0
 offset_top = 49.0
 offset_right = 81.16
 offset_bottom = 67.32001
-input_event_that_will_activate = "Cancel"
+input_event_that_will_activate = "cancel"
 button_name = "No"
 
 [node name="Panel" type="Panel" parent="Confirmation/GenericButton2" unique_id=360244146]

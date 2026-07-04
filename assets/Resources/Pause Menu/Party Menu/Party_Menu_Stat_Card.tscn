@@ -5,7 +5,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoipl"]
 bg_color = Color(0.7269004, 0.53850585, 0.610114, 1)
-skew = Vector2(0.1, 0)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -26,8 +25,10 @@ script = ExtResource("1_n7ich")
 
 [node name="Panel" type="Panel" parent="." unique_id=533229209]
 layout_mode = 0
-offset_right = 500.0
-offset_bottom = 210.0
+offset_left = 16.0
+offset_top = 11.0
+offset_right = 483.0
+offset_bottom = 202.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eoipl")
 
 [node name="GridContainer2" type="GridContainer" parent="." unique_id=2125992868]

@@ -19,13 +19,13 @@ custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_6c37x")]
 layout_mode = 0
 offset_left = -332.99
-offset_top = -173.15
+offset_top = -262.595
 offset_right = -332.99
-offset_bottom = -173.15
-scale = Vector2(1.7, 1.7)
+offset_bottom = -262.595
+scale = Vector2(1.76, 1.76)
 mouse_filter = 0
 theme_override_constants/h_separation = 76
-columns = 6
+columns = 3
 
 [node name="Card_Container" type="Control" parent="." unique_id=666930549]
 anchors_preset = 0

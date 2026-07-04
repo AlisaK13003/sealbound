@@ -7,6 +7,9 @@ var tab_node_path = "res://assets/Resources/Pause Menu/menu_tab_node.tscn"
 
 signal selection_changed
 
+var starting_y: float
+var starting_x: float
+
 func _setup(tab_names_, custom_tab: String = ""):
 	if be_vertical:
 		self.add_theme_constant_override("separation/v", 39)
@@ -35,7 +38,8 @@ func _setup(tab_names_, custom_tab: String = ""):
 		if custom_tab == "":
 			if new_tab_instance.panel_size.x >= largest_name:
 				largest_name = new_tab_instance.panel_size.x
-
+	starting_x = self.get_child(0).position.x
+	starting_y = self.get_child(0).position.y
 	if custom_tab == "":
 		for child in get_children():
 			child._update_size(largest_name)
@@ -44,20 +48,19 @@ func _setup(tab_names_, custom_tab: String = ""):
 			self.add_theme_constant_override("h_separation", 8)
 			
 
-func _input(event):
-	if not Global.is_paused:
-		return
-	if not be_vertical:
-		if Global.get_input_mapping("left"):
-			cycle_input(null, -1)
-		if Global.get_input_mapping("right"):
-			cycle_input(null, 1)
-	else:
-		if Global.get_input_mapping("up"):
-			print("UPDATING")
-			cycle_input(null, -1)
-		if Global.get_input_mapping("down"):
-			cycle_input(null, 1)
+#func _input(event):
+#	if not Global.is_paused or not self.visible:
+#		return
+#	if not be_vertical:
+#		if Global.get_input_mapping("left"):
+#			cycle_input(null, -1)
+#		if Global.get_input_mapping("right"):
+#			cycle_input(null, 1)
+#	else:
+#		if Global.get_input_mapping("up"):
+#			cycle_input(null, -1)
+#		if Global.get_input_mapping("down"):
+#			cycle_input(null, 1)
 
 func cycle_input(event, index):
 	if event is InputEventMouseMotion:
@@ -74,6 +77,17 @@ func change_selection():
 	for child in get_child_count():
 		if child == current_selection:
 			get_child(child).update_highlight(true)
+			print("MOVVE UP")
+			if not be_vertical and get_child(child).position.y == starting_y:
+				get_child(child).position.y -= 10
+			elif get_child(child).position.x == starting_x:
+				get_child(child).position.x -= 10
 		else:
 			get_child(child).update_highlight(false)
+			if not be_vertical:
+				if get_child(child).position.y < starting_y:
+					get_child(child).position.y += 10
+			else:
+				if get_child(child).position.x < starting_x:
+					get_child(child).position.x += 10
 	selection_changed.emit(current_selection)

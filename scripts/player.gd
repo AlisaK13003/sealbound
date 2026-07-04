@@ -23,6 +23,8 @@ func _ready() -> void:
 	pause_menu.visible = false
 
 func _process(_delta: float) -> void:
+	if Global.is_paused:
+		return
 	var direction : Vector2 = Vector2.ZERO
 	if Global.is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning:
 		velocity = Vector2.ZERO
@@ -32,7 +34,8 @@ func _process(_delta: float) -> void:
 	if not Global.using_controller:
 		direction = Input.get_vector("left", "right", "up", "down")
 	else:
-		direction = Input.get_vector(Global.controller_mapping["left"], Global.controller_mapping["right"], Global.controller_mapping["up"], Global.controller_mapping["down"])
+		pass
+		#direction = Input.get_vector(Global.controller_mapping["left"], Global.controller_mapping["right"], Global.controller_mapping["up"], Global.controller_mapping["down"])
 		
 	velocity = direction * move_speed
 	animation_driver.sync(animated_sprite, velocity)
@@ -43,31 +46,24 @@ func _process(_delta: float) -> void:
 		over_the_head_sprite.texture = null
 	
 func _input(event):
-	
-	if event.is_action_pressed("Inventory") and false:
-		if Global.is_in_menu:
-			return
-		if not in_menu:
-			full_inventory.manage_visibility(true)
-			in_menu = true
-		else:
-			full_inventory.manage_visibility(false)
-			in_menu = false
-			
 	# In Player _input
 	if event.is_action_pressed("Pause"):
-		if Global.is_in_menu:
-			return
+		print("HIII")
 		if not pause_menu.visible:
+			if Global.is_in_menu:
+				return
 			Global.is_paused = true
 			pause_menu.visible = true
 			get_tree().paused = true
 			in_menu = true
-			full_inventory.manage_visibility(false)
+			#full_inventory.manage_visibility(false)
 			get_viewport().set_input_as_handled()
 		else:
+			print("HIII")
 			Global.is_paused = false
+			get_tree().paused = false
 			in_menu = false
+			pause_menu.visible = false
 			
 	if not Global.is_in_menu:
 		if event.is_action_pressed("Mouse Scroll Up"):

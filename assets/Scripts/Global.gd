@@ -1,7 +1,11 @@
-extends Node2D
+extends Node
 
 # When these gain more functionality they will be added to their own areas
 # --------------------------------------------------------------------------------------------------
+
+var bgm_volume: int = 10
+var sfx_volume: int = 10
+
 
 var is_paused: bool = false
 
@@ -271,6 +275,122 @@ func add_daily_talk_bond(npc_id: String) -> Dictionary:
 	bond_data["last_talk_day"] = current_day
 	return add_npc_bond_exp(npc_id, DAILY_TALK_BOND_EXP, "daily talk")
 
+signal stop_listening
+signal new_key_placed
+
+var key_sprite_map = {
+	# --- ALPHABET ---
+	KEY_A: 0,
+	KEY_B: 1,
+	KEY_C: 2,
+	KEY_D: 3,
+	KEY_E: 4,
+	KEY_F: 5,
+	KEY_G: 6,
+	KEY_H: 7,
+	KEY_I: 8,
+	KEY_J: 9,
+	KEY_K: 10,
+	KEY_L: 11,
+	KEY_M: 12,
+	KEY_N: 13,
+	KEY_O: 14,
+	KEY_P: 15,
+	KEY_Q: 16,
+	KEY_R: 17,
+	KEY_S: 18,
+	KEY_T: 19,
+	KEY_U: 20,
+	KEY_V: 21,
+	KEY_X: 22, # Note: Swapped with W on the sprite sheet
+	KEY_W: 23, # Note: Swapped with X on the sprite sheet
+	KEY_Y: 24,
+	KEY_Z: 25,
+
+	# --- NUMBERS ---
+	KEY_0: 26,
+	KEY_1: 27,
+	KEY_2: 28,
+	KEY_3: 29,
+	KEY_4: 30,
+	KEY_5: 31,
+	KEY_6: 32,
+	KEY_7: 33,
+	KEY_8: 34,
+	KEY_9: 35,
+
+	# --- FUNCTION KEYS ---
+	KEY_F1: 36,
+	KEY_F2: 37,
+	KEY_F3: 38,
+	KEY_F4: 39,
+	KEY_F5: 40,
+	KEY_F6: 41,
+	KEY_F7: 42,
+	KEY_F8: 43,
+	KEY_F9: 44,
+	KEY_F10: 45,
+	KEY_F11: 46,
+	KEY_F12: 47,
+
+	# --- NUMPAD ---
+	KEY_KP_0: 26,
+	KEY_KP_1: 27,
+	KEY_KP_2: 28,
+	KEY_KP_3: 29,
+	KEY_KP_4: 30,
+	KEY_KP_5: 31,
+	KEY_KP_6: 32,
+	KEY_KP_7: 33,
+	KEY_KP_8: 34,
+	KEY_KP_9: 35,
+	KEY_KP_MULTIPLY: 51,  # Maps to *
+	KEY_KP_DIVIDE: 53,    # Maps to /
+	KEY_KP_SUBTRACT: 48,  # Maps to -
+	KEY_KP_ADD: 49,       # Maps to +
+	KEY_KP_PERIOD: 57,    # Note: No period on the sprite sheet, mapping to ? as a fallback or you can leave it out
+	KEY_KP_ENTER: 73,
+
+	# --- SYMBOLS ---
+	KEY_MINUS: 48,
+	KEY_PLUS: 49,
+	KEY_ASCIITILDE: 50, # ~
+	KEY_ASTERISK: 51,   # *
+	KEY_SEMICOLON: 52,  # ;
+	KEY_SLASH: 53,      # /
+	KEY_BRACKETLEFT: 54,  # [
+	KEY_BRACKETRIGHT: 55, # ]
+	KEY_QUOTEDBL: 56,   # "
+	KEY_QUESTION: 57,   # ?
+	KEY_LESS: 59,       # <
+	KEY_GREATER: 60,    # >
+	KEY_EXCLAM: 70,     # !
+
+	# --- MODIFIERS & SPECIAL KEYS ---
+	KEY_ALT: 58,
+	KEY_ENTER: 73,      # 72 = Arrow Symbol, 73 = Text, 74 = Tall vertical Enter
+	#KEY_KP_ENTER: 73,
+	KEY_SHIFT: 76,      # 76 and 77 are both Shift keys
+	KEY_BACKSPACE: 78,  # 78 = Text, 96 = Arrow Symbol
+	KEY_CAPSLOCK: 79,
+	KEY_ESCAPE: 80,
+	KEY_CTRL: 81,
+	KEY_END: 82,
+	KEY_PAGEDOWN: 83,
+	KEY_PAGEUP: 84,
+	KEY_NUMLOCK: 85,
+	KEY_DELETE: 86,
+	KEY_SPACE: 87,
+	KEY_UP: 88,
+	KEY_DOWN: 89,
+	KEY_LEFT: 90,
+	KEY_RIGHT: 91,
+	KEY_PRINT: 92,      # PrtScrn
+	KEY_HOME: 93,
+	KEY_TAB: 94,
+	KEY_INSERT: 95
+}
+
 var controller_mapping: Dictionary = {
 	"up": "Controller_Up",
 	"down": "Controller_Down",
@@ -294,17 +414,11 @@ var keyboard_mouse_icon_mapping: Dictionary = {
 	"down": 89,
 	"left": 90,
 	"right": 91,
-	"ui_right": 91,
-	"Dungeon_Attack": 87,
-	"Dungeon_Skill": 25,
-	"Dungeon_Defend": 22,
-	"Dungeon_Items": 8,
-	"Cancel": 22,
-	"Confirm": 2,
-	"Quest_Menu": 16,
-	"Open_Map": 12,
-	"Camera_Zoom_In": 4,
-	"Camera_Zoom_Out": 16,
+	"confirm": 91,
+	"cancel": 87,
+	"Dungeon_Item": 25,
+	"Dungeon_Skill": 22,
+	"Pause": 16,
 }
 
 var controller_icon_mapping: Dictionary = {
@@ -312,11 +426,6 @@ var controller_icon_mapping: Dictionary = {
 	"Controller_Down": 13,
 	"Controller_Left": 14,
 	"Controller_Right": 15,
-	"Controller_Dungeon_Attack": 2,
-	"Controller_Dungeon_Skill": 3,
-	"Controller_Dungeon_Defend": 1,
-	"Controller_Dungeon_Items": 0,
-	"Controller_Dungeon_Targeting": 34,
 	"Controller_Cancel": 1,
 	"Controller_Confirm": 2,
 	"Controller_Quest_Menu": 0,
@@ -381,6 +490,9 @@ func set_using_controller(do_it):
 	swapped_to_controller.emit(do_it)
 
 func get_input_mapping(input_string):
+	if input_string == "Open_Map" or input_string == "Quest_Menu":
+		return
+	
 	if using_controller:
 		return Input.is_action_just_pressed(controller_mapping[input_string])
 	else:
