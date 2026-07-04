@@ -70,6 +70,9 @@ func update_quests():
 	menu_tabs.cycle_input(null, 0)
 
 func _reset():
+	if visible:
+		update_quests()
+		return
 	menu_tabs.cycle_input(null, -10)
 
 func tab_changed(which_tab):

@@ -384,6 +384,7 @@ func start_lyra_axe_quest() -> void:
 	for existing_quest in GlobalCombatInformation.active_quests:
 		if existing_quest != null and existing_quest.resource_path == LYRA_AXE_QUEST_PATH:
 			print("[Story] Lyra axe quest already active.")
+			GlobalCombatInformation.check_quest_progress.emit()
 			return
 
 	var lyra_quest: quest = load(LYRA_AXE_QUEST_PATH)
@@ -391,7 +392,7 @@ func start_lyra_axe_quest() -> void:
 		push_warning("Global: Could not load Lyra axe quest: %s" % LYRA_AXE_QUEST_PATH)
 		return
 
-	GlobalCombatInformation.active_quests.append(lyra_quest)
+	GlobalCombatInformation.add_quest(lyra_quest)
 	print("[Story] Started Lyra axe quest.")
 
 func should_start_lyra_tavern_cutscene(loading_zone_name: String) -> bool:
