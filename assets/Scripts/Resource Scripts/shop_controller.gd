@@ -57,7 +57,7 @@ func update_shop_details() -> void:
 		shop_owner_name_label.text = shop_owner_name
 	
 func _input(event):
-	if event.is_action_pressed("Interact") and can_open_shop:
+	if event.is_action_pressed("confirm") and can_open_shop:
 		show_shop()
 
 func _on_area_2d_area_entered(area):

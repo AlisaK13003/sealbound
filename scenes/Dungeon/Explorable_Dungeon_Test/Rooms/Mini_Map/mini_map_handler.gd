@@ -106,6 +106,12 @@ var enemy_list: Array
 func _ready():
 	map_button.activated.connect(open_map)
 
+func hide_mini_map():
+	$MiniMap.visible = false
+
+func open_mini_map():
+	$MiniMap.visible = true
+
 func store_current_enemy_list(e_list):
 	enemy_list.clear()
 	for dot in f_dots.get_children():
@@ -151,6 +157,7 @@ func _process(delta):
 			f_grid.position.x = clamp(f_grid.position.x + 1, -off * 3 + bounds.x if bounds.x <= 0 else 0, off * 3 if bounds.x <= 0 else bounds.x)
 			mov_cont.position.x = clamp(mov_cont.position.x + 1, -off * 3 + bounds.x if bounds.x <= 0 else 0, off * 3 if bounds.x <= 0 else bounds.x)
 		
+		return
 		if Global.get_input_mapping("Camera_Zoom_In"):
 			if $Full_Screen_Map/Panel.scale == (Vector2(1, 1)):
 				$Full_Screen_Map/Panel.scale = Vector2(1, 1) * max_zoom_in

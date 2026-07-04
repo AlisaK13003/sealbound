@@ -25,6 +25,7 @@ func _ready() -> void:
 	#current_pitch = target_pitch
 
 func _input(event: InputEvent) -> void:
+	return
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

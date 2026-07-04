@@ -30,6 +30,7 @@ offset_bottom = 1106.0
 color = Color(0, 0, 0, 1)
 
 [node name="Button" type="Button" parent="." unique_id=1822463530]
+process_mode = 3
 offset_left = 262.0
 offset_top = 2.0
 offset_right = 332.0

@@ -2,12 +2,18 @@ extends Control
 
 var panel: Panel
 
-func _setup(combatant: generic_combatants):
+
+
+func _setup(combatant: generic_combatants, show_hp: bool = false):
 	var name_ = $Label
 	var sprite = $Sprite2D
 	
 	panel = $Panel
 	
+	if show_hp:
+		pass
+	else:
+		pass
 	name_.text = combatant.combatant_name
 	sprite.texture = combatant.party_member_portrait
 	

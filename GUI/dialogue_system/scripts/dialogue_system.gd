@@ -122,7 +122,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
-	if event.is_action_pressed("Interact") or event.is_action_pressed("Mouse_Left_Click"):
+	if Global.get_input_mapping("confirm") or event.is_action_pressed("Mouse_Left_Click"):
 		if current_node_has_choices and not is_typing:
 			# Manually check if click hit a choice button
 			var mouse_pos := get_viewport().get_mouse_position()

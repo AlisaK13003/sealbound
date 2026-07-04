@@ -41,28 +41,33 @@ layout_mode = 2
 action_mode = 0
 input_event_that_will_activate = "up"
 button_name = "Soon"
+disabled_ = true
 
 [node name="GenericButton2" parent="CanvasLayer/HBoxContainer" unique_id=2086090258 instance=ExtResource("4_rw4us")]
 layout_mode = 2
 input_event_that_will_activate = "up"
 button_name = "Soon"
+disabled_ = true
 
 [node name="GenericButton3" parent="CanvasLayer/HBoxContainer" unique_id=172920399 instance=ExtResource("4_rw4us")]
 visible = false
 layout_mode = 2
 input_event_that_will_activate = "up"
 button_name = "Soon"
+disabled_ = true
 
 [node name="GenericButton4" parent="CanvasLayer/HBoxContainer" unique_id=441815521 instance=ExtResource("4_rw4us")]
 visible = false
 layout_mode = 2
 input_event_that_will_activate = "up"
 button_name = "Soon"
+disabled_ = true
 
 [node name="GenericButton5" parent="CanvasLayer/HBoxContainer" unique_id=1036667174 instance=ExtResource("4_rw4us")]
 visible = false
 layout_mode = 2
 button_name = "Soon"
+disabled_ = true
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
 layout_mode = 3

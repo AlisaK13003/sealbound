@@ -1,29 +1,15 @@
 extends Control
 
-@onready var quest_menu_button = $Quest_Menu
 @onready var chest_drop_parent = $VBoxContainer
-@onready var quest_menu = $QuestMenu
+@onready var mini_map = $MiniMap
+@onready var pause_menu = $PauseMenu
 
 var chest_got_node_path = "res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest_Reward_Display_Node.tscn"
 var p_ref
 
-func _ready():
-	quest_menu_button.activated.connect(_open_quest_menu)
-	quest_menu.visible = false
-	quest_menu._setup(p_ref)
-	
 func _setup(parent_ref):
 	p_ref = parent_ref
 	
-	
-func _open_quest_menu():
-	if quest_menu.visible:
-		quest_menu.visible = false
-		p_ref.movement_locked = false
-	else:
-		quest_menu.visible = true
-		p_ref.movement_locked = true
-
 func display_gotten_chest_items(item_got):
 	for item in item_got:
 		var new_node = load(chest_got_node_path)
@@ -50,3 +36,21 @@ func _on_check_box_toggled(toggled_on):
 			enemy.disable_player_detection()
 		else:
 			enemy.enable_player_detection()
+
+func _input(event):
+	if Global.get_input_mapping("Pause"):
+		if not pause_menu.visible:
+			if Global.is_in_menu:
+				return
+			mini_map.hide_mini_map()
+			Global.menu_opened.emit()
+			Global.is_paused = true
+			pause_menu.visible = true
+			get_tree().paused = true
+			get_viewport().set_input_as_handled()
+		else:
+			Global.menu_closed.emit()
+			mini_map.open_mini_map()
+			Global.is_paused = false
+			get_tree().paused = false
+			pause_menu.visible = false

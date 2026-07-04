@@ -33,7 +33,9 @@ offset_left = 22.0
 offset_top = -1.0
 offset_right = 91.0
 offset_bottom = 31.0
-text = "Cassian"
+theme_override_font_sizes/font_size = 10
+text = "Cassian
+HP: 50/50"
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=808291165]

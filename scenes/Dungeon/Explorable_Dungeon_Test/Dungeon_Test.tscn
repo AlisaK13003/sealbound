@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://btij2pma38ddj" path="res://assets/tile sheets/Dungeon_Backgrounds/Forest_Dungeon_Background.glb" id="3_vfo45"]
 [ext_resource type="PackedScene" uid="uid://jy4xy3xjv44s" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Zones.tscn" id="4_sxgfm"]
 [ext_resource type="PackedScene" uid="uid://bd3pbfb2hc77r" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3D_Enemy.tscn" id="6_ov5eq"]
-[ext_resource type="PackedScene" uid="uid://k4xgkd3u8v5f" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/MiniMap.tscn" id="7_i6eaa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c061y"]
 size = Vector3(11.0121765, 1, 4.1467285)
@@ -125,6 +124,7 @@ transform = Transform3D(-6.5567085e-09, 0.15, -6.5567085e-09, 0, -6.5567085e-09,
 visible = false
 
 [node name="3dPlayer2" parent="." unique_id=1611672739 groups=["3D_Player"] instance=ExtResource("2_c061y")]
+process_mode = 3
 transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, -19.612)
 move_speed = 10.0
 
@@ -154,10 +154,6 @@ mesh = SubResource("BoxMesh_i6eaa")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2015268641]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.798454, -0.04067421)
-
-[node name="MiniMap" parent="." unique_id=1818784448 instance=ExtResource("7_i6eaa")]
-offset_top = -2.0
-offset_bottom = -2.0
 
 [node name="Enemies" type="Node3D" parent="." unique_id=772093620]
 

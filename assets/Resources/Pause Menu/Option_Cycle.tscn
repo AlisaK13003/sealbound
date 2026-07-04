@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://l7s8hm6eib0c"]
+
+[ext_resource type="Script" uid="uid://by1dnxrnjfeg2" path="res://assets/Resources/Pause Menu/option_cycle.gd" id="1_5xhxk"]
+[ext_resource type="Texture2D" uid="uid://cymegyyt5rj1i" path="res://assets/tile sheets/quick_arrow.png" id="2_y3jlt"]
+
+[node name="OptionCycle" type="Control" unique_id=1356923450]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xhxk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=602555451]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=2005076595]
+layout_mode = 2
+texture = ExtResource("2_y3jlt")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1512963224]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -10)
+text = "1080p"
+horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=388384502]
+layout_mode = 2
+texture = ExtResource("2_y3jlt")
+stretch_mode = 2
+flip_h = true
+
+[node name="Label2" type="Label" parent="HBoxContainer" unique_id=1640748802]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(12.745, -10)
+text = "Apply"
+
+[connection signal="gui_input" from="HBoxContainer/TextureRect" to="." method="_on_left_pressed"]
+[connection signal="gui_input" from="HBoxContainer/TextureRect2" to="." method="_on_right_pressed"]
