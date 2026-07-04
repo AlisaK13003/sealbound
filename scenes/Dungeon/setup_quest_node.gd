@@ -4,25 +4,21 @@ var held_quest
 
 var quest_requirement_area
 
-func _setup(quest_to_setup_with: quest):
-	var quest_name = $VBoxContainer/Quest_Name
-	var quest_description = $VBoxContainer/MarginContainer/Quest_Description
-	quest_requirement_area = $VBoxContainer/MarginContainer/Quest_Completion/VBoxContainer
-	var quest_container = $VBoxContainer/MarginContainer
+func _ready():
+	GlobalCombatInformation.check_quest_progress.connect(update_quest_progress)
 
+func _setup(quest_to_setup_with: quest):
+	var quest_name = $Quest_Name
 	held_quest = quest_to_setup_with
 	
 	quest_name.text = quest_to_setup_with.quest_name
-	quest_description.text = quest_to_setup_with.quest_description
-	if quest_to_setup_with.should_spawn_dungeon_room:
-		quest_container.add_theme_constant_override("margin_top", -8)
-	else:
-		quest_container.add_theme_constant_override("margin_top", -14)
-	if not quest_to_setup_with.completion_requirements.keys().is_empty():
-		update_quest_progress()
-	GlobalCombatInformation.check_quest_progress.connect(update_quest_progress)
+	
+func update_highlight(hi):
+	return
 	
 func update_quest_progress():
+	return
+	print("HII")
 	for child in quest_requirement_area.get_children():
 		child.queue_free()
 

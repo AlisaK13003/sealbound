@@ -2,6 +2,8 @@ extends GridContainer
 
 @export var be_vertical: bool = false
 
+@export var override_separation: bool = false
+
 var current_selection = 0
 var tab_node_path = "res://assets/Resources/Pause Menu/menu_tab_node.tscn"
 
@@ -77,10 +79,9 @@ func change_selection():
 	for child in get_child_count():
 		if child == current_selection:
 			get_child(child).update_highlight(true)
-			print("MOVVE UP")
 			if not be_vertical and get_child(child).position.y == starting_y:
 				get_child(child).position.y -= 10
-			elif get_child(child).position.x == starting_x:
+			elif be_vertical and get_child(child).position.x == starting_x:
 				get_child(child).position.x -= 10
 		else:
 			get_child(child).update_highlight(false)

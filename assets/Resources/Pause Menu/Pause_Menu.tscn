@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dv7w3jr2b60ts" path="res://assets/Resources/Pause Menu/Skills Menu/Skills_Menu.tscn" id="4_qffmw"]
 [ext_resource type="PackedScene" uid="uid://de675y0f2h5hk" path="res://assets/Resources/Pause Menu/Item Menu/Item Menu.tscn" id="5_j5h34"]
 [ext_resource type="PackedScene" uid="uid://c15yeiolqmy63" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Menu.tscn" id="5_o57t2"]
+[ext_resource type="PackedScene" uid="uid://dw54xqs30htgf" path="res://assets/Resources/Pause Menu/Quest Menu/Quest_Menu.tscn" id="8_q81nf"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
 [ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="14_gqxuu"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="14_j01ox"]
@@ -82,7 +83,6 @@ offset_bottom = 73.535
 scale = Vector2(1.25, 1.25)
 
 [node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
-visible = false
 layout_mode = 1
 offset_left = -44.0
 offset_top = 29.0
@@ -111,11 +111,16 @@ offset_right = -38.635
 offset_bottom = 0.8500023
 scale = Vector2(0.8, 0.8)
 
-[node name="Quests" parent="Windows" unique_id=1570975825 instance=ExtResource("4_qffmw")]
+[node name="QuestMenu" parent="Windows" unique_id=1054594618 instance=ExtResource("8_q81nf")]
 visible = false
 layout_mode = 1
+offset_left = -195.33
+offset_top = -41.36
+offset_right = -195.32913
+offset_bottom = -41.360004
 
 [node name="SystemMenu" parent="Windows" unique_id=893803557 instance=ExtResource("11_35xr2")]
+visible = false
 layout_mode = 1
 offset_left = -186.305
 offset_top = 48.96

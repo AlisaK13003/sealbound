@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0s74krhne5ke"
-path="res://.godot/imported/Forest_Background_Dungeon.png-dada36869def0a3e7bbf343278a0950c.ctex"
+uid="uid://cdlqkycw6befy"
+path="res://.godot/imported/Bad_Slime_Ball.png-10c9e1763a0fc987084e137ac68c60c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png"
-dest_files=["res://.godot/imported/Forest_Background_Dungeon.png-dada36869def0a3e7bbf343278a0950c.ctex"]
+source_file="res://assets/tile sheets/Bad_Slime_Ball.png"
+dest_files=["res://.godot/imported/Bad_Slime_Ball.png-10c9e1763a0fc987084e137ac68c60c3.ctex"]
 
 [params]
 

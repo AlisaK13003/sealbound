@@ -3,8 +3,8 @@ extends Node
 # When these gain more functionality they will be added to their own areas
 # --------------------------------------------------------------------------------------------------
 
-var bgm_volume: int = 10
-var sfx_volume: int = 10
+signal menu_opened
+signal menu_closed
 
 
 var is_paused: bool = false

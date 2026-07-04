@@ -100,6 +100,17 @@ func add_equipment(player_index, equip, is_weapon):
 				all_party_slots[player_index].stored_charm = equip
 	return ret_equipment
 	
+func search_for_item(desired_item: Items):
+	var count = 0
+	for item: Items in all_held_items:
+		if item.item_name == desired_item.item_name:
+			count += 1
+	return count
+
+func add_quest(quest_: quest):
+	active_quests.append(quest_)
+	check_quest_progress.emit()
+
 func _ready():
 	all_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
@@ -133,6 +144,7 @@ func _ready():
 	await get_tree().create_timer(0.5).timeout
 
 	finished.emit()
+	check_quest_progress.emit()
 
 var explorable_dungeon_scene# : explorable_dungeon
 var dungeon_loop_scene #: dungeon_loop

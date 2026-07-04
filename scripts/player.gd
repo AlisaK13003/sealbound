@@ -23,10 +23,8 @@ func _ready() -> void:
 	pause_menu.visible = false
 
 func _process(_delta: float) -> void:
-	if Global.is_paused:
-		return
 	var direction : Vector2 = Vector2.ZERO
-	if Global.is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning:
+	if Global.is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning or Global.is_paused:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
@@ -48,10 +46,10 @@ func _process(_delta: float) -> void:
 func _input(event):
 	# In Player _input
 	if Global.get_input_mapping("Pause"):
-		print("HIII")
 		if not pause_menu.visible:
 			if Global.is_in_menu:
 				return
+			Global.menu_opened.emit()
 			Global.is_paused = true
 			pause_menu.visible = true
 			get_tree().paused = true
@@ -59,7 +57,7 @@ func _input(event):
 			#full_inventory.manage_visibility(false)
 			get_viewport().set_input_as_handled()
 		else:
-			print("HIII")
+			Global.menu_closed.emit()
 			Global.is_paused = false
 			get_tree().paused = false
 			in_menu = false

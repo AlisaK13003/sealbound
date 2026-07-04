@@ -63,7 +63,8 @@ func quest_clicked(what_quest_was_clicked, quest_index):
 	print("The quest that was clicked is at index: ", quest_index)
 	# stored_quests_list.get_child(quest_index).visible = false
 	stored_quests_list.get_child(quest_index).am_i_accepted = true
-	GlobalCombatInformation.active_quests.append(what_quest_was_clicked)
+	#GlobalCombatInformation.active_quests.append(what_quest_was_clicked)
+	GlobalCombatInformation.add_quest(what_quest_was_clicked)
 	update_display(0, false)
 
 func _on_v_scroll_bar_scrolling():

@@ -5,6 +5,7 @@ class_name quest
 @export_category("Quest Criteria")
 @export var quest_name: String
 @export var quest_giver: String
+@export var quest_giver_sprite: Texture2D
 @export var quest_description: String
 @export var dungeon_location: GlobalCombatInformation.dungeon_types_names
 @export var difficult_level: GlobalCombatInformation.difficulty_multiplier
