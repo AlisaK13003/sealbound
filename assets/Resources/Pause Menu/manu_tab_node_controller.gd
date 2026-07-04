@@ -3,14 +3,16 @@ extends Control
 var panel_size: Vector2
 
 var panel: NinePatchRect
+var shadow_panel: NinePatchRect
 
 func _setup(tab_name_string):
 	panel = $NinePatchRect
 	var tab_name = $NinePatchRect/Label
-	
+	shadow_panel = $NinePatchRect2
 	tab_name.text = tab_name_string
 	
 	panel.size.x = (tab_name_string.length() * 10) + 20
+	shadow_panel.size.x = panel.size.x
 	tab_name.size.x = (tab_name_string.length() * 10) + 20
 	custom_minimum_size = panel.size
 	size = panel.size
@@ -21,6 +23,7 @@ func _setup(tab_name_string):
 func _update_size(new_size):
 	var tab_name = $NinePatchRect/Label
 	panel.size.x = new_size
+	shadow_panel.size.x = new_size
 	tab_name.size.x = new_size
 	custom_minimum_size = panel.size
 	size = panel.size

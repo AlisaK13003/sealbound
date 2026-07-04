@@ -30,12 +30,12 @@ func _process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
-		
+	#direction = Input.get_vector("left", "right", "up", "down")
+
 	if not Global.using_controller:
 		direction = Input.get_vector("left", "right", "up", "down")
 	else:
-		pass
-		#direction = Input.get_vector(Global.controller_mapping["left"], Global.controller_mapping["right"], Global.controller_mapping["up"], Global.controller_mapping["down"])
+		direction = Input.get_vector(Global.controller_mapping["left"], Global.controller_mapping["right"], Global.controller_mapping["up"], Global.controller_mapping["down"])
 		
 	velocity = direction * move_speed
 	animation_driver.sync(animated_sprite, velocity)
@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 	
 func _input(event):
 	# In Player _input
-	if event.is_action_pressed("Pause"):
+	if Global.get_input_mapping("Pause"):
 		print("HIII")
 		if not pause_menu.visible:
 			if Global.is_in_menu:
@@ -64,7 +64,7 @@ func _input(event):
 			get_tree().paused = false
 			in_menu = false
 			pause_menu.visible = false
-			
+	return
 	if not Global.is_in_menu:
 		if event.is_action_pressed("Mouse Scroll Up"):
 			full_inventory.update_selection(-1)

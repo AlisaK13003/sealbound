@@ -64,8 +64,20 @@ func _ready():
 	$"Settings_Windows/Display Settings/GridContainer/monitor_cycle"._setup(DisplayServer.window_get_current_screen(), screens)
 	$"Settings_Windows/Display Settings/GridContainer/monitor_cycle".option_changed.connect(change_monitor)
 
-	last_screen_id = DisplayServer.window_get_current_screen()
+	$"Settings_Windows/Key Config/MenuTabs"._setup(["Keyboard", "Controller"])
+	$"Settings_Windows/Key Config/MenuTabs".selection_changed.connect(swap_between_controller)
 
+	last_screen_id = DisplayServer.window_get_current_screen()
+	
+
+	
+func swap_between_controller(index):
+	if index == 0:
+		$"Settings_Windows/Key Config/Keybinds/GridContainer".visible = true
+		$"Settings_Windows/Key Config/Keybinds/GridContainer2".visible = false
+	else:
+		$"Settings_Windows/Key Config/Keybinds/GridContainer".visible = false
+		$"Settings_Windows/Key Config/Keybinds/GridContainer2".visible = true
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_POSITION_CHANGED:

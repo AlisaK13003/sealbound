@@ -302,8 +302,8 @@ var key_sprite_map = {
 	KEY_T: 19,
 	KEY_U: 20,
 	KEY_V: 21,
-	KEY_X: 22, # Note: Swapped with W on the sprite sheet
-	KEY_W: 23, # Note: Swapped with X on the sprite sheet
+	KEY_X: 22, 
+	KEY_W: 23,
 	KEY_Y: 24,
 	KEY_Z: 25,
 
@@ -348,7 +348,7 @@ var key_sprite_map = {
 	KEY_KP_DIVIDE: 53,    # Maps to /
 	KEY_KP_SUBTRACT: 48,  # Maps to -
 	KEY_KP_ADD: 49,       # Maps to +
-	KEY_KP_PERIOD: 57,    # Note: No period on the sprite sheet, mapping to ? as a fallback or you can leave it out
+	KEY_KP_PERIOD: 57,  
 	KEY_KP_ENTER: 73,
 
 	# --- SYMBOLS ---
@@ -391,22 +391,67 @@ var key_sprite_map = {
 	KEY_INSERT: 95
 }
 
+var joypad_button_map = {
+	# --- FACE BUTTONS ---
+	JOY_BUTTON_Y: 0, # Top Button -> Yellow Y
+	JOY_BUTTON_B: 1, # Right Button -> Red B
+	JOY_BUTTON_A: 2, # Bottom Button -> Green A
+	JOY_BUTTON_X: 3, # Left Button -> Blue X
+	
+	# --- BUMPERS ---
+	JOY_BUTTON_LEFT_SHOULDER: 8,  # LB
+	JOY_BUTTON_RIGHT_SHOULDER: 9, # RB
+
+	# --- D-PAD  ---
+	JOY_BUTTON_DPAD_UP: 12,    # Flat edge on Top
+	JOY_BUTTON_DPAD_DOWN: 13,  # Flat edge on Bottom
+	JOY_BUTTON_DPAD_LEFT: 14,  # Flat edge on Left
+	JOY_BUTTON_DPAD_RIGHT: 15, # Flat edge on Right
+
+	# --- SYSTEM BUTTONS ---
+	JOY_BUTTON_START: 39, # Plus symbol (Row 8)
+	JOY_BUTTON_BACK: 40,  # Minus symbol (Row 8)
+	
+	# --- STICK CLICKS ---
+	JOY_BUTTON_LEFT_STICK: 36,  # L3 (Arrow pushing down)
+	JOY_BUTTON_RIGHT_STICK: 37  # R3 (Arrow pushing down)
+}
+
+var joypad_axis_map = {
+	# --- TRIGGERS ---
+	"4,1": 10, # LT (Left Trigger, Axis 4)
+	"5,1": 11, # RT (Right Trigger, Axis 5)
+
+	# --- LEFT JOYSTICK ---
+	"0,-1": 22, # L-Stick Left  
+	"1,-1": 20, # L-Stick Up   
+	"0,1": 23,  # L-Stick Right 
+	"1,1": 21,  # L-Stick Down  
+
+	# --- RIGHT JOYSTICK ---
+	"2,-1": 30, # R-Stick Left  
+	"3,-1": 28, # R-Stick Up    
+	"2,1": 31,  # R-Stick Right
+	"3,1": 29,  # R-Stick Down 
+}
+
 var controller_mapping: Dictionary = {
 	"up": "Controller_Up",
 	"down": "Controller_Down",
 	"left": "Controller_Left",
 	"right": "Controller_Right",
-	"ui_right": "Controller_Dungeon_Targeting",
-	"Dungeon_Attack": "Controller_Dungeon_Attack",
+	#"ui_right": "Controller_Dungeon_Targeting",
+	#"Dungeon_Attack": "Controller_Dungeon_Attack",
 	"Dungeon_Skill": "Controller_Dungeon_Skill",
-	"Dungeon_Defend": "Controller_Dungeon_Defend",
-	"Dungeon_Items": "Controller_Dungeon_Items",
-	"Cancel": "Controller_Cancel",
-	"Confirm": "Controller_Confirm",
-	"Quest_Menu": "Controller_Quest_Menu",
-	"Open_Map": "Controller_Open_Map",
-	"Camera_Zoom_In": "Controller_Right_Stick_Up",
-	"Camera_Zoom_Out": "Controller_Right_Stick_Down"
+	#"Dungeon_Defend": "Controller_Dungeon_Defend",
+	"Dungeon_Item": "Controller_Dungeon_Item",
+	"cancel": "Controller_Cancel",
+	"confirm": "Controller_Confirm",
+	#"Quest_Menu": "Controller_Quest_Menu",
+	#"Open_Map": "Controller_Open_Map",
+	#"Camera_Zoom_In": "Controller_Right_Stick_Up",
+	#"Camera_Zoom_Out": "Controller_Right_Stick_Down"
+	"Pause": "Controller_Pause",
 }
 
 var keyboard_mouse_icon_mapping: Dictionary = {
@@ -481,7 +526,7 @@ func _input(event):
 		if event.is_pressed():
 			set_using_controller(false)
 			swapped_to_controller.emit(false)
-		
+
 func set_using_controller(do_it):
 	if do_it:
 		using_controller = true

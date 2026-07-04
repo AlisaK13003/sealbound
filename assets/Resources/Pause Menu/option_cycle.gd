@@ -35,8 +35,6 @@ func _on_left_pressed(event):
 			else:
 				$HBoxContainer/Label.text = options[current_selection]
 			
-
-
 func _on_right_pressed(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

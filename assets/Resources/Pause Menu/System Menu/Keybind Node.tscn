@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2xkgw2mut2bu" path="res://assets/Input_Icons/Keyboard_Mouse/Alt/T_Keyboard_Mouse_Key_Alt_Sprite.svg" id="1_778ew"]
 [ext_resource type="Script" uid="uid://g21u1n3wmdh5" path="res://assets/Resources/Pause Menu/System Menu/keybind_node_setup.gd" id="1_gf2wi"]
+[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_2bc33"]
 [ext_resource type="Texture2D" uid="uid://cfpgrcj2b7b1u" path="res://assets/tile sheets/Centered_Controller_Inputs.png" id="2_gf2wi"]
 
 [node name="KeybindNode" type="Control" unique_id=1608093952]
@@ -9,12 +10,30 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_gf2wi")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1015506990]
+modulate = Color(0.66245234, 0.66245234, 0.6624523, 1)
+layout_mode = 0
+offset_left = -11.0
+offset_top = -2.0
+offset_right = 139.0
+offset_bottom = 37.0
+texture = ExtResource("2_2bc33")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="Keyboard Icons" type="Sprite2D" parent="." unique_id=1654497951]
+visible = false
 position = Vector2(58.58, 23.51)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_778ew")
@@ -30,6 +49,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gf2wi")
 hframes = 4
 vframes = 11
+frame = 29
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1738720924]
 layout_mode = 0
@@ -57,5 +77,14 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_constants/shadow_outline_size = 0
 text = "Press Key"
 horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="." unique_id=1666771183]
+visible = false
+layout_mode = 0
+offset_left = 35.015
+offset_top = 18.345
+offset_right = 91.015015
+offset_bottom = 36.34501
+text = "Unbound"
 
 [connection signal="gui_input" from="." to="." method="_new_key_selected"]
