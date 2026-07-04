@@ -1,0 +1,451 @@
+[gd_scene format=3 uid="uid://dm0c2qg03a00n"]
+
+[ext_resource type="Script" uid="uid://7r40t3f4ovnb" path="res://scenes/main/start_screen_handler.gd" id="1_hxa3y"]
+[ext_resource type="Texture2D" uid="uid://bqevp6wlohxym" path="res://assets/Resources/footer.png" id="2_3o0di"]
+[ext_resource type="Texture2D" uid="uid://dgib00wxcq5fm" path="res://assets/Resources/titleScreen/sign.png" id="3_ghekx"]
+[ext_resource type="Texture2D" uid="uid://0dk2ydel70hj" path="res://GUI/dialogue_system/choiceBox.png" id="4_7l3jx"]
+[ext_resource type="Texture2D" uid="uid://yx1i8l2km3sq" path="res://assets/Resources/titleScreen/selectArrow.png" id="5_6dcmb"]
+[ext_resource type="Texture2D" uid="uid://bwc0rft04gwtb" path="res://assets/Resources/titleScreen/backButton.png" id="6_xsgpd"]
+[ext_resource type="Texture2D" uid="uid://cc5qnu8djv3yc" path="res://assets/Resources/titleScreen/backButtonHover.png" id="7_scvbf"]
+[ext_resource type="Texture2D" uid="uid://cgbhrcm22ac5b" path="res://assets/Resources/titleScreen/aboutMe_backgrounds.png" id="8_b70v6"]
+[ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="9_fnnt3"]
+[ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_n4rrd"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yabvd"]
+load_path = "res://.godot/imported/titleScreen_gradient.png-4372badbb123e0ffbc0762e7c80d0519.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cseyn"]
+load_path = "res://.godot/imported/cloud1.png-ebb697d37dea1052f4b83f59edcbbe0c.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jg7h0"]
+load_path = "res://.godot/imported/cloud2.png-0ac5c928a3c481f73de275766a5fa574.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4a7rd"]
+load_path = "res://.godot/imported/cloud2.png-0ac5c928a3c481f73de275766a5fa574.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a5ccx"]
+load_path = "res://.godot/imported/cloud3-export.png-e89dca9d1789ead37712228de11e0a93.ctex"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4a7rd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5x5j"]
+texture = ExtResource("6_xsgpd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_awjh7"]
+texture = ExtResource("7_scvbf")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awjh7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xuv6y"]
+
+[node name="TitleScreen" type="Control" unique_id=1723522419]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxa3y")
+
+[node name="Background" type="Control" parent="." unique_id=1577994173]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GradientBackground" type="TextureRect" parent="Background" unique_id=484575383]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5511198, 1.1790555)
+texture = SubResource("CompressedTexture2D_yabvd")
+expand_mode = 3
+
+[node name="Clouds" type="Node2D" parent="Background" unique_id=1697388576]
+position = Vector2(-5, 0)
+scale = Vector2(1, 1.0799999)
+
+[node name="Cloud1" type="Sprite2D" parent="Background/Clouds" unique_id=559298934]
+position = Vector2(104, 62.962967)
+scale = Vector2(2.2399998, 2.2399998)
+texture = SubResource("CompressedTexture2D_cseyn")
+
+[node name="Cloud2" type="Sprite2D" parent="Background/Clouds" unique_id=1391565545]
+position = Vector2(147.00002, 174.07408)
+scale = Vector2(2.04, 2.04)
+texture = SubResource("CompressedTexture2D_jg7h0")
+
+[node name="Cloud3" type="Sprite2D" parent="Background/Clouds" unique_id=593246682]
+position = Vector2(530, 150.00002)
+scale = Vector2(1.8, 1.8)
+texture = SubResource("CompressedTexture2D_4a7rd")
+
+[node name="Cloud4" type="Sprite2D" parent="Background/Clouds" unique_id=868057749]
+position = Vector2(53, 235.1852)
+scale = Vector2(0.23999938, 0.23999938)
+texture = SubResource("CompressedTexture2D_a5ccx")
+
+[node name="Ground" type="Sprite2D" parent="Background" unique_id=1751719271]
+position = Vector2(322, 308)
+scale = Vector2(1.2800004, 0.87999994)
+texture = ExtResource("2_3o0di")
+
+[node name="UI" type="Control" parent="." unique_id=1862326949]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleSign" type="TextureRect" parent="UI" unique_id=268604672]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -216.0
+offset_right = 216.0
+offset_bottom = 246.0
+grow_horizontal = 2
+scale = Vector2(0.41052073, 0.41052073)
+pivot_offset = Vector2(216.7978, 26.795235)
+texture = ExtResource("3_ghekx")
+
+[node name="TitleLabel" type="Label" parent="UI/TitleSign" unique_id=755347098]
+layout_mode = 0
+offset_left = 92.56536
+offset_top = 148.59177
+offset_right = 360.56537
+offset_bottom = 220.59177
+theme_override_font_sizes/font_size = 64
+text = "Sealbound"
+
+[node name="Menu" type="Control" parent="UI" unique_id=1444677654]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menu" unique_id=41385245]
+propagate_maximum_size = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -46.000008
+offset_right = 62.5
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(26.088367, 74.861115)
+theme_override_constants/separation = 8
+
+[node name="NewGameButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=1623609504]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/NewGameButton" unique_id=1455819133]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "New Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=1626661255]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/LoadButton" unique_id=82733872]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=641983744]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/SettingsButton" unique_id=26044047]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=455456809]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/ExitButton" unique_id=2098073161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Exit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreditsButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=1280005336]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/CreditsButton" unique_id=1268691010]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Arrow" type="TextureRect" parent="UI/Menu" unique_id=1411767358]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(25, 25)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_6dcmb")
+
+[node name="SetupPanel" type="PanelContainer" parent="." unique_id=1844359120]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -89.0
+offset_top = 130.0
+offset_right = 80.0
+offset_bottom = 172.0
+grow_horizontal = 2
+pivot_offset = Vector2(80.5, 21)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4a7rd")
+
+[node name="MarginContainer" type="MarginContainer" parent="SetupPanel" unique_id=400264655]
+layout_mode = 2
+
+[node name="SetupColumn" type="VBoxContainer" parent="SetupPanel/MarginContainer" unique_id=470510770]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleRow" type="HBoxContainer" parent="SetupPanel/MarginContainer/SetupColumn" unique_id=1366043114]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="SetupPanel/MarginContainer/SetupColumn/TitleRow" unique_id=1407811069]
+custom_minimum_size = Vector2(16, 20)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5x5j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_awjh7")
+
+[node name="SetupTitle" type="Label" parent="SetupPanel/MarginContainer/SetupColumn/TitleRow" unique_id=1660436861]
+layout_mode = 2
+text = "Choose your character"
+
+[node name="CharacterChoiceWrapper" type="CenterContainer" parent="SetupPanel/MarginContainer/SetupColumn" unique_id=639708461]
+layout_mode = 2
+
+[node name="CharacterChoices" type="HBoxContainer" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper" unique_id=967496149]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="FemaleChoiceButton" type="Button" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices" unique_id=54893628]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Background" type="TextureRect" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/FemaleChoiceButton" unique_id=1482698492]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_b70v6")
+expand_mode = 1
+
+[node name="SelectionBorder" type="Panel" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/FemaleChoiceButton" unique_id=1087619287]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 12.0
+offset_bottom = 42.0
+
+[node name="PortraitCenter" type="CenterContainer" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/FemaleChoiceButton" unique_id=157420602]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/FemaleChoiceButton/PortraitCenter" unique_id=1845242491]
+custom_minimum_size = Vector2(48, 72)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="MaleChoiceButton" type="Button" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices" unique_id=248319100]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/MaleChoiceButton" unique_id=182412269]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 75.0
+texture = ExtResource("8_b70v6")
+expand_mode = 1
+
+[node name="SelectionBorder" type="Panel" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/MaleChoiceButton" unique_id=704223053]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 12.0
+offset_bottom = 8.0
+
+[node name="PortraitCenter" type="CenterContainer" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/MaleChoiceButton" unique_id=790010088]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="SetupPanel/MarginContainer/SetupColumn/CharacterChoiceWrapper/CharacterChoices/MaleChoiceButton/PortraitCenter" unique_id=1994271342]
+custom_minimum_size = Vector2(48, 72)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="SetupPanel/MarginContainer/SetupColumn" unique_id=469499864]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="SetupButtons" type="HBoxContainer" parent="SetupPanel/MarginContainer/SetupColumn" unique_id=797525457]
+layout_mode = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="SetupPanel/MarginContainer/SetupColumn/SetupButtons" unique_id=618205895]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_awjh7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xuv6y")
+disabled = true
+alignment = 0
+
+[node name="Background" type="TextureRect" parent="SetupPanel/MarginContainer/SetupColumn/SetupButtons/StartButton" unique_id=1432837694]
+custom_minimum_size = Vector2(50, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.52, 1.52)
+pivot_offset = Vector2(25, 15.7894745)
+texture = ExtResource("9_fnnt3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SetupPanel/MarginContainer/SetupColumn/SetupButtons/StartButton" unique_id=83878897]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadPanel" type="PanelContainer" parent="." unique_id=116812265]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = 134.0
+offset_right = -7.0
+offset_bottom = 154.0
+grow_horizontal = 2
+pivot_offset = Vector2(5, 50)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4a7rd")
+
+[node name="MarginContainer" type="MarginContainer" parent="LoadPanel" unique_id=1097575468]
+layout_mode = 2
+
+[node name="LoadRow" type="HBoxContainer" parent="LoadPanel/MarginContainer" unique_id=932081636]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 60
+
+[node name="BackButton" type="Button" parent="LoadPanel/MarginContainer/LoadRow" unique_id=496686223]
+custom_minimum_size = Vector2(16, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5x5j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_awjh7")
+
+[node name="SaveLoadMenu" parent="LoadPanel/MarginContainer/LoadRow" unique_id=1676534613 instance=ExtResource("10_n4rrd")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0

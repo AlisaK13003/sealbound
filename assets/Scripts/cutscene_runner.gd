@@ -101,6 +101,8 @@ func _advance() -> void:
 		"action":
 			_run_action(str(beat.get("name", beat.get("action", ""))))
 			_advance()
+		"animation":
+			_play_animation(beat)
 		"flag":
 			Global.set_story_flag(str(beat.get("key", "")), bool(beat.get("value", true)))
 			_advance()
@@ -254,19 +256,20 @@ func _apply_portrait_data(node: Dictionary, beat: Dictionary) -> void:
 		node["portrait_frame"] = str(beat["portrait_frame"])
 	if beat.has("portrait"):
 		node["portrait_frame"] = str(beat["portrait"])
-	if node.has("portrait_sheet") or node.has("portrait_frame"):
-		return
 
 	var raw_speaker = str(beat.get("speaker", ""))
-	match raw_speaker:
-		"MC":
-			node["portrait_sheet"] = "res://GUI/dialogue_system/sprites/portraits/MCmale_portraits.png" if Global.player_gender == "male" else "res://GUI/dialogue_system/sprites/portraits/MCfemale_portraits.png"
-			node["portrait_frame"] = "neutral"
-		"Villager Girl", "Sera", "???":
-			node["portrait_sheet"] = "res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png"
-			node["portrait_frame"] = "neutral"
-		_:
-			node["hide_portrait"] = true
+	if not node.has("portrait_sheet"):
+		match raw_speaker:
+			"MC":
+				node["portrait_sheet"] = "res://GUI/dialogue_system/sprites/portraits/MCmale_portraits.png" if Global.player_gender == "male" else "res://GUI/dialogue_system/sprites/portraits/MCfemale_portraits.png"
+			"Villager Girl", "Sera", "???":
+				node["portrait_sheet"] = "res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png"
+			"Shadowy Figure":
+				node["portrait_sheet"] = "res://assets/characters/caen/shadowyFigure.png"
+			_:
+				node["hide_portrait"] = true
+	if not node.has("portrait_frame") and not bool(node.get("hide_portrait", false)):
+		node["portrait_frame"] = "neutral"
 
 func get_dialogue_system() -> Node:
 	return get_node_or_null("/root/DialogueSystem")
@@ -297,6 +300,50 @@ func _play_fade(beat: Dictionary) -> void:
 	if has_finished:
 		return
 	_advance()
+
+func _play_animation(beat: Dictionary) -> void:
+	var animation_name = str(beat.get("name", beat.get("animation", "")))
+	if animation_name.is_empty():
+		_advance()
+		return
+
+	var blocking = bool(beat.get("blocking", true))
+	var scene = get_tree().current_scene
+	var result = null
+	if scene != null and scene.has_method("play_cutscene_animation"):
+		result = scene.call("play_cutscene_animation", animation_name)
+
+	if result == null:
+		var animation_player = _find_animation_player(str(beat.get("player", "AnimationPlayer")))
+		if animation_player == null or not animation_player.has_animation(animation_name):
+			push_warning("CutsceneRunner: Could not play animation cue '%s'." % animation_name)
+			_advance()
+			return
+		animation_player.play(animation_name)
+		result = animation_player.animation_finished
+
+	if blocking:
+		if result is Signal:
+			await result
+		elif result is Tween:
+			await result.finished
+		elif result is float or result is int:
+			await get_tree().create_timer(float(result)).timeout
+		if has_finished:
+			return
+	_advance()
+
+func _find_animation_player(player_path: String) -> AnimationPlayer:
+	var scene = get_tree().current_scene
+	if scene == null:
+		return null
+
+	var animation_player = scene.get_node_or_null(NodePath(player_path))
+	if animation_player == null:
+		animation_player = scene.find_child(player_path, true, false)
+	if animation_player is AnimationPlayer:
+		return animation_player
+	return null
 
 func skip_cutscene() -> void:
 	if has_finished:

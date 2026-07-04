@@ -82,5 +82,4 @@ idle_speed = 1.0
 walk_speed = 0.7
 attack_speed = Array[float]([1.0, 1.5])
 sprite_scale = 0.007
-bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

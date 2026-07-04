@@ -1,0 +1,512 @@
+[gd_scene format=3 uid="uid://cnbxgp6btok8f"]
+
+[ext_resource type="Texture2D" uid="uid://btqketriyk5b8" path="res://assets/tile sheets/Forest_Dungeon_Background.png" id="1_8j7d2"]
+[ext_resource type="Script" uid="uid://bfsn2dnoao7ap" path="res://scenes/cutscenes/opening_forest_cutscene.gd" id="1_f6m1s"]
+[ext_resource type="Texture2D" uid="uid://dcm3l8q3v3khi" path="res://assets/tile sheets/Forest_Dungeon_Ground.png" id="2_dfwm6"]
+[ext_resource type="Texture2D" uid="uid://but2qc21w7p6x" path="res://assets/characters/player/female_idle.png" id="3_xin8b"]
+[ext_resource type="Texture2D" uid="uid://og54cope4pjj" path="res://assets/characters/player/male_idle.png" id="4_cp8v2"]
+[ext_resource type="Texture2D" uid="uid://bs8dnl70xcanx" path="res://assets/characters/caen/shadowyFigureWalk.png" id="5_qt5sj"]
+[ext_resource type="Texture2D" uid="uid://hla08h17fqhv" path="res://assets/characters/sera/sera_idle.png" id="6_5h0x1"]
+[ext_resource type="Texture2D" uid="uid://bth1ubymbkvbq" path="res://assets/characters/sera/sera_walk.png" id="7_8ni23"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gmog"]
+atlas = ExtResource("6_5h0x1")
+region = Rect2(0, 0, 150, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfkjr"]
+atlas = ExtResource("7_8ni23")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0ll8"]
+atlas = ExtResource("7_8ni23")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvn1b"]
+atlas = ExtResource("7_8ni23")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h12sl"]
+atlas = ExtResource("7_8ni23")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dfwm6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gmog")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfkjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0ll8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvn1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h12sl")
+}],
+"loop": 1,
+"name": &"walk_side",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_lantern"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(1, 0.83, 0.48, 0.95, 1, 0.55, 0.22, 0.32, 1, 0.42, 0.12, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lantern"]
+gradient = SubResource("Gradient_lantern")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd2ya"]
+atlas = ExtResource("3_xin8b")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd6ih"]
+atlas = ExtResource("4_cp8v2")
+region = Rect2(0, 0, 192, 306)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_25m5r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd2ya")
+}],
+"loop": 1,
+"name": &"idle_female",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bd6ih")
+}],
+"loop": 1,
+"name": &"idle_male",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wyir"]
+atlas = ExtResource("5_qt5sj")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_353sa"]
+atlas = ExtResource("5_qt5sj")
+region = Rect2(768, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8wiu"]
+atlas = ExtResource("5_qt5sj")
+region = Rect2(960, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1cqk"]
+atlas = ExtResource("5_qt5sj")
+region = Rect2(1152, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fidpu"]
+atlas = ExtResource("5_qt5sj")
+region = Rect2(1344, 0, 192, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8j7d2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wyir")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_353sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8wiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1cqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fidpu")
+}],
+"loop": 1,
+"name": &"walk_side",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_xin8b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/ShadowyFigure:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-25, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Sera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-321, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/ShadowyFigure:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk_side"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Actors/ShadowyFigure:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Actors/Sera:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk_side"]
+}
+
+[sub_resource type="Animation" id="Animation_cp8v2"]
+resource_name = "intro_scene_0"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/ShadowyFigure:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Sera:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/Sera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-384, -28)]
+}
+
+[sub_resource type="Animation" id="Animation_qt5sj"]
+resource_name = "sera_approach"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/ShadowyFigure:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(358, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Sera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01, 1.6666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-385, -28), Vector2(-307, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/ShadowyFigure:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Actors/Sera:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"walk_side", &"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_5h0x1"]
+resource_name = "sera_run"
+length = 0.53333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/Sera:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.46666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-307, -28), Vector2(-196, -28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Sera:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.46666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"walk_side", &"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_8ni23"]
+resource_name = "shadow_approach"
+length = 1.8666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/ShadowyFigure:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.13333334, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-25, -32), Vector2(-69, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Sera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-385, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/ShadowyFigure:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.13333333, 1.8666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [&"idle", &"walk_side", &"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_nd2ya"]
+resource_name = "shadow_exit"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/ShadowyFigure:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16666667, 1.3333334, 2.2666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-69, -32), Vector2(-34, -32), Vector2(358, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Sera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-385, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/ShadowyFigure:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.2666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"walk_side", &"walk_side"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Actors/ShadowyFigure:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.3333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bd6ih"]
+_data = {
+&"RESET": SubResource("Animation_xin8b"),
+&"intro_scene_0": SubResource("Animation_cp8v2"),
+&"sera_approach": SubResource("Animation_qt5sj"),
+&"sera_run": SubResource("Animation_5h0x1"),
+&"shadow_approach": SubResource("Animation_8ni23"),
+&"shadow_exit": SubResource("Animation_nd2ya")
+}
+
+[node name="OpeningForestCutscene" type="Node2D" unique_id=256986161]
+script = ExtResource("1_f6m1s")
+
+[node name="Background" type="Node2D" parent="." unique_id=1388523480]
+position = Vector2(0, -53)
+
+[node name="Sky1" type="Sprite2D" parent="Background" unique_id=921350700]
+position = Vector2(-55, -63.000004)
+scale = Vector2(2.0399997, 2.0399997)
+texture = ExtResource("1_8j7d2")
+
+[node name="Ground1" type="Sprite2D" parent="Background" unique_id=1799818935]
+position = Vector2(-109.000015, 148.67996)
+scale = Vector2(1.8399999, 2.8799992)
+texture = ExtResource("2_dfwm6")
+
+[node name="Ground2" type="Sprite2D" parent="Background" unique_id=547389358]
+position = Vector2(-25.99997, 148.67996)
+scale = Vector2(1.8399999, 2.8799992)
+texture = ExtResource("2_dfwm6")
+
+[node name="Actors" type="Node2D" parent="." unique_id=1130048450]
+position = Vector2(-5, 44)
+
+[node name="Sera" type="AnimatedSprite2D" parent="Actors" unique_id=1780211277]
+position = Vector2(-321, -28)
+scale = Vector2(0.40000045, 0.40000045)
+sprite_frames = SubResource("SpriteFrames_dfwm6")
+animation = &"walk_side"
+autoplay = "walk_side"
+
+[node name="LanternLight" type="PointLight2D" parent="Actors/Sera" unique_id=2087962892]
+visible = false
+position = Vector2(26, -70)
+scale = Vector2(3, 3)
+color = Color(1, 0.72, 0.36, 1)
+energy = 0.85
+texture = SubResource("GradientTexture2D_lantern")
+offset = Vector2(10, 40)
+texture_scale = 1.5
+height = 965.0
+
+[node name="MC" type="AnimatedSprite2D" parent="Actors" unique_id=342028146]
+position = Vector2(-152.00003, 18.999998)
+rotation = -1.5626913
+scale = Vector2(0.37224326, 0.37224326)
+sprite_frames = SubResource("SpriteFrames_25m5r")
+animation = &"idle_female"
+
+[node name="ShadowyFigure" type="AnimatedSprite2D" parent="Actors" unique_id=1796397821]
+position = Vector2(-25, -32)
+scale = Vector2(0.40000045, 0.40000045)
+sprite_frames = SubResource("SpriteFrames_8j7d2")
+animation = &"walk_side"
+autoplay = "walk_side"
+frame_progress = 0.06737241
+flip_h = true
+
+[node name="Markers" type="Node2D" parent="." unique_id=693064118]
+
+[node name="Shadow_Start" type="Marker2D" parent="Markers" unique_id=309894842]
+position = Vector2(-34, 109)
+
+[node name="Shadow_Close" type="Marker2D" parent="Markers" unique_id=1531548151]
+position = Vector2(-80, 109)
+
+[node name="Shadow_Exit" type="Marker2D" parent="Markers" unique_id=773186479]
+position = Vector2(354, 109)
+
+[node name="Sera_Start" type="Marker2D" parent="Markers" unique_id=1012147604]
+position = Vector2(-392, 109)
+
+[node name="Sera_MCSide" type="Marker2D" parent="Markers" unique_id=1127352707]
+position = Vector2(-203, 109)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1276343401]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1474900319]
+libraries/ = SubResource("AnimationLibrary_bd6ih")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=149745966]
+color = Color(0.50760937, 0.5468893, 0.72139955, 1)
