@@ -140,7 +140,7 @@ func is_close_dialogue_event(event: InputEvent) -> bool:
 	return event.is_action_pressed("ui_cancel") or event.is_action_pressed("Pause") or event.is_action_pressed("Exit Menu")
 
 func is_advance_dialogue_event(event: InputEvent) -> bool:
-	return event.is_action_pressed("Interact") or event.is_action_pressed("Mouse_Left_Click") or event.is_action_pressed("Confirm") or event.is_action_pressed("ui_accept")
+	return event.is_action_pressed("confirm") or event.is_action_pressed("Mouse_Left_Click") or event.is_action_pressed("ui_accept")
 
 func is_dialogue_input_event(event: InputEvent) -> bool:
 	return is_close_dialogue_event(event) or is_advance_dialogue_event(event)

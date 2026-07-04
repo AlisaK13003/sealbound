@@ -76,7 +76,7 @@ func start_talking(message, _scene_to_pick: int):
 		text_box.text = ""
 			
 func _input(event):
-	if event.is_action_pressed("Confirm"):
+	if event.is_action_pressed("confirm"):
 		dialogue_advanced.emit()
 
 # Sets up the dialogue options on the screen to 

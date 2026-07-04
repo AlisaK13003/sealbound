@@ -13,12 +13,13 @@ var starting_y: float
 var starting_x: float
 
 func _setup(tab_names_, custom_tab: String = ""):
+	current_selection = 0
 	if be_vertical:
 		self.add_theme_constant_override("separation/v", 39)
 		self.columns = 1
 	else:
 		if custom_tab == "":
-			self.columns = tab_names_.size()
+			self.columns = max(tab_names_.size(), 1)
 
 	var largest_name: int = 0
 		
@@ -40,6 +41,9 @@ func _setup(tab_names_, custom_tab: String = ""):
 		if custom_tab == "":
 			if new_tab_instance.panel_size.x >= largest_name:
 				largest_name = new_tab_instance.panel_size.x
+	if get_child_count() == 0:
+		return
+
 	starting_x = self.get_child(0).position.x
 	starting_y = self.get_child(0).position.y
 	if custom_tab == "":
@@ -65,6 +69,8 @@ func _setup(tab_names_, custom_tab: String = ""):
 #			cycle_input(null, 1)
 
 func cycle_input(event, index):
+	if get_child_count() == 0:
+		return
 	if event is InputEventMouseMotion:
 		return
 	if event is InputEventMouseButton:
@@ -76,6 +82,10 @@ func cycle_input(event, index):
 		change_selection()
 
 func change_selection():
+	if get_child_count() == 0:
+		return
+
+	current_selection = clamp(current_selection, 0, get_child_count() - 1)
 	for child in get_child_count():
 		if child == current_selection:
 			get_child(child).update_highlight(true)

@@ -16,7 +16,7 @@ func _ready():
 
 func _input(_event):
 	if player_in_range and not has_chest_been_opened:
-		if Global.get_input_mapping("Confirm"):
+		if Global.get_input_mapping("confirm"):
 			var anim: Animation = animator.get_animation("Chest_Open")
 			anim.loop_mode = Animation.LOOP_NONE
 			animator.play("Chest_Open")

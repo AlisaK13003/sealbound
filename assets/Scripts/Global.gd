@@ -31,7 +31,7 @@ var planted_crops: Array[crops]
 var player_head_sprite: Texture2D
 var holding_item: inventory_items
 var item_is_in_slot: int
-var player_name: String = "MC"
+var player_name: String = "You"
 var player_gender: String = "female"
 var tutorial_flags: Dictionary = {}
 var current_tutorial_objective: String = ""
@@ -306,13 +306,21 @@ func add_daily_talk_bond(npc_id: String) -> Dictionary:
 	bond_data["last_talk_day"] = current_day
 	return add_npc_bond_exp(npc_id, DAILY_TALK_BOND_EXP, "daily talk")
 
+func get_default_player_name(gender: String = "") -> String:
+	var normalized_gender = gender.to_lower()
+	if normalized_gender.is_empty():
+		normalized_gender = player_gender
+	if normalized_gender == "male":
+		return "Flynn"
+	return "Elara"
+
 func set_player_identity(new_name: String, new_gender: String) -> void:
-	player_name = new_name.strip_edges()
-	if player_name.is_empty():
-		player_name = "MC"
 	player_gender = new_gender.to_lower()
 	if player_gender != "male":
 		player_gender = "female"
+	player_name = new_name.strip_edges()
+	if player_name.is_empty():
+		player_name = get_default_player_name(player_gender)
 	player_identity_changed.emit()
 
 func start_new_game(new_name: String, new_gender: String) -> void:

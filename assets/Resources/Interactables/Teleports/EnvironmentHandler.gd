@@ -23,7 +23,11 @@ func swap_to_me():
 		start_lyra_tavern_cutscene()
 
 func teleport_player_to_spawn():
+	if player_node == null:
+		return
+
 	if Global.current_loading_zone == "":
+		_apply_pending_player_spawn_position()
 		return
 		
 	print("Current Loading Zone ", Global.current_loading_zone)
@@ -31,6 +35,7 @@ func teleport_player_to_spawn():
 	var spawn_point = find_loading_zone_spawn(Global.current_loading_zone)
 	if spawn_point == null:
 		push_warning("EnvironmentHandler: Could not find loading zone spawn '%s' in %s." % [Global.current_loading_zone, scene_file_path])
+		_apply_pending_player_spawn_position()
 		return
 	
 	#if is_building_insides:
@@ -38,11 +43,13 @@ func teleport_player_to_spawn():
 	#else:
 	#	spawn_point = spawn_point.get_child(0)
 	spawn_point.is_disabled = true
-	if player_node:
-		player_node.global_position = spawn_point.global_position
-		if Global.has_pending_player_spawn_position:
-			player_node.global_position = Global.pending_player_spawn_position
-			Global.has_pending_player_spawn_position = false
+	player_node.global_position = spawn_point.global_position
+	_apply_pending_player_spawn_position()
+
+func _apply_pending_player_spawn_position() -> void:
+	if Global.has_pending_player_spawn_position and player_node != null:
+		player_node.global_position = Global.pending_player_spawn_position
+		Global.has_pending_player_spawn_position = false
 
 func prepare_lyra_tavern_cutscene() -> void:
 	if player_node != null:
@@ -102,19 +109,52 @@ func is_loading_zone_node(node: Node) -> bool:
 	return node.get("is_disabled") != null
 
 func set_camera_limits():
-	var camera_bounds: Node
-	if is_building_insides:
-		if Global.current_loading_zone == "Bedroom":
-			camera_bounds = find_child("Tavern", true, false).get_child(0)
-		else:
-			camera_bounds = find_child(Global.current_loading_zone, true, false).get_child(0)
-	else:
-		camera_bounds = $"Camera Bounds"
+	if player_node == null:
+		push_warning("EnvironmentHandler: Player node is not assigned in %s." % scene_file_path)
+		return
 
-	var upper_left_bounds : Vector2 = camera_bounds.get_child(0).global_position
-	var bottom_right_bounds : Vector2 = camera_bounds.get_child(1).global_position
+	var camera := player_node.get_node_or_null("Camera2D") as Camera2D
+	if camera == null:
+		push_warning("EnvironmentHandler: Player camera was not found in %s." % scene_file_path)
+		return
+
+	var camera_bounds := get_camera_bounds_node()
+	if camera_bounds == null:
+		return
+	var upper_left_marker := camera_bounds.get_node_or_null("Upper Left") as Node2D
+	var bottom_right_marker := camera_bounds.get_node_or_null("Bottom Right") as Node2D
+	if upper_left_marker == null or bottom_right_marker == null:
+		push_warning("EnvironmentHandler: Camera bounds '%s' must have Upper Left and Bottom Right markers." % camera_bounds.name)
+		return
+
+	var upper_left_bounds : Vector2 = upper_left_marker.global_position
+	var bottom_right_bounds : Vector2 = bottom_right_marker.global_position
 	
-	player_node.get_node("Camera2D").limit_left = upper_left_bounds.x
-	player_node.get_node("Camera2D").limit_right = bottom_right_bounds.x
-	player_node.get_node("Camera2D").limit_top = upper_left_bounds.y
-	player_node.get_node("Camera2D").limit_bottom = bottom_right_bounds.y
+	camera.limit_left = upper_left_bounds.x
+	camera.limit_right = bottom_right_bounds.x
+	camera.limit_top = upper_left_bounds.y
+	camera.limit_bottom = bottom_right_bounds.y
+
+func get_camera_bounds_node() -> Node2D:
+	if not is_building_insides:
+		var overworld_bounds := get_node_or_null("Camera Bounds") as Node2D
+		if overworld_bounds == null:
+			push_warning("EnvironmentHandler: Camera Bounds node was not found in %s." % scene_file_path)
+		return overworld_bounds
+
+	var room_name := Global.current_loading_zone
+	if room_name == "Bedroom":
+		room_name = "Tavern"
+	if room_name == "":
+		push_warning("EnvironmentHandler: Cannot set building camera bounds without a current loading zone.")
+		return null
+
+	var room_node := find_child(room_name, true, false)
+	if room_node == null:
+		push_warning("EnvironmentHandler: Could not find room '%s' for camera bounds in %s." % [room_name, scene_file_path])
+		return null
+
+	var camera_bounds := room_node.get_node_or_null("Camera Bounds") as Node2D
+	if camera_bounds == null:
+		push_warning("EnvironmentHandler: Room '%s' does not have a Camera Bounds node." % room_name)
+	return camera_bounds

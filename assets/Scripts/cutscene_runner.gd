@@ -58,13 +58,13 @@ func _input(event: InputEvent) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible or has_finished:
 		return
-	if waiting_for_name and (event.is_action_pressed("Confirm") or event.is_action_pressed("ui_accept")):
+	if waiting_for_name and (event.is_action_pressed("confirm") or event.is_action_pressed("ui_accept")):
 		get_viewport().set_input_as_handled()
 		_submit_name_entry()
 		return
 	if not waiting_for_input:
 		return
-	if event.is_action_pressed("Confirm") or event.is_action_pressed("Mouse_Left_Click") or event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("confirm") or event.is_action_pressed("Mouse_Left_Click") or event.is_action_pressed("ui_accept"):
 		get_viewport().set_input_as_handled()
 		_advance()
 
@@ -199,7 +199,7 @@ func _insert_selected_choice_beats(beat: Dictionary) -> void:
 		beats.insert(beat_index + 1, inserted_beats[index])
 
 func _show_name_entry(beat: Dictionary) -> void:
-	name_entry_default = str(beat.get("default", "MC"))
+	name_entry_default = _get_name_entry_default(beat)
 	speaker_label.text = _format_speaker(str(beat.get("speaker", "")))
 	text_label.text = str(beat.get("text", "Enter your name:"))
 	name_input.text = ""
@@ -212,9 +212,19 @@ func _show_name_entry(beat: Dictionary) -> void:
 func _submit_name_entry() -> void:
 	var entered_name = name_input.text.strip_edges()
 	if entered_name.is_empty():
-		entered_name = "MC"
+		entered_name = name_entry_default
 	Global.set_player_identity(entered_name, Global.player_gender)
 	_advance()
+
+func _get_name_entry_default(beat: Dictionary) -> String:
+	var configured_default = str(beat.get("default", "")).strip_edges()
+	if configured_default.is_empty() or configured_default == "MC" or configured_default == "You" or configured_default == "Stranger":
+		return Global.get_default_player_name(Global.player_gender)
+	return configured_default
+
+func _has_placeholder_player_name() -> bool:
+	var current_name = Global.player_name.strip_edges()
+	return current_name.is_empty() or current_name == "MC" or current_name == "You" or current_name == "Stranger"
 
 func _format_text(raw_text: String) -> String:
 	return raw_text.replace("{player_name}", Global.player_name)
@@ -222,6 +232,8 @@ func _format_text(raw_text: String) -> String:
 func _format_speaker(raw_speaker: String) -> String:
 	if raw_speaker == "MC":
 		return Global.player_name
+	if raw_speaker == "Shadowy Figure":
+		return "???"
 	return raw_speaker
 
 func _make_dialogue_node(beat: Dictionary) -> Dictionary:
@@ -388,8 +400,8 @@ func _apply_remaining_state_beats() -> void:
 				Global.current_region = str(beat.get("region", Global.current_region))
 				Global.current_loading_zone = str(beat.get("loading_zone", Global.current_loading_zone))
 			"name_entry":
-				if Global.player_name.strip_edges().is_empty():
-					Global.set_player_identity("MC", Global.player_gender)
+				if _has_placeholder_player_name():
+					Global.set_player_identity(_get_name_entry_default(beat), Global.player_gender)
 
 func _run_action(action_name: String) -> void:
 	match action_name:

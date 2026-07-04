@@ -342,7 +342,7 @@ func _begin_new_game() -> void:
 		gender = "male" if gender_options.selected == 1 else "female"
 	if gender.is_empty():
 		return
-	Global.start_new_game("Stranger", gender)
+	Global.start_new_game("You", gender)
 	if main_menu != null:
 		main_menu.visible = false
 	if setup_panel != null:
