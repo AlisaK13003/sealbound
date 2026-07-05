@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://puqpjx16p5uh"
-path="res://.godot/imported/Building Insides 2.png-f5559d3146a6f90c68b206202802f941.ctex"
+uid="uid://cslssp7gn3qnm"
+path="res://.godot/imported/Building Insides 2-sheet.png-539300011610f8ced6c29af5b9b7ce5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tile sheets/Building Insides 2.png"
-dest_files=["res://.godot/imported/Building Insides 2.png-f5559d3146a6f90c68b206202802f941.ctex"]
+source_file="res://assets/tile sheets/Building Insides 2-sheet.png"
+dest_files=["res://.godot/imported/Building Insides 2-sheet.png-539300011610f8ced6c29af5b9b7ce5d.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
