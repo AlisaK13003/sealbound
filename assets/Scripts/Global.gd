@@ -791,6 +791,12 @@ func get_save_data() -> Dictionary:
 		"weapon_list": _get_path_array(weapon_list),
 		"npc_bonds": npc_bonds,
 	}
+	var player = get_tree().get_first_node_in_group("Overworld_Player")
+	if player:
+		save_dict["player_position"] = {
+			"x": player.global_position.x,
+			"y": player.global_position.y
+		}
 	return save_dict
 
 func _get_path_array(arr: Array) -> Array[String]:

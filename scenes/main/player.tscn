@@ -173,10 +173,9 @@ position_smoothing_enabled = true
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
 visible = false
 z_index = 100
-offset_left = 300.0
-offset_top = 100.0
-offset_right = 300.0
-offset_bottom = 100.0
+offset_top = -47.0
+offset_bottom = -47.0
+scale = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]

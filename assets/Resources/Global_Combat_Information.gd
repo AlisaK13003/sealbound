@@ -322,33 +322,51 @@ func update_stored_combat_information():
 	pass
 
 func load_saved_data(data):
-	for party_member in data["player_slots"]:
+	# #2: wipe the _ready() seed data so we restore instead of stacking on top of it
+	all_party_slots.clear()
+	active_party_slots.clear()
+	all_held_equipment.clear()
+	all_held_weapons.clear()
+	all_held_items.clear()
+	active_quests.clear()
+	completed_quests.clear()
+	dungeon_types.clear()
+
+	# BUG: these are Dictionaries keyed "slot_0"…, so iterate .values(), not the dict itself
+	for party_member in data["player_slots"].values():
 		var new_party_member: generic_combatants = load(party_member["path"])
 		new_party_member.load_save(party_member)
 		all_party_slots.append(new_party_member)
-		
-	for equipment_ in data["equipment_slots"]:
+
+	for equipment_ in data["equipment_slots"].values():
 		all_held_equipment.append(load(equipment_["path"]))
-		
-	for weapon_ in data["weapon_slots"]:
+
+	for weapon_ in data["weapon_slots"].values():
 		all_held_weapons.append(load(weapon_["path"]))
-		
-	for item_ in data["item_slots"]:
+
+	for item_ in data["item_slots"].values():
 		all_held_items.append(load(item_["path"]))
-		
-	for a_quest in data["active_quests"]:
+
+	for a_quest in data["active_quests"].values():
 		active_quests.append(load(a_quest["path"]))
-		
-	for com_quest in data["com_quests"]:
+
+	for com_quest in data["com_quests"].values():
 		completed_quests.append(load(com_quest["path"]))
-		
-	for d_type in data["dungeon_types"]:
+
+	for d_type in data["dungeon_types"].values():
 		var new_d_type: dungeon_type = load(d_type["path"])
 		new_d_type.load_save_data(d_type)
 		dungeon_types.append(new_d_type)
-		
-	currency_held = data["held_currency"]
 
+	currency_held = int(data["held_currency"])   # JSON numbers can come back as float
+
+	# #4: rebuild active fighters as references into the freshly loaded all_party_slots
+	if data.has("active_slots"):
+		for idx in data["active_slots"]:
+			var i = int(idx)
+			if i >= 0 and i < all_party_slots.size():
+				active_party_slots.append(all_party_slots[i])
+				
 func export_to_JSON():
 	var ret_dict: Dictionary = {}
 	var player_slots: Dictionary = {}
@@ -358,37 +376,39 @@ func export_to_JSON():
 	var active_quest_slots: Dictionary = {}
 	var completed_quest_list: Dictionary = {}
 	var d_types: Dictionary = {}
-	
+
 	for party_member in range(all_party_slots.size()):
 		var new_key = "slot_" + str(party_member)
 		all_party_slots[party_member].current_stored_slot = party_member
 		player_slots[new_key] = all_party_slots[party_member].export_to_JSON()
 
 	for equipment_ in range(all_held_equipment.size()):
-		var new_key = "slot_" + str(equipment_)
-		equipment_slots[new_key] = all_held_equipment[equipment_].export_to_JSON()
-		
+		equipment_slots["slot_" + str(equipment_)] = all_held_equipment[equipment_].export_to_JSON()
+
 	for weapon_ in range(all_held_weapons.size()):
-		var new_key = "slot_" + str(weapon_)
-		weapon_slots[new_key] = all_held_weapons[weapon_].export_to_JSON()
-		
+		weapon_slots["slot_" + str(weapon_)] = all_held_weapons[weapon_].export_to_JSON()
+
 	for item_ in range(all_held_items.size()):
-		var new_key = "slot_" + str(item_)
-		item_slots[new_key] = all_held_items[item_].export_to_JSON()
-	
+		item_slots["slot_" + str(item_)] = all_held_items[item_].export_to_JSON()
+
+	# #3: quests are Resources — JSON can't serialize them. Store a path dict.
 	for quest_ in range(active_quests.size()):
-		var new_key = "quest_" + str(quest_)
-		active_quest_slots[new_key] = active_quests[quest_]
-		
+		active_quest_slots["quest_" + str(quest_)] = {"path": active_quests[quest_].resource_path}
+
 	for com_quest_ in range(completed_quests.size()):
-		var new_key = "quest_" + str(com_quest_)
-		completed_quest_list[new_key] = completed_quests[com_quest_]
-	
+		completed_quest_list["quest_" + str(com_quest_)] = {"path": completed_quests[com_quest_].resource_path}
+
+	# #3: dungeon_types carry state, so use their own serializer (must include "path")
 	for d_type in range(dungeon_types.size()):
-		var new_key = "dtype_" + str(d_type)
-		d_types[new_key] = dungeon_types[d_type]
-	
+		d_types["dtype_" + str(d_type)] = dungeon_types[d_type].export_to_JSON()
+
+	# #4: record which all_party_slots indices are the active fighters
+	var active_indices: Array = []
+	for member in active_party_slots:
+		active_indices.append(all_party_slots.find(member))
+
 	ret_dict["player_slots"] = player_slots
+	ret_dict["active_slots"] = active_indices
 	ret_dict["equipment_slots"] = equipment_slots
 	ret_dict["weapon_slots"] = weapon_slots
 	ret_dict["item_slots"] = item_slots
@@ -396,5 +416,5 @@ func export_to_JSON():
 	ret_dict["com_quests"] = completed_quest_list
 	ret_dict["dungeon_types"] = d_types
 	ret_dict["held_currency"] = currency_held
-	
-	return JSON.stringify(ret_dict, "\t")
+
+	return ret_dict   # #1: raw dict — the save menu stringifies the whole payload once

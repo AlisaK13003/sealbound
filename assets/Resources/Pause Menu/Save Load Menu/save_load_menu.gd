@@ -24,7 +24,13 @@ const DISABLED_ALPHA = 0.55
 	"Main/DeleteBtn"
 ])
 
+	
 func _ready():
+	print("overworld player count: ", get_tree().get_nodes_in_group("Overworld_Player").size())
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
+	load_btn.pressed.connect(_set_mode.bind(Mode.LOAD))
+	delete_btn.pressed.connect(_delete_selected)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_prepare_action_button(delete_btn)
 	_prepare_action_button(load_btn)
@@ -105,11 +111,14 @@ func _save_to_slot(index: int):
 	data["play_time_hours"] = Global.play_time_hours
 	data["play_time_minutes"] = Global.play_time_minutes
 	data["play_time_seconds"] = Global.play_time_seconds
+	data["combat"] = GlobalCombatInformation.export_to_JSON()
 	
 	var json_string = JSON.stringify(data, "\t")
 	var file = FileAccess.open(SAVE_DIR + "slot_%d.json" % index, FileAccess.WRITE)
 	if file:
 		file.store_string(json_string)
+		file.close()
+	refresh_slots()
 		file.flush()
 		file = null
 	call_deferred("refresh_slots")
@@ -156,10 +165,16 @@ func _apply_save_data(data: Dictionary):
 	Global.save_loaded.emit()
 	Global.time_updated.emit()
 	
+	
+	if data.has("combat"):
+		GlobalCombatInformation.load_saved_data(data["combat"]) 
+		
 	# Unpause and load the scene
 	if data.has("player_position"):
 		Global.saved_position = Vector2(data["player_position"]["x"], data["player_position"]["y"])
 		Global.loading_from_save = true
+		
+	Global.current_loading_zone = "" 
 
 	Global.current_loading_zone = data.get("current_loading_zone", "")
 	get_tree().paused = false
