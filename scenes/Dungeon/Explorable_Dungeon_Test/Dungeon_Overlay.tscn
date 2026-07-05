@@ -4,7 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="4_5ae0w"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="4_ufm7g"]
 [ext_resource type="PackedScene" uid="uid://k4xgkd3u8v5f" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/MiniMap.tscn" id="5_5ae0w"]
+[ext_resource type="Texture2D" uid="uid://ces4jfge6eo4a" path="res://assets/tile sheets/Map_Icon.png" id="5_iefge"]
 [ext_resource type="Texture2D" uid="uid://jufr38rewyw1" path="res://assets/tile sheets/Dungeon_Boss_Room_Key.png" id="5_otn31"]
+[ext_resource type="Texture2D" uid="uid://8gxs2d45u3ce" path="res://assets/tile sheets/Party_Icon.png" id="6_xd072"]
+[ext_resource type="Texture2D" uid="uid://cqkewdmew5efh" path="res://assets/tile sheets/Book_Icon.png" id="7_hwkf0"]
+[ext_resource type="Texture2D" uid="uid://bd7c3xmx2uigb" path="res://assets/tile sheets/Equip_Icon.png" id="8_iurbj"]
+[ext_resource type="Texture2D" uid="uid://cdmnd5anglkqv" path="res://assets/tile sheets/Items_Icon.png" id="9_vtc43"]
+[ext_resource type="Texture2D" uid="uid://clc22t8ji6odi" path="res://assets/tile sheets/Quest_Icon.png" id="10_jfmyb"]
+[ext_resource type="Texture2D" uid="uid://gvoxtra7smmi" path="res://assets/tile sheets/Settings_Icon.png" id="11_lad1f"]
 
 [node name="DungeonOverlay" type="Control" unique_id=338282261]
 layout_mode = 3
@@ -71,6 +78,7 @@ layout_mode = 1
 tab_names = Array[String](["M", "P", "S", "E", "I", "Q", "S"])
 is_dungeon_menu = true
 mini_map_handler = NodePath("../MiniMap")
+tab_icons = Array[Texture2D]([ExtResource("5_iefge"), ExtResource("6_xd072"), ExtResource("7_hwkf0"), ExtResource("8_iurbj"), ExtResource("9_vtc43"), ExtResource("10_jfmyb"), ExtResource("11_lad1f")])
 
 [node name="MiniMap" parent="." unique_id=1818784448 instance=ExtResource("5_5ae0w")]
 layout_mode = 1

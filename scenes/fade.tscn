@@ -18,6 +18,7 @@ script = ExtResource("1_nukjo")
 visible = false
 offset_right = 1951.0
 offset_bottom = 1099.0
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_76d3x")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=260347660]
@@ -27,6 +28,7 @@ offset_left = -16.0
 offset_top = -14.0
 offset_right = 1939.0
 offset_bottom = 1106.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Button" type="Button" parent="." unique_id=1822463530]

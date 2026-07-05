@@ -189,8 +189,11 @@ func _on_panel_3_gui_input(event):
 func tab_changed(which_tab):
 	if not Global.is_paused:
 		return
-	if which_tab == settings_tabs.get_child_count():
+	if which_tab == menu_tab.get_child_count() - 1:
 		get_tree().quit()
+		return
+	if which_tab == menu_tab.get_child_count() - 2:
+		get_tree().change_scene_to_file("res://scenes/main/TitleScreen.tscn")
 		return
 	menu_tab.visible = false
 	back_button.visible = true

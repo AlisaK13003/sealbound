@@ -1,5 +1,7 @@
 extends Control
 
+class_name mini_map_class
+
 @onready var grid_container = $MiniMap/Panel/GridContainer
 @onready var rect = $MiniMap/Panel/ColorRect
 @onready var f_rect = $Full_Screen_Map/Panel/Container/ColorRect
@@ -19,7 +21,7 @@ extends Control
 var p_ref: explorable_dungeon
 
 var tile_ = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/MiniMapNode.tscn"
-
+var current_player_room_coords: Vector2 = Vector2(0, 0)
 var room_start = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room Start.png"
 var stairs_down = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Stairs Down.png"
 var chest_room = "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Treasure_Room_Overlay.png"
@@ -103,6 +105,8 @@ var found_offset = false
 
 var enemy_list: Array
 
+var can_move_fullscreen_map: bool = false
+
 func _ready():
 	map_button.activated.connect(open_map)
 
@@ -114,9 +118,13 @@ func open_mini_map():
 
 func store_current_enemy_list(e_list):
 	enemy_list.clear()
+	
 	for dot in f_dots.get_children():
+		f_dots.remove_child(dot)
 		dot.queue_free()
+		
 	for dot in enemy_dots.get_children():
+		enemy_dots.remove_child(dot)
 		dot.queue_free()
 	
 	enemy_list = e_list.duplicate()
@@ -140,7 +148,7 @@ func _process(delta):
 	var boundary = f_grid.size * f_grid.scale
 	var bounds = full_panel.size - boundary
 	
-	if not mini_map.visible and has_setup_run and not p_ref.in_combat:
+	if not mini_map.visible and has_setup_run and not p_ref.in_combat and can_move_fullscreen_map:
 		if Global.get_continuous_input_mapping("up"):
 			f_grid.position.y = clamp(f_grid.position.y - 1, -off * 3 + bounds.y if bounds.y <= 0 else 0 , off * 3 if bounds.y <= 0 else bounds.y)
 			mov_cont.position.y = clamp(mov_cont.position.y - 1, -off * 3 + bounds.y if bounds.y <= 0 else 0 , off * 3 if bounds.y <= 0 else bounds.y)
@@ -184,7 +192,13 @@ func _physics_process(delta):
 
 	rect.rotation_degrees = -1 * (p_ref.player.camera_pivot.rotation_degrees.y + pointer_offset)
 	f_rect.rotation_degrees = -1 * (p_ref.player.camera_pivot.rotation_degrees.y + pointer_offset)
-	for enemy in range(enemy_list.size()):
+	
+	var f_tile_size = 40.0 * f_grid.scale.x
+	var f_scale_x = f_tile_size / float(p_ref.tile_size)
+	var f_scale_y = f_tile_size / float(p_ref.tile_size)
+
+	var active_dots_count = min(enemy_list.size(), min(enemy_dots.get_child_count(), full_screen_fots.get_child_count()))
+	for enemy in range(active_dots_count):
 		var current_enemy: Sprite2D = enemy_dots.get_child(enemy)
 		var current_enemy_2: Sprite2D = full_screen_fots.get_child(enemy)
 		
@@ -200,27 +214,23 @@ func _physics_process(delta):
 
 		var shifted_enemy_x = enemy_list[enemy].position.x - (min_grid_x * p_ref.tile_size)
 		var shifted_enemy_z = enemy_list[enemy].position.z - (min_grid_y * p_ref.tile_size)
+		current_enemy_2.position.x = shifted_enemy_x * f_scale_x + (f_grid.scale.x * 20.0)
+		current_enemy_2.position.y = shifted_enemy_z * f_scale_y + (f_grid.scale.y * 20.0)
 
-		current_enemy_2.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(shifted_enemy_x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
-		current_enemy_2.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(shifted_enemy_z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
-		current_enemy_2.position.x += f_grid.scale.x * 20
-		current_enemy_2.position.y += f_grid.scale.y * 20
-
-	if has_entered_start_room and p_ref.player.is_moving:
-		grid_container.position.x = ((2 * p_ref.tile_size - p_ref.player.position.x) * x_scale_factor) + (min_grid_x * offset_)
-		grid_container.position.y = ((2 * p_ref.tile_size - p_ref.player.position.z) * y_scale_factor) + (min_grid_y * offset_)
-		
-		$Full_Screen_Map/Panel/GridContainer.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * x_scale_factor
-		f_grid.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * y_scale_factor
-		
+	if has_entered_start_room:
 		var shifted_player_x = p_ref.player.position.x - (min_grid_x * p_ref.tile_size)
 		var shifted_player_z = p_ref.player.position.z - (min_grid_y * p_ref.tile_size)
 		
-		f_rect.position.x = (float($Full_Screen_Map/Panel.size.x) / (float(grid_size_x) * float(p_ref.tile_size))) * (float(shifted_player_x)) / ((float($Full_Screen_Map/Panel.size.x) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.x))) / float($Full_Screen_Map/Panel/GridContainer.size.x))
-		f_rect.position.y = (float($Full_Screen_Map/Panel.size.y) / (float(grid_size_y) * float(p_ref.tile_size))) * (float(shifted_player_z)) / ((float($Full_Screen_Map/Panel.size.y) * float(1.0 / float($Full_Screen_Map/Panel/GridContainer.scale.y))) / float($Full_Screen_Map/Panel/GridContainer.size.y))
+		f_rect.position.x = shifted_player_x * f_scale_x + (f_grid.scale.x * 20.0)
+		f_rect.position.y = shifted_player_z * f_scale_y + (f_grid.scale.y * 20.0)
+
+		grid_container.position.x = ((2 * p_ref.tile_size - p_ref.player.position.x) * x_scale_factor) + (min_grid_x * offset_)
+		grid_container.position.y = ((2 * p_ref.tile_size - p_ref.player.position.z) * y_scale_factor) + (min_grid_y * offset_)
 		
-		f_rect.position.x += f_grid.scale.x * 20
-		f_rect.position.y += f_grid.scale.y * 20
+		if not actual_full_screen_map.visible:
+			f_grid.position.x = -1 * (p_ref.player.position.x - (2 * p_ref.tile_size)) * f_scale_x
+			f_grid.position.y = -1 * (p_ref.player.position.z - (2 * p_ref.tile_size)) * f_scale_y
+			mov_cont.position = f_grid.position
 		
 # 460, -20
 # 39.484 0.755 0.014
@@ -239,7 +249,6 @@ func clear_mini_map():
 	for child in full_screen_map.get_children():
 		child.queue_free()
 	
-
 var open = false
 
 func open_map():
@@ -255,6 +264,9 @@ func open_map():
 		actual_full_screen_map.visible = false
 		open = false
 		p_ref.movement_locked = false
+
+func open_full_screen():
+	actual_full_screen_map.visible = true
 
 func get_minimap_index(grid_x: int, grid_y: int) -> int:
 	var shifted_x = grid_x - min_grid_x
@@ -312,6 +324,8 @@ func _setup(parent_reference: explorable_dungeon, generated_rooms):
 			
 			var new_map_node_2 = load(tile_)
 			var new_map_node_instance_2: Control = new_map_node_2.instantiate()
+			
+			new_map_node_instance_2.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			
 			full_screen_map.add_child(new_map_node_instance_2)
 			grid_container.add_child(new_map_node_instance)
@@ -450,10 +464,67 @@ func center_around_spawn(spawn_coords):
 	grid_container.position.y = (2.0 * offset_) - (shifted_y * offset_)
 	
 	grid_offset = Vector2(grid_container.position.x, grid_container.position.y)
+
+func center_fullscreen_spawn_room():
+	var scale_factor = f_grid.scale.x
+	var tile_pixel_size = 40.0 * scale_factor
 	
+	var shifted_x = 0 - min_grid_x
+	var shifted_y = 0 - min_grid_y
+	
+	var spawn_local_x = (shifted_x * tile_pixel_size) + (20.0 * scale_factor)
+	var spawn_local_y = (shifted_y * tile_pixel_size) + (20.0 * scale_factor)
+	var spawn_local_pos = Vector2(spawn_local_x, spawn_local_y)
+	var target_screen_pos = full_panel.size / 2
+	var final_position = target_screen_pos - spawn_local_pos
+	
+	var boundary = f_grid.size * f_grid.scale
+	var bounds = full_panel.size - boundary
+	if bounds.x <= 0:
+		final_position.x = clamp(final_position.x, -off * 3 + bounds.x, off * 3)
+	else:
+		final_position.x = clamp(final_position.x, 0, bounds.x)
+		
+	if bounds.y <= 0:
+		final_position.y = clamp(final_position.y, -off * 3 + bounds.y, off * 3)
+	else:
+		final_position.y = clamp(final_position.y, 0, bounds.y)
+	
+	f_grid.position = final_position
+	mov_cont.position = final_position
+
+func center_fullscreen_around_tile(tile_coords: Vector2):
+	var scale_factor = f_grid.scale.x
+	var tile_pixel_size = 40.0 * scale_factor
+	
+	var shifted_x = tile_coords.x - min_grid_x
+	var shifted_y = tile_coords.y - min_grid_y
+	
+	var room_local_x = (shifted_x * tile_pixel_size) + (20.0 * scale_factor)
+	var room_local_y = (shifted_y * tile_pixel_size) + (20.0 * scale_factor)
+	var room_local_pos = Vector2(room_local_x, room_local_y)
+	
+	var view_center = full_panel.size / 2.0
+	var final_position = view_center - room_local_pos
+	
+	var boundary = f_grid.size * f_grid.scale
+	var bounds = full_panel.size - boundary
+	if bounds.x <= 0:
+		final_position.x = clamp(final_position.x, -off * 3 + bounds.x, off * 3)
+	else:
+		final_position.x = clamp(final_position.x, 0, bounds.x)
+		
+	if bounds.y <= 0:
+		final_position.y = clamp(final_position.y, -off * 3 + bounds.y, off * 3)
+	else:
+		final_position.y = clamp(final_position.y, 0, bounds.y)
+	
+	f_grid.position = final_position
+	mov_cont.position = final_position
 
 func _new_room_entered(coords):
 	if has_setup_run:
+		current_player_room_coords = coords
 		update_room_visibility(coords)
 		var index = get_minimap_index(coords.x, coords.y)
 

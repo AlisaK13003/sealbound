@@ -250,7 +250,8 @@ func generate_dungeon():
 			enemy_array.append(new_enemy_instance)
 			enemy_count += 1
 			
-	player.mini_map_store_enemy_list(enemy_array)
+	player.store_enemy_list(enemy_array)
+	player.setup_fs()
 	return true
 
 var active_room_nodes: Dictionary[Vector2i, Node3D]

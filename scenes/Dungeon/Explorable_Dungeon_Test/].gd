@@ -10,6 +10,9 @@ var p_ref
 func _setup(parent_ref):
 	p_ref = parent_ref
 	
+func _setup_dungeon_pause():
+	pause_menu._setup(p_ref, p_ref.generated_rooms)
+	
 func display_gotten_chest_items(item_got):
 	for item in item_got:
 		var new_node = load(chest_got_node_path)

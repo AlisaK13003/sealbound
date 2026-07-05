@@ -92,8 +92,6 @@ func show_equip_menu(which_menu):
 			child.visible = false
 
 func tab_changed(which_tab):
-	
-	print("TAB CHANGED")
 	for child in range(card_container.get_child_count()):
 		if which_tab == child:
 			card_container.get_child(child).visible = true

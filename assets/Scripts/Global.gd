@@ -768,6 +768,7 @@ func get_save_data() -> Dictionary:
 			"y": player.global_position.y
 		}
 	return save_dict
+	
 const SAVE_DIR = "user://saves/"
 func _save_to_slot():
 	var data = get_save_data()

@@ -28,9 +28,13 @@ func display_obtained_items(obtained_items):
 func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(dungeon_overlay.mini_map._new_room_entered)
+
 	has_been_setup = true
 	dungeon_overlay._setup(parent_reference)
-	#camera_pivot._setup()
+
+func setup_fs():
+	await dungeon_overlay._setup_dungeon_pause()
+	entered_new_tile.connect(dungeon_overlay.pause_menu.mini_map._new_room_entered)	
 
 func update_pivot_rotation(spawn_room):
 	match spawn_room.required_directions[0]:
@@ -49,10 +53,11 @@ func clear_mini_map():
 
 func _setup_mini_map(parent_ref, room_storage):
 	dungeon_overlay.mini_map._setup(parent_ref, room_storage)
+	dungeon_overlay._setup_dungeon_pause()
 
-func mini_map_store_enemy_list(enemy_array):
+func store_enemy_list(enemy_array):
 	dungeon_overlay.mini_map.store_current_enemy_list(enemy_array)
-
+	dungeon_overlay.pause_menu.mini_map.store_current_enemy_list(enemy_array)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

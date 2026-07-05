@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_fy0gi"]
 [ext_resource type="Texture2D" uid="uid://dl8xl2bbba7s4" path="res://assets/tile sheets/Menu-tab.png" id="3_6hsvv"]
 [ext_resource type="PackedScene" uid="uid://l7s8hm6eib0c" path="res://assets/Resources/Pause Menu/Option_Cycle.tscn" id="3_7m14t"]
-[ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="3_v86cy"]
 [ext_resource type="PackedScene" uid="uid://b1ua6k77u621q" path="res://assets/Resources/Pause Menu/System Menu/Keybind Node.tscn" id="4_av46m"]
 
 [node name="SystemMenu" type="Control" unique_id=893803557]
@@ -16,15 +15,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_kar08")
+settings_menus = Array[String](["Video", "Audio", "Key Config", "Quit to Title Screen", "Quit to Desktop"])
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_fy0gi")]
 layout_mode = 0
-offset_left = 65.0
+offset_left = 43.0
 offset_top = -60.0
-offset_right = 65.0
+offset_right = 43.0
 offset_bottom = -60.0
 theme_override_constants/v_separation = 5
 be_vertical = true
+dont_offset_on_click = true
 
 [node name="Settings_Windows" type="Control" parent="." unique_id=896181735]
 anchors_preset = 0
@@ -287,14 +288,6 @@ layout_mode = 2
 key_name = "Dungeon Skill"
 input_action = "Controller_Dungeon_Skill"
 is_keyboard = false
-
-[node name="SaveLoadMenu" parent="Settings_Windows" unique_id=1676534613 instance=ExtResource("3_v86cy")]
-visible = false
-layout_mode = 1
-offset_left = 107.57
-offset_top = -88.26
-offset_right = 107.56998
-offset_bottom = -88.259995
 
 [node name="Back_Button" type="NinePatchRect" parent="." unique_id=1090253103]
 visible = false

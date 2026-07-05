@@ -158,7 +158,8 @@ func _apply_save_data(data: Dictionary):
 	Global.current_region = "Buildings_Insides"
 		
 	get_tree().paused = false
-	AreaStateManager.swap_scene(self)
+	AreaStateManager._setup()
+	AreaStateManager.swap_scene(get_tree().current_scene)
 
 func _get_saved_location(data: Dictionary) -> String:
 	var region = data.get("current_region", "")

@@ -1,11 +1,17 @@
 [gd_scene format=3 uid="uid://d2uwb21vjxvyl"]
 
 [ext_resource type="Script" uid="uid://g6j6r35it0lb" path="res://assets/Scripts/Pause_Menu.gd" id="1_6a6ya"]
+[ext_resource type="Texture2D" uid="uid://8gxs2d45u3ce" path="res://assets/tile sheets/Party_Icon.png" id="2_anab7"]
 [ext_resource type="Texture2D" uid="uid://dmfv0svk8pdot" path="res://assets/tile sheets/Menu Border.png" id="2_rk1u6"]
+[ext_resource type="Texture2D" uid="uid://cqkewdmew5efh" path="res://assets/tile sheets/Book_Icon.png" id="3_4hik5"]
 [ext_resource type="PackedScene" uid="uid://cpa28f8vmbub2" path="res://assets/Resources/Pause Menu/Party Menu/Party_Menu_.tscn" id="3_8ocdr"]
+[ext_resource type="Texture2D" uid="uid://bd7c3xmx2uigb" path="res://assets/tile sheets/Equip_Icon.png" id="4_frpul"]
 [ext_resource type="PackedScene" uid="uid://dv7w3jr2b60ts" path="res://assets/Resources/Pause Menu/Skills Menu/Skills_Menu.tscn" id="4_qffmw"]
+[ext_resource type="Texture2D" uid="uid://cdmnd5anglkqv" path="res://assets/tile sheets/Items_Icon.png" id="5_gyc6h"]
 [ext_resource type="PackedScene" uid="uid://de675y0f2h5hk" path="res://assets/Resources/Pause Menu/Item Menu/Item Menu.tscn" id="5_j5h34"]
 [ext_resource type="PackedScene" uid="uid://c15yeiolqmy63" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Menu.tscn" id="5_o57t2"]
+[ext_resource type="Texture2D" uid="uid://clc22t8ji6odi" path="res://assets/tile sheets/Quest_Icon.png" id="6_lo7ly"]
+[ext_resource type="Texture2D" uid="uid://gvoxtra7smmi" path="res://assets/tile sheets/Settings_Icon.png" id="7_epiyd"]
 [ext_resource type="PackedScene" uid="uid://dw54xqs30htgf" path="res://assets/Resources/Pause Menu/Quest Menu/Quest_Menu.tscn" id="8_q81nf"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
 [ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="14_gqxuu"]
@@ -47,6 +53,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6a6ya")
 tab_names = Array[String](["P", "S", "E", "I", "Q", "S"])
+tab_icons = Array[Texture2D]([ExtResource("2_anab7"), ExtResource("3_4hik5"), ExtResource("4_frpul"), ExtResource("5_gyc6h"), ExtResource("6_lo7ly"), ExtResource("7_epiyd")])
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2000804499]
 layout_mode = 0
@@ -66,13 +73,14 @@ axis_stretch_vertical = 2
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
 layout_mode = 0
-offset_left = -49.695
-offset_top = -34.87
-offset_right = -22.695
-offset_bottom = -34.87
-scale = Vector2(0.85, 0.85)
-theme_override_constants/h_separation = 35
+offset_left = -60.185
+offset_top = -43.635
+offset_right = -33.185
+offset_bottom = -43.635
+scale = Vector2(0.46, 0.46)
+theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 6
+only_icons = true
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
 anchors_preset = 0
