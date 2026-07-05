@@ -29,6 +29,19 @@ func _ready():
 	spooky_forest_instance = spooky_forest.instantiate()
 	building_insides_instance = building_insides.instantiate()
 
+func _setup(transition = true):
+	currently_transitioning = transition
+	Fade.fade_out(0.0)
+	var hearthwynn = load(hearthwynn_hub_scene)
+	var cliff_side = load(cliff_side_scene)
+	var spooky_forest = load(spooky_forest_scene)
+	var building_insides = load(building_insides_scene)
+	
+	hearthwynn_instance = hearthwynn.instantiate()
+	cliff_side_instance = cliff_side.instantiate()
+	spooky_forest_instance = spooky_forest.instantiate()
+	building_insides_instance = building_insides.instantiate()
+	
 func swap_scene(scene_to_remove = null):
 	_perform_swap_scene.call_deferred(scene_to_remove)
 

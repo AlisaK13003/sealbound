@@ -12,7 +12,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 offsets = PackedFloat32Array(0, 0.8240741)
 colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5xb17"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yqkol"]
 gradient = SubResource("Gradient_eacac")
 width = 5
 height = 5
@@ -21,7 +21,7 @@ fill_to = Vector2(0.061965812, 0.30128205)
 repeat = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2wyi4"]
-texture = SubResource("GradientTexture2D_5xb17")
+texture = SubResource("GradientTexture2D_yqkol")
 region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg2tm"]
@@ -34,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_wqiif")
 
 [node name="Full_Screen_Map" type="Control" parent="." unique_id=1436741531]
@@ -203,6 +204,7 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [node name="Map_Button" parent="." unique_id=1034936178 instance=ExtResource("3_wqiif")]
+visible = false
 layout_mode = 0
 offset_left = 4.718
 offset_top = 348.0
@@ -210,3 +212,4 @@ offset_right = 69.878006
 offset_bottom = 376.0
 input_event_that_will_activate = "Open_Map"
 button_name = "Map"
+disabled_ = true

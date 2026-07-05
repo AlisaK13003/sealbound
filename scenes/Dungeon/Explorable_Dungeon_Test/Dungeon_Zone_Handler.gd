@@ -7,7 +7,6 @@ class_name explorable_dungeon
 @onready var dungeon_zones: Array[Node] = $Zones.get_children()
 @onready var navigation_region = $NavigationRegion3D
 @onready var enemy_container = $Enemies
-@onready var mini_map = $MiniMap
 
 var in_combat: bool = false
 
@@ -45,13 +44,21 @@ var generation_failed = false
 var potential_encounters: Array[generic_combatants]
 
 func _ready():
+	Global.menu_opened.connect(cant_move)
+	Global.menu_closed.connect(can_move)
 	return
 	$"3dPlayer2"._setup(self)
 	await Fade.fade_in(0.0)
 	if await entered_new_floor():
 		print("FINISHED")	
 
-var combat_scene_: dungeon_loop
+func can_move():
+	movement_locked = false
+	
+func cant_move():
+	movement_locked = true
+
+var combat_scene_#: dungeon_loop
 var should_spawn_boss_floor: bool = false
 func _setup(dungeon_type_: dungeon_type):
 	#await Fade.fade_in(0.0)
@@ -74,13 +81,13 @@ func remove_old_dungeon():
 	for child in enemy_container.get_children():
 		var child_to_remove = child
 		child.queue_free()
-	await mini_map.clear_mini_map()
+	await player.clear_mini_map()
 
 var setting_up_new_floor = false
 func entered_new_floor():
 	if current_floor == floor_count:
-		return true
-		#get_tree().quit()
+		GlobalCombatInformation.dungeon_over()
+		return
 	else:
 		setting_up_new_floor = true
 		current_floor += 1
@@ -176,7 +183,8 @@ func generate_dungeon():
 	
 	if not ret_val:
 		return false
-	mini_map._setup(self, room_storage)
+
+	player._setup_mini_map(self, room_storage)
 
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -241,7 +249,8 @@ func generate_dungeon():
 			new_enemy_instance._setup(self, current_dungeon.potential_encounters[potential_enemy_encounters].encounterable_enemy)
 			enemy_array.append(new_enemy_instance)
 			enemy_count += 1
-	mini_map.store_current_enemy_list(enemy_array)
+			
+	player.mini_map_store_enemy_list(enemy_array)
 	return true
 
 var active_room_nodes: Dictionary[Vector2i, Node3D]
@@ -339,7 +348,7 @@ func battle_initiated(with_what_enemy: generic_combatants, node_id, is_boss: boo
 	#await combat_scene_.setup(current_dungeon, potential_encounters[random_encounter])
 
 func return_to_exploring():
-	await mini_map.store_current_enemy_list(enemy_container.get_children())
+	await player.mini_map_store_enemy_list(enemy_container.get_children())
 	print("BACK")
 	#in_combat = false
 	await Fade.fade_out(2.0)

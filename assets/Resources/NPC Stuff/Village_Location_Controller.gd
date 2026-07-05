@@ -64,11 +64,11 @@ func get_location_index(location) -> int:
 			var location_name = str(location).strip_edges()
 			if location_name.is_empty():
 				return -1
-			if location_name.is_valid_int():
-				return int(location_name)
 			var location_node = get_node_or_null(NodePath(location_name))
 			if location_node != null:
 				return location_node.get_index()
+			if location_name.is_valid_int():
+				return int(location_name)
 
 	push_warning("VillageLocationContainer: Could not find schedule location '%s'." % str(location))
 	return -1

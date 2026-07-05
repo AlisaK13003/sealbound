@@ -88,5 +88,4 @@ walk_speed = 2.0
 attack_speed = Array[float]([2.0, 2.0])
 sprite_scale = 0.006
 sprite_offset = Vector2(-38, -21)
-bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

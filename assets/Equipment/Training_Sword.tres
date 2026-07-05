@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="weapon" format=3 uid="uid://cxw3lp8qjgxac"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_0i2i4"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_2bbjm"]
+
+[resource]
+script = ExtResource("1_0i2i4")
+weapon_name = "Training Sword"
+weapon_description = "Decent Sword"
+weapon_texture = ExtResource("2_2bbjm")
+metadata/_custom_type_script = "uid://c8pcj6siqledr"

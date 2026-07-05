@@ -1,9 +1,360 @@
 [gd_scene format=3 uid="uid://vhrwi7dkb0b3"]
 
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="1_2kwft"]
+[ext_resource type="Script" uid="uid://coqs4t1ikf0rf" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_card_controller.gd" id="1_yi0mm"]
+[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_ln7px"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_yi0mm"]
+[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="3_ln7px"]
+[ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="4_afx7m"]
+[ext_resource type="Texture2D" uid="uid://o4q3ds3kg3k" path="res://assets/Equipment/Equipment Sprites/Ruby Necklace.png" id="5_gdc6p"]
+[ext_resource type="Texture2D" uid="uid://18r8dgv2cgkk" path="res://assets/Equipment/Equipment Sprites/Shirt.png" id="6_1itkr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
+bg_color = Color(0.4753688, 0.64840907, 0.5228421, 1)
+skew = Vector2(0.1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goyxb"]
+bg_color = Color(0.61214405, 0.5919062, 0.62194204, 1)
+skew = Vector2(0.1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
+bg_color = Color(0.68455464, 0.5293625, 0.7718792, 1)
+skew = Vector2(0.1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ued3"]
+bg_color = Color(0.51951796, 0.62384665, 0.62996584, 1)
+skew = Vector2(0.1, 0)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 3
+
 [node name="EquipmentCard" type="Control" unique_id=1015162363]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 1.0
+offset_right = -3.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yi0mm")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1893686698]
+modulate = Color(1, 0.7921569, 1, 1)
+layout_mode = 0
+offset_left = -34.0
+offset_top = -6.0
+offset_right = 790.505
+offset_bottom = 337.0
+texture = ExtResource("2_ln7px")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=2007935690]
+visible = false
+layout_mode = 0
+offset_left = -18.0
+offset_top = -5.0
+offset_right = 792.16
+offset_bottom = 330.12
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+
+[node name="Panel2" type="Panel" parent="Panel" unique_id=749398840]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 13.0
+offset_right = 497.0
+offset_bottom = 327.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_goyxb")
+
+[node name="Panel3" type="Panel" parent="Panel" unique_id=1254327782]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 13.0
+offset_right = 790.07996
+offset_bottom = 327.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_goyxb")
+
+[node name="Weapon_Slot" type="Panel" parent="." unique_id=1608655098]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 124.0
+offset_right = 457.0
+offset_bottom = 156.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Weapon_Slot" unique_id=1424916995]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_yi0mm")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Weapon_Slot" unique_id=1544489112]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 51.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Weapon"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1120351908]
+position = Vector2(421.105, 124)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_2kwft")
+animation = &"Idle"
+frame_progress = 0.6574928
+
+[node name="Helmet_Slot" type="Panel" parent="." unique_id=461164521]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 62.0
+offset_right = 406.0
+offset_bottom = 94.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Helmet_Slot" unique_id=1678531162]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_ln7px")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Helmet_Slot" unique_id=433887599]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -14.0
+offset_right = 46.0
+offset_bottom = 4.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Helmet"
+
+[node name="Boots_Slot" type="Panel" parent="." unique_id=781361171]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 207.89
+offset_right = 365.0
+offset_bottom = 239.89001
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Boots_Slot" unique_id=1095514278]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_afx7m")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Boots_Slot" unique_id=55395233]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Boots"
+
+[node name="Charm_Slot" type="Panel" parent="." unique_id=1298982983]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 207.89
+offset_right = 444.0
+offset_bottom = 239.89001
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Charm_Slot" unique_id=705787310]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_gdc6p")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Charm_Slot" unique_id=1685438206]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -15.0
+offset_right = 43.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Charm"
+
+[node name="Chestplat_Slot" type="Panel" parent="." unique_id=822629057]
+layout_mode = 0
+offset_left = 324.0
+offset_top = 124.0
+offset_right = 356.0
+offset_bottom = 156.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Chestplat_Slot" unique_id=565163477]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_1itkr")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Chestplat_Slot" unique_id=1584971663]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -15.0
+offset_right = 42.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Chest"
+
+[node name="Label2" type="Label" parent="." unique_id=190233512]
+layout_mode = 0
+offset_left = 6.8
+offset_top = 0.19
+offset_right = 113.8
+offset_bottom = 33.19
+theme_override_font_sizes/font_size = 29
+text = "Equipped"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=689500832]
+layout_mode = 0
+offset_left = 4.21
+offset_top = 38.495
+offset_right = 972.2101
+offset_bottom = 350.495
+mouse_filter = 2
+theme_override_constants/h_separation = 189
+theme_override_constants/v_separation = 16
+
+[node name="Panel2" type="Panel" parent="GridContainer" unique_id=1353821834]
+custom_minimum_size = Vector2(300.825, 44.085)
+layout_mode = 2
+offset_transform_enabled = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
+
+[node name="Helmet" type="Label" parent="GridContainer/Panel2" unique_id=1422483425]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 49.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(4.82, -0.605)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Beanie: 
+     0 Health, 0 Resistance"
+
+[node name="Panel3" type="Panel" parent="GridContainer" unique_id=1665757717]
+custom_minimum_size = Vector2(300.825, 44.085)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-6, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
+
+[node name="Weapon" type="Label" parent="GridContainer/Panel3" unique_id=1808666244]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 49.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(4.82, -0.605)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Lucifer's Blade: 
+     30 Attack, 0.0 Crit C0.0 Crit D"
+
+[node name="Panel4" type="Panel" parent="GridContainer" unique_id=1140264974]
+custom_minimum_size = Vector2(300.825, 44.085)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-12, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
+
+[node name="Chestplate" type="Label" parent="GridContainer/Panel4" unique_id=1173052540]
+z_index = 3
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 49.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(4.82, -0.605)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Lather Chestplate: 
+     0 Health0 Defense"
+
+[node name="Panel6" type="Panel" parent="GridContainer" unique_id=1786353459]
+custom_minimum_size = Vector2(300.825, 44.085)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-18, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
+
+[node name="Charm" type="Label" parent="GridContainer/Panel6" unique_id=2141971698]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 49.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(4.82, -0.605)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Gold Bracelet: 
+     0 Magic, 0 Luck"
+
+[node name="Panel5" type="Panel" parent="GridContainer" unique_id=343854185]
+custom_minimum_size = Vector2(300.825, 44.085)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-24, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
+
+[node name="Boots" type="Label" parent="GridContainer/Panel5" unique_id=116171846]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 49.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(4.82, -0.605)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Leather Boots: 
+     0 Speed, 0 Evasion"
+
+[connection signal="gui_input" from="Weapon_Slot" to="." method="_on_equip_slot_gui_input" binds= [0]]
+[connection signal="gui_input" from="Helmet_Slot" to="." method="_on_equip_slot_gui_input" binds= [1]]
+[connection signal="gui_input" from="Boots_Slot" to="." method="_on_equip_slot_gui_input" binds= [2]]
+[connection signal="gui_input" from="Charm_Slot" to="." method="_on_equip_slot_gui_input" binds= [3]]
+[connection signal="gui_input" from="Chestplat_Slot" to="." method="_on_equip_slot_gui_input" binds= [4]]

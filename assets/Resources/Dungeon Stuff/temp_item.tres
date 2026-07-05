@@ -10,6 +10,7 @@ item_description = "Insta-Kills an enemy"
 item_quantity = 5
 item_sprite = ExtResource("1_axywx")
 does_what = 1
+what_is_it = 1
 targets_players = false
 amount_to_heal_or_deal = 9999
 removes_status = null

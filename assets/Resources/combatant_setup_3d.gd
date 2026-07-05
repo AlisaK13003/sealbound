@@ -127,7 +127,7 @@ enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESIS
 
 var has_been_setup: bool = false
 
-func setup(combatant : generic_combatants, parent_ref: dungeon_loop, child_num):
+func setup(combatant : generic_combatants, parent_ref, child_num):
 	if combatant == null:
 		is_empty = true
 		return

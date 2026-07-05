@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bokuwcjrjfj1j"]
 
 [ext_resource type="Script" uid="uid://4wftjfdlijsq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/].gd" id="1_efv7i"]
-[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="1_ihp0q"]
-[ext_resource type="PackedScene" uid="uid://dw54xqs30htgf" path="res://scenes/Dungeon/Quest_Menu.tscn" id="3_efv7i"]
 [ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="4_5ae0w"]
+[ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="4_ufm7g"]
+[ext_resource type="PackedScene" uid="uid://k4xgkd3u8v5f" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/MiniMap.tscn" id="5_5ae0w"]
 [ext_resource type="Texture2D" uid="uid://jufr38rewyw1" path="res://assets/tile sheets/Dungeon_Boss_Room_Key.png" id="5_otn31"]
 
 [node name="DungeonOverlay" type="Control" unique_id=338282261]
@@ -15,18 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_efv7i")
 
-[node name="Quest_Menu" parent="." unique_id=1034936178 instance=ExtResource("1_ihp0q")]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 346.0
-offset_right = 113.160034
-offset_bottom = 374.0
-input_event_that_will_activate = "Quest_Menu"
-button_name = "Open Quests"
-
-[node name="Label2" parent="Quest_Menu/HBoxContainer" parent_id_path=PackedInt32Array(1034936178, 1419648638) index="1" unique_id=698061328]
-text = "Quest Menu"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1244789516]
 layout_mode = 0
 offset_left = 6.0
@@ -35,10 +23,8 @@ offset_right = 46.0
 offset_bottom = 168.0
 theme_override_constants/separation = 25
 
-[node name="QuestMenu" parent="." unique_id=1054594618 instance=ExtResource("3_efv7i")]
-layout_mode = 1
-
 [node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=1509274551]
+visible = false
 layout_mode = 0
 offset_left = 569.0
 offset_top = 1.0
@@ -71,4 +57,24 @@ stretch_mode = 2
 layout_mode = 2
 text = "x1"
 
-[editable path="Quest_Menu"]
+[node name="CheckBox" type="CheckBox" parent="." unique_id=905592332]
+layout_mode = 0
+offset_left = 509.0
+offset_top = 295.0
+offset_right = 640.0
+offset_bottom = 321.0
+text = "Disable Enemies"
+
+[node name="PauseMenu" parent="." unique_id=569257666 node_paths=PackedStringArray("mini_map_handler") instance=ExtResource("4_ufm7g")]
+visible = false
+layout_mode = 1
+tab_names = Array[String](["M", "P", "S", "E", "I", "Q", "S"])
+is_dungeon_menu = true
+mini_map_handler = NodePath("../MiniMap")
+
+[node name="MiniMap" parent="." unique_id=1818784448 instance=ExtResource("5_5ae0w")]
+layout_mode = 1
+offset_top = -2.0
+offset_bottom = -2.0
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]

@@ -14,11 +14,16 @@ signal item_bought()
 var what_item_am_i
 
 var out_of_stock: bool = false
+const ITEM_ICON_SIZE: Vector2 = Vector2(32, 32)
 
 func setup(thingy: inventory_items):
 	what_item_am_i = thingy
 	item_name_label.text = thingy.item_name
 	item_cost_label.text = str(thingy.buy_price) + "g"
+	item_sprite.custom_minimum_size = ITEM_ICON_SIZE
+	item_sprite.size = ITEM_ICON_SIZE
+	item_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	item_sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	item_sprite.texture = thingy.item_texture
 	
 func _ready():

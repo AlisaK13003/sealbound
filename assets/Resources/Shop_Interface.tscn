@@ -39,6 +39,10 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjqij"]
+atlas = ExtResource("6_1nvga")
+region = Rect2(0, 0, 228, 384)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umvbw"]
 
 [node name="ShopInterface" type="Control" unique_id=1487542661]
@@ -47,10 +51,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 525.0
-offset_top = 318.0
-offset_right = 525.0
-offset_bottom = 318.0
+offset_left = -181.0
+offset_top = -137.0
+offset_right = -181.0
+offset_bottom = -137.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -122,7 +126,7 @@ offset_left = 5.5
 offset_top = 3.5
 offset_right = 88.0
 offset_bottom = 142.44737
-texture = ExtResource("6_1nvga")
+texture = SubResource("AtlasTexture_gjqij")
 expand_mode = 5
 
 [node name="Label" type="Label" parent="Buy Menu/Panel3" unique_id=1704959935]
@@ -131,7 +135,7 @@ offset_left = -4.0
 offset_top = -17.5
 offset_right = 95.0
 offset_bottom = -0.5
-text = "Shop Name"
+text = "Blacksmith"
 
 [node name="Label2" type="Label" parent="Buy Menu/Panel3" unique_id=394225812]
 layout_mode = 0
@@ -139,8 +143,7 @@ offset_left = -0.5
 offset_top = 150.5
 offset_right = 110.5
 offset_bottom = 187.5
-text = "Shop Owner
-Name"
+text = "Rowan"
 
 [node name="Button" type="Button" parent="." unique_id=1479647252]
 layout_mode = 0

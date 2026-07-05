@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cdcaxhyoeg3xt"]
+
+[ext_resource type="Script" uid="uid://dsv8bokxttjyr" path="res://assets/Resources/Pause Menu/Item Menu/item_menu_controller.gd" id="1_cwnty"]
+
+[node name="ItemMenu" type="GridContainer" unique_id=826522388]
+script = ExtResource("1_cwnty")

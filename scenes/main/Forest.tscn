@@ -3026,6 +3026,7 @@ tile_set = SubResource("TileSet_4ala6")
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("3_bgyl7")]
 y_sort_enabled = true
 position = Vector2(1200, -568)
+move_speed = 300.0
 
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 
@@ -3047,30 +3048,30 @@ position = Vector2(671, -443)
 tile_map_data = PackedByteArray("AAAlAOP/AgAAAAAAAAAtAOL/AgAAAAAAAAA4ANj/AgAHAAAAAAAzANz/AgAHAAAAAAA4AOD/AgAHAAAAAAA+ANv/AgAHAAAAAABMANr/AgAHAAAAAABQAOD/AgAHAAAAAABPAN3/AgAHAAAAABAzANj/AgAHAAAAABA5AN3/AgAHAAAAABAyAOD/AgAHAAAAABAtAN7/AgAHAAAAABBLAOj/AgAHAAAAAABGAPD/AgAHAAAAAABAAPv/AgAAAAAAAABJAPb/AgAAAAAAAABDAPb/AgAHAAAAAABMAO7/AgAAAAAAAABNAPP/AgAHAAAAAABQAOX/AgAAAAAAAAAvAPb/AgAHAAAAAAAaAPT/AgAAAAAAAAAZAPz/AgAAAAAAAAAcAAAAAgAAAAAAAAAmAAEAAgAAAAAAAAArAP//AgAAAAAAAAA=")
 tile_set = SubResource("TileSet_w6l3q")
 
-[node name="Potion Shop" type="Sprite2D" parent="." unique_id=649060307]
+[node name="Apothecary Building" type="Sprite2D" parent="." unique_id=649060307]
 y_sort_enabled = true
 position = Vector2(1826.0001, -995)
 scale = Vector2(0.88790894, 0.8362729)
 texture = ExtResource("6_rld5i")
 offset = Vector2(0, -77)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Potion Shop" unique_id=1796594953]
+[node name="StaticBody2D" type="StaticBody2D" parent="Apothecary Building" unique_id=1796594953]
 position = Vector2(-6.089447, -8.548431)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Potion Shop/StaticBody2D" unique_id=1295031958]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Apothecary Building/StaticBody2D" unique_id=1295031958]
 z_index = 1
 position = Vector2(1.1262589, 4.5776367e-05)
 shape = SubResource("RectangleShape2D_rld5i")
 
-[node name="LoadingZone" parent="." unique_id=1937347105 instance=ExtResource("2_f2gc6")]
+[node name="Apothecary" parent="." unique_id=1937347105 instance=ExtResource("2_f2gc6")]
 z_index = 2
 position = Vector2(1682, -996)
 location_data = {
-"Buildings_Insides": ["Potion Shop", "Infirmary", "Library", "Blacksmith"],
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
 "Cliff Side": ["Cliff Entrance"],
-"Forest": ["Potion Shop", "Left Side"],
+"Forest": ["Apothecary", "Left Side"],
 "Village": ["Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
 }
-"Current Location/Spot" = "Potion Shop"
-"Destination Location/Region" = "Village"
-"Destination Location/Spot" = "Spooky Forest"
+"Current Location/Spot" = "Apothecary"
+"Destination Location/Region" = "Buildings_Insides"
+"Destination Location/Spot" = "Apothecary"

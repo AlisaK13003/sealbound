@@ -7,8 +7,14 @@ class_name generic_combatants
 @export var combatant_stats: stats
 @export var is_combatant_enemy: bool
 @export var is_dead: bool = false
+
+@export_category("Equipped Items")
 @export var stored_weapon : weapon
 @export var stored_equipment : equipment
+@export var stored_charm: equipment
+@export var stored_boots: equipment
+@export var stored_chestplate: equipment
+
 
 @export var should_flip_sprite: bool = false
 
@@ -29,6 +35,7 @@ class_name generic_combatants
 @export var sprite_scale: float = 1.0
 
 @export var sprite_offset: Vector2 = Vector2(0, 0)
+@export var equip_sprite_offset: Vector2 = Vector2(0, 0)
 
 @export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
 
@@ -38,9 +45,12 @@ class_name generic_combatants
 @export var bond_points: int = 0
 @export var bond_level: GlobalCombatInformation.bonds
 
+func restore_health():
+	combatant_stats.health = combatant_stats.max_health
+
 func add_experience(amount_to_add):
 	total_experience_points += amount_to_add
-	combatant_stats.level
+	#combatant_stats.level
 	while(total_experience_points >= ceili((100 * pow(1.2, combatant_stats.level)) - 120)):
 		combatant_stats.level += 1
 	

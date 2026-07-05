@@ -300,7 +300,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 					break
 					
 				var current_combatant = all_combatants[j]
-				if current_combatant.stored_combatant.is_dead:
+				if current_combatant == null or current_combatant.stored_combatant.is_dead:
 					all_combatants.remove_at(j)
 					j -= 1
 					continue
@@ -827,7 +827,12 @@ func execute_item(what_item: Items, item_index, targets_who):
 				seq_task.append(func(): await await_parallel(par_task))
 				parallel_tasks.append(func(): await action_queue(seq_task))
 		else:
-			var targetted_enemy = enemy_shit.get_child(targets_who)
+			var targetted_enemy
+			if enemy_shit.get_child_count() == 1:
+				targetted_enemy = enemy_shit.get_child(0)
+			else:
+				targetted_enemy = enemy_shit.get_child(targets_who)
+
 			if what_item.does_what == 1:
 				parallel_tasks.append(func(): await targetted_enemy.update_health(what_item.amount_to_heal_or_deal, "DAMAGE"))
 			if what_item.removes_status != null:
@@ -1212,7 +1217,7 @@ func execute_player_auto_turn(player_to_act, _turn_number, testing):
 				if chance < current_sum:
 					selected_action = action
 					break
-	\
+	
 	await attacking_player.take_turn(gui.get_player_portrait(attacking_player.child_number))
 		
 	var action_sequence: Array[Callable]

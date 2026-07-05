@@ -1,17 +1,14 @@
 [gd_scene format=3 uid="uid://d2uwb21vjxvyl"]
 
 [ext_resource type="Script" uid="uid://g6j6r35it0lb" path="res://assets/Scripts/Pause_Menu.gd" id="1_6a6ya"]
-[ext_resource type="PackedScene" uid="uid://dvo0w3xlg0f5s" path="res://assets/Resources/Pause Menu/Pause_Menu_Option.tscn" id="2_vjpsr"]
-[ext_resource type="PackedScene" uid="uid://bxbe4s8gtmk7f" path="res://assets/Resources/Pause Menu/Item Menu/Items_ Menu.tscn" id="3_0hfbc"]
+[ext_resource type="Texture2D" uid="uid://dmfv0svk8pdot" path="res://assets/tile sheets/Menu Border.png" id="2_rk1u6"]
 [ext_resource type="PackedScene" uid="uid://cpa28f8vmbub2" path="res://assets/Resources/Pause Menu/Party Menu/Party_Menu_.tscn" id="3_8ocdr"]
 [ext_resource type="PackedScene" uid="uid://dv7w3jr2b60ts" path="res://assets/Resources/Pause Menu/Skills Menu/Skills_Menu.tscn" id="4_qffmw"]
+[ext_resource type="PackedScene" uid="uid://de675y0f2h5hk" path="res://assets/Resources/Pause Menu/Item Menu/Item Menu.tscn" id="5_j5h34"]
 [ext_resource type="PackedScene" uid="uid://c15yeiolqmy63" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Menu.tscn" id="5_o57t2"]
-[ext_resource type="Script" uid="uid://cnp6wabbskx27" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_menu_controller.gd" id="6_qffmw"]
-[ext_resource type="PackedScene" uid="uid://cq0wehm0dm6yb" path="res://assets/Resources/Pause Menu/Enemy Intel/Enemy_Intel_Menu.tscn" id="8_djh7v"]
-[ext_resource type="PackedScene" uid="uid://vu351201k44" path="res://assets/Resources/Pause Menu/Journal Menu/Journal_Menu.tscn" id="9_sjmh0"]
-[ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_mqkyk"]
+[ext_resource type="PackedScene" uid="uid://dw54xqs30htgf" path="res://assets/Resources/Pause Menu/Quest Menu/Quest_Menu.tscn" id="8_q81nf"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
-[ext_resource type="PackedScene" uid="uid://cwogyg7mocf2x" path="res://assets/Resources/Pause Menu/Base_Party_Card_Info.tscn" id="13_o57t2"]
+[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="14_gqxuu"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="14_j01ox"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qffmw"]
@@ -27,7 +24,6 @@ shadow_size = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rk1u6"]
 bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
-skew = Vector2(0.1, 0)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
@@ -39,33 +35,52 @@ shadow_size = 18
 [node name="PauseMenu" type="Control" unique_id=569257666]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 27.0
-offset_top = -71.0
-offset_right = 27.0
-offset_bottom = -71.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 293.0
+offset_top = 103.0
+offset_right = -347.0
+offset_bottom = -257.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6a6ya")
-tab_names = Array[String](["Party", "Skills", "Equipment", "Inventory", "Save/Load", "System"])
+tab_names = Array[String](["P", "S", "E", "I", "Q", "S"])
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2000804499]
+layout_mode = 0
+offset_left = -72.0
+offset_top = 48.0
+offset_right = 122.0
+offset_bottom = 170.00015
+scale = Vector2(2, 2)
+pivot_offset = Vector2(97, 61)
+texture = ExtResource("2_rk1u6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
 layout_mode = 0
-offset_left = -325.66
-offset_top = -67.46
-offset_right = -298.66
-offset_bottom = -67.46
+offset_left = -49.695
+offset_top = -34.87
+offset_right = -22.695
+offset_bottom = -34.87
 scale = Vector2(0.85, 0.85)
+theme_override_constants/h_separation = 35
+theme_override_constants/v_separation = 6
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 74.75
+offset_top = 33.535
+offset_right = 114.75002
+offset_bottom = 73.535
+scale = Vector2(1.25, 1.25)
 
 [node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
 layout_mode = 1
@@ -78,103 +93,42 @@ offset_bottom = 29.0
 visible = false
 layout_mode = 1
 
-[node name="EquipmentMenu" parent="Windows" unique_id=1214371089 node_paths=PackedStringArray("menu_parent") instance=ExtResource("5_o57t2")]
+[node name="EquipmentMenu" parent="Windows" unique_id=1214371089 instance=ExtResource("5_o57t2")]
 visible = false
 layout_mode = 1
-script = ExtResource("6_qffmw")
-menu_parent = NodePath("../..")
+offset_left = -55.47
+offset_top = 65.26
+offset_right = -55.47
+offset_bottom = 65.25983
+scale = Vector2(0.36, 0.36)
 
-[node name="ItemsMenu" parent="Windows" unique_id=1671049951 node_paths=PackedStringArray("menu_parent") instance=ExtResource("3_0hfbc")]
+[node name="ItemMenu" parent="Windows" unique_id=893943130 instance=ExtResource("5_j5h34")]
 visible = false
 layout_mode = 1
-menu_parent = NodePath("../..")
+offset_left = -38.635
+offset_top = 0.85
+offset_right = -38.635
+offset_bottom = 0.8500023
+scale = Vector2(0.8, 0.8)
 
-[node name="SaveLoadMenu" parent="Windows" unique_id=253660476 instance=ExtResource("10_mqkyk")]
+[node name="QuestMenu" parent="Windows" unique_id=1054594618 instance=ExtResource("8_q81nf")]
 visible = false
 layout_mode = 1
+offset_left = -195.33
+offset_top = -41.36
+offset_right = -195.32913
+offset_bottom = -41.360004
 
 [node name="SystemMenu" parent="Windows" unique_id=893803557 instance=ExtResource("11_35xr2")]
 visible = false
 layout_mode = 1
+offset_left = -186.305
+offset_top = 48.96
+offset_right = -186.305
+offset_bottom = 48.960045
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
-position = Vector2(-27.999996, 69.99999)
-scale = Vector2(-0.34, -0.34)
-
-[node name="Initial_Menu" type="Control" parent="." unique_id=1700268886]
-visible = false
-anchors_preset = 0
-offset_left = -344.0
-offset_right = -304.0
-offset_bottom = 40.0
-mouse_filter = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Initial_Menu" unique_id=942161223]
-layout_mode = 0
-offset_left = 102.0
-offset_top = -47.0
-offset_right = 129.0
-offset_bottom = 299.0
-theme_override_constants/separation = 35
-
-[node name="Party" parent="Initial_Menu/VBoxContainer" unique_id=473307797 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Party"
-
-[node name="Skills" parent="Initial_Menu/VBoxContainer" unique_id=118002456 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Skills"
-
-[node name="Equipment" parent="Initial_Menu/VBoxContainer" unique_id=105981787 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Equipment"
-
-[node name="Inventory" parent="Initial_Menu/VBoxContainer" unique_id=114698438 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Inventory"
-
-[node name="Bond" parent="Initial_Menu/VBoxContainer" unique_id=2106770861 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Bond"
-
-[node name="Enemy Intel" parent="Initial_Menu/VBoxContainer" unique_id=491931082 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Enemy Intel"
-
-[node name="Journal" parent="Initial_Menu/VBoxContainer" unique_id=304271723 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Journal"
-
-[node name="Save _ Load" parent="Initial_Menu/VBoxContainer" unique_id=1967936739 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "Save _ Load"
-
-[node name="System" parent="Initial_Menu/VBoxContainer" unique_id=1391818663 instance=ExtResource("2_vjpsr")]
-layout_mode = 2
-selection_name = "System"
-
-[node name="Sub_Menus" type="Control" parent="." unique_id=201055189]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 1
-
-[node name="EnemyIntelMenu" parent="Sub_Menus" unique_id=1554089330 instance=ExtResource("8_djh7v")]
-visible = false
-layout_mode = 1
-
-[node name="JournalMenu" parent="Sub_Menus" unique_id=1744445820 instance=ExtResource("9_sjmh0")]
-visible = false
-layout_mode = 1
-
-[node name="SaveLoadMenu" parent="Sub_Menus" unique_id=1676534613 instance=ExtResource("10_mqkyk")]
-visible = false
-layout_mode = 1
-
-[node name="SaveLoadMenu_old" parent="Sub_Menus" unique_id=1125761418 instance=ExtResource("10_mqkyk")]
-visible = false
-layout_mode = 1
+position = Vector2(25, 77)
 
 [node name="Panel" type="Panel" parent="." unique_id=1925848033]
 visible = false
@@ -201,23 +155,6 @@ offset_top = 269.0
 offset_right = -311.0
 offset_bottom = 292.0
 
-[node name="Party_Cards" type="HBoxContainer" parent="MenuChrome" unique_id=7640826]
-layout_mode = 0
-offset_left = -52.0
-offset_top = 50.0
-offset_right = 298.0
-offset_bottom = 90.0
-theme_override_constants/separation = 175
-
-[node name="BasePartyCardInfo" parent="MenuChrome/Party_Cards" unique_id=988666486 instance=ExtResource("13_o57t2")]
-layout_mode = 2
-
-[node name="BasePartyCardInfo2" parent="MenuChrome/Party_Cards" unique_id=690046593 instance=ExtResource("13_o57t2")]
-layout_mode = 2
-
-[node name="BasePartyCardInfo3" parent="MenuChrome/Party_Cards" unique_id=202349447 instance=ExtResource("13_o57t2")]
-layout_mode = 2
-
 [node name="Money" type="Label" parent="MenuChrome" unique_id=1182323937]
 layout_mode = 0
 offset_left = 244.0
@@ -227,12 +164,30 @@ offset_bottom = -45.666664
 text = "Money"
 
 [node name="Panel2" type="Panel" parent="." unique_id=346209793]
+visible = false
 z_index = -2
 layout_mode = 0
-offset_left = -233.0
-offset_top = -36.0
-offset_right = 280.33508
-offset_bottom = 250.50006
+offset_left = -306.43
+offset_top = -52.65
+offset_right = 77.57001
+offset_bottom = 187.35
 scale = Vector2(0.8, 0.8)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rk1u6")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=1392689383]
+modulate = Color(0.8132577, 0.8132577, 0.81325763, 1)
+z_index = -1
+layout_mode = 0
+offset_left = -169.0
+offset_top = -13.000004
+offset_right = 219.0
+offset_bottom = 231.0
+pivot_offset = Vector2(192, 120)
+texture = ExtResource("14_gqxuu")
+patch_margin_left = 5
+patch_margin_top = 7
+patch_margin_right = 5
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2

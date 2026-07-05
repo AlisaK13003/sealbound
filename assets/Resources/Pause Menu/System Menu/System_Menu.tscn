@@ -1,17 +1,11 @@
 [gd_scene format=3 uid="uid://cq3emt0b1euib"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ix3rr"]
-bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
-skew = Vector2(0.105, 0)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-expand_margin_left = 20.0
-expand_margin_right = 20.0
-shadow_size = 18
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kar08"]
+[ext_resource type="Script" uid="uid://e3eamnjxkx8e" path="res://assets/Resources/Pause Menu/System Menu/Systems_Menu_Controller.gd" id="1_kar08"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_fy0gi"]
+[ext_resource type="Texture2D" uid="uid://dl8xl2bbba7s4" path="res://assets/tile sheets/Menu-tab.png" id="3_6hsvv"]
+[ext_resource type="PackedScene" uid="uid://l7s8hm6eib0c" path="res://assets/Resources/Pause Menu/Option_Cycle.tscn" id="3_7m14t"]
+[ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="3_v86cy"]
+[ext_resource type="PackedScene" uid="uid://b1ua6k77u621q" path="res://assets/Resources/Pause Menu/System Menu/Keybind Node.tscn" id="4_av46m"]
 
 [node name="SystemMenu" type="Control" unique_id=893803557]
 layout_mode = 3
@@ -20,52 +14,313 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="." unique_id=1413150098]
-z_index = -2
-layout_mode = 0
-offset_left = -344.0
-offset_top = -119.0
-offset_right = 611.0
-offset_bottom = 414.0
-scale = Vector2(0.8, 0.8)
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_ix3rr")
+script = ExtResource("1_kar08")
 
-[node name="Panel2" type="Panel" parent="." unique_id=563051445]
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_fy0gi")]
 layout_mode = 0
-offset_left = -232.0
-offset_top = 57.0
-offset_right = -108.0
-offset_bottom = 87.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kar08")
+offset_left = 65.0
+offset_top = -60.0
+offset_right = 65.0
+offset_bottom = -60.0
+theme_override_constants/v_separation = 5
+be_vertical = true
 
-[node name="Label" type="Label" parent="Panel2" unique_id=1487357879]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 9.0
-offset_right = 124.0
+[node name="Settings_Windows" type="Control" parent="." unique_id=896181735]
+anchors_preset = 0
+offset_left = -8.48
+offset_top = 18.28
+offset_right = 31.52
+offset_bottom = 58.28
+mouse_filter = 1
+
+[node name="Display Settings" type="Control" parent="Settings_Windows" unique_id=803493143]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "VOLUME"
+
+[node name="Label4" type="Label" parent="Settings_Windows/Display Settings" unique_id=1863181309]
+layout_mode = 0
+offset_left = 103.395
+offset_top = -85.32
+offset_right = 212.39502
+offset_bottom = -67.32
+text = "Display Settings"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Panel3" type="Panel" parent="." unique_id=1595734881]
+[node name="GridContainer" type="GridContainer" parent="Settings_Windows/Display Settings" unique_id=988389328]
+custom_minimum_size = Vector2(227.225, 0)
 layout_mode = 0
-offset_left = 153.0
-offset_top = 62.0
-offset_right = 277.0
-offset_bottom = 92.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kar08")
+offset_left = 10.065
+offset_top = -60.56
+offset_right = 237.29016
+offset_bottom = 77.44
+columns = 2
 
-[node name="Label" type="Label" parent="Panel3" unique_id=1130391750]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 9.0
-offset_right = 124.0
+[node name="Label5" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=2084591]
+layout_mode = 2
+text = "FPS:"
+
+[node name="fps_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=1356923450 instance=ExtResource("3_7m14t")]
+layout_mode = 2
+options = ["30", "60", "120"]
+
+[node name="Label" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=971582253]
+layout_mode = 2
+text = "Resolution:"
+
+[node name="resolution_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=652463066 instance=ExtResource("3_7m14t")]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=42337515]
+layout_mode = 2
+text = "Screenmode: "
+
+[node name="screen_mode_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=956007954 instance=ExtResource("3_7m14t")]
+layout_mode = 2
+options = ["Windowed", "Fullscreen", "Borderless Fullscreen"]
+
+[node name="Label3" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=2001045421]
+layout_mode = 2
+text = "Monitor: "
+
+[node name="monitor_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=82237466 instance=ExtResource("3_7m14t")]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=288805716]
+layout_mode = 2
+text = "VSync: "
+
+[node name="vsync_toggle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=1152029159 instance=ExtResource("3_7m14t")]
+layout_mode = 2
+options = ["On", "Off"]
+
+[node name="Sound Settings" type="Control" parent="Settings_Windows" unique_id=609802578]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Quit To Menu"
+
+[node name="Label2" type="Label" parent="Settings_Windows/Sound Settings" unique_id=1417498644]
+layout_mode = 0
+offset_left = 103.395
+offset_top = -85.32
+offset_right = 206.39502
+offset_bottom = -67.32
+text = "Sound Settings"
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Settings_Windows/Sound Settings" unique_id=274541934]
+layout_mode = 0
+offset_left = 55.0
+offset_top = -14.0
+offset_right = 245.0
+offset_bottom = 48.0
+columns = 2
+
+[node name="Label" type="Label" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=250192522]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="Master_Slider" type="HSlider" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=359886912]
+custom_minimum_size = Vector2(88.46, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Label2" type="Label" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=2146956468]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SFX_Slider" type="HSlider" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=517450508]
+custom_minimum_size = Vector2(88.46, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Label3" type="Label" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=1623942839]
+layout_mode = 2
+text = "BGM Volume"
+
+[node name="BGM_Slider" type="HSlider" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=856989687]
+custom_minimum_size = Vector2(88.46, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Key Config" type="Control" parent="Settings_Windows" unique_id=1122516925]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MenuTabs" parent="Settings_Windows/Key Config" unique_id=1000125745 instance=ExtResource("2_fy0gi")]
+layout_mode = 0
+offset_left = 96.685
+offset_top = -92.78
+offset_right = 96.685
+offset_bottom = -92.78
+scale = Vector2(0.5, 0.5)
+
+[node name="Keybinds" type="Control" parent="Settings_Windows/Key Config" unique_id=821279063]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = -68.02
+offset_right = 80.000114
+offset_bottom = -28.019997
+
+[node name="GridContainer" type="GridContainer" parent="Settings_Windows/Key Config/Keybinds" unique_id=1374274923]
+layout_mode = 0
+offset_right = 346.0
+offset_bottom = 251.99982
+scale = Vector2(0.825, 0.825)
+theme_override_constants/h_separation = 159
+theme_override_constants/v_separation = 46
+columns = 2
+
+[node name="KeybindNode" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=1608093952 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Up"
+input_action = "up"
+
+[node name="KeybindNode2" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=678446214 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Left"
+input_action = "left"
+
+[node name="KeybindNode3" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=66587562 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Down"
+input_action = "down"
+
+[node name="KeybindNode4" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=429333317 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Right"
+input_action = "right"
+
+[node name="KeybindNode5" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=374448745 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Confirm / Interact"
+input_action = "confirm"
+
+[node name="KeybindNode6" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=1697947618 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Cancel"
+input_action = "cancel"
+
+[node name="KeybindNode7" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=1883970610 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Dungeon Item"
+input_action = "Dungeon_Item"
+
+[node name="KeybindNode8" parent="Settings_Windows/Key Config/Keybinds/GridContainer" unique_id=103918278 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Dungeon Skill"
+input_action = "Dungeon_Skill"
+
+[node name="GridContainer2" type="GridContainer" parent="Settings_Windows/Key Config/Keybinds" unique_id=2005475481]
+visible = false
+layout_mode = 0
+offset_right = 159.0
+offset_bottom = 138.0
+scale = Vector2(0.825, 0.825)
+theme_override_constants/h_separation = 159
+theme_override_constants/v_separation = 46
+columns = 2
+
+[node name="KeybindNode" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=2095375124 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Up"
+input_action = "Controller_Up"
+is_keyboard = false
+
+[node name="KeybindNode2" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=1726209387 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Left"
+input_action = "Controller_Left"
+is_keyboard = false
+
+[node name="KeybindNode3" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=782731777 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Down"
+input_action = "Controller_Down"
+is_keyboard = false
+
+[node name="KeybindNode4" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=1915060227 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Move / UI Right"
+input_action = "Controller_Right"
+is_keyboard = false
+
+[node name="KeybindNode5" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=310947867 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Confirm / Interact"
+input_action = "Controller_Confirm"
+is_keyboard = false
+
+[node name="KeybindNode6" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=1239505872 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Cancel"
+input_action = "Controller_Cancel"
+is_keyboard = false
+
+[node name="KeybindNode7" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=1400282996 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Dungeon Item"
+input_action = "Controller_Dungeon_Item"
+is_keyboard = false
+
+[node name="KeybindNode8" parent="Settings_Windows/Key Config/Keybinds/GridContainer2" unique_id=2025945722 instance=ExtResource("4_av46m")]
+layout_mode = 2
+key_name = "Dungeon Skill"
+input_action = "Controller_Dungeon_Skill"
+is_keyboard = false
+
+[node name="SaveLoadMenu" parent="Settings_Windows" unique_id=1676534613 instance=ExtResource("3_v86cy")]
+visible = false
+layout_mode = 1
+offset_left = 107.57
+offset_top = -88.26
+offset_right = 107.56998
+offset_bottom = -88.259995
+
+[node name="Back_Button" type="NinePatchRect" parent="." unique_id=1090253103]
+visible = false
+layout_mode = 0
+offset_left = -1.88
+offset_top = -80.26
+offset_right = 38.12
+offset_bottom = -59.260002
+mouse_filter = 1
+texture = ExtResource("3_6hsvv")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="Back_Button" unique_id=1992353406]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 43.0
+offset_bottom = 21.0
+text = "Back"
+
+[connection signal="value_changed" from="Settings_Windows/Sound Settings/GridContainer/Master_Slider" to="." method="_change_volume" binds= ["Master"]]
+[connection signal="value_changed" from="Settings_Windows/Sound Settings/GridContainer/SFX_Slider" to="." method="_change_volume" binds= ["SFX"]]
+[connection signal="value_changed" from="Settings_Windows/Sound Settings/GridContainer/BGM_Slider" to="." method="_change_volume" binds= ["BGM"]]
+[connection signal="gui_input" from="Back_Button" to="." method="back_button_pressed"]

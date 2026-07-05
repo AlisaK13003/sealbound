@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://b637t1h7u1pot"]
+
+[ext_resource type="Script" uid="uid://dsiopbdjoeynf" path="res://assets/Resources/Pause Menu/Equipm Menu/Setup_equip_node.gd" id="1_4ge2k"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="1_hp6rk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yi0mm"]
+bg_color = Color(0.6110727, 0.5653448, 0.76984, 1)
+skew = Vector2(0.1, 0)
+
+[node name="EquipmentListNode" type="Control" unique_id=1614956986]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ge2k")
+
+[node name="Panel" type="Panel" parent="." unique_id=1937637724]
+layout_mode = 0
+offset_right = 273.0
+offset_bottom = 51.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_yi0mm")
+
+[node name="Equip_Name" type="Label" parent="Panel" unique_id=1953865190]
+layout_mode = 0
+offset_left = 34.0
+offset_right = 133.0
+offset_bottom = 18.0
+mouse_filter = 1
+text = "Training Sword"
+
+[node name="Equip Description" type="Label" parent="Panel/Equip_Name" unique_id=1961444734]
+layout_mode = 0
+offset_left = 10.52
+offset_top = 16.0
+offset_right = 89.520004
+offset_bottom = 34.0
+mouse_filter = 1
+text = "Basic sword"
+
+[node name="Stats" type="Label" parent="Panel/Equip_Name" unique_id=846742391]
+layout_mode = 0
+offset_left = 10.52
+offset_top = 36.0
+offset_right = 206.52
+offset_bottom = 54.0
+mouse_filter = 1
+text = "5 Crit C, 5 Crit D, 30 Attack"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=371989305]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 14.0
+offset_right = 42.0
+offset_bottom = 54.0
+texture = ExtResource("1_hp6rk")
+stretch_mode = 2

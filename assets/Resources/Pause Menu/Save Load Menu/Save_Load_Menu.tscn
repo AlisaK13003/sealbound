@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://b3dw3d21upxin"]
 
 [ext_resource type="Script" uid="uid://c20a621eq3fnv" path="res://assets/Resources/Pause Menu/Save Load Menu/save_load_menu.gd" id="1_c2cs2"]
+[ext_resource type="Texture2D" uid="uid://0dk2ydel70hj" path="res://GUI/dialogue_system/choiceBox.png" id="2_2pkgb"]
+[ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="3_1huwu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1huwu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlh6p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fb8s8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pi3mg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50uc3"]
 
 [node name="SaveLoadMenu" type="Control" unique_id=1676534613]
 process_mode = 3
@@ -18,38 +30,189 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -55.0
-offset_right = 55.0
-offset_bottom = 79.0
+offset_right = 70.0
+offset_bottom = 120.0
 grow_horizontal = 2
-scale = Vector2(1.5, 1.5)
-
-[node name="ModeToggle" type="HBoxContainer" parent="Main" unique_id=1555396832]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="SaveBtn" type="Button" parent="Main/ModeToggle" unique_id=1718933244]
-layout_mode = 2
-text = "Save"
-
-[node name="LoadBtn" type="Button" parent="Main/ModeToggle" unique_id=608209566]
-layout_mode = 2
-text = "Load"
+theme_override_constants/separation = 12
 
 [node name="SlotContainer" type="VBoxContainer" parent="Main" unique_id=1411966905]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="Slot1" type="Button" parent="Main/SlotContainer" unique_id=46466002]
+custom_minimum_size = Vector2(125, 28)
 layout_mode = 2
-text = "Slot 1"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1huwu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dlh6p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fb8s8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pi3mg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_50uc3")
+flat = true
 
-[node name="Slot2" type="Button" parent="Main/SlotContainer" unique_id=1816145122]
-layout_mode = 2
-text = "Slot 2"
+[node name="TextureRect" type="TextureRect" parent="Main/SlotContainer/Slot1" unique_id=963058233]
+custom_minimum_size = Vector2(125, 28)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2pkgb")
+expand_mode = 1
 
-[node name="Slot3" type="Button" parent="Main/SlotContainer" unique_id=195000458]
-layout_mode = 2
-text = "Slot 3"
+[node name="Label" type="Label" parent="Main/SlotContainer/Slot1" unique_id=1204880115]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Empty Save"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="DeleteBtn" type="Button" parent="Main" unique_id=802177104]
+[node name="Slot2" type="Button" parent="Main/SlotContainer" unique_id=1710965458]
+custom_minimum_size = Vector2(125, 28)
 layout_mode = 2
-text = "Delete Save"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1huwu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dlh6p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fb8s8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pi3mg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_50uc3")
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Main/SlotContainer/Slot2" unique_id=1359745532]
+custom_minimum_size = Vector2(125, 28)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2pkgb")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Main/SlotContainer/Slot2" unique_id=283756134]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Empty Save"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot3" type="Button" parent="Main/SlotContainer" unique_id=507018994]
+custom_minimum_size = Vector2(125, 28)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1huwu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dlh6p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fb8s8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pi3mg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_50uc3")
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Main/SlotContainer/Slot3" unique_id=2126388185]
+custom_minimum_size = Vector2(125, 28)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2pkgb")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Main/SlotContainer/Slot3" unique_id=1434208039]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Empty Save"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ModeToggle" type="HBoxContainer" parent="Main" unique_id=1555396832]
+layout_mode = 2
+theme_override_constants/separation = 72
+alignment = 1
+
+[node name="DeleteBtn" type="Button" parent="Main/ModeToggle" unique_id=152480482]
+custom_maximum_size = Vector2(120, -1)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main/ModeToggle/DeleteBtn" unique_id=495968235]
+custom_maximum_size = Vector2(64, 24)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_1huwu")
+
+[node name="Label" type="Label" parent="Main/ModeToggle/DeleteBtn" unique_id=2031779746]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Delete"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadBtn" type="Button" parent="Main/ModeToggle" unique_id=852914396]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main/ModeToggle/LoadBtn" unique_id=421127952]
+custom_maximum_size = Vector2(64, 24)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = 1.0
+offset_right = 5.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_1huwu")
+
+[node name="Label" type="Label" parent="Main/ModeToggle/LoadBtn" unique_id=995152457]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 1)
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Load"
+horizontal_alignment = 1
+vertical_alignment = 1

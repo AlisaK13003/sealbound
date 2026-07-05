@@ -4,7 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://m00wxofcxxj4" path="res://assets/characters/cassian/cassian_idle.png" id="2_gjqij"]
 [ext_resource type="Texture2D" uid="uid://dl7qdnu6wo2lf" path="res://assets/characters/cassian/cassian_walk.png" id="3_cabsr"]
 [ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="4_gjqij"]
+[ext_resource type="Script" uid="uid://m6b2arn0m6ao" path="res://assets/Resources/Interactables/custom_shop_items.gd" id="5_3k3xb"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_cabsr"]
+[ext_resource type="Resource" uid="uid://cy7yv3npd4xox" path="res://assets/Resources/Interactables/Shops/Shop Items/potionHeal.tres" id="6_5455o"]
+[ext_resource type="Texture2D" uid="uid://bci72r7y43t48" path="res://assets/characters/cassian/cassian_portraits.png" id="6_shop_portrait"]
+[ext_resource type="Resource" uid="uid://dd84q7q6ar8qx" path="res://assets/Resources/Interactables/Shops/Shop Items/potionAoEDamage.tres" id="7_leaap"]
+[ext_resource type="Resource" uid="uid://c4km6fi71gtdl" path="res://assets/Resources/Interactables/Shops/Shop Items/potionMagicBuff.tres" id="8_vcmje"]
+[ext_resource type="Resource" uid="uid://div35qkb8iyrf" path="res://assets/Resources/Interactables/Shops/Shop Items/potionSpeedBuff.tres" id="9_edq0w"]
+[ext_resource type="Resource" uid="uid://ckn4q4yxwgfmq" path="res://assets/Resources/Interactables/Shops/Shop Items/potionAttackBuff.tres" id="10_lff06"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
@@ -67,7 +74,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_52tew")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -84,7 +91,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f7jk0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_down",
 "speed": 5.0
 }, {
@@ -101,7 +108,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_edq0w")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_side",
 "speed": 5.0
 }, {
@@ -118,7 +125,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fa7ct")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_up",
 "speed": 3.5
 }]
@@ -126,10 +133,40 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
 radius = 245.58908
 
-[node name="NpcTemplate" type="Node2D" unique_id=823861237]
+[sub_resource type="Resource" id="Resource_ysr08"]
+script = ExtResource("5_3k3xb")
+item = ExtResource("6_5455o")
+metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+
+[sub_resource type="Resource" id="Resource_3k3xb"]
+script = ExtResource("5_3k3xb")
+item = ExtResource("7_leaap")
+metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+
+[sub_resource type="Resource" id="Resource_f7jk0"]
+script = ExtResource("5_3k3xb")
+item = ExtResource("8_vcmje")
+metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+
+[sub_resource type="Resource" id="Resource_5455o"]
+script = ExtResource("5_3k3xb")
+item = ExtResource("9_edq0w")
+metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+
+[sub_resource type="Resource" id="Resource_leaap"]
+script = ExtResource("5_3k3xb")
+item = ExtResource("10_lff06")
+metadata/_custom_type_script = "uid://m6b2arn0m6ao"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shop_portrait"]
+atlas = ExtResource("6_shop_portrait")
+region = Rect2(0, 0, 48, 75)
+
+[node name="NpcTemplate2" type="Node2D" unique_id=823861237]
 script = ExtResource("1_eooly")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/cassian_dialogue.json"
 npc_id = "cassian"
+schedule_path = "res://assets/Resources/NPC Stuff/Schedules/cassian/Weekly.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
 
@@ -152,14 +189,19 @@ shape = SubResource("CircleShape2D_ilmyp")
 [node name="ShopController" type="Node2D" parent="." unique_id=827537280]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_gjqij")
+shop_stock = Array[ExtResource("5_3k3xb")]([SubResource("Resource_ysr08"), SubResource("Resource_3k3xb"), SubResource("Resource_f7jk0"), SubResource("Resource_5455o"), SubResource("Resource_leaap")])
+shop_owner_portrait = SubResource("AtlasTexture_shop_portrait")
+shop_name = "Apothecary"
+shop_owner_name = "Cassian"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ShopController" unique_id=617435556]
 
 [node name="ShopInterface" parent="ShopController/CanvasLayer" unique_id=1487542661 node_paths=PackedStringArray("parent") instance=ExtResource("5_cabsr")]
-offset_left = 325.0
-offset_top = 209.0
-offset_right = 325.0
-offset_bottom = 209.0
+offset_left = 143.00002
+offset_top = 99.00001
+offset_right = 143.0
+offset_bottom = 99.0
+scale = Vector2(0.55999994, 0.55999994)
 parent = NodePath("../..")
 
 [connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]

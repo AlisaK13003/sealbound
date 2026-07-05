@@ -1,0 +1,111 @@
+{
+  "id": "lyra_tavern_room_quest_scene_2",
+  "beats": [
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Sera sent you, right? She said you might need a room."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I have one upstairs. Two thousand gold a night."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Two thousand?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Clean sheets, a roof, and dinner close enough that you can smell it. Fair price."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "I do not have that kind of money."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Yeah, I figured. You look like you came here with nothing but a headache."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "There might be another way."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "I lost my axe in the forest while I was gathering ingredients. Wolves scared me off before I could grab it."
+	},
+	{
+	  "type": "action",
+	  "name": "start_lyra_axe_quest"
+	},
+	{
+	  "type": "choice",
+	  "speaker": "MC",
+	  "text": "How do you answer?",
+	  "options": [
+		{
+		  "text": "Sure, easy enough.",
+		  "beats": [
+			{
+			  "type": "dialogue",
+			  "speaker": "Lyra",
+			  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+			  "portrait_frame": "smile",
+			  "text": "Good. The forest is close, but keep your head up."
+			}
+		  ]
+		},
+		{
+		  "text": "Will I get to stay for free if I do this?",
+		  "beats": [
+			{
+			  "type": "dialogue",
+			  "speaker": "Lyra",
+			  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+			  "portrait_frame": "neutral",
+			  "text": "If you bring it back, you can stay. Not forever without lifting a finger, but you will have a bed."
+			}
+		  ]
+		},
+		{
+		  "text": "Sera said I should be resting...",
+		  "beats": [
+			{
+			  "type": "dialogue",
+			  "speaker": "Lyra",
+			  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+			  "portrait_frame": "sad",
+			  "text": "You should. But it is nearby, and I would go myself if those wolves were not still sniffing around."
+			}
+		  ]
+		}
+	  ]
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Take the forest path when you are ready. Bring my axe back, and we will figure out your room."
+	}
+  ]
+}
