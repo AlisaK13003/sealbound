@@ -2,29 +2,19 @@
 
 [ext_resource type="Script" uid="uid://7r40t3f4ovnb" path="res://scenes/main/start_screen_handler.gd" id="1_hxa3y"]
 [ext_resource type="Texture2D" uid="uid://bqevp6wlohxym" path="res://assets/Resources/footer.png" id="2_3o0di"]
+[ext_resource type="Texture2D" uid="uid://y3s2h8ieihan" path="res://scenes/titleScreen_gradient.png" id="2_6dcmb"]
 [ext_resource type="Texture2D" uid="uid://dgib00wxcq5fm" path="res://assets/Resources/titleScreen/sign.png" id="3_ghekx"]
+[ext_resource type="Texture2D" uid="uid://dv63jqmhgcwow" path="res://scenes/cloud1.png" id="3_xsgpd"]
 [ext_resource type="Texture2D" uid="uid://0dk2ydel70hj" path="res://GUI/dialogue_system/choiceBox.png" id="4_7l3jx"]
+[ext_resource type="Texture2D" uid="uid://j2515um8c0rl" path="res://scenes/cloud2.png" id="4_scvbf"]
 [ext_resource type="Texture2D" uid="uid://yx1i8l2km3sq" path="res://assets/Resources/titleScreen/selectArrow.png" id="5_6dcmb"]
+[ext_resource type="Texture2D" uid="uid://bj72rvvnd41p7" path="res://scenes/cloud3-export.png" id="5_b70v6"]
 [ext_resource type="Texture2D" uid="uid://bwc0rft04gwtb" path="res://assets/Resources/titleScreen/backButton.png" id="6_xsgpd"]
 [ext_resource type="Texture2D" uid="uid://cc5qnu8djv3yc" path="res://assets/Resources/titleScreen/backButtonHover.png" id="7_scvbf"]
 [ext_resource type="Texture2D" uid="uid://cgbhrcm22ac5b" path="res://assets/Resources/titleScreen/aboutMe_backgrounds.png" id="8_b70v6"]
 [ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="9_fnnt3"]
 [ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_n4rrd"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yabvd"]
-load_path = "res://.godot/imported/titleScreen_gradient.png-4372badbb123e0ffbc0762e7c80d0519.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cseyn"]
-load_path = "res://.godot/imported/cloud1.png-ebb697d37dea1052f4b83f59edcbbe0c.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jg7h0"]
-load_path = "res://.godot/imported/cloud2.png-0ac5c928a3c481f73de275766a5fa574.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4a7rd"]
-load_path = "res://.godot/imported/cloud2.png-0ac5c928a3c481f73de275766a5fa574.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a5ccx"]
-load_path = "res://.godot/imported/cloud3-export.png-e89dca9d1789ead37712228de11e0a93.ctex"
+[ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="15_xsgpd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4a7rd"]
 
@@ -60,10 +50,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -160.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5511198, 1.1790555)
-texture = SubResource("CompressedTexture2D_yabvd")
+texture = ExtResource("2_6dcmb")
 expand_mode = 3
 
 [node name="Clouds" type="Node2D" parent="Background" unique_id=1697388576]
@@ -73,22 +64,22 @@ scale = Vector2(1, 1.0799999)
 [node name="Cloud1" type="Sprite2D" parent="Background/Clouds" unique_id=559298934]
 position = Vector2(104, 62.962967)
 scale = Vector2(2.2399998, 2.2399998)
-texture = SubResource("CompressedTexture2D_cseyn")
+texture = ExtResource("3_xsgpd")
 
 [node name="Cloud2" type="Sprite2D" parent="Background/Clouds" unique_id=1391565545]
 position = Vector2(147.00002, 174.07408)
 scale = Vector2(2.04, 2.04)
-texture = SubResource("CompressedTexture2D_jg7h0")
+texture = ExtResource("4_scvbf")
 
 [node name="Cloud3" type="Sprite2D" parent="Background/Clouds" unique_id=593246682]
 position = Vector2(530, 150.00002)
 scale = Vector2(1.8, 1.8)
-texture = SubResource("CompressedTexture2D_4a7rd")
+texture = ExtResource("4_scvbf")
 
 [node name="Cloud4" type="Sprite2D" parent="Background/Clouds" unique_id=868057749]
 position = Vector2(53, 235.1852)
 scale = Vector2(0.23999938, 0.23999938)
-texture = SubResource("CompressedTexture2D_a5ccx")
+texture = ExtResource("5_b70v6")
 
 [node name="Ground" type="Sprite2D" parent="Background" unique_id=1751719271]
 position = Vector2(322, 308)
@@ -449,3 +440,11 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_awjh7")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="SystemMenu" parent="." unique_id=893803557 instance=ExtResource("15_xsgpd")]
+visible = false
+layout_mode = 1
+offset_left = -186.305
+offset_top = 48.96
+offset_right = -186.305
+offset_bottom = 48.960045

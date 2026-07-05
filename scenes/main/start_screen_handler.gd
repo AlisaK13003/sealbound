@@ -41,6 +41,7 @@ func _ready() -> void:
 	_connect_editor_buttons()
 	_setup_menu_arrow()
 	_show_main_menu()
+	Global.time_paused = true
 
 func _on_button_pressed() -> void:
 	_start_game_without_cutscene()

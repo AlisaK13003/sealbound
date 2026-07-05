@@ -22,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_c2cs2")
 
 [node name="Main" type="VBoxContainer" parent="." unique_id=1921249711]
@@ -33,9 +34,10 @@ offset_left = -55.0
 offset_right = 70.0
 offset_bottom = 120.0
 grow_horizontal = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 34
 
 [node name="SlotContainer" type="VBoxContainer" parent="Main" unique_id=1411966905]
+custom_minimum_size = Vector2(0, 108.225)
 layout_mode = 2
 theme_override_constants/separation = 8
 
@@ -116,9 +118,9 @@ custom_minimum_size = Vector2(125, 28)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_1huwu")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_dlh6p")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_fb8s8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_pi3mg")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_50uc3")
+disabled = true
 flat = true
 
 [node name="TextureRect" type="TextureRect" parent="Main/SlotContainer/Slot3" unique_id=2126388185]
@@ -149,11 +151,12 @@ vertical_alignment = 1
 
 [node name="ModeToggle" type="HBoxContainer" parent="Main" unique_id=1555396832]
 layout_mode = 2
-theme_override_constants/separation = 72
+theme_override_constants/separation = 23
 alignment = 1
 
 [node name="DeleteBtn" type="Button" parent="Main/ModeToggle" unique_id=152480482]
-custom_maximum_size = Vector2(120, -1)
+custom_minimum_size = Vector2(59.435, 15.36)
+custom_maximum_size = Vector2(120, 27.115)
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Main/ModeToggle/DeleteBtn" unique_id=495968235]
@@ -186,6 +189,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LoadBtn" type="Button" parent="Main/ModeToggle" unique_id=852914396]
+custom_minimum_size = Vector2(58.28, 0)
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Main/ModeToggle/LoadBtn" unique_id=421127952]
@@ -216,3 +220,5 @@ theme_override_font_sizes/font_size = 12
 text = "Load"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="Main/ModeToggle/DeleteBtn" to="." method="_delete_selected"]

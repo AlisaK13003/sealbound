@@ -40,7 +40,7 @@ signal reached_end_of_dungeon
 func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 	for i in range(15):
-		all_held_items.append(new_item.duplicate())
+		all_held_items.append(load("res://assets/Resources/Dungeon Stuff/temp_item.tres"))
 
 func add_item(item_to_add):
 	if item_to_add is Array:
@@ -317,12 +317,10 @@ func bring_back_combat(_rewards_scene):
 	get_tree().current_scene = explorable_dungeon_scene
 	explorable_dungeon_scene.return_to_exploring()
 
-
 func update_stored_combat_information():
 	pass
 
 func load_saved_data(data):
-	# #2: wipe the _ready() seed data so we restore instead of stacking on top of it
 	all_party_slots.clear()
 	active_party_slots.clear()
 	all_held_equipment.clear()
@@ -332,7 +330,6 @@ func load_saved_data(data):
 	completed_quests.clear()
 	dungeon_types.clear()
 
-	# BUG: these are Dictionaries keyed "slot_0"…, so iterate .values(), not the dict itself
 	for party_member in data["player_slots"].values():
 		var new_party_member: generic_combatants = load(party_member["path"])
 		new_party_member.load_save(party_member)
@@ -358,9 +355,8 @@ func load_saved_data(data):
 		new_d_type.load_save_data(d_type)
 		dungeon_types.append(new_d_type)
 
-	currency_held = int(data["held_currency"])   # JSON numbers can come back as float
+	currency_held = int(data["held_currency"])
 
-	# #4: rebuild active fighters as references into the freshly loaded all_party_slots
 	if data.has("active_slots"):
 		for idx in data["active_slots"]:
 			var i = int(idx)
@@ -368,6 +364,7 @@ func load_saved_data(data):
 				active_party_slots.append(all_party_slots[i])
 				
 func export_to_JSON():
+	
 	var ret_dict: Dictionary = {}
 	var player_slots: Dictionary = {}
 	var equipment_slots: Dictionary = {}
@@ -390,19 +387,17 @@ func export_to_JSON():
 
 	for item_ in range(all_held_items.size()):
 		item_slots["slot_" + str(item_)] = all_held_items[item_].export_to_JSON()
+		print(item_slots["slot_" + str(item_)])
 
-	# #3: quests are Resources — JSON can't serialize them. Store a path dict.
 	for quest_ in range(active_quests.size()):
 		active_quest_slots["quest_" + str(quest_)] = {"path": active_quests[quest_].resource_path}
 
 	for com_quest_ in range(completed_quests.size()):
 		completed_quest_list["quest_" + str(com_quest_)] = {"path": completed_quests[com_quest_].resource_path}
 
-	# #3: dungeon_types carry state, so use their own serializer (must include "path")
 	for d_type in range(dungeon_types.size()):
 		d_types["dtype_" + str(d_type)] = dungeon_types[d_type].export_to_JSON()
 
-	# #4: record which all_party_slots indices are the active fighters
 	var active_indices: Array = []
 	for member in active_party_slots:
 		active_indices.append(all_party_slots.find(member))
@@ -417,4 +412,4 @@ func export_to_JSON():
 	ret_dict["dungeon_types"] = d_types
 	ret_dict["held_currency"] = currency_held
 
-	return ret_dict   # #1: raw dict — the save menu stringifies the whole payload once
+	return ret_dict

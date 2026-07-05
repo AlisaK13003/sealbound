@@ -28,7 +28,7 @@ func _ready():
 	self.visible = false
 	shop_ui.visible = false
 	can_open_shop = false
-	currency_display.text = str(Global.money)
+	currency_display.text = str(GlobalCombatInformation.currency_held)
 	update_shop_details()
 	for item in range(len(shop_stock)):
 		var item_display = shop_item_scene.instantiate()
@@ -44,7 +44,7 @@ func show_shop():
 	shop_ui.visible = true
 	Global.is_in_menu = true
 	get_tree().paused = true
-	currency_display.text = str(Global.money)
+	currency_display.text = str(GlobalCombatInformation.currency_held)
 	update_shop_details()
 	shop_populated.emit()
 

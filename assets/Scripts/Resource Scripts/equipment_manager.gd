@@ -12,7 +12,9 @@ class_name equipment
 @export var shop_cost : int
 
 func export_to_JSON():
-	pass
+	return {
+		"path": resource_path
+	}
 
 func return_stuff():
 	match equipment_type:

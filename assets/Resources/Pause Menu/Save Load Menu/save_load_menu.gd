@@ -11,13 +11,13 @@ var hovered_slot: int = -1
 
 const SAVE_DIR = "user://saves/"
 const SLOT_COUNT = 3
-const TEST_SELECTABLE_EMPTY_SLOT = 2
+#const TEST_SELECTABLE_EMPTY_SLOT = 2
 const DEFAULT_TEXT_COLOR = Color(0.36862746, 0.23137255, 0.13725491, 1.0)
 const ACTIVE_TEXT_COLOR = Color(0.6, 0.36078432, 0.03529412, 1.0)
 const DISABLED_ALPHA = 0.55
 
 @onready var slot_container = get_node_or_null("Main/SlotContainer")
-@onready var save_btn = get_node_or_null("Main/ModeToggle/SaveBtn")
+#@onready var save_btn = get_node_or_null("Main/ModeToggle/SaveBtn")
 @onready var load_btn = get_node_or_null("Main/ModeToggle/LoadBtn")
 @onready var delete_btn = _find_first_node([
 	"Main/ModeToggle/DeleteBtn",
@@ -26,37 +26,40 @@ const DISABLED_ALPHA = 0.55
 
 	
 func _ready():
-	print("overworld player count: ", get_tree().get_nodes_in_group("Overworld_Player").size())
+	#print("overworld player count: ", get_tree().get_nodes_in_group("Overworld_Player").size())
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
-	load_btn.pressed.connect(_set_mode.bind(Mode.LOAD))
-	delete_btn.pressed.connect(_delete_selected)
+	#save_btn.pressed.connect(_set_mode.bind(Mode.SAVE))
+	#load_btn.pressed.connect(_set_mode.bind(Mode.LOAD))
+	#delete_btn.pressed.connect(_delete_selected)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_prepare_action_button(delete_btn)
 	_prepare_action_button(load_btn)
-	_connect_button(save_btn, _set_mode.bind(Mode.SAVE))
+	#_connect_button(save_btn, _set_mode.bind(Mode.SAVE))
 	_connect_button(load_btn, _load_selected)
-	_connect_button(delete_btn, _delete_selected)
-	
+	#_connect_button(delete_btn, _delete_selected)
+	visibility_changed.connect(refresh_slots)
 	if slot_container:
 		for i in min(SLOT_COUNT, slot_container.get_child_count()):
-			var slot_button = slot_container.get_child(i)
-			_prepare_slot_button(slot_button)
-			_connect_button(slot_button, _slot_pressed.bind(i))
-			_connect_hover(slot_button, _slot_hover_changed.bind(i, true), _slot_hover_changed.bind(i, false))
-	
+			if	FileAccess.file_exists(SAVE_DIR + "slot_%d.json" % i):
+				var slot_button = slot_container.get_child(i)
+				_prepare_slot_button(slot_button)
+				_connect_button(slot_button, _slot_pressed.bind(i))
+				_connect_hover(slot_button, _slot_hover_changed.bind(i, true), _slot_hover_changed.bind(i, false))
+			else:
+				var slot_button = slot_container.get_child(i)
+				slot_button.visible = false
 	# Make sure save directory exists
 	if not DirAccess.dir_exists_absolute(SAVE_DIR):
 		DirAccess.make_dir_absolute(SAVE_DIR)
 	
-	if save_btn:
-		save_btn.visible = allow_saving
+	#if save_btn:
+	#	save_btn.visible = allow_saving
 	if delete_btn:
 		delete_btn.visible = show_delete
-	if start_in_load_mode or not allow_saving or save_btn == null:
-		_set_mode(Mode.LOAD)
-	else:
-		_set_mode(Mode.SAVE)
+	#if start_in_load_mode or not allow_saving or save_btn == null:
+	#	_set_mode(Mode.LOAD)
+	#else:
+	#	_set_mode(Mode.SAVE)
 	refresh_slots()
 	_update_action_buttons()
 
@@ -64,8 +67,8 @@ func _set_mode(mode: Mode):
 	if mode == Mode.SAVE and not allow_saving:
 		mode = Mode.LOAD
 	current_mode = mode
-	if save_btn:
-		save_btn.disabled = (mode == Mode.SAVE)
+	#if save_btn:
+	#	save_btn.disabled = (mode == Mode.SAVE)
 	_update_action_buttons()
 
 func refresh_slots():
@@ -82,16 +85,17 @@ func refresh_slots():
 			if json.parse(file.get_as_text()) == OK:
 				var data = json.data
 				var saved_location = _get_saved_location(data)
-				var playtime = "%d:%02d:%02d" % [
+				var playtime = "%d:%02d" % [
 					data.get("play_time_hours", 0),
 					data.get("play_time_minutes", 0),
-					data.get("play_time_seconds", 0)
 				]
 				_set_button_text(btn, "Slot %d  |  %s  |  %s" % [i + 1, saved_location, playtime])
 			else:
 				_set_button_text(btn, "Slot %d  |  Corrupted" % (i + 1))
 		else:
 			_set_button_text(btn, "Empty Save")
+			btn.visible = false
+			return false
 
 	if selected_slot >= 0 and not _is_slot_selectable(selected_slot):
 		selected_slot = -1
@@ -107,7 +111,6 @@ func _slot_pressed(index: int):
 
 func _save_to_slot(index: int):
 	var data = Global.get_save_data()
-	# Tack on playtime so the slot preview can show it
 	data["play_time_hours"] = Global.play_time_hours
 	data["play_time_minutes"] = Global.play_time_minutes
 	data["play_time_seconds"] = Global.play_time_seconds
@@ -117,42 +120,25 @@ func _save_to_slot(index: int):
 	var file = FileAccess.open(SAVE_DIR + "slot_%d.json" % index, FileAccess.WRITE)
 	if file:
 		file.store_string(json_string)
-		file.close()
-	refresh_slots()
 		file.flush()
+		file.close()
+		refresh_slots()
 		file = null
 	call_deferred("refresh_slots")
 
 func _load_from_slot(index: int):
 	var path = SAVE_DIR + "slot_%d.json" % index
+	Global.CURRENT_SAVE_SLOT = path
 	if not FileAccess.file_exists(path):
 		return
 	
 	var file = FileAccess.open(path, FileAccess.READ)
 	var json = JSON.new()
 	if json.parse(file.get_as_text()) == OK:
-		# Better approach — feed the dict straight in:
 		_apply_save_data(json.data)
 
 func _apply_save_data(data: Dictionary):
-	var saved_location = _get_saved_location(data)
 	Global.apply_loaded_player_profile(data)
-	Global.money = data.get("money", Global.money)
-	Global.current_location = saved_location
-	Global.current_region = saved_location
-	
-	if data.has("previous_coordinates"):
-		Global.previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
-	
-	Global.item_list.clear()
-	for path in data.get("item_list", []):
-		Global.item_list.append(load(path))
-	Global.equipment_list.clear()
-	for path in data.get("equipment_list", []):
-		Global.equipment_list.append(load(path))
-	Global.weapon_list.clear()
-	for path in data.get("weapon_list", []):
-		Global.weapon_list.append(load(path))
 	
 	if data.has("npc_bonds"):
 		Global.npc_bonds = data["npc_bonds"]
@@ -165,20 +151,14 @@ func _apply_save_data(data: Dictionary):
 	Global.save_loaded.emit()
 	Global.time_updated.emit()
 	
-	
 	if data.has("combat"):
 		GlobalCombatInformation.load_saved_data(data["combat"]) 
 		
-	# Unpause and load the scene
-	if data.has("player_position"):
-		Global.saved_position = Vector2(data["player_position"]["x"], data["player_position"]["y"])
-		Global.loading_from_save = true
+	Global.current_loading_zone = "Bedroom"
+	Global.current_region = "Buildings_Insides"
 		
-	Global.current_loading_zone = "" 
-
-	Global.current_loading_zone = data.get("current_loading_zone", "")
 	get_tree().paused = false
-	get_tree().change_scene_to_file(Global.location_paths.get(saved_location, "res://scenes/main/Hearthwynn.tscn"))
+	AreaStateManager.swap_scene(self)
 
 func _get_saved_location(data: Dictionary) -> String:
 	var region = data.get("current_region", "")
@@ -187,6 +167,7 @@ func _get_saved_location(data: Dictionary) -> String:
 	return data.get("current_location", "Village")
 
 func _delete_selected():
+	print("HELLOOOOO")
 	if selected_slot < 0:
 		return
 	var path = SAVE_DIR + "slot_%d.json" % selected_slot
@@ -249,7 +230,7 @@ func _update_action_buttons():
 	_set_action_button_enabled(load_btn, has_selection)
 
 func _is_slot_selectable(index: int) -> bool:
-	return FileAccess.file_exists(SAVE_DIR + "slot_%d.json" % index) or index == TEST_SELECTABLE_EMPTY_SLOT
+	return FileAccess.file_exists(SAVE_DIR + "slot_%d.json" % index)
 
 func _prepare_slot_button(button: Node):
 	_prepare_action_button(button)

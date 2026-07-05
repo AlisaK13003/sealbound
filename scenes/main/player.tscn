@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bmb80v1vox7d6" path="res://scenes/main/Player_Equip_Menu.tscn" id="8_u2d4w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_riacy"]
-radius = 22.0
-height = 72.0
+radius = 16.0
+height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2d4w"]
 atlas = ExtResource("2_riacy")
@@ -139,7 +139,7 @@ move_speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305105354 groups=["Overworld_Player"]]
 z_index = 5
-position = Vector2(0, -26)
+position = Vector2(1, -5)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_riacy")
 
@@ -171,11 +171,11 @@ position_smoothing_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=569257666 instance=ExtResource("2_tpytq")]
-visible = false
 z_index = 100
-offset_top = -47.0
-offset_bottom = -47.0
-scale = Vector2(0.5, 0.5)
+offset_left = 297.0
+offset_top = 105.0
+offset_right = -343.0
+offset_bottom = 105.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]

@@ -7,15 +7,12 @@ signal menu_opened
 signal menu_closed
 
 
+var CURRENT_SAVE_SLOT
 var is_paused: bool = false
 
 var spawn_location
 
 var current_weather : weather = weather.Normal
-
-var entire_party : Array[PartyMember]
-
-var money : int
 
 var current_location: String = "Village"
 var previous_coordinates : Vector2
@@ -177,6 +174,8 @@ func did_time_reach(hour: int, minute: int) -> bool:
 	var target_total = get_time_total_minutes(current_day, hour, minute)
 	return previous_total < target_total and target_total <= current_total
 
+var time_paused: bool = false
+
 # Updates the current time
 func _physics_process(delta):
 	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
@@ -184,6 +183,8 @@ func _physics_process(delta):
 	if AreaStateManager.currently_transitioning or GlobalCombatInformation.in_dungeon:
 		return
 	
+	if time_paused:
+		return
 	running_time += delta
 	if floor(running_time) == 1:
 		update_time()
@@ -229,7 +230,7 @@ func player_advanced_day(did_they_pass_out):
 	seconds_since_day_started = 0
 	
 	time_updated.emit()
-	
+	_save_to_slot()
 	if did_they_pass_out:
 		spawn_location = null
 
@@ -648,11 +649,11 @@ func _input(event):
 		return
 
 	if event.is_action_pressed("test"):
-		if event is InputEventKey and event.echo:
-			return
-		if is_in_menu:
-			get_viewport().set_input_as_handled()
-			return
+		#if event is InputEventKey and event.echo:
+		#	return
+		#if is_in_menu:
+		#	get_viewport().set_input_as_handled()
+		#	return
 		debug_skip_day()
 		get_viewport().set_input_as_handled()
 		return
@@ -727,22 +728,16 @@ func load_save_data():
 	if error == OK:
 		var data = json.data
 		
-		money = data["money"]
 		apply_loaded_player_profile(data)
 		
 		previous_coordinates = Vector2(data["previous_coordinates"]["x"], data["previous_coordinates"]["y"])
 		
-		item_list.clear()
-		for path in data["item_list"]:
-			item_list.append(load(path))
-		equipment_list.clear()
-		for path in data["equipment_list"]:
-			equipment_list.append(load(path))
-		weapon_list.clear()
-		for path in data["weapon_list"]:
-			weapon_list.append(load(path))
-		
 		npc_bonds = data.get("npc_bonds", {})
+		
+		Global.current_region = "Buildings_Insides"
+		Global.current_loading_zone = "Bedroom"
+		AreaStateManager._setup()
+		AreaStateManager.swap_scene(self)
 		
 		progression_state.clear()
 		for key in data["progression_state"]:
@@ -753,17 +748,7 @@ func load_save_data():
 		print("Parse Error: ", json.get_error_message())
 
 func get_save_data() -> Dictionary:
-	var player_node = get_tree().get_first_node_in_group("Overworld_Player")
-	var player_position = saved_position
-	if player_node:
-		player_position = player_node.global_position
-
-	var save_region = current_region
-	if not location_paths.has(save_region):
-		save_region = current_location
-
 	var save_dict = {
-		"money": money,
 		"player_name": player_name,
 		"player_gender": player_gender,
 		"tutorial_flags": tutorial_flags,
@@ -772,23 +757,8 @@ func get_save_data() -> Dictionary:
 		"current_year": current_year,
 		"current_hour": current_hour,
 		"current_minute": current_minute,
-		"current_location": save_region,
-		"current_loading_zone": current_loading_zone,
-		"current_region": save_region,
-		"player_position": {
-			"x": player_position.x,
-			"y": player_position.y
-		},
-		"entire_party": _get_path_array(entire_party),
-		"previous_coordinates": {
-			"x": previous_coordinates.x,
-			"y": previous_coordinates.y
-		},
 		"progression_state": progression_state,
 
-		"item_list": _get_path_array(item_list),
-		"equipment_list": _get_path_array(equipment_list),
-		"weapon_list": _get_path_array(weapon_list),
 		"npc_bonds": npc_bonds,
 	}
 	var player = get_tree().get_first_node_in_group("Overworld_Player")
@@ -798,6 +768,32 @@ func get_save_data() -> Dictionary:
 			"y": player.global_position.y
 		}
 	return save_dict
+const SAVE_DIR = "user://saves/"
+func _save_to_slot():
+	var data = get_save_data()
+	data["play_time_hours"] = play_time_hours
+	data["play_time_minutes"] = play_time_minutes
+	data["play_time_seconds"] = play_time_seconds
+	data["combat"] = GlobalCombatInformation.export_to_JSON()
+	
+	var json_string = JSON.stringify(data, "\t")
+	if CURRENT_SAVE_SLOT != null:
+		var file = FileAccess.open(CURRENT_SAVE_SLOT, FileAccess.WRITE)
+		if file:
+			file.store_string(json_string)
+			file.flush()
+			file.close()
+			file = null
+	else:
+		var current_slot: int = 0
+		while FileAccess.file_exists(SAVE_DIR + "slot_%d.json" % current_slot):
+			current_slot += 1
+
+		CURRENT_SAVE_SLOT = (SAVE_DIR + "slot_%d.json" % current_slot)
+		var file = FileAccess.open(CURRENT_SAVE_SLOT, FileAccess.WRITE)
+		file.store_string(json_string)
+		file.flush()
+		file.close()
 
 func _get_path_array(arr: Array) -> Array[String]:
 	var paths: Array[String] = []
@@ -841,7 +837,7 @@ signal inventory_updated(slot_that_was_updated)
 signal purse_updated
 
 func spent_or_obtained_money(amount):
-	money = money + amount
+
 	purse_updated.emit()
 
 func added_to_inventory(added_thing: inventory_items, where_was_it_added):
