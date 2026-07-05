@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://bxfbuhkvgd1bg"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_covm5"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_2hflu"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_q3d62"]
+[ext_resource type="SpriteFrames" uid="uid://b0wou18gkoe7f" path="res://assets/Enemies/Tiny_Wolf_Sprite_Frames.tres" id="4_hyrhr"]
+
+[sub_resource type="Resource" id="Resource_oij4f"]
+script = ExtResource("2_2hflu")
+level = 5
+max_health = 50
+health = 50
+attack = 15
+defense = 42
+magic = 50
+resistance = 50
+speed = 50
+luck = 50
+evasion = 50
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("2_q3d62")
+combatant_name = "Tiny Wolf"
+combatant_stats = SubResource("Resource_oij4f")
+is_combatant_enemy = true
+coin_drop_range = Vector2i(0, 10)
+bond_drop_range = Vector2i(0, 5)
+sprite_frames = ExtResource("4_hyrhr")
+idle_speed = 1.0
+death_speed = 1.0
+walk_speed = 1.0
+sprite_scale = 0.01
+sprite_offset = Vector2(-20, -20)
+metadata/_custom_type_script = "uid://125iickqse23"

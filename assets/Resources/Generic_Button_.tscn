@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cf76f4x0lvyrw"]
 
 [ext_resource type="Script" uid="uid://bqxj5owcwyyxy" path="res://assets/Resources/generic_button_.gd" id="1_s28mv"]
-[ext_resource type="Texture2D" uid="uid://cfpgrcj2b7b1u" path="res://assets/tile sheets/Centered_Controller_Inputs.png" id="2_f4r1o"]
+[ext_resource type="Texture2D" uid="uid://ndqcntjdkn0e" path="res://assets/Input_Icons/Keyboard_Mouse/Dark/T_Keyboard_Mouse_Key_Sprite.png" id="2_xv3tk"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_xv3tk"]
 
 [node name="GenericButton" type="TextureButton" unique_id=1034936178]
@@ -28,11 +28,11 @@ layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/Container" unique_id=292325724]
 position = Vector2(24.5, 5)
-texture = ExtResource("2_f4r1o")
+texture = ExtResource("2_xv3tk")
 offset = Vector2(0, 4.2)
-hframes = 4
-vframes = 11
-frame = 34
+hframes = 10
+vframes = 10
+frame = 22
 
 [node name="Label2" type="Label" parent="HBoxContainer" unique_id=698061328]
 custom_minimum_size = Vector2(50, 0)

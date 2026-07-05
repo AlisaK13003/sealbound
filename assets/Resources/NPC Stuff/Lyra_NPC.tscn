@@ -1,122 +1,122 @@
-[gd_scene format=3 uid="uid://lyra_npc_001"]
+[gd_scene format=3 uid="uid://drkj78alfmusa"]
 
-[ext_resource type="Script" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_lyra1"]
-[ext_resource type="Texture2D" path="res://assets/characters/lyra/lyra_idle.png" id="2_lyra1"]
-[ext_resource type="Texture2D" path="res://assets/characters/lyra/lyra_walk.png" id="3_lyra1"]
+[ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_lyra1"]
+[ext_resource type="Texture2D" uid="uid://bso3ewegpelqe" path="res://assets/characters/lyra/lyra_idle.png" id="2_3t744"]
+[ext_resource type="Texture2D" uid="uid://k8h3wryir8iy" path="res://assets/characters/lyra/lyra_walk.png" id="3_rxsbu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_52tew"]
-atlas = ExtResource("2_lyra1")
-region = Rect2(0, 0, 150, 288)
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5xhj"]
+atlas = ExtResource("2_3t744")
+region = Rect2(0, 0, 150, 282)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3k3xb"]
-atlas = ExtResource("3_lyra1")
-region = Rect2(0, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ysr08"]
-atlas = ExtResource("3_lyra1")
-region = Rect2(192, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3insh"]
-atlas = ExtResource("3_lyra1")
-region = Rect2(384, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7jk0"]
-atlas = ExtResource("3_lyra1")
-region = Rect2(576, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5455o"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gidxn"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(768, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_leaap"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnrgh"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(960, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vcmje"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydika"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(1152, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_edq0w"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cbf0"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(1344, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lff06"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tswuy"]
+atlas = ExtResource("3_rxsbu")
+region = Rect2(0, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxgxs"]
+atlas = ExtResource("3_rxsbu")
+region = Rect2(192, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_771k4"]
+atlas = ExtResource("3_rxsbu")
+region = Rect2(384, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_782ju"]
+atlas = ExtResource("3_rxsbu")
+region = Rect2(576, 0, 192, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjkn7"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(1536, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hsnfw"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_07136"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(1728, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_54v38"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_worn2"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(1920, 0, 192, 288)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fa7ct"]
-atlas = ExtResource("3_lyra1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_awd3r"]
+atlas = ExtResource("3_rxsbu")
 region = Rect2(2112, 0, 192, 288)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l0ocd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_52tew")
+"texture": SubResource("AtlasTexture_d5xhj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3k3xb")
+"texture": SubResource("AtlasTexture_gidxn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ysr08")
+"texture": SubResource("AtlasTexture_qnrgh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3insh")
+"texture": SubResource("AtlasTexture_ydika")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f7jk0")
+"texture": SubResource("AtlasTexture_0cbf0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_down",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5455o")
+"texture": SubResource("AtlasTexture_tswuy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_leaap")
+"texture": SubResource("AtlasTexture_wxgxs")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vcmje")
+"texture": SubResource("AtlasTexture_771k4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_edq0w")
+"texture": SubResource("AtlasTexture_782ju")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_side",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lff06")
+"texture": SubResource("AtlasTexture_fjkn7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hsnfw")
+"texture": SubResource("AtlasTexture_07136")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_54v38")
+"texture": SubResource("AtlasTexture_worn2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fa7ct")
+"texture": SubResource("AtlasTexture_awd3r")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_up",
 "speed": 3.5
 }]
@@ -127,6 +127,8 @@ radius = 245.58908
 [node name="NpcTemplate" type="Node2D" unique_id=823861240]
 script = ExtResource("1_lyra1")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/lyra_dialogue.json"
+npc_id = "lyra"
+schedule_path = "res://assets/Resources/NPC Stuff/Schedules/lyra/Weekday.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736806]
 
@@ -138,8 +140,6 @@ shape = SubResource("RectangleShape2D_7u671")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_l0ocd")
 animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.5
 
 [node name="Player_In_Range" type="Area2D" parent="." unique_id=289574464]
 

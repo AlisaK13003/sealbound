@@ -74,5 +74,4 @@ sprite_frames = ExtResource("9_ouiim")
 idle_speed = 0.2
 walk_speed = 0.7
 sprite_scale = 0.001
-bond_level = null
 metadata/_custom_type_script = "uid://125iickqse23"

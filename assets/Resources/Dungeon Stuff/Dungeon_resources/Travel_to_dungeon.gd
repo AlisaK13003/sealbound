@@ -29,16 +29,13 @@ func _ready():
 	for button in dungeon_select_buttons.get_children():
 		if button.button_name_text.text == "Soon":
 			button.visible = false
-		
-	for child in container_thing.get_children():
-		if child.get_index() == 0:
-			child.visible = true
-		else:
-			child.visible = false
+
+	apply_demo_dungeon_locks()
+	show_selected_dungeon()
 	await Fade.fade_out(0.5)
 
 var in_cycle = false
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not in_cycle:
 		in_cycle = true
 		background.rotation_degrees = -360
@@ -47,7 +44,44 @@ func _physics_process(delta):
 		await tween.finished
 		in_cycle = false
 
+func apply_demo_dungeon_locks() -> void:
+	var found_unlocked_dungeon := false
+
+	for child in container_thing.get_children():
+		child.visible = false
+
+	for button in dungeon_select_buttons.get_children():
+		var dungeon_index: int = button.get_index()
+		var has_dungeon: bool = dungeon_index < GlobalCombatInformation.dungeon_types.size()
+		var is_unlocked: bool = has_dungeon and Global.is_demo_dungeon_unlocked(dungeon_index)
+		button.visible = is_unlocked
+		if is_unlocked and not found_unlocked_dungeon:
+			current_selected_dungeon = dungeon_index
+			found_unlocked_dungeon = true
+
+	if not found_unlocked_dungeon:
+		current_selected_dungeon = -1
+
+func show_selected_dungeon() -> void:
+	hide_all_info()
+	if current_selected_dungeon >= 0 and current_selected_dungeon < container_thing.get_child_count():
+		container_thing.get_child(current_selected_dungeon).visible = true
+
+func is_dungeon_unlocked(dungeon_select: int) -> bool:
+	return dungeon_select >= 0 and dungeon_select < GlobalCombatInformation.dungeon_types.size() and Global.is_demo_dungeon_unlocked(dungeon_select)
+
+func show_dungeon_locked_message(dungeon_select: int) -> void:
+	if not Global.has_story_flag(Global.STORY_FLAG_LYRA_AXE_QUEST_STARTED):
+		Global.show_mc_thought(Global.LYRA_FIRST_OBJECTIVE_TEXT)
+	elif dungeon_select == Global.DUNGEON_INDEX_CAVE:
+		Global.show_mc_thought("I do not have a reason to go there yet.")
+	else:
+		Global.show_mc_thought("I cannot go there yet.")
+
 func change_selected_dungeon(dungeon_select):
+	if not is_dungeon_unlocked(dungeon_select):
+		show_dungeon_locked_message(dungeon_select)
+		return
 	hide_all_info()
 	current_selected_dungeon = dungeon_select
 	container_thing.get_child(dungeon_select).visible = true
@@ -58,9 +92,21 @@ func hide_all_info():
 
 func travel(set_off_for_dungeon):
 	if set_off_for_dungeon:
+		if not is_dungeon_unlocked(current_selected_dungeon):
+			show_dungeon_locked_message(current_selected_dungeon)
+			return
 		await Fade.fade_in(1)
 		await GlobalCombatInformation.load_items()
 		GlobalCombatInformation.transition_to_dungeon(current_selected_dungeon)
 	else:
 		await Fade.fade_in(1)
-		Fade.change_scene("res://scenes/main/Hearthwynn.tscn")
+		Global.current_region = "Village"
+		Global.current_location = "Village"
+		Global.current_loading_zone = "Spooky Forest"
+		GlobalCombatInformation.in_dungeon = false
+		AreaStateManager._setup(false)
+		var hearthwynn_scene: Node = await Fade.change_scene("res://scenes/main/Hearthwynn.tscn")
+		if hearthwynn_scene != null and hearthwynn_scene.has_method("swap_to_me"):
+			await hearthwynn_scene.swap_to_me()
+		else:
+			await Fade.fade_out(0.5)

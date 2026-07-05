@@ -2,9 +2,9 @@ extends Control
 
 class_name player_portraits
 
-@onready var health_num = $VBoxContainer/Health_Num
+@onready var health_num = $Health_Num
 @onready var party_portrait = $Portrait
-@onready var portrait_name = $VBoxContainer/Name
+#@onready var portrait_name = $VBoxContainer/Name
 @onready var portrait_status = $Statuses
 
 var person_max_health = 0
@@ -27,7 +27,7 @@ func _setup(person_to_setup: generic_combatants):
 		else:
 			party_portrait.texture = person_frames.get_frame_texture(2)
 	
-	portrait_name.text = person_to_setup.combatant_name
+	#portrait_name.text = person_to_setup.combatant_name
 	
 func _update_health(health_value):
 	health_value *= -1

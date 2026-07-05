@@ -1,0 +1,125 @@
+{
+  "id": "opening_tutorial_scene_0",
+  "beats": [
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.0
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "neutral",
+	  "text": "..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "Ugh..."
+	},
+	{
+	  "type": "animation",
+	  "name": "intro_scene_0"
+	},
+	{
+	  "type": "fade",
+	  "direction": "out",
+	  "duration": 0.65
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Shadowy Figure",
+	  "text": "...No..."
+	},
+	{
+	  "type": "animation",
+	  "name": "shadow_approach"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Shadowy Figure",
+	  "text": "No, no, no..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Shadowy Figure",
+	  "text": "I... I didn't mean to..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "[i]I know him...?[/i]"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "[i]In the distance, footsteps approach. You hear a faint lantern click.[/i]"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Shadowy Figure",
+	  "text": "!"
+	},
+	{
+	  "type": "animation",
+	  "name": "shadow_exit"
+	},
+	{
+	  "type": "animation",
+	  "name": "sera_approach"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "portrait_frame": "neutral",
+	  "text": "Hello...?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "portrait_frame": "sad",
+	  "text": "Oh!"
+	},
+	{
+	  "type": "animation",
+	  "name": "sera_run"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "portrait_frame": "sad",
+	  "text": "Oh, poor thing... you must've been caught in that awful blast..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "[i]Someone... talking...? I can't... understand...[/i]"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "portrait_frame": "sad",
+	  "text": "You're hurt... I'm sorry, but I'm taking you back to my village."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "portrait_frame": "neutral",
+	  "text": "I'll tend to your wounds there."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "???",
+	  "portrait_frame": "neutral",
+	  "text": "..."
+	},
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.7
+	}
+  ]
+}

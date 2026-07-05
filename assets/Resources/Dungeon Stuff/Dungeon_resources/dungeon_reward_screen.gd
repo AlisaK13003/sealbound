@@ -8,13 +8,15 @@ extends Control
 
 @onready var total_gold = $CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/total_gold
 @onready var gold_gained = $CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer/coins_gained
-@onready var items_gained = $CanvasLayer/Container/MarginContainer/VBoxContainer/GridContainer
+@onready var items_gained = $CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer/GridContainer
 
 @onready var background = $TextureRect
 
+@onready var label_template = $Label
+
 var tot_gold = 0
 var gold_obtained = 0
-var obtained_items: Array[Items] = []
+var obtained_items
 
 signal portraits_populated
 
@@ -42,13 +44,12 @@ func _physics_process(delta):
 
 func _leave_rewards_screen():
 	if not next_button.visible:
-		Global.money = GlobalCombatInformation.currency_held 
 		Global.current_location = "Village"
 		Global.current_loading_zone = "Infirmary_Spawn"
 		await Fade.fade_in(1)		
-		Fade.change_scene(Global.location_paths["Village"])
+		GlobalCombatInformation.bring_back_combat(self)
 
-func _setup(coins_gained: int , experience_gained: int, bond_gained: int, items_gained: Array[Items]):
+func _setup(coins_gained: int , experience_gained: int, bond_gained: int, items_gained = null):
 	gold_obtained = coins_gained
 	tot_gold = GlobalCombatInformation.currency_held
 	obtained_items = items_gained
@@ -68,14 +69,17 @@ func swapped_page():
 		return_button.visible = true
 		total_gold.text = "Gold: \t" + str(tot_gold)
 		gold_gained.text = "Gained Gold: \t" + str(gold_obtained)
-		for item: Items in obtained_items:
-			var new_item = Label.new()
-			new_item.custom_minimum_size.x = 70
-			new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			new_item.text = item.item_name
-			items_gained.add_child(new_item)
+		if obtained_items != null:
+			for item: Items in obtained_items:
+				var new_item = Label.new()
+				new_item.label_settings = label_template.label_settings
+				new_item.custom_minimum_size.x = 100
+				new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+				new_item.text = item.item_name
+				items_gained.add_child(new_item)
 		if items_gained.get_child_count() == 0:
 			var new_item = Label.new()
+			new_item.label_settings = label_template.label_settings
 			new_item.text = "No items"
 			new_item.custom_minimum_size.x = 70
 			new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

@@ -33,6 +33,7 @@ var contemplating_to_sell: inventory_items
 var item_slot_to_sell: int
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	await parent.ready
 	parent.shop_populated.connect(update_display.bind(0))
 	shop_stock = parent.shop_stock
@@ -80,6 +81,11 @@ func close_thing(event):
 		purchase_confirmation_parent.visible = false
 
 func _input(event):
+	if visible and (event.is_action_pressed("ui_cancel") or event.is_action_pressed("Pause") or event.is_action_pressed("Exit Menu")):
+		_exit_shop()
+		get_viewport().set_input_as_handled()
+		return
+
 	if can_scroll and purchase_confirmation_parent.visible == false:
 		if event.is_action_pressed("Mouse Scroll Down"):
 			update_display(1)
@@ -195,4 +201,5 @@ func _exit_shop():
 	if parent != null:
 		parent.visible = false
 	purchase_confirmation_parent.visible = false
+	get_tree().paused = false
 	Global.is_in_menu = false

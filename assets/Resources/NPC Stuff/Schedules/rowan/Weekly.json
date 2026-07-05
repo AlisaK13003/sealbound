@@ -1,0 +1,54 @@
+{
+  "id": "Rowan_Weekly",
+  "days": {
+	"default": {
+	  "schedules": {
+		"Morning_Work": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+		  "end_scene": "",
+		  "start_time_hour": 6,
+		  "start_time_minute": 0,
+		  "start_location": "Tavern",
+		  "end_location": "22",
+		  "travel_minutes": 20,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0
+		},
+		"Lunch_Break": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+		  "end_scene": "",
+		  "start_time_hour": 12,
+		  "start_time_minute": 0,
+		  "start_location": "22",
+		  "end_location": "TownSquare",
+		  "travel_minutes": 35,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0
+		},
+		"Evening_Tavern": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+		  "end_scene": "",
+		  "start_time_hour": 17,
+		  "start_time_minute": 0,
+		  "start_location": "TownSquare",
+		  "end_location": "Tavern",
+		  "travel_minutes": 35,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0
+		}
+	  }
+	}
+  }
+}

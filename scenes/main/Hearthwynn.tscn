@@ -13,18 +13,19 @@
 [ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="11_ujx4y"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Kaela_NPC.tscn" id="12_kaela1"]
 [ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Orion_NPC.tscn" id="13_orion1"]
-[ext_resource type="PackedScene" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
+[ext_resource type="PackedScene" uid="uid://drkj78alfmusa" path="res://assets/Resources/NPC Stuff/Lyra_NPC.tscn" id="14_lyra1"]
 [ext_resource type="PackedScene" uid="uid://d2l54oy03qbul" path="res://scenes/main/temp_thing.tscn" id="15_lg162"]
+[ext_resource type="PackedScene" uid="uid://bmyel7npdb8dh" path="res://assets/Resources/Interactables/Quests (2)/Quest Board.tscn" id="16_f16d7"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="17_hx6s5"]
+[ext_resource type="Resource" uid="uid://ckvjm4udjmx8g" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres" id="18_0ctb6"]
+[ext_resource type="Resource" uid="uid://cohh5er82ic0f" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres" id="19_6j7d3"]
+[ext_resource type="Resource" uid="uid://bf7gu5cs8o732" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres" id="20_5its2"]
 
 [node name="Hearthwynn" type="Node2D" unique_id=981634707 node_paths=PackedStringArray("player_node")]
 y_sort_enabled = true
 position = Vector2(-46, -5)
 script = ExtResource("1_ofm1v")
 player_node = NodePath("Player")
-
-[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
-y_sort_enabled = true
-position = Vector2(2058, -1549)
 
 [node name="Buildings" type="Node2D" parent="." unique_id=2101509992]
 position = Vector2(2116, -1513)
@@ -33,33 +34,87 @@ position = Vector2(2116, -1513)
 position = Vector2(805, 794)
 
 [node name="LoadingZone" parent="Buildings/WeaponShop" unique_id=1216423571 instance=ExtResource("4_jt62i")]
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Blacksmith"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Blacksmith"
 
-[node name="Infirmary_Spawn" type="Node2D" parent="Buildings" unique_id=2085898168]
+[node name="Infirmary" type="Node2D" parent="Buildings" unique_id=2085898168]
 position = Vector2(2284, 687)
 
-[node name="LoadingZone" parent="Buildings/Infirmary_Spawn" unique_id=1269289252 instance=ExtResource("4_jt62i")]
+[node name="LoadingZone" parent="Buildings/Infirmary" unique_id=1269289252 instance=ExtResource("4_jt62i")]
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Infirmary"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Infirmary"
 
+[node name="Tavern" type="Node2D" parent="Buildings" unique_id=996321483]
+
+[node name="LoadingZone" parent="Buildings/Tavern" unique_id=1432167011 instance=ExtResource("4_jt62i")]
+z_index = -2
+position = Vector2(2151, 284)
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
+}
+"Current Location/Region" = "Village"
+"Current Location/Spot" = "Tavern"
+"Destination Location/Region" = "Buildings_Insides"
+"Destination Location/Spot" = "Tavern"
+
+[node name="Library" type="Node2D" parent="Buildings" unique_id=428195102]
+position = Vector2(1106, -139)
+
+[node name="LoadingZone" parent="Buildings/Library" unique_id=1621542184 instance=ExtResource("4_jt62i")]
+z_index = -2
+"Current Location/Region" = "Village"
+"Current Location/Spot" = "Library"
+"Destination Location/Region" = "Buildings_Insides"
+"Destination Location/Spot" = "Library"
+
+[node name="TestHearthwynn" parent="." unique_id=870393077 instance=ExtResource("2_ujx4y")]
+y_sort_enabled = true
+position = Vector2(2058, -1549)
+
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("6_lg162")]
 y_sort_enabled = true
-position = Vector2(3669, -1127)
-move_speed = 200.0
+position = Vector2(4320, -1160)
+move_speed = 300.0
 
 [node name="Spooky Forest" parent="." unique_id=1733936778 instance=ExtResource("4_jt62i")]
 position = Vector2(4013, -2517)
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Spooky Forest"
 "Destination Location/Spot" = "Left Side"
 
 [node name="Cliff Side" parent="." unique_id=563595575 instance=ExtResource("4_jt62i")]
-position = Vector2(4084, -1070)
+position = Vector2(5009, -1085)
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side"]
+}
 "Current Location/Region" = "Village"
 "Current Location/Spot" = "Cliff Side"
 "Destination Location/Region" = "Cliff Side"
@@ -125,13 +180,28 @@ connected_node_names = ["5", "10", "13"]
 
 [node name="10" parent="VillageLocationContainer" unique_id=827314290 instance=ExtResource("8_732vc")]
 position = Vector2(2268, 310)
-connected_node_names = ["6", "9", "11"]
-"Connected To" = ["6", "9", "11"]
+connected_node_names = ["11", "21"]
+"Connected To" = ["11", "21"]
+
+[node name="21" parent="VillageLocationContainer" unique_id=995392573 instance=ExtResource("8_732vc")]
+position = Vector2(2268, 284)
+connected_node_names = ["10", "TownSquare"]
+"Connected To" = ["10", "TownSquare"]
+
+[node name="TownSquare" parent="VillageLocationContainer" unique_id=2056982134 instance=ExtResource("8_732vc")]
+position = Vector2(2227, 284)
+connected_node_names = ["21"]
+"Connected To" = ["21"]
 
 [node name="11" parent="VillageLocationContainer" unique_id=1044074421 instance=ExtResource("8_732vc")]
 position = Vector2(2850, 310)
-connected_node_names = ["10", "20", "Tavern"]
-"Connected To" = ["10", "20", "Tavern"]
+connected_node_names = ["10", "15"]
+"Connected To" = ["10", "15"]
+
+[node name="15" parent="VillageLocationContainer" unique_id=45305802 instance=ExtResource("8_732vc")]
+position = Vector2(2850, 171)
+connected_node_names = ["11", "Tavern"]
+"Connected To" = ["11", "Tavern"]
 
 [node name="12" parent="VillageLocationContainer" unique_id=1123209394 instance=ExtResource("8_732vc")]
 position = Vector2(3512, 310)
@@ -175,8 +245,13 @@ connected_node_names = ["12", "11", "19"]
 
 [node name="Tavern" parent="VillageLocationContainer" unique_id=1081190777 instance=ExtResource("8_732vc")]
 position = Vector2(2776, 171)
-connected_node_names = ["10"]
-"Connected To" = ["10"]
+connected_node_names = ["15", "22"]
+"Connected To" = ["15", "22"]
+
+[node name="22" parent="VillageLocationContainer" unique_id=1768313168 instance=ExtResource("8_732vc")]
+position = Vector2(2776, 101)
+connected_node_names = ["Tavern"]
+"Connected To" = ["Tavern"]
 
 [node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("10_1ifxj")]
 position = Vector2(3032, -674)
@@ -198,29 +273,43 @@ position = Vector2(5019, -413)
 position = Vector2(3401, -443)
 
 [node name="Cassian_NPC" parent="." unique_id=1817321559 node_paths=PackedStringArray("location_container") instance=ExtResource("9_8ncia")]
-position = Vector2(3614.0002, -1229)
+position = Vector2(4083.0002, -1777)
 scale = Vector2(0.39999998, 0.39999998)
 location_container = NodePath("../VillageLocationContainer")
 
 [node name="NpcTemplate2" parent="." unique_id=11279432 instance=ExtResource("10_ofm1v")]
-position = Vector2(3384, -1180)
+position = Vector2(2883, -1220)
 scale = Vector2(0.48000002, 0.48000002)
 
-[node name="Sera_NPC" parent="." unique_id=1051293040 instance=ExtResource("11_ujx4y")]
-position = Vector2(3997.0002, -761.99994)
+[node name="Sera_NPC" parent="." unique_id=1051293040 node_paths=PackedStringArray("location_container") instance=ExtResource("11_ujx4y")]
+position = Vector2(3983, -758.9999)
 scale = Vector2(0.44, 0.44)
+location_container = NodePath("../VillageLocationContainer")
 
-[node name="Kaela_NPC" parent="." unique_id=1711293041 instance=ExtResource("12_kaela1")]
-position = Vector2(3860, -1054.0001)
+[node name="Kaela_NPC" parent="." unique_id=1711293041 node_paths=PackedStringArray("location_container") instance=ExtResource("12_kaela1")]
+position = Vector2(3296, -1246.0001)
 scale = Vector2(0.42, 0.42)
+location_container = NodePath("../VillageLocationContainer")
 
-[node name="Orion_NPC" parent="." unique_id=1711293042 instance=ExtResource("13_orion1")]
-position = Vector2(3927, -1209)
+[node name="Orion_NPC" parent="." unique_id=1711293042 node_paths=PackedStringArray("location_container") instance=ExtResource("13_orion1")]
+position = Vector2(3530, -1267)
 scale = Vector2(0.42, 0.42)
-
-[node name="Lyra_NPC" parent="." unique_id=1711293043 instance=ExtResource("14_lyra1")]
-position = Vector2(3358, -942)
-scale = Vector2(0.44, 0.44)
+location_container = NodePath("../VillageLocationContainer")
 
 [node name="TempThing2" parent="." unique_id=760205585 instance=ExtResource("15_lg162")]
 position = Vector2(3685, -411)
+
+[node name="QuestBoard" parent="." unique_id=1065708173 instance=ExtResource("16_f16d7")]
+position = Vector2(3884, -573)
+stored_quests_ = Array[ExtResource("17_hx6s5")]([ExtResource("18_0ctb6"), ExtResource("19_6j7d3"), ExtResource("20_5its2")])
+
+[node name="Lyra_NPC" parent="." unique_id=1163987242 node_paths=PackedStringArray("location_container") instance=ExtResource("14_lyra1")]
+position = Vector2(4266, -1289)
+scale = Vector2(0.4148609, 0.4148609)
+location_container = NodePath("../VillageLocationContainer")
+speed = 80.0
+
+[node name="Rowan_NPC" parent="." unique_id=1588257618 node_paths=PackedStringArray("location_container") instance=ExtResource("10_ofm1v")]
+position = Vector2(2875, -644)
+scale = Vector2(0.44, 0.44)
+location_container = NodePath("../VillageLocationContainer")

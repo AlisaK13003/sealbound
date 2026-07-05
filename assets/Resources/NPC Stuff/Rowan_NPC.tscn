@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://ckp71tv7lpfj5"]
 
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_q6rq3"]
-[ext_resource type="Texture2D" uid="uid://c812bdeo2058y" path="res://assets/characters/rowan/rowan_idle.png" id="2_q6rq3"]
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="3_1gx6e"]
 [ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="4_bd4on"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_4xdjx"]
+[ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="6_shop_portrait"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_caf75"]
-atlas = ExtResource("2_q6rq3")
-region = Rect2(0, 0, 150, 288)
+[sub_resource type="AtlasTexture" id="AtlasTexture_md64o"]
+atlas = ExtResource("3_1gx6e")
+region = Rect2(0, 0, 192, 288)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bd4on"]
 atlas = ExtResource("3_1gx6e")
@@ -65,9 +65,9 @@ region = Rect2(2112, 0, 192, 288)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_caf75")
+"texture": SubResource("AtlasTexture_md64o")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -84,7 +84,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lei18")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_down",
 "speed": 5.0
 }, {
@@ -101,7 +101,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c4r1i")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_side",
 "speed": 5.0
 }, {
@@ -118,7 +118,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_06hir")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_up",
 "speed": 3.5
 }]
@@ -126,9 +126,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
 radius = 245.58908
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_shop_portrait"]
+atlas = ExtResource("6_shop_portrait")
+region = Rect2(0, 0, 48, 75)
+
 [node name="NpcTemplate" type="Node2D" unique_id=823861237]
 script = ExtResource("1_q6rq3")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/rowan_dialogue.json"
+npc_id = "rowan"
+schedule_path = "res://assets/Resources/NPC Stuff/Schedules/rowan/Weekly.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
 
@@ -141,7 +147,6 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_l0ocd")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.68993026
 
 [node name="Player_In_Range" type="Area2D" parent="." unique_id=289574461]
 
@@ -151,14 +156,23 @@ shape = SubResource("CircleShape2D_ilmyp")
 [node name="ShopController" type="Node2D" parent="." unique_id=827537280]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_bd4on")
+shop_owner_portrait = SubResource("AtlasTexture_shop_portrait")
+shop_name = "Blacksmith"
+shop_owner_name = "Rowan"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ShopController" unique_id=617435556]
 
 [node name="ShopInterface" parent="ShopController/CanvasLayer" unique_id=1487542661 node_paths=PackedStringArray("parent") instance=ExtResource("5_4xdjx")]
-offset_left = 325.0
-offset_top = 209.0
-offset_right = 325.0
-offset_bottom = 209.0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 145.0
+offset_top = 72.0
+offset_right = 145.0
+offset_bottom = 72.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.5636769, 0.5636769)
 parent = NodePath("../..")
 
 [connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]

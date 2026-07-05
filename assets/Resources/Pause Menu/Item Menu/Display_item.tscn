@@ -2,20 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_cn63v"]
 [ext_resource type="Script" uid="uid://bxedysd0u2jl6" path="res://assets/Resources/Pause Menu/Item Menu/display_item.gd" id="1_e2cpd"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_o752c"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2cpd"]
-size = Vector2(349, 52)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
+bg_color = Color(0.44790196, 0.6198128, 0.7764799, 1)
+skew = Vector2(-0.1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.40067393, 0.87550306, 0.9797564, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2cpd"]
-bg_color = Color(0.7176471, 0.65882355, 0.44313726, 1)
-border_color = Color(0.6183839, 0.83676624, 0.9447376, 1)
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[node name="DisplayItem" type="Control" unique_id=2106233664 node_paths=PackedStringArray("item_name", "item_sprite")]
+[node name="DisplayItem" type="Control" unique_id=2106233664]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,42 +23,41 @@ grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 script = ExtResource("1_e2cpd")
-item_name = NodePath("HBoxContainer/Label")
-item_sprite = NodePath("HBoxContainer/TextureRect")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1825522464]
+[node name="Panel" type="Panel" parent="." unique_id=1451676653]
 layout_mode = 0
-offset_left = -176.0
-offset_top = -26.0
-offset_right = 174.0
-offset_bottom = 27.0
+offset_left = -88.0
+offset_top = -20.0
+offset_right = 88.0
+offset_bottom = 20.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1242087735]
-layout_mode = 2
-texture = ExtResource("1_cn63v")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer" unique_id=495771260]
-layout_mode = 2
+[node name="Label" type="Label" parent="." unique_id=495771260]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 0
+offset_left = -59.199997
+offset_top = -20.0
+offset_right = 90.8
+offset_bottom = 19.999996
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-text = "EXPLOSIVE POTION"
+theme_override_fonts/font = ExtResource("3_o752c")
+theme_override_font_sizes/font_size = 13
+text = "Fallen Adventurer's Blade"
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1270893799]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1046601492]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_e2cpd")
-
-[node name="Panel" type="Panel" parent="." unique_id=1169399607]
-z_index = -1
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1242087735]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = -176.0
-offset_top = -26.0
-offset_right = 174.0
-offset_bottom = 26.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_e2cpd")
-
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+offset_left = -88.0
+offset_top = -20.0
+offset_right = -53.0
+offset_bottom = 19.5
+scale = Vector2(0.8, 0.8)
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -8.945)
+texture = ExtResource("1_cn63v")
+expand_mode = 4
+stretch_mode = 2

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://btqr1mqs06pw7"]
+
+[ext_resource type="Texture2D" uid="uid://noly64u4lge5" path="res://assets/characters/weapons/IMG_0688.png" id="1_kdnse"]
+[ext_resource type="Script" uid="uid://b8708cth1tcnh" path="res://scenes/Dungeon/Explorable_Dungeon_Test/spinning_sprite_controller.gd" id="2_1l8ua"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7tpxp"]
+radius = 2.9813845
+
+[node name="SpinningSprite" type="Sprite3D" unique_id=884794250]
+pixel_size = 0.005
+billboard = 2
+texture = ExtResource("1_kdnse")
+script = ExtResource("2_1l8ua")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=441427102]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1055560052]
+shape = SubResource("SphereShape3D_7tpxp")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

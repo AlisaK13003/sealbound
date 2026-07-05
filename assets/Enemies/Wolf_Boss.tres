@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://c510ukjf5hwyj"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_gly0j"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_53rjc"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_b2qww"]
+[ext_resource type="SpriteFrames" uid="uid://c0ntd54xbioc6" path="res://assets/Enemies/Wolf_Boss_Sprite_Frames.tres" id="4_6qo0b"]
+
+[sub_resource type="Resource" id="Resource_sxoqn"]
+script = ExtResource("1_gly0j")
+move_name = "Big Bite"
+move_description = "Does a Giant Bite"
+attack_power = 2
+accuracy = 85
+guaranteed_hit_count = 1
+max_hit_count = 1
+status_type = null
+removes_status = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_bqewb"]
+script = ExtResource("1_gly0j")
+move_name = "Big Bark"
+move_description = "Walf"
+attack_power = 0
+does_summon = true
+status_type = null
+removes_status = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_5574v"]
+script = ExtResource("1_gly0j")
+move_name = "Growl"
+move_description = "Lowers defense"
+attack_power = null
+is_magic_skill = true
+does_status = true
+status_type = 1536
+removes_status = null
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_b2qww"]
+script = ExtResource("2_b2qww")
+level = 15
+max_health = 300
+health = 300
+attack = 60
+defense = 60
+magic = 60
+resistance = 60
+speed = 60
+luck = 60
+evasion = 60
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("2_53rjc")
+combatant_name = "Great Wolf"
+combatant_stats = SubResource("Resource_b2qww")
+is_combatant_enemy = true
+coin_drop_range = Vector2i(0, 100)
+bond_drop_range = Vector2i(0, 50)
+combatant_skills = Array[ExtResource("1_gly0j")]([SubResource("Resource_sxoqn"), SubResource("Resource_bqewb"), SubResource("Resource_5574v")])
+sprite_frames = ExtResource("4_6qo0b")
+idle_speed = 1.0
+death_speed = 1.0
+walk_speed = 1.0
+attack_speed = Array[float]([1.0, 1.0, 1.0, 1.0])
+sprite_scale = 0.02
+sprite_offset = Vector2(0, 16)
+experience_mult = 2
+metadata/_custom_type_script = "uid://125iickqse23"

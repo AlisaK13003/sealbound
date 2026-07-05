@@ -32,14 +32,15 @@ script = ExtResource("1_umtdc")
 
 [node name="Panel" type="Panel" parent="." unique_id=1664935892]
 layout_mode = 0
-offset_left = -100.0
-offset_top = -36.0
-offset_right = 344.0
-offset_bottom = 24.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 448.0
+offset_bottom = 62.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ewbq0")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=854615143]
+position = Vector2(104, 38)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=265306990]
 position = Vector2(122, -6)
@@ -47,10 +48,10 @@ shape = SubResource("RectangleShape2D_umtdc")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=470215953]
 layout_mode = 0
-offset_left = -97.0
-offset_top = -18.0
-offset_right = 343.0
-offset_bottom = -16.0
+offset_left = 7.0
+offset_top = 20.0
+offset_right = 447.0
+offset_bottom = 22.0
 mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
@@ -59,10 +60,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
 anchor_right = 0.007
-offset_left = 252.56
-offset_top = -33.0
-offset_right = 415.56
-offset_bottom = -1.0
+offset_left = 356.56
+offset_top = 5.0
+offset_right = 519.56006
+offset_bottom = 37.0
 scale = Vector2(0.45, 0.45)
 
 [node name="TextureRect" type="TextureRect" parent="Quest Rewards" unique_id=1776965982]
@@ -86,10 +87,10 @@ text = "200"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=561528607]
 layout_mode = 0
-offset_left = -94.0
-offset_top = -32.000004
-offset_right = 85.0
-offset_bottom = 26.999996
+offset_left = 9.999992
+offset_top = 5.9999924
+offset_right = 189.0
+offset_bottom = 67.99999
 scale = Vector2(0.84, 0.84)
 
 [node name="QuestName" type="Label" parent="VBoxContainer" unique_id=1949900024]
@@ -107,10 +108,10 @@ text = "Forest Dungeon, 7g"
 [node name="Am_I_Accepted" type="TextureRect" parent="." unique_id=968134524]
 visible = false
 layout_mode = 0
-offset_left = 307.0
-offset_top = -12.0
-offset_right = 339.0
-offset_bottom = 21.0
+offset_left = 414.0
+offset_top = 25.0
+offset_right = 446.0
+offset_bottom = 58.0
 texture = ExtResource("4_g3gxy")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

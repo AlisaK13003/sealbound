@@ -125,6 +125,8 @@ enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESIS
 
 #endregion
 
+var has_been_setup: bool = false
+
 func setup(combatant : generic_combatants, parent_ref, child_num):
 	if combatant == null:
 		is_empty = true
@@ -133,36 +135,36 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	child_number = child_num
 	base_location = self.global_position
 	for status_ in active_statuses:
+		combatant_ui_.remove_active_status(status_)
 		_remove_active_status(status_.status_type)
+		
 	
 	all_active_effects = 0
 	active_statuses.clear()
+	if not combatant.is_combatant_enemy:
+		parent_ref.gui.get_player_portrait(child_num).update_statuses(self)
 	is_defending = false
-	combatant.combatant_stats.health = combatant.combatant_stats.max_health
+	combatant.combatant_stats.health = combatant.combatant_stats.health
 	stored_combatant = combatant
 	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
 
 	animated_sprite.offset = combatant.sprite_offset
-
+	animated_sprite.modulate = Color.WHITE
 	current_mana = 3
+	animated_sprite.flip_h = combatant.should_flip_sprite
 	if combatant.is_combatant_enemy:
 		currently_selectable = true
-		animated_sprite.sprite_frames = combatant.sprite_frames
-		animated_sprite.pixel_size = stored_combatant.sprite_scale
-		animated_sprite.speed_scale = stored_combatant.idle_speed
-		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
-		animated_sprite.play("Idle")
 	else:
 		combatant_ui_.get_node("TextureProgressBar").visible = false
 		# combatant_sprite.texture = combatant.combatant_sprite
-		animated_sprite.sprite_frames = combatant.sprite_frames
-		animated_sprite.pixel_size = stored_combatant.sprite_scale
-		animated_sprite.speed_scale = stored_combatant.idle_speed
-		animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
-		animated_sprite.play("Idle")
-		animated_sprite.flip_h = false
+	animated_sprite.sprite_frames = combatant.sprite_frames
+	animated_sprite.pixel_size = stored_combatant.sprite_scale
+	animated_sprite.speed_scale = stored_combatant.idle_speed
+	animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
+	animated_sprite.play("Idle")
+	has_been_setup = true
 	
-func update_health(change_health_value, what_action):
+func update_health(change_health_value, what_action = null):
 	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
 	if what_action != "STATUS":
 		if what_action == "MISS":
@@ -204,15 +206,15 @@ func update_health(change_health_value, what_action):
 		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
 			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
+			stored_combatant.combatant_stats.health -= damage_to_take
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	
 	if stored_combatant.combatant_stats.health <= 0:
-		on_death()
+		await on_death()
 	parent_reference.turn_ended.emit()
-
 # Combat related stuff
 
 func on_death():
@@ -222,7 +224,7 @@ func on_death():
 	for status_ in active_statuses:
 		_remove_active_status(status_.status_type)
 	active_statuses.clear()
-
+	stored_combatant.is_dead = true
 	if not parent_reference.training:
 		await get_tree().create_timer(0.5).timeout
 		
@@ -237,6 +239,9 @@ func on_death():
 	else:
 		parent_reference.gui.update_bond_attack(0.5)
 	animated_sprite.modulate = Color.WHITE
+	if stored_combatant.is_combatant_enemy:
+		self.queue_free()
+	
 		
 func execute_defend():
 	is_defending = true
@@ -438,7 +443,7 @@ func walk_towards_entity(node_to_walk_to):
 		animated_sprite.flip_h = false
 
 func idle_animation():
-	animated_sprite.flip_h = false
+	animated_sprite.flip_h = stored_combatant.should_flip_sprite
 	animated_sprite.speed_scale = stored_combatant.idle_speed
 	animated_sprite.play("Idle")
 	animated_sprite.sprite_frames.set_animation_loop("Idle", true)
@@ -469,16 +474,20 @@ func attack_animation(what_attack_anim):
 			what_attack = "On_Attack_2"
 		_:
 			what_attack = "On_Attack_Base"
-	if stored_combatant.attack_speed.size() > 0 and not stored_combatant.is_combatant_enemy:
+	if stored_combatant.attack_speed.size() > 0:
 		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 		await animated_sprite.animation_finished
+	animated_sprite.play("Idle")
+	animated_sprite.speed_scale = stored_combatant.idle_speed
 	
 #endregion
 
 func _on_enemy_collision_mouse_entered():
-	if currently_selectable and not stored_combatant.is_dead:
+	if not has_been_setup:
+		return
+	if currently_selectable and not stored_combatant.is_dead :
 		selection_area_sprite.visible = true
 		selection_area_sprite.play("selectable")
 		if can_be_unselected:
@@ -493,16 +502,17 @@ func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_
 func _apply_stun(): print("STUN")
 func _apply_sleep(): print("SLEEP")
 func _apply_shock(): print("SHOCK")
-func _apply_poison(): 
-	update_health(20, "STATUS")
-	animated_sprite.modulate = Color.PURPLE
-
-func _apply_burn(): 
-	update_health(20, "STATUS")
-	
 func _apply_freeze(): print("FREEZE")
 func _apply_agro(): print("AGRO")
 func _apply_momentum(): print("momentum")
-func _apply_regen():  print("regen")
 func _apply_stun_imm():  print("stun imun")
+func _apply_poison(): 
+	update_health(int(stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
+	animated_sprite.modulate = Color.PURPLE
+func _apply_burn(): 
+	update_health(int(stored_combatant.combatant_stats.max_health * 0.16), "STATUS")
+	animated_sprite.modulate = Color.FIREBRICK
+func _apply_regen():  
+	update_health(int(-1 * stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
+	
 func stat_does_nothing(): return

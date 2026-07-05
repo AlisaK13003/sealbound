@@ -1,15 +1,25 @@
 {
   "id": "sera_001",
-  "start": "intro",
+  "start": "intro_stranger",
+  "bond_starts": {
+    "Stranger": "intro_stranger",
+    "Acquainted": "intro_acquainted",
+    "Warmed": "intro_warmed",
+    "Kindred": "intro_kindred",
+    "Bound": "intro_bound",
+    "True Bond": "intro_bound"
+  },
   "nodes": {
-    "intro": {
+    "intro_stranger": {
       "speaker": "Sera",
       "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
       "portrait_frame": "neutral",
-      "text": "Oh... hello. Do you need help, or just a quiet place to stand?",
+      "text": "Oh... hello. Are you hurt, or did you just need somewhere quiet?",
       "choices": [
         {
           "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
           "next": "talk_hub"
         },
         {
@@ -18,58 +28,398 @@
         }
       ]
     },
-    "talk_hub": {
-      "random_next": [
-        "talk_a_1",
-        "talk_b_1",
-        "talk_c_1"
+    "intro_acquainted": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Hello. It is good to see you. I mean... I hope you are well.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
       ]
     },
-    "talk_a_1": {
+    "intro_warmed": {
       "speaker": "Sera",
       "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
       "portrait_frame": "smile",
-      "text": "I was just finishing another note for the infirmary ledger.",
-      "next": "talk_a_2"
+      "text": "Hi. I made tea, if you would like some.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
     },
-    "talk_a_2": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "It helps me remember who is resting, and who needs a little more care."
-    },
-    "talk_b_1": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "I keep more tea on hand than most people expect.",
-      "next": "talk_b_2"
-    },
-    "talk_b_2": {
+    "intro_kindred": {
       "speaker": "Sera",
       "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
       "portrait_frame": "smile",
-      "text": "Warm food and warm drinks do matter. Especially when they are shared."
+      "text": "There you are. I was hoping you would stop by today.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
     },
-    "talk_c_1": {
+    "intro_bound": {
       "speaker": "Sera",
       "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "sad",
-      "text": "Some people wait too long to say they are hurting.",
-      "next": "talk_c_2"
-    },
-    "talk_c_2": {
-      "speaker": "Sera",
-      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "I do not mind noticing first. That is part of what I am here for."
+      "portrait_frame": "smile",
+      "text": "Come in. You can rest here as long as you need.",
+      "choices": [
+        {
+          "text": "Talk",
+          "action": "daily_talk",
+          "daily_talk_bond": true,
+          "next": "talk_hub"
+        },
+        {
+          "text": "Gift (WIP)",
+          "next": "gift_wip"
+        }
+      ]
     },
     "gift_wip": {
       "speaker": "Sera",
       "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "awkward",
+      "text": "This feature is not implemented yet.",
+      "next": ""
+    },
+    "talk_hub": {
+      "bond_random_next": {
+        "Stranger": [
+          "stranger_flavor_a",
+          "stranger_flavor_b",
+          "stranger_branch"
+        ],
+        "Acquainted": [
+          "acquainted_flavor_a",
+          "acquainted_flavor_b",
+          "acquainted_branch"
+        ],
+        "Warmed": [
+          "warmed_flavor_a",
+          "warmed_flavor_b",
+          "warmed_branch"
+        ],
+        "Kindred": [
+          "kindred_flavor_a",
+          "kindred_flavor_b",
+          "kindred_branch"
+        ],
+        "Bound": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ],
+        "True Bond": [
+          "bound_flavor_a",
+          "bound_flavor_b",
+          "bound_branch"
+        ]
+      }
+    },
+    "stranger_flavor_a": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
       "portrait_frame": "neutral",
-      "text": "I am not ready for gifts yet... but thank you for thinking of me.",
-      "next": "intro"
+      "text": "I keep the infirmary quiet on purpose. People heal better when they can breathe."
+    },
+    "stranger_flavor_b": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Some people apologize for needing help. I wish they would not."
+    },
+    "stranger_branch": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Do you think it bothers people when I check on them?",
+      "choices": [
+        {
+          "text": "No. It makes them feel seen.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "stranger_good"
+        },
+        {
+          "text": "It depends how you ask.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "stranger_neutral"
+        },
+        {
+          "text": "Some people probably find it annoying.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "stranger_bad"
+        }
+      ]
+    },
+    "stranger_good": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "smile",
+      "text": "I hope so. I never want to make anyone feel watched."
+    },
+    "stranger_neutral": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "That is fair. I try to be gentle."
+    },
+    "stranger_bad": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Oh. I... will keep that in mind."
+    },
+    "acquainted_flavor_a": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I wrote down which villagers prefer bitter medicine. Not many, unsurprisingly."
+    },
+    "acquainted_flavor_b": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Warm bread helps more than people expect. Not medically, maybe. But still."
+    },
+    "acquainted_branch": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I always worry I am not doing enough.",
+      "choices": [
+        {
+          "text": "You do more than you realize.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "acquainted_good"
+        },
+        {
+          "text": "Everyone worries about that sometimes.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "acquainted_neutral"
+        },
+        {
+          "text": "Maybe you should push harder.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "acquainted_bad"
+        }
+      ]
+    },
+    "acquainted_good": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Thank you. I will try to remember that."
+    },
+    "acquainted_neutral": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Maybe. It feels very loud when it happens."
+    },
+    "acquainted_bad": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Right. Maybe."
+    },
+    "warmed_flavor_a": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I hummed while sorting herbs today. I did not notice until someone smiled at me."
+    },
+    "warmed_flavor_b": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "You look less tense than last time. I am glad."
+    },
+    "warmed_branch": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I am trying to stop apologizing every time I take up space.",
+      "choices": [
+        {
+          "text": "You are allowed to be here.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "warmed_good"
+        },
+        {
+          "text": "That sounds like a good start.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "warmed_neutral"
+        },
+        {
+          "text": "It is not a big deal.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "warmed_bad"
+        }
+      ]
+    },
+    "warmed_good": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "smile",
+      "text": "That helps more than I expected."
+    },
+    "warmed_neutral": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "A start is enough for today, I think."
+    },
+    "warmed_bad": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "sad",
+      "text": "Maybe not to you. It is to me."
+    },
+    "kindred_flavor_a": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "When you are here, the infirmary feels less empty."
+    },
+    "kindred_flavor_b": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I saved the softest piece of bread. I thought you might want it."
+    },
+    "kindred_branch": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Sometimes I wonder if people come here for me, or only because they need care.",
+      "choices": [
+        {
+          "text": "They come because it is you.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "kindred_good"
+        },
+        {
+          "text": "Both can be true.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "kindred_neutral"
+        },
+        {
+          "text": "Does it matter?",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "kindred_bad"
+        }
+      ]
+    },
+    "kindred_good": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "smile",
+      "text": "I... did not know how much I needed to hear that."
+    },
+    "kindred_neutral": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Both. Yes. That feels possible."
+    },
+    "kindred_bad": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "sad",
+      "text": "It does to me. A little."
+    },
+    "bound_flavor_a": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I am getting better at accepting help. Slowly. Please do not make a fuss."
+    },
+    "bound_flavor_b": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "If you ever need somewhere safe, come here. Even if you are not hurt."
+    },
+    "bound_branch": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "I want to be someone people can rely on without disappearing into it.",
+      "choices": [
+        {
+          "text": "I will remind you to rest.",
+          "action": "bond_good",
+          "bond_delta": 15,
+          "next": "bound_good"
+        },
+        {
+          "text": "That balance takes time.",
+          "action": "bond_neutral",
+          "bond_delta": 5,
+          "next": "bound_neutral"
+        },
+        {
+          "text": "People need you more than you need rest.",
+          "action": "bond_bad",
+          "bond_delta": -10,
+          "next": "bound_bad"
+        }
+      ]
+    },
+    "bound_good": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "smile",
+      "text": "Please do. I might actually listen to you."
+    },
+    "bound_neutral": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "neutral",
+      "text": "Time I can give it. I think."
+    },
+    "bound_bad": {
+      "speaker": "Sera",
+      "portrait_sheet": "res://assets/characters/sera/Sera_portraits.png",
+      "portrait_frame": "sad",
+      "text": "That is what I am trying not to believe."
     }
   }
 }

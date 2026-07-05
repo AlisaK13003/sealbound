@@ -14,6 +14,7 @@ mouse_filter = 1
 script = ExtResource("1_ki54h")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1351651128]
+visible = false
 layout_mode = 0
 offset_right = 710.0
 offset_bottom = 40.0

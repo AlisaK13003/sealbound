@@ -37,7 +37,7 @@ region_rect = Rect2(0, 0, 865, 115)
 
 [node name="DialogueSystem" type="CanvasLayer" unique_id=1542929080]
 process_mode = 3
-layer = 0
+layer = 300
 script = ExtResource("1_7r5wx")
 
 [node name="DialogueUI" type="Control" parent="." unique_id=1183597739]
@@ -61,9 +61,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -16.0
-offset_top = -617.0
+offset_top = -465.0
 offset_right = 17.0
-offset_bottom = 16.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -76,12 +76,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -510.0
-offset_top = -129.0
-offset_right = -14.0
-offset_bottom = -9.0
+offset_left = -548.0
+offset_top = -118.999985
+offset_right = -52.0
+offset_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(0.9999994, 0.91999996)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_p5aig")
 
@@ -99,19 +100,19 @@ scroll_active = false
 
 [node name="NameLabel" type="Label" parent="DialogueUI" unique_id=1254259597]
 layout_mode = 0
-offset_left = 140.0
-offset_top = 211.0
-offset_right = 245.0
-offset_bottom = 265.0
+offset_left = 97.0
+offset_top = 227.0
+offset_right = 202.0
+offset_bottom = 281.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 3
 theme_override_constants/paragraph_spacing = 3
 theme_override_constants/shadow_offset_x = 4
-theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
-theme_override_constants/shadow_outline_size = 4
+theme_override_constants/shadow_outline_size = 2
 theme_override_fonts/font = ExtResource("4_mcufe")
 theme_override_font_sizes/font_size = 16
 text = "NAME"
@@ -121,8 +122,8 @@ text = "NAME"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DialogueUI" unique_id=524168825]
 
 [node name="Portrait" type="Sprite2D" parent="DialogueUI" unique_id=1973429152]
-position = Vector2(68, 272.00003)
-scale = Vector2(2.59375, 2.59375)
+position = Vector2(48, 287.00003)
+scale = Vector2(1.9137493, 1.9137493)
 texture = ExtResource("5_mcufe")
 hframes = 4
 
@@ -130,11 +131,16 @@ hframes = 4
 process_mode = 3
 z_index = 1
 clip_contents = true
-layout_mode = 0
-offset_left = 537.0
-offset_top = 78.0
-offset_right = 609.0
-offset_bottom = 224.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.1953125
+anchor_top = -0.15625
+anchor_right = -0.1953125
+anchor_bottom = -0.15625
+offset_left = 335.0
+offset_top = 100.0
+offset_right = 714.0
+offset_bottom = 289.0
 theme_override_constants/separation = 7
 alignment = 2
 
@@ -148,6 +154,9 @@ theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
 text = "Choice"
 flat = true
 alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+clip_text = true
 vertical_icon_alignment = 0
 
 [node name="PanelContainer2" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=1638044303]
@@ -160,6 +169,9 @@ theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
 text = "Choice"
 flat = true
 alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+clip_text = true
 vertical_icon_alignment = 0
 
 [node name="PanelContainer3" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=466206647]
@@ -172,4 +184,7 @@ theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
 text = "Choice"
 flat = true
 alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+clip_text = true
 vertical_icon_alignment = 0

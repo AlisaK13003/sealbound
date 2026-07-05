@@ -1,0 +1,400 @@
+{
+  "id": "infirmary_wakeup_scene_1",
+  "beats": [
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.0
+	},
+	{
+	  "type": "wait",
+	  "duration": 0.2
+	},
+	{
+	  "type": "fade",
+	  "direction": "out",
+	  "duration": 0.75
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "Warm lamplight. Clean bandages. The ringing is quieter now, but not gone."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "...Where... am I?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "A villager sits nearby, re-wrapping a bandage. When you stir, she pauses, cautious and unsure."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "text": "Oh- you're awake."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "She holds still for a beat, measuring you. Then she exhales, relieved."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "text": "Good. Good."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "text": "I was... starting to worry you'd sleep through the whole night."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "I..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "The word comes out rough, like it has not been used in a while."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "text": "Easy."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "text": "Don't push it."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "My throat... it burns."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "My head feels... stuffed with fog."
+	},
+	{
+	  "type": "choice",
+	  "speaker": "Villager Girl",
+	  "text": "Can you hear me at all?",
+	  "options": [
+		{
+		  "text": "Barely.",
+		  "beats": [
+			{
+			  "type": "dialogue",
+			  "speaker": "Villager Girl",
+			  "text": "Okay. That's... better than before."
+			}
+		  ]
+		},
+		{
+		  "text": "Not really.",
+		  "beats": [
+			{
+			  "type": "dialogue",
+			  "speaker": "Villager Girl",
+			  "text": "That's okay. Just look at me when I talk."
+			},
+			{
+			  "type": "dialogue",
+			  "speaker": "Villager Girl",
+			  "text": "We'll figure it out."
+			}
+		  ]
+		},
+		{
+		  "text": "Who... are you?",
+		  "beats": [
+			{
+			  "type": "dialogue",
+			  "speaker": "Villager Girl",
+			  "text": "Right- sorry."
+			}
+		  ]
+		}
+	  ]
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "text": "My name is Sera."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "I found you out in the woods near... the aftermath."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "She looks away, jaw tight."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Do you remember your name?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Yes..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Okay. What is it?"
+	},
+	{
+	  "type": "name_entry",
+	  "speaker": "",
+	  "text": "Enter your name:",
+	  "default": "MC"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "{player_name}..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Do you remember anything? Where you're from? Who you were with?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "There's a door in my head."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "And every time I touch it, it hurts."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Nothing."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "...Alright."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "You're safe here."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "People might stare. We don't get strangers."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "She sets a bowl of warm broth on a table within reach."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Try to drink a little."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Then rest."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Where... am I?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "A small village."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "You're far from any main road."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Why did you bring me here?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Because you were hurt."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "And because leaving you there... didn't feel right."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "You shift, trying to sit up higher."
+	},
+	{
+	  "type": "sfx",
+	  "caption": "A sharp pain lances through your ribs."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "--!"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "Sera moves fast, steadying you."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "No."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Don't get up. You're still hurt."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "My body remembers how to stand."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "My mind doesn't remember why."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "I need to go back."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Back where?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "To the woods."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "To the place I woke up."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "If I was there for a reason... maybe it'll bring something back."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "Sera's grip tightens, protective and afraid."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Not today."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "You can barely sit without shaking."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Then when?"
+	},
+	{
+	  "type": "sfx",
+	  "caption": "The ringing flares for half a second, then settles."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Tomorrow."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "If you can stand without collapsing... I'll take you."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "And I'll come with you."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "Why would you do that?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Because whatever happened out there-"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "She stops herself. Swallows."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "Because it isn't safe alone."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "Sera forces a small smile."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "For now, sleep."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "text": "We'll talk in the morning."
+	},
+	{
+	  "type": "flag",
+	  "key": "sera_sent_to_lyra",
+	  "value": true
+	},
+	{
+	  "type": "flag",
+	  "key": "opening_cutscene_seen",
+	  "value": true
+	},
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.35
+	}
+  ]
+}

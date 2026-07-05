@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_r1wuo"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_g6mva"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_6h407"]
-[ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="4_tb8uc"]
+[ext_resource type="SpriteFrames" uid="uid://datq6qhi06hr1" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="4_r1wuo"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_ah6m3"]
+[ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="5_g6mva"]
+[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_tb8uc"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_5rluu"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_ah6m3"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5cqgb"]
 load_path = "res://.godot/imported/Disabled_Shielding_Strike.png-f8b79c38ae9850cc9451592710468abc.ctex"
@@ -140,75 +143,6 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_pnqad")
 frame_2/duration = 1.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_41pb7"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(768, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_207i5"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(960, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6b3g6"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(1152, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jet1c"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(1344, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ju324"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(768, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qjj75"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(960, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jf7kp"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(1152, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aip38"]
-atlas = ExtResource("4_tb8uc")
-region = Rect2(1344, 0, 192, 288)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_rmqqe"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_41pb7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_207i5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6b3g6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jet1c")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ju324")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qjj75")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jf7kp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aip38")
-}],
-"loop": true,
-"name": &"Walk",
-"speed": 5.0
-}]
-
 [sub_resource type="Resource" id="Resource_ddp3r"]
 script = ExtResource("2_g6mva")
 defense = 30
@@ -234,9 +168,15 @@ party_member_portrait = SubResource("AnimatedTexture_r86sb")
 combatant_stats = SubResource("Resource_uwim3")
 stored_weapon = SubResource("Resource_248ax")
 stored_equipment = SubResource("Resource_t1vk1")
+stored_charm = ExtResource("6_ah6m3")
+stored_boots = ExtResource("5_tb8uc")
+stored_chestplate = ExtResource("5_g6mva")
 combatant_skills = Array[ExtResource("1_r1wuo")]([SubResource("Resource_hr7mf"), SubResource("Resource_thkco"), SubResource("Resource_fa28c")])
-sprite_frames = SubResource("SpriteFrames_rmqqe")
+sprite_frames = ExtResource("4_r1wuo")
 idle_speed = 0.2
 walk_speed = 0.7
-sprite_scale = 0.001
+sprite_scale = 0.007
+sprite_offset = Vector2(-38, 0)
+equip_sprite_offset = Vector2(-11, 12)
+bond_level = 1
 metadata/_custom_type_script = "uid://125iickqse23"

@@ -11,9 +11,13 @@ class_name Items
 
 @export_flags("Deal_Damage", "Heal") var does_what : int
 
+@export_flags("Consumable", "Valuable", "Quest_Item") var what_is_it = 0
+
 @export var targets_players: bool = true
 @export var is_aoe_item: bool = false
 @export var amount_to_heal_or_deal : int
+
+@export var does_revive: bool = false
 
 @export_flags(
 	"Stun:1",

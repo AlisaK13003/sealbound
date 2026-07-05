@@ -2,6 +2,30 @@
 
 [ext_resource type="Script" uid="uid://nvulh6gh6b3v" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/mini_map_handler.gd" id="1_wqiif"]
 [ext_resource type="Texture2D" uid="uid://5agq3odbpb4s" path="res://assets/tile sheets/Dungeon Arrow.png" id="2_idjb4"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="3_wqiif"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="4_yqkol"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqiif"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Gradient" id="Gradient_eacac"]
+offsets = PackedFloat32Array(0, 0.8240741)
+colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yqkol"]
+gradient = SubResource("Gradient_eacac")
+width = 5
+height = 5
+fill_from = Vector2(0.06623932, 0.01923077)
+fill_to = Vector2(0.061965812, 0.30128205)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2wyi4"]
+texture = SubResource("GradientTexture2D_yqkol")
+region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg2tm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="MiniMap" type="Control" unique_id=1818784448]
 layout_mode = 3
@@ -10,18 +34,120 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_wqiif")
 
-[node name="Panel" type="Panel" parent="." unique_id=1401923685]
+[node name="Full_Screen_Map" type="Control" parent="." unique_id=1436741531]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -130.0
+offset_right = -285.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(285, 130)
+
+[node name="Panel" type="Panel" parent="Full_Screen_Map" unique_id=2006945208]
 z_index = 1
 clip_contents = true
 layout_mode = 0
-offset_left = 13.660278
-offset_top = 11.176582
-offset_right = 113.6714
-offset_bottom = 110.90009
+offset_left = 29.290205
+offset_top = 1.6786232
+offset_right = 529.2902
+offset_bottom = 251.67862
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqiif")
 
-[node name="GridContainer" type="GridContainer" parent="Panel" unique_id=251210719]
+[node name="GridContainer" type="GridContainer" parent="Full_Screen_Map/Panel" unique_id=1975004040]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.97200006
+offset_right = 38.833862
+offset_bottom = -211.56013
+scale = Vector2(0.5, 0.5)
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 17
+
+[node name="Container" type="Container" parent="Full_Screen_Map/Panel" unique_id=294783568]
+layout_mode = 0
+offset_left = 17.503838
+offset_top = 8.566227
+offset_right = 57.503838
+offset_bottom = 48.566227
+
+[node name="ColorRect" type="ColorRect" parent="Full_Screen_Map/Panel/Container" unique_id=1905648998]
+z_index = 1
+layout_mode = 2
+color = Color(1, 0, 1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Full_Screen_Map/Panel/Container/ColorRect" unique_id=1662607290]
+rotation = 3.1415927
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_idjb4")
+centered = false
+offset = Vector2(-7.395, -8.755)
+region_enabled = true
+region_rect = Rect2(0.08010864, 0.023097515, 15.919891, 15.976902)
+
+[node name="Enemy_Locators" type="Control" parent="Full_Screen_Map/Panel/Container" unique_id=30795919]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Full_Screen_Map" unique_id=1214735557]
+z_index = 4
+layout_mode = 0
+offset_left = 20.28592
+offset_top = -6.757715
+offset_right = 540.4774
+offset_bottom = 264.31888
+texture = ExtResource("4_yqkol")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel3" type="Panel" parent="Full_Screen_Map" unique_id=486541119]
+z_index = -4
+layout_mode = 0
+offset_left = 23.518738
+offset_top = -3.5386696
+offset_right = 533.9943
+offset_bottom = 258.628
+theme_override_styles/panel = SubResource("StyleBoxTexture_2wyi4")
+
+[node name="MiniMap" type="Control" parent="." unique_id=1700712513]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel2" type="Panel" parent="MiniMap" unique_id=2010647056]
+z_index = -4
+layout_mode = 0
+offset_left = 13.255585
+offset_top = 13.255589
+offset_right = 106.673615
+offset_bottom = 106.08009
+theme_override_styles/panel = SubResource("StyleBoxTexture_2wyi4")
+
+[node name="Panel" type="Panel" parent="MiniMap" unique_id=1401923685]
+z_index = 1
+clip_contents = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 110.01112
+offset_bottom = 109.72351
+theme_override_styles/panel = SubResource("StyleBoxFlat_fg2tm")
+
+[node name="GridContainer" type="GridContainer" parent="MiniMap/Panel" unique_id=251210719]
 layout_mode = 0
 offset_left = -250.0
 offset_right = 350.0
@@ -31,7 +157,7 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 15
 
-[node name="ColorRect" type="ColorRect" parent="Panel" unique_id=695387163]
+[node name="ColorRect" type="ColorRect" parent="MiniMap/Panel" unique_id=695387163]
 z_index = 1
 layout_mode = 0
 offset_left = 41.0
@@ -43,7 +169,7 @@ scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(8, 8)
 color = Color(1, 0, 1, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/ColorRect" unique_id=1923535297]
+[node name="Sprite2D" type="Sprite2D" parent="MiniMap/Panel/ColorRect" unique_id=1923535297]
 position = Vector2(17.890572, 18.167942)
 rotation = 3.1415927
 texture = ExtResource("2_idjb4")
@@ -52,9 +178,38 @@ offset = Vector2(2.13, 1.64)
 region_enabled = true
 region_rect = Rect2(0.08010864, 0.023097515, 15.919891, 15.976902)
 
-[node name="Panel2" type="Panel" parent="." unique_id=341714087]
+[node name="Enemy_Locators" type="Control" parent="MiniMap/Panel" unique_id=659053130]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.99700004
+offset_left = 48.03
+offset_top = 49.105
+offset_right = 47.979324
+offset_bottom = 49.06186
+pivot_offset = Vector2(50, 50)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MiniMap" unique_id=832166562]
+z_index = 4
 layout_mode = 0
-offset_left = 9.704826
-offset_top = 5.8966026
-offset_right = 117.002014
-offset_bottom = 114.27672
+offset_left = 6.640579
+offset_top = 7.366411
+offset_right = 111.64058
+offset_bottom = 112.36641
+texture = ExtResource("4_yqkol")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Map_Button" parent="." unique_id=1034936178 instance=ExtResource("3_wqiif")]
+visible = false
+layout_mode = 0
+offset_left = 4.718
+offset_top = 348.0
+offset_right = 69.878006
+offset_bottom = 376.0
+input_event_that_will_activate = "Open_Map"
+button_name = "Map"
+disabled_ = true

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c1yi6afplfiht"]
+
+[ext_resource type="Script" uid="uid://g28vnthw7obt" path="res://assets/Resources/Pause Menu/manu_tab_node_controller.gd" id="1_bv88e"]
+[ext_resource type="Texture2D" uid="uid://dl8xl2bbba7s4" path="res://assets/tile sheets/Menu-tab.png" id="2_1o7tl"]
+
+[node name="MenuTabNode" type="Control" unique_id=1768051441]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_bv88e")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=470501467]
+modulate = Color(0.12156863, 0.12156863, 0.12156863, 0.4392157)
+layout_mode = 0
+offset_left = -3.0
+offset_top = 3.0
+offset_right = 117.0
+offset_bottom = 27.0
+texture = ExtResource("2_1o7tl")
+patch_margin_left = 2
+patch_margin_top = 5
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=498286812]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 24.0
+texture = ExtResource("2_1o7tl")
+patch_margin_left = 2
+patch_margin_top = 5
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=109266871]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 24.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+text = "Bondaaaaaaaa"
+horizontal_alignment = 1
+vertical_alignment = 1

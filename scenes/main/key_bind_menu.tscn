@@ -16,45 +16,6 @@ script = ExtResource("1_xd7tj")
 scale = Vector2(6.815, 6.815)
 transform = Transform2D(6.815, 0, 0, 6.815, 0, 0)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer" unique_id=1266305676]
-texture_filter = 1
-offset_left = 30.667645
-offset_top = 41.20916
-offset_right = 245.01164
-offset_bottom = 158.38708
-texture = ExtResource("2_qy18y")
-patch_margin_left = 11
-patch_margin_top = 5
-patch_margin_right = 10
-patch_margin_bottom = 10
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer" unique_id=1372733]
-offset_left = 52.753574
-offset_top = -9.097579
-offset_right = 313.48978
-offset_bottom = 59.920845
-scale = Vector2(0.655, 0.655)
-texture = ExtResource("2_qy18y")
-patch_margin_left = 11
-patch_margin_top = 5
-patch_margin_right = 10
-patch_margin_bottom = 10
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect2" unique_id=488250299]
-layout_mode = 0
-offset_left = 41.0
-offset_top = 12.0
-offset_right = 532.1111
-offset_bottom = 148.0
-scale = Vector2(0.32, 0.32)
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 120
-text = "Key Binds"
-
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1553502059]
 offset_left = 42.69993
 offset_top = 51.504036

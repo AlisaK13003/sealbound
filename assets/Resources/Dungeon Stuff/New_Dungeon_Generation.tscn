@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cfcwfr1lhd6n5"]
+
+[ext_resource type="Script" uid="uid://odrd8xv4f6lv" path="res://scenes/Dungeon/Explorable_Dungeon_Test/new_dungeon_generation.gd" id="1_dl0k6"]
+
+[node name="NewDungeonGeneration" type="Node3D" unique_id=1388028186]
+script = ExtResource("1_dl0k6")

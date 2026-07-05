@@ -1,75 +1,531 @@
 {
   "id": "lyra_001",
-  "start": "intro",
+  "start": "intro_stranger",
+  "bond_starts": {
+	"Stranger": "intro_stranger",
+	"Acquainted": "intro_acquainted",
+	"Warmed": "intro_warmed",
+	"Kindred": "intro_kindred",
+	"Bound": "intro_bound",
+	"True Bond": "intro_bound"
+  },
   "nodes": {
-    "intro": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "Alright, bud — let's move!",
-      "choices": [
-        {
-          "text": "Talk",
-          "next": "talk_hub"
-        },
-        {
-          "text": "Gift (WIP)",
-          "next": "gift_wip"
-        }
-      ]
-    },
-    "gift_wip": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "Hah! You didn't have to do that, bud... but I appreciate it.",
-      "next": "intro"
-    },
-    "talk_hub": {
-      "random_next": [
-        "talk_a_1",
-        "talk_b_1",
-        "talk_c_1"
-      ]
-    },
-    "talk_a_1": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "smile",
-      "text": "Tavern's busy today. Good sign, if you ask me.",
-      "next": "talk_a_2"
-    },
-    "talk_a_2": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "neutral",
-      "text": "Means folks are fed, warmed up, and not dead on their feet."
-    },
-    "talk_b_1": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "awkward",
-      "text": "No, I am not just standing here because I'm bored.",
-      "next": "talk_b_2"
-    },
-    "talk_b_2": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "smile",
-      "text": "...Okay, maybe a little. But I can still handle the place."
-    },
-    "talk_c_1": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "sad",
-      "text": "You look like you could use a seat, bud.",
-      "next": "talk_c_2"
-    },
-    "talk_c_2": {
-      "speaker": "Lyra",
-      "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
-      "portrait_frame": "smile",
-      "text": "Stay a while. The tavern's better when people are in it."
-    }
+	"story_room_quest_start": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Sera sent you, right? She said you might need a room.",
+	  "next": "story_room_price"
+	},
+	"story_room_price": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I have one upstairs. Two thousand gold a night.",
+	  "next": "story_room_reaction"
+	},
+	"story_room_reaction": {
+	  "speaker": "MC",
+	  "portrait_sheet": "res://GUI/dialogue_system/sprites/portraits/MCfemale_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Two thousand?",
+	  "next": "story_room_price_followup"
+	},
+	"story_room_price_followup": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Clean sheets, a roof, and dinner close enough that you can smell it. Fair price.",
+	  "next": "story_room_cant_pay"
+	},
+	"story_room_cant_pay": {
+	  "speaker": "MC",
+	  "portrait_sheet": "res://GUI/dialogue_system/sprites/portraits/MCfemale_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I do not have that kind of money.",
+	  "next": "story_room_offer"
+	},
+	"story_room_offer": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Yeah, I figured. You look like you came here with nothing but a headache.",
+	  "next": "story_room_favor_intro"
+	},
+	"story_room_favor_intro": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "There might be another way.",
+	  "next": "story_room_favor"
+	},
+	"story_room_favor": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "I lost my axe in the forest while I was gathering ingredients. Wolves scared me off before I could grab it.",
+	  "choices": [
+		{
+		  "text": "Sure, easy enough.",
+		  "action": "start_lyra_axe_quest",
+		  "next": "story_accept_easy"
+		},
+		{
+		  "text": "Will I get to stay for free if I do this?",
+		  "action": "start_lyra_axe_quest",
+		  "next": "story_accept_free"
+		},
+		{
+		  "text": "Sera said I should be resting...",
+		  "action": "start_lyra_axe_quest",
+		  "next": "story_accept_rest"
+		}
+	  ]
+	},
+	"story_accept_easy": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Good. The forest is close, but keep your head up.",
+	  "next": "story_accept_end"
+	},
+	"story_accept_free": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "If you bring it back, you can stay. Not forever without lifting a finger, but you will have a bed.",
+	  "next": "story_accept_end"
+	},
+	"story_accept_rest": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "You should. But it is nearby, and I would go myself if those wolves were not still sniffing around.",
+	  "next": "story_accept_end"
+	},
+	"story_accept_end": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Take the forest path when you are ready. Bring my axe back, and we will figure out your room."
+	},
+	"intro_stranger": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Hey. Need something from the kitchen?",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_acquainted": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Hey. If you are staying, grab a chair before someone else takes it.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_warmed": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Good timing. I just took the stew off the fire.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_kindred": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Hey, you. I was hoping you would stop by.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"intro_bound": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Come on in. I kept your usual seat open.",
+	  "choices": [
+		{
+		  "text": "Talk",
+		  "action": "daily_talk",
+		  "daily_talk_bond": true,
+		  "next": "talk_hub"
+		},
+		{
+		  "text": "Gift (WIP)",
+		  "next": "gift_wip"
+		}
+	  ]
+	},
+	"gift_wip": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "awkward",
+	  "text": "This feature is not implemented yet.",
+	  "next": ""
+	},
+	"talk_hub": {
+	  "bond_random_next": {
+		"Stranger": [
+		  "stranger_flavor_a",
+		  "stranger_flavor_b",
+          "stranger_branch"
+		],
+		"Acquainted": [
+		  "acquainted_flavor_a",
+		  "acquainted_flavor_b",
+          "acquainted_branch"
+		],
+		"Warmed": [
+		  "warmed_flavor_a",
+		  "warmed_flavor_b",
+          "warmed_branch"
+		],
+		"Kindred": [
+		  "kindred_flavor_a",
+		  "kindred_flavor_b",
+          "kindred_branch"
+		],
+		"Bound": [
+		  "bound_flavor_a",
+		  "bound_flavor_b",
+          "bound_branch"
+		],
+		"True Bond": [
+		  "bound_flavor_a",
+		  "bound_flavor_b",
+          "bound_branch"
+		]
+	  }
+	},
+	"stranger_flavor_a": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Sorry, I cannot talk much right now. The tavern is pretty busy today."
+	},
+	"stranger_flavor_b": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "If someone starts a fist fight before lunch, I am charging them extra."
+	},
+	"stranger_branch": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "You look like you have been running around all day. Need anything?",
+	  "choices": [
+		{
+		  "text": "Something warm, if you have it.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "stranger_good"
+		},
+		{
+		  "text": "Maybe just a quiet minute.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "stranger_neutral"
+		},
+		{
+		  "text": "No thanks, it is too noisy here.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "stranger_bad"
+		}
+	  ]
+	},
+	"stranger_good": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "I can do that. Sit down before it gets cold."
+	},
+	"stranger_neutral": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "That is fair. Take the corner seat if you want less noise."
+	},
+	"stranger_bad": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Fair enough. I know it gets loud in here."
+	},
+	"acquainted_flavor_a": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I had to break up an argument over soup this morning. I still do not know how it started."
+	},
+	"acquainted_flavor_b": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Orion came by to eat earlier. I swear he singlehandedly keeps my tavern afloat with how often he is here.",
+	  "next": "acquainted_flavor_b_orion_followup"
+	},
+	"acquainted_flavor_b_orion_followup": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "He seemed nervous, though. I hope he is feeling alright today."
+	},
+	"acquainted_branch": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Be honest. Is the tavern too much sometimes?",
+	  "choices": [
+		{
+		  "text": "It has a good kind of noise.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "acquainted_good"
+		},
+		{
+		  "text": "Sometimes. But it still feels welcoming.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "acquainted_neutral"
+		},
+		{
+		  "text": "A little. I lose track of myself in here.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "acquainted_bad"
+		}
+	  ]
+	},
+	"acquainted_good": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "That is how I hear it too. Busy, but not empty."
+	},
+	"acquainted_neutral": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I will take that. Welcoming matters more than quiet."
+	},
+	"acquainted_bad": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Yeah. I get that. I forget not everyone is built for this much noise."
+	},
+	"warmed_flavor_a": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I made too much stew again. At least nobody leaves hungry when I do that."
+	},
+	"warmed_flavor_b": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Some days this place runs more on gossip than coin."
+	},
+	"warmed_branch": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "People keep telling me I need to slow down. Do I look that bad?",
+	  "choices": [
+		{
+		  "text": "A little tired, maybe.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "warmed_good"
+		},
+		{
+		  "text": "You seem like you know your limits.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "warmed_neutral"
+		},
+		{
+		  "text": "You seem fine to me.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "warmed_bad"
+		}
+	  ]
+	},
+	"warmed_good": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Hah. That obvious, huh? Maybe I should sit for a minute."
+	},
+	"warmed_neutral": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I try to. Some days are easier than others."
+	},
+	"warmed_bad": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "That is what I usually tell myself. Usually right before I overdo it."
+	},
+	"kindred_flavor_a": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "After closing, the tavern gets so quiet I can hear the floor settle."
+	},
+	"kindred_flavor_b": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I am used to looking after everyone else. Letting someone look after me still feels strange."
+	},
+	"kindred_branch": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "If I look like I am running myself into the ground, what would you do?",
+	  "choices": [
+		{
+		  "text": "Tell you before you crash.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "kindred_good"
+		},
+		{
+		  "text": "Ask if you want help.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "kindred_neutral"
+		},
+		{
+		  "text": "Trust you to say something.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "kindred_bad"
+		}
+	  ]
+	},
+	"kindred_good": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "I might argue, but I would hear you."
+	},
+	"kindred_neutral": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I might say no the first time. Ask anyway."
+	},
+	"kindred_bad": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "I wish I was always good at that. I am not."
+	},
+	"bound_flavor_a": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "You do not have to wait for an invitation here. Not from me."
+	},
+	"bound_flavor_b": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I kept the kitchen open a little late. Thought you might come by."
+	},
+	"bound_branch": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "I am trying to get better at letting people show up for me.",
+	  "choices": [
+		{
+		  "text": "Then let me stay.",
+		  "action": "bond_good",
+		  "bond_delta": 15,
+		  "next": "bound_good"
+		},
+		{
+		  "text": "That kind of thing takes time.",
+		  "action": "bond_neutral",
+		  "bond_delta": 5,
+		  "next": "bound_neutral"
+		},
+		{
+		  "text": "You have handled worse alone.",
+		  "action": "bond_bad",
+		  "bond_delta": -10,
+		  "next": "bound_bad"
+		}
+	  ]
+	},
+	"bound_good": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Yeah. I think I can do that. Thanks, bud."
+	},
+	"bound_neutral": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Time I can do. I think."
+	},
+	"bound_bad": {
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "sad",
+	  "text": "Maybe. But I am tired of alone being the only option."
+	}
   }
 }

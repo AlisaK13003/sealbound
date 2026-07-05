@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="dungeon_wave" format=3 uid="uid://b1miktyc4wfni"]
+
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_ct46q"]
+[ext_resource type="Resource" uid="uid://c510ukjf5hwyj" path="res://assets/Enemies/Wolf_Boss.tres" id="1_fplwo"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_fplwo"]
+
+[resource]
+script = ExtResource("2_fplwo")
+encounterable_enemy = ExtResource("1_fplwo")
+enemies = Array[ExtResource("1_ct46q")]([ExtResource("1_fplwo")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"

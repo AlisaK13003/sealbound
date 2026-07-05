@@ -16,6 +16,8 @@ dest_files=["res://.godot/imported/Forest_Grid_Tile.glb-135d48a3c6d93add68e80977
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -48,9 +50,12 @@ _subresources={
 "nodes": {
 "PATH:Forest_dungeopn_grid": {
 "generate/physics": true,
-"physics/shape_type": 1
+"physics/shape_type": 3,
+"primitive/position": Vector3(0, 0, -0.58),
+"primitive/size": Vector3(13, 13, 1.5)
 }
 }
 }
 gltf/naming_version=2
 gltf/embedded_image_handling=3
+gltf/texture_map_mode=0

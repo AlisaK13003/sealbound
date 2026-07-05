@@ -1,84 +1,71 @@
 extends Control
 
-@onready var item_container = $VBoxContainer
-@onready var party_cards = $Party_Cards
-var item_scene = preload("res://assets/Resources/Pause Menu/Item Menu/Display_item.tscn")
-var start_range = 0
-var end_range = 7
+#@onready var item_container = $VBoxContainer
+#@onready var party_cards = $Party_Cards
+var item_scene = "res://assets/Resources/Pause Menu/Item Menu/Display_item.tscn"
+@onready var item_container = $Container/GridContainer
+@onready var valuable_container = $Container/GridContainer2
+@onready var quest_item_container = $Container/GridContainer3
+
+@onready var menu_tabs = $MenuTabs
 
 var selected_item = 0
 
 @export var menu_parent : Control
 
+func _reset():
+	item_container.visible = true
+	valuable_container.visible = false
+	quest_item_container.visible = false
+
 func _ready():
-	Global.save_loaded.connect(_on_game_start)
-
-func _on_game_start():
-	Global.item_list_updated.connect(update_item_menu)
-	for item in Global.item_list:
-		var new_item = item_scene.instantiate()
-		new_item.setup(item)
-		new_item.item_clicked.connect(display_item_clicked)
-		item_container.add_child(new_item)
-		
-	setup_party_card(Global.party_slot_1, 0)
-	setup_party_card(Global.party_slot_2, 1)
-	setup_party_card(Global.party_slot_3, 2)
-
-
-func setup_party_card(member: PartyMember, which_thing):
-	if party_cards.get_child(which_thing) == null:
-		return
-	var current_card = party_cards.get_child(which_thing)
-	current_card.get_node("Sprite").texture = member.player_sprite
-	current_card.get_node("Name").text = member.member_name
-	current_card.get_node("Health").text = str(member.player_stats.health)
-
-func _input(event):
-	if menu_parent == null:
-		return
+	menu_tabs._setup(["Items", "Valuables", "Quest Items"])
+	menu_tabs.selection_changed.connect(tab_changed)
 	
-	if menu_parent.current_menu == "Inventory":
-		if event.is_action_pressed("Mouse Scroll Down"):
-			update_display(1)
-			
-		if event.is_action_pressed("Mouse Scroll Up"):
-			update_display(-1)
-
-func update_display(change_range_by: int):
-	if selected_item == end_range - 2 and change_range_by == 1:
-		start_range = clamp(start_range + change_range_by, 0, Global.item_list.size() - 7)
-		end_range = clamp(end_range + change_range_by, start_range + 7, Global.item_list.size())
-	elif selected_item == start_range + 1 and change_range_by == -1:
-		start_range = clamp(start_range + change_range_by, 0, Global.item_list.size() - 7)
-		end_range = clamp(end_range + change_range_by, start_range + 7, Global.item_list.size())
-	selected_item = clamp(selected_item + change_range_by, 0, Global.item_list.size() - 1)
-
-	for i in range(Global.item_list.size()):
-		if item_container.get_child(i) == null:
-			return
-		if i == selected_item:
-			item_container.get_child(i).change_color(Color.AQUAMARINE)
-		else:
-			item_container.get_child(i).change_color(Color.YELLOW)
+	visibility_changed.connect(_reset)
+	
+	var flip_i: bool = false
+	var flip_v: bool = false
+	var flip_q: bool = false
+	for item: Items in GlobalCombatInformation.all_held_items:
+		var new_node = load(item_scene)
+		var new_node_instance = new_node.instantiate()
 		
-		if i >= start_range and i < end_range:
-			item_container.get_child(i).visible = true
+		new_node_instance._setup(item)
+		
+		if item.what_is_it & 001:
+			item_container.add_child(new_node_instance)
+			if new_node_instance.get_index() % item_container.columns == 0:
+				if flip_i:
+					flip_i = false
+				else:
+					flip_i = true
+			new_node_instance.swap_orientation(flip_i)
+			
+		elif item.what_is_it & 010:
+			valuable_container.add_child(new_node_instance)
+			if new_node_instance.get_index() % valuable_container.columns == 0:
+				if flip_v:
+					flip_v = false
+				else:
+					flip_v = true
+			new_node_instance.swap_orientation(flip_v)
+		elif item.what_is_it & 100:
+			quest_item_container.add_child(new_node_instance)
+			if new_node_instance.get_index() % quest_item_container.columns == 0:
+				if flip_q:
+					flip_q = false
+				else:
+					flip_q = true
+			new_node_instance.swap_orientation(flip_q)
+		if new_node_instance.get_index() > 9:
+			new_node_instance.visible = false
+
+func tab_changed(which_tab):
+	if not Global.is_paused:
+		return
+	for child in range($Container.get_child_count()):
+		if which_tab == child:
+			$Container.get_child(child).visible = true
 		else:
-			item_container.get_child(i).visible = false
-	if Global.item_list.size() > 0:
-		$ColorRect2.get_child(0).text = Global.item_list.get(selected_item).item_description
-
-func display_item_clicked(clicked_item: Items):
-	var current_menu = self.get_node("ColorRect2")
-	current_menu.get_child(0).text = clicked_item.item_description
-	current_menu.visible = true
-
-func update_item_menu(item_index, item):
-	if item_index == -1:
-		var new_item = item_scene.instantiate()
-		new_item.setup(item)
-		new_item.item_clicked.connect(display_item_clicked)
-		item_container.add_child(new_item)
-	else:
-		item_container.remove_child_at(item_index)
+			$Container.get_child(child).visible = false

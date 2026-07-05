@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://div35qkb8iyrf"]
+
+[ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_cmael"]
+[ext_resource type="Texture2D" uid="uid://cvluhxjp41ivt" path="res://assets/Sprites/Items/potionSpeedBuff.png" id="1_qj8r8"]
+
+[resource]
+script = ExtResource("1_cmael")
+item_name = "Speed Potion"
+item_qualities = 4
+item_texture = ExtResource("1_qj8r8")
+over_the_head_texture = ExtResource("1_qj8r8")
+item_resource_path = "res://assets/Resources/Interactables/Shops/Shop Items/potionSpeedBuff.tres"
+sell_price = 50
+buy_price = 100
+metadata/_custom_type_script = "uid://dopm2iiu5evk5"
