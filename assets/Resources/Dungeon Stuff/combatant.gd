@@ -5,6 +5,7 @@ class_name generic_combatants
 @export var combatant_name: String
 @export var party_member_portrait: Texture2D
 @export var combatant_stats: stats
+var actual_stats: stats
 @export var is_combatant_enemy: bool
 @export var is_dead: bool = false
 
@@ -14,7 +15,6 @@ class_name generic_combatants
 @export var stored_charm: equipment
 @export var stored_boots: equipment
 @export var stored_chestplate: equipment
-
 
 @export var should_flip_sprite: bool = false
 
@@ -45,6 +45,8 @@ class_name generic_combatants
 @export var bond_points: int = 0
 @export var bond_level: GlobalCombatInformation.bonds
 
+@export var is_MC: bool = false
+		
 func restore_health():
 	combatant_stats.health = combatant_stats.max_health
 
@@ -60,12 +62,14 @@ func export_to_JSON():
 	return {
 		"path": resource_path,
 		"combatant_stats": combatant_stats.export_to_JSON(),
+		"actual_combatant_stats": actual_stats.export_to_JSON(),
 		"stored_equipment": stored_equipment.export_to_JSON(),
 		"stored_weapon": stored_weapon.export_to_JSON(),
 		"current_stored_slot": current_stored_slot,
 		"total_experience_points": total_experience_points,
 		"bond_points": bond_points,
 		"bond_level": bond_level,
+		"is_mc": is_MC,
  	}
 
 func load_save(save_info):
@@ -77,4 +81,36 @@ func load_save(save_info):
 		stored_weapon = load(save_info["stored_weapon"]["path"])
 	if save_info["stored_equipment"] != null:
 		stored_equipment = load(save_info["stored_equipment"]["path"])
+	is_MC = save_info.get("is_mc", is_MC)
 	add_experience(total_experience_points)
+	
+func gather_actual_stats():
+	actual_stats = add_up_stats()
+	
+func add_up_stats() -> stats:
+	var step_1: stats = add_stats(stored_equipment.equipment_stats, stored_boots.equipment_stats)
+	var step_2: stats = add_stats(stored_chestplate.equipment_stats, stored_charm.equipment_stats)
+	var step_3: stats = add_stats(step_1, step_2)
+	var step_4: stats = add_stats(step_3, combatant_stats)
+
+	step_4.attack += stored_weapon.weapon_attack
+	step_4.magic += stored_weapon.weapon_magic
+	step_4.crit_chance += stored_weapon.weapon_crit_chance
+	step_4.crit_damage += stored_weapon.weapon_crit_damage
+	
+	return step_4.duplicate()
+
+func add_stats(stat_1: stats, stat_2: stats):
+	var new_stats = stats.new()
+	new_stats.max_health = stat_1.max_health +  stat_2.max_health
+	new_stats.health = stat_1.health +  stat_2.health
+	new_stats.attack = stat_1.attack +  stat_2.attack
+	new_stats.magic = stat_1.magic + stat_2.magic
+	new_stats.defense = stat_1.defense +  stat_2.defense
+	new_stats.resistance = stat_1.resistance +  stat_2.resistance
+	new_stats.crit_chance = stat_1.crit_chance +  stat_2.crit_chance
+	new_stats.crit_damage = stat_1.crit_damage +  stat_2.crit_damage
+	new_stats.speed = stat_1.speed +  stat_2.speed
+	new_stats.luck = stat_1.luck +  stat_2.luck
+	new_stats.evasion = stat_1.evasion +  stat_2.evasion
+	return new_stats

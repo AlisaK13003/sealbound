@@ -152,7 +152,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "EQUIP"
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=643714644]
-visible = false
 layout_mode = 0
 offset_left = 439.50616
 offset_top = -79.012344

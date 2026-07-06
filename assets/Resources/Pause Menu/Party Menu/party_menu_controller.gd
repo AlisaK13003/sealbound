@@ -10,10 +10,10 @@ var stat_page: String = "res://assets/Resources/Pause Menu/Party Menu/Party_Menu
 
 func _ready():
 	visibility_changed.connect(_reset)
-	menu_tabs._setup(GlobalCombatInformation.active_party_slots, custom_tab_path)
+	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 	
 	for child in range(menu_tabs.get_child_count()):
-		menu_tabs.get_child(child)._setup(GlobalCombatInformation.active_party_slots[child])
+		menu_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child)
 		
 		var new_page = load(stat_page)
 		var new_page_instance = new_page.instantiate()

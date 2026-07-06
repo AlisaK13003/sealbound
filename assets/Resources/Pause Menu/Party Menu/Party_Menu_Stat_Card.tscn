@@ -1,18 +1,17 @@
 [gd_scene format=3 uid="uid://cyel1j6l1mst3"]
 
 [ext_resource type="Script" uid="uid://32hova5qgtul" path="res://assets/Resources/Pause Menu/Party Menu/party_menu_stat_card_controller.gd" id="1_n7ich"]
+[ext_resource type="Texture2D" uid="uid://dmfv0svk8pdot" path="res://assets/tile sheets/Menu Border.png" id="2_3vndl"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="2_034c3"]
+[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_t6pjo"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="4_re2eu"]
+[ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="5_bk7q8"]
+[ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="6_bk7q8"]
+[ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="7_0r7i3"]
+[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="9_8ltjt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoipl"]
-bg_color = Color(0.7269004, 0.53850585, 0.610114, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 20.0
-expand_margin_top = 10.0
-expand_margin_right = 20.0
-expand_margin_bottom = 10.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
+bg_color = Color(0.56537855, 0.6413056, 0.29766798, 1)
 
 [node name="PartyMenuStatCard" type="Control" unique_id=1574348551]
 layout_mode = 3
@@ -23,22 +22,62 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n7ich")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=937790478]
+z_index = 2
+clip_contents = true
+layout_mode = 0
+offset_left = 84.0
+offset_top = 4.0
+offset_right = 542.0
+offset_bottom = 135.15
+texture = ExtResource("2_3vndl")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1347087129]
+modulate = Color(0.78039217, 0.78039217, 0.78039217, 0.654902)
+z_index = -2
+layout_mode = 0
+offset_left = -1.0
+offset_top = -0.8499999
+offset_right = 457.0
+offset_bottom = 131.15
+texture = ExtResource("2_t6pjo")
+patch_margin_left = 5
+patch_margin_right = 6
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="Panel" type="Panel" parent="." unique_id=533229209]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 11.0
-offset_right = 483.0
-offset_bottom = 202.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_eoipl")
+offset_left = -26.0
+offset_top = -1.0
+offset_right = 546.0
+offset_bottom = 191.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2099465339]
+modulate = Color(0.7764706, 0.6666667, 0.7764706, 1)
+layout_mode = 0
+offset_left = -24.0
+offset_top = 4.0
+offset_right = 72.0
+offset_bottom = 135.0
+texture = ExtResource("2_t6pjo")
 
 [node name="GridContainer2" type="GridContainer" parent="." unique_id=2125992868]
 layout_mode = 0
-offset_left = 320.0
-offset_top = 3.0
-offset_right = 497.0
-offset_bottom = 257.0
-theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 10
+offset_left = 94.0
+offset_top = 5.0
+offset_right = 546.0002
+offset_bottom = 228.81
+theme_override_constants/h_separation = 79
+theme_override_constants/v_separation = 18
+columns = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GridContainer2" unique_id=1355603647]
 layout_mode = 2
@@ -186,8 +225,10 @@ horizontal_alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=574574025]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -16.0
+offset_top = 135.0
+offset_right = 247.0
+offset_bottom = 175.0
 theme_override_constants/separation = 110
 
 [node name="GridContainer3" type="GridContainer" parent="VBoxContainer" unique_id=1235203110]
@@ -221,18 +262,146 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
 theme_override_fonts/font = ExtResource("2_034c3")
 text = "next level: 1243"
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=11870456]
-layout_mode = 2
-theme_override_constants/v_separation = 21
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=301698890]
+position = Vector2(52, 29.89)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("4_re2eu")
+animation = &"Idle"
+frame_progress = 0.3673093
 
-[node name="Current Weapon" type="Label" parent="VBoxContainer/GridContainer" unique_id=676135734]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
-theme_override_fonts/font = ExtResource("2_034c3")
-text = "Current Weapon: "
+[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=1387503914]
+offset_left = -36.5
+offset_top = 35.0
+offset_right = 9.5
+offset_bottom = 53.0
+text = "MC"
+horizontal_alignment = 1
 
-[node name="Current Equipment" type="Label" parent="VBoxContainer/GridContainer" unique_id=836151550]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1382359087]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 138.18
+offset_right = 538.0
+offset_bottom = 314.1795
+theme_override_constants/h_separation = 25
+columns = 53
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer" unique_id=1808795740]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
-theme_override_fonts/font = ExtResource("2_034c3")
-text = "Current Equipment: "
+texture = ExtResource("5_bk7q8")
+
+[node name="TextureRect2" type="TextureRect" parent="GridContainer" unique_id=1952514838]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_bk7q8")
+
+[node name="TextureRect3" type="TextureRect" parent="GridContainer" unique_id=386117145]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_bk7q8")
+
+[node name="TextureRect4" type="TextureRect" parent="GridContainer" unique_id=1574258891]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_bk7q8")
+
+[node name="TextureRect5" type="TextureRect" parent="GridContainer" unique_id=689563575]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_bk7q8")
+
+[node name="EXP_bar" type="TextureProgressBar" parent="." unique_id=576820100]
+z_index = 1
+layout_mode = 0
+offset_left = 115.0
+offset_top = 175.0
+offset_right = 288.0
+offset_bottom = 184.0
+value = 77.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 1
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("6_bk7q8")
+texture_progress = ExtResource("7_0r7i3")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=71415567]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 4.0
+offset_right = 72.0
+offset_bottom = 135.0
+texture = ExtResource("2_3vndl")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="." unique_id=562742540]
+layout_mode = 0
+offset_left = -33.0
+offset_top = -5.0
+offset_right = 551.0
+offset_bottom = 198.0
+texture = ExtResource("9_8ltjt")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="GridContainer3" type="GridContainer" parent="." unique_id=1446961732]
+z_index = 5
+layout_mode = 0
+offset_left = 278.0
+offset_top = 138.0
+offset_right = 454.0
+offset_bottom = 178.0
+theme_override_constants/h_separation = 25
+columns = 5
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3" unique_id=359082146]
+layout_mode = 2
+texture = ExtResource("2_3vndl")
+
+[node name="TextureRect2" type="TextureRect" parent="GridContainer3" unique_id=1402489330]
+layout_mode = 2
+texture = ExtResource("2_3vndl")
+
+[node name="TextureRect3" type="TextureRect" parent="GridContainer3" unique_id=1134778299]
+layout_mode = 2
+texture = ExtResource("2_3vndl")
+
+[node name="TextureRect4" type="TextureRect" parent="GridContainer3" unique_id=1611665947]
+layout_mode = 2
+texture = ExtResource("2_3vndl")
+
+[node name="TextureRect5" type="TextureRect" parent="GridContainer3" unique_id=1580860229]
+layout_mode = 2
+texture = ExtResource("2_3vndl")
+
+[node name="Label" type="Label" parent="." unique_id=1745837958]
+layout_mode = 0
+offset_left = -17.0
+offset_top = 171.0
+offset_right = 72.0
+offset_bottom = 189.0
+theme_override_colors/font_outline_color = Color(0, 0.20392157, 0.7372549, 1)
+theme_override_constants/outline_size = 3
+text = "Add to Party"
+
+[node name="CheckBox" type="CheckBox" parent="Label" unique_id=1245951029]
+layout_mode = 0
+offset_left = 90.0
+offset_top = -4.0
+offset_right = 114.0
+offset_bottom = 20.0
+disabled = true
+
+[connection signal="pressed" from="Label/CheckBox" to="." method="_on_check_box_pressed"]
+[connection signal="toggled" from="Label/CheckBox" to="." method="_on_check_box_toggled"]

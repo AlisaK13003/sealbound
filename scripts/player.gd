@@ -60,7 +60,7 @@ func _process(_delta: float) -> void:
 	
 func _input(event):
 	# In Player _input
-	if Global.get_input_mapping("Pause"):
+	if Global.get_input_mapping("Pause") and not Global.cant_leave_menu:
 		if not pause_menu.visible:
 			if Global.is_in_menu:
 				return

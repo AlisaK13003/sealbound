@@ -73,14 +73,14 @@ axis_stretch_vertical = 2
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("14_j01ox")]
 layout_mode = 0
-offset_left = -60.185
-offset_top = -43.635
-offset_right = -33.185
-offset_bottom = -43.635
+offset_left = 220.0
+offset_top = -12.0
+offset_right = 247.0
+offset_bottom = -12.0
 scale = Vector2(0.46, 0.46)
 theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 6
-only_icons = true
+theme_override_constants/v_separation = 64
+be_vertical = true
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
 anchors_preset = 0

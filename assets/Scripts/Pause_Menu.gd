@@ -19,10 +19,9 @@ var time: float = 0
 
 func _ready():
 	Global.save_loaded.connect(_on_game_start)
-	menu_tab._setup(tab_names, "", tab_icons)
+	menu_tab._setup(tab_names, "res://assets/Resources/Pause Menu/Custom_Menu_Tab.tscn", tab_icons)
 	menu_tab.selection_changed.connect(tab_changed)
 	
-
 	#Global.is_paused = true
 
 func _setup(dungeon_instance, generated_rooms):

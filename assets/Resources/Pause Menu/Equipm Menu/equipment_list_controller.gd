@@ -25,14 +25,39 @@ func _setup():
 		new_node_instance.node_pressed.connect(equipment_selected)
 		
 		add_child(new_node_instance)
-		new_node_instance.move_left(new_node_instance.get_index())
+		#new_node_instance.move_left(new_node_instance.get_index())
+	GlobalCombatInformation.equipment_added.connect(_reset_contents)
 		
 func equipment_selected(instance_id, equip):
-	for child in get_children():
-		if child.get_instance_id() == instance_id:
-			remove_child(child)
-			break
+	#for child in get_children():
+	#	if child.get_instance_id() == instance_id:
+	#		remove_child(child)
+	#		break
 	equipment_swapped.emit(equip)
+
+func _reset_contents():
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
+	var stored_equipment_list = []
+
+	if what_equipment_am_i == 0:
+		for weapon_ in GlobalCombatInformation.all_held_weapons:
+			stored_equipment_list.append(weapon_)
+	else:
+		for equipment_: equipment in GlobalCombatInformation.all_held_equipment:
+			if equipment_.equipment_type == what_equipment_am_i - 1:
+				stored_equipment_list.append(equipment_)
+				
+	for equipment_ in stored_equipment_list:
+		var new_node = load(equipment_node)
+		var new_node_instance: Control = new_node.instantiate()
+		
+		new_node_instance._setup(equipment_, true if what_equipment_am_i == 0 else false)
+		
+		new_node_instance.node_pressed.connect(equipment_selected)
+		
+		add_child(new_node_instance)
 
 func update_contents(new_equipment):
 	if new_equipment == null:
@@ -44,5 +69,5 @@ func update_contents(new_equipment):
 	
 	new_node_instance.node_pressed.connect(equipment_selected)
 	
-	add_child(new_node_instance)
-	new_node_instance.move_left(new_node_instance.get_index())
+	#add_child(new_node_instance)
+	#new_node_instance.move_left(new_node_instance.get_index())

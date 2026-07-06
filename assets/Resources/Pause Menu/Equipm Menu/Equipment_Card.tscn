@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="4_afx7m"]
 [ext_resource type="Texture2D" uid="uid://o4q3ds3kg3k" path="res://assets/Equipment/Equipment Sprites/Ruby Necklace.png" id="5_gdc6p"]
 [ext_resource type="Texture2D" uid="uid://18r8dgv2cgkk" path="res://assets/Equipment/Equipment Sprites/Shirt.png" id="6_1itkr"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="9_afx7m"]
+[ext_resource type="Texture2D" uid="uid://biwuiw87kdmd" path="res://assets/tile sheets/Move_Arrow.png" id="10_gdc6p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
 bg_color = Color(0.4753688, 0.64840907, 0.5228421, 1)
@@ -25,6 +27,12 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ued3"]
+bg_color = Color(0.51951796, 0.62384665, 0.62996584, 1)
+skew = Vector2(0.1, 0)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
 bg_color = Color(0.68455464, 0.5293625, 0.7718792, 1)
 skew = Vector2(0.1, 0)
@@ -32,12 +40,6 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ued3"]
-bg_color = Color(0.51951796, 0.62384665, 0.62996584, 1)
-skew = Vector2(0.1, 0)
-shadow_color = Color(0, 0, 0, 1)
-shadow_size = 3
 
 [node name="EquipmentCard" type="Control" unique_id=1015162363]
 layout_mode = 3
@@ -56,7 +58,7 @@ script = ExtResource("1_yi0mm")
 modulate = Color(1, 0.7921569, 1, 1)
 layout_mode = 0
 offset_left = -34.0
-offset_top = -6.0
+offset_top = -100.0
 offset_right = 790.505
 offset_bottom = 337.0
 texture = ExtResource("2_ln7px")
@@ -92,163 +94,21 @@ offset_right = 790.07996
 offset_bottom = 327.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_goyxb")
 
-[node name="Weapon_Slot" type="Panel" parent="." unique_id=1608655098]
-layout_mode = 0
-offset_left = 425.0
-offset_top = 124.0
-offset_right = 457.0
-offset_bottom = 156.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
-
-[node name="TextureRect" type="TextureRect" parent="Weapon_Slot" unique_id=1424916995]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_yi0mm")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="Weapon_Slot" unique_id=1544489112]
-layout_mode = 0
-offset_left = -12.0
-offset_top = -15.0
-offset_right = 51.0
-offset_bottom = 3.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 19
-text = "Weapon"
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1120351908]
-position = Vector2(421.105, 124)
-scale = Vector2(2, 2)
+z_index = 1
+position = Vector2(84, -39)
+scale = Vector2(3, 3)
 sprite_frames = ExtResource("1_2kwft")
 animation = &"Idle"
 frame_progress = 0.6574928
 
-[node name="Helmet_Slot" type="Panel" parent="." unique_id=461164521]
-layout_mode = 0
-offset_left = 374.0
-offset_top = 62.0
-offset_right = 406.0
-offset_bottom = 94.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
-
-[node name="TextureRect" type="TextureRect" parent="Helmet_Slot" unique_id=1678531162]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_ln7px")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="Helmet_Slot" unique_id=433887599]
-layout_mode = 0
-offset_left = -9.0
-offset_top = -14.0
-offset_right = 46.0
-offset_bottom = 4.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 19
-text = "Helmet"
-
-[node name="Boots_Slot" type="Panel" parent="." unique_id=781361171]
-layout_mode = 0
-offset_left = 333.0
-offset_top = 207.89
-offset_right = 365.0
-offset_bottom = 239.89001
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
-
-[node name="TextureRect" type="TextureRect" parent="Boots_Slot" unique_id=1095514278]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("4_afx7m")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="Boots_Slot" unique_id=55395233]
-layout_mode = 0
-offset_left = -6.0
-offset_top = -15.0
-offset_right = 45.0
-offset_bottom = 3.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 19
-text = "Boots"
-
-[node name="Charm_Slot" type="Panel" parent="." unique_id=1298982983]
-layout_mode = 0
-offset_left = 412.0
-offset_top = 207.89
-offset_right = 444.0
-offset_bottom = 239.89001
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
-
-[node name="TextureRect" type="TextureRect" parent="Charm_Slot" unique_id=705787310]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("5_gdc6p")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="Charm_Slot" unique_id=1685438206]
-layout_mode = 0
-offset_left = -9.0
-offset_top = -15.0
-offset_right = 43.0
-offset_bottom = 3.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 19
-text = "Charm"
-
-[node name="Chestplat_Slot" type="Panel" parent="." unique_id=822629057]
-layout_mode = 0
-offset_left = 324.0
-offset_top = 124.0
-offset_right = 356.0
-offset_bottom = 156.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
-
-[node name="TextureRect" type="TextureRect" parent="Chestplat_Slot" unique_id=565163477]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("6_1itkr")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="Chestplat_Slot" unique_id=1584971663]
-layout_mode = 0
-offset_left = -7.0
-offset_top = -15.0
-offset_right = 42.0
-offset_bottom = 3.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 19
-text = "Chest"
-
-[node name="Label2" type="Label" parent="." unique_id=190233512]
-layout_mode = 0
-offset_left = 6.8
-offset_top = 0.19
-offset_right = 113.8
-offset_bottom = 33.19
-theme_override_font_sizes/font_size = 29
-text = "Equipped"
-
 [node name="GridContainer" type="GridContainer" parent="." unique_id=689500832]
+visible = false
 layout_mode = 0
-offset_left = 4.21
-offset_top = 38.495
-offset_right = 972.2101
-offset_bottom = 350.495
+offset_left = -21.0
+offset_top = 74.0
+offset_right = 279.0
+offset_bottom = 358.0
 mouse_filter = 2
 theme_override_constants/h_separation = 189
 theme_override_constants/v_separation = 16
@@ -276,7 +136,6 @@ text = "Beanie:
 custom_minimum_size = Vector2(300.825, 44.085)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-6, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
 
 [node name="Weapon" type="Label" parent="GridContainer/Panel3" unique_id=1808666244]
@@ -296,7 +155,6 @@ text = "Lucifer's Blade:
 custom_minimum_size = Vector2(300.825, 44.085)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-12, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
 
 [node name="Chestplate" type="Label" parent="GridContainer/Panel4" unique_id=1173052540]
@@ -317,7 +175,6 @@ text = "Lather Chestplate:
 custom_minimum_size = Vector2(300.825, 44.085)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-18, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
 
 [node name="Charm" type="Label" parent="GridContainer/Panel6" unique_id=2141971698]
@@ -337,7 +194,6 @@ text = "Gold Bracelet:
 custom_minimum_size = Vector2(300.825, 44.085)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-24, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ued3")
 
 [node name="Boots" type="Label" parent="GridContainer/Panel5" unique_id=116171846]
@@ -353,8 +209,423 @@ theme_override_font_sizes/font_size = 19
 text = "Leather Boots: 
      0 Speed, 0 Evasion"
 
-[connection signal="gui_input" from="Weapon_Slot" to="." method="_on_equip_slot_gui_input" binds= [0]]
-[connection signal="gui_input" from="Helmet_Slot" to="." method="_on_equip_slot_gui_input" binds= [1]]
-[connection signal="gui_input" from="Boots_Slot" to="." method="_on_equip_slot_gui_input" binds= [2]]
-[connection signal="gui_input" from="Charm_Slot" to="." method="_on_equip_slot_gui_input" binds= [3]]
-[connection signal="gui_input" from="Chestplat_Slot" to="." method="_on_equip_slot_gui_input" binds= [4]]
+[node name="GridContainer2" type="GridContainer" parent="." unique_id=687248171]
+layout_mode = 0
+offset_left = 118.0
+offset_top = -78.305
+offset_right = 550.0
+offset_bottom = -46.305
+scale = Vector2(1.5, 1.5)
+theme_override_constants/h_separation = 68
+theme_override_constants/v_separation = 19
+columns = 6
+
+[node name="Weapon_Slot" type="Panel" parent="GridContainer2" unique_id=1685549453]
+z_index = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Weapon_Slot" unique_id=26179046]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_yi0mm")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer2/Weapon_Slot" unique_id=1370922221]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 51.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Weapon"
+
+[node name="Helmet_Slot" type="Panel" parent="GridContainer2" unique_id=1177895003]
+z_index = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Helmet_Slot" unique_id=320031164]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_ln7px")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer2/Helmet_Slot" unique_id=69883560]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -14.0
+offset_right = 46.0
+offset_bottom = 4.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Helmet"
+
+[node name="Boots_Slot" type="Panel" parent="GridContainer2" unique_id=1973921026]
+z_index = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Boots_Slot" unique_id=1453192000]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_afx7m")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer2/Boots_Slot" unique_id=899701256]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Boots"
+
+[node name="Charm_Slot" type="Panel" parent="GridContainer2" unique_id=517249035]
+z_index = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Charm_Slot" unique_id=726761414]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_gdc6p")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer2/Charm_Slot" unique_id=686904057]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -15.0
+offset_right = 43.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Charm"
+
+[node name="Chestplat_Slot" type="Panel" parent="GridContainer2" unique_id=518190667]
+z_index = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Chestplat_Slot" unique_id=1566990413]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_1itkr")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer2/Chestplat_Slot" unique_id=1909990257]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -15.0
+offset_right = 42.0
+offset_bottom = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Chest"
+
+[node name="GridContainer3" type="GridContainer" parent="." unique_id=1553974725]
+layout_mode = 0
+offset_left = 109.999985
+offset_top = -3.999999
+offset_right = 562.0002
+offset_bottom = 306.0
+scale = Vector2(1.23, 1.23)
+theme_override_constants/h_separation = 79
+theme_override_constants/v_separation = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer3" unique_id=1767992262]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="GridContainer3/HBoxContainer" unique_id=1053589819]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Health:"
+horizontal_alignment = 2
+
+[node name="Health2" type="Label" parent="GridContainer3/HBoxContainer" unique_id=1987374576]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer" unique_id=488165046]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Health3" type="Label" parent="GridContainer3/HBoxContainer" unique_id=429693640]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GridContainer3" unique_id=754657749]
+layout_mode = 2
+
+[node name="Attack" type="Label" parent="GridContainer3/HBoxContainer2" unique_id=1263163706]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Attack:"
+horizontal_alignment = 2
+
+[node name="Attack2" type="Label" parent="GridContainer3/HBoxContainer2" unique_id=2144461897]
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer2" unique_id=546780637]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Attack3" type="Label" parent="GridContainer3/HBoxContainer2" unique_id=583093456]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GridContainer3" unique_id=121083011]
+layout_mode = 2
+
+[node name="Defense" type="Label" parent="GridContainer3/HBoxContainer3" unique_id=22317307]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Defense:"
+horizontal_alignment = 2
+
+[node name="Defense2" type="Label" parent="GridContainer3/HBoxContainer3" unique_id=379682862]
+custom_minimum_size = Vector2(98, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer3" unique_id=114977428]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Defense3" type="Label" parent="GridContainer3/HBoxContainer3" unique_id=165837090]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="GridContainer3" unique_id=1734860517]
+layout_mode = 2
+
+[node name="Magic" type="Label" parent="GridContainer3/HBoxContainer4" unique_id=1083461075]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Magic:"
+horizontal_alignment = 2
+
+[node name="Magic2" type="Label" parent="GridContainer3/HBoxContainer4" unique_id=658622156]
+custom_minimum_size = Vector2(118, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer4" unique_id=1437965274]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Magic3" type="Label" parent="GridContainer3/HBoxContainer4" unique_id=378126397]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="GridContainer3" unique_id=367178807]
+layout_mode = 2
+
+[node name="Resistance" type="Label" parent="GridContainer3/HBoxContainer5" unique_id=667101580]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Resistance:"
+horizontal_alignment = 2
+
+[node name="Resistance2" type="Label" parent="GridContainer3/HBoxContainer5" unique_id=1726753291]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer5" unique_id=1035261816]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Resistance3" type="Label" parent="GridContainer3/HBoxContainer5" unique_id=1467881943]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="GridContainer3" unique_id=219590280]
+layout_mode = 2
+
+[node name="Speed" type="Label" parent="GridContainer3/HBoxContainer6" unique_id=1132507363]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Speed:"
+horizontal_alignment = 2
+
+[node name="Speed2" type="Label" parent="GridContainer3/HBoxContainer6" unique_id=696622375]
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer6" unique_id=996485760]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Speed3" type="Label" parent="GridContainer3/HBoxContainer6" unique_id=725171578]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="GridContainer3" unique_id=1043279597]
+layout_mode = 2
+
+[node name="Luck" type="Label" parent="GridContainer3/HBoxContainer7" unique_id=908524634]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Luck:"
+horizontal_alignment = 2
+
+[node name="Luck2" type="Label" parent="GridContainer3/HBoxContainer7" unique_id=247268269]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer7" unique_id=1050241441]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Luck3" type="Label" parent="GridContainer3/HBoxContainer7" unique_id=1187532243]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="GridContainer3" unique_id=950340911]
+layout_mode = 2
+
+[node name="Evasion" type="Label" parent="GridContainer3/HBoxContainer8" unique_id=2082098559]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "Evasion:"
+horizontal_alignment = 2
+
+[node name="Evasion2" type="Label" parent="GridContainer3/HBoxContainer8" unique_id=1283176730]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer8" unique_id=303255976]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_scale = Vector2(0.36, 0.36)
+texture = ExtResource("10_gdc6p")
+stretch_mode = 2
+
+[node name="Evasion3" type="Label" parent="GridContainer3/HBoxContainer8" unique_id=106537941]
+custom_minimum_size = Vector2(85.73, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("9_afx7m")
+text = "100/100"
+horizontal_alignment = 2

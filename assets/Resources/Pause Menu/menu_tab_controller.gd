@@ -8,6 +8,8 @@ extends GridContainer
 
 @export var dont_offset_on_click: bool = false
 
+@export var bypass_global_lock: bool = false
+
 var current_selection = 0
 var tab_node_path = "res://assets/Resources/Pause Menu/menu_tab_node.tscn"
 
@@ -23,15 +25,9 @@ func _ready():
 func _on_sort_children():
 	if get_child_count() == 0:
 		return
-	
-	starting_x = get_child(0).position.x
-	starting_y = get_child(0).position.y
-	
+
 	var selected_child = get_child(current_selection)
-	if not be_vertical:
-		selected_child.position.y = starting_y - 10
-	else:
-		selected_child.position.x = starting_x - 10
+	selected_child.update_highlight(true)
 
 func reset():
 	current_selection = 0
@@ -68,12 +64,17 @@ func _setup(tab_names_, custom_tab: String = "", icons : Array[Texture2D] = []):
 				new_tab_instance = new_tab.instantiate()
 				new_tab_instance._setup(tab_names_[name_])
 			else:
-				new_tab_instance = TextureRect.new()
-				new_tab_instance.size = Vector2(64, 64)
-				new_tab_instance.texture = icons[name_]
+				new_tab = load(custom_tab)
+				new_tab_instance = new_tab.instantiate()
+				new_tab_instance._setup(icons[name_])
 		else:
-			new_tab = load(custom_tab)
-			new_tab_instance = new_tab.instantiate()
+			if icons.is_empty():
+				new_tab = load(custom_tab)
+				new_tab_instance = new_tab.instantiate()
+			else:
+				new_tab = load(custom_tab)
+				new_tab_instance = new_tab.instantiate()
+				new_tab_instance._setup(icons[name_])
 			
 		self.add_child(new_tab_instance)
 		new_tab_instance.gui_input.connect(cycle_input.bind(name_))
@@ -109,6 +110,8 @@ func _setup(tab_names_, custom_tab: String = "", icons : Array[Texture2D] = []):
 func cycle_input(event, index):
 	if get_child_count() == 0:
 		return
+	if Global.cant_leave_menu and not bypass_global_lock:
+		return
 	if event is InputEventMouseMotion:
 		return
 	if event is InputEventMouseButton:
@@ -129,17 +132,17 @@ func change_selection():
 		if child == current_selection:
 			if not only_icons:
 				get_child(child).update_highlight(true)
-			if not be_vertical and get_child(child).position.y == starting_y:
-				get_child(child).position.y -= 10
-			elif be_vertical and get_child(child).position.x == starting_x:
-				get_child(child).position.x -= 10
+			#if not be_vertical and get_child(child).position.y == starting_y:
+			#	get_child(child).position.y -= 10
+			#elif be_vertical and get_child(child).position.x == starting_x:
+			#	get_child(child).position.x -= 10
 		else:
 			if not only_icons:
 				get_child(child).update_highlight(false)
-			if not be_vertical:
-				if get_child(child).position.y < starting_y:
-					get_child(child).position.y += 10
-			else:
-				if get_child(child).position.x < starting_x:
-					get_child(child).position.x += 10
+			#if not be_vertical:
+			#	if get_child(child).position.y < starting_y:
+			#		get_child(child).position.y += 10
+			#else:
+			#	if get_child(child).position.x < starting_x:
+			#		get_child(child).position.x += 10
 	selection_changed.emit(current_selection)

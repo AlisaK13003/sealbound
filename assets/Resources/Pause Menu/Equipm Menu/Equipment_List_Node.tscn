@@ -17,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_4ge2k")
 
 [node name="Panel" type="Panel" parent="." unique_id=1937637724]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 0
 offset_right = 273.0
 offset_bottom = 51.0

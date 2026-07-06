@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bq8g0sunifuyi" path="res://assets/characters/player/playerFemale_portraits.png" id="1_8d751"]
 [ext_resource type="Script" uid="uid://1g0wfhs8npow" path="res://assets/Resources/Pause Menu/Party Menu/player_tab_controller.gd" id="1_fx3ht"]
+[ext_resource type="Texture2D" uid="uid://dhau7t6ixoua1" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room Start.png" id="3_it2d1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx3ht"]
 skew = Vector2(0.1, 0)
@@ -29,16 +30,27 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_fx3ht")
 
 [node name="Label" type="Label" parent="." unique_id=462013437]
 layout_mode = 0
-offset_left = 22.0
-offset_top = -1.0
-offset_right = 91.0
-offset_bottom = 31.0
-theme_override_font_sizes/font_size = 10
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 87.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 17
 text = "Cassian
-HP: 50/50"
-vertical_alignment = 1
+"
+vertical_alignment = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=808291165]
 position = Vector2(11, 15)
 scale = Vector2(0.41666666, 0.41666666)
 texture = ExtResource("1_8d751")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1969716474]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 54.0
+offset_top = -7.000001
+offset_right = 94.0
+offset_bottom = 33.0
+scale = Vector2(0.655, 0.655)
+texture = ExtResource("3_it2d1")

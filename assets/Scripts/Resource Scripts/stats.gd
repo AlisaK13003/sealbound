@@ -42,3 +42,17 @@ func export_to_JSON():
 	return {
 		"path": resource_path,
 	}
+
+func add_stats(stats_to_combine_with: stats):
+	var new_stats = stats.new()
+	new_stats.max_health = stats_to_combine_with.max_health + max_health
+	new_stats.health = stats_to_combine_with.health + health
+	new_stats.attack = stats_to_combine_with.attack + attack
+	new_stats.defense = stats_to_combine_with.defense + defense
+	new_stats.resistance = stats_to_combine_with.resistance + resistance
+	new_stats.crit_chance = stats_to_combine_with.crit_chance + crit_chance
+	new_stats.crit_damage = stats_to_combine_with.crit_damage + crit_damage
+	new_stats.speed = stats_to_combine_with.speed + speed
+	new_stats.luck = stats_to_combine_with.luck + luck
+	new_stats.evasion = stats_to_combine_with.evasion + evasion
+	return new_stats

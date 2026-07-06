@@ -36,6 +36,32 @@ signal finished
 
 signal check_quest_progress
 signal reached_end_of_dungeon
+signal check_player_values
+
+const MAX_PARTY_SIZE = 3
+
+func add_active_member(combatant: generic_combatants):
+	if combatant == null:
+		return
+	active_party_slots.append(combatant)
+	check_player_values.emit()
+	if active_party_slots.size() > MAX_PARTY_SIZE:
+		Global.cant_leave_menu = true
+	
+func remove_active_member(combatant: generic_combatants):
+	for combatant_ in range(active_party_slots.size()):
+		if active_party_slots[combatant_].combatant_name == combatant.combatant_name:
+			active_party_slots.remove_at(combatant_)
+			break
+	check_player_values.emit()
+	if active_party_slots.size() <= MAX_PARTY_SIZE:
+		Global.cant_leave_menu = false
+
+func check_if_member_is_active(combatant: generic_combatants):
+	for combatant_ in active_party_slots:
+		if combatant_.combatant_name == combatant.combatant_name:
+			return true
+	return false
 
 func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
@@ -56,11 +82,13 @@ func add_item(item_to_add):
 	else:
 		all_held_items.append(item_to_add)
 	check_quest_progress.emit()
-	
+
+signal equipment_added
+signal stats_potentially_updated
+
 func add_equipment(player_index, equip, is_weapon):
 	var ret_equipment = null
 	if is_weapon:
-		
 		if all_party_slots[player_index].stored_weapon != null:
 			all_held_weapons.append(all_party_slots[player_index].stored_weapon)
 			ret_equipment = all_party_slots[player_index].stored_weapon
@@ -98,6 +126,9 @@ func add_equipment(player_index, equip, is_weapon):
 					ret_equipment = all_party_slots[player_index].stored_charm
 				all_held_equipment.erase(equip_)
 				all_party_slots[player_index].stored_charm = equip
+	for member in all_party_slots:
+		member.gather_actual_stats()
+	equipment_added.emit()
 	return ret_equipment
 	
 func search_for_item(desired_item: Items):
@@ -115,7 +146,11 @@ func _ready():
 	all_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
-	
+	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
+
+	for member in all_party_slots:
+		member.gather_actual_stats()
+
 	load_items()
 	
 	active_party_slots.append(all_party_slots[0])
@@ -127,7 +162,15 @@ func _ready():
 	
 	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
 	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
-
+	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
+	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
+	
 	all_held_equipment.append(load("res://assets/Equipment/Gold_Bracelet.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Ruby Necklace.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Plated_Boots.tres"))
@@ -291,6 +334,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	if stuff_gained != null:
 		add_item(stuff_gained)
 
+	check_player_values.emit()
 	await Fade.fade_in(1)
 	get_tree().root.remove_child(dungeon_loop_scene)
 	var temp_rewards = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Reward_Screen.tscn")
@@ -321,7 +365,7 @@ func update_stored_combat_information():
 	pass
 
 func load_saved_data(data):
-	all_party_slots.clear()
+	#all_party_slots.clear()
 	active_party_slots.clear()
 	all_held_equipment.clear()
 	all_held_weapons.clear()
@@ -333,7 +377,8 @@ func load_saved_data(data):
 	for party_member in data["player_slots"].values():
 		var new_party_member: generic_combatants = load(party_member["path"])
 		new_party_member.load_save(party_member)
-		all_party_slots.append(new_party_member)
+		new_party_member.gather_actual_stats()
+		#all_party_slots.append(new_party_member)
 
 	for equipment_ in data["equipment_slots"].values():
 		all_held_equipment.append(load(equipment_["path"]))

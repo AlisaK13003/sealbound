@@ -6,6 +6,7 @@ extends Node
 signal menu_opened
 signal menu_closed
 
+var cant_leave_menu: bool = false
 
 var CURRENT_SAVE_SLOT
 var is_paused: bool = false

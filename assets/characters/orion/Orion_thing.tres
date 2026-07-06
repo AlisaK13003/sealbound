@@ -1,16 +1,16 @@
-[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://cw3vpqck0mh18"]
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://c5utw18isr08b"]
 
-[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_lg111"]
-[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_d0nhw"]
-[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_su4fa"]
-[ext_resource type="Texture2D" uid="uid://btd1xqnjrdmx1" path="res://assets/characters/player/MC_Attack_Animations.png" id="4_vn07w"]
-[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_rsd0o"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_s43dq"]
-[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="5_su4fa"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_rsd0o"]
-[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_vn07w"]
-[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="7_s43dq"]
-[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="10_rsd0o"]
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_kudmt"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_ehjii"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_ftr10"]
+[ext_resource type="Texture2D" uid="uid://btd1xqnjrdmx1" path="res://assets/characters/player/MC_Attack_Animations.png" id="4_6a8ro"]
+[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_ah0hu"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_iywk0"]
+[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="7_vqk8b"]
+[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="8_6il4y"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="9_4s18v"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_6grtm"]
+[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="11_khxlh"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nht1f"]
 load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
@@ -22,7 +22,7 @@ load_path = "res://.godot/imported/Crowd_Breaker.png-04e109804fdd4ed04f0fd775c31
 load_path = "res://.godot/imported/Toggled_Crowd_Breaker.png-17d6b74b6ff203aad340fd0c46b1f4b1.ctex"
 
 [sub_resource type="Resource" id="Resource_s2epw"]
-script = ExtResource("1_lg111")
+script = ExtResource("1_kudmt")
 move_name = "Crowdbreaker"
 move_description = "Damage all enemies. Enemies now target Lyra"
 attack_power = 2
@@ -39,7 +39,7 @@ disabled_sprite = SubResource("CompressedTexture2D_nht1f")
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_53q4p"]
-script = ExtResource("1_lg111")
+script = ExtResource("1_kudmt")
 attack_power = null
 mana_cost = 2
 does_status = true
@@ -49,7 +49,7 @@ is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ms118"]
-script = ExtResource("2_d0nhw")
+script = ExtResource("2_ehjii")
 max_health = 75
 health = 75
 attack = 80
@@ -91,175 +91,175 @@ frame_2/texture = SubResource("AtlasTexture_8rvkf")
 frame_2/duration = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w1mpj"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(0, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qa58"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(96, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q1rie"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(192, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1uwa4"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(288, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gpgf"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fumcv"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(480, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mo0ft"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kmpme"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(672, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vraps"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h46wi"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(864, 0, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iclm0"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 880, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vt6xy"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 800, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kbln"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 720, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_so0h1"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 640, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mg6xx"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 560, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_35b4x"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 480, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yhuee"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 400, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k6u4m"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 320, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aulwf"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 240, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yexxe"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 160, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_imcne"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(768, 80, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gx1xu"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 880, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ttql"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 800, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_52eqm"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 720, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0h6q"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 640, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r4tsh"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 560, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_51p7i"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(384, 480, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88w3e"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 880, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2k3hc"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 800, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bnv70"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 720, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hysp7"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 640, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dabjd"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 560, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_erufg"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 480, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0yot0"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 400, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uioe6"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(576, 320, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fi4kt"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(0, 560, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_khps4"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(0, 480, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5qsv5"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(0, 400, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8b3i"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(0, 320, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsyco"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(192, 560, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kom5c"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(192, 480, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7sxi"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(192, 400, 96, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxdej"]
-atlas = ExtResource("4_vn07w")
+atlas = ExtResource("4_6a8ro")
 region = Rect2(192, 320, 96, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d52fj"]
@@ -425,41 +425,40 @@ animations = [{
 }]
 
 [sub_resource type="Resource" id="Resource_7q5rk"]
-script = ExtResource("2_d0nhw")
+script = ExtResource("2_ehjii")
 defense = 30
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_onp7b"]
-script = ExtResource("5_s43dq")
+script = ExtResource("9_4s18v")
 equipment_name = "Beanie"
-equipment_sprite = ExtResource("7_s43dq")
+equipment_sprite = ExtResource("8_6il4y")
 equipment_stats = SubResource("Resource_7q5rk")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"
 
 [sub_resource type="Resource" id="Resource_8byxm"]
-script = ExtResource("6_rsd0o")
+script = ExtResource("10_6grtm")
 weapon_name = "Lucifer's Blade"
-weapon_texture = ExtResource("10_rsd0o")
+weapon_texture = ExtResource("11_khxlh")
 weapon_attack = 30
 attack_accuracy = 90
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
-script = ExtResource("3_su4fa")
-combatant_name = "MC"
+script = ExtResource("3_ftr10")
+combatant_name = "Orion"
 party_member_portrait = SubResource("AnimatedTexture_bufki")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
 stored_equipment = SubResource("Resource_onp7b")
-stored_charm = ExtResource("6_vn07w")
-stored_boots = ExtResource("5_rsd0o")
-stored_chestplate = ExtResource("5_su4fa")
-combatant_skills = Array[ExtResource("1_lg111")]([SubResource("Resource_s2epw"), SubResource("Resource_53q4p")])
+stored_charm = ExtResource("6_iywk0")
+stored_boots = ExtResource("5_ah0hu")
+stored_chestplate = ExtResource("7_vqk8b")
+combatant_skills = Array[ExtResource("1_kudmt")]([SubResource("Resource_s2epw"), SubResource("Resource_53q4p")])
 sprite_frames = SubResource("SpriteFrames_d52fj")
 idle_speed = 1.0
 walk_speed = 0.7
 attack_speed = Array[float]([1.0, 1.5])
 sprite_scale = 0.007
 sprite_offset = Vector2(-28, 14)
-is_MC = true
 metadata/_custom_type_script = "uid://125iickqse23"
