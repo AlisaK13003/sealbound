@@ -2,44 +2,21 @@
 
 [ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="1_2kwft"]
 [ext_resource type="Script" uid="uid://coqs4t1ikf0rf" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_card_controller.gd" id="1_yi0mm"]
-[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_ln7px"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_1itkr"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_yi0mm"]
+[ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="3_7clkj"]
 [ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="3_ln7px"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="4_7clkj"]
 [ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="4_afx7m"]
 [ext_resource type="Texture2D" uid="uid://o4q3ds3kg3k" path="res://assets/Equipment/Equipment Sprites/Ruby Necklace.png" id="5_gdc6p"]
 [ext_resource type="Texture2D" uid="uid://18r8dgv2cgkk" path="res://assets/Equipment/Equipment Sprites/Shirt.png" id="6_1itkr"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="9_afx7m"]
 [ext_resource type="Texture2D" uid="uid://biwuiw87kdmd" path="res://assets/tile sheets/Move_Arrow.png" id="10_gdc6p"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
-bg_color = Color(0.4753688, 0.64840907, 0.5228421, 1)
-skew = Vector2(0.1, 0)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goyxb"]
-bg_color = Color(0.61214405, 0.5919062, 0.62194204, 1)
-skew = Vector2(0.1, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ued3"]
 bg_color = Color(0.51951796, 0.62384665, 0.62996584, 1)
-skew = Vector2(0.1, 0)
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
-bg_color = Color(0.68455464, 0.5293625, 0.7718792, 1)
-skew = Vector2(0.1, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [node name="EquipmentCard" type="Control" unique_id=1015162363]
 layout_mode = 3
@@ -54,14 +31,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yi0mm")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1893686698]
-modulate = Color(1, 0.7921569, 1, 1)
+[node name="Background" type="Control" parent="." unique_id=2053113695]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1893686698]
+modulate = Color(0.8646751, 0.86467516, 0.8646751, 1)
+texture_filter = 1
 layout_mode = 0
 offset_left = -34.0
 offset_top = -100.0
 offset_right = 790.505
 offset_bottom = 337.0
-texture = ExtResource("2_ln7px")
+texture = ExtResource("2_1itkr")
 patch_margin_left = 4
 patch_margin_top = 4
 patch_margin_right = 4
@@ -69,30 +52,116 @@ patch_margin_bottom = 4
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="Panel" type="Panel" parent="." unique_id=2007935690]
-visible = false
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=1253413057]
+texture_filter = 1
 layout_mode = 0
-offset_left = -18.0
-offset_top = -5.0
-offset_right = 792.16
-offset_bottom = 330.12
-theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+offset_left = -42.0
+offset_top = -107.0
+offset_right = 796.0
+offset_bottom = 347.0
+texture = ExtResource("3_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="Panel2" type="Panel" parent="Panel" unique_id=749398840]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background" unique_id=821577345]
 layout_mode = 0
-offset_left = 326.0
-offset_top = 13.0
-offset_right = 497.0
-offset_bottom = 327.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_goyxb")
+offset_left = 96.0
+offset_top = -4.0
+offset_right = 500.0
+offset_bottom = 392.0
+theme_override_constants/separation = 3
 
-[node name="Panel3" type="Panel" parent="Panel" unique_id=1254327782]
-layout_mode = 0
-offset_left = 504.0
-offset_top = 13.0
-offset_right = 790.07996
-offset_bottom = 327.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_goyxb")
+[node name="NinePatchRect" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=1988019303]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=738530330]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=1608157233]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=1703540206]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=935401127]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect6" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=1032220283]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect7" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=647604776]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect8" type="NinePatchRect" parent="Background/VBoxContainer" unique_id=575733733]
+custom_minimum_size = Vector2(403.31, 38.545)
+layout_mode = 2
+texture = ExtResource("4_7clkj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1120351908]
 z_index = 1
@@ -220,14 +289,14 @@ theme_override_constants/h_separation = 68
 theme_override_constants/v_separation = 19
 columns = 6
 
-[node name="Weapon_Slot" type="Panel" parent="GridContainer2" unique_id=1685549453]
-z_index = 2
+[node name="Weapon_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=2052569767]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+mouse_filter = 0
+texture = ExtResource("2_1itkr")
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer2/Weapon_Slot" unique_id=26179046]
+texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_right = 40.0
@@ -236,25 +305,36 @@ texture = ExtResource("2_yi0mm")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="GridContainer2/Weapon_Slot" unique_id=1370922221]
+z_index = 1
+custom_minimum_size = Vector2(70.505, 0)
 layout_mode = 0
-offset_left = -12.0
-offset_top = -15.0
-offset_right = 51.0
-offset_bottom = 3.0
+offset_left = -19.810001
+offset_top = -17.665009
+offset_right = 50.694996
+offset_bottom = 5.3349915
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 19
 text = "Weapon"
+horizontal_alignment = 1
 
-[node name="Helmet_Slot" type="Panel" parent="GridContainer2" unique_id=1177895003]
-z_index = 2
+[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Weapon_Slot" unique_id=1877194043]
+layout_mode = 0
+offset_left = -5.333336
+offset_top = -5.796669
+offset_right = 37.33333
+offset_bottom = 36.20333
+texture = ExtResource("3_7clkj")
+
+[node name="Helmet_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=174032127]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+mouse_filter = 0
+texture = ExtResource("2_1itkr")
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer2/Helmet_Slot" unique_id=320031164]
+texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -262,24 +342,36 @@ texture = ExtResource("3_ln7px")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="GridContainer2/Helmet_Slot" unique_id=69883560]
+z_index = 1
+custom_minimum_size = Vector2(70.505, 0)
 layout_mode = 0
-offset_left = -9.0
-offset_top = -14.0
-offset_right = 46.0
-offset_bottom = 4.0
+offset_left = -19.809998
+offset_top = -17.665009
+offset_right = 50.695
+offset_bottom = 5.3349915
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 19
 text = "Helmet"
+horizontal_alignment = 1
 
-[node name="Boots_Slot" type="Panel" parent="GridContainer2" unique_id=1973921026]
-z_index = 2
+[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Helmet_Slot" unique_id=1944401093]
+layout_mode = 0
+offset_left = -5.3333282
+offset_top = -5.796669
+offset_right = 37.333336
+offset_bottom = 36.20333
+texture = ExtResource("3_7clkj")
+
+[node name="Boots_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=1656568203]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+mouse_filter = 0
+texture = ExtResource("2_1itkr")
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer2/Boots_Slot" unique_id=1453192000]
+texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -287,24 +379,36 @@ texture = ExtResource("4_afx7m")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="GridContainer2/Boots_Slot" unique_id=899701256]
+z_index = 1
+custom_minimum_size = Vector2(70.505, 0)
 layout_mode = 0
-offset_left = -6.0
-offset_top = -15.0
-offset_right = 45.0
-offset_bottom = 3.0
+offset_left = -19.809998
+offset_top = -17.665009
+offset_right = 50.695
+offset_bottom = 5.3349915
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 19
 text = "Boots"
+horizontal_alignment = 1
 
-[node name="Charm_Slot" type="Panel" parent="GridContainer2" unique_id=517249035]
-z_index = 2
+[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Boots_Slot" unique_id=1289325587]
+layout_mode = 0
+offset_left = -5.3333435
+offset_top = -5.796669
+offset_right = 37.33332
+offset_bottom = 36.20333
+texture = ExtResource("3_7clkj")
+
+[node name="Charm_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=151059052]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+mouse_filter = 0
+texture = ExtResource("2_1itkr")
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer2/Charm_Slot" unique_id=726761414]
+texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -312,41 +416,64 @@ texture = ExtResource("5_gdc6p")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="GridContainer2/Charm_Slot" unique_id=686904057]
+z_index = 1
+custom_minimum_size = Vector2(70.505, 0)
 layout_mode = 0
-offset_left = -9.0
-offset_top = -15.0
-offset_right = 43.0
-offset_bottom = 3.0
+offset_left = -19.810028
+offset_top = -17.665009
+offset_right = 50.69497
+offset_bottom = 5.3349915
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 19
 text = "Charm"
+horizontal_alignment = 1
 
-[node name="Chestplat_Slot" type="Panel" parent="GridContainer2" unique_id=518190667]
-z_index = 2
+[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Charm_Slot" unique_id=866941325]
+layout_mode = 0
+offset_left = -5.3333435
+offset_top = -5.796669
+offset_right = 37.33332
+offset_bottom = 36.20333
+texture = ExtResource("3_7clkj")
+
+[node name="Chestplate_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=1777994591]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+mouse_filter = 0
+texture = ExtResource("2_1itkr")
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer2/Chestplat_Slot" unique_id=1566990413]
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Chestplate_Slot" unique_id=1566990413]
+texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("6_1itkr")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="GridContainer2/Chestplat_Slot" unique_id=1909990257]
+[node name="Label" type="Label" parent="GridContainer2/Chestplate_Slot" unique_id=1909990257]
+z_index = 1
+custom_minimum_size = Vector2(70.505, 0)
 layout_mode = 0
-offset_left = -7.0
-offset_top = -15.0
-offset_right = 42.0
-offset_bottom = 3.0
+offset_left = -19.810028
+offset_top = -17.665009
+offset_right = 50.69497
+offset_bottom = 5.3349915
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 19
 text = "Chest"
+horizontal_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Chestplate_Slot" unique_id=636266167]
+layout_mode = 0
+offset_left = -5.3333435
+offset_top = -5.796669
+offset_right = 37.33332
+offset_bottom = 36.20333
+texture = ExtResource("3_7clkj")
 
 [node name="GridContainer3" type="GridContainer" parent="." unique_id=1553974725]
 layout_mode = 0
@@ -377,10 +504,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer" unique_id=488165046]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -411,10 +539,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer2" unique_id=546780637]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -445,10 +574,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer3" unique_id=114977428]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -479,10 +609,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer4" unique_id=1437965274]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -513,10 +644,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer5" unique_id=1035261816]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -547,10 +679,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer6" unique_id=996485760]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -581,10 +714,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer7" unique_id=1050241441]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 
@@ -615,10 +749,11 @@ text = "100/100"
 horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer3/HBoxContainer8" unique_id=303255976]
+texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(33.555, 1.625)
-offset_transform_scale = Vector2(0.36, 0.36)
+offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
 

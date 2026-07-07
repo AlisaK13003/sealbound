@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cxr605a4myfc8" path="res://assets/Sprites/Under.png" id="1_yerfj"]
 [ext_resource type="Script" uid="uid://nttxmw3i6x8f" path="res://assets/Resources/Pause Menu/Bond Menu/bond_menu_controller.gd" id="1_yf0pv"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_0xduo"]
 [ext_resource type="Texture2D" uid="uid://c0brccdfdhkyo" path="res://assets/Sprites/Over.png" id="2_yf0pv"]
 [ext_resource type="Texture2D" uid="uid://bosjxi2j4hwlj" path="res://assets/Sprites/Progress.png" id="3_0xduo"]
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="4_px6aj"]
@@ -18,6 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_yf0pv")
 
 [node name="Panel" type="Panel" parent="." unique_id=1445247596]
+visible = false
 layout_mode = 0
 offset_left = -15.0
 offset_top = -7.0
@@ -25,7 +27,23 @@ offset_right = 443.0
 offset_bottom = 95.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=387251464]
+texture_filter = 1
+layout_mode = 0
+offset_left = -29.0
+offset_top = -13.0
+offset_right = 459.0
+offset_bottom = 105.0
+texture = ExtResource("2_0xduo")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1251484645]
+texture_filter = 1
 layout_mode = 0
 offset_left = 17.0
 offset_top = 7.0
@@ -49,31 +67,37 @@ offset_bottom = 38.0
 theme_override_constants/separation = 45
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=154694661]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_px6aj")
 stretch_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=2026805755]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_px6aj")
 stretch_mode = 2
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer" unique_id=1427841435]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_px6aj")
 stretch_mode = 2
 
 [node name="TextureRect4" type="TextureRect" parent="HBoxContainer" unique_id=53383797]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_px6aj")
 stretch_mode = 2
 
 [node name="TextureRect5" type="TextureRect" parent="HBoxContainer" unique_id=1255269269]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_px6aj")
 stretch_mode = 2
 
 [node name="TextureRect6" type="TextureRect" parent="HBoxContainer" unique_id=546530949]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_px6aj")
 stretch_mode = 2

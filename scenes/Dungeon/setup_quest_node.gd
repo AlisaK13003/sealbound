@@ -13,8 +13,11 @@ func _setup(quest_to_setup_with: quest):
 	
 	quest_name.text = quest_to_setup_with.quest_name
 	
-func update_highlight(hi):
-	return
+func update_highlight(highlight):
+	if highlight:
+		$TextureRect.visible = true
+	else:
+		$TextureRect.visible = false
 	
 func update_quest_progress():
 	return

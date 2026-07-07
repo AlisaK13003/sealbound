@@ -58,6 +58,15 @@ func add_experience(amount_to_add):
 	
 	return (ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120) - (total_experience_points - ceili((100 * pow(1.2, combatant_stats.level)) - 120)))
 
+func heal(skill_used: moves, person_who_used_skill: generic_combatants):
+	if skill_used.get_skill_boost() != 999:
+		actual_stats.health = clamp(actual_stats.health + (person_who_used_skill.actual_stats.magic + skill_used.get_skill_boost()), 0, actual_stats.max_health)
+	else:
+		actual_stats.health = actual_stats.max_health
+	GlobalCombatInformation.check_player_values.emit()
+	
+
+
 func export_to_JSON():
 	return {
 		"path": resource_path,

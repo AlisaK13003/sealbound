@@ -5,6 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="3_ql05a"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="4_etanp"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
+size = Vector2(313, 182)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
+
 [node name="QuestMenu" type="Control" unique_id=1054594618]
 layout_mode = 3
 anchors_preset = 15
@@ -18,23 +23,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_amt4u")
 
-[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_b5m2l")]
-layout_mode = 0
-offset_left = 11.17
-offset_top = 26.525
-offset_right = 11.17
-offset_bottom = 26.525
-scale = Vector2(0.45, 0.45)
-mouse_filter = 0
-theme_override_constants/v_separation = 62
-be_vertical = true
-
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=927349129]
 modulate = Color(0.6706895, 0.6706895, 0.6706895, 1)
 layout_mode = 0
-offset_left = 95.99999
+offset_left = 101.00001
 offset_top = 27.0
-offset_right = 558.2223
+offset_right = 552.11115
 offset_bottom = 389.22226
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("3_ql05a")
@@ -45,31 +39,28 @@ patch_margin_bottom = 4
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="Label" type="Label" parent="." unique_id=1488180443]
-layout_mode = 0
-offset_left = 4.665
-offset_top = 11.0
-offset_right = 119.00001
-offset_bottom = 29.0
-theme_override_colors/font_shadow_color = Color(0.38431373, 0.38431373, 0.38431373, 1)
-theme_override_constants/shadow_offset_x = -1
-theme_override_constants/shadow_offset_y = 1
-text = "Active Quests"
-horizontal_alignment = 1
-
 [node name="Quest_Description_Container" type="Control" parent="." unique_id=222429535]
 anchors_preset = 0
-offset_left = 130.0
+offset_left = 135.24
 offset_top = 30.0
-offset_right = 170.00006
+offset_right = 175.24007
+offset_bottom = 69.999985
+mouse_filter = 2
+
+[node name="Quest_Description_Container2" type="Control" parent="." unique_id=1229826361]
+visible = false
+anchors_preset = 0
+offset_left = 135.24
+offset_top = 30.0
+offset_right = 175.24007
 offset_bottom = 69.999985
 mouse_filter = 2
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=1704621673]
 layout_mode = 0
-offset_left = 96.0
+offset_left = 101.0
 offset_top = 27.0
-offset_right = 928.0
+offset_right = 913.0
 offset_bottom = 679.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_etanp")
@@ -79,3 +70,62 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
+
+[node name="VScrollBar" type="VScrollBar" parent="." unique_id=967754878]
+visible = false
+layout_mode = 0
+offset_left = 4.000002
+offset_top = 28.0
+offset_right = 12.000002
+offset_bottom = 188.0
+step = 1.0
+value = 1.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1109318751]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1023171570]
+position = Vector2(157, 103)
+shape = SubResource("RectangleShape2D_7tpxp")
+
+[node name="Panel" type="Panel" parent="." unique_id=125610572]
+clip_contents = true
+layout_mode = 0
+offset_left = 5.305
+offset_top = 28.0
+offset_right = 98.305
+offset_bottom = 194.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
+
+[node name="MenuTabs" parent="Panel" unique_id=1267646118 instance=ExtResource("2_b5m2l")]
+visible = false
+custom_minimum_size = Vector2(213.27, 314.98)
+layout_mode = 0
+offset_top = -0.43
+offset_right = 213.27002
+offset_bottom = 314.55002
+scale = Vector2(0.45, 0.45)
+offset_transform_enabled = true
+mouse_filter = 0
+theme_override_constants/v_separation = 62
+be_vertical = true
+
+[node name="MenuTabs2" parent="Panel" unique_id=350950437 instance=ExtResource("2_b5m2l")]
+custom_minimum_size = Vector2(213.7, 0)
+layout_mode = 0
+offset_right = 213.7
+offset_bottom = 314.0
+scale = Vector2(0.45, 0.45)
+theme_override_constants/v_separation = 62
+
+[node name="MenuTabs" parent="." unique_id=911369825 instance=ExtResource("2_b5m2l")]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 9.0
+offset_right = 67.0
+offset_bottom = 9.0
+scale = Vector2(0.5, 0.5)
+dont_offset_on_click = true
+
+[connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

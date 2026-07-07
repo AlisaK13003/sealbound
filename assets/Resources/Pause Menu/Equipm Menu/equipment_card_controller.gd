@@ -17,6 +17,7 @@ var charm_slot
 var chestplate_slot
 
 func _setup(combatant: generic_combatants):
+	visibility_changed.connect(_reset)
 	weapon_info = combatant.stored_weapon.return_stuff()
 	chestplate_info = combatant.stored_chestplate.return_stuff()
 	boot_info = combatant.stored_boots.return_stuff()
@@ -53,7 +54,7 @@ func _setup(combatant: generic_combatants):
 	helmet_slot = $GridContainer2/Helmet_Slot
 	boots_slot = $GridContainer2/Boots_Slot
 	charm_slot = $GridContainer2/Charm_Slot
-	chestplate_slot = $GridContainer2/Chestplat_Slot
+	chestplate_slot = $GridContainer2/Chestplate_Slot
 	
 	weapon_slot.get_child(0).texture = weapon_info["texture"]
 	chestplate_slot.get_child(0).texture = chestplate_info["texture"]
@@ -90,6 +91,14 @@ func update_stuff():
 	$GridContainer3/HBoxContainer7/Luck2.text = str(stored_combatant.actual_stats.luck)
 	$GridContainer3/HBoxContainer8/Evasion2.text = str(stored_combatant.actual_stats.evasion)
 	
+	for child in $GridContainer3.get_children():
+		if int(child.get_child(3).text) > int(child.get_child(1).text):
+			child.get_child(3).add_theme_color_override("font_color", Color.GREEN)
+		elif int(child.get_child(3).text) == int(child.get_child(1).text):
+			child.get_child(3).add_theme_color_override("font_color", Color.WHITE)
+		else:
+			child.get_child(3).add_theme_color_override("font_color", Color.RED)
+	
 func update_boxes(equip, is_weapon):
 	if is_weapon:
 		weapon_info = stored_combatant.stored_weapon.return_stuff()
@@ -113,7 +122,22 @@ func update_boxes(equip, is_weapon):
 				charm_info = stored_combatant.stored_charm.return_stuff()
 				$GridContainer/Panel6/Charm.text = charm_info["name"] + ": \n     " + stored_combatant.stored_charm.get_stat_string()
 				charm_slot.get_child(0).texture = charm_info["texture"]
+func _reset():
+	update_stuff()
+	
+	for child in $GridContainer3.get_children():
+		child.get_child(3).add_theme_color_override("font_color", Color.WHITE)
 
+	$GridContainer3/HBoxContainer/Health3.text = str(stored_combatant.actual_stats.health)
+	$GridContainer3/HBoxContainer2/Attack3.text = str(stored_combatant.actual_stats.attack)
+	$GridContainer3/HBoxContainer3/Defense3.text = str(stored_combatant.actual_stats.defense)
+	$GridContainer3/HBoxContainer4/Magic3.text = str(stored_combatant.actual_stats.magic)
+	$GridContainer3/HBoxContainer5/Resistance3.text = str(stored_combatant.actual_stats.resistance)
+	$GridContainer3/HBoxContainer6/Speed3.text = str(stored_combatant.actual_stats.speed)
+	$GridContainer3/HBoxContainer7/Luck3.text = str(stored_combatant.actual_stats.luck)
+	$GridContainer3/HBoxContainer8/Evasion3.text = str(stored_combatant.actual_stats.evasion)
+	
+	
 func update_prediction_stats(selected_equipment, is_weapon):
 	if selected_equipment == null:
 		for child in $GridContainer3.get_children():

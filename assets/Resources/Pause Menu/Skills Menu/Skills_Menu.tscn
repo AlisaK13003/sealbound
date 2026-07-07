@@ -1,5 +1,16 @@
 [gd_scene format=3 uid="uid://dv7w3jr2b60ts"]
 
+[ext_resource type="Script" uid="uid://cauceqldjqkhq" path="res://assets/Resources/Pause Menu/Skills Menu/skills_menu_controller.gd" id="1_1ui7l"]
+[ext_resource type="Texture2D" uid="uid://cfkrsuv277nja" path="res://assets/tile sheets/Move Sprites/Toggled_Skill_Selection.png" id="2_1ui7l"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_4rhb6"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_5ilom"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="3_atayv"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="3_pj0c7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxs0"]
+
 [node name="SkillsMenu" type="Control" unique_id=824969245]
 layout_mode = 3
 anchors_preset = 15
@@ -8,3 +19,147 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.46, 0.46)
+script = ExtResource("1_1ui7l")
+custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
+
+[node name="Background" type="Control" parent="." unique_id=492138867]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=366335137]
+layout_mode = 0
+offset_left = -163.04347
+offset_top = 221.73912
+offset_right = 347.8261
+offset_bottom = 354.3478
+texture = ExtResource("2_4rhb6")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=601392384]
+layout_mode = 0
+offset_left = -171.73912
+offset_top = 213.04347
+offset_right = 356.52173
+offset_bottom = 363.04346
+texture = ExtResource("3_5ilom")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Skill_Description" type="Panel" parent="." unique_id=1427890242]
+layout_mode = 0
+offset_left = -163.04347
+offset_top = 223.91304
+offset_right = 343.47827
+offset_bottom = 356.52173
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
+
+[node name="TextureRect" type="TextureRect" parent="Skill_Description" unique_id=1186804394]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 10.869565
+offset_top = 10.869565
+offset_right = 50.869564
+offset_bottom = 50.869564
+texture = ExtResource("2_1ui7l")
+
+[node name="Label2" type="Label" parent="Skill_Description" unique_id=1497059921]
+layout_mode = 0
+offset_left = 65.21739
+offset_top = 23.913044
+offset_right = 164.21739
+offset_bottom = 41.913044
+text = "Crowd Breaker"
+
+[node name="Label" type="Label" parent="Skill_Description" unique_id=1051850748]
+layout_mode = 0
+offset_left = 180.43478
+offset_top = 69.565216
+offset_right = 502.17392
+offset_bottom = 129.56522
+text = "Initial Equipment: Only masters of the mystic arts are capable of using this skill to it's full potential"
+autowrap_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Skill_Description" unique_id=2120934682]
+position = Vector2(56.521736, 86.95652)
+sprite_frames = ExtResource("3_pj0c7")
+animation = &"On_Attack_2"
+frame_progress = 0.65336436
+
+[node name="Label3" type="Label" parent="Skill_Description" unique_id=1349139808]
+layout_mode = 0
+offset_left = 456.52173
+offset_top = 21.73913
+offset_right = 496.52173
+offset_bottom = 39.73913
+text = "2 BP"
+
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("3_atayv")]
+layout_mode = 0
+offset_left = -236.325
+offset_top = -25.65
+offset_right = -236.325
+offset_bottom = -25.65
+scale = Vector2(1.4, 1.4)
+theme_override_constants/h_separation = 155
+columns = 3
+override_separation = true
+
+[node name="Control" type="Control" parent="." unique_id=70404854]
+anchors_preset = 0
+offset_left = -74.575
+offset_top = 40.295
+offset_right = -34.574974
+offset_bottom = 80.29504
+
+[node name="Button_Background" type="Control" parent="." unique_id=1196341924]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Button_Background" unique_id=1198019341]
+layout_mode = 0
+offset_left = 295.65216
+offset_top = 336.9565
+offset_right = 393.47824
+offset_bottom = 376.08694
+texture = ExtResource("2_4rhb6")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Button_Background" unique_id=1809722262]
+layout_mode = 0
+offset_left = 286.95648
+offset_top = 328.26086
+offset_right = 404.34778
+offset_bottom = 384.7826
+texture = ExtResource("3_5ilom")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=1258957224]
+layout_mode = 0
+offset_left = 295.65216
+offset_top = 336.9565
+offset_right = 393.47824
+offset_bottom = 376.9565
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ekxs0")
+
+[node name="Label" type="Label" parent="Panel" unique_id=30454339]
+layout_mode = 0
+offset_right = 97.82608
+offset_bottom = 41.30435
+text = "Use Skill"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]

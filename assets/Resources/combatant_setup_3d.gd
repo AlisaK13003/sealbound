@@ -172,7 +172,7 @@ func update_health(change_health_value, what_action = null):
 		elif what_action == "MULTI":
 			var current_damage = int(ceil(change_health_value[0]))
 			while(current_damage is int or current_damage != "MISS"):
-				if is_defending:
+				if is_defending and change_health_value > 0:
 					update_portrait._update_health(current_damage * 0.6)
 					stored_combatant.combatant_stats.health -= current_damage * 0.6
 					await combatant_ui_.update_damage_label(current_damage * 0.6, what_action)

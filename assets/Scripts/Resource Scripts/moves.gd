@@ -97,3 +97,15 @@ func export_to_JSON():
 	return {
 		"path": resource_path,
 	}
+
+func get_skill_boost() -> float:
+	if does_heal_party:
+		match amount_healed:
+			0: return 1.0
+			1: return 1.5
+			2: return 999.0
+	match attack_power:
+		0: return 1.25
+		1: return 1.5
+		2: return 2
+	return 1.0

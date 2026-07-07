@@ -34,8 +34,29 @@ func _ready():
 	menu_tabs.selection_changed.connect(tab_changed)
 	menu_tabs.cycle_input(null, 0)
 	
-func _reset():
-	menu_tabs.cycle_input(null, -10)
+func _reset(should_continue_cycling: bool = true):
+	if should_continue_cycling:
+		menu_tabs.cycle_input(null, -1000)
+	for child in card_container.get_children():
+		child._reset()
+	
+	for child in container.get_children():
+		child.visible = false
+	
+	$TextureRect/TextureRect.visible = false
+	$TextureRect/Label.visible = false
+	$TextureRect/Label2.visible = false
+	$Panel.visible = false
+	$VScrollBar.visible = false
+	$Label.text = ""
+	visible_menu = -1
+	current_item = 0
+	for child in $Container2/Container.get_children():
+		for child_ in child.get_children():
+			if child_.get_index() == 0:
+				child_._update_selection(true)
+			else:
+				child_._update_selection(false)
 
 var visible_menu
 
@@ -76,7 +97,7 @@ func _equip_button_pressed(event):
 				$TextureRect/Label2.visible = false
 				$Panel.visible = false
 				card_container.get_child(menu_tabs.current_selection).update_prediction_stats(null, false)
-				$VScrollBar.max_value = container.get_child(visible_menu).get_child_count() - 5
+				$VScrollBar.max_value = container.get_child(visible_menu).get_child_count() - 4
 				if container.get_child(visible_menu).get_child_count() > 5:
 					$VScrollBar.visible 
 					
@@ -104,10 +125,16 @@ func equipment_equipped(equipped_equipment):
 				container.get_child(3).update_contents(unequipped)
 	
 func show_equip_menu(which_menu):
+	$TextureRect/TextureRect.visible = false
+	$TextureRect/Label.visible = false
+	$TextureRect/Label2.visible = false
+	$Panel.visible = false
+	_reset(false)
 	if which_menu == visible_menu:
 		visible_menu = -1
 		equip_swap_label.text = ""
 		$VScrollBar.visible = false
+		$VScrollBar.value = 0
 	else:
 		match which_menu:
 			# Weapon Slot
@@ -134,7 +161,7 @@ func show_equip_menu(which_menu):
 	for child in $Container2/Container.get_children():
 		if child.get_index() == visible_menu:
 			child.visible = true
-			$VScrollBar.max_value = child.get_child_count() - 6
+			$VScrollBar.max_value = child.get_child_count() - 4
 			$VScrollBar.value = 0
 			if child.get_child_count() > 5:
 				$VScrollBar.visible = true
@@ -142,10 +169,11 @@ func show_equip_menu(which_menu):
 			child.visible = false
 
 func tab_changed(which_tab):
+	_reset(false)
 	for child in range(card_container.get_child_count()):
 		if which_tab == child:
 			card_container.get_child(child).visible = true
-			$VScrollBar.max_value = card_container.get_child(child).get_child_count() - 6
+			$VScrollBar.max_value = card_container.get_child(child).get_child_count() - 4
 			$VScrollBar.value = 0
 			if card_container.get_child(child).get_child_count() > 5:
 				$VScrollBar.visible 
@@ -169,7 +197,17 @@ func _on_v_scroll_bar_value_changed(value):
 	if $Container2/Container.get_child(visible_menu).get_child_count() == 0:
 		return
 	print(value)
+	update_selected_item()
 	$Container2/Container.position.y = container_start_position.y - (value * $Container2/Container.get_child(0).get_theme_constant("v_separation"))
+
+var current_item = 0
+
+func update_selected_item():
+	for child in $Container2/Container.get_child(visible_menu).get_children():
+		if child.get_index() == current_item:
+			child._update_selection(true)
+		else:
+			child._update_selection(false)
 
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -181,14 +219,18 @@ func _input(event):
 			
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			current_slot = clamp(current_slot - 1, 0, scroll_bar.max_value + 1)
+			current_item = clamp(current_item - 1, 0, $Container2/Container.get_child(visible_menu).get_child_count() - 1)
 			scroll_bar.value = current_slot
 			scroll_cooldown_timer = SCROLL_COOLDOWN_TIME
 			get_viewport().set_input_as_handled()
+			update_selected_item()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			current_slot = clamp(current_slot + 1, 0, scroll_bar.max_value + 1)
+			current_item = clamp(current_item + 1, 0, $Container2/Container.get_child(visible_menu).get_child_count() - 1)
 			scroll_bar.value = current_slot
 			scroll_cooldown_timer = SCROLL_COOLDOWN_TIME
 			get_viewport().set_input_as_handled()
+			update_selected_item()
 			
 var can_scroll: bool = false
 func _on_area_2d_mouse_entered():

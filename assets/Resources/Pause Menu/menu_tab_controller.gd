@@ -9,6 +9,7 @@ extends GridContainer
 @export var dont_offset_on_click: bool = false
 
 @export var bypass_global_lock: bool = false
+@export var disable_selection: bool = false
 
 var current_selection = 0
 var tab_node_path = "res://assets/Resources/Pause Menu/menu_tab_node.tscn"
@@ -24,6 +25,8 @@ func _ready():
 
 func _on_sort_children():
 	if get_child_count() == 0:
+		return
+	if disable_selection:
 		return
 
 	var selected_child = get_child(current_selection)
@@ -112,11 +115,12 @@ func cycle_input(event, index):
 		return
 	if Global.cant_leave_menu and not bypass_global_lock:
 		return
+	if disable_selection:
+		return
 	if event is InputEventMouseMotion:
 		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("HELLO")
 			current_selection = index
 			change_selection()
 	else:
@@ -146,3 +150,9 @@ func change_selection():
 			#	if get_child(child).position.x < starting_x:
 			#		get_child(child).position.x += 10
 	selection_changed.emit(current_selection)
+
+func set_active(active):
+	disable_selection = not active
+
+func disabled():
+	disable_selection = true

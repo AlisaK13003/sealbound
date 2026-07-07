@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://u5sgund2vvpb"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_r7rqf"]
+
+[resource]
+script = ExtResource("1_r7rqf")
+item_name = "Altho Eh Pinto"
+item_description = "Heals HP for a moderate amount"
+does_what = 2
+what_is_it = 1
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

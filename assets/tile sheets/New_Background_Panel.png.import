@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh66bertmhorp"
-path="res://.godot/imported/potionHeal.png-d6f3c2e304c13a49a692bf955738268f.ctex"
+uid="uid://crg5n88kvt8kc"
+path="res://.godot/imported/New_Background_Panel.png-88620e9ff797cc3a64db2da5151ea550.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Items/potionHeal.png"
-dest_files=["res://.godot/imported/potionHeal.png-d6f3c2e304c13a49a692bf955738268f.ctex"]
+source_file="res://assets/tile sheets/New_Background_Panel.png"
+dest_files=["res://.godot/imported/New_Background_Panel.png-88620e9ff797cc3a64db2da5151ea550.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

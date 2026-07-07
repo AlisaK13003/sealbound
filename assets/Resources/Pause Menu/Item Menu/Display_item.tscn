@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_cn63v"]
 [ext_resource type="Script" uid="uid://bxedysd0u2jl6" path="res://assets/Resources/Pause Menu/Item Menu/display_item.gd" id="1_e2cpd"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_o752c"]
+[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_gyjpm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
 bg_color = Color(0.44790196, 0.6198128, 0.7764799, 1)
@@ -14,50 +15,67 @@ border_width_bottom = 1
 border_color = Color(0.40067393, 0.87550306, 0.9797564, 1)
 
 [node name="DisplayItem" type="Control" unique_id=2106233664]
+custom_minimum_size = Vector2(161.89, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = -475.0
+offset_bottom = -344.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
-mouse_filter = 1
 script = ExtResource("1_e2cpd")
 
 [node name="Panel" type="Panel" parent="." unique_id=1451676653]
 layout_mode = 0
-offset_left = -88.0
-offset_top = -20.0
-offset_right = 88.0
-offset_bottom = 20.0
+offset_right = 154.99998
+offset_bottom = 27.499998
 scale = Vector2(0.8, 0.8)
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
 
 [node name="Label" type="Label" parent="." unique_id=495771260]
 custom_minimum_size = Vector2(150, 20)
 layout_mode = 0
-offset_left = -59.199997
-offset_top = -20.0
-offset_right = 90.8
-offset_bottom = 19.999996
+offset_left = 27.999996
+offset_right = 178.0
+offset_bottom = 27.0
 scale = Vector2(0.8, 0.8)
+mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_o752c")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 11
 text = "Fallen Adventurer's Blade"
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1242087735]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 0
-offset_left = -88.0
-offset_top = -20.0
-offset_right = -53.0
-offset_bottom = 19.5
+offset_left = 2.0000038
+offset_top = 2.000002
+offset_right = 34.000004
+offset_bottom = 18.000002
 scale = Vector2(0.8, 0.8)
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, -8.945)
+offset_transform_scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_cn63v")
-expand_mode = 4
+expand_mode = 2
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=2096492606]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 4.0
+offset_right = 162.0
+offset_bottom = 44.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_gyjpm")
 stretch_mode = 2
+flip_h = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="Panel" to="." method="_on_gui_input"]

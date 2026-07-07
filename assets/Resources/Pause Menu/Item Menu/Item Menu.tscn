@@ -1,37 +1,118 @@
 [gd_scene format=3 uid="uid://de675y0f2h5hk"]
 
 [ext_resource type="Script" uid="uid://dsv8bokxttjyr" path="res://assets/Resources/Pause Menu/Item Menu/item_menu_controller.gd" id="1_b362w"]
+[ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="2_5gywn"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_wns33"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
 bg_color = Color(0.34605238, 0.6561284, 0.6952566, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wns33"]
+size = Vector2(369.9999, 247.99994)
 
 [node name="ItemMenu" type="Control" unique_id=893943130]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b362w")
+custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
 
-[node name="Panel" type="Panel" parent="." unique_id=1865894170]
+[node name="Panel3" type="Panel" parent="." unique_id=1905572179]
+z_index = 3
 layout_mode = 0
-offset_left = -48.28
-offset_top = -11.94
-offset_right = -48.28
-offset_bottom = -11.94
+offset_left = -186.0
+offset_top = 27.0
+offset_right = -72.0
+offset_bottom = 189.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+
+[node name="Item Description" type="Control" parent="." unique_id=1528191580]
+z_index = 3
+anchors_preset = 0
+offset_left = -174.0
+offset_top = 58.0
+offset_right = -134.0
+offset_bottom = 98.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Item Description" unique_id=1774538973]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 87.0
+offset_bottom = 46.0
+theme_override_constants/separation = 26
+
+[node name="Label" type="Label" parent="Item Description/VBoxContainer" unique_id=370302291]
+custom_minimum_size = Vector2(125.305, 0)
+layout_mode = 2
+text = "Item Name"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Item Description/VBoxContainer" unique_id=715720784]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_5gywn")
+stretch_mode = 2
+
+[node name="Label2" type="Label" parent="Item Description/VBoxContainer" unique_id=688222389]
+layout_mode = 2
+text = "Heals 50HP"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Panel2" type="Panel" parent="." unique_id=241421097]
 z_index = 1
+clip_contents = true
 layout_mode = 0
-offset_left = -117.525
-offset_top = -26.745
-offset_right = 186.01001
-offset_bottom = 180.255
+offset_left = -67.0
+offset_top = 27.0
+offset_right = 185.98499
+offset_bottom = 188.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
 
+[node name="Container" type="Container" parent="Panel2" unique_id=465027958]
+custom_minimum_size = Vector2(208.09, 185.3)
+layout_mode = 0
+offset_left = 36.71
+offset_top = 0.8
+offset_right = 299.865
+offset_bottom = 186.1
+scale = Vector2(0.815, 0.815)
+size_flags_vertical = 0
+offset_transform_position = Vector2(109.11, 20.76)
+
+[node name="GridContainer" type="GridContainer" parent="Panel2/Container" unique_id=296080803]
+z_index = 1
+layout_mode = 2
+theme_override_constants/h_separation = -29
+theme_override_constants/v_separation = 26
+columns = 2
+
+[node name="GridContainer2" type="GridContainer" parent="Panel2/Container" unique_id=1978050830]
+z_index = 1
+layout_mode = 2
+theme_override_constants/h_separation = -29
+theme_override_constants/v_separation = 26
+columns = 2
+
+[node name="GridContainer3" type="GridContainer" parent="Panel2/Container" unique_id=1719938611]
+z_index = 1
+layout_mode = 2
+theme_override_constants/h_separation = -29
+theme_override_constants/v_separation = 26
+columns = 2
+
 [node name="Label" type="Label" parent="." unique_id=192883700]
+visible = false
 layout_mode = 0
 offset_left = 117.0
 offset_top = 3.0
@@ -42,36 +123,44 @@ text = "Items"
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_wns33")]
 layout_mode = 0
 offset_left = -5.48
-offset_top = -36.93
+offset_top = 13.695
 offset_right = -5.48
-offset_bottom = -36.93
+offset_bottom = 13.695
 scale = Vector2(0.465, 0.465)
 
-[node name="Container" type="Container" parent="." unique_id=492396638]
+[node name="VScrollBar" type="VScrollBar" parent="." unique_id=1600710356]
+visible = false
 z_index = 1
 layout_mode = 0
-offset_left = -23.605
-offset_top = 12.31
-offset_right = 16.395
-offset_bottom = 52.31
+offset_left = 174.86
+offset_top = -18.0
+offset_right = 182.86
+offset_bottom = 128.0
+value = 1.0
 
-[node name="GridContainer" type="GridContainer" parent="Container" unique_id=296080803]
-z_index = 1
-layout_mode = 2
-theme_override_constants/h_separation = 150
-theme_override_constants/v_separation = 37
-columns = 2
+[node name="Area2D" type="Area2D" parent="." unique_id=822666717]
 
-[node name="GridContainer2" type="GridContainer" parent="Container" unique_id=1978050830]
-z_index = 1
-layout_mode = 2
-theme_override_constants/h_separation = 150
-theme_override_constants/v_separation = 37
-columns = 2
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1381203396]
+position = Vector2(-4.7683716e-06, 70)
+scale = Vector2(1.0000002, 1.0000002)
+shape = SubResource("RectangleShape2D_wns33")
 
-[node name="GridContainer3" type="GridContainer" parent="Container" unique_id=1719938611]
-z_index = 1
-layout_mode = 2
-theme_override_constants/h_separation = 150
-theme_override_constants/v_separation = 37
-columns = 2
+[node name="Label2" type="Label" parent="." unique_id=913022362]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+
+[node name="MenuTabs2" parent="." unique_id=1039694540 instance=ExtResource("2_wns33")]
+layout_mode = 0
+offset_left = -186.72
+offset_top = -41.025
+offset_right = -186.72
+offset_bottom = -41.025
+scale = Vector2(0.805, 0.805)
+theme_override_constants/h_separation = 158
+columns = 3
+disable_selection = true
+
+[connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

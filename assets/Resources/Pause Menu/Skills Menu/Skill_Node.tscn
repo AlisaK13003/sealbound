@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://d07i0kfjebg5i"]
+
+[ext_resource type="Script" uid="uid://co5prabb15gnw" path="res://assets/Resources/Pause Menu/Skills Menu/skill_node_setup.gd" id="1_52rtb"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_jd44x"]
+[ext_resource type="Texture2D" uid="uid://cfanufen60f0u" path="res://assets/tile sheets/Move Sprites/Crowd_Breaker.png" id="2_n4h0v"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_3xktq"]
+[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="3_n4h0v"]
+
+[node name="SkillNode" type="Control" unique_id=1314213595]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -403.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_52rtb")
+
+[node name="Background" type="Control" parent="." unique_id=2132096656]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=1124779445]
+layout_mode = 0
+offset_right = 237.0
+offset_bottom = 40.0
+texture = ExtResource("2_jd44x")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=985309503]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -10.0
+offset_right = 246.0
+offset_bottom = 48.0
+texture = ExtResource("3_3xktq")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_vertical = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=596786611]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 235.0
+offset_bottom = 40.0
+theme_override_constants/separation = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=852293975]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_n4h0v")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1109611626]
+custom_minimum_size = Vector2(147.77, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(1.25, 0)
+text = "CrowdBreaker"
+
+[node name="Label2" type="Label" parent="HBoxContainer" unique_id=690044170]
+layout_mode = 2
+text = "5 BP"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1274984585]
+visible = false
+layout_mode = 0
+offset_left = 219.0
+offset_right = 259.0
+offset_bottom = 40.0
+texture = ExtResource("3_n4h0v")
+stretch_mode = 3
+flip_h = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

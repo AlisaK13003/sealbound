@@ -80,6 +80,7 @@ mana_cost = 2
 status_type = null
 removes_status = null
 targets_party = true
+targets_self = true
 is_skill_aoe = true
 does_heal_party = true
 amount_healed = 2
@@ -96,6 +97,21 @@ status_type = 65792
 removes_status = null
 chance_of_status_condition = 1.0
 lasts_x_turns = 5
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_vwpng"]
+script = ExtResource("1_26prq")
+move_name = "OP HEAL"
+move_description = "Heals Everyone in the party"
+attack_power = null
+mana_cost = 3
+status_type = null
+removes_status = null
+targets_party = true
+is_skill_aoe = true
+does_heal_party = true
+amount_healed = 2
+aoe_heal = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_dx6g1"]
@@ -168,7 +184,7 @@ stored_equipment = SubResource("Resource_jcqwx")
 stored_charm = ExtResource("6_uwea6")
 stored_boots = ExtResource("5_d3o0m")
 stored_chestplate = ExtResource("7_7rixd")
-combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01")])
+combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01"), SubResource("Resource_vwpng")])
 sprite_frames = ExtResource("4_26prq")
 idle_speed = 0.2
 walk_speed = 0.7

@@ -26,3 +26,9 @@ func _gui_input(event):
 func move_left(index):
 	$Panel.position.x -= index * 6
 	$TextureRect.position.x -= index * 6
+
+func _update_selection(selected):
+	if selected:
+		$TextureRect2.visible = true
+	else:
+		$TextureRect2.visible = false

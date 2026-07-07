@@ -21,21 +21,22 @@ custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
 
 [node name="Stat_Pages" type="Control" parent="." unique_id=678618408]
 anchors_preset = 0
-offset_left = -243.785
+offset_left = -249.125
 offset_top = -73.84
-offset_right = -203.785
+offset_right = -209.125
 offset_bottom = -73.84
 scale = Vector2(0.975, 0.975)
 
 [node name="BondMenu" parent="." unique_id=1832381352 instance=ExtResource("3_7ay8j")]
+z_index = 1
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = -208.295
-offset_top = 142.99
+offset_top = 135.23
 offset_right = -168.295
-offset_bottom = 142.99
+offset_bottom = 135.23
 grow_horizontal = 1
 grow_vertical = 1
 

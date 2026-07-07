@@ -14,8 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://gvoxtra7smmi" path="res://assets/tile sheets/Settings_Icon.png" id="7_epiyd"]
 [ext_resource type="PackedScene" uid="uid://dw54xqs30htgf" path="res://assets/Resources/Pause Menu/Quest Menu/Quest_Menu.tscn" id="8_q81nf"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
-[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="14_gqxuu"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="14_j01ox"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="16_4hik5"]
+[ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="17_frpul"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qffmw"]
 bg_color = Color(0.7150265, 0.47703296, 0.8954191, 1)
@@ -55,7 +56,39 @@ script = ExtResource("1_6a6ya")
 tab_names = Array[String](["P", "S", "E", "I", "Q", "S"])
 tab_icons = Array[Texture2D]([ExtResource("2_anab7"), ExtResource("3_4hik5"), ExtResource("4_frpul"), ExtResource("5_gyc6h"), ExtResource("6_lo7ly"), ExtResource("7_epiyd")])
 
+[node name="Background" type="Control" parent="." unique_id=260618246]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=1189728298]
+modulate = Color(0.49747366, 0.49747366, 0.49747366, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = -168.0
+offset_top = -11.0
+offset_right = 213.0
+offset_bottom = 230.0
+texture = ExtResource("16_4hik5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1869956825]
+texture_filter = 1
+layout_mode = 0
+offset_left = -177.0
+offset_top = -21.0
+offset_right = 222.0
+offset_bottom = 240.0
+texture = ExtResource("17_frpul")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2000804499]
+visible = false
+texture_filter = 1
 layout_mode = 0
 offset_left = -72.0
 offset_top = 48.0
@@ -83,6 +116,7 @@ theme_override_constants/v_separation = 64
 be_vertical = true
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
+z_index = 2
 anchors_preset = 0
 offset_left = 74.75
 offset_top = 33.535
@@ -100,6 +134,10 @@ offset_bottom = 29.0
 [node name="SkillsMenu" parent="Windows" unique_id=824969245 instance=ExtResource("4_qffmw")]
 visible = false
 layout_mode = 1
+offset_left = -80.96
+offset_top = -19.97
+offset_right = -80.96
+offset_bottom = -19.969995
 
 [node name="EquipmentMenu" parent="Windows" unique_id=1214371089 instance=ExtResource("5_o57t2")]
 visible = false
@@ -132,8 +170,8 @@ visible = false
 layout_mode = 1
 offset_left = -186.305
 offset_top = 48.96
-offset_right = -186.305
-offset_bottom = 48.960045
+offset_right = -186.30368
+offset_bottom = 48.96005
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
 position = Vector2(25, 77)
@@ -182,20 +220,3 @@ offset_bottom = 187.35
 scale = Vector2(0.8, 0.8)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rk1u6")
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=1392689383]
-modulate = Color(0.8132577, 0.8132577, 0.81325763, 1)
-z_index = -1
-layout_mode = 0
-offset_left = -169.0
-offset_top = -13.000004
-offset_right = 219.0
-offset_bottom = 231.0
-pivot_offset = Vector2(192, 120)
-texture = ExtResource("14_gqxuu")
-patch_margin_left = 5
-patch_margin_top = 7
-patch_margin_right = 5
-patch_margin_bottom = 8
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2

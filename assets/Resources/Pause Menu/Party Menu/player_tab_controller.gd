@@ -2,6 +2,11 @@ extends Control
 
 var panel: Panel
 
+@onready var selection_arrow: TextureRect = $TextureRect2
+@onready var health_differential_label: Label = $With_HP/Health_Differential
+
+var should_show_hp: bool
+
 func _ready():
 	GlobalCombatInformation.check_player_values.connect(now_an_active_member)
 	
@@ -9,18 +14,38 @@ func now_an_active_member():
 	if stored_combatant == null:
 		return
 	if GlobalCombatInformation.check_if_member_is_active(stored_combatant):
-		$TextureRect.visible = true
+		if should_show_hp:
+			$With_HP/TextureRect.visible = true
+			health_label.text = "HP:" + str(stored_combatant.actual_stats.health) + "/" + str(stored_combatant.actual_stats.max_health)
+		else:
+			$Without_HP/TextureRect.visible = true
 	else:
-		$TextureRect.visible = false
+		if should_show_hp:
+			$With_HP/TextureRect.visible = false
+			health_label.text = "HP:" + str(stored_combatant.actual_stats.health) + "/" + str(stored_combatant.actual_stats.max_health)
+		else:
+			$Without_HP/TextureRect.visible = false
 	
 var stored_combatant
-	
+var health_label
 func _setup(combatant: generic_combatants, index: int, show_hp: bool = false):
 	stored_combatant = combatant
-	var name_ = $Label
-	var sprite = $Sprite2D
+	var name_ = $Without_HP/Label
+	var sprite = $Without_HP/Sprite2D
+	health_label = $With_HP/HBoxContainer/Label3
 	
-	panel = $Panel
+	panel = $Without_HP/Panel
+	should_show_hp = show_hp
+	if show_hp:
+		name_ = $With_HP/HBoxContainer/Label2
+		
+		sprite = $With_HP/Sprite2D
+		panel = $With_HP/Panel
+		$With_HP.visible = true
+		$Without_HP.visible = false
+	else:
+		$With_HP.visible = false
+		$Without_HP.visible = true
 	
 	if show_hp:
 		pass
@@ -29,16 +54,38 @@ func _setup(combatant: generic_combatants, index: int, show_hp: bool = false):
 		
 	if combatant == null:
 		return
-	name_.text = combatant.combatant_name
+	if not show_hp:
+		name_.text = combatant.combatant_name
+	else:
+		name_.text = combatant.combatant_name
+		health_label.text = "HP:" + str(combatant.actual_stats.health) + "/" + str(combatant.actual_stats.max_health)
 	sprite.texture = combatant.party_member_portrait
 	now_an_active_member()
 	
 func update_highlight(highlight):
-	var stylebox = panel.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-
 	if highlight:
-		stylebox.bg_color = Color.AQUA
+		selection_arrow.visible = true
 	else:
-		stylebox.bg_color = Color.GRAY
+		selection_arrow.visible = false
 
-	panel.add_theme_stylebox_override("panel", stylebox)
+func update_damage_label(health_differential):
+	health_differential_label.modulate = Color.LAWN_GREEN
+	health_differential_label.text = str(int(health_differential))
+	var previous_y_level =	health_differential_label.position.y
+	health_differential_label.visible = true
+
+	var tween = create_tween()
+	
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, previous_y_level - 20.0), 0.3)
+	
+	await tween.finished
+
+	await get_tree().create_timer(0.1).timeout
+
+	tween = create_tween()
+	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, previous_y_level + 10.0), 0.6)
+	await tween.finished
+	health_differential_label.visible = false
+	health_differential_label.position.y = previous_y_level
+	health_differential_label.modulate = Color.WHITE_SMOKE
+	await get_tree().create_timer(0.5).timeout

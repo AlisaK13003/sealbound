@@ -47,6 +47,7 @@ func add_active_member(combatant: generic_combatants):
 	check_player_values.emit()
 	if active_party_slots.size() > MAX_PARTY_SIZE:
 		Global.cant_leave_menu = true
+	calculate_BP()
 	
 func remove_active_member(combatant: generic_combatants):
 	for combatant_ in range(active_party_slots.size()):
@@ -56,6 +57,13 @@ func remove_active_member(combatant: generic_combatants):
 	check_player_values.emit()
 	if active_party_slots.size() <= MAX_PARTY_SIZE:
 		Global.cant_leave_menu = false
+	calculate_BP()
+
+func calculate_BP():
+	current_BP = 10
+	for member in active_party_slots:
+		if not member.is_MC:
+			current_BP += member.bond_level * 5
 
 func check_if_member_is_active(combatant: generic_combatants):
 	for combatant_ in active_party_slots:
@@ -67,6 +75,7 @@ func load_items():
 	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 	for i in range(15):
 		all_held_items.append(load("res://assets/Resources/Dungeon Stuff/temp_item.tres"))
+		all_held_items.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres"))
 
 func add_item(item_to_add):
 	if item_to_add is Array:
@@ -129,6 +138,7 @@ func add_equipment(player_index, equip, is_weapon):
 	for member in all_party_slots:
 		member.gather_actual_stats()
 	equipment_added.emit()
+	check_player_values.emit()
 	return ret_equipment
 	
 func search_for_item(desired_item: Items):
@@ -147,7 +157,7 @@ func _ready():
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
-
+	calculate_BP()
 	for member in all_party_slots:
 		member.gather_actual_stats()
 
@@ -180,6 +190,21 @@ func _ready():
 	all_held_equipment.append(load("res://assets/Equipment/Iron_Chestplate.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Lather_Chestplate.tres"))
 	
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+
+	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+
 	await get_tree().create_timer(0.5).timeout
 
 	finished.emit()

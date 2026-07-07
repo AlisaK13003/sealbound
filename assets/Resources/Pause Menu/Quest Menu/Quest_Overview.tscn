@@ -31,9 +31,9 @@ expand_mode = 1
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1201493867]
 layout_mode = 0
-offset_left = 83.56
+offset_left = 77.56
 offset_top = 7.705
-offset_right = 174.56018
+offset_right = 168.56018
 offset_bottom = 131.705
 columns = 2
 

@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://cnp6wabbskx27" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_menu_controller.gd" id="1_7krcb"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_6c37x"]
 [ext_resource type="PackedScene" uid="uid://bibhye4kxwh7p" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_List.tscn" id="3_6c37x"]
-[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="4_cmi5y"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="4_uy7kq"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="5_26cwh"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="6_uy7kq"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="7_wk22t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cmi5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
 size = Vector2(854.3209, 538.2716)
@@ -23,11 +27,11 @@ custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_6c37x")]
 layout_mode = 0
-offset_left = -365.26
-offset_top = -262.595
-offset_right = -365.26
-offset_bottom = -262.595
-scale = Vector2(1.76, 1.76)
+offset_left = -373.375
+offset_top = -268.22
+offset_right = -373.375
+offset_bottom = -268.22
+scale = Vector2(1.75, 1.75)
 mouse_filter = 0
 theme_override_constants/h_separation = 76
 columns = 6
@@ -57,10 +61,10 @@ autowrap_mode = 2
 z_index = 2
 clip_contents = true
 layout_mode = 0
-offset_left = 165.432
-offset_top = -67.991
-offset_right = 449.383
-offset_bottom = 201.86002
+offset_left = 172.652
+offset_top = -65.086
+offset_right = 456.60297
+offset_bottom = 186.935
 
 [node name="Container" type="Container" parent="Container2" unique_id=1797554766]
 z_index = 195
@@ -69,72 +73,80 @@ layout_mode = 2
 [node name="Weapon_List" parent="Container2/Container" unique_id=1746209712 instance=ExtResource("3_6c37x")]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 54
+theme_override_constants/v_separation = 63
 
 [node name="Helmet_List" parent="Container2/Container" unique_id=1844179643 instance=ExtResource("3_6c37x")]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 54
+theme_override_constants/v_separation = 63
 what_equipment_am_i = 1
 
 [node name="Boots_List" parent="Container2/Container" unique_id=987091836 instance=ExtResource("3_6c37x")]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 54
+theme_override_constants/v_separation = 63
 what_equipment_am_i = 3
 
 [node name="Charm_List" parent="Container2/Container" unique_id=1353107630 instance=ExtResource("3_6c37x")]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 54
+theme_override_constants/v_separation = 63
 what_equipment_am_i = 4
 
 [node name="Chestplate_List" parent="Container2/Container" unique_id=1699206467 instance=ExtResource("3_6c37x")]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 54
+theme_override_constants/v_separation = 63
 what_equipment_am_i = 2
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=396120052]
+z_index = 1
 layout_mode = 0
-offset_left = -355.55554
+offset_left = -362.96295
 offset_top = -19.753086
 offset_right = -241.9753
-offset_bottom = 227.16052
-texture = ExtResource("4_cmi5y")
+offset_bottom = 128.39507
+texture = ExtResource("4_uy7kq")
+stretch_mode = 3
 
 [node name="TextureRect" type="TextureRect" parent="TextureRect" unique_id=826850066]
+z_index = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = 37.037037
-offset_top = 37.037037
-offset_right = 77.03703
-offset_bottom = 77.03703
+offset_left = 44.444443
+offset_top = 56.790123
+offset_right = 84.44444
+offset_bottom = 96.790115
 texture = ExtResource("5_26cwh")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="TextureRect" unique_id=977093910]
+z_index = 1
+custom_minimum_size = Vector2(110.34, 0)
 layout_mode = 0
-offset_left = 7.4074078
-offset_top = 7.4074078
-offset_right = 106.40741
-offset_bottom = 25.407408
+offset_left = 8.225
+offset_top = 7.407
+offset_right = 118.564995
+offset_bottom = 25.407
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Training Sword"
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="TextureRect" unique_id=1910409845]
+z_index = 1
 layout_mode = 0
-offset_left = 2.469136
-offset_top = 83.95062
-offset_right = 108.64199
-offset_bottom = 143.95062
+offset_left = 12.34568
+offset_top = 103.703705
+offset_right = 118.51853
+offset_bottom = 163.7037
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Better than Leather"
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Panel" type="Panel" parent="." unique_id=1101006947]
+z_index = 1
 layout_mode = 0
 offset_left = -335.8025
 offset_top = 145.67903
@@ -152,7 +164,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "EQUIP"
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=643714644]
-visible = false
 layout_mode = 0
 offset_left = 439.50616
 offset_top = -79.012344
@@ -168,6 +179,7 @@ offset_top = -123.45679
 offset_right = 449.38275
 offset_bottom = 227.16052
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cmi5y")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=362512202]
 
@@ -175,6 +187,63 @@ mouse_filter = 2
 position = Vector2(39.506123, -12.345728)
 scale = Vector2(1.0000002, 1.0000002)
 shape = SubResource("RectangleShape2D_7tpxp")
+
+[node name="List_Background" type="Control" parent="." unique_id=940526629]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="List_Background" unique_id=724103449]
+layout_mode = 0
+offset_left = 162.96298
+offset_top = -120.98766
+offset_right = 441.9753
+offset_bottom = 229.62964
+texture = ExtResource("6_uy7kq")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="List_Background" unique_id=1785286608]
+layout_mode = 0
+offset_left = 153.08643
+offset_top = -128.39507
+offset_right = 449.38275
+offset_bottom = 237.03706
+texture = ExtResource("7_wk22t")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2099664338]
+z_index = 1
+layout_mode = 0
+offset_left = -365.43213
+offset_top = -24.691357
+offset_right = -234.56789
+offset_bottom = 229.62965
+texture = ExtResource("7_wk22t")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=709483677]
+modulate = Color(0.50928617, 0.50928617, 0.50928617, 1)
+layout_mode = 0
+offset_left = -355.55554
+offset_top = -14.814815
+offset_right = -241.9753
+offset_bottom = 219.7531
+texture = ExtResource("6_uy7kq")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [connection signal="gui_input" from="Panel" to="." method="_equip_button_pressed"]
 [connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]

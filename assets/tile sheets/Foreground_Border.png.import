@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh66bertmhorp"
-path="res://.godot/imported/potionHeal.png-d6f3c2e304c13a49a692bf955738268f.ctex"
+uid="uid://c6pd57up1oubh"
+path="res://.godot/imported/Foreground_Border.png-2e65a8a82b2a3a1e31fd880078b06e02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Items/potionHeal.png"
-dest_files=["res://.godot/imported/potionHeal.png-d6f3c2e304c13a49a692bf955738268f.ctex"]
+source_file="res://assets/tile sheets/Foreground_Border.png"
+dest_files=["res://.godot/imported/Foreground_Border.png-2e65a8a82b2a3a1e31fd880078b06e02.ctex"]
 
 [params]
 

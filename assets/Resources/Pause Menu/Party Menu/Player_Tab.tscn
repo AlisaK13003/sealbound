@@ -2,14 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://bq8g0sunifuyi" path="res://assets/characters/player/playerFemale_portraits.png" id="1_8d751"]
 [ext_resource type="Script" uid="uid://1g0wfhs8npow" path="res://assets/Resources/Pause Menu/Party Menu/player_tab_controller.gd" id="1_fx3ht"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_wk1yj"]
 [ext_resource type="Texture2D" uid="uid://dhau7t6ixoua1" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room Start.png" id="3_it2d1"]
+[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_6e5vx"]
+[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_vwpng"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx3ht"]
-skew = Vector2(0.1, 0)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
 [node name="PlayerTab" type="Control" unique_id=248087180]
 layout_mode = 3
@@ -21,31 +25,36 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_fx3ht")
 
-[node name="Panel" type="Panel" parent="." unique_id=228203175]
+[node name="Without_HP" type="Control" parent="." unique_id=1873854818]
+visible = false
+anchors_preset = 0
+offset_left = -13.59
+offset_right = 26.41
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Without_HP" unique_id=1170559715]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 90.0
+offset_bottom = 31.0
+texture = ExtResource("2_wk1yj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Panel" type="Panel" parent="Without_HP" unique_id=228203175]
+visible = false
 layout_mode = 0
 offset_right = 74.0
 offset_bottom = 30.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_fx3ht")
 
-[node name="Label" type="Label" parent="." unique_id=462013437]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 6.0
-offset_right = 87.0
-offset_bottom = 49.0
-theme_override_font_sizes/font_size = 17
-text = "Cassian
-"
-vertical_alignment = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=808291165]
-position = Vector2(11, 15)
-scale = Vector2(0.41666666, 0.41666666)
-texture = ExtResource("1_8d751")
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1969716474]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="Without_HP" unique_id=1969716474]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_left = 54.0
@@ -54,3 +63,116 @@ offset_right = 94.0
 offset_bottom = 33.0
 scale = Vector2(0.655, 0.655)
 texture = ExtResource("3_it2d1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Without_HP" unique_id=808291165]
+position = Vector2(17.59, 11.999999)
+scale = Vector2(0.51777774, 0.51777774)
+texture = ExtResource("1_8d751")
+
+[node name="Label" type="Label" parent="Without_HP" unique_id=462013437]
+layout_mode = 0
+offset_left = 29.59
+offset_top = 7.0
+offset_right = 98.59
+offset_bottom = 50.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 17
+text = "Cassian
+"
+vertical_alignment = 3
+
+[node name="With_HP" type="Control" parent="." unique_id=1801140712]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="With_HP" unique_id=659656362]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 158.0
+offset_bottom = 31.0
+texture = ExtResource("2_wk1yj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_vertical = 1
+
+[node name="Panel" type="Panel" parent="With_HP" unique_id=207838720]
+layout_mode = 0
+offset_right = 142.0
+offset_bottom = 29.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="With_HP" unique_id=1289595638]
+layout_mode = 0
+offset_left = 24.0
+offset_top = -3.0
+offset_right = 140.0
+offset_bottom = 37.0
+theme_override_constants/separation = -6
+
+[node name="Label2" type="Label" parent="With_HP/HBoxContainer" unique_id=400497087]
+custom_minimum_size = Vector2(56.025, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Cassian"
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="With_HP/HBoxContainer" unique_id=647709459]
+custom_minimum_size = Vector2(72.355, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "50/50 HP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="With_HP" unique_id=279360853]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 129.0
+offset_top = -13.0
+offset_right = 169.0
+offset_bottom = 27.0
+scale = Vector2(0.655, 0.655)
+texture = ExtResource("3_it2d1")
+
+[node name="Sprite2D" type="Sprite2D" parent="With_HP" unique_id=575365729]
+position = Vector2(9.000001, 11)
+scale = Vector2(0.54444444, 0.5444444)
+texture = ExtResource("1_8d751")
+
+[node name="Health_Differential" type="Label" parent="With_HP" unique_id=774773234]
+visible = false
+z_index = 10
+texture_filter = 1
+layout_mode = 0
+offset_left = 27.0
+offset_top = -18.0
+offset_right = 143.0
+offset_bottom = 41.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("4_vwpng")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1947657147]
+visible = false
+layout_mode = 0
+offset_left = 29.000002
+offset_top = 4.0
+offset_right = 69.0
+offset_bottom = 44.0
+rotation = -1.5707964
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_6e5vx")
+stretch_mode = 2
+flip_h = true
