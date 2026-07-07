@@ -11,6 +11,8 @@ extends GridContainer
 @export var bypass_global_lock: bool = false
 @export var disable_selection: bool = false
 
+@export var dont_highlight: bool = false
+
 var current_selection = 0
 var tab_node_path = "res://assets/Resources/Pause Menu/menu_tab_node.tscn"
 
@@ -30,7 +32,8 @@ func _on_sort_children():
 		return
 
 	var selected_child = get_child(current_selection)
-	selected_child.update_highlight(true)
+	if not dont_highlight:
+		selected_child.update_highlight(true)
 
 func reset():
 	current_selection = 0
@@ -134,14 +137,14 @@ func change_selection():
 	current_selection = clamp(current_selection, 0, get_child_count() - 1)
 	for child in get_child_count():
 		if child == current_selection:
-			if not only_icons:
+			if not only_icons and not dont_highlight:
 				get_child(child).update_highlight(true)
 			#if not be_vertical and get_child(child).position.y == starting_y:
 			#	get_child(child).position.y -= 10
 			#elif be_vertical and get_child(child).position.x == starting_x:
 			#	get_child(child).position.x -= 10
 		else:
-			if not only_icons:
+			if not only_icons and not dont_highlight:
 				get_child(child).update_highlight(false)
 			#if not be_vertical:
 			#	if get_child(child).position.y < starting_y:

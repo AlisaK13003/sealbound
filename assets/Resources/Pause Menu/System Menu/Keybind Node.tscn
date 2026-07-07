@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2xkgw2mut2bu" path="res://assets/Input_Icons/Keyboard_Mouse/Alt/T_Keyboard_Mouse_Key_Alt_Sprite.svg" id="1_778ew"]
 [ext_resource type="Script" uid="uid://g21u1n3wmdh5" path="res://assets/Resources/Pause Menu/System Menu/keybind_node_setup.gd" id="1_gf2wi"]
-[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_2bc33"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_2bc33"]
 [ext_resource type="Texture2D" uid="uid://cfpgrcj2b7b1u" path="res://assets/tile sheets/Centered_Controller_Inputs.png" id="2_gf2wi"]
 
 [node name="KeybindNode" type="Control" unique_id=1608093952]
@@ -23,18 +23,18 @@ layout_mode = 0
 offset_left = -11.0
 offset_top = -2.0
 offset_right = 139.0
-offset_bottom = 37.0
+offset_bottom = 44.0
 texture = ExtResource("2_2bc33")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [node name="Keyboard Icons" type="Sprite2D" parent="." unique_id=1654497951]
 visible = false
-position = Vector2(58.58, 23.51)
+position = Vector2(59.95, 25.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_778ew")
 offset = Vector2(4.84, 5.24)
@@ -44,7 +44,7 @@ frame = 99
 
 [node name="Controller Icons" type="Sprite2D" parent="." unique_id=1201912537]
 visible = false
-position = Vector2(58.58, 23.51)
+position = Vector2(59.95, 25.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gf2wi")
 hframes = 4
@@ -53,8 +53,10 @@ frame = 29
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1738720924]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 126.0
+offset_bottom = 43.0
 theme_override_constants/separation = -3
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=1533664396]

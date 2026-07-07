@@ -1,13 +1,12 @@
 [gd_scene format=3 uid="uid://de675y0f2h5hk"]
 
 [ext_resource type="Script" uid="uid://dsv8bokxttjyr" path="res://assets/Resources/Pause Menu/Item Menu/item_menu_controller.gd" id="1_b362w"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_4gmsq"]
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="2_5gywn"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_wns33"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_xg7kj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
-bg_color = Color(0.34605238, 0.6561284, 0.6952566, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w1mpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wns33"]
 size = Vector2(369.9999, 247.99994)
@@ -26,33 +25,74 @@ grow_vertical = 2
 script = ExtResource("1_b362w")
 custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
 
-[node name="Panel3" type="Panel" parent="." unique_id=1905572179]
-z_index = 3
+[node name="Background" type="Control" parent="." unique_id=1156519890]
+z_index = 12
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=50686471]
 layout_mode = 0
-offset_left = -186.0
-offset_top = 27.0
-offset_right = -72.0
+offset_left = -157.0
+offset_top = 34.0
+offset_right = -54.0
 offset_bottom = 189.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+texture = ExtResource("2_4gmsq")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=818676444]
+layout_mode = 0
+offset_left = -166.0
+offset_top = 25.0
+offset_right = -46.0
+offset_bottom = 197.0
+texture = ExtResource("3_xg7kj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=153959173]
+layout_mode = 0
+offset_left = -20.0
+offset_top = 34.0
+offset_right = 109.0
+offset_bottom = 189.0
+texture = ExtResource("2_4gmsq")
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="Background" unique_id=1626548891]
+layout_mode = 0
+offset_left = -29.0
+offset_top = 25.0
+offset_right = 119.0
+offset_bottom = 197.0
+texture = ExtResource("3_xg7kj")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Item Description" type="Control" parent="." unique_id=1528191580]
-z_index = 3
+z_index = 12
 anchors_preset = 0
-offset_left = -174.0
-offset_top = 58.0
-offset_right = -134.0
-offset_bottom = 98.0
+offset_left = -146.0
+offset_top = 67.0
+offset_right = -106.0
+offset_bottom = 107.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Item Description" unique_id=1774538973]
 layout_mode = 0
-offset_left = -20.0
+offset_left = -10.0
 offset_top = -30.0
-offset_right = 87.0
-offset_bottom = 46.0
+offset_right = 91.0
+offset_bottom = 90.0
 theme_override_constants/separation = 26
 
 [node name="Label" type="Label" parent="Item Description/VBoxContainer" unique_id=370302291]
-custom_minimum_size = Vector2(125.305, 0)
+custom_minimum_size = Vector2(93.755, 0)
 layout_mode = 2
 text = "Item Name"
 horizontal_alignment = 1
@@ -69,24 +109,39 @@ text = "Heals 50HP"
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="Panel" type="Panel" parent="Item Description" unique_id=837449061]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 103.0
+offset_right = 69.0
+offset_bottom = 118.0
+
+[node name="Label" type="Label" parent="Item Description/Panel" unique_id=848122246]
+layout_mode = 0
+offset_right = 61.0
+offset_bottom = 18.0
+text = "Use Item"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="Panel2" type="Panel" parent="." unique_id=241421097]
-z_index = 1
+z_index = 11
 clip_contents = true
 layout_mode = 0
-offset_left = -67.0
-offset_top = 27.0
-offset_right = 185.98499
-offset_bottom = 188.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+offset_left = -143.0
+offset_top = 35.98
+offset_right = 109.984985
+offset_bottom = 182.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w1mpj")
 
 [node name="Container" type="Container" parent="Panel2" unique_id=465027958]
 custom_minimum_size = Vector2(208.09, 185.3)
 layout_mode = 0
-offset_left = 36.71
-offset_top = 0.8
-offset_right = 299.865
-offset_bottom = 186.1
-scale = Vector2(0.815, 0.815)
+offset_left = 148.0
+offset_top = 3.76
+offset_right = 411.15503
+offset_bottom = 189.06
+scale = Vector2(0.63, 0.63)
 size_flags_vertical = 0
 offset_transform_position = Vector2(109.11, 20.76)
 
@@ -94,22 +149,19 @@ offset_transform_position = Vector2(109.11, 20.76)
 z_index = 1
 layout_mode = 2
 theme_override_constants/h_separation = -29
-theme_override_constants/v_separation = 26
-columns = 2
+theme_override_constants/v_separation = 33
 
 [node name="GridContainer2" type="GridContainer" parent="Panel2/Container" unique_id=1978050830]
 z_index = 1
 layout_mode = 2
 theme_override_constants/h_separation = -29
-theme_override_constants/v_separation = 26
-columns = 2
+theme_override_constants/v_separation = 33
 
 [node name="GridContainer3" type="GridContainer" parent="Panel2/Container" unique_id=1719938611]
 z_index = 1
 layout_mode = 2
 theme_override_constants/h_separation = -29
-theme_override_constants/v_separation = 26
-columns = 2
+theme_override_constants/v_separation = 33
 
 [node name="Label" type="Label" parent="." unique_id=192883700]
 visible = false
@@ -122,11 +174,12 @@ text = "Items"
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_wns33")]
 layout_mode = 0
-offset_left = -5.48
-offset_top = 13.695
-offset_right = -5.48
-offset_bottom = 13.695
+offset_left = 116.00001
+offset_top = 31.0
+offset_right = 116.00001
+offset_bottom = 31.0
 scale = Vector2(0.465, 0.465)
+be_vertical = true
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=1600710356]
 visible = false

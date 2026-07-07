@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://s587i3qavhlt"]
 
 [ext_resource type="Script" uid="uid://dqr26gtcvpdqb" path="res://scenes/Dungeon/setup_quest_node.gd" id="1_leccq"]
-[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="2_sg8fu"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_ifgjw"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_ifgjw"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_tbvd3"]
 [ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_sg8fu"]
 
 [node name="QuestMenuNode" type="Control" unique_id=1876961211]
@@ -15,27 +16,39 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_leccq")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=745626447]
-modulate = Color(0.728822, 0.728822, 0.728822, 1)
+[node name="Control" type="Control" parent="." unique_id=1376252315]
+anchors_preset = 0
+offset_top = 4.0
+offset_right = 40.0
+offset_bottom = 44.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Control" unique_id=1296538841]
 layout_mode = 0
 offset_left = 15.0
 offset_right = 206.0
-offset_bottom = 59.0
-mouse_filter = 1
-texture = ExtResource("2_sg8fu")
-patch_margin_left = 4
-patch_margin_top = 3
-patch_margin_right = 4
-patch_margin_bottom = 3
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
+offset_bottom = 38.0
+texture = ExtResource("2_ifgjw")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=1901948820]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -10.0
+offset_right = 215.0
+offset_bottom = 48.0
+texture = ExtResource("3_tbvd3")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Quest_Name" type="Label" parent="." unique_id=454236749]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 1.0
+offset_top = 5.0
 offset_right = 207.0
-offset_bottom = 58.0
+offset_bottom = 42.0
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -1
@@ -50,8 +63,8 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="." unique_id=314156834]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 16.0
+offset_top = 20.0
 offset_right = 41.0
-offset_bottom = 56.0
+offset_bottom = 60.0
 texture = ExtResource("4_sg8fu")
 stretch_mode = 2

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dfxdjlcxghanu" path="res://scenes/Dungeon/quest_menu.gd" id="1_amt4u"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_b5m2l"]
-[ext_resource type="Texture2D" uid="uid://djp02jvvthjuo" path="res://assets/tile sheets/Panel_Background.png" id="3_ql05a"]
-[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="4_etanp"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_ql05a"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_etanp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
 size = Vector2(313, 182)
@@ -23,53 +23,50 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_amt4u")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=927349129]
-modulate = Color(0.6706895, 0.6706895, 0.6706895, 1)
+[node name="Control" type="Control" parent="." unique_id=1242035782]
+anchors_preset = 0
+offset_left = -4.565
+offset_right = 35.435
+offset_bottom = 40.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Control" unique_id=493413800]
 layout_mode = 0
-offset_left = 101.00001
+offset_left = 102.0
 offset_top = 27.0
-offset_right = 552.11115
-offset_bottom = 389.22226
-scale = Vector2(0.45, 0.45)
-texture = ExtResource("3_ql05a")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
+offset_right = 304.0
+offset_bottom = 189.0
+texture = ExtResource("2_ql05a")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=379780583]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 17.0
+offset_right = 313.0
+offset_bottom = 199.0
+texture = ExtResource("3_etanp")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Quest_Description_Container" type="Control" parent="." unique_id=222429535]
 anchors_preset = 0
-offset_left = 135.24
+offset_left = 129.74
 offset_top = 30.0
-offset_right = 175.24007
+offset_right = 169.74007
 offset_bottom = 69.999985
 mouse_filter = 2
 
 [node name="Quest_Description_Container2" type="Control" parent="." unique_id=1229826361]
 visible = false
 anchors_preset = 0
-offset_left = 135.24
+offset_left = 129.74
 offset_top = 30.0
-offset_right = 175.24007
+offset_right = 169.74007
 offset_bottom = 69.999985
 mouse_filter = 2
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=1704621673]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 27.0
-offset_right = 913.0
-offset_bottom = 679.0
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_etanp")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=967754878]
 visible = false
@@ -90,9 +87,9 @@ shape = SubResource("RectangleShape2D_7tpxp")
 [node name="Panel" type="Panel" parent="." unique_id=125610572]
 clip_contents = true
 layout_mode = 0
-offset_left = 5.305
+offset_left = -2.1
 offset_top = 28.0
-offset_right = 98.305
+offset_right = 90.9
 offset_bottom = 194.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 

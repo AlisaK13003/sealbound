@@ -2,17 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="1_cn63v"]
 [ext_resource type="Script" uid="uid://bxedysd0u2jl6" path="res://assets/Resources/Pause Menu/Item Menu/display_item.gd" id="1_e2cpd"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_mym72"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_o752c"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_rbf16"]
 [ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_gyjpm"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
-bg_color = Color(0.44790196, 0.6198128, 0.7764799, 1)
-skew = Vector2(-0.1, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.40067393, 0.87550306, 0.9797564, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
 [node name="DisplayItem" type="Control" unique_id=2106233664]
 custom_minimum_size = Vector2(161.89, 0)
@@ -28,15 +23,44 @@ grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_e2cpd")
 
+[node name="Background" type="Control" parent="." unique_id=1842883411]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1815719571]
+texture_filter = 1
+layout_mode = 0
+offset_left = 4.0
+offset_right = 124.0
+offset_bottom = 24.0
+texture = ExtResource("2_mym72")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=1747035196]
+texture_filter = 1
+layout_mode = 0
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 134.0
+offset_bottom = 32.0
+texture = ExtResource("3_rbf16")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
 [node name="Panel" type="Panel" parent="." unique_id=1451676653]
 layout_mode = 0
 offset_right = 154.99998
 offset_bottom = 27.499998
 scale = Vector2(0.8, 0.8)
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 
 [node name="Label" type="Label" parent="." unique_id=495771260]
+texture_filter = 1
 custom_minimum_size = Vector2(150, 20)
 layout_mode = 0
 offset_left = 27.999996
@@ -52,12 +76,13 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1242087735]
+texture_filter = 1
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 0
-offset_left = 2.0000038
-offset_top = 2.000002
-offset_right = 34.000004
-offset_bottom = 18.000002
+offset_left = 2.0
+offset_top = 7.9999995
+offset_right = 34.0
+offset_bottom = 24.0
 scale = Vector2(0.8, 0.8)
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, -8.945)
@@ -67,6 +92,7 @@ expand_mode = 2
 stretch_mode = 3
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=2096492606]
+texture_filter = 1
 layout_mode = 0
 offset_left = 122.0
 offset_top = 4.0

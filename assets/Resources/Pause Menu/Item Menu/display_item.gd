@@ -21,6 +21,7 @@ func _setup(thing):
 		what_am_i = thing
 
 func swap_orientation(should_flip):
+	return
 	var new_sb = StyleBoxFlat.new()
 	if should_flip:
 		new_sb.skew = Vector2(0.1, 0.0)

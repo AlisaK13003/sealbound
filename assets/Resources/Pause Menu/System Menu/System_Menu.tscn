@@ -26,6 +26,7 @@ offset_bottom = -60.0
 theme_override_constants/v_separation = 5
 be_vertical = true
 dont_offset_on_click = true
+dont_highlight = true
 
 [node name="Settings_Windows" type="Control" parent="." unique_id=896181735]
 anchors_preset = 0
@@ -47,6 +48,8 @@ offset_left = 103.395
 offset_top = -85.32
 offset_right = 212.39502
 offset_bottom = -67.32
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Display Settings"
 horizontal_alignment = 1
 
@@ -61,6 +64,8 @@ columns = 2
 
 [node name="Label5" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=2084591]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "FPS:"
 
 [node name="fps_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=1356923450 instance=ExtResource("3_7m14t")]
@@ -69,6 +74,8 @@ options = ["30", "60", "120"]
 
 [node name="Label" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=971582253]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Resolution:"
 
 [node name="resolution_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=652463066 instance=ExtResource("3_7m14t")]
@@ -76,6 +83,8 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=42337515]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Screenmode: "
 
 [node name="screen_mode_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=956007954 instance=ExtResource("3_7m14t")]
@@ -84,6 +93,8 @@ options = ["Windowed", "Fullscreen", "Borderless Fullscreen"]
 
 [node name="Label3" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=2001045421]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Monitor: "
 
 [node name="monitor_cycle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=82237466 instance=ExtResource("3_7m14t")]
@@ -91,6 +102,8 @@ layout_mode = 2
 
 [node name="Label4" type="Label" parent="Settings_Windows/Display Settings/GridContainer" unique_id=288805716]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "VSync: "
 
 [node name="vsync_toggle" parent="Settings_Windows/Display Settings/GridContainer" unique_id=1152029159 instance=ExtResource("3_7m14t")]
@@ -109,6 +122,8 @@ offset_left = 103.395
 offset_top = -85.32
 offset_right = 206.39502
 offset_bottom = -67.32
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Sound Settings"
 horizontal_alignment = 1
 
@@ -122,6 +137,8 @@ columns = 2
 
 [node name="Label" type="Label" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=250192522]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Master Volume"
 
 [node name="Master_Slider" type="HSlider" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=359886912]
@@ -136,6 +153,8 @@ ticks_position = 3
 
 [node name="Label2" type="Label" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=2146956468]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "SFX Volume"
 
 [node name="SFX_Slider" type="HSlider" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=517450508]
@@ -150,6 +169,8 @@ ticks_position = 3
 
 [node name="Label3" type="Label" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=1623942839]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "BGM Volume"
 
 [node name="BGM_Slider" type="HSlider" parent="Settings_Windows/Sound Settings/GridContainer" unique_id=856989687]
@@ -311,6 +332,8 @@ offset_left = 3.0
 offset_top = 3.0
 offset_right = 43.0
 offset_bottom = 21.0
+theme_override_colors/font_color = Color(0, 0, 0.39215687, 0.5176471)
+theme_override_colors/font_shadow_color = Color(0, 0.34117648, 0.8745098, 1)
 text = "Back"
 
 [connection signal="value_changed" from="Settings_Windows/Sound Settings/GridContainer/Master_Slider" to="." method="_change_volume" binds= ["Master"]]

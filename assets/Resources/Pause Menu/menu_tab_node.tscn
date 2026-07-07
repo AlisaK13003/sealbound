@@ -69,11 +69,11 @@ flip_v = true
 [node name="TextureRect2" type="TextureRect" parent="NinePatchRect" unique_id=247044167]
 propagate_maximum_size = true
 layout_mode = 0
-offset_left = -73.0
-offset_top = 13.0
-offset_right = 60.675003
-offset_bottom = 13.0
+offset_left = 58.0
+offset_top = 12.0
+offset_right = 191.675
+offset_bottom = 12.0
 texture = ExtResource("3_1akke")
 expand_mode = 2
 stretch_mode = 3
-flip_v = true
+flip_h = true
