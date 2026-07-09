@@ -14,7 +14,6 @@ var discount: float
 
 func _ready():
 	container_start_position = stock_container.position
-	Global.is_paused = true
 	visibility_changed.connect(_visibility_changed)
 	$Confirmation/OptionCycle.option_changed.connect(update_projected_price)
 	GlobalCombatInformation.check_quest_progress.connect(_reset)

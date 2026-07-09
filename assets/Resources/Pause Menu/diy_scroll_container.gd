@@ -86,13 +86,20 @@ func _on_v_scroll_bar_value_changed(value):
 	current_item = clamp(current_item, min_allowed, max_allowed)
 	
 	update_selected_item()
-
+var last_scroll_time: int = 0
+@export var scroll_cooldown_ms: int = 50
 func _input(event):
-	if get_parent().visible == false or self.visible == false:
+	if not is_visible_in_tree():
 		return
 	
 	if disable_selection:
 		return
+
+	var current_time = Time.get_ticks_msec()
+	if current_time - last_scroll_time < scroll_cooldown_ms:
+		return
+	
+	var scrolled = false
 	
 	if event is InputEventMouseButton and event.is_pressed():
 		if not can_scroll:
@@ -100,23 +107,33 @@ func _input(event):
 			
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			scroll_up()
+			scrolled = true
 			get_viewport().set_input_as_handled()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			scroll_down()
+			scrolled = true
 			get_viewport().set_input_as_handled()
 			
-	if Global.get_continuous_input_mapping("down"):
+	elif Global.get_continuous_input_mapping("down"):
 		scroll_down()
+		scrolled = true
 		get_viewport().set_input_as_handled()
 	elif Global.get_continuous_input_mapping("up"):
 		scroll_up()
+		scrolled = true
 		get_viewport().set_input_as_handled()
+
+	if scrolled:
+		last_scroll_time = current_time
 
 func scroll_up():
 	var container = get_child(0)
 	var max_count = container.get_child_count()
 	if max_count == 0: 
 		return
+	
+	if current_item != 0:
+		AudioManager.play_ui_sound(AudioManager.SCROLL_CLICK)
 	
 	current_item = clamp(current_item - 1, 0, max_count - 1)
 	
@@ -137,6 +154,10 @@ func scroll_down():
 	if max_count == 0: 
 		return
 	
+	if current_item != max_count - 1:
+		AudioManager.play_ui_sound(AudioManager.SCROLL_CLICK)
+
+
 	current_item = clamp(current_item + 1, 0, max_count - 1)
 	var max_allowed_index = visible_range_upper - 1 - scroll_margin
 	
@@ -149,6 +170,8 @@ func scroll_down():
 	update_selected_item()
 
 func update_selected_item():
+	if panel.get_child_count() == 0:
+		return
 	for item in panel.get_child(0).get_children():
 		if item.get_index() == current_item:
 			item.highlight(true)
@@ -156,7 +179,9 @@ func update_selected_item():
 			item.highlight(false)
 
 func disable():
+	self.visible = false
 	disable_selection = true
 		
 func enable():
+	self.visible = true
 	disable_selection = false

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dj4aag8jrueou"
+path="res://.godot/imported/Coin Gentle 1.ogg-1acd9ce20c84aade68bf9f60f66b775b.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Coin Gentle 1.ogg"
+dest_files=["res://.godot/imported/Coin Gentle 1.ogg-1acd9ce20c84aade68bf9f60f66b775b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

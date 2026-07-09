@@ -184,6 +184,7 @@ offset_right = 1.0
 offset_bottom = 59.054993
 
 [node name="Panel2" type="Panel" parent="Item_Container" unique_id=241421097 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 z_index = 11
 clip_contents = true
 layout_mode = 0
@@ -210,6 +211,7 @@ theme_override_constants/h_separation = -29
 theme_override_constants/v_separation = 33
 
 [node name="Panel3" type="Panel" parent="Item_Container" unique_id=1169026103 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 z_index = 11
 clip_contents = true
 layout_mode = 0
@@ -236,6 +238,7 @@ theme_override_constants/h_separation = -29
 theme_override_constants/v_separation = 33
 
 [node name="Panel4" type="Panel" parent="Item_Container" unique_id=1826770548 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 z_index = 11
 clip_contents = true
 layout_mode = 0

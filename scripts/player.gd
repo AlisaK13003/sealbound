@@ -7,7 +7,6 @@ var in_menu : bool = false
 
 
 @onready var pause_menu = $CanvasLayer/PauseMenu
-@onready var full_inventory = $CanvasLayer/VillageInventory
 @onready var over_the_head_sprite = $OvertheHead
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -64,6 +63,8 @@ func _input(event):
 		if not pause_menu.visible:
 			if Global.is_in_menu:
 				return
+			AudioManager.play_ui_sound(AudioManager.MENU_OPEN)
+			AudioManager.stop_bgm()
 			Global.menu_opened.emit()
 			Global.is_paused = true
 			pause_menu.visible = true
@@ -71,18 +72,18 @@ func _input(event):
 			in_menu = true
 			#full_inventory.manage_visibility(false)
 			get_viewport().set_input_as_handled()
+			pause_menu._reset()
 		else:
+			AudioManager.play_ui_sound(AudioManager.MENU_CLOSE)
+			AudioManager.restart_bgm()
 			Global.menu_closed.emit()
 			Global.is_paused = false
 			get_tree().paused = false
 			in_menu = false
 			pause_menu.visible = false
+			pause_menu._reset()
 	return
-	if not Global.is_in_menu:
-		if event.is_action_pressed("Mouse Scroll Up"):
-			full_inventory.update_selection(-1)
-		if event.is_action_pressed("Mouse Scroll Down"):
-			full_inventory.update_selection(1)
+
 	
 func _physics_process(_delta):
 	move_and_slide()

@@ -36,7 +36,8 @@ func _ready():
 	
 	for child in list_container.get_children():
 		child._setup()
-	
+		child.visible = false
+
 	
 func _reset(should_continue_cycling: bool = true):
 	if should_continue_cycling:
@@ -183,3 +184,4 @@ func disable():
 func enable():
 	for child in list_container.get_children():
 		child.enable()
+		child.visible = false

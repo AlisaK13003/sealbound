@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://omrn63v8mso5"
+path="res://.godot/imported/UI SFX_EXTRA_Quick Sub Descending.ogg-6fd6f8986476f29e324f2ffc1bf00ee1.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI SFX_EXTRA_Quick Sub Descending.ogg"
+dest_files=["res://.godot/imported/UI SFX_EXTRA_Quick Sub Descending.ogg-6fd6f8986476f29e324f2ffc1bf00ee1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

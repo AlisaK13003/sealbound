@@ -25,8 +25,6 @@ func _ready():
 	#Global.is_paused = true
 
 func _setup(dungeon_instance, generated_rooms):
-	Global.is_paused = true 
-	
 	if is_dungeon_menu and not windows.get_child(0) is mini_map_class:
 		var new_map = mini_map_handler.duplicate()
 		windows.add_child(new_map)
@@ -37,6 +35,10 @@ func _setup(dungeon_instance, generated_rooms):
 		mini_map = new_map
 		
 	menu_tab.cycle_input(null, -10)
+
+func _reset():
+	menu_tab.cycle_input(null, -10)
+	tab_changed(0)
 
 func tab_changed(which_tab):
 	if not Global.is_paused:

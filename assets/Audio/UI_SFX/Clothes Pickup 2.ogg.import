@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ciyh6olc62hwh"
+path="res://.godot/imported/Clothes Pickup 2.ogg-f830aad447d7351a38fcbef946c67feb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Clothes Pickup 2.ogg"
+dest_files=["res://.godot/imported/Clothes Pickup 2.ogg-f830aad447d7351a38fcbef946c67feb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

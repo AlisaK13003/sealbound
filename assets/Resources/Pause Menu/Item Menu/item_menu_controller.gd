@@ -51,6 +51,9 @@ func _ready():
 	for item_menu in item_containers_parent.get_children():
 		for item_ in item_menu.get_child(0).get_children():
 			item_.item_clicked.connect(update_selected_item.bind(true))
+		if item_menu.get_index() != 0:
+			item_menu.visible = false
+			item_menu.disable()
 			
 	current_item = 0
 	update_selected_item()
@@ -63,11 +66,9 @@ func _ready():
 
 
 func _reset():
-	item_container.visible = true
-	valuable_container.visible = false
-	quest_item_container.visible = false
 	current_item = 0
 	selected_item = null
+	visible_tab = 0
 	item_containers_parent.position = container_start_position
 	update_selected_item()
 
@@ -96,19 +97,22 @@ func _fully_reset():
 		for item_ in item_menu.get_child(0).get_children():
 			if not item_.item_clicked.is_connected(update_selected_item):
 				item_.item_clicked.connect(update_selected_item.bind(true))
-				
+	
+	tab_changed(0)
 	current_item = 0
 	update_selected_item()
 
 
 func tab_changed(which_tab):
-	if not Global.is_paused:
+	if not is_visible_in_tree():
 		return
 	for child in range(item_containers_parent.get_child_count()):
 		if which_tab == child:
 			visible_tab = child
+			item_containers_parent.get_child(child).enable()
 			item_containers_parent.get_child(child).visible = true
 		else:
+			item_containers_parent.get_child(child).disable()
 			item_containers_parent.get_child(child).visible = false
 			
 	item_containers_parent.position = container_start_position
@@ -139,7 +143,6 @@ func update_selected_item(instance_id = null, from_click: bool = false):
 		else:
 			item_.highlight(false)
 	display_item()
-
 
 func display_item():
 	var current_container = null
@@ -177,5 +180,5 @@ func disable():
 		child.disable()
 	
 func enable():
-	for child in item_containers_parent.get_children():
-		child.enable()
+	item_containers_parent.get_child(0).enable()
+	

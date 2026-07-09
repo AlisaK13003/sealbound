@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cxwu87onrevk5"
+path="res://.godot/imported/Week 19 - Dark Portents MYSTERIOUS TRAVELER.ogg-177401d1dd2a6bf8c84f1764924a1060.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 19 - Dark Portents MYSTERIOUS TRAVELER.ogg"
+dest_files=["res://.godot/imported/Week 19 - Dark Portents MYSTERIOUS TRAVELER.ogg-177401d1dd2a6bf8c84f1764924a1060.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

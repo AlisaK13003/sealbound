@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://50yimt5drqru"
+path="res://.godot/imported/Week 24 - Pull Me Down GRAVITY.ogg-9bf2600fe79bea230b9c3427ad513f25.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 24 - Pull Me Down GRAVITY.ogg"
+dest_files=["res://.godot/imported/Week 24 - Pull Me Down GRAVITY.ogg-9bf2600fe79bea230b9c3427ad513f25.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

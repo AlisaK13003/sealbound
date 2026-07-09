@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bcn58kc5hbvsc"
+path="res://.godot/imported/Week 13 - Primordial Soup BASE.ogg-f918a534b1e31012c7018090fa188678.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 13 - Primordial Soup BASE.ogg"
+dest_files=["res://.godot/imported/Week 13 - Primordial Soup BASE.ogg-f918a534b1e31012c7018090fa188678.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

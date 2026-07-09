@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cx8cdcuw623yg"
+path="res://.godot/imported/Week 22 - The Walking Dunes UNBLINKING SUN.ogg-1a45fdb85fc627d8e593569bc2a47350.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 22 - The Walking Dunes UNBLINKING SUN.ogg"
+dest_files=["res://.godot/imported/Week 22 - The Walking Dunes UNBLINKING SUN.ogg-1a45fdb85fc627d8e593569bc2a47350.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bjsvgbwg1rnqx"
+path="res://.godot/imported/Coin Small 1.ogg-24913f46a3e9d2297aaec5e45764fde2.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Coin Small 1.ogg"
+dest_files=["res://.godot/imported/Coin Small 1.ogg-24913f46a3e9d2297aaec5e45764fde2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

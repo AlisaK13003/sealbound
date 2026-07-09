@@ -6,6 +6,11 @@ const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd"
 
 @export var is_building_insides: bool = false
 
+@export var bgm: AudioStream
+
+func _ready():
+	AudioManager.play_bgm(bgm)
+
 func swap_to_me():
 	var entry_loading_zone: String = Global.current_loading_zone
 	var should_start_entry_cutscene := Global.should_start_lyra_tavern_cutscene(entry_loading_zone)

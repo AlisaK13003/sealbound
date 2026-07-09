@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://wopqmmxi4rw4"
+path="res://.godot/imported/Week 20 - Dust Bowl PARCHED.ogg-5b53f56479b857b9de186a24df289eb3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 20 - Dust Bowl PARCHED.ogg"
+dest_files=["res://.godot/imported/Week 20 - Dust Bowl PARCHED.ogg-5b53f56479b857b9de186a24df289eb3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

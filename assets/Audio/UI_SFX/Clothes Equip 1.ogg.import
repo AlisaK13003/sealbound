@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dokp54urwuwpk"
+path="res://.godot/imported/Clothes Equip 1.ogg-6db27a0c3e29e42a51b35cb62b721bcc.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Clothes Equip 1.ogg"
+dest_files=["res://.godot/imported/Clothes Equip 1.ogg-6db27a0c3e29e42a51b35cb62b721bcc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

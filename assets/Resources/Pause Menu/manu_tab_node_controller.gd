@@ -22,9 +22,9 @@ func _setup(tab_name_string):
 	panel_size = panel.size
 	
 	if self.get_index() == 0:
-		update_highlight(true)
+		highlight(true)
 	else:
-		update_highlight(false)
+		highlight(false)
 		
 	$"NinePatchRect/Horizontal List".play("default")
 	$"NinePatchRect/Vertical List".play("default")
@@ -40,7 +40,7 @@ func _update_size(new_size):
 	$"NinePatchRect/Horizontal List".position.x = panel.size.x / 2
 	$"NinePatchRect/Vertical List".position.x = panel.size.x + 7
 
-func update_highlight(highlight):
+func highlight(highlight):
 	if highlight:
 		if get_parent().columns == 1:
 			$"NinePatchRect/Vertical List".visible = true

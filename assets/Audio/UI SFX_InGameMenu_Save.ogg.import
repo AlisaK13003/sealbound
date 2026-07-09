@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dt6p22gcjvrw2"
+path="res://.godot/imported/UI SFX_InGameMenu_Save.ogg-b32c899c2891886de4c9429c0266ff95.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI SFX_InGameMenu_Save.ogg"
+dest_files=["res://.godot/imported/UI SFX_InGameMenu_Save.ogg-b32c899c2891886de4c9429c0266ff95.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

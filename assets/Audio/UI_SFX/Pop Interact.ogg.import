@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bwovnuga78rvk"
+path="res://.godot/imported/Pop Interact.ogg-716b069a80495296cf097691d30e9608.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Pop Interact.ogg"
+dest_files=["res://.godot/imported/Pop Interact.ogg-716b069a80495296cf097691d30e9608.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://1sdkme8elw11"
+path="res://.godot/imported/Sword Equip 2.ogg-e63297df761dd31335f2c07a6880b96e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Sword Equip 2.ogg"
+dest_files=["res://.godot/imported/Sword Equip 2.ogg-e63297df761dd31335f2c07a6880b96e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

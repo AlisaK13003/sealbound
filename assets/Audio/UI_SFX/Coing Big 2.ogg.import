@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://lxd370b7o05x"
+path="res://.godot/imported/Coing Big 2.ogg-ef5aabd6f9ce26b97dfdfbe4ee0b009e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Coing Big 2.ogg"
+dest_files=["res://.godot/imported/Coing Big 2.ogg-ef5aabd6f9ce26b97dfdfbe4ee0b009e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

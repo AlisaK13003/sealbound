@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ocvyktt00w1c"
+path="res://.godot/imported/Item Slot Interact 2.ogg-8f829a150ecc46d829fcea3dc0e3d5f3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Item Slot Interact 2.ogg"
+dest_files=["res://.godot/imported/Item Slot Interact 2.ogg-8f829a150ecc46d829fcea3dc0e3d5f3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -31,6 +31,7 @@ GlobalCombatInformation="*uid://bba2tvdjwats"
 Global="*uid://c8yegl8nrw5mx"
 AreaStateManager="*uid://bp2deesr31fop"
 DialogueSystem="*res://GUI/dialogue_system/dialogue_system.tscn"
+AudioManager="*uid://d1p48eva8ookp"
 
 [display]
 
@@ -47,6 +48,7 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
+"res://assets/Audio/": "pink",
 "res://assets/Resources/Interactables/Shops/": "yellow",
 "res://assets/tile sheets/Move Sprites/": "red"
 }

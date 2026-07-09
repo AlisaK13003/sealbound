@@ -62,7 +62,7 @@ func _setup(combatant: generic_combatants, index: int, show_hp: bool = false):
 	sprite.texture = combatant.party_member_portrait
 	now_an_active_member()
 	
-func update_highlight(highlight):
+func highlight(highlight):
 	if highlight:
 		selection_arrow.play("default")
 		selection_arrow.visible = true

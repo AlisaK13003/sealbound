@@ -213,6 +213,7 @@ offset_right = 210.37038
 offset_bottom = -51.35804
 
 [node name="Panel" type="Panel" parent="Control" unique_id=564681908 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 clip_contents = true
 layout_mode = 0
 offset_right = 267.235
@@ -227,6 +228,7 @@ layout_mode = 0
 theme_override_constants/v_separation = 63
 
 [node name="Panel2" type="Panel" parent="Control" unique_id=541420229 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 clip_contents = true
 layout_mode = 0
 offset_right = 267.235
@@ -242,6 +244,7 @@ theme_override_constants/v_separation = 63
 what_equipment_am_i = 1
 
 [node name="Panel3" type="Panel" parent="Control" unique_id=564630954 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 clip_contents = true
 layout_mode = 0
 offset_right = 267.235
@@ -257,6 +260,7 @@ theme_override_constants/v_separation = 63
 what_equipment_am_i = 3
 
 [node name="Panel4" type="Panel" parent="Control" unique_id=1939136304 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 clip_contents = true
 layout_mode = 0
 offset_right = 267.235
@@ -267,11 +271,11 @@ mouse_scroll_detection_area = NodePath("../../Area2D")
 scroll_bar = NodePath("../../VScrollBar")
 
 [node name="Charm_List" parent="Control/Panel4" unique_id=1353107630 instance=ExtResource("3_6c37x")]
-visible = false
 layout_mode = 0
 theme_override_constants/v_separation = 63
 
 [node name="Panel5" type="Panel" parent="Control" unique_id=2128500982 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 clip_contents = true
 layout_mode = 0
 offset_right = 267.235
@@ -282,7 +286,6 @@ mouse_scroll_detection_area = NodePath("../../Area2D")
 scroll_bar = NodePath("../../VScrollBar")
 
 [node name="Chestplate_List" parent="Control/Panel5" unique_id=1699206467 instance=ExtResource("3_6c37x")]
-visible = false
 layout_mode = 0
 theme_override_constants/v_separation = 63
 what_equipment_am_i = 2

@@ -11,6 +11,14 @@ radius = 137.13132
 position = Vector2(904, 482)
 script = ExtResource("1_pskkx")
 
+[node name="ShopInterface" parent="." unique_id=1487542661 instance=ExtResource("3_hjkeh")]
+visible = false
+offset_left = -900.0
+offset_top = -477.0
+offset_right = -900.0
+offset_bottom = -477.0
+metadata/_edit_use_anchors_ = true
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=744675171]
 texture = ExtResource("2_hjkeh")
 
@@ -18,17 +26,6 @@ texture = ExtResource("2_hjkeh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=613979756]
 shape = SubResource("CircleShape2D_iq71j")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=307229092]
-
-[node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 node_paths=PackedStringArray("parent") instance=ExtResource("3_hjkeh")]
-visible = false
-offset_left = 225.0
-offset_top = 168.0
-offset_right = 225.0
-offset_bottom = 168.0
-parent = NodePath("../..")
-metadata/_edit_use_anchors_ = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

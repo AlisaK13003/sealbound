@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://o78j7semi3pt"
+path="res://.godot/imported/Week 26 - Seaside ENDLESS WAVES.ogg-d486eafd52634c9040531b1a7168779b.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 26 - Seaside ENDLESS WAVES.ogg"
+dest_files=["res://.godot/imported/Week 26 - Seaside ENDLESS WAVES.ogg-d486eafd52634c9040531b1a7168779b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

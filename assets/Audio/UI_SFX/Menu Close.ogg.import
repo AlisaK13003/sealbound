@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cduk4wykaapp3"
+path="res://.godot/imported/Menu Close.ogg-9ad819f6b857239c3823f98697104a3d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Menu Close.ogg"
+dest_files=["res://.godot/imported/Menu Close.ogg-9ad819f6b857239c3823f98697104a3d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

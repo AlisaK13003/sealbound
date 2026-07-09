@@ -33,7 +33,7 @@ func _on_sort_children():
 
 	var selected_child = get_child(current_selection)
 	if not dont_highlight:
-		selected_child.update_highlight(true)
+		selected_child.highlight(true)
 
 func reset():
 	current_selection = 0
@@ -81,9 +81,8 @@ func _setup(tab_names_, custom_tab: String = "", icons : Array[Texture2D] = []):
 				new_tab = load(custom_tab)
 				new_tab_instance = new_tab.instantiate()
 				new_tab_instance._setup(icons[name_])
-			
 		self.add_child(new_tab_instance)
-		new_tab_instance.gui_input.connect(cycle_input.bind(name_))
+		new_tab_instance.gui_input.connect(cycle_input.bind(name_, true))
 		if custom_tab == "" and not only_icons:
 			if new_tab_instance.panel_size.x >= largest_name:
 				largest_name = new_tab_instance.panel_size.x
@@ -113,8 +112,8 @@ func _setup(tab_names_, custom_tab: String = "", icons : Array[Texture2D] = []):
 #		if Global.get_input_mapping("down"):
 #			cycle_input(null, 1)
 
-func cycle_input(event, index):
-	if get_child_count() == 0:
+func cycle_input(event, index, make_noise = false):
+	if get_child_count() == 0 or not visible:
 		return
 	if Global.cant_leave_menu and not bypass_global_lock:
 		return
@@ -122,11 +121,17 @@ func cycle_input(event, index):
 		return
 	if event is InputEventMouseMotion:
 		return
+		
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if make_noise:
+				AudioManager.play_ui_sound(AudioManager.SCROLL_CLICK)
+
 			current_selection = index
 			change_selection()
 	else:
+		if make_noise:
+			AudioManager.play_ui_sound(AudioManager.SCROLL_CLICK)
 		current_selection = clamp(current_selection + index, 0, self.columns - 1 if not be_vertical else get_child_count() - 1)
 		change_selection()
 
@@ -138,20 +143,11 @@ func change_selection():
 	for child in get_child_count():
 		if child == current_selection:
 			if not only_icons and not dont_highlight:
-				get_child(child).update_highlight(true)
-			#if not be_vertical and get_child(child).position.y == starting_y:
-			#	get_child(child).position.y -= 10
-			#elif be_vertical and get_child(child).position.x == starting_x:
-			#	get_child(child).position.x -= 10
+				get_child(child).highlight(true)
 		else:
 			if not only_icons and not dont_highlight:
-				get_child(child).update_highlight(false)
-			#if not be_vertical:
-			#	if get_child(child).position.y < starting_y:
-			#		get_child(child).position.y += 10
-			#else:
-			#	if get_child(child).position.x < starting_x:
-			#		get_child(child).position.x += 10
+				get_child(child).highlight(false)
+
 	selection_changed.emit(current_selection)
 
 func set_active(active):

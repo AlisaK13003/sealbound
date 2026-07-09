@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bt6ftpi8bm0rs"
+path="res://.godot/imported/UI SFX_MENU_Hover.ogg-55043e4961b8ede8f29c3afb73e0551a.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI SFX_MENU_Hover.ogg"
+dest_files=["res://.godot/imported/UI SFX_MENU_Hover.ogg-55043e4961b8ede8f29c3afb73e0551a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

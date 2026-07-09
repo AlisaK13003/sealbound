@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dj8gedyrej18n"
+path="res://.godot/imported/UI SFX_MENU_Scroll.ogg-5611aefb34c552503d97a89a934689ce.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI SFX_MENU_Scroll.ogg"
+dest_files=["res://.godot/imported/UI SFX_MENU_Scroll.ogg-5611aefb34c552503d97a89a934689ce.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

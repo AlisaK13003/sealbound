@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dqtbom3rinuyx"
+path="res://.godot/imported/Inventory Select.ogg-bd30c87e6feeba1eb0f16bb615073c08.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Inventory Select.ogg"
+dest_files=["res://.godot/imported/Inventory Select.ogg-bd30c87e6feeba1eb0f16bb615073c08.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

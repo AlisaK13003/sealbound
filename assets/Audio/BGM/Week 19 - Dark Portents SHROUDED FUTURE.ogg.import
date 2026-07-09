@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://kqf4o1bbnm7m"
+path="res://.godot/imported/Week 19 - Dark Portents SHROUDED FUTURE.ogg-478c4a2df5a3b64212d1267c57b09057.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Week 19 - Dark Portents SHROUDED FUTURE.ogg"
+dest_files=["res://.godot/imported/Week 19 - Dark Portents SHROUDED FUTURE.ogg-478c4a2df5a3b64212d1267c57b09057.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

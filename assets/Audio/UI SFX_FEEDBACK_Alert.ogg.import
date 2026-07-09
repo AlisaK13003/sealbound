@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dx8regyvm5lxa"
+path="res://.godot/imported/UI SFX_FEEDBACK_Alert.ogg-382b791ae6c34d547de7f0b13637bfdc.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI SFX_FEEDBACK_Alert.ogg"
+dest_files=["res://.godot/imported/UI SFX_FEEDBACK_Alert.ogg-382b791ae6c34d547de7f0b13637bfdc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

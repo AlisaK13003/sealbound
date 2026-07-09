@@ -228,15 +228,15 @@ func _ready_to_use_skill(skill_to_use: moves):
 	
 	if skill_to_use.aoe_heal:
 		for child in menu_tabs.get_children():
-			child.update_highlight(true)
+			child.highlight(true)
 			_set_node_mouse_disabled(child, false)
 	elif skill_to_use.targets_self:
 		for child in menu_tabs.get_children():
 			if child.get_index() == caster_index:
-				child.update_highlight(true)
+				child.highlight(true)
 				_set_node_mouse_disabled(child, false)
 			else:
-				child.update_highlight(false)
+				child.highlight(false)
 				_set_node_mouse_disabled(child, true) 
 	else:
 		for child in menu_tabs.get_children():

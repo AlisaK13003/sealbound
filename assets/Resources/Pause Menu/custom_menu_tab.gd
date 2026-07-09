@@ -9,7 +9,7 @@ func _setup(texture_for_texture):
 	$Vertical.play("default")
 	$Horizontal.play("default")
 
-func update_highlight(highlight):
+func highlight(highlight):
 	if highlight:
 		if get_parent().columns == 1:
 			$Vertical.visible = true

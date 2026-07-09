@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://k8h3wryir8iy" path="res://assets/characters/lyra/lyra_walk.png" id="3_rxsbu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
-size = Vector2(71, 132)
+size = Vector2(26, 51)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5xhj"]
 atlas = ExtResource("2_3t744")
@@ -122,7 +122,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
-radius = 245.58908
+radius = 114.0
 
 [node name="NpcTemplate" type="Node2D" unique_id=823861240]
 script = ExtResource("1_lyra1")
@@ -133,11 +133,11 @@ schedule_path = "res://assets/Resources/NPC Stuff/Schedules/lyra/Weekday.json"
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736806]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC_Clickable" unique_id=2012646425]
-position = Vector2(0.5, 9)
+position = Vector2(-1, -1.5)
 shape = SubResource("RectangleShape2D_7u671")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=575912761]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_l0ocd")
 animation = &"idle"
 

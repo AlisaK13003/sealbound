@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_b5m2l"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_ql05a"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_etanp"]
+[ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="5_etanp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
 size = Vector2(313, 182)
@@ -52,6 +53,7 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Quest_Description_Container" type="Control" parent="." unique_id=222429535]
+visible = false
 anchors_preset = 0
 offset_left = 129.74
 offset_top = 30.0
@@ -84,17 +86,35 @@ value = 1.0
 position = Vector2(157, 103)
 shape = SubResource("RectangleShape2D_7tpxp")
 
-[node name="Panel" type="Panel" parent="." unique_id=125610572]
+[node name="MenuTabs" parent="." unique_id=911369825 instance=ExtResource("2_b5m2l")]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 9.0
+offset_right = 67.0
+offset_bottom = 9.0
+scale = Vector2(0.5, 0.5)
+dont_offset_on_click = true
+
+[node name="Quest_Container" type="Control" parent="." unique_id=987559454]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Quest_Container" unique_id=125610572 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
 clip_contents = true
 layout_mode = 0
-offset_left = -22.999994
+offset_left = -23.0
 offset_top = 28.0
-offset_right = 90.9
-offset_bottom = 194.0
+offset_right = 90.899994
+offset_bottom = 192.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
+script = ExtResource("5_etanp")
+display_x_items = 6
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
 
-[node name="MenuTabs" parent="Panel" unique_id=1267646118 instance=ExtResource("2_b5m2l")]
-visible = false
+[node name="MenuTabs" parent="Quest_Container/Panel" unique_id=1267646118 instance=ExtResource("2_b5m2l")]
 custom_minimum_size = Vector2(253.155, 314.98)
 layout_mode = 0
 offset_left = 19.91
@@ -107,7 +127,21 @@ mouse_filter = 0
 theme_override_constants/v_separation = 62
 be_vertical = true
 
-[node name="MenuTabs2" parent="Panel" unique_id=350950437 instance=ExtResource("2_b5m2l")]
+[node name="Panel2" type="Panel" parent="Quest_Container" unique_id=512408921 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+visible = false
+clip_contents = true
+layout_mode = 0
+offset_left = -23.0
+offset_top = 28.0
+offset_right = 90.899994
+offset_bottom = 194.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
+script = ExtResource("5_etanp")
+display_x_items = 6
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
+
+[node name="MenuTabs2" parent="Quest_Container/Panel2" unique_id=52484950 instance=ExtResource("2_b5m2l")]
 custom_minimum_size = Vector2(253.155, 0)
 layout_mode = 0
 offset_left = 19.91
@@ -115,15 +149,6 @@ offset_right = 273.06512
 offset_bottom = 314.0
 scale = Vector2(0.45, 0.45)
 theme_override_constants/v_separation = 62
-
-[node name="MenuTabs" parent="." unique_id=911369825 instance=ExtResource("2_b5m2l")]
-layout_mode = 0
-offset_left = 67.0
-offset_top = 9.0
-offset_right = 67.0
-offset_bottom = 9.0
-scale = Vector2(0.5, 0.5)
-dont_offset_on_click = true
 
 [connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

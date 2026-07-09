@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bajftqpkoo5a6"
+path="res://.godot/imported/Inventory Take Generic.ogg-516e8fad5d6b6a8002fd2cc4b724d7bb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/UI_SFX/Inventory Take Generic.ogg"
+dest_files=["res://.godot/imported/Inventory Take Generic.ogg-516e8fad5d6b6a8002fd2cc4b724d7bb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
