@@ -87,7 +87,7 @@ shape = SubResource("RectangleShape2D_7tpxp")
 [node name="Panel" type="Panel" parent="." unique_id=125610572]
 clip_contents = true
 layout_mode = 0
-offset_left = -2.1
+offset_left = -22.999994
 offset_top = 28.0
 offset_right = 90.9
 offset_bottom = 194.0
@@ -95,10 +95,11 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 
 [node name="MenuTabs" parent="Panel" unique_id=1267646118 instance=ExtResource("2_b5m2l")]
 visible = false
-custom_minimum_size = Vector2(213.27, 314.98)
+custom_minimum_size = Vector2(253.155, 314.98)
 layout_mode = 0
+offset_left = 19.91
 offset_top = -0.43
-offset_right = 213.27002
+offset_right = 273.06512
 offset_bottom = 314.55002
 scale = Vector2(0.45, 0.45)
 offset_transform_enabled = true
@@ -107,9 +108,10 @@ theme_override_constants/v_separation = 62
 be_vertical = true
 
 [node name="MenuTabs2" parent="Panel" unique_id=350950437 instance=ExtResource("2_b5m2l")]
-custom_minimum_size = Vector2(213.7, 0)
+custom_minimum_size = Vector2(253.155, 0)
 layout_mode = 0
-offset_right = 213.7
+offset_left = 19.91
+offset_right = 273.06512
 offset_bottom = 314.0
 scale = Vector2(0.45, 0.45)
 theme_override_constants/v_separation = 62

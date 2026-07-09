@@ -17,4 +17,5 @@ equipment_name = "Iron Helmet"
 equipment_description = "Why'd you kill that golem"
 equipment_sprite = ExtResource("1_v2snt")
 equipment_stats = SubResource("Resource_2rfm5")
+shop_quantity = 6
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

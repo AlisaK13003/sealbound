@@ -21,6 +21,7 @@ func _setup(item, is_weapon):
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_update_selection(true)
 			node_pressed.emit(self.get_instance_id(), stored_item)
 
 func move_left(index):

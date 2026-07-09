@@ -4,8 +4,9 @@ class_name Items
 
 @export var item_name : String
 @export var item_description : String
+@export var buy_price: int
 @export var sell_price: int
-@export var item_quantity: int
+@export var shop_quantity: int = 0
 
 @export var item_sprite : Texture2D
 

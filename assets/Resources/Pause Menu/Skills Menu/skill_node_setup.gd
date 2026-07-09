@@ -10,13 +10,14 @@ func _setup(move: moves):
 		$HBoxContainer/TextureRect.texture = load("res://assets/tile sheets/Move Sprites/Crowd_Breaker.png")
 	$HBoxContainer/Label.text = move.move_name
 	$HBoxContainer/Label2.text = str(move.mana_cost) + " BP"
+	$AnimatedSprite2D.play("default")
 
 func update_selection(selected):
 	if selected:
-		$TextureRect.visible = true
+		$AnimatedSprite2D.visible = true
 		is_selected = true
 	else:
-		$TextureRect.visible = false
+		$AnimatedSprite2D.visible = false
 		is_selected = false
 
 

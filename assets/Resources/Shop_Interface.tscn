@@ -1,49 +1,33 @@
 [gd_scene format=3 uid="uid://b8ftp6nfs07fk"]
 
 [ext_resource type="Script" uid="uid://bxyc62npjpgik" path="res://assets/Resources/Interactables/Shops/shop_ui_controller.gd" id="1_j2x6r"]
-[ext_resource type="StyleBox" uid="uid://m10eq6a7soo1" path="res://assets/Sprites/Shop_Panel_Style.tres" id="2_w6nt2"]
-[ext_resource type="Texture2D" uid="uid://uujsrpi2qjno" path="res://assets/Sprites/Left Arrow.png" id="3_48wme"]
-[ext_resource type="Texture2D" uid="uid://6pwcv81fvndm" path="res://assets/Sprites/Orb_Over.png" id="3_e47ti"]
-[ext_resource type="Texture2D" uid="uid://cp5wwcww3wfaa" path="res://assets/Sprites/sprite1.png" id="3_j2x6r"]
-[ext_resource type="Texture2D" uid="uid://chcotnqwviuhf" path="res://assets/Sprites/Right ARROW.png" id="4_j2x6r"]
-[ext_resource type="Texture2D" uid="uid://d0017lkvoxv23" path="res://assets/Sprites/Temp_Shop_Owner.tres" id="6_1nvga"]
-[ext_resource type="PackedScene" uid="uid://cicg7e0lnhocn" path="res://assets/Resources/Interactables/Shops/Sell_Menu.tscn" id="7_umvbw"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_1nvga"]
+[ext_resource type="Texture2D" uid="uid://bxrpa8qa2ixug" path="res://assets/tile sheets/Weapon_Shop_tab.png" id="2_p2ovs"]
+[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="3_umvbw"]
+[ext_resource type="Texture2D" uid="uid://cwb7hif8vfdq7" path="res://assets/tile sheets/Helmet_Shop_Tab.png" id="3_xultm"]
+[ext_resource type="Texture2D" uid="uid://dc51ux868mr3w" path="res://assets/tile sheets/Boots_Shop_tab.png" id="4_ri226"]
+[ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="4_w6nt2"]
+[ext_resource type="Texture2D" uid="uid://cuuwqswhaf5dr" path="res://assets/tile sheets/Charm_Shop_tab.png" id="5_ice4d"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="5_ucggo"]
+[ext_resource type="Texture2D" uid="uid://ndlyctcxruyr" path="res://assets/tile sheets/Chestplate_Shop_tab.png" id="6_iki5b"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="6_xtc3w"]
+[ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="7_1qi33"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="8_u5occ"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="9_baboj"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="9_eqlyk"]
+[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="11_baboj"]
+[ext_resource type="Resource" uid="uid://yn5ljp73dfed" path="res://assets/Equipment/Iron_Helmet.tres" id="12_2mefq"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="13_pjh6y"]
+[ext_resource type="PackedScene" uid="uid://b5f22pkqq6xkg" path="res://assets/Resources/Interactables/Shops/Stock_Container_Node.tscn" id="19_eoxju"]
 
-[sub_resource type="Theme" id="Theme_xtc3w"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucggo"]
-bg_color = Color(0.45134372, 0.3449636, 0.21297228, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtc3w"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2ovs"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xultm"]
-bg_color = Color(0.49516714, 0.6473578, 0.496691, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_umvbw"]
-size = Vector2(314, 321.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6nt2"]
-bg_color = Color(0.7064611, 0.55025023, 0.34230646, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gjqij"]
-atlas = ExtResource("6_1nvga")
-region = Rect2(0, 0, 228, 384)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umvbw"]
+[sub_resource type="Resource" id="Resource_2mefq"]
+script = ExtResource("8_u5occ")
+weapon_name = "Training Sword"
+weapon_description = "Decent Sword"
+weapon_texture = ExtResource("9_baboj")
+buy_price = 60
+shop_quantity = 15
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [node name="ShopInterface" type="Control" unique_id=1487542661]
 z_index = -4
@@ -51,265 +35,152 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -181.0
-offset_top = -137.0
-offset_right = -181.0
-offset_bottom = -137.0
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 1.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
 mouse_filter = 1
 script = ExtResource("1_j2x6r")
+what_things_do_I_sell = 7
+tab_icons = Array[Texture2D]([ExtResource("2_p2ovs"), ExtResource("3_xultm"), ExtResource("6_iki5b"), ExtResource("4_ri226"), ExtResource("5_ice4d"), ExtResource("7_1qi33")])
+shop_stock = [SubResource("Resource_2mefq"), ExtResource("9_eqlyk"), ExtResource("11_baboj"), ExtResource("12_2mefq"), ExtResource("13_pjh6y")]
+shop_discount = 0.2
 
-[node name="SellMenu" parent="." unique_id=1745746423 instance=ExtResource("7_umvbw")]
+[node name="Background" type="Control" parent="." unique_id=1690320233]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1314562053]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 102.0
+offset_right = 461.0
+offset_bottom = 287.0
+texture = ExtResource("2_1nvga")
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=2022621024]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 109.0
+offset_right = 104.0
+offset_bottom = 173.0
+texture = ExtResource("3_umvbw")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=1656479835]
+layout_mode = 0
+offset_left = 108.5
+offset_top = 95.5
+offset_right = 467.0
+offset_bottom = 294.0
+texture = ExtResource("4_w6nt2")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=1833988616]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 101.0
+offset_right = 115.0
+offset_bottom = 181.5
+texture = ExtResource("5_ucggo")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="Background" unique_id=1892008766]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 300.0
+offset_right = 466.0
+offset_bottom = 344.0
+texture = ExtResource("2_1nvga")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="Background" unique_id=1813132053]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 290.0
+offset_right = 475.0
+offset_bottom = 353.0
+texture = ExtResource("5_ucggo")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Label" type="Label" parent="." unique_id=1190885039]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 176.0
+offset_right = 139.0
+offset_bottom = 215.0
+text = "Coins: 
+5000"
+
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("6_xtc3w")]
+layout_mode = 0
+offset_left = 117.21
+offset_top = 84.25
+offset_right = 117.21
+offset_bottom = 84.25
+scale = Vector2(0.415, 0.415)
+theme_override_constants/h_separation = 67
+theme_override_constants/v_separation = 9
+columns = 6
+
+[node name="Stock_Container" type="Control" parent="." unique_id=694637958]
+anchors_preset = 0
+offset_left = 57.0
+offset_top = 41.0
+offset_right = 97.0
+offset_bottom = 81.0
+
+[node name="Weapons" parent="Stock_Container" unique_id=1881776932 instance=ExtResource("19_eoxju")]
+visible = false
 layout_mode = 1
-offset_left = 75.5
-offset_top = 66.5
-offset_right = 75.5
-offset_bottom = 66.5
 
-[node name="Buy Menu" type="Control" parent="." unique_id=247947708]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 1
+[node name="Helmets" parent="Stock_Container" unique_id=1625925409 instance=ExtResource("19_eoxju")]
+visible = false
+layout_mode = 1
 
-[node name="Panel" type="Panel" parent="Buy Menu" unique_id=1042850209]
-z_index = -2
+[node name="Chestplates" parent="Stock_Container" unique_id=604092228 instance=ExtResource("19_eoxju")]
+visible = false
+layout_mode = 1
+
+[node name="Boots" parent="Stock_Container" unique_id=670839402 instance=ExtResource("19_eoxju")]
+visible = false
+layout_mode = 1
+
+[node name="Charms" parent="Stock_Container" unique_id=2091221006 instance=ExtResource("19_eoxju")]
+visible = false
+layout_mode = 1
+
+[node name="Items" parent="Stock_Container" unique_id=132450831 instance=ExtResource("19_eoxju")]
+visible = false
+layout_mode = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1346560711]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 0
-offset_left = 34.0
-offset_right = 593.0
-offset_bottom = 322.0
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("2_w6nt2")
-
-[node name="Scroll" type="VScrollBar" parent="Buy Menu/Panel" unique_id=1723516032]
-layout_mode = 0
-offset_left = 456.0
-offset_top = 5.0
-offset_right = 470.5
-offset_bottom = 315.5
-theme = SubResource("Theme_xtc3w")
-theme_override_styles/scroll = SubResource("StyleBoxFlat_ucggo")
-theme_override_styles/scroll_focus = SubResource("StyleBoxFlat_xtc3w")
-theme_override_styles/grabber_highlight = SubResource("StyleBoxFlat_p2ovs")
-theme_override_styles/grabber_pressed = SubResource("StyleBoxFlat_xultm")
-
-[node name="Item_Selection" type="VBoxContainer" parent="Buy Menu" unique_id=1935556515]
-z_index = -2
-layout_mode = 0
-offset_left = 40.5
-offset_top = 3.0
-offset_right = 63.0
-offset_bottom = 108.0
-theme_override_constants/separation = 35
-alignment = 1
-
-[node name="Shop_Window" type="Area2D" parent="Buy Menu" unique_id=1044070861]
-position = Vector2(40.5, 3)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buy Menu/Shop_Window" unique_id=385803463]
-position = Vector2(287.5, 158.25)
-shape = SubResource("RectangleShape2D_umvbw")
-
-[node name="Panel3" type="Panel" parent="Buy Menu" unique_id=1429017399]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 23.5
-offset_right = 148.0
-offset_bottom = 170.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_w6nt2")
-
-[node name="TextureRect" type="TextureRect" parent="Buy Menu/Panel3" unique_id=1899251651]
-layout_mode = 0
-offset_left = 5.5
-offset_top = 3.5
-offset_right = 88.0
-offset_bottom = 142.44737
-texture = SubResource("AtlasTexture_gjqij")
-expand_mode = 5
-
-[node name="Label" type="Label" parent="Buy Menu/Panel3" unique_id=1704959935]
-layout_mode = 0
-offset_left = -4.0
-offset_top = -17.5
-offset_right = 95.0
-offset_bottom = -0.5
-text = "Blacksmith"
-
-[node name="Label2" type="Label" parent="Buy Menu/Panel3" unique_id=394225812]
-layout_mode = 0
-offset_left = -0.5
-offset_top = 150.5
-offset_right = 110.5
-offset_bottom = 187.5
-text = "Rowan"
-
-[node name="Button" type="Button" parent="." unique_id=1479647252]
-layout_mode = 0
-offset_left = 526.0
-offset_top = -32.0
-offset_right = 625.0
-offset_bottom = -7.0
-text = "Exit Shop"
-
-[node name="Buy _ Sell Confirmation" type="Control" parent="." unique_id=756960938]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel2" type="Panel" parent="Buy _ Sell Confirmation" unique_id=1156723204]
-z_index = 1
-layout_mode = 0
-offset_left = 242.0
-offset_top = 113.0
-offset_right = 542.5
-offset_bottom = 213.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_umvbw")
-
-[node name="Item_Texture" type="TextureRect" parent="Buy _ Sell Confirmation/Panel2" unique_id=199588439]
-layout_mode = 0
-offset_left = 16.5
-offset_top = 17.0
-offset_right = 67.0
-offset_bottom = 68.0
-texture = ExtResource("3_j2x6r")
-
-[node name="TextureRect2" type="TextureRect" parent="Buy _ Sell Confirmation/Panel2" unique_id=1650212679]
-layout_mode = 0
-offset_left = 166.5
-offset_top = 22.0
-offset_right = 232.5
-offset_bottom = 86.0
-
-[node name="Item_Name" type="Label" parent="Buy _ Sell Confirmation/Panel2" unique_id=1333171714]
-layout_mode = 0
-offset_left = 71.0
-offset_top = 38.0
-offset_right = 136.0
-offset_bottom = 55.0
-mouse_filter = 1
-text = "Potion"
-
-[node name="Amount_Toggle" type="Control" parent="Buy _ Sell Confirmation/Panel2" unique_id=2100064718]
-anchors_preset = 0
-offset_left = 8.5
-offset_top = 21.0
-offset_right = 48.5
-offset_bottom = 61.0
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="Buy _ Sell Confirmation/Panel2/Amount_Toggle" unique_id=1098106842]
-layout_mode = 0
-offset_left = 249.0
-offset_top = 53.0
-offset_right = 281.0
-offset_bottom = 85.0
-rotation = 4.712389
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("3_48wme")
-
-[node name="TextureRect2" type="TextureRect" parent="Buy _ Sell Confirmation/Panel2/Amount_Toggle" unique_id=204078518]
-layout_mode = 0
-offset_left = 248.0
-offset_top = 20.0
-offset_right = 280.0
-offset_bottom = 52.0
-rotation = 4.712389
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_j2x6r")
-
-[node name="Cancel_Button" type="Panel" parent="Buy _ Sell Confirmation/Panel2" unique_id=1205815860]
-layout_mode = 0
-offset_left = 83.5
-offset_top = -19.0
-offset_right = 165.5
-offset_bottom = -3.5
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="Buy _ Sell Confirmation/Panel2/Cancel_Button" unique_id=122117775]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 1.5
-offset_right = 80.0
-offset_bottom = 18.5
-mouse_filter = 1
-theme_override_font_sizes/font_size = 11
-text = "nevermind..."
-
-[node name="Purchase_Button" type="Panel" parent="Buy _ Sell Confirmation/Panel2" unique_id=1325244782]
-layout_mode = 0
-offset_left = 184.0
-offset_top = -19.0
-offset_right = 266.0
-offset_bottom = -3.5
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="Buy _ Sell Confirmation/Panel2/Purchase_Button" unique_id=445685265]
-layout_mode = 0
-offset_left = 24.5
-offset_top = 2.0
-offset_right = 75.5
-offset_bottom = 19.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 11
-text = "buy!~"
-
-[node name="Amount_To_buy" type="Label" parent="Buy _ Sell Confirmation/Panel2" unique_id=564022867]
-custom_minimum_size = Vector2(83.515, 0)
-layout_mode = 0
-offset_left = 163.0
-offset_top = 36.5
-offset_right = 246.515
-offset_bottom = 66.25
-mouse_filter = 1
-theme_override_font_sizes/font_size = 28
-text = "100x"
-horizontal_alignment = 2
-
-[node name="Amount_Total" type="Label" parent="Buy _ Sell Confirmation/Panel2" unique_id=151509327]
-layout_mode = 0
-offset_left = 217.5
-offset_top = 78.5
-offset_right = 267.5
-offset_bottom = 95.5
-mouse_filter = 1
-text = "1000g"
-
-[node name="Item_Quantity" type="Label" parent="Buy _ Sell Confirmation/Panel2" unique_id=430702645]
-layout_mode = 0
-offset_left = 4.5
-offset_top = 79.0
-offset_right = 122.5
-offset_bottom = 96.0
-text = "Amount Left:"
-
-[node name="Money Counter" type="Control" parent="." unique_id=1273422827]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Money Counter" unique_id=1509072002]
-layout_mode = 0
-offset_left = 397.0
-offset_top = 4.0
-offset_right = 571.5
-offset_bottom = 44.0
-theme_override_constants/separation = 4
-alignment = 2
-
-[node name="Total_Currency" type="Label" parent="Money Counter/HBoxContainer" unique_id=1861660821]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.4117647, 1, 1)
-text = "0"
-horizontal_alignment = 2
-
-[node name="TextureRect" type="TextureRect" parent="Money Counter/HBoxContainer" unique_id=2094298982]
-layout_mode = 2
-texture = ExtResource("3_e47ti")
-stretch_mode = 2
-
-[connection signal="mouse_entered" from="Buy Menu/Shop_Window" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Buy Menu/Shop_Window" to="." method="_on_area_2d_mouse_exited"]
-[connection signal="button_down" from="Button" to="." method="_exit_shop"]
+offset_left = 113.0
+offset_top = 302.0
+offset_right = 463.0
+offset_bottom = 341.0
+autowrap_mode = 3

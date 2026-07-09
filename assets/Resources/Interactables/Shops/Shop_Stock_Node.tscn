@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://c1ov6agoxi7y2"]
+
+[ext_resource type="Script" uid="uid://chx34u48laswo" path="res://assets/Resources/Interactables/Shops/shop_stock_node_controller.gd" id="1_jeaih"]
+[ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="3_ava2f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tpxp"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxs0"]
+
+[node name="ShopStockNode" type="Control" unique_id=1324857678]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -309.0
+offset_bottom = -343.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jeaih")
+
+[node name="Control" type="Control" parent="." unique_id=1702340170]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Control" unique_id=2014716296]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = -1.0
+offset_right = 326.0
+offset_bottom = 17.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=465109059]
+layout_mode = 0
+offset_right = 322.0
+offset_bottom = 32.0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="thing_texture" type="TextureRect" parent="HBoxContainer" unique_id=742681000]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-8, -8)
+offset_transform_scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ava2f")
+stretch_mode = 3
+
+[node name="thing_name" type="Label" parent="HBoxContainer" unique_id=1609764525]
+custom_minimum_size = Vector2(150.015, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-19.005, -5.48)
+text = "Training Sword0000000"
+vertical_alignment = 1
+
+[node name="thing_in_stock" type="Label" parent="HBoxContainer" unique_id=1151305206]
+custom_minimum_size = Vector2(61.4, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-31.715, -6.16)
+text = "9999"
+horizontal_alignment = 2
+
+[node name="thing_in_inventory" type="Label" parent="HBoxContainer" unique_id=1340719119]
+custom_minimum_size = Vector2(49.095, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-35.485, -6.16)
+text = "999900"
+horizontal_alignment = 2
+
+[node name="thing_price" type="Label" parent="HBoxContainer" unique_id=3449112]
+custom_minimum_size = Vector2(63.995, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-51.25, -6.16)
+text = "50"
+horizontal_alignment = 2
+
+[node name="Discount" type="Panel" parent="." unique_id=1692246939]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 16.000008
+offset_right = 348.0
+offset_bottom = 33.734077
+rotation = -0.31415927
+theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
+
+[node name="Label" type="Label" parent="Discount" unique_id=226195565]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+text = "-100%"
+horizontal_alignment = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

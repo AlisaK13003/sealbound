@@ -2,7 +2,7 @@ extends Control
 
 var panel: Panel
 
-@onready var selection_arrow: TextureRect = $TextureRect2
+@onready var selection_arrow: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_differential_label: Label = $With_HP/Health_Differential
 
 var should_show_hp: bool
@@ -64,9 +64,11 @@ func _setup(combatant: generic_combatants, index: int, show_hp: bool = false):
 	
 func update_highlight(highlight):
 	if highlight:
+		selection_arrow.play("default")
 		selection_arrow.visible = true
 	else:
 		selection_arrow.visible = false
+		selection_arrow.stop()
 
 func update_damage_label(health_differential):
 	health_differential_label.modulate = Color.LAWN_GREEN

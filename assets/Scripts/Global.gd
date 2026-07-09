@@ -6,6 +6,8 @@ extends Node
 signal menu_opened
 signal menu_closed
 
+signal update_stock
+
 var cant_leave_menu: bool = false
 
 var CURRENT_SAVE_SLOT
@@ -216,6 +218,7 @@ func update_time():
 		play_time_hours += 1
 		play_time_minutes = 0
 
+signal day_passed
 func player_advanced_day(did_they_pass_out):
 	record_previous_time()
 	current_day += 1
@@ -234,6 +237,7 @@ func player_advanced_day(did_they_pass_out):
 	_save_to_slot()
 	if did_they_pass_out:
 		spawn_location = null
+	day_passed.emit()
 
 func debug_skip_day() -> void:
 	player_advanced_day(false)

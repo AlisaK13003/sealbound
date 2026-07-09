@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_ifgjw"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_ifgjw"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_tbvd3"]
-[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_sg8fu"]
+[ext_resource type="SpriteFrames" uid="uid://brdkvbuiaofqa" path="res://assets/Selection_Arrow_Animation.tres" id="5_ifgjw"]
 
 [node name="QuestMenuNode" type="Control" unique_id=1876961211]
 layout_mode = 3
@@ -60,11 +60,6 @@ text = "Slime Balls"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=314156834]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 20.0
-offset_right = 41.0
-offset_bottom = 60.0
-texture = ExtResource("4_sg8fu")
-stretch_mode = 2
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1461527388]
+position = Vector2(3, 23)
+sprite_frames = ExtResource("5_ifgjw")

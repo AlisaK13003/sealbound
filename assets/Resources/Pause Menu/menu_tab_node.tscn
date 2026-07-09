@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://g28vnthw7obt" path="res://assets/Resources/Pause Menu/manu_tab_node_controller.gd" id="1_bv88e"]
 [ext_resource type="Texture2D" uid="uid://dl8xl2bbba7s4" path="res://assets/tile sheets/Menu-tab.png" id="2_1o7tl"]
-[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="3_1akke"]
+[ext_resource type="SpriteFrames" uid="uid://brdkvbuiaofqa" path="res://assets/Selection_Arrow_Animation.tres" id="3_1akke"]
 
 [node name="MenuTabNode" type="Control" unique_id=1768051441]
 layout_mode = 3
@@ -53,27 +53,13 @@ text = "Bondaaaaaaaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect" unique_id=1354235053]
-propagate_maximum_size = true
-layout_mode = 0
-offset_left = 57.0
-offset_top = -71.0
-offset_right = 190.675
-offset_bottom = -71.0
-rotation = 1.5707964
-texture = ExtResource("3_1akke")
-expand_mode = 2
-stretch_mode = 3
-flip_v = true
-
-[node name="TextureRect2" type="TextureRect" parent="NinePatchRect" unique_id=247044167]
-propagate_maximum_size = true
-layout_mode = 0
-offset_left = 58.0
-offset_top = 12.0
-offset_right = 191.675
-offset_bottom = 12.0
-texture = ExtResource("3_1akke")
-expand_mode = 2
-stretch_mode = 3
+[node name="Vertical List" type="AnimatedSprite2D" parent="NinePatchRect" unique_id=1066326109]
+position = Vector2(131, 12)
+sprite_frames = ExtResource("3_1akke")
+frame_progress = 0.28225315
 flip_h = true
+
+[node name="Horizontal List" type="AnimatedSprite2D" parent="NinePatchRect" unique_id=1242992651]
+position = Vector2(57, -11)
+rotation = 1.5707964
+sprite_frames = ExtResource("3_1akke")

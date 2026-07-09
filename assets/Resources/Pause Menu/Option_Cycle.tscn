@@ -14,8 +14,8 @@ script = ExtResource("1_5xhxk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=602555451]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 228.0
+offset_bottom = 18.0
 theme_override_constants/separation = 5
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=2005076595]
@@ -27,7 +27,7 @@ stretch_mode = 2
 custom_minimum_size = Vector2(145, 0)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(0, -10)
+offset_transform_position = Vector2(0, 0.575)
 text = "1080p"
 horizontal_alignment = 1
 
@@ -40,7 +40,7 @@ flip_h = true
 [node name="Label2" type="Label" parent="HBoxContainer" unique_id=1640748802]
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(12.745, -10)
+offset_transform_position = Vector2(12.745, 0.575)
 text = "Apply"
 
 [connection signal="gui_input" from="HBoxContainer/TextureRect" to="." method="_on_left_pressed"]

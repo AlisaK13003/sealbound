@@ -65,6 +65,11 @@ func calculate_BP():
 		if not member.is_MC:
 			current_BP += member.bond_level * 5
 
+signal did_something_with_money
+func update_currency(currency_change):
+	currency_held += currency_change
+	did_something_with_money.emit()
+
 func check_if_member_is_active(combatant: generic_combatants):
 	for combatant_ in active_party_slots:
 		if combatant_.combatant_name == combatant.combatant_name:
@@ -91,6 +96,14 @@ func add_item(item_to_add):
 	else:
 		all_held_items.append(item_to_add)
 	check_quest_progress.emit()
+
+func equipment_added_to_list(type, is_weapon):
+	if is_weapon:
+		all_held_weapons.append(type)
+	else:
+		all_held_equipment.append(type)
+	equipment_added.emit()
+
 
 signal equipment_added
 signal stats_potentially_updated
@@ -146,6 +159,20 @@ func search_for_item(desired_item: Items):
 	for item: Items in all_held_items:
 		if item.item_name == desired_item.item_name:
 			count += 1
+	return count
+
+func search_for_thing(desired_thing):
+	var count = 0
+	if desired_thing is equipment:
+		for equip: equipment in all_held_equipment:
+			if equip.equipment_name == desired_thing.equipment_name:
+				count += 1
+	elif desired_thing is weapon:
+		for weap: weapon in all_held_weapons:
+			if weap.weapon_name == desired_thing.weapon_name:
+				count += 1
+	elif desired_thing is Items:
+		return search_for_item(desired_thing)
 	return count
 
 func add_quest(quest_: quest):

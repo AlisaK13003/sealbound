@@ -102,10 +102,10 @@ what_equipment_am_i = 2
 [node name="TextureRect" type="TextureRect" parent="." unique_id=396120052]
 z_index = 1
 layout_mode = 0
-offset_left = -362.96295
-offset_top = -19.753086
-offset_right = -241.9753
-offset_bottom = 128.39507
+offset_left = -359.189
+offset_top = -19.753
+offset_right = -240.04099
+offset_bottom = 128.39499
 texture = ExtResource("4_uy7kq")
 stretch_mode = 3
 
@@ -124,9 +124,8 @@ stretch_mode = 2
 z_index = 1
 custom_minimum_size = Vector2(110.34, 0)
 layout_mode = 0
-offset_left = 8.225
 offset_top = 7.407
-offset_right = 118.564995
+offset_right = 118.75
 offset_bottom = 25.407
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Training Sword"
@@ -136,10 +135,9 @@ autowrap_mode = 2
 [node name="Label2" type="Label" parent="TextureRect" unique_id=1910409845]
 z_index = 1
 layout_mode = 0
-offset_left = 12.34568
-offset_top = 103.703705
-offset_right = 118.51853
-offset_bottom = 163.7037
+offset_top = 103.704
+offset_right = 118.903
+offset_bottom = 163.70401
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Better than Leather"
 horizontal_alignment = 1
@@ -194,6 +192,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="List_Background" unique_id=724103449]
+self_modulate = Color(0.64227736, 0.60503024, 0.78161776, 1)
 layout_mode = 0
 offset_left = 162.96298
 offset_top = -120.98766
@@ -233,10 +232,10 @@ axis_stretch_vertical = 1
 [node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=709483677]
 modulate = Color(0.50928617, 0.50928617, 0.50928617, 1)
 layout_mode = 0
-offset_left = -355.55554
-offset_top = -14.814815
-offset_right = -241.9753
-offset_bottom = 219.7531
+offset_left = -358.956
+offset_top = -14.815
+offset_right = -240.301
+offset_bottom = 219.75299
 texture = ExtResource("6_uy7kq")
 patch_margin_left = 15
 patch_margin_top = 15

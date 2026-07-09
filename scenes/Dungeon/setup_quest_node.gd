@@ -11,13 +11,14 @@ func _setup(quest_to_setup_with: quest):
 	var quest_name = $Quest_Name
 	held_quest = quest_to_setup_with
 	
+	$AnimatedSprite2D.play("default")
 	quest_name.text = quest_to_setup_with.quest_name
 	
 func update_highlight(highlight):
 	if highlight:
-		$TextureRect.visible = true
+		$AnimatedSprite2D.visible = true
 	else:
-		$TextureRect.visible = false
+		$AnimatedSprite2D.visible = false
 	
 func update_quest_progress():
 	return

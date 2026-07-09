@@ -13,6 +13,10 @@ class_name weapon
 
 @export var attack_accuracy : int = 0
 
+@export var buy_price: int = 0
+@export var sell_price: int = 0
+@export var shop_quantity: int = 0
+
 func export_to_JSON():
 	return {
 		"path": resource_path,

@@ -6,8 +6,10 @@
 script = ExtResource("1_r7rqf")
 item_name = "Altho Eh Pinto"
 item_description = "Heals HP for a moderate amount"
+shop_quantity = 3
 does_what = 2
 what_is_it = 1
+amount_to_heal_or_deal = 100
 removes_status = null
 give_status = null
 metadata/_custom_type_script = "uid://qecrevyq2xlu"

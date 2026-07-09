@@ -2,9 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://gvoxtra7smmi" path="res://assets/tile sheets/Settings_Icon.png" id="1_i1gmn"]
 [ext_resource type="Script" uid="uid://cjrn2fbc0llik" path="res://assets/Resources/Pause Menu/custom_menu_tab.gd" id="1_n63yt"]
-[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="2_n63yt"]
+[ext_resource type="SpriteFrames" uid="uid://brdkvbuiaofqa" path="res://assets/Selection_Arrow_Animation.tres" id="3_n63yt"]
 
 [node name="CustomMenuTab" type="Control" unique_id=1698364452]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,22 +14,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n63yt")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1259328106]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1596712787]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = -20
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1596712787]
-layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
 texture = ExtResource("1_i1gmn")
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=13909959]
-layout_mode = 2
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(11.28, 0)
-offset_transform_scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_n63yt")
-stretch_mode = 2
+[node name="Vertical" type="AnimatedSprite2D" parent="." unique_id=276683061]
+position = Vector2(74, 31)
+sprite_frames = ExtResource("3_n63yt")
+flip_h = true
+
+[node name="Horizontal" type="AnimatedSprite2D" parent="." unique_id=22767198]
+position = Vector2(32.028, -10)
+rotation = -1.5707964
+sprite_frames = ExtResource("3_n63yt")
 flip_h = true

@@ -17,4 +17,5 @@ equipment_description = "Preeetttyyyy"
 equipment_sprite = ExtResource("1_2rfm5")
 equipment_type = 3
 equipment_stats = SubResource("Resource_c56y2")
+shop_quantity = 4
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

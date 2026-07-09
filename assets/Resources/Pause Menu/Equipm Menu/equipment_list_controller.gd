@@ -33,6 +33,10 @@ func equipment_selected(instance_id, equip):
 	#	if child.get_instance_id() == instance_id:
 	#		remove_child(child)
 	#		break
+	for child in get_children():
+		if child.get_instance_id() != instance_id:
+			child._update_selection(false)
+	
 	equipment_swapped.emit(equip)
 
 func _reset_contents():

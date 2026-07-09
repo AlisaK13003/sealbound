@@ -1,17 +1,22 @@
 extends Control
 
 var texture_rec: TextureRect
-var selection_arrow: TextureRect
 
 func _setup(texture_for_texture):
-	texture_rec = $HBoxContainer/TextureRect
+	texture_rec = $TextureRect
 	texture_rec.texture = texture_for_texture
 
-	selection_arrow = $HBoxContainer/TextureRect2
-	selection_arrow.visible = false
+	$Vertical.play("default")
+	$Horizontal.play("default")
 
 func update_highlight(highlight):
 	if highlight:
-		selection_arrow.visible = true
+		if get_parent().columns == 1:
+			$Vertical.visible = true
+			$Horizontal.visible = false
+		else:
+			$Vertical.visible = false
+			$Horizontal.visible = true
 	else:
-		selection_arrow.visible = false
+		$Horizontal.visible = false
+		$Vertical.visible = false

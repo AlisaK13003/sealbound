@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dv0062mj6pk8f"]
+
+[ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="1_7b1ov"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
+size = Vector2(308.5, 201)
+
+[node name="DiyScrollContainer" type="Control" unique_id=2080868889]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7b1ov")
+display_x_items = 6
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2000685847]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2084371355]
+position = Vector2(307.75, 169.5)
+shape = SubResource("RectangleShape2D_7tpxp")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_scroll_area_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_scroll_area_mouse_exited"]

@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://1g0wfhs8npow" path="res://assets/Resources/Pause Menu/Party Menu/player_tab_controller.gd" id="1_fx3ht"]
 [ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_wk1yj"]
 [ext_resource type="Texture2D" uid="uid://dhau7t6ixoua1" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/Room Start.png" id="3_it2d1"]
-[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_6e5vx"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_vwpng"]
+[ext_resource type="SpriteFrames" uid="uid://brdkvbuiaofqa" path="res://assets/Selection_Arrow_Animation.tres" id="6_wk1yj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx3ht"]
 corner_radius_top_left = 5
@@ -164,15 +164,9 @@ theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="." unique_id=1947657147]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1606141649]
 visible = false
-layout_mode = 0
-offset_left = 29.000002
-offset_top = 4.0
-offset_right = 69.0
-offset_bottom = 44.0
-rotation = -1.5707964
+position = Vector2(38, -9)
+rotation = 1.5707964
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_6e5vx")
-stretch_mode = 2
-flip_h = true
+sprite_frames = ExtResource("6_wk1yj")
