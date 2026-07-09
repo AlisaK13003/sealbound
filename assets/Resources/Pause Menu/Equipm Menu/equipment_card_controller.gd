@@ -184,5 +184,5 @@ func update_prediction_stats(selected_equipment, is_weapon):
 func _on_equip_slot_gui_input(event, extra_arg_0):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("Clicked on slot, ", extra_arg_0)
+			AudioManager.play_ui_sound(AudioManager.SCROLL_CLICK)
 			equip_slot_pressed.emit(extra_arg_0)

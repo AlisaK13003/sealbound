@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dex3m452kd063"
+path="res://.godot/imported/Footstep Stairs 3.ogg-1c1955436659e612ce1d2c4a57978858.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/Tile_SFX/Stairs/Footstep Stairs 3.ogg"
+dest_files=["res://.godot/imported/Footstep Stairs 3.ogg-1c1955436659e612ce1d2c4a57978858.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -12,6 +12,9 @@ var equipment_card_path: String = "res://assets/Resources/Pause Menu/Equipm Menu
 
 var container_start_position: Vector2
 
+@export var equip_sounds_equipment: Array[AudioStream]
+@export var equip_sounds_weapon: Array[AudioStream]
+
 func _ready():
 	visibility_changed.connect(_reset)
 	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
@@ -106,27 +109,30 @@ func equipment_equipped(equipped_equipment):
 	var is_weapon = false if equipped_equipment is equipment else true
 	var unequipped = GlobalCombatInformation.add_equipment(menu_tabs.current_selection, equipped_equipment, is_weapon)
 	#$Card_Container.get_child(menu_tabs.current_selection).update_boxes(equipped_equipment, is_weapon)
-
 	if is_weapon:
+		AudioManager.play_ui_sound(equip_sounds_weapon.pick_random())
+
 		list_container.get_child(0).get_child(0).update_contents(unequipped)
 		list_container.get_child(0).update_selected_item()
 	else:
+		AudioManager.play_ui_sound(equip_sounds_equipment.pick_random())
+
 		match equipped_equipment.equipment_type:
 			# Helmet
 			0:
-				list_container.get_child(1).get_child(1).update_contents(unequipped)
+				list_container.get_child(1).get_child(0).update_contents(unequipped)
 				list_container.get_child(1).update_selected_item()
 			# Chestplate
 			1:
-				list_container.get_child(4).get_child(4).update_contents(unequipped)
+				list_container.get_child(4).get_child(0).update_contents(unequipped)
 				list_container.get_child(4).update_selected_item()
 			# Boots
 			2:
-				list_container.get_child(2).get_child(2).update_contents(unequipped)
+				list_container.get_child(2).get_child(0).update_contents(unequipped)
 				list_container.get_child(2).update_selected_item()
 			# Charm
 			3:
-				list_container.get_child(3).get_child(3).update_contents(unequipped)
+				list_container.get_child(3).get_child(0).update_contents(unequipped)
 				list_container.get_child(3).update_selected_item()
 	
 func show_equip_menu(which_menu):

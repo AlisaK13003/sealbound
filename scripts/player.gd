@@ -16,6 +16,12 @@ var in_menu : bool = false
 @export var male_idle_texture: Texture2D = preload("res://assets/characters/player/male_idle.png")
 @export var male_walk_texture: Texture2D = preload("res://assets/characters/player/male_walk.png")
 
+@export var walking_on_dirt: Array[AudioStream]
+@export var walking_on_sand_gravel: Array[AudioStream]
+@export var walking_on_stone: Array[AudioStream]
+@export var walking_on_wood: Array[AudioStream]
+
+
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 var tutorial_label: Label
 
@@ -34,6 +40,9 @@ func _ready() -> void:
 	pause_menu.visible = false
 	if not Global.pending_cutscene_path.is_empty():
 		call_deferred("_play_pending_cutscene")
+
+@export var step_interval: float = 36.0
+var distance_walked: float = 0.0
 
 func _process(_delta: float) -> void:
 	_update_tutorial_label()
@@ -56,7 +65,58 @@ func _process(_delta: float) -> void:
 		over_the_head_sprite.texture = Global.player_head_sprite
 	else:
 		over_the_head_sprite.texture = null
+		
+	var is_moving = velocity.length() > 10.0
 	
+	if is_moving:
+		distance_walked += velocity.length() * _delta
+		
+		if distance_walked >= step_interval:
+			var current_terrain = get_terrain_under_feet()
+			match current_terrain:
+				#Dirt
+				0:
+					AudioManager.play_tile_sound(walking_on_dirt.pick_random())
+				#Sane
+				1:
+					AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
+				#Gravel
+				2:
+					AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
+				#Wood
+				3:
+					AudioManager.play_tile_sound(walking_on_wood.pick_random())
+				#Stone
+				4:
+					AudioManager.play_tile_sound(walking_on_stone.pick_random())
+				5:
+					pass
+			
+			distance_walked = 0.0
+
+	
+func get_terrain_under_feet() -> int:
+	# 1. Grab all the Ground layers
+	var floor_layers = get_tree().get_nodes_in_group("Ground")
+	
+	floor_layers.sort_custom(func(a: Node, b: Node) -> bool:
+		if a.z_index != b.z_index:
+			return a.z_index > b.z_index
+		
+		return a.get_index() > b.get_index()
+	)
+
+	for layer in floor_layers:
+		if layer is TileMapLayer:
+			var local_pos = layer.to_local(global_position)
+			var map_pos = layer.local_to_map(local_pos)
+			var tile_data = layer.get_cell_tile_data(map_pos)
+
+			if tile_data and tile_data.terrain != -1:
+				return tile_data.terrain
+				
+	return -1
+
 func _input(event):
 	# In Player _input
 	if Global.get_input_mapping("Pause") and not Global.cant_leave_menu:

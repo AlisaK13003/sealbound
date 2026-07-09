@@ -1,11 +1,31 @@
 [gd_scene format=3 uid="uid://cw2kwy7c22qh7"]
 
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="1_2hlsy"]
+[ext_resource type="AudioStream" uid="uid://brs0d2a5y1jb4" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 6.ogg" id="2_fj35x"]
 [ext_resource type="Texture2D" uid="uid://but2qc21w7p6x" path="res://assets/characters/player/female_idle.png" id="2_riacy"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="2_tpytq"]
 [ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
 [ext_resource type="Texture2D" uid="uid://d1rlbttsh3lkd" path="res://assets/characters/player/female_walk.png" id="3_q2ck2"]
+[ext_resource type="AudioStream" uid="uid://dqr7qn8236u36" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 5.ogg" id="3_tp8rc"]
+[ext_resource type="AudioStream" uid="uid://dj5yby61rr7he" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 4.ogg" id="4_buet6"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="5_2idcg"]
+[ext_resource type="AudioStream" uid="uid://cvqydnlceaovc" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 3.ogg" id="5_ter5l"]
+[ext_resource type="AudioStream" uid="uid://bt5j6eue1x1co" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 2.ogg" id="6_a3j67"]
+[ext_resource type="AudioStream" uid="uid://e5wresw75yrn" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 1.ogg" id="7_pwv13"]
+[ext_resource type="AudioStream" uid="uid://dtgqxjr38q1bt" path="res://assets/Audio/Tile_SFX/Gravel/Footstep Gravel 5.ogg" id="8_i3jui"]
+[ext_resource type="AudioStream" uid="uid://b5rcgnq6rtdr1" path="res://assets/Audio/Tile_SFX/Gravel/Footstep Gravel 4.ogg" id="9_s7rwl"]
+[ext_resource type="AudioStream" uid="uid://c81b3ny3x7a4a" path="res://assets/Audio/Tile_SFX/Gravel/Footstep Gravel 3.ogg" id="10_si5i2"]
+[ext_resource type="AudioStream" uid="uid://cop4pi0xfk7t7" path="res://assets/Audio/Tile_SFX/Gravel/Footstep Gravel 2.ogg" id="11_w3uhr"]
+[ext_resource type="AudioStream" uid="uid://bdigogy27upm5" path="res://assets/Audio/Tile_SFX/Gravel/Footstep Gravel 1.ogg" id="12_15a76"]
+[ext_resource type="AudioStream" uid="uid://b2yr5tbi401c5" path="res://assets/Audio/Tile_SFX/Stone/Footstep Stone 4.ogg" id="13_r2ufn"]
+[ext_resource type="AudioStream" uid="uid://c5bgiuxxkghva" path="res://assets/Audio/Tile_SFX/Stone/Footstep Stone 3.ogg" id="14_dve5e"]
+[ext_resource type="AudioStream" uid="uid://g6lq7rxcquhu" path="res://assets/Audio/Tile_SFX/Stone/Footstep Stone 2.ogg" id="15_ntp18"]
+[ext_resource type="AudioStream" uid="uid://dk72bfwunl5t0" path="res://assets/Audio/Tile_SFX/Stone/Footstep Stone 1.ogg" id="16_s602h"]
+[ext_resource type="AudioStream" uid="uid://cp74dbrjieto3" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 5.ogg" id="17_vo6lb"]
+[ext_resource type="AudioStream" uid="uid://dux2xka30bpmk" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 4.ogg" id="18_bvser"]
+[ext_resource type="AudioStream" uid="uid://dyw057mkk2s2p" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 3.ogg" id="19_1j5b0"]
+[ext_resource type="AudioStream" uid="uid://br73qy1r8f0cm" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 2.ogg" id="20_cx2ir"]
+[ext_resource type="AudioStream" uid="uid://c4qu20laovkrl" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 1.ogg" id="21_ja1pu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_riacy"]
 radius = 8.0
@@ -132,6 +152,10 @@ size = Vector2(84, 152)
 process_mode = 3
 script = ExtResource("1_2hlsy")
 move_speed = 75.0
+walking_on_dirt = Array[AudioStream]([ExtResource("2_fj35x"), ExtResource("3_tp8rc"), ExtResource("4_buet6"), ExtResource("5_ter5l"), ExtResource("6_a3j67"), ExtResource("7_pwv13")])
+walking_on_sand_gravel = Array[AudioStream]([ExtResource("8_i3jui"), ExtResource("9_s7rwl"), ExtResource("10_si5i2"), ExtResource("11_w3uhr"), ExtResource("12_15a76")])
+walking_on_stone = Array[AudioStream]([ExtResource("13_r2ufn"), ExtResource("14_dve5e"), ExtResource("15_ntp18"), ExtResource("16_s602h")])
+walking_on_wood = Array[AudioStream]([ExtResource("17_vo6lb"), ExtResource("18_bvser"), ExtResource("19_1j5b0"), ExtResource("20_cx2ir"), ExtResource("21_ja1pu")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=305105354 groups=["Overworld_Player"]]
 z_index = 5

@@ -70,7 +70,6 @@ func _ready():
 	last_screen_id = DisplayServer.window_get_current_screen()
 	
 
-	
 func swap_between_controller(index):
 	if index == 0:
 		$"Settings_Windows/Key Config/Keybinds/GridContainer".visible = true
@@ -124,6 +123,7 @@ func update_config_file():
 		config.set_value("audio", "master_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))))
 		config.set_value("audio", "sfx_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))))
 		config.set_value("audio", "music_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("BGM"))))
+		config.set_value("audio", "tile_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("TILE"))))
 	config.save(SAVE_PATH)
 	
 func load_from_config():
@@ -151,6 +151,9 @@ func load_from_config():
 		$"Settings_Windows/Sound Settings/GridContainer/SFX_Slider".value = config.get_value("audio", "sfx_vol", 0.7)
 		_change_volume(config.get_value("audio", "music_vol", 0.7), "BGM")
 		$"Settings_Windows/Sound Settings/GridContainer/BGM_Slider".value = config.get_value("audio", "music_vol", 0.7)
+		_change_volume(config.get_value("audio", "tile_vol", 0.7), "TILE")
+		$"Settings_Windows/Sound Settings/GridContainer/Tile_Slider".value = config.get_value("audio", "tile_vol", 0.7)
+		
 		
 		rebind_keyboard_only("up", config.get_value("binds", "up", KEY_W))
 		rebind_keyboard_only("down", config.get_value("binds", "down", KEY_S))

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dd10lrtyjo78w"
+path="res://.godot/imported/Footstep Concrete 5.ogg-5a71bbe01cf36f8496394da509711d6a.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/Tile_SFX/Concrete/Footstep Concrete 5.ogg"
+dest_files=["res://.godot/imported/Footstep Concrete 5.ogg-5a71bbe01cf36f8496394da509711d6a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

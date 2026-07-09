@@ -2,10 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cnp6wabbskx27" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_menu_controller.gd" id="1_7krcb"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_6c37x"]
+[ext_resource type="AudioStream" uid="uid://dokp54urwuwpk" path="res://assets/Audio/UI_SFX/Clothes Equip 1.ogg" id="2_53ph1"]
 [ext_resource type="PackedScene" uid="uid://bibhye4kxwh7p" path="res://assets/Resources/Pause Menu/Equipm Menu/Equipment_List.tscn" id="3_6c37x"]
+[ext_resource type="AudioStream" uid="uid://mfiwmxxlcxq" path="res://assets/Audio/UI_SFX/Clothes Equip 2.ogg" id="3_m4yew"]
+[ext_resource type="AudioStream" uid="uid://ctdkt48rbfc7j" path="res://assets/Audio/UI_SFX/Clothes Equip 3.ogg" id="4_f56qv"]
 [ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="4_uy7kq"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="5_26cwh"]
+[ext_resource type="AudioStream" uid="uid://bxxi7jwhxjadw" path="res://assets/Audio/UI_SFX/Clothes Equip 4.ogg" id="5_ql18r"]
+[ext_resource type="AudioStream" uid="uid://bkpsdeitgm4df" path="res://assets/Audio/UI_SFX/Sword Equip 1.ogg" id="6_gfxbe"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="6_uy7kq"]
+[ext_resource type="AudioStream" uid="uid://1sdkme8elw11" path="res://assets/Audio/UI_SFX/Sword Equip 2.ogg" id="7_5qeq8"]
 [ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="7_rjce3"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="7_wk22t"]
 
@@ -27,6 +33,8 @@ scale = Vector2(0.405, 0.405)
 mouse_filter = 1
 script = ExtResource("1_7krcb")
 custom_tab_path = "res://assets/Resources/Pause Menu/Party Menu/Player_Tab.tscn"
+equip_sounds_equipment = Array[AudioStream]([ExtResource("2_53ph1"), ExtResource("3_m4yew"), ExtResource("4_f56qv"), ExtResource("5_ql18r")])
+equip_sounds_weapon = Array[AudioStream]([ExtResource("6_gfxbe"), ExtResource("7_5qeq8")])
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("2_6c37x")]
 layout_mode = 0
@@ -273,6 +281,7 @@ scroll_bar = NodePath("../../VScrollBar")
 [node name="Charm_List" parent="Control/Panel4" unique_id=1353107630 instance=ExtResource("3_6c37x")]
 layout_mode = 0
 theme_override_constants/v_separation = 63
+what_equipment_am_i = 4
 
 [node name="Panel5" type="Panel" parent="Control" unique_id=2128500982 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
 visible = false

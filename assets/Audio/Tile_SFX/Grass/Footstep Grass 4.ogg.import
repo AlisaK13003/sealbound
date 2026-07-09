@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dj5yby61rr7he"
+path="res://.godot/imported/Footstep Grass 4.ogg-4220d445f9f4a5d0fb5902274bd8fb8d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 4.ogg"
+dest_files=["res://.godot/imported/Footstep Grass 4.ogg-4220d445f9f4a5d0fb5902274bd8fb8d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
