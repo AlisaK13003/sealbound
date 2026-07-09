@@ -60,10 +60,17 @@ func remove_active_member(combatant: generic_combatants):
 	calculate_BP()
 
 func calculate_BP():
-	current_BP = 10
+	current_BP = 5
+	max_BP = 5
 	for member in active_party_slots:
 		if not member.is_MC:
 			current_BP += member.bond_level * 5
+			max_BP += member.bond_level * 5
+
+signal did_something_with_BP
+func do_something_with_BP(amount):
+	current_BP = clamp(current_BP + amount, 0, max_BP)
+	did_something_with_BP.emit()
 
 signal did_something_with_money
 func update_currency(currency_change):
@@ -184,7 +191,7 @@ func _ready():
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
-	calculate_BP()
+	
 	for member in all_party_slots:
 		member.gather_actual_stats()
 
@@ -193,7 +200,7 @@ func _ready():
 	active_party_slots.append(all_party_slots[0])
 	active_party_slots.append(all_party_slots[1])
 	active_party_slots.append(all_party_slots[2])
-	
+	calculate_BP()
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
 	

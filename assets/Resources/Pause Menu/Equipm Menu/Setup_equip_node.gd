@@ -4,9 +4,11 @@ signal node_pressed
 
 var stored_item
 
+var equip_name
+
 func _setup(item, is_weapon):
 	stored_item = item
-	var equip_name = $Panel/Equip_Name
+	equip_name = $Panel/Equip_Name
 	var description = $"Panel/Equip_Name/Equip Description"
 	var stats_ = $Panel/Equip_Name/Stats
 	var equip_texture = $TextureRect
@@ -21,15 +23,20 @@ func _setup(item, is_weapon):
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			_update_selection(true)
-			node_pressed.emit(self.get_instance_id(), stored_item)
+			highlight(true)
+			node_pressed.emit(get_index(), stored_item)
 
 func move_left(index):
 	$Panel.position.x -= index * 6
 	$TextureRect.position.x -= index * 6
 
-func _update_selection(selected):
+func highlight(selected):
 	if selected:
 		$TextureRect2.visible = true
+		$Control/NinePatchRect2.modulate = Color.BEIGE
 	else:
 		$TextureRect2.visible = false
+		$Control/NinePatchRect2.modulate = Color.WHITE
+
+func was_hovered():
+	pass

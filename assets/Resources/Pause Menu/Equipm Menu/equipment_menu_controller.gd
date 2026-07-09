@@ -6,13 +6,13 @@ extends Control
 
 @onready var equip_swap_label = $Label
 
+@onready var list_container = $Control
+
 var equipment_card_path: String = "res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Card.tscn"
 
 var container_start_position: Vector2
 
 func _ready():
-	container_start_position = $Container2/Container.position
-	$VScrollBar.visible = false
 	visibility_changed.connect(_reset)
 	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 	
@@ -27,12 +27,16 @@ func _ready():
 		
 		card_container.add_child(new_page_instance)
 	
-	for child in $Container2/Container.get_children():
-		child._setup()
-		child.equipment_swapped.connect(_setup_equip_button)
+	for child in list_container.get_children():
+		child.get_child(0)._setup()
+		child.get_child(0).equipment_swapped.connect(_setup_equip_button)
 	
 	menu_tabs.selection_changed.connect(tab_changed)
 	menu_tabs.cycle_input(null, 0)
+	
+	for child in list_container.get_children():
+		child._setup()
+	
 	
 func _reset(should_continue_cycling: bool = true):
 	if should_continue_cycling:
@@ -40,23 +44,22 @@ func _reset(should_continue_cycling: bool = true):
 	for child in card_container.get_children():
 		child._reset()
 	
-	for child in container.get_children():
+	for child in list_container.get_children():
 		child.visible = false
 	
 	$TextureRect/TextureRect.visible = false
 	$TextureRect/Label.visible = false
 	$TextureRect/Label2.visible = false
 	$Panel.visible = false
-	$VScrollBar.visible = false
 	$Label.text = ""
 	visible_menu = -1
-	current_item = 0
-	for child in $Container2/Container.get_children():
-		for child_ in child.get_children():
+
+	for child in list_container.get_children():
+		for child_ in child.get_child(0).get_children():
 			if child_.get_index() == 0:
-				child_._update_selection(true)
+				child_.highlight(true)
 			else:
-				child_._update_selection(false)
+				child_.highlight(false)
 
 var visible_menu
 
@@ -97,32 +100,33 @@ func _equip_button_pressed(event):
 				$TextureRect/Label2.visible = false
 				$Panel.visible = false
 				card_container.get_child(menu_tabs.current_selection).update_prediction_stats(null, false)
-				$VScrollBar.max_value = container.get_child(visible_menu).get_child_count() - 4
-				if container.get_child(visible_menu).get_child_count() > 5:
-					$VScrollBar.visible 
 					
-@onready var container = $Container2/Container
 func equipment_equipped(equipped_equipment):
 	var is_weapon = false if equipped_equipment is equipment else true
 	var unequipped = GlobalCombatInformation.add_equipment(menu_tabs.current_selection, equipped_equipment, is_weapon)
 	#$Card_Container.get_child(menu_tabs.current_selection).update_boxes(equipped_equipment, is_weapon)
 
 	if is_weapon:
-		container.get_child(0).update_contents(unequipped)
+		list_container.get_child(0).get_child(0).update_contents(unequipped)
+		list_container.get_child(0).update_selected_item()
 	else:
 		match equipped_equipment.equipment_type:
 			# Helmet
 			0:
-				container.get_child(1).update_contents(unequipped)
+				list_container.get_child(1).get_child(1).update_contents(unequipped)
+				list_container.get_child(1).update_selected_item()
 			# Chestplate
 			1:
-				container.get_child(4).update_contents(unequipped)
+				list_container.get_child(4).get_child(4).update_contents(unequipped)
+				list_container.get_child(4).update_selected_item()
 			# Boots
 			2:
-				container.get_child(2).update_contents(unequipped)
+				list_container.get_child(2).get_child(2).update_contents(unequipped)
+				list_container.get_child(2).update_selected_item()
 			# Charm
 			3:
-				container.get_child(3).update_contents(unequipped)
+				list_container.get_child(3).get_child(3).update_contents(unequipped)
+				list_container.get_child(3).update_selected_item()
 	
 func show_equip_menu(which_menu):
 	$TextureRect/TextureRect.visible = false
@@ -133,8 +137,6 @@ func show_equip_menu(which_menu):
 	if which_menu == visible_menu:
 		visible_menu = -1
 		equip_swap_label.text = ""
-		$VScrollBar.visible = false
-		$VScrollBar.value = 0
 	else:
 		match which_menu:
 			# Weapon Slot
@@ -158,83 +160,26 @@ func show_equip_menu(which_menu):
 				visible_menu = 4
 				equip_swap_label.text = "Chestplates"
 
-	for child in $Container2/Container.get_children():
+	for child in list_container.get_children():
 		if child.get_index() == visible_menu:
 			child.visible = true
-			$VScrollBar.max_value = child.get_child_count() - 4
-			$VScrollBar.value = 0
-			if child.get_child_count() > 5:
-				$VScrollBar.visible = true
+			child.update_scroll_bar()
 		else:
 			child.visible = false
+		child.update_selection()
 
 func tab_changed(which_tab):
 	_reset(false)
 	for child in range(card_container.get_child_count()):
 		if which_tab == child:
 			card_container.get_child(child).visible = true
-			$VScrollBar.max_value = card_container.get_child(child).get_child_count() - 4
-			$VScrollBar.value = 0
-			if card_container.get_child(child).get_child_count() > 5:
-				$VScrollBar.visible 
 		else:
 			card_container.get_child(child).visible = false
-var current_slot = 0
-@onready var scroll_bar = $VScrollBar
 
-var scroll_cooldown_timer: float = 0.0
-const SCROLL_COOLDOWN_TIME: float = 0.08
+func disable():
+	for child in list_container.get_children():
+		child.disable()
 
-func _process(delta: float):
-	if not Global.is_paused:
-		return
-	if scroll_cooldown_timer > 0.0:
-		scroll_cooldown_timer -= delta
-
-func _on_v_scroll_bar_value_changed(value):
-	if $Container2/Container.get_child_count() == 0:
-		return
-	if $Container2/Container.get_child(visible_menu).get_child_count() == 0:
-		return
-	print(value)
-	update_selected_item()
-	$Container2/Container.position.y = container_start_position.y - (value * $Container2/Container.get_child(0).get_theme_constant("v_separation"))
-
-var current_item = 0
-
-func update_selected_item():
-	for child in $Container2/Container.get_child(visible_menu).get_children():
-		if child.get_index() == current_item:
-			child._update_selection(true)
-		else:
-			child._update_selection(false)
-
-func _input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		if not can_scroll:
-			return
-			
-		if scroll_cooldown_timer > 0.0:
-			return
-			
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			current_slot = clamp(current_slot - 1, 0, scroll_bar.max_value + 1)
-			current_item = clamp(current_item - 1, 0, $Container2/Container.get_child(visible_menu).get_child_count() - 1)
-			scroll_bar.value = current_slot
-			scroll_cooldown_timer = SCROLL_COOLDOWN_TIME
-			get_viewport().set_input_as_handled()
-			update_selected_item()
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			current_slot = clamp(current_slot + 1, 0, scroll_bar.max_value + 1)
-			current_item = clamp(current_item + 1, 0, $Container2/Container.get_child(visible_menu).get_child_count() - 1)
-			scroll_bar.value = current_slot
-			scroll_cooldown_timer = SCROLL_COOLDOWN_TIME
-			get_viewport().set_input_as_handled()
-			update_selected_item()
-			
-var can_scroll: bool = false
-func _on_area_2d_mouse_entered():
-	can_scroll = true
-
-func _on_area_2d_mouse_exited():
-	can_scroll = false
+func enable():
+	for child in list_container.get_children():
+		child.enable()

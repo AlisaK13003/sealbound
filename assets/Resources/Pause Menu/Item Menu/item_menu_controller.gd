@@ -171,3 +171,11 @@ func display_item():
 		$"Item Description/VBoxContainer/Label".text = ""
 		$"Item Description/VBoxContainer/Label2".text = ""
 		$"Item Description/VBoxContainer/TextureRect".texture = null
+
+func disable():
+	for child in item_containers_parent.get_children():
+		child.disable()
+	
+func enable():
+	for child in item_containers_parent.get_children():
+		child.enable()

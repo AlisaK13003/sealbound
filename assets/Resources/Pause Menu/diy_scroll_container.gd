@@ -42,6 +42,10 @@ func _setup():
 	if not visibility_changed.is_connected(update_selection):
 		visibility_changed.connect(update_selection)
 
+func update_scroll_bar():
+	scroll_bar.max_value = get_child(0).get_child_count() - display_x_items
+	scroll_bar.value = 0
+
 func update_selection():
 	if visible:
 		enable()

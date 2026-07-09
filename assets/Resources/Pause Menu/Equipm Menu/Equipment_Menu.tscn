@@ -6,12 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="4_uy7kq"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="5_26cwh"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="6_uy7kq"]
+[ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="7_rjce3"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="7_wk22t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cmi5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
 size = Vector2(854.3209, 538.2716)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wk22t"]
 
 [node name="EquipmentMenu" type="Control" unique_id=1214371089]
 layout_mode = 3
@@ -56,48 +59,6 @@ theme_override_font_sizes/font_size = 32
 text = "Chestplates"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Container2" type="Container" parent="." unique_id=1879482075]
-z_index = 2
-clip_contents = true
-layout_mode = 0
-offset_left = 172.652
-offset_top = -65.086
-offset_right = 456.60297
-offset_bottom = 186.935
-
-[node name="Container" type="Container" parent="Container2" unique_id=1797554766]
-z_index = 195
-layout_mode = 2
-
-[node name="Weapon_List" parent="Container2/Container" unique_id=1746209712 instance=ExtResource("3_6c37x")]
-visible = false
-layout_mode = 2
-theme_override_constants/v_separation = 63
-
-[node name="Helmet_List" parent="Container2/Container" unique_id=1844179643 instance=ExtResource("3_6c37x")]
-visible = false
-layout_mode = 2
-theme_override_constants/v_separation = 63
-what_equipment_am_i = 1
-
-[node name="Boots_List" parent="Container2/Container" unique_id=987091836 instance=ExtResource("3_6c37x")]
-visible = false
-layout_mode = 2
-theme_override_constants/v_separation = 63
-what_equipment_am_i = 3
-
-[node name="Charm_List" parent="Container2/Container" unique_id=1353107630 instance=ExtResource("3_6c37x")]
-visible = false
-layout_mode = 2
-theme_override_constants/v_separation = 63
-what_equipment_am_i = 4
-
-[node name="Chestplate_List" parent="Container2/Container" unique_id=1699206467 instance=ExtResource("3_6c37x")]
-visible = false
-layout_mode = 2
-theme_override_constants/v_separation = 63
-what_equipment_am_i = 2
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=396120052]
 z_index = 1
@@ -243,6 +204,88 @@ patch_margin_right = 15
 patch_margin_bottom = 15
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[node name="Control" type="Control" parent="." unique_id=1696933518]
+anchors_preset = 0
+offset_left = 170.37038
+offset_top = -91.35803
+offset_right = 210.37038
+offset_bottom = -51.35804
+
+[node name="Panel" type="Panel" parent="Control" unique_id=564681908 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+clip_contents = true
+layout_mode = 0
+offset_right = 267.235
+offset_bottom = 303.15
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wk22t")
+script = ExtResource("7_rjce3")
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
+
+[node name="Weapon_List" parent="Control/Panel" unique_id=1746209712 instance=ExtResource("3_6c37x")]
+layout_mode = 0
+theme_override_constants/v_separation = 63
+
+[node name="Panel2" type="Panel" parent="Control" unique_id=541420229 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+clip_contents = true
+layout_mode = 0
+offset_right = 267.235
+offset_bottom = 303.15
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wk22t")
+script = ExtResource("7_rjce3")
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
+
+[node name="Helmet_List" parent="Control/Panel2" unique_id=1844179643 instance=ExtResource("3_6c37x")]
+layout_mode = 0
+theme_override_constants/v_separation = 63
+what_equipment_am_i = 1
+
+[node name="Panel3" type="Panel" parent="Control" unique_id=564630954 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+clip_contents = true
+layout_mode = 0
+offset_right = 267.235
+offset_bottom = 303.15
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wk22t")
+script = ExtResource("7_rjce3")
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
+
+[node name="Boots_List" parent="Control/Panel3" unique_id=987091836 instance=ExtResource("3_6c37x")]
+layout_mode = 0
+theme_override_constants/v_separation = 63
+what_equipment_am_i = 3
+
+[node name="Panel4" type="Panel" parent="Control" unique_id=1939136304 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+clip_contents = true
+layout_mode = 0
+offset_right = 267.235
+offset_bottom = 303.15
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wk22t")
+script = ExtResource("7_rjce3")
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
+
+[node name="Charm_List" parent="Control/Panel4" unique_id=1353107630 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 0
+theme_override_constants/v_separation = 63
+
+[node name="Panel5" type="Panel" parent="Control" unique_id=2128500982 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+clip_contents = true
+layout_mode = 0
+offset_right = 267.235
+offset_bottom = 303.15
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wk22t")
+script = ExtResource("7_rjce3")
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar")
+
+[node name="Chestplate_List" parent="Control/Panel5" unique_id=1699206467 instance=ExtResource("3_6c37x")]
+visible = false
+layout_mode = 0
+theme_override_constants/v_separation = 63
+what_equipment_am_i = 2
 
 [connection signal="gui_input" from="Panel" to="." method="_equip_button_pressed"]
 [connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]

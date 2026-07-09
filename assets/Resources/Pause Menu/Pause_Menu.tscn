@@ -127,6 +127,10 @@ scale = Vector2(1.25, 1.25)
 
 [node name="BasePauseMenu" parent="Windows" unique_id=1114125031 instance=ExtResource("12_frpul")]
 layout_mode = 1
+offset_left = -190.33
+offset_top = -32.745
+offset_right = -190.3288
+offset_bottom = -32.744995
 
 [node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
 visible = false

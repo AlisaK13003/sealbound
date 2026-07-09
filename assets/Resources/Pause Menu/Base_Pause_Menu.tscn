@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://drqam5q2oh81m"]
 
+[ext_resource type="Script" uid="uid://c7vdto05an1xb" path="res://assets/Resources/Pause Menu/base_pause_menu.gd" id="1_qgvow"]
+[ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="2_bciyy"]
+[ext_resource type="Texture2D" uid="uid://4kl0710u5cha" path="res://assets/tile sheets/Creepy_dungeon_section_wall.png" id="3_nqr5i"]
+
 [node name="BasePauseMenu" type="Control" unique_id=1114125031]
 layout_mode = 3
 anchors_preset = 15
@@ -7,24 +11,121 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qgvow")
+
+[node name="Seal_Progress" type="Control" parent="." unique_id=1735967957]
+anchors_preset = 0
+offset_left = 158.0
+offset_top = 77.0
+offset_right = 253.0
+offset_bottom = 77.0
+
+[node name="Panel" type="Panel" parent="Seal_Progress" unique_id=1563564549]
+clip_contents = true
+layout_mode = 0
+offset_left = 32.31
+offset_top = -74.0
+offset_right = 72.30994
+offset_bottom = -38.0
+
+[node name="TextureRect" type="TextureRect" parent="Seal_Progress/Panel" unique_id=1648761599]
+layout_mode = 0
+offset_left = -10.309998
+offset_top = -1.0
+offset_right = 210.69
+offset_bottom = 131.0
+scale = Vector2(0.285, 0.285)
+texture = ExtResource("2_bciyy")
+
+[node name="Label" type="Label" parent="Seal_Progress/Panel" unique_id=1661140594]
+layout_mode = 0
+offset_left = -0.30999756
+offset_top = 25.0
+offset_right = 39.690002
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 9
+text = "Restored"
+horizontal_alignment = 1
+
+[node name="Panel2" type="Panel" parent="Seal_Progress" unique_id=1875906740]
+clip_contents = true
+layout_mode = 0
+offset_left = 95.025
+offset_top = 33.745
+offset_right = 135.02502
+offset_bottom = 73.74498
+
+[node name="TextureRect" type="TextureRect" parent="Seal_Progress/Panel2" unique_id=299694658]
+layout_mode = 0
+offset_left = -15.024994
+offset_top = -1.7449951
+offset_right = 112.975006
+offset_bottom = 126.255005
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_nqr5i")
+
+[node name="Label" type="Label" parent="Seal_Progress/Panel2" unique_id=1222411504]
+layout_mode = 0
+offset_left = -0.30999756
+offset_top = 29.255005
+offset_right = 39.690002
+offset_bottom = 40.255005
+theme_override_font_sizes/font_size = 9
+text = "Restored"
+horizontal_alignment = 1
+
+[node name="Panel3" type="Panel" parent="Seal_Progress" unique_id=6336747]
+layout_mode = 0
+offset_left = -27.34
+offset_top = 33.745
+offset_right = 12.66
+offset_bottom = 73.74498
+
+[node name="Panel4" type="Panel" parent="Seal_Progress" unique_id=1124991593]
+layout_mode = 0
+offset_left = -27.34
+offset_top = -35.725
+offset_right = 12.66
+offset_bottom = 4.274994
+
+[node name="Panel5" type="Panel" parent="Seal_Progress" unique_id=1346531819]
+layout_mode = 0
+offset_left = 95.025
+offset_top = -35.725
+offset_right = 135.02502
+offset_bottom = 4.274994
+
+[node name="Panel6" type="Panel" parent="Seal_Progress" unique_id=975608091]
+layout_mode = 0
+offset_left = 32.31
+offset_top = 69.0
+offset_right = 72.30994
+offset_bottom = 109.0
+
+[node name="Panel7" type="Panel" parent="Seal_Progress" unique_id=144380351]
+layout_mode = 0
+offset_left = 32.31
+offset_top = -5.0
+offset_right = 72.30995
+offset_bottom = 35.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=133384147]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1333799227]
+[node name="Currency" type="Label" parent="VBoxContainer" unique_id=1333799227]
 layout_mode = 2
 text = "Monies: 200"
 
-[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1756690776]
+[node name="BP" type="Label" parent="VBoxContainer" unique_id=1756690776]
 layout_mode = 2
 text = "Cur BP: 20/20"
 
-[node name="Label3" type="Label" parent="VBoxContainer" unique_id=1842868765]
+[node name="Day" type="Label" parent="VBoxContainer" unique_id=1842868765]
 layout_mode = 2
 text = "Current Day"
 
-[node name="Label4" type="Label" parent="VBoxContainer" unique_id=385926117]
+[node name="Playtime" type="Label" parent="VBoxContainer" unique_id=385926117]
 layout_mode = 2
 text = "Playtime: "

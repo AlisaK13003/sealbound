@@ -75,4 +75,9 @@ func tab_changed(which_tab):
 				bond_page.visible = false
 		else:
 			stat_pages.get_child(child).visible = false
-		
+			
+func disable():
+	pass
+
+func enable():
+	pass

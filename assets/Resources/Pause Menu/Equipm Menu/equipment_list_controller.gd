@@ -26,6 +26,7 @@ func _setup():
 		
 		add_child(new_node_instance)
 		#new_node_instance.move_left(new_node_instance.get_index())
+	sort_children()
 	GlobalCombatInformation.equipment_added.connect(_reset_contents)
 		
 func equipment_selected(instance_id, equip):
@@ -34,8 +35,11 @@ func equipment_selected(instance_id, equip):
 	#		remove_child(child)
 	#		break
 	for child in get_children():
-		if child.get_instance_id() != instance_id:
-			child._update_selection(false)
+		if child.get_index() != instance_id:
+			child.highlight(false)
+		elif child.get_index() == instance_id:
+			get_parent().current_item = child.get_index()
+			get_parent().update_selected_item()
 	
 	equipment_swapped.emit(equip)
 
@@ -62,6 +66,7 @@ func _reset_contents():
 		new_node_instance.node_pressed.connect(equipment_selected)
 		
 		add_child(new_node_instance)
+	sort_children()
 
 func update_contents(new_equipment):
 	if new_equipment == null:
@@ -75,3 +80,14 @@ func update_contents(new_equipment):
 	
 	#add_child(new_node_instance)
 	#new_node_instance.move_left(new_node_instance.get_index())
+	sort_children()
+
+func sort_children():
+	var sorted_children = get_children()
+	
+	sorted_children.sort_custom(func(a, b):
+		return a.equip_name.text.naturalnocasecmp_to(b.equip_name.text) < 0
+	)
+	
+	for i in range(sorted_children.size()):
+		move_child(sorted_children[i], i)

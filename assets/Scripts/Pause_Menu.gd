@@ -47,10 +47,14 @@ func tab_changed(which_tab):
 				windows.get_child(child).can_move_fullscreen_map = true
 				windows.get_child(child).center_fullscreen_around_tile(windows.get_child(child).current_player_room_coords)
 			windows.get_child(child).visible = true
+			if windows.get_child(child).has_method("enable"):
+				windows.get_child(child).enable()
 		else:
 			if child == 0 and is_dungeon_menu:
 				windows.get_child(child).can_move_fullscreen_map = false
 			windows.get_child(child).visible = false
+			if windows.get_child(child).has_method("disable"):
+				windows.get_child(child).disable()
 	
 func _on_game_start():
 	return
