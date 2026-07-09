@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://drqam5q2oh81m"]
+
+[node name="BasePauseMenu" type="Control" unique_id=1114125031]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=133384147]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1333799227]
+layout_mode = 2
+text = "Monies: 200"
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1756690776]
+layout_mode = 2
+text = "Cur BP: 20/20"
+
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=1842868765]
+layout_mode = 2
+text = "Current Day"
+
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=385926117]
+layout_mode = 2
+text = "Playtime: "

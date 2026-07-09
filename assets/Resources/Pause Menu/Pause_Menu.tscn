@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://gvoxtra7smmi" path="res://assets/tile sheets/Settings_Icon.png" id="7_epiyd"]
 [ext_resource type="PackedScene" uid="uid://dw54xqs30htgf" path="res://assets/Resources/Pause Menu/Quest Menu/Quest_Menu.tscn" id="8_q81nf"]
 [ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="11_35xr2"]
+[ext_resource type="PackedScene" uid="uid://drqam5q2oh81m" path="res://assets/Resources/Pause Menu/Base_Pause_Menu.tscn" id="12_frpul"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="14_j01ox"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="16_4hik5"]
 [ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="17_frpul"]
@@ -53,8 +54,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6a6ya")
-tab_names = Array[String](["P", "S", "E", "I", "Q", "S"])
-tab_icons = Array[Texture2D]([ExtResource("2_anab7"), ExtResource("3_4hik5"), ExtResource("4_frpul"), ExtResource("5_gyc6h"), ExtResource("6_lo7ly"), ExtResource("7_epiyd")])
+tab_names = Array[String](["D", "P", "S", "E", "I", "Q", "S"])
+tab_icons = Array[Texture2D]([ExtResource("2_anab7"), ExtResource("2_anab7"), ExtResource("3_4hik5"), ExtResource("4_frpul"), ExtResource("5_gyc6h"), ExtResource("6_lo7ly"), ExtResource("7_epiyd")])
 
 [node name="Background" type="Control" parent="." unique_id=260618246]
 anchors_preset = 0
@@ -112,7 +113,7 @@ offset_right = 247.0
 offset_bottom = -12.0
 scale = Vector2(0.46, 0.46)
 theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 64
+theme_override_constants/v_separation = 46
 be_vertical = true
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
@@ -124,7 +125,11 @@ offset_right = 114.75002
 offset_bottom = 73.535
 scale = Vector2(1.25, 1.25)
 
+[node name="BasePauseMenu" parent="Windows" unique_id=1114125031 instance=ExtResource("12_frpul")]
+layout_mode = 1
+
 [node name="PartyMenu" parent="Windows" unique_id=1517258258 instance=ExtResource("3_8ocdr")]
+visible = false
 layout_mode = 1
 offset_left = -44.0
 offset_top = 29.0

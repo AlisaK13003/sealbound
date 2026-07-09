@@ -39,7 +39,18 @@ func _setup():
 	if not scroll_bar.value_changed.is_connected(_on_v_scroll_bar_value_changed):
 		scroll_bar.value_changed.connect(_on_v_scroll_bar_value_changed)
 	update_selected_item()
-	
+	if not visibility_changed.is_connected(update_selection):
+		visibility_changed.connect(update_selection)
+
+func update_selection():
+	if visible:
+		enable()
+	else:
+		disable()
+		current_item = 0
+	update_selected_item()
+	scroll_bar.value = 0
+
 func _ready():
 	if mouse_scroll_detection_area:
 		mouse_scroll_detection_area.mouse_entered.connect(_on_scroll_area_mouse_entered)
@@ -73,7 +84,7 @@ func _on_v_scroll_bar_value_changed(value):
 	update_selected_item()
 
 func _input(event):
-	if get_parent().visible == false:
+	if get_parent().visible == false or self.visible == false:
 		return
 	
 	if disable_selection:
@@ -90,11 +101,10 @@ func _input(event):
 			scroll_down()
 			get_viewport().set_input_as_handled()
 			
-	if Global.get_input_mapping("down"):
+	if Global.get_continuous_input_mapping("down"):
 		scroll_down()
 		get_viewport().set_input_as_handled()
-	elif Global.get_input_mapping("up"):
-
+	elif Global.get_continuous_input_mapping("up"):
 		scroll_up()
 		get_viewport().set_input_as_handled()
 

@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://dppsr6ep66a3i" path="res://assets/Sprites/Health.png" id="2_5gywn"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="2_wns33"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_xg7kj"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w1mpj"]
+[ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="6_xg7kj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wns33"]
 size = Vector2(369.9999, 247.99994)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w1mpj"]
 
 [node name="ItemMenu" type="Control" unique_id=893943130]
 layout_mode = 3
@@ -124,45 +125,6 @@ text = "Use Item"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Panel2" type="Panel" parent="." unique_id=241421097]
-z_index = 11
-clip_contents = true
-layout_mode = 0
-offset_left = -143.0
-offset_top = 35.98
-offset_right = 109.984985
-offset_bottom = 182.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_w1mpj")
-
-[node name="Container" type="Container" parent="Panel2" unique_id=465027958]
-custom_minimum_size = Vector2(208.09, 185.3)
-layout_mode = 0
-offset_left = 148.0
-offset_top = 3.76
-offset_right = 411.15503
-offset_bottom = 189.06
-scale = Vector2(0.63, 0.63)
-size_flags_vertical = 0
-offset_transform_position = Vector2(109.11, 20.76)
-
-[node name="GridContainer" type="GridContainer" parent="Panel2/Container" unique_id=296080803]
-z_index = 1
-layout_mode = 2
-theme_override_constants/h_separation = -29
-theme_override_constants/v_separation = 33
-
-[node name="GridContainer2" type="GridContainer" parent="Panel2/Container" unique_id=1978050830]
-z_index = 1
-layout_mode = 2
-theme_override_constants/h_separation = -29
-theme_override_constants/v_separation = 33
-
-[node name="GridContainer3" type="GridContainer" parent="Panel2/Container" unique_id=1719938611]
-z_index = 1
-layout_mode = 2
-theme_override_constants/h_separation = -29
-theme_override_constants/v_separation = 33
-
 [node name="Label" type="Label" parent="." unique_id=192883700]
 visible = false
 layout_mode = 0
@@ -213,6 +175,96 @@ scale = Vector2(0.805, 0.805)
 theme_override_constants/h_separation = 158
 columns = 3
 disable_selection = true
+
+[node name="Item_Container" type="Control" parent="." unique_id=120232604]
+anchors_preset = 0
+offset_left = -39.0
+offset_top = 19.055
+offset_right = 1.0
+offset_bottom = 59.054993
+
+[node name="Panel2" type="Panel" parent="Item_Container" unique_id=241421097 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+z_index = 11
+clip_contents = true
+layout_mode = 0
+offset_left = -7.875
+offset_top = -5.9
+offset_right = 153.96002
+offset_bottom = 190.57501
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.75, 0.75)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w1mpj")
+script = ExtResource("6_xg7kj")
+display_x_items = 6
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar2")
+
+[node name="GridContainer" type="GridContainer" parent="Item_Container/Panel2" unique_id=296080803]
+z_index = 1
+layout_mode = 0
+offset_left = 28.58
+offset_top = 3.895
+offset_right = 28.58
+offset_bottom = 3.895
+theme_override_constants/h_separation = -29
+theme_override_constants/v_separation = 33
+
+[node name="Panel3" type="Panel" parent="Item_Container" unique_id=1169026103 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+z_index = 11
+clip_contents = true
+layout_mode = 0
+offset_left = -7.875
+offset_top = -5.9
+offset_right = 153.96002
+offset_bottom = 190.57501
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.75, 0.75)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w1mpj")
+script = ExtResource("6_xg7kj")
+display_x_items = 6
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar2")
+
+[node name="GridContainer2" type="GridContainer" parent="Item_Container/Panel3" unique_id=306780393]
+z_index = 1
+layout_mode = 0
+offset_left = 28.58
+offset_top = 3.895
+offset_right = 28.58
+offset_bottom = 3.895
+theme_override_constants/h_separation = -29
+theme_override_constants/v_separation = 33
+
+[node name="Panel4" type="Panel" parent="Item_Container" unique_id=1826770548 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+z_index = 11
+clip_contents = true
+layout_mode = 0
+offset_left = -7.875
+offset_top = -5.9
+offset_right = 153.96002
+offset_bottom = 190.57501
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.75, 0.75)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w1mpj")
+script = ExtResource("6_xg7kj")
+display_x_items = 6
+mouse_scroll_detection_area = NodePath("../../Area2D")
+scroll_bar = NodePath("../../VScrollBar2")
+
+[node name="GridContainer3" type="GridContainer" parent="Item_Container/Panel4" unique_id=232788292]
+z_index = 1
+layout_mode = 0
+offset_left = 28.58
+offset_top = 3.895
+offset_right = 28.58
+offset_bottom = 3.895
+theme_override_constants/h_separation = -29
+theme_override_constants/v_separation = 33
+
+[node name="VScrollBar2" type="VScrollBar" parent="." unique_id=1421740375]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

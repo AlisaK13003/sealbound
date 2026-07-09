@@ -21,11 +21,13 @@ offset_bottom = 64.0
 texture = ExtResource("1_i1gmn")
 
 [node name="Vertical" type="AnimatedSprite2D" parent="." unique_id=276683061]
+visible = false
 position = Vector2(74, 31)
 sprite_frames = ExtResource("3_n63yt")
 flip_h = true
 
 [node name="Horizontal" type="AnimatedSprite2D" parent="." unique_id=22767198]
+visible = false
 position = Vector2(32.028, -10)
 rotation = -1.5707964
 sprite_frames = ExtResource("3_n63yt")

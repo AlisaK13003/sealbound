@@ -104,4 +104,3 @@ stretch_mode = 2
 flip_h = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="gui_input" from="Panel" to="." method="_on_gui_input"]
