@@ -55,6 +55,7 @@ func _stats_changed():
 	#menu_tabs.selection_changed.connect(tab_changed)
 	menu_tabs.cycle_input(null, previous_selection)
 	is_updating_stats = false
+	
 #0.644
 var is_resetting: bool = false
 func _reset():

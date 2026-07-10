@@ -5,12 +5,10 @@ const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd"
 var in_menu : bool = false
 @export var move_speed : float = 300.0
 
-
 @onready var pause_menu = $CanvasLayer/PauseMenu
 @onready var over_the_head_sprite = $OvertheHead
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-@export var camera_zoom: Vector2 = Vector2(1, 1)
 @export var female_idle_texture: Texture2D = preload("res://assets/characters/player/female_idle.png")
 @export var female_walk_texture: Texture2D = preload("res://assets/characters/player/female_walk.png")
 @export var male_idle_texture: Texture2D = preload("res://assets/characters/player/male_idle.png")
@@ -21,9 +19,12 @@ var in_menu : bool = false
 @export var walking_on_stone: Array[AudioStream]
 @export var walking_on_wood: Array[AudioStream]
 
-
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 var tutorial_label: Label
+
+@export var step_interval: float = 36.0
+var distance_walked: float = 0.0
+var inside = false
 
 func _ready() -> void:
 	if Global.loading_from_save:
@@ -34,25 +35,28 @@ func _ready() -> void:
 	if not Global.player_identity_changed.is_connected(identity_changed_callback):
 		Global.player_identity_changed.connect(identity_changed_callback)
 	_setup_tutorial_label()
-	$Camera2D.reset_smoothing()
+	
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
-	$Camera2D.zoom = camera_zoom
 	pause_menu.visible = false
 	if not Global.pending_cutscene_path.is_empty():
 		call_deferred("_play_pending_cutscene")
 
-@export var step_interval: float = 36.0
-var distance_walked: float = 0.0
-
 func _process(_delta: float) -> void:
 	_update_tutorial_label()
-	var direction : Vector2 = Vector2.ZERO
+	
+	if Global.player_head_sprite != null:
+		over_the_head_sprite.texture = Global.player_head_sprite
+	else:
+		over_the_head_sprite.texture = null
+
+func _physics_process(_delta: float) -> void:
 	if Global.is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning or Global.is_paused:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
+		move_and_slide()
 		return
-	#direction = Input.get_vector("left", "right", "up", "down")
 
+	var direction : Vector2 = Vector2.ZERO
 	if not Global.using_controller:
 		direction = Input.get_vector("left", "right", "up", "down")
 	else:
@@ -61,56 +65,29 @@ func _process(_delta: float) -> void:
 	velocity = direction * move_speed
 	animation_driver.sync(animated_sprite, velocity)
 	
-	if Global.player_head_sprite != null:
-		over_the_head_sprite.texture = Global.player_head_sprite
-	else:
-		over_the_head_sprite.texture = null
-		
-	var is_moving = velocity.length() > 10.0
+	move_and_slide()
 	
+	var is_moving = velocity.length() > 10.0
 	if is_moving:
 		distance_walked += velocity.length() * _delta
-		
 		if distance_walked >= step_interval:
-			var current_terrain = get_terrain_under_feet()
-			if not inside:
-				match current_terrain:
-					#Dirt
-					0:
-						AudioManager.play_tile_sound(walking_on_dirt.pick_random())
-					#Sane
-					1:
-						AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
-					#Gravel
-					2:
-						AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
-					#Wood
-					3:
-						AudioManager.play_tile_sound(walking_on_wood.pick_random())
-					#Stone
-					4:
-						AudioManager.play_tile_sound(walking_on_stone.pick_random())
-					5:
-						pass
-			else:
-				match current_terrain:
-					# Wood
-					0:
-						AudioManager.play_tile_sound(walking_on_wood.pick_random())
-					# Carpet
-					1:
-						pass
-					# Metal
-					2:
-						AudioManager.play_tile_sound(walking_on_wood.pick_random())
-
-			
+			_play_footstep_sound()
 			distance_walked = 0.0
 
-var inside = false
+func _play_footstep_sound() -> void:
+	var current_terrain = get_terrain_under_feet()
+	if not inside:
+		match current_terrain:
+			0: AudioManager.play_tile_sound(walking_on_dirt.pick_random())
+			1, 2: AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
+			3: AudioManager.play_tile_sound(walking_on_wood.pick_random())
+			4: AudioManager.play_tile_sound(walking_on_stone.pick_random())
+	else:
+		match current_terrain:
+			0, 2: AudioManager.play_tile_sound(walking_on_wood.pick_random())
+
 func get_terrain_under_feet() -> int:
 	var floor_layers = get_tree().get_nodes_in_group("Ground")
-	
 	if floor_layers.is_empty():
 		floor_layers = get_tree().get_nodes_in_group("Building_Ground")
 		if floor_layers.is_empty():
@@ -119,11 +96,9 @@ func get_terrain_under_feet() -> int:
 	else:
 		inside = false
 		
-	
 	floor_layers.sort_custom(func(a: Node, b: Node) -> bool:
 		if a.z_index != b.z_index:
 			return a.z_index > b.z_index
-		
 		return a.get_index() > b.get_index()
 	)
 
@@ -132,14 +107,11 @@ func get_terrain_under_feet() -> int:
 			var local_pos = layer.to_local(global_position)
 			var map_pos = layer.local_to_map(local_pos)
 			var tile_data = layer.get_cell_tile_data(map_pos)
-
 			if tile_data and tile_data.terrain != -1:
 				return tile_data.terrain
-				
 	return -1
 
 func _input(event):
-	# In Player _input
 	if Global.get_input_mapping("Pause") and not Global.cant_leave_menu:
 		if not pause_menu.visible:
 			if Global.is_in_menu:
@@ -151,7 +123,6 @@ func _input(event):
 			pause_menu.visible = true
 			get_tree().paused = true
 			in_menu = true
-			#full_inventory.manage_visibility(false)
 			get_viewport().set_input_as_handled()
 			pause_menu._reset()
 		else:
@@ -164,10 +135,6 @@ func _input(event):
 			pause_menu.visible = false
 			pause_menu._reset()
 	return
-
-	
-func _physics_process(_delta):
-	move_and_slide()
 
 func _play_pending_cutscene() -> void:
 	var cutscene_path = Global.pending_cutscene_path

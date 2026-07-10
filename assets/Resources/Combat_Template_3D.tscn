@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ujf8gu4vwu00"]
 
 [ext_resource type="Script" uid="uid://dcy7alp2grueo" path="res://assets/Resources/combatant_setup_3d.gd" id="1_51gu7"]
-[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="2_51gu7"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="2_51gu7"]
 [ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="3_51gu7"]
 [ext_resource type="PackedScene" uid="uid://dywa8njfjb1kd" path="res://assets/Resources/Dungeon Stuff/Combatant ui.tscn" id="3_drjmm"]
 [ext_resource type="Script" uid="uid://d0pnuy6nbgr42" path="res://assets/Resources/subviewport_fix.gd" id="4_mmlnl"]

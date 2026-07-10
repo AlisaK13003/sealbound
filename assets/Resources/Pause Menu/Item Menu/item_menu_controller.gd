@@ -75,7 +75,7 @@ func _reset():
 
 func _fully_reset():
 	for child_ in item_containers_parent.get_children():
-		for child__ in child_.get_children():
+		for child__ in child_.get_child(0).get_children():
 			child__.queue_free()
 
 	for item: Items in GlobalCombatInformation.all_held_items:

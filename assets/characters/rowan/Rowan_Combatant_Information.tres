@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_r1wuo"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_g6mva"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_6h407"]
-[ext_resource type="SpriteFrames" uid="uid://datq6qhi06hr1" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="4_r1wuo"]
+[ext_resource type="SpriteFrames" uid="uid://lfd6d0e3grfw" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="4_r1wuo"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_ah6m3"]
 [ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="5_g6mva"]
 [ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_tb8uc"]
@@ -174,9 +174,10 @@ stored_chestplate = ExtResource("5_g6mva")
 combatant_skills = Array[ExtResource("1_r1wuo")]([SubResource("Resource_hr7mf"), SubResource("Resource_thkco"), SubResource("Resource_fa28c")])
 sprite_frames = ExtResource("4_r1wuo")
 idle_speed = 0.2
+death_speed = 0.5
 walk_speed = 0.7
+attack_speed = Array[float]([0.5, 0.5])
 sprite_scale = 0.007
 sprite_offset = Vector2(-38, 0)
-equip_sprite_offset = Vector2(-11, 12)
 bond_level = 1
 metadata/_custom_type_script = "uid://125iickqse23"

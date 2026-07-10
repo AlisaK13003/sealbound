@@ -151,7 +151,6 @@ size = Vector2(84, 152)
 [node name="Player" type="CharacterBody2D" unique_id=355956441 groups=["Overworld_Player"]]
 process_mode = 3
 script = ExtResource("1_2hlsy")
-move_speed = 75.0
 walking_on_dirt = Array[AudioStream]([ExtResource("2_fj35x"), ExtResource("3_tp8rc"), ExtResource("4_buet6"), ExtResource("5_ter5l"), ExtResource("6_a3j67"), ExtResource("7_pwv13")])
 walking_on_sand_gravel = Array[AudioStream]([ExtResource("8_i3jui"), ExtResource("9_s7rwl"), ExtResource("10_si5i2"), ExtResource("11_w3uhr"), ExtResource("12_15a76")])
 walking_on_stone = Array[AudioStream]([ExtResource("13_r2ufn"), ExtResource("14_dve5e"), ExtResource("15_ntp18"), ExtResource("16_s602h")])
@@ -183,10 +182,6 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(0, -32)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_3y00o")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1983470381]
-process_callback = 0
-position_smoothing_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888585702]
 

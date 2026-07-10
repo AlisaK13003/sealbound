@@ -48,7 +48,6 @@ func _setup(items_to_setup, parent_reference, m_name):
 	var already_selected = false
 	var index_difference = 0
 	if items_to_setup[0] is Items:
-		item_container.columns = 2
 		item_container.add_theme_constant_override("v_separation", -11)
 		item_container.add_theme_constant_override("h_separation", 40)
 
@@ -59,10 +58,12 @@ func _setup(items_to_setup, parent_reference, m_name):
 				index_difference += 1
 				continue
 		var new_item = list_item_scene.instantiate()
+		var t_item = list_item_scene.instantiate()
 		item_container.add_child(new_item)
-		
-		
+		$Panel/GridContainer.add_child(t_item)
+	
 		await new_item._setup(items_to_setup[item], item - index_difference, self)
+		t_item._setup(items_to_setup[item], item - index_difference, self)
 		if not already_selected and items_to_setup[item] is moves:
 			if p_ref.current_bond_points >= items_to_setup[item].mana_cost:
 				which_child_is_selected = 0
@@ -71,6 +72,7 @@ func _setup(items_to_setup, parent_reference, m_name):
 		elif item == 0:
 			which_child_is_selected = 0
 			new_item.select()
+		$Panel._setup()
 
 func clear_children():
 	for child in item_container.get_children():

@@ -3,6 +3,7 @@ extends Control
 @onready var item_name = $HBoxContainer/Container/HBoxContainer/Item_Name
 @onready var item_texture = $HBoxContainer/Container/HBoxContainer/Item_Texture
 @onready var selection_arrow = $HBoxContainer/AnimatedSprite2D
+@onready var item_count = $HBoxContainer/Container/HBoxContainer/Item_Count
 
 var trying_to_be_used: bool = false
 var index_number: int
@@ -17,6 +18,24 @@ func _setup(item_passed: Items, i_num, parent_ref):
 	item_texture.texture = item_passed.item_sprite
 	index_number = i_num
 	held_item = item_passed
+	item_count = "x" + str(item_passed.stack)
+	
+func highlight(should_highlight):
+	if should_highlight:
+		if not can_be_selected:
+			return
+		can_be_selected = true
+		p_ref.update_description(held_item.item_description)
+		selection_arrow.visible = true
+		selection_arrow.play("default")
+		p_ref.update_selected_child(index_number)
+	else:
+		can_be_selected = false
+		selection_arrow.visible = false
+		selection_arrow.stop()
+	
+func was_hovered():
+	return
 	
 func select():
 	if not can_be_unselected:

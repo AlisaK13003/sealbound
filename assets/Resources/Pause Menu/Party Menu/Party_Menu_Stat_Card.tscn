@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://32hova5qgtul" path="res://assets/Resources/Pause Menu/Party Menu/party_menu_stat_card_controller.gd" id="1_n7ich"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="2_034c3"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="4_3vndl"]
-[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="4_re2eu"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="4_re2eu"]
 [ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="5_bk7q8"]
 [ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="6_bk7q8"]
 [ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="7_0r7i3"]

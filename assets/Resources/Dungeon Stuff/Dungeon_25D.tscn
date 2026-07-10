@@ -1,17 +1,26 @@
 [gd_scene format=3 uid="uid://ccdj2neuofomx"]
 
 [ext_resource type="Script" uid="uid://bftcak8hng7gw" path="res://scenes/Dungeon/dungeon.gd" id="1_xfoey"]
-[ext_resource type="Resource" uid="uid://cw3vpqck0mh18" path="res://assets/characters/player/MC_Combatant_Information.tres" id="2_t7hpr"]
+[ext_resource type="Resource" uid="uid://cw3vpqck0mh18" path="res://assets/characters/player/MMC_Combatant_Information.tres" id="2_t7hpr"]
 [ext_resource type="Resource" uid="uid://boqnrhovktrug" path="res://assets/characters/rowan/Rowan_Combatant_Information.tres" id="3_og2ux"]
 [ext_resource type="Resource" uid="uid://dbt45tuwoqu3c" path="res://assets/characters/lyra/Lyra_Combatant_Information.tres" id="4_edm4l"]
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="7_edm4l"]
 [ext_resource type="Resource" uid="uid://ga5pyvowfui4" path="res://assets/Resources/Dungeon Stuff/temp_item.tres" id="7_og2ux"]
 [ext_resource type="PackedScene" uid="uid://ujf8gu4vwu00" path="res://assets/Resources/Combat_Template_3D.tscn" id="7_x3t77"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="8_7uj4b"]
 [ext_resource type="PackedScene" uid="uid://dgs2lhgc5rktk" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_GUI.tscn" id="8_og2ux"]
 [ext_resource type="PackedScene" uid="uid://cmbl7st5je157" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_4_Way_Floor.glb" id="9_a4wc1"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="9_iegkx"]
 [ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="9_w732d"]
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="11_t7hpr"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="12_iegkx"]
 [ext_resource type="AudioStream" uid="uid://eg4iog2p3170" path="res://assets/Resources/SFX/Eye-laser.wav" id="14_7uj4b"]
+
+[sub_resource type="Resource" id="Resource_t7hpr"]
+script = ExtResource("9_iegkx")
+encounterable_enemy = ExtResource("7_edm4l")
+enemies = Array[ExtResource("8_7uj4b")]([ExtResource("7_edm4l"), ExtResource("7_edm4l"), ExtResource("7_edm4l")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [sub_resource type="Environment" id="Environment_a4wc1"]
 background_mode = 1
@@ -26,6 +35,7 @@ party_slot_1 = ExtResource("2_t7hpr")
 party_slot_2 = ExtResource("3_og2ux")
 party_slot_3 = ExtResource("4_edm4l")
 temp_item_list = Array[ExtResource("12_iegkx")]([ExtResource("7_og2ux"), ExtResource("7_og2ux")])
+test_encounter = SubResource("Resource_t7hpr")
 
 [node name="UI" type="Control" parent="." unique_id=738875588]
 texture_filter = 1

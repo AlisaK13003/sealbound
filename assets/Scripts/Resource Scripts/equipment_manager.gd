@@ -15,7 +15,8 @@ class_name equipment
 
 func export_to_JSON():
 	return {
-		"path": resource_path
+		"path": resource_path,
+		"stack": stack
 	}
 
 func return_stuff():
@@ -28,6 +29,7 @@ func return_stuff():
 				"texture": equipment_sprite,
 				"health": equipment_stats.health,
 				"resistance": equipment_stats.resistance,
+				"stack": stack
 			}
 		# Chestplate
 		1:
@@ -37,6 +39,7 @@ func return_stuff():
 				"texture": equipment_sprite,
 				"defense": equipment_stats.defense,
 				"health": equipment_stats.health,
+				"stack": stack
 			}
 		# Boots
 		2:
@@ -46,6 +49,7 @@ func return_stuff():
 				"texture": equipment_sprite,
 				"speed": equipment_stats.speed,
 				"evasion": equipment_stats.evasion,
+				"stack": stack
 			}
 		# Charm
 		3:
@@ -55,6 +59,7 @@ func return_stuff():
 				"texture": equipment_sprite,
 				"magic": equipment_stats.magic,
 				"luck": equipment_stats.luck,
+				"stack": stack
 			}
 
 func get_stat_string():

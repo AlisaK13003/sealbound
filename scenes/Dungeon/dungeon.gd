@@ -69,10 +69,13 @@ var p_skill_importance: float = 0
 
 var skills_enemies_have_used: int = 0
 
+@export var test_encounter: dungeon_wave
+
 #region Initialization
 var training: bool = false
 var testing: bool = false
 func _ready():
+	setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
 	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
@@ -98,21 +101,21 @@ func _reset() -> void:
 			combatant.queue_free()
 	await get_tree().process_frame
 	
-	slot_1.setup(party_slot_1.duplicate(true), self, 0)
-	slot_2.setup(party_slot_2.duplicate(true), self, 1)
-	slot_3.setup(party_slot_3.duplicate(true), self, 2)
-	
+	await gui._setup(self)
+
+	gui.get_player_portrait(0)._setup(GlobalCombatInformation.active_party_slots[0])
+	slot_1.setup(GlobalCombatInformation.active_party_slots[0], self, 0)
 	all_combatants.append(slot_1)
-	all_combatants.append(slot_2)
-	all_combatants.append(slot_3)
-	
-	gui.get_player_portrait(0)._setup(party_slot_1)
-	gui.get_player_portrait(1)._setup(party_slot_2)
-	gui.get_player_portrait(2)._setup(party_slot_3)
-	
-	#get_player(0).update_health([0, ""], false, get_player_portrait(0))
-	#get_player(1).update_health([0, ""], false, get_player_portrait(1))
-	#get_player(2).update_health([0, ""], false, get_player_portrait(2))
+
+	if GlobalCombatInformation.active_party_slots.size() > 1:
+		gui.get_player_portrait(1)._setup(GlobalCombatInformation.active_party_slots[1])
+		slot_2.setup(GlobalCombatInformation.active_party_slots[1], self, 1)
+		all_combatants.append(slot_2)
+
+		if GlobalCombatInformation.active_party_slots.size() > 2:
+			gui.get_player_portrait(2)._setup(GlobalCombatInformation.active_party_slots[2])
+			slot_3.setup(GlobalCombatInformation.active_party_slots[2], self, 2)
+			all_combatants.append(slot_3)
 	
 	#item_menu.setup(temp_item_list, self)
 	if not training:
@@ -124,7 +127,7 @@ func hide():
 	gui.visible = false
 	gui.get_child(0).visible = false
 
-func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss: bool ):
+func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss: bool):
 	#Fade.fade_thing.visible = false
 	#Fade.fade_thing_2.visible = false
 	gui.call_deferred("hide_gui", false)
@@ -141,20 +144,31 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 			
 	for wall in walls.get_children():
 		wall._setup(current_dungeon_type.type_of_dungeon)
+		
+	await gui._setup(self)
 
 	gui.get_player_portrait(0)._setup(GlobalCombatInformation.active_party_slots[0])
-	gui.get_player_portrait(1)._setup(GlobalCombatInformation.active_party_slots[1])
-	gui.get_player_portrait(2)._setup(GlobalCombatInformation.active_party_slots[2])
-
-	await gui._setup(self)
 	slot_1.setup(GlobalCombatInformation.active_party_slots[0], self, 0)
-	slot_2.setup(GlobalCombatInformation.active_party_slots[1], self, 1)
-	slot_3.setup(GlobalCombatInformation.active_party_slots[2], self, 2)
-	
 	all_combatants.append(slot_1)
-	all_combatants.append(slot_2)
-	all_combatants.append(slot_3)
-	
+
+	if GlobalCombatInformation.active_party_slots.size() > 1:
+		gui.get_player_portrait(1)._setup(GlobalCombatInformation.active_party_slots[1])
+		slot_2.setup(GlobalCombatInformation.active_party_slots[1], self, 1)
+		all_combatants.append(slot_2)
+
+		if GlobalCombatInformation.active_party_slots.size() > 2:
+			gui.get_player_portrait(2)._setup(GlobalCombatInformation.active_party_slots[2])
+			slot_3.setup(GlobalCombatInformation.active_party_slots[2], self, 2)
+			all_combatants.append(slot_3)
+		else:
+			slot_3.visible = false
+			gui.get_player_portrait(2).visible = false
+	else:
+		slot_2.visible = false
+		slot_3.visible = false
+		gui.get_player_portrait(1).visible = false
+		gui.get_player_portrait(2).visible = false
+
 	await _reset()
 	
 	return await battle_loop(encounter, is_boss)
@@ -168,7 +182,8 @@ func determine_order() -> void:
 	all_combatants.clear()
 	
 	for slot in $Player_Container.get_children():
-		all_combatants.append(slot)
+		if slot.visible:
+			all_combatants.append(slot)
 	for enemy_slot in enemy_shit.get_children():
 		if enemy_slot.visible:
 			all_combatants.append(enemy_slot)
@@ -283,8 +298,9 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 						number_of_alive_enemies += 1
 				# Player check
 				for player in player_container.get_children():
-					if not player.stored_combatant.is_dead:
-						number_of_alive_players += 1
+					if player.visible:
+						if not player.stored_combatant.is_dead:
+							number_of_alive_players += 1
 				# Wait so all animations can finish
 				if not training:
 					await get_tree().create_timer(1).timeout
@@ -330,7 +346,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				#		if player.stored_combatant.is_dead:
 				#			number_of_killed_players += 1
 				#		else:
-				#			cum_player_health += player.stored_combatant.combatant_stats.health
+				#			cum_player_health += player.stored_combatant.actual_stats.health
 #
 				#	for enemy in enemy_shit.get_children():
 				#		if enemy.stored_combatant == null:
@@ -469,7 +485,7 @@ func execute_enemy_skills(action):
 					if get_skill_boost(skill_used) != 999:
 						parallel_tasks.append(func(): await enemy.update_health(-1 * (person_acting.obtain_stat(person_acting.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 					else:
-						parallel_tasks.append(func(): await enemy.update_health(-1 * enemy.stored_combatant.combatant_stats.max_health, "HEAL"))
+						parallel_tasks.append(func(): await enemy.update_health(-1 * enemy.stored_combatant.actual_stats.max_health, "HEAL"))
 				# Does this skill apply a status to every party member
 				if skill_used.does_status:
 					parallel_tasks.append(func(): await enemy.handle_status(skill_used.status_type))
@@ -480,7 +496,7 @@ func execute_enemy_skills(action):
 				if get_skill_boost(skill_used) != 999:
 					parallel_tasks.append(func(): await person_recieving.update_health(-1 * (person_recieving.obtain_stat(person_recieving.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 				else:
-					parallel_tasks.append(func(): await person_recieving.update_health(-1 * person_recieving.stored_combatant.combatant_stats.max_health, "HEAL"))
+					parallel_tasks.append(func(): await person_recieving.update_health(-1 * person_recieving.stored_combatant.actual_stats.max_health, "HEAL"))
 			if skill_used.does_status:
 				action_sequence.append(func(): await person_recieving.handle_status(skill_used.status_type))
 			if skill_used.removes_status:
@@ -705,7 +721,7 @@ func execute_skills(what_action):
 					if get_skill_boost(skill_used) != 999:
 						par_task.append(func(): await player.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 					else:
-						par_task.append(func(): await player.update_health(-1 * player.stored_combatant.combatant_stats.max_health, "HEAL"))
+						par_task.append(func(): await player.update_health(-1 * player.stored_combatant.actual_stats.max_health, "HEAL"))
 				# Does this skill apply a status to every party member
 				if skill_used.does_status:
 					par_task.append(func(): await player.handle_status(skill_used.status_type))
@@ -721,7 +737,7 @@ func execute_skills(what_action):
 				if get_skill_boost(skill_used) != 999:
 					parallel_tasks.append(func(): await targetted_player.update_health(-1 * (current_player.obtain_stat(targetted_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL"))
 				else:
-					parallel_tasks.append(func(): await targetted_player.update_health(-1 * targetted_player.stored_combatant.combatant_stats.max_health, "HEAL"))
+					parallel_tasks.append(func(): await targetted_player.update_health(-1 * targetted_player.stored_combatant.actual_stats.max_health, "HEAL"))
 			if skill_used.does_status:
 				action_sequence.append(func(): await targetted_player.handle_status(skill_used.status_type))
 			if skill_used.removes_status:
@@ -989,8 +1005,8 @@ func hide_everything():
 	revert_to_default_UI()
 
 func set_health_bar_values(player_to_set_for):
-	gui.get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.combatant_stats.health
-	gui.get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.combatant_stats.health)
+	gui.get_player_portrait(player_to_set_for).get_node("HealthBar").value = get_player(player_to_set_for).stored_combatant.actual_stats.health
+	gui.get_player_portrait(player_to_set_for).get_node("Health_Num").text = str(get_player(player_to_set_for).stored_combatant.actual_stats.health)
 	
 
 #endregion
@@ -1082,7 +1098,7 @@ func calculate_damage(attacker: combat_template, skill_power: float, target: com
 	var def = float(target.obtain_stat(
 		target.stats.RESISTANCE if is_magic else target.stats.DEFENSE
 	))
-	var level = float(attacker.stored_combatant.combatant_stats.level)
+	var level = float(attacker.stored_combatant.actual_stats.level)
 
 	# Level curve: starts at 5, grows meaningfully
 	var level_factor = 5.0 + (level * 2.0)
@@ -1351,15 +1367,15 @@ class player_weighting:
 				if skill_type_ref.targets_party and skill_type_ref.does_heal_party:
 					match skill_type_ref.amount_healed:
 						0:
-							if target.stored_combatant.combatant_stats.health > (0.8 * target.stored_combatant.combatant_stats.max_health):
+							if target.stored_combatant.actual_stats.health > (0.8 * target.stored_combatant.actual_stats.max_health):
 								self.action_weight = 0
 								return
 						1:
-							if target.stored_combatant.combatant_stats.health > (0.6 * target.stored_combatant.combatant_stats.max_health):
+							if target.stored_combatant.actual_stats.health > (0.6 * target.stored_combatant.actual_stats.max_health):
 								self.action_weight = 0
 								return
 						2:
-							if target.stored_combatant.combatant_stats.health > (0.5 * target.stored_combatant.combatant_stats.max_health):
+							if target.stored_combatant.actual_stats.health > (0.5 * target.stored_combatant.actual_stats.max_health):
 								self.action_weight = 0
 								return
 			self.action_name = skill_type_ref.move_name
@@ -1459,15 +1475,15 @@ class enemy_weighting:
 				if skill_type.targets_party and skill_type.does_heal_party:
 					match skill_type.amount_healed:
 						0:
-							if target.stored_combatant.combatant_stats.health > (0.8 * target.stored_combatant.combatant_stats.max_health):
+							if target.stored_combatant.actual_stats.health > (0.8 * target.stored_combatant.actual_stats.max_health):
 								self.action_weight = 0
 								return
 						1:
-							if target.stored_combatant.combatant_stats.health > (0.6 * target.stored_combatant.combatant_stats.max_health):
+							if target.stored_combatant.actual_stats.health > (0.6 * target.stored_combatant.actual_stats.max_health):
 								self.action_weight = 0
 								return
 						2:
-							if target.stored_combatant.combatant_stats.health > (0.5 * target.stored_combatant.combatant_stats.max_health):
+							if target.stored_combatant.actual_stats.health > (0.5 * target.stored_combatant.actual_stats.max_health):
 								self.action_weight = 0
 								return
 			action_name = skill_type.move_name
@@ -1512,10 +1528,10 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 					if skill_used.removes_status and  player.check_if_status_is_there(skill_used.removes_status):
 						new_weighting += remove_players_status_weight
 					var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), player, skill_used.is_magic_skill)
-					if player.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+					if player.stored_combatant.actual_stats.health - damage_done[0] <= 0:
 						new_weighting += kill_weight
 					else:
-						new_weighting += (damage_done[0] / player.stored_combatant.combatant_stats.max_health) * damage_importance_weight
+						new_weighting += (damage_done[0] / player.stored_combatant.actual_stats.max_health) * damage_importance_weight
 				new_weighting = new_weighting / (get_alive_player_or_enemy_count(action_to_test.targetting_player))
 		else:
 			var targetting_dude = action_to_test.targetting_who
@@ -1523,7 +1539,7 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 				if skill_used.does_heal_party:
 					if get_skill_boost(skill_used) != 999:
 						var amount_healted = action_to_test.person_acting.obtain_stat(action_to_test.person_acting.stats.MAGIC) + get_skill_boost(skill_used) * rng.randf_range(0.95, 1.05)
-						new_weighting += (amount_healted / targetting_dude.stored_combatant.combatant_stats.max_health) * healing_importance_weight
+						new_weighting += (amount_healted / targetting_dude.stored_combatant.actual_stats.max_health) * healing_importance_weight
 					else:
 						new_weighting += targetting_dude.combatant_stats.max_health * healing_importance_weight
 
@@ -1538,19 +1554,19 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 				if skill_used.removes_status and targetting_dude.check_if_status_is_there(skill_used.removes_status):
 					new_weighting += remove_players_status_weight
 				var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), targetting_dude, skill_used.is_magic_skill)
-				if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+				if targetting_dude.stored_combatant.actual_stats.health - damage_done[0] <= 0:
 					new_weighting += kill_weight
 				else:
-					new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * (damage_importance_weight * 3)
+					new_weighting += (damage_done[0] / targetting_dude.stored_combatant.actual_stats.max_health) * (damage_importance_weight * 3)
 		new_weighting += skill_importance
 
 	else:
 		var targetting_dude = action_to_test.targetting_who
 		var damage_done = calculate_damage(action_to_test.person_acting, 1.0, targetting_dude, false)
-		if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+		if targetting_dude.stored_combatant.actual_stats.health - damage_done[0] <= 0:
 			new_weighting += kill_weight
 		else:
-			new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * (damage_importance_weight * 3)
+			new_weighting += (damage_done[0] / targetting_dude.stored_combatant.actual_stats.max_health) * (damage_importance_weight * 3)
 	return new_weighting + rng.randf_range(0.0, 2.0)
 
 func gather_player_action_weights(action_to_test: player_weighting) -> float:
@@ -1571,9 +1587,9 @@ func gather_player_action_weights(action_to_test: player_weighting) -> float:
 					if skill_used.aoe_heal:
 						if get_skill_boost(skill_used) != 999:
 							var amount_healed = action_to_test.person_acting.obtain_stat(action_to_test.person_acting.stats.MAGIC) + get_skill_boost(skill_used) * rng.randf_range(0.95, 1.05)
-							new_weighting += (amount_healed / player.stored_combatant.combatant_stats.max_health) * p_healing_importance_weight
+							new_weighting += (amount_healed / player.stored_combatant.actual_stats.max_health) * p_healing_importance_weight
 						else:
-							new_weighting += player.stored_combatant.combatant_stats.max_health * p_healing_importance_weight
+							new_weighting += player.stored_combatant.actual_stats.max_health * p_healing_importance_weight
 				
 				var divisor = get_alive_player_or_enemy_count(action_to_test.targetting_enemy)
 				if divisor > 0:
@@ -1587,10 +1603,10 @@ func gather_player_action_weights(action_to_test: player_weighting) -> float:
 					if skill_used.removes_status:
 						new_weighting += p_remove_players_status_weight
 					var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), enemy, skill_used.is_magic_skill)
-					if enemy.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+					if enemy.stored_combatant.actual_stats.health - damage_done[0] <= 0:
 						new_weighting += p_kill_weight
 					else:
-						new_weighting += (damage_done[0] / enemy.stored_combatant.combatant_stats.max_health) * p_damage_importance_weight
+						new_weighting += (damage_done[0] / enemy.stored_combatant.actual_stats.max_health) * p_damage_importance_weight
 				
 				var divisor = get_alive_player_or_enemy_count(action_to_test.targetting_enemy)
 				if divisor > 0:
@@ -1601,9 +1617,9 @@ func gather_player_action_weights(action_to_test: player_weighting) -> float:
 				if skill_used.does_heal_party:
 					if get_skill_boost(skill_used) != 999:
 						var amount_healed = action_to_test.person_acting.obtain_stat(action_to_test.person_acting.stats.MAGIC) + get_skill_boost(skill_used) * rng.randf_range(0.95, 1.05)
-						new_weighting += (amount_healed / targetting_dude.stored_combatant.combatant_stats.max_health) * p_healing_importance_weight
+						new_weighting += (amount_healed / targetting_dude.stored_combatant.actual_stats.max_health) * p_healing_importance_weight
 					else:
-						new_weighting += targetting_dude.stored_combatant.combatant_stats.max_health * p_healing_importance_weight
+						new_weighting += targetting_dude.stored_combatant.actual_stats.max_health * p_healing_importance_weight
 
 				if skill_used.does_status:
 					new_weighting += p_give_self_status_weight
@@ -1615,17 +1631,17 @@ func gather_player_action_weights(action_to_test: player_weighting) -> float:
 				if skill_used.removes_status and targetting_dude.check_if_status_is_there(skill_used.removes_status):
 					new_weighting += p_remove_players_status_weight
 				var damage_done = calculate_damage(action_to_test.person_acting, get_skill_boost(skill_used), targetting_dude, skill_used.is_magic_skill)
-				if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+				if targetting_dude.stored_combatant.actual_stats.health - damage_done[0] <= 0:
 					new_weighting += p_kill_weight
 				else:
-					new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * p_damage_importance_weight
+					new_weighting += (damage_done[0] / targetting_dude.stored_combatant.actual_stats.max_health) * p_damage_importance_weight
 	else:
 		var targetting_dude = action_to_test.targetting_who
 		var damage_done = calculate_damage(action_to_test.person_acting, 1, targetting_dude, false)
-		if targetting_dude.stored_combatant.combatant_stats.health - damage_done[0] <= 0:
+		if targetting_dude.stored_combatant.actual_stats.health - damage_done[0] <= 0:
 			new_weighting += p_kill_weight
 		else:
-			new_weighting += (damage_done[0] / targetting_dude.stored_combatant.combatant_stats.max_health) * p_damage_importance_weight
+			new_weighting += (damage_done[0] / targetting_dude.stored_combatant.actual_stats.max_health) * p_damage_importance_weight
 			
 	return new_weighting + rng.randf_range(0.0, 2.0)
 

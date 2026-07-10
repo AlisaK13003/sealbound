@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://m5dnd2snq2qa" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Forgebound Resolve.tres" id="4_ouiim"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_dmw0s"]
 [ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="7_redy1"]
-[ext_resource type="SpriteFrames" uid="uid://datq6qhi06hr1" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="9_ouiim"]
+[ext_resource type="SpriteFrames" uid="uid://lfd6d0e3grfw" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="9_ouiim"]
 
 [sub_resource type="Resource" id="Resource_qx3or"]
 script = ExtResource("2_dhfcn")

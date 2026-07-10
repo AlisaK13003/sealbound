@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bcm4ba1ux2amx"]
+
+[ext_resource type="Script" uid="uid://dhfc3syovux0w" path="res://scenes/main/camera_controller.gd" id="1_27fsw"]
+
+[node name="UniversalCamera" type="Camera2D" unique_id=1015878525]
+physics_interpolation_mode = 1
+process_callback = 0
+position_smoothing_speed = 55.17
+script = ExtResource("1_27fsw")

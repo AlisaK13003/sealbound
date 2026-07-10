@@ -5,10 +5,12 @@ signal node_pressed
 var stored_item
 
 var equip_name
+var count
 
 func _setup(item, is_weapon):
 	stored_item = item
 	equip_name = $Panel/Equip_Name
+	count = $HBoxContainer/Item_Count
 	var description = $"Panel/Equip_Name/Equip Description"
 	var stats_ = $Panel/Equip_Name/Stats
 	var equip_texture = $TextureRect
@@ -18,6 +20,7 @@ func _setup(item, is_weapon):
 	equip_name.text = item_info["name"]
 	description.text = item_info["description"]
 	equip_texture.texture = item_info["texture"]
+	count.text = str(item_info["stack"])
 	stats_.text = item.get_stat_string()
 	
 func _gui_input(event):

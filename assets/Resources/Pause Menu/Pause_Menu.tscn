@@ -182,9 +182,6 @@ offset_top = 48.96
 offset_right = -186.30368
 offset_bottom = 48.96005
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1634140384]
-position = Vector2(25, 77)
-
 [node name="Panel" type="Panel" parent="." unique_id=1925848033]
 visible = false
 z_index = -2

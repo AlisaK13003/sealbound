@@ -38,6 +38,7 @@ AudioManager="*uid://d1p48eva8ookp"
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=true
 
 [editor]
@@ -234,12 +235,14 @@ rendering/text_driver="ICU / HarfBuzz / Graphite (Built-in)"
 
 [physics]
 
+common/physics_jitter_fix=2.0
 3d/physics_engine="Jolt Physics"
+common/physics_interpolation=true
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 textures/default_filters/use_nearest_mipmap_filter=true
+camera/depth_of_field/depth_of_field_use_jitter=true
 2d/snap/snap_2d_transforms_to_pixel=true
-2d/snap/snap_2d_vertices_to_pixel=true

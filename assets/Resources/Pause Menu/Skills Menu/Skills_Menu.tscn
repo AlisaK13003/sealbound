@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_4rhb6"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_5ilom"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="3_atayv"]
-[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="3_pj0c7"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="3_pj0c7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 

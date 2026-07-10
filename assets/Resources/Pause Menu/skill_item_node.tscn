@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://o73bvqxacin1"]
+
+[ext_resource type="Script" uid="uid://bvi3lb6awnghf" path="res://assets/Resources/Pause Menu/skill_item_node_controller.gd" id="1_xp63b"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_jc2l0"]
+
+[node name="SkillItemNode" type="Control" unique_id=2034026534]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xp63b")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=599143757]
+layout_mode = 0
+offset_top = 7.0
+offset_right = 173.0
+offset_bottom = 30.0
+texture = ExtResource("2_jc2l0")
+
+[node name="Items" type="Control" parent="." unique_id=603768657]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items" unique_id=2041525699]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Items/HBoxContainer" unique_id=952999029]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Items/HBoxContainer" unique_id=394115279]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Altho eh Pinto"
+
+[node name="Label" type="Label" parent="Items/HBoxContainer" unique_id=1728308324]
+layout_mode = 2
+text = "x99"
+
+[node name="Skills" type="Control" parent="." unique_id=1532196743]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Skills" unique_id=884722011]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Skills/HBoxContainer" unique_id=1518558764]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Skills/HBoxContainer" unique_id=1159200437]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Cr owdbreker"
+
+[node name="Label" type="Label" parent="Skills/HBoxContainer" unique_id=1370604641]
+layout_mode = 2
+text = "5 BP"

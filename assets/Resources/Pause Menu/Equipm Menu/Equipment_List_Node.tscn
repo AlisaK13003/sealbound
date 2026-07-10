@@ -100,3 +100,21 @@ offset_bottom = 54.0
 texture = ExtResource("3_7bvmf")
 stretch_mode = 2
 flip_h = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=685924854]
+layout_mode = 0
+offset_left = 214.0
+offset_top = -7.0
+offset_right = 254.0
+offset_bottom = 33.0
+
+[node name="Item_Count2" type="Label" parent="HBoxContainer" unique_id=60406209]
+layout_mode = 2
+text = "x"
+horizontal_alignment = 2
+
+[node name="Item_Count" type="Label" parent="HBoxContainer" unique_id=1362304411]
+custom_minimum_size = Vector2(25.755, 0)
+layout_mode = 2
+text = "99x"
+horizontal_alignment = 2

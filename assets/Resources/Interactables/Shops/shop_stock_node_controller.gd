@@ -67,7 +67,8 @@ func _setup(thing, discount, is_sell_node_):
 		if GlobalCombatInformation.search_for_thing(thing) == null:
 			self.queue_free()
 			return
-	thing_in_inventory.text = str(GlobalCombatInformation.search_for_thing(thing).stack)
+	if GlobalCombatInformation.search_for_thing(thing) != null:
+		thing_in_inventory.text = str(GlobalCombatInformation.search_for_thing(thing).stack)
 
 func _ready():
 	GlobalCombatInformation.equipment_added.connect(update_everything)

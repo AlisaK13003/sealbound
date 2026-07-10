@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://m4g35580f06k"]
+
+[ext_resource type="Script" uid="uid://bsut778c7sfq3" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/skill_item_menu_controller.gd" id="1_tuohm"]
+[ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="2_ery3k"]
+
+[node name="SkillItemMenu" type="Control" unique_id=946804038]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tuohm")
+
+[node name="Panel" type="Panel" parent="." unique_id=391083354]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ery3k")
+
+[node name="GridContainer" type="GridContainer" parent="Panel" unique_id=555049411]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="Control" parent="." unique_id=1916264620]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=738929062]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

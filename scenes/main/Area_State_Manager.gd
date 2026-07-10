@@ -47,6 +47,7 @@ func swap_scene(scene_to_remove = null):
 
 func _perform_swap_scene(scene_to_remove = null):
 	currently_transitioning = true
+	Global.time_paused = true
 	var scene_to_swap_to: Node = null
 	
 	if scene_to_remove != null:
@@ -73,13 +74,15 @@ func _perform_swap_scene(scene_to_remove = null):
 	get_tree().root.add_child(scene_to_swap_to)
 	
 	scene_to_swap_to.swap_to_me()
-	
+	AudioManager.stop_bgm()
 	get_tree().current_scene = scene_to_swap_to
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
+	print(scene_to_swap_to.scene_file_path)
+	
 	active_scene = scene_to_swap_to
 	Global.current_loading_zone = "" 
 	currently_transitioning = false
-	
+	Global.time_paused = false

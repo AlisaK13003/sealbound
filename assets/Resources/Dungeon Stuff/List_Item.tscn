@@ -91,6 +91,9 @@ theme_override_constants/shadow_offset_y = 1
 text = "Potion"
 vertical_alignment = 1
 
+[node name="Item_Count" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=476639380]
+layout_mode = 2
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=577751092]
 visible = false
 position = Vector2(-19.2, 21)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_26prq"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_d3o0m"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_n5n1p"]
-[ext_resource type="SpriteFrames" uid="uid://cbtk43ca1obs0" path="res://assets/characters/lyra/Lyra_dungeon_animation.tres" id="4_26prq"]
+[ext_resource type="SpriteFrames" uid="uid://c6rujn44womum" path="res://assets/characters/lyra/Lyra_Dungeon_Animations.tres" id="4_uwea6"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_7rixd"]
 [ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_d3o0m"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_4bmwk"]
@@ -185,11 +185,12 @@ stored_charm = ExtResource("6_uwea6")
 stored_boots = ExtResource("5_d3o0m")
 stored_chestplate = ExtResource("7_7rixd")
 combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01"), SubResource("Resource_vwpng")])
-sprite_frames = ExtResource("4_26prq")
+sprite_frames = ExtResource("4_uwea6")
 idle_speed = 0.2
+death_speed = 0.5
 walk_speed = 0.7
+attack_speed = Array[float]([0.5, 0.5])
 sprite_scale = 0.007
 sprite_offset = Vector2(-38, -8)
-equip_sprite_offset = Vector2(-12, 17)
 bond_level = 1
 metadata/_custom_type_script = "uid://125iickqse23"

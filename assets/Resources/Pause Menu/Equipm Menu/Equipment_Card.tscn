@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vhrwi7dkb0b3"]
 
-[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/MC_Dungeon_Animation.tres" id="1_2kwft"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="1_2kwft"]
 [ext_resource type="Script" uid="uid://coqs4t1ikf0rf" path="res://assets/Resources/Pause Menu/Equipm Menu/equipment_card_controller.gd" id="1_yi0mm"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_1itkr"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_yi0mm"]
@@ -383,17 +383,20 @@ theme_override_constants/v_separation = 5
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, 1.185)
+theme_override_constants/separation = -29
 
 [node name="Health" type="Label" parent="GridContainer3/HBoxContainer" unique_id=1053589819]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
 theme_override_fonts/font = ExtResource("9_afx7m")
-text = "Health:"
+text = "Max Health:"
 horizontal_alignment = 2
 
 [node name="Health2" type="Label" parent="GridContainer3/HBoxContainer" unique_id=1987374576]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-5.145, 0)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
 theme_override_fonts/font = ExtResource("9_afx7m")
 text = "100/100"
@@ -403,7 +406,7 @@ horizontal_alignment = 2
 texture_filter = 1
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(33.555, 1.625)
+offset_transform_position = Vector2(61.16, 1.625)
 offset_transform_scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_gdc6p")
 stretch_mode = 2
@@ -411,6 +414,8 @@ stretch_mode = 2
 [node name="Health3" type="Label" parent="GridContainer3/HBoxContainer" unique_id=429693640]
 custom_minimum_size = Vector2(85.73, 0)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(61.31, 0)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5176471)
 theme_override_fonts/font = ExtResource("9_afx7m")
 text = "100/100"

@@ -67,14 +67,18 @@ text = "x1"
 [node name="CheckBox" type="CheckBox" parent="." unique_id=905592332]
 layout_mode = 0
 offset_left = 509.0
-offset_top = 295.0
+offset_top = 335.0
 offset_right = 640.0
-offset_bottom = 321.0
+offset_bottom = 361.0
 text = "Disable Enemies"
 
 [node name="PauseMenu" parent="." unique_id=569257666 node_paths=PackedStringArray("mini_map_handler") instance=ExtResource("4_ufm7g")]
 visible = false
 layout_mode = 1
+offset_left = 295.0
+offset_top = 77.0
+offset_right = -345.0
+offset_bottom = -282.99994
 tab_names = Array[String](["M", "P", "S", "E", "I", "Q", "S"])
 is_dungeon_menu = true
 mini_map_handler = NodePath("../MiniMap")

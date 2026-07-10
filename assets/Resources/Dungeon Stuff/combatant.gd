@@ -65,8 +65,6 @@ func heal(skill_used: moves, person_who_used_skill: generic_combatants):
 		actual_stats.health = actual_stats.max_health
 	GlobalCombatInformation.check_player_values.emit()
 	
-
-
 func export_to_JSON():
 	return {
 		"path": resource_path,
@@ -97,6 +95,9 @@ func gather_actual_stats():
 	actual_stats = add_up_stats()
 	
 func add_up_stats() -> stats:
+	if is_combatant_enemy:
+		return combatant_stats
+	
 	var step_1: stats = add_stats(stored_equipment.equipment_stats, stored_boots.equipment_stats)
 	var step_2: stats = add_stats(stored_chestplate.equipment_stats, stored_charm.equipment_stats)
 	var step_3: stats = add_stats(step_1, step_2)

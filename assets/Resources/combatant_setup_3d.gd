@@ -144,8 +144,9 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	if not combatant.is_combatant_enemy:
 		parent_ref.gui.get_player_portrait(child_num).update_statuses(self)
 	is_defending = false
-	combatant.combatant_stats.health = combatant.combatant_stats.health
 	stored_combatant = combatant
+	if stored_combatant.is_combatant_enemy:
+		stored_combatant.gather_actual_stats()
 	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
 
 	animated_sprite.offset = combatant.sprite_offset
@@ -174,12 +175,12 @@ func update_health(change_health_value, what_action = null):
 			while(current_damage is int or current_damage != "MISS"):
 				if is_defending and change_health_value > 0:
 					update_portrait._update_health(current_damage * 0.6)
-					stored_combatant.combatant_stats.health -= current_damage * 0.6
+					stored_combatant.actual_stats.health -= current_damage * 0.6
 					await combatant_ui_.update_damage_label(current_damage * 0.6, what_action)
 				else:
 					if update_portrait != null:
 						update_portrait._update_health(current_damage)
-					stored_combatant.combatant_stats.health -= current_damage
+					stored_combatant.actual_stats.health -= current_damage
 					await combatant_ui_.update_damage_label(current_damage, what_action)
 				await get_tree().create_timer(1.5)
 				change_health_value.pop_front()
@@ -195,24 +196,24 @@ func update_health(change_health_value, what_action = null):
 			var damage_to_take = int(ceili(change_health_value))
 			if is_defending:
 				update_portrait._update_health(damage_to_take * 0.6)
-				stored_combatant.combatant_stats.health -= damage_to_take * 0.6
+				stored_combatant.actual_stats.health -= damage_to_take * 0.6
 				await combatant_ui_.update_damage_label(damage_to_take * 0.6, what_action)
 			else:
 				if update_portrait != null:
 					update_portrait._update_health(damage_to_take)
-				stored_combatant.combatant_stats.health -= damage_to_take
+				stored_combatant.actual_stats.health -= damage_to_take
 				await combatant_ui_.update_damage_label(damage_to_take, what_action)
 	else:
 		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
 			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
-			stored_combatant.combatant_stats.health -= damage_to_take
+			stored_combatant.actual_stats.health -= damage_to_take
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	
-	if stored_combatant.combatant_stats.health <= 0:
+	if stored_combatant.actual_stats.health <= 0:
 		await on_death()
 	parent_reference.turn_ended.emit()
 # Combat related stuff
@@ -234,6 +235,10 @@ func on_death():
 			animated_sprite.speed_scale = 1.5
 			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
 			await animated_sprite.animation_finished
+		else:
+			animated_sprite.play("On_Death")
+			animated_sprite.speed_scale = 1.5
+			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.gui.get_player_portrait(child_number).update_statuses(self)
 	else:
@@ -338,27 +343,27 @@ func obtain_stat(what_stat):
 		# Attack
 		0:
 			var ret_stat = obtain_stat_alteration(stats.ATTACK)
-			return stored_combatant.combatant_stats.attack * ret_stat if (ret_stat != 0) else 1
+			return stored_combatant.actual_stats.attack * ret_stat if (ret_stat != 0) else 1
 		# Defense
 		1:
 			var ret_stat = obtain_stat_alteration(stats.DEFENSE)
-			return stored_combatant.combatant_stats.defense * ret_stat if (ret_stat != 0) else 1
+			return stored_combatant.actual_stats.defense * ret_stat if (ret_stat != 0) else 1
 		# Evasion
 		3:
 			var ret_stat = obtain_stat_alteration(stats.EVASION)
-			return stored_combatant.combatant_stats.evasion * ret_stat if (ret_stat != 0) else 1
+			return stored_combatant.actual_stats.evasion * ret_stat if (ret_stat != 0) else 1
 		# Crit Chance
 		4:
 			var ret_stat = obtain_stat_alteration(stats.CRIT_CHANCE)
-			return (ret_stat * stored_combatant.combatant_stats.luck) if (ret_stat != 0) else 1
+			return (ret_stat * stored_combatant.actual_stats.luck) if (ret_stat != 0) else 1
 		5: 
 			var ret_stat = obtain_stat_alteration(stats.SPEED)
-			return stored_combatant.combatant_stats.speed * ret_stat if (ret_stat != 0) else 1
+			return stored_combatant.actual_stats.speed * ret_stat if (ret_stat != 0) else 1
 		6:
 			var ret_stat = obtain_stat_alteration(stats.ATTACK)
-			return stored_combatant.combatant_stats.magic * ret_stat if (ret_stat != 0) else 1
+			return stored_combatant.actual_stats.magic * ret_stat if (ret_stat != 0) else 1
 		7:
-			return stored_combatant.combatant_stats.resistance
+			return stored_combatant.actual_stats.resistance
 
 func obtain_stat_alteration(what_stat):
 	match what_stat:
@@ -475,7 +480,7 @@ func attack_animation(what_attack_anim):
 		_:
 			what_attack = "On_Attack_Base"
 	if stored_combatant.attack_speed.size() > 0:
-		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim]
+		animated_sprite.speed_scale = stored_combatant.attack_speed[what_attack_anim if what_attack_anim <= 1 else 0]
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 		await animated_sprite.animation_finished
@@ -507,12 +512,12 @@ func _apply_agro(): print("AGRO")
 func _apply_momentum(): print("momentum")
 func _apply_stun_imm():  print("stun imun")
 func _apply_poison(): 
-	update_health(int(stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
+	update_health(int(stored_combatant.actual_stats.max_health * 0.125), "STATUS")
 	animated_sprite.modulate = Color.PURPLE
 func _apply_burn(): 
-	update_health(int(stored_combatant.combatant_stats.max_health * 0.16), "STATUS")
+	update_health(int(stored_combatant.actual_stats.max_health * 0.16), "STATUS")
 	animated_sprite.modulate = Color.FIREBRICK
 func _apply_regen():  
-	update_health(int(-1 * stored_combatant.combatant_stats.max_health * 0.125), "STATUS")
+	update_health(int(-1 * stored_combatant.actual_stats.max_health * 0.125), "STATUS")
 	
 func stat_does_nothing(): return

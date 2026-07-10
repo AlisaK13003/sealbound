@@ -50,7 +50,7 @@ func teleport_player_to_spawn():
 	#	spawn_point = spawn_point.get_child(0)
 	spawn_point.is_disabled = true
 	player_node.global_position = spawn_point.global_position
-	_apply_pending_player_spawn_position()
+	#_apply_pending_player_spawn_position()
 
 func _apply_pending_player_spawn_position() -> void:
 	if Global.has_pending_player_spawn_position and player_node != null:
@@ -68,7 +68,7 @@ func prepare_lyra_tavern_cutscene() -> void:
 func refresh_player_camera() -> void:
 	if player_node == null:
 		return
-	var camera = player_node.get_node_or_null("Camera2D")
+	var camera = get_node_or_null("UniversalCamera")
 	if camera == null:
 		return
 	if camera.has_method("reset_smoothing"):
@@ -115,11 +115,7 @@ func is_loading_zone_node(node: Node) -> bool:
 	return node.get("is_disabled") != null
 
 func set_camera_limits():
-	if player_node == null:
-		push_warning("EnvironmentHandler: Player node is not assigned in %s." % scene_file_path)
-		return
-
-	var camera := player_node.get_node_or_null("Camera2D") as Camera2D
+	var camera := get_node_or_null("UniversalCamera") as Camera2D
 	if camera == null:
 		push_warning("EnvironmentHandler: Player camera was not found in %s." % scene_file_path)
 		return

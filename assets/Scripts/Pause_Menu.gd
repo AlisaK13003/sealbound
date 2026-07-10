@@ -33,7 +33,9 @@ func _setup(dungeon_instance, generated_rooms):
 		new_map.hide_mini_map()
 		new_map.open_full_screen()
 		mini_map = new_map
-		
+	
+	windows.get_child(1).visible = false
+	windows.get_child(0).visible = true
 	menu_tab.cycle_input(null, -10)
 
 func _reset():

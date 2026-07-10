@@ -1,0 +1,131 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://bw7gdicjlyjpy"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_ugwqx"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_7yrul"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_tlfsy"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="4_ugwqx"]
+[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_56mnt"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_vafx3"]
+[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="7_p13j7"]
+[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="8_fkcbn"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="9_jlbeq"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_5qihp"]
+[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="11_p38ga"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nht1f"]
+load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ltybf"]
+load_path = "res://.godot/imported/Crowd_Breaker.png-04e109804fdd4ed04f0fd775c31a4815.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0kyw"]
+load_path = "res://.godot/imported/Toggled_Crowd_Breaker.png-17d6b74b6ff203aad340fd0c46b1f4b1.ctex"
+
+[sub_resource type="Resource" id="Resource_s2epw"]
+script = ExtResource("1_ugwqx")
+move_name = "Crowdbreaker"
+move_description = "Damage all enemies. Enemies now target Lyra"
+attack_power = 2
+multi_hit = true
+guaranteed_hit_count = 2
+max_hit_count = 2
+status_type = 983040
+removes_status = null
+chance_of_status_condition = 0.75
+is_skill_aoe = true
+normal_sprite = SubResource("CompressedTexture2D_ltybf")
+pressed_sprite = SubResource("CompressedTexture2D_p0kyw")
+disabled_sprite = SubResource("CompressedTexture2D_nht1f")
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_53q4p"]
+script = ExtResource("1_ugwqx")
+attack_power = null
+mana_cost = 2
+does_status = true
+status_type = 24
+removes_status = null
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_ms118"]
+script = ExtResource("2_7yrul")
+max_health = 75
+health = 5
+attack = 80
+defense = 25
+magic = 28
+resistance = 90
+speed = 40
+luck = 5
+evasion = 10
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hnmxi"]
+load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yw31"]
+atlas = SubResource("CompressedTexture2D_hnmxi")
+region = Rect2(50, 4, 42, 67)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qv10l"]
+load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq8kc"]
+atlas = SubResource("CompressedTexture2D_qv10l")
+region = Rect2(98, 4, 42, 67)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7p5cp"]
+load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rvkf"]
+atlas = SubResource("CompressedTexture2D_7p5cp")
+region = Rect2(146, 4, 42, 67)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_bufki"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_4yw31")
+frame_1/texture = SubResource("AtlasTexture_hq8kc")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_8rvkf")
+frame_2/duration = 1.0
+
+[sub_resource type="Resource" id="Resource_7q5rk"]
+script = ExtResource("2_7yrul")
+defense = 30
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_onp7b"]
+script = ExtResource("9_jlbeq")
+equipment_name = "Beanie"
+equipment_sprite = ExtResource("8_fkcbn")
+equipment_stats = SubResource("Resource_7q5rk")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"
+
+[sub_resource type="Resource" id="Resource_8byxm"]
+script = ExtResource("10_5qihp")
+weapon_name = "Lucifer's Blade"
+weapon_texture = ExtResource("11_p38ga")
+weapon_attack = 30
+attack_accuracy = 90
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
+
+[resource]
+script = ExtResource("3_tlfsy")
+combatant_name = "MC"
+party_member_portrait = SubResource("AnimatedTexture_bufki")
+combatant_stats = SubResource("Resource_ms118")
+stored_weapon = SubResource("Resource_8byxm")
+stored_equipment = SubResource("Resource_onp7b")
+stored_charm = ExtResource("6_vafx3")
+stored_boots = ExtResource("5_56mnt")
+stored_chestplate = ExtResource("7_p13j7")
+combatant_skills = Array[ExtResource("1_ugwqx")]([SubResource("Resource_s2epw"), SubResource("Resource_53q4p")])
+sprite_frames = ExtResource("4_ugwqx")
+idle_speed = 1.0
+walk_speed = 0.7
+attack_speed = Array[float]([1.0, 1.5])
+sprite_scale = 0.007
+sprite_offset = Vector2(-28, 14)
+is_MC = true
+metadata/_custom_type_script = "uid://125iickqse23"

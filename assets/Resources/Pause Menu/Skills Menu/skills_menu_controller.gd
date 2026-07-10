@@ -83,7 +83,7 @@ func _tab_changed(tab):
 				
 			target_member.heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
 			menu_tabs.get_child(caster_index).update_damage_label(heal_amount)
-			GlobalCombatInformation.current_BP -= skill_used.mana_cost
+			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
 			_revert_to_caster() 
 			return
 			
@@ -101,7 +101,7 @@ func _tab_changed(tab):
 					heal_amount = GlobalCombatInformation.all_party_slots[person].actual_stats.max_health
 				GlobalCombatInformation.all_party_slots[person].heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
 				menu_tabs.get_child(person).update_damage_label(heal_amount)
-			GlobalCombatInformation.current_BP -= skill_used.mana_cost
+			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
 			_revert_to_caster() 
 			return
 			
@@ -121,7 +121,7 @@ func _tab_changed(tab):
 			target_member.heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
 			menu_tabs.get_child(tab).update_damage_label(heal_amount)
 			
-			GlobalCombatInformation.current_BP -= skill_used.mana_cost
+			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
 			
 			_revert_to_caster() 
 			return
@@ -141,7 +141,7 @@ func _revert_to_caster() -> void:
 	$Panel/Label.text = "Use"
 
 	for child in menu_tabs.get_children():
-		child.update_highlight(child.get_index() == caster_index) 
+		child.highlight(child.get_index() == caster_index) 
 		_set_node_mouse_disabled(child, false)
 		
 	_is_snapping_back = true

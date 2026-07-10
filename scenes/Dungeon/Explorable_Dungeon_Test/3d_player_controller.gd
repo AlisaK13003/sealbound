@@ -140,11 +140,12 @@ var last_direction: String = "down"
 
 var anim_name: String = "idle"
 
+var last_animation = "idle"
 func sync_animation(input_dir: Vector2) -> void:
 	if input_dir == Vector2.ZERO:
-		anim_name = "idle"
+		anim_name = last_animation
 	else:
-		if abs(input_dir.x) > abs(input_dir.y):
+		if abs(input_dir.x) >= abs(input_dir.y):
 			if input_dir.x > 0:
 				anim_name = "walk_right"
 			else:
@@ -159,6 +160,6 @@ func sync_animation(input_dir: Vector2) -> void:
 		animated_sprite.flip_h = true
 	else:
 		animated_sprite.flip_h = false
-		
+	last_animation = anim_name
 	if animated_sprite.animation != anim_name:
 		animated_sprite.play(anim_name)

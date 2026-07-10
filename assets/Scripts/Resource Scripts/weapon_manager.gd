@@ -20,6 +20,7 @@ class_name weapon
 func export_to_JSON():
 	return {
 		"path": resource_path,
+		"stack": stack
 	}
 
 func return_stuff():
@@ -32,6 +33,7 @@ func return_stuff():
 		"accuracy": attack_accuracy,
 		"crit chance": weapon_crit_chance,
 		"crit damage": weapon_crit_damage,
+		"stack": stack
 	}
 
 func get_stat_string():

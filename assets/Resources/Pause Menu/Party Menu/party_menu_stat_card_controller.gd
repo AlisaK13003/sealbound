@@ -43,6 +43,8 @@ func _setup(combatant: generic_combatants = null):
 		$Label/CheckBox.disabled = false
 		
 	stored_combatant = combatant
+	if GlobalCombatInformation.in_dungeon:
+		$Label/CheckBox.disabled = true
 	
 
 func _on_check_box_toggled(toggled_on):

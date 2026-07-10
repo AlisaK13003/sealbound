@@ -71,4 +71,5 @@ class_name Items
 func export_to_JSON():
 	return {
 		"path": resource_path,
+		"stack": stack
 	}

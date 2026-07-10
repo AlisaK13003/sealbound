@@ -22,7 +22,22 @@ func _setup(skill: moves, skill_num, parent_ref):
 		self.modulate = Color.GRAY
 	else:
 		can_be_selected = true
-	
+
+func highlight(should_highlight):
+	if should_highlight:
+		can_be_selected = true
+		p_ref.update_description(held_skill.move_description)
+		selection_arrow.visible = true
+		selection_arrow.play("default")
+		p_ref.update_selected_child(s_num)
+	else:
+		can_be_selected = false
+		selection_arrow.visible = false
+		selection_arrow.stop()
+
+func was_hovered():
+	return
+
 func select():
 	if not can_be_unselected:
 		return

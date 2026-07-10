@@ -170,6 +170,8 @@ func scroll_down():
 	update_selected_item()
 
 func update_selected_item():
+	if not panel:
+		return
 	if panel.get_child_count() == 0:
 		return
 	for item in panel.get_child(0).get_children():

@@ -12,6 +12,8 @@ func _setup(move: moves):
 	$HBoxContainer/Label2.text = str(move.mana_cost) + " BP"
 	$AnimatedSprite2D.play("default")
 
+
+
 func update_selection(selected):
 	if selected:
 		$AnimatedSprite2D.visible = true

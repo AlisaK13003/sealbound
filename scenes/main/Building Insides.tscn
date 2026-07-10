@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bvq6kwakc5ilq" path="res://assets/tile sheets/Building_Insides_3_.0-sheet.png" id="10_j3ov1"]
 [ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="10_sera"]
 [ext_resource type="Texture2D" uid="uid://676sprefi7p8" path="res://assets/tile sheets/cauldron.png" id="13_5q4q6"]
+[ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="17_3xqff"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0o3x6"]
 texture = ExtResource("1_r1w2i")
@@ -4882,7 +4883,7 @@ tile_set = SubResource("TileSet_bi516")
 
 [node name="Player" parent="." unique_id=355956441 instance=ExtResource("3_f5vtb")]
 z_index = 5
-position = Vector2(815, 23)
+position = Vector2(471, -2144)
 scale = Vector2(0.75, 0.75)
 move_speed = 200.0
 camera_zoom = Vector2(0.7, 0.75)
@@ -4891,7 +4892,7 @@ camera_zoom = Vector2(0.7, 0.75)
 y_sort_enabled = true
 
 [node name="LoadingZone" parent="Bedroom" unique_id=1369680928 instance=ExtResource("4_yn88j")]
-position = Vector2(1872, -964)
+position = Vector2(431, -4228)
 disable_teleport = true
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Bedroom"
@@ -4907,3 +4908,6 @@ speed = 80.0
 default_z_index = 12
 counter_z_index = 9
 use_counter_draw_order = true
+
+[node name="UniversalCamera" parent="." unique_id=1015878525 node_paths=PackedStringArray("target") instance=ExtResource("17_3xqff")]
+target = NodePath("../Player")

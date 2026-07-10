@@ -69,10 +69,13 @@ func _ready():
 	for child in quest_container.get_children():
 		child._setup()
 		for child_ in child.get_children():
-			if child_.get_child(0).get_index() == 0:
-				child_.get_child(0).highlight(true)
-			else:
-				child_.get_child(0).highlight(false)
+			if child_ == null or child_.get_child_count() == 0:
+				break
+			if child_.get_child(0) != null:
+				if child_.get_child(0).get_index() == 0:
+					child_.get_child(0).highlight(true)
+				else:
+					child_.get_child(0).highlight(false)
 		child.disable()
 		
 	quest_type_type_changed(0)

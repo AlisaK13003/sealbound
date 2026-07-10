@@ -138,6 +138,8 @@ func add_equipment_to_list(equip, is_weapon):
 			all_held_weapons.append(equip)
 		else:
 			all_held_equipment.append(equip)
+		if equip.stack == 0:
+			equip.stack = 1
 	equipment_added.emit()
 
 func remove_thing(thing_to_remove, amount_to_remove):
@@ -167,9 +169,9 @@ func add_equipment(player_index, equip, is_weapon):
 	var ret_equipment = null
 	if is_weapon:
 		if all_party_slots[player_index].stored_weapon != null:
-			add_equipment_to_list(equip, is_weapon)
+			add_equipment_to_list(all_party_slots[player_index].stored_weapon, is_weapon)
 			ret_equipment = all_party_slots[player_index].stored_weapon
-		all_held_weapons.erase(equip)
+		remove_thing(equip, 1)
 		all_party_slots[player_index].stored_weapon = equip
 	else:
 		var equip_: equipment = equip
@@ -177,32 +179,33 @@ func add_equipment(player_index, equip, is_weapon):
 			# Helmet
 			0:
 				if all_party_slots[player_index].stored_equipment != null:
-					add_equipment_to_list(equip, is_weapon)
+					add_equipment_to_list(all_party_slots[player_index].stored_equipment, is_weapon)
 
 					ret_equipment = all_party_slots[player_index].stored_equipment
+				remove_thing(equip_, 1)
 				all_held_equipment.erase(equip_)
 				all_party_slots[player_index].stored_equipment = equip
 				
 			# Chestplate
 			1:
 				if all_party_slots[player_index].stored_chestplate != null:
-					add_equipment_to_list(equip, is_weapon)
+					add_equipment_to_list(all_party_slots[player_index].stored_chestplate, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_chestplate
-				all_held_equipment.erase(equip_)
+				remove_thing(equip_, 1)
 				all_party_slots[player_index].stored_chestplate = equip
 			# Boots
 			2:
 				if all_party_slots[player_index].stored_boots != null:
-					add_equipment_to_list(equip, is_weapon)
+					add_equipment_to_list(all_party_slots[player_index].stored_boots, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_boots
-				all_held_equipment.erase(equip_)
+				remove_thing(equip_, 1)
 				all_party_slots[player_index].stored_boots = equip.duplicate()
 			# Charm
 			3:
 				if all_party_slots[player_index].stored_charm != null:
-					add_equipment_to_list(equip, is_weapon)
+					add_equipment_to_list(all_party_slots[player_index].stored_charm, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_charm
-				all_held_equipment.erase(equip_)
+				remove_thing(equip_, 1)
 				all_party_slots[player_index].stored_charm = equip
 	for member in all_party_slots:
 		member.gather_actual_stats()
@@ -260,7 +263,7 @@ func add_quest(quest_: quest):
 	check_quest_progress.emit()
 
 func _ready():
-	all_party_slots.append(load("res://assets/characters/player/MC_Combatant_Information.tres"))
+	all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
@@ -502,7 +505,7 @@ func update_stored_combat_information():
 
 func load_saved_data(data):
 	#all_party_slots.clear()
-	active_party_slots.clear()
+	#active_party_slots.clear()
 	all_held_equipment.clear()
 	all_held_weapons.clear()
 	all_held_items.clear()
@@ -517,14 +520,23 @@ func load_saved_data(data):
 		#all_party_slots.append(new_party_member)
 
 	for equipment_ in data["equipment_slots"].values():
-		all_held_equipment.append(load(equipment_["path"]))
+		var new_equipment = load(equipment_["path"])
+		add_equipment_to_list(new_equipment, false)
+		var index = search_for_index_of_thing(new_equipment)
+		all_held_equipment[index].stack = equipment_["stack"]
 
 	for weapon_ in data["weapon_slots"].values():
-		all_held_weapons.append(load(weapon_["path"]))
+		var new_equipment = load(weapon_["path"])
+		add_equipment_to_list(new_equipment, true)
+		var index = search_for_index_of_thing(new_equipment)
+		all_held_equipment[index].stack = weapon_["stack"]
 
 	for item_ in data["item_slots"].values():
-		all_held_items.append(load(item_["path"]))
-
+		var new_item = load(item_["path"])
+		add_item(new_item)
+		var index = search_for_index_of_thing(new_item)
+		all_held_equipment[index].stack = item_["stack"]
+		
 	for a_quest in data["active_quests"].values():
 		active_quests.append(load(a_quest["path"]))
 
@@ -544,8 +556,12 @@ func load_saved_data(data):
 			if i >= 0 and i < all_party_slots.size():
 				active_party_slots.append(all_party_slots[i])
 				
-func export_to_JSON():
+			
+	calculate_BP()
+	for combatant in all_party_slots:
+		combatant.gather_actual_stats()
 	
+func export_to_JSON():
 	var ret_dict: Dictionary = {}
 	var player_slots: Dictionary = {}
 	var equipment_slots: Dictionary = {}
@@ -581,7 +597,9 @@ func export_to_JSON():
 
 	var active_indices: Array = []
 	for member in active_party_slots:
-		active_indices.append(all_party_slots.find(member))
+		var exists = all_party_slots.find_custom(func(person: generic_combatants) -> bool: return member.combatant_name == person.combatant_name)
+		if exists != -1:
+			active_indices.append(exists)
 
 	ret_dict["player_slots"] = player_slots
 	ret_dict["active_slots"] = active_indices
