@@ -4827,6 +4827,12 @@ z_index = 12
 position = Vector2(105, -202.00002)
 scale = Vector2(0.28000003, 0.28000003)
 
+[node name="Scene1_MCSpawn" type="Marker2D" parent="Infirmary" unique_id=547813296]
+position = Vector2(-57, -180)
+
+[node name="Scene1_SeraSpawn" type="Marker2D" parent="Infirmary" unique_id=140463215]
+position = Vector2(-38, -181)
+
 [node name="Tavern" type="Node2D" parent="." unique_id=1826999818]
 y_sort_enabled = true
 position = Vector2(-1446, -3269)
@@ -4886,7 +4892,6 @@ z_index = 5
 position = Vector2(471, -2144)
 scale = Vector2(0.75, 0.75)
 move_speed = 200.0
-camera_zoom = Vector2(0.7, 0.75)
 
 [node name="Bedroom" type="Node2D" parent="." unique_id=938564508]
 y_sort_enabled = true

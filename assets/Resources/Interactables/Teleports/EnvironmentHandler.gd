@@ -32,6 +32,10 @@ func teleport_player_to_spawn():
 	if player_node == null:
 		return
 
+	if Global.has_pending_player_spawn_position:
+		_apply_pending_player_spawn_position()
+		return
+
 	if Global.current_loading_zone == "":
 		_apply_pending_player_spawn_position()
 		return
