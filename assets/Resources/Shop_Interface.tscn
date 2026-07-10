@@ -42,11 +42,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_j2x6r")
-tab_icons = Array[Texture2D]([ExtResource("2_p2ovs"), ExtResource("3_xultm"), ExtResource("6_iki5b"), ExtResource("4_ri226"), ExtResource("5_ice4d"), ExtResource("7_1qi33")])
+tab_icons = Array[Texture2D]([ExtResource("2_p2ovs"), ExtResource("3_xultm"), ExtResource("6_iki5b"), ExtResource("4_ri226"), ExtResource("5_ice4d"), ExtResource("7_1qi33"), ExtResource("7_1qi33")])
 shop_stock = [SubResource("Resource_2mefq"), ExtResource("9_eqlyk"), ExtResource("11_baboj"), ExtResource("12_2mefq"), ExtResource("13_pjh6y")]
 shop_discount = 0.2
-is_player_selling = true
-item_types_to_sell = 63
+item_types_to_sell = 127
 
 [node name="Background" type="Control" parent="." unique_id=1690320233]
 anchors_preset = 0
@@ -143,7 +142,7 @@ offset_bottom = 84.25
 scale = Vector2(0.415, 0.415)
 theme_override_constants/h_separation = 67
 theme_override_constants/v_separation = 9
-columns = 6
+columns = 7
 
 [node name="Stock_Container" type="Control" parent="." unique_id=694637958]
 anchors_preset = 0
@@ -173,6 +172,10 @@ visible = false
 layout_mode = 1
 
 [node name="Items" parent="Stock_Container" unique_id=132450831 instance=ExtResource("19_eoxju")]
+visible = false
+layout_mode = 1
+
+[node name="Valuables" parent="Stock_Container" unique_id=652524248 instance=ExtResource("19_eoxju")]
 visible = false
 layout_mode = 1
 

@@ -45,6 +45,8 @@ func _reset():
 			string_type = "Charms"
 		5:
 			string_type = "Items"
+		6:
+			string_type = "Valuables"
 		
 	_setup(string_type, held_stock, discount, currently_selling)
 
@@ -73,6 +75,8 @@ func _setup(stock_type, list_of_stock, discount, selling):
 			type = 4
 		"Items":
 			type = 5
+		"Valuables":
+			type = 6
 		_:
 			type = 0
 	if not selling:
@@ -84,8 +88,12 @@ func _setup(stock_type, list_of_stock, discount, selling):
 		$Buying.visible = false
 		$Selling/HBoxContainer/Label.text = stock_type
 	for thing in list_of_stock:
-		if thing is Items and type == 5:
-			_add_node(thing)
+		if thing is Items:
+			if thing.what_is_it & 010 and type == 6:
+				_add_node(thing)
+			elif thing.what_is_it & 001 and type == 5:
+				_add_node(thing)
+			continue
 		elif thing is equipment and (type != 5 and type != 0):
 			match type:
 				1:

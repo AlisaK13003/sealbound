@@ -16,7 +16,7 @@ var persistent_sell_inventory
 var tabs : Array[String]
 @export var is_player_selling: bool = false
 
-@export_flags("Weapon", "Item", "Helmets", "Chestplate", "Boots", "Charms") var item_types_to_sell = 0
+@export_flags("Weapon", "Item", "Helmets", "Chestplate", "Boots", "Charms", "Valuables") var item_types_to_sell = 0
 
 @onready var weapon_stock_container = $Stock_Container/Weapons
 @onready var helmet_stock_container = $Stock_Container/Helmets
@@ -24,6 +24,7 @@ var tabs : Array[String]
 @onready var boot_stock_container = $Stock_Container/Boots
 @onready var charm_stock_container = $Stock_Container/Charms
 @onready var item_stock_container = $Stock_Container/Items
+@onready var valuables_stock_container = $Stock_Container/Valuables
 
 var scroll_container_path = "res://assets/Resources/Pause Menu/DIY_Scroll_Container.tscn"
 
@@ -68,7 +69,7 @@ func tab_changed(which_tab):
 			child.visible = false
 
 func _setup():
-	tabs = ["Weapons", "Helmets", "Chestplates", "Boots", "Charms", "Items"]
+	tabs = ["Weapons", "Helmets", "Chestplates", "Boots", "Charms", "Items", "Valuables"]
 	
 	if not menu_tabs.selection_changed.is_connected(tab_changed):
 		menu_tabs.selection_changed.connect(tab_changed)
@@ -105,19 +106,22 @@ func _setup():
 		if not found_weapon:
 			menu_tabs.get_child(5).visible = false
 	else:
-		if item_types_to_sell & 000001:
-			menu_tabs.get_child(0).visible = true
-		if item_types_to_sell & 000010:
-			menu_tabs.get_child(1).visible = true
-		if item_types_to_sell & 000100:
-			menu_tabs.get_child(2).visible = true
-		if item_types_to_sell & 001000:
-			menu_tabs.get_child(3).visible = true
-		if item_types_to_sell & 010000:
-			menu_tabs.get_child(4).visible = true
-		if item_types_to_sell & 100000:
-			menu_tabs.get_child(5).visible = true
-
+		#if item_types_to_sell & 0000001:
+		#	menu_tabs.get_child(0).visible = true
+		#if item_types_to_sell & 0000010:
+		#	menu_tabs.get_child(1).visible = true
+		#if item_types_to_sell & 0000100:
+		#	menu_tabs.get_child(2).visible = true
+		#if item_types_to_sell & 0001000:
+		#	menu_tabs.get_child(3).visible = true
+		#if item_types_to_sell & 0010000:
+		#	menu_tabs.get_child(4).visible = true
+		#if item_types_to_sell & 0100000:
+		#	menu_tabs.get_child(5).visible = true
+		#if item_types_to_sell & 1000000:
+		#	menu_tabs.get_child(6).visible = true
+		for child in menu_tabs.get_children():
+			child.visible = true
 
 		for item in GlobalCombatInformation.all_held_valuables:
 			big_list.append(item)
@@ -142,10 +146,11 @@ func _setup():
 			if not stock_container.get_child(child).update_item_description.is_connected(_update_item_description):
 				stock_container.get_child(child).update_item_description.connect(_update_item_description)
 
-	for child in range(stock_container.get_child_count()):
-		if stock_container.get_child(child).stock_container.get_child_count() == 0:
-			stock_container.get_child(child).visible = false
-			menu_tabs.get_child(child).visible = false
+	if not is_player_selling:
+		for child in range(stock_container.get_child_count()):
+			if stock_container.get_child(child).stock_container.get_child_count() == 0:
+				stock_container.get_child(child).visible = false
+				menu_tabs.get_child(child).visible = false
 	$Label.text = str(GlobalCombatInformation.currency_held)
 	menu_tabs.cycle_input(null, -1000)
 	if not GlobalCombatInformation.did_something_with_money.is_connected(update_money_total):
