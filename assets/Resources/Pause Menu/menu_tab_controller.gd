@@ -121,7 +121,10 @@ func cycle_input(event, index, make_noise = false):
 		return
 	if event is InputEventMouseMotion:
 		return
-		
+	
+	if index == current_selection:
+		return
+	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if make_noise:

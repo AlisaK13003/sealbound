@@ -2,7 +2,7 @@ extends Node
 
 class_name state_manager
 
-var hearthwynn_hub_scene: String = "res://scenes/main/Hearthwynn.tscn"
+var hearthwynn_hub_scene: String = "res://scenes/main/hearthwynn.res"
 var cliff_side_scene: String = "res://scenes/main/Cliff Siude.tscn"
 var spooky_forest_scene: String = "res://scenes/main/Forest.tscn"
 var building_insides_scene: String = "res://scenes/main/Building Insides.tscn"

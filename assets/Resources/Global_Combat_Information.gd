@@ -72,10 +72,11 @@ func do_something_with_BP(amount):
 	current_BP = clamp(current_BP + amount, 0, max_BP)
 	did_something_with_BP.emit()
 
-signal did_something_with_money
+signal did_something_with_money(old_amount, difference)
 func update_currency(currency_change):
+	var old_money_count = currency_held
 	currency_held += currency_change
-	did_something_with_money.emit()
+	did_something_with_money.emit(old_money_count, currency_change)
 
 func check_if_member_is_active(combatant: generic_combatants):
 	for combatant_ in active_party_slots:
@@ -84,24 +85,35 @@ func check_if_member_is_active(combatant: generic_combatants):
 	return false
 
 func load_items():
-	var new_item = load("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 	for i in range(15):
-		all_held_items.append(load("res://assets/Resources/Dungeon Stuff/temp_item.tres"))
-		all_held_items.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres"))
+		add_item(load("res://assets/Resources/Dungeon Stuff/temp_item.tres"))
+		add_item(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres"))
 
 func add_item(item_to_add):
 	if item_to_add is Array:
 		for item in item_to_add:
 			if item.what_is_it & 010:
-				all_held_valuables.append(item)
+				if all_held_valuables.find(item) == -1:
+					all_held_valuables.append(item)
+				else:
+					all_held_valuables[all_held_valuables.find(item)].stack += 1
 			else:
-				all_held_items.append(item)
+				if all_held_items.find(item) == -1:
+					all_held_items.append(item)
+				else:
+					all_held_items[all_held_items.find(item)].stack += 1
 		check_quest_progress.emit()
 		return
 	if item_to_add.what_is_it & 010:
-		all_held_valuables.append(item_to_add)
+		if all_held_valuables.find(item_to_add) == -1:
+			all_held_valuables.append(item_to_add)
+		else:
+			all_held_valuables[all_held_valuables.find(item_to_add)].stack += 1
 	else:
-		all_held_items.append(item_to_add)
+		if all_held_items.find(item_to_add) == -1:
+			all_held_items.append(item_to_add)
+		else:
+			all_held_items[all_held_items.find(item_to_add)].stack += 1
 	check_quest_progress.emit()
 
 func equipment_added_to_list(type, is_weapon):
@@ -111,15 +123,51 @@ func equipment_added_to_list(type, is_weapon):
 		all_held_equipment.append(type)
 	equipment_added.emit()
 
-
 signal equipment_added
 signal stats_potentially_updated
 
+func add_equipment_to_list(equip, is_weapon):
+	var index = search_for_index_of_thing(equip)
+	if index != -1:
+		if is_weapon:
+			all_held_weapons[index].stack += 1
+		else:
+			all_held_equipment[index].stack += 1
+	else:
+		if is_weapon:
+			all_held_weapons.append(equip)
+		else:
+			all_held_equipment.append(equip)
+	equipment_added.emit()
+
+func remove_thing(thing_to_remove, amount_to_remove):
+	var index = search_for_thing(thing_to_remove)
+
+	if index != null:
+		var list_to_alter
+		if thing_to_remove is equipment:
+			list_to_alter = all_held_equipment
+		if thing_to_remove is Items:
+			if thing_to_remove.what_is_it & 010:
+				list_to_alter = all_held_equipment
+			elif thing_to_remove.what_is_it & 001:
+				list_to_alter = all_held_items
+			else:
+				list_to_alter = all_held_equipment
+		if thing_to_remove is weapon:
+			list_to_alter = all_held_weapons
+		
+		index.stack -= amount_to_remove
+		if index.stack <= 0:
+			list_to_alter.erase(index)
+		check_quest_progress.emit()
+		equipment_added.emit()
+		
 func add_equipment(player_index, equip, is_weapon):
 	var ret_equipment = null
 	if is_weapon:
 		if all_party_slots[player_index].stored_weapon != null:
-			all_held_weapons.append(all_party_slots[player_index].stored_weapon)
+			add_equipment_to_list(equip, is_weapon)
 			ret_equipment = all_party_slots[player_index].stored_weapon
 		all_held_weapons.erase(equip)
 		all_party_slots[player_index].stored_weapon = equip
@@ -129,7 +177,8 @@ func add_equipment(player_index, equip, is_weapon):
 			# Helmet
 			0:
 				if all_party_slots[player_index].stored_equipment != null:
-					all_held_equipment.append(all_party_slots[player_index].stored_equipment)
+					add_equipment_to_list(equip, is_weapon)
+
 					ret_equipment = all_party_slots[player_index].stored_equipment
 				all_held_equipment.erase(equip_)
 				all_party_slots[player_index].stored_equipment = equip
@@ -137,21 +186,21 @@ func add_equipment(player_index, equip, is_weapon):
 			# Chestplate
 			1:
 				if all_party_slots[player_index].stored_chestplate != null:
-					all_held_equipment.append(all_party_slots[player_index].stored_chestplate)
+					add_equipment_to_list(equip, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_chestplate
 				all_held_equipment.erase(equip_)
 				all_party_slots[player_index].stored_chestplate = equip
 			# Boots
 			2:
 				if all_party_slots[player_index].stored_boots != null:
-					all_held_equipment.append(all_party_slots[player_index].stored_boots)
+					add_equipment_to_list(equip, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_boots
 				all_held_equipment.erase(equip_)
 				all_party_slots[player_index].stored_boots = equip.duplicate()
 			# Charm
 			3:
 				if all_party_slots[player_index].stored_charm != null:
-					all_held_equipment.append(all_party_slots[player_index].stored_charm)
+					add_equipment_to_list(equip, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_charm
 				all_held_equipment.erase(equip_)
 				all_party_slots[player_index].stored_charm = equip
@@ -162,25 +211,49 @@ func add_equipment(player_index, equip, is_weapon):
 	return ret_equipment
 	
 func search_for_item(desired_item: Items):
-	var count = 0
-	for item: Items in all_held_items:
-		if item.item_name == desired_item.item_name:
-			count += 1
-	return count
+	if all_held_items.find(desired_item) != -1:
+		var found_index = all_held_items.find_custom(func(item: Items) -> bool: return item.item_name == desired_item.item_name)
+		if found_index != -1:
+			return all_held_items[found_index]
+	if all_held_valuables.find(desired_item) != -1:
+		var found_index = all_held_valuables.find_custom(func(item: Items) -> bool: return item.item_name == desired_item.item_name)
+		if found_index != -1:
+			return all_held_valuables[found_index]
+	return null
 
 func search_for_thing(desired_thing):
-	var count = 0
 	if desired_thing is equipment:
-		for equip: equipment in all_held_equipment:
-			if equip.equipment_name == desired_thing.equipment_name:
-				count += 1
+		var found_index = all_held_equipment.find_custom(func(equip: equipment) -> bool: return equip.equipment_name == desired_thing.equipment_name)
+		if found_index != -1:
+			return all_held_equipment[found_index]
 	elif desired_thing is weapon:
-		for weap: weapon in all_held_weapons:
-			if weap.weapon_name == desired_thing.weapon_name:
-				count += 1
+		var found_index = all_held_weapons.find_custom(func(equip: weapon) -> bool: return equip.weapon_name == desired_thing.weapon_name)
+		if found_index != -1:
+			return all_held_weapons[found_index]
 	elif desired_thing is Items:
 		return search_for_item(desired_thing)
-	return count
+	return null
+
+func search_for_index_of_thing(desired_thing):
+	if desired_thing is equipment:
+		var found_index = all_held_equipment.find_custom(func(equip: equipment) -> bool: return equip.equipment_name == desired_thing.equipment_name)
+		if found_index != -1:
+			return found_index
+	elif desired_thing is weapon:
+		var found_index = all_held_weapons.find_custom(func(equip: weapon) -> bool: return equip.weapon_name == desired_thing.weapon_name)
+		if found_index != -1:
+			return found_index
+	elif desired_thing is Items:
+		if all_held_items.find(desired_thing) != -1:
+			var found_index = all_held_items.find_custom(func(item: Items) -> bool: return item.item_name == desired_thing.item_name)
+			if found_index != -1:
+				return found_index
+		if all_held_valuables.find(desired_thing) != -1:
+			var found_index = all_held_valuables.find_custom(func(item: Items) -> bool: return item.item_name == desired_thing.item_name)
+			if found_index != -1:
+				return found_index
+		return -1
+	return -1
 
 func add_quest(quest_: quest):
 	active_quests.append(quest_)
@@ -204,16 +277,20 @@ func _ready():
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
 	
-	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Sword.tres"))
-	all_held_weapons.append(load("res://assets/Equipment/Training_Dagger.tres"))
+	
+	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+
 	
 	all_held_equipment.append(load("res://assets/Equipment/Gold_Bracelet.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Ruby Necklace.tres"))

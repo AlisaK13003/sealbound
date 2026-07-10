@@ -178,8 +178,8 @@ func update_selected_item():
 		else:
 			item.highlight(false)
 
-func disable():
-	self.visible = false
+func disable(keep_visibility: bool = false):
+	self.visible = keep_visibility
 	disable_selection = true
 		
 func enable():

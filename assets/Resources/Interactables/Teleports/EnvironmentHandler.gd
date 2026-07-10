@@ -22,10 +22,11 @@ func swap_to_me():
 		refresh_player_camera()
 		await get_tree().process_frame
 		refresh_player_camera()
-	#await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(0.5).timeout
 	await Fade.fade_out(0.5)
 	if should_start_entry_cutscene:
 		start_lyra_tavern_cutscene()
+	AudioManager.play_bgm(bgm, true)
 
 func teleport_player_to_spawn():
 	if player_node == null:

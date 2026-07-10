@@ -2,8 +2,6 @@ extends Control
 
 @onready var menu_tabs = $MenuTabs
 
-@export_flags("Weapons", "Equipment", "Items") var what_things_do_I_sell = 2
-
 @export var tab_icons: Array[Texture2D]
 
 @export var shop_stock: Array
@@ -11,11 +9,14 @@ extends Control
 @export var shop_discount: float
 
 var persistent_shop_stock
+var persistent_sell_inventory
 
 @onready var stock_container = $Stock_Container
 
 var tabs : Array[String]
+@export var is_player_selling: bool = false
 
+@export_flags("Weapon", "Item", "Helmets", "Chestplate", "Boots", "Charms") var item_types_to_sell = 0
 
 @onready var weapon_stock_container = $Stock_Container/Weapons
 @onready var helmet_stock_container = $Stock_Container/Helmets
@@ -27,7 +28,7 @@ var tabs : Array[String]
 var scroll_container_path = "res://assets/Resources/Pause Menu/DIY_Scroll_Container.tscn"
 
 func _ready():
-	persistent_shop_stock = shop_stock.duplicate()	
+	persistent_shop_stock = shop_stock.duplicate()
 	_setup()
 	
 func fully_reset():
@@ -44,8 +45,12 @@ func fully_reset():
 	_setup()
 	
 	#_setup()
-func update_money_total():
-	$Label.text = str(GlobalCombatInformation.currency_held)
+func update_money_total(old_money_count, differential):
+	$Label.text = str(old_money_count)
+
+	for i in range(differential):
+		$Label.text = str(int($Label.text) + 1)
+		await get_tree().create_timer(0.01).timeout
 
 func _update_item_description(with_item):
 	if with_item is Items:
@@ -70,23 +75,72 @@ func _setup():
 
 	menu_tabs._setup(tabs, "res://assets/Resources/Pause Menu/Custom_Menu_Tab.tscn")
 
-	if not what_things_do_I_sell & 001:
-		menu_tabs.get_child(0).visible = false
-	if not what_things_do_I_sell & 010:
-		menu_tabs.get_child(1).visible = false
-		menu_tabs.get_child(2).visible = false
-		menu_tabs.get_child(3).visible = false
-		menu_tabs.get_child(4).visible = false
-	if not what_things_do_I_sell & 100:
-		menu_tabs.get_child(5).visible = false
-		
+	var found_item: bool = false
+	var found_weapon: bool = false
+	var found_equipment: bool = false
+
+	var big_list = []
+	
+	if not is_player_selling:
+		for item in shop_stock:
+			if item is Items and not found_item:
+				menu_tabs.get_child(0).visible = true
+				found_item = true
+			if item is weapon and not found_weapon:
+				menu_tabs.get_child(1).visible = true
+				menu_tabs.get_child(2).visible = true
+				menu_tabs.get_child(3).visible = true
+				menu_tabs.get_child(4).visible = true
+				found_equipment = true
+			if item is equipment and not found_equipment:
+				menu_tabs.get_child(5).visible = true
+				found_weapon = true
+		if not found_item:
+			menu_tabs.get_child(0).visible = false
+		if not found_equipment:
+			menu_tabs.get_child(1).visible = false
+			menu_tabs.get_child(2).visible = false
+			menu_tabs.get_child(3).visible = false
+			menu_tabs.get_child(4).visible = false
+		if not found_weapon:
+			menu_tabs.get_child(5).visible = false
+	else:
+		if item_types_to_sell & 000001:
+			menu_tabs.get_child(0).visible = true
+		if item_types_to_sell & 000010:
+			menu_tabs.get_child(1).visible = true
+		if item_types_to_sell & 000100:
+			menu_tabs.get_child(2).visible = true
+		if item_types_to_sell & 001000:
+			menu_tabs.get_child(3).visible = true
+		if item_types_to_sell & 010000:
+			menu_tabs.get_child(4).visible = true
+		if item_types_to_sell & 100000:
+			menu_tabs.get_child(5).visible = true
+
+
+		for item in GlobalCombatInformation.all_held_valuables:
+			big_list.append(item)
+		for item in GlobalCombatInformation.all_held_items:
+			big_list.append(item)
+		for item in GlobalCombatInformation.all_held_weapons:
+			big_list.append(item)
+		for item in GlobalCombatInformation.all_held_equipment:
+			big_list.append(item)
+		persistent_sell_inventory = big_list.duplicate()
+
 	for tab in range(menu_tabs.get_child_count()):
 		menu_tabs.get_child(tab)._setup(tab_icons[tab])
-		
+	
 	for child in range(stock_container.get_child_count()):
-		stock_container.get_child(child)._setup(tabs[child], shop_stock, shop_discount)
-		if not stock_container.get_child(child).update_item_description.is_connected(_update_item_description):
-			stock_container.get_child(child).update_item_description.connect(_update_item_description)
+		if not is_player_selling:
+			stock_container.get_child(child)._setup(tabs[child], shop_stock, shop_discount, is_player_selling)
+			if not stock_container.get_child(child).update_item_description.is_connected(_update_item_description):
+				stock_container.get_child(child).update_item_description.connect(_update_item_description)
+		else:
+			stock_container.get_child(child)._setup(tabs[child], big_list, shop_discount, is_player_selling)
+			if not stock_container.get_child(child).update_item_description.is_connected(_update_item_description):
+				stock_container.get_child(child).update_item_description.connect(_update_item_description)
 
 	for child in range(stock_container.get_child_count()):
 		if stock_container.get_child(child).stock_container.get_child_count() == 0:

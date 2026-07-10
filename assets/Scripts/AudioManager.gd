@@ -52,12 +52,12 @@ func play_tile_sound(stream: AudioStream) -> void:
 	tile_sfx.stream = stream
 	tile_sfx.play()
 
-func play_bgm(stream: AudioStream) -> void:
+func play_bgm(stream: AudioStream, override: bool = false) -> void:
 	if not stream:
 		return
-		
-	if bgm_player.stream == stream and bgm_player.playing:
-		return
+	if not override:
+		if bgm_player.stream == stream and bgm_player.playing:
+			return
 		
 	bgm_player.stop()
 	bgm_player.stream = stream

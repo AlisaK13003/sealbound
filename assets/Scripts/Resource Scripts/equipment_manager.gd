@@ -10,8 +10,8 @@ class_name equipment
 @export var equipment_stats : stats
 
 @export var buy_price : int = 0
-@export var sell_price: int = 0
-@export var shop_quantity: int = 0
+@export var sell_price: int = 10
+@export var stack: int = 1
 
 func export_to_JSON():
 	return {

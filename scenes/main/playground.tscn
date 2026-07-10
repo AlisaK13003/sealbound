@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="1_cavrc"]
 [ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_px3xr"]
-[ext_resource type="PackedScene" uid="uid://rx8110un8pu4" path="res://scenes/main/Test_Hearthwynn.tscn" id="2_oqlsb"]
+[ext_resource type="PackedScene" uid="uid://rx8110un8pu4" path="res://scenes/main/OLD_Test_Hearthwynn.tscn" id="2_oqlsb"]
 [ext_resource type="Texture2D" uid="uid://ctr2tlix70614" path="res://assets/tile sheets/Weapon_Shop.png" id="3_jolgq"]
 [ext_resource type="Texture2D" uid="uid://do1cpc0paumfg" path="res://assets/tile sheets/Infirmary.png" id="5_ovg1k"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="22_px3xr"]

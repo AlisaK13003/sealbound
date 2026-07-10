@@ -46,43 +46,43 @@ offset_right = 39.999954
 offset_bottom = 39.999985
 theme_override_constants/v_separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2059379964]
+[node name="Selling" type="Control" parent="." unique_id=1902548340]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Selling" unique_id=1707554782]
 layout_mode = 0
 offset_left = 63.0
 offset_top = 66.915
 offset_right = 458.0
 offset_bottom = 106.915016
+mouse_filter = 2
+theme_override_constants/separation = 34
 
-[node name="Label" type="Label" parent="HBoxContainer" unique_id=1596625346]
+[node name="Label" type="Label" parent="Selling/HBoxContainer" unique_id=1794930887]
 custom_minimum_size = Vector2(167.28, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(4.515, 0)
 text = "Weapons"
 
-[node name="Label2" type="Label" parent="HBoxContainer" unique_id=1045232006]
-custom_minimum_size = Vector2(52.655, 0)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(1.395, 0)
-text = "Stock"
-horizontal_alignment = 2
-
-[node name="Label4" type="Label" parent="HBoxContainer" unique_id=455542968]
+[node name="Label4" type="Label" parent="Selling/HBoxContainer" unique_id=1031117352]
 custom_minimum_size = Vector2(37.625, 0)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(9.14, 0)
+offset_transform_position = Vector2(34.98, 0)
 text = "Held"
 horizontal_alignment = 2
 
-[node name="Label3" type="Label" parent="HBoxContainer" unique_id=418418348]
+[node name="Label3" type="Label" parent="Selling/HBoxContainer" unique_id=868355963]
 custom_minimum_size = Vector2(59.375, 0)
 layout_mode = 2
 text = "Price"
 horizontal_alignment = 2
 
-[node name="Panel" type="Panel" parent="." unique_id=724973740]
+[node name="Panel" type="Panel" parent="Selling" unique_id=1938752761]
 z_index = 10
 layout_mode = 0
 offset_left = 290.0
@@ -92,17 +92,7 @@ offset_bottom = 239.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_7tpxp")
 
-[node name="Panel3" type="Panel" parent="." unique_id=1013705053]
-z_index = 10
-layout_mode = 0
-offset_left = 240.0
-offset_top = 70.0
-offset_right = 280.00037
-offset_bottom = 239.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxLine_7tpxp")
-
-[node name="Panel2" type="Panel" parent="." unique_id=1995378831]
+[node name="Panel2" type="Panel" parent="Selling" unique_id=1882508634]
 z_index = 10
 layout_mode = 0
 offset_left = 340.0
@@ -112,7 +102,91 @@ offset_bottom = 239.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_7tpxp")
 
-[node name="Panel4" type="Panel" parent="." unique_id=449173872]
+[node name="Panel4" type="Panel" parent="Selling" unique_id=1831083992]
+z_index = 10
+layout_mode = 0
+offset_left = 67.0
+offset_top = 93.0
+offset_right = 396.0
+offset_bottom = 98.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_obq1w")
+
+[node name="Buying" type="Control" parent="." unique_id=437706449]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buying" unique_id=2059379964]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 66.915
+offset_right = 458.0
+offset_bottom = 106.915016
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Buying/HBoxContainer" unique_id=1596625346]
+custom_minimum_size = Vector2(167.28, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(4.515, 0)
+text = "Weapons"
+
+[node name="Label2" type="Label" parent="Buying/HBoxContainer" unique_id=1045232006]
+custom_minimum_size = Vector2(52.655, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(1.395, 0)
+text = "Stock"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="Buying/HBoxContainer" unique_id=455542968]
+custom_minimum_size = Vector2(37.625, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(9.14, 0)
+text = "Held"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="Buying/HBoxContainer" unique_id=418418348]
+custom_minimum_size = Vector2(59.375, 0)
+layout_mode = 2
+text = "Price"
+horizontal_alignment = 2
+
+[node name="Panel" type="Panel" parent="Buying" unique_id=724973740]
+z_index = 10
+layout_mode = 0
+offset_left = 290.0
+offset_top = 70.0
+offset_right = 330.0
+offset_bottom = 239.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_7tpxp")
+
+[node name="Panel3" type="Panel" parent="Buying" unique_id=1013705053]
+z_index = 10
+layout_mode = 0
+offset_left = 240.0
+offset_top = 70.0
+offset_right = 280.00037
+offset_bottom = 239.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_7tpxp")
+
+[node name="Panel2" type="Panel" parent="Buying" unique_id=1995378831]
+z_index = 10
+layout_mode = 0
+offset_left = 340.0
+offset_top = 70.0
+offset_right = 380.0
+offset_bottom = 239.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_7tpxp")
+
+[node name="Panel4" type="Panel" parent="Buying" unique_id=449173872]
 z_index = 10
 layout_mode = 0
 offset_left = 67.0

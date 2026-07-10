@@ -58,6 +58,7 @@ folder_colors={
 3D_Player=""
 Ground=""
 Walls=""
+Building_Ground=""
 
 [gui]
 

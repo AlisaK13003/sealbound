@@ -111,7 +111,7 @@ func _on_area_2d_body_entered(body):
 			Global.current_location = _target_region
 			Global.current_region = _target_region
 
-			await Fade.fade_in(1)
+			await Fade.fade_in(1.0)
 			AreaStateManager.swap_scene()
 		
 func _on_area_2d_body_exited(body):

@@ -1,0 +1,186 @@
+[gd_scene format=3 uid="uid://b3ofnc4q1qv7y"]
+
+[ext_resource type="Script" uid="uid://bxyc62npjpgik" path="res://assets/Resources/Interactables/Shops/shop_ui_controller.gd" id="1_dmt2l"]
+[ext_resource type="Texture2D" uid="uid://bxrpa8qa2ixug" path="res://assets/tile sheets/Weapon_Shop_tab.png" id="2_qkjr2"]
+[ext_resource type="Texture2D" uid="uid://cwb7hif8vfdq7" path="res://assets/tile sheets/Helmet_Shop_Tab.png" id="3_7wp37"]
+[ext_resource type="Texture2D" uid="uid://ndlyctcxruyr" path="res://assets/tile sheets/Chestplate_Shop_tab.png" id="4_ahia4"]
+[ext_resource type="Texture2D" uid="uid://dc51ux868mr3w" path="res://assets/tile sheets/Boots_Shop_tab.png" id="5_vcwyq"]
+[ext_resource type="Texture2D" uid="uid://cuuwqswhaf5dr" path="res://assets/tile sheets/Charm_Shop_tab.png" id="6_f617w"]
+[ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="7_vff7g"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="8_3l63c"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="9_2y4ut"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="10_etfun"]
+[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="11_c1wc7"]
+[ext_resource type="Resource" uid="uid://yn5ljp73dfed" path="res://assets/Equipment/Iron_Helmet.tres" id="12_ltk1m"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="13_ggy6x"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="14_eoaru"]
+[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="15_530mg"]
+[ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="16_77mfs"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="17_32ca2"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="18_plmqj"]
+[ext_resource type="PackedScene" uid="uid://b5f22pkqq6xkg" path="res://assets/Resources/Interactables/Shops/Stock_Container_Node.tscn" id="19_0y4wk"]
+
+[sub_resource type="Resource" id="Resource_2mefq"]
+script = ExtResource("8_3l63c")
+weapon_name = "Training Sword"
+weapon_description = "Decent Sword"
+weapon_texture = ExtResource("9_2y4ut")
+buy_price = 60
+shop_quantity = 15
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
+
+[node name="ShopInterface" type="Control" unique_id=1487542661]
+z_index = -4
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_dmt2l")
+what_things_do_I_sell = 7
+tab_icons = Array[Texture2D]([ExtResource("2_qkjr2"), ExtResource("3_7wp37"), ExtResource("4_ahia4"), ExtResource("5_vcwyq"), ExtResource("6_f617w"), ExtResource("7_vff7g")])
+shop_stock = [SubResource("Resource_2mefq"), ExtResource("10_etfun"), ExtResource("11_c1wc7"), ExtResource("12_ltk1m"), ExtResource("13_ggy6x")]
+shop_discount = 0.2
+
+[node name="Background" type="Control" parent="." unique_id=1690320233]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1314562053]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 102.0
+offset_right = 461.0
+offset_bottom = 287.0
+texture = ExtResource("14_eoaru")
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=2022621024]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 109.0
+offset_right = 104.0
+offset_bottom = 173.0
+texture = ExtResource("15_530mg")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=1656479835]
+layout_mode = 0
+offset_left = 108.5
+offset_top = 95.5
+offset_right = 467.0
+offset_bottom = 294.0
+texture = ExtResource("16_77mfs")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=1833988616]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 101.0
+offset_right = 115.0
+offset_bottom = 181.5
+texture = ExtResource("17_32ca2")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="Background" unique_id=1892008766]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 300.0
+offset_right = 466.0
+offset_bottom = 344.0
+texture = ExtResource("14_eoaru")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="Background" unique_id=1813132053]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 290.0
+offset_right = 475.0
+offset_bottom = 353.0
+texture = ExtResource("17_32ca2")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Label" type="Label" parent="." unique_id=1190885039]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 176.0
+offset_right = 139.0
+offset_bottom = 215.0
+text = "Coins: 
+5000"
+
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("18_plmqj")]
+layout_mode = 0
+offset_left = 117.21
+offset_top = 84.25
+offset_right = 117.21
+offset_bottom = 84.25
+scale = Vector2(0.415, 0.415)
+theme_override_constants/h_separation = 67
+theme_override_constants/v_separation = 9
+columns = 6
+
+[node name="Stock_Container" type="Control" parent="." unique_id=694637958]
+anchors_preset = 0
+offset_left = 57.0
+offset_top = 41.0
+offset_right = 97.0
+offset_bottom = 81.0
+
+[node name="Weapons" parent="Stock_Container" unique_id=1881776932 instance=ExtResource("19_0y4wk")]
+visible = false
+layout_mode = 1
+
+[node name="Helmets" parent="Stock_Container" unique_id=1625925409 instance=ExtResource("19_0y4wk")]
+visible = false
+layout_mode = 1
+
+[node name="Chestplates" parent="Stock_Container" unique_id=604092228 instance=ExtResource("19_0y4wk")]
+visible = false
+layout_mode = 1
+
+[node name="Boots" parent="Stock_Container" unique_id=670839402 instance=ExtResource("19_0y4wk")]
+visible = false
+layout_mode = 1
+
+[node name="Charms" parent="Stock_Container" unique_id=2091221006 instance=ExtResource("19_0y4wk")]
+visible = false
+layout_mode = 1
+
+[node name="Items" parent="Stock_Container" unique_id=132450831 instance=ExtResource("19_0y4wk")]
+visible = false
+layout_mode = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1346560711]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 0
+offset_left = 113.0
+offset_top = 302.0
+offset_right = 463.0
+offset_bottom = 341.0
+autowrap_mode = 3

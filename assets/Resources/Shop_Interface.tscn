@@ -26,7 +26,6 @@ weapon_name = "Training Sword"
 weapon_description = "Decent Sword"
 weapon_texture = ExtResource("9_baboj")
 buy_price = 60
-shop_quantity = 15
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [node name="ShopInterface" type="Control" unique_id=1487542661]
@@ -43,10 +42,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_j2x6r")
-what_things_do_I_sell = 7
 tab_icons = Array[Texture2D]([ExtResource("2_p2ovs"), ExtResource("3_xultm"), ExtResource("6_iki5b"), ExtResource("4_ri226"), ExtResource("5_ice4d"), ExtResource("7_1qi33")])
 shop_stock = [SubResource("Resource_2mefq"), ExtResource("9_eqlyk"), ExtResource("11_baboj"), ExtResource("12_2mefq"), ExtResource("13_pjh6y")]
 shop_discount = 0.2
+is_player_selling = true
+item_types_to_sell = 63
 
 [node name="Background" type="Control" parent="." unique_id=1690320233]
 anchors_preset = 0

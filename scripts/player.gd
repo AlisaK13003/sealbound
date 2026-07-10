@@ -73,31 +73,52 @@ func _process(_delta: float) -> void:
 		
 		if distance_walked >= step_interval:
 			var current_terrain = get_terrain_under_feet()
-			match current_terrain:
-				#Dirt
-				0:
-					AudioManager.play_tile_sound(walking_on_dirt.pick_random())
-				#Sane
-				1:
-					AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
-				#Gravel
-				2:
-					AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
-				#Wood
-				3:
-					AudioManager.play_tile_sound(walking_on_wood.pick_random())
-				#Stone
-				4:
-					AudioManager.play_tile_sound(walking_on_stone.pick_random())
-				5:
-					pass
+			if not inside:
+				match current_terrain:
+					#Dirt
+					0:
+						AudioManager.play_tile_sound(walking_on_dirt.pick_random())
+					#Sane
+					1:
+						AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
+					#Gravel
+					2:
+						AudioManager.play_tile_sound(walking_on_sand_gravel.pick_random())
+					#Wood
+					3:
+						AudioManager.play_tile_sound(walking_on_wood.pick_random())
+					#Stone
+					4:
+						AudioManager.play_tile_sound(walking_on_stone.pick_random())
+					5:
+						pass
+			else:
+				match current_terrain:
+					# Wood
+					0:
+						AudioManager.play_tile_sound(walking_on_wood.pick_random())
+					# Carpet
+					1:
+						pass
+					# Metal
+					2:
+						AudioManager.play_tile_sound(walking_on_wood.pick_random())
+
 			
 			distance_walked = 0.0
 
-	
+var inside = false
 func get_terrain_under_feet() -> int:
-	# 1. Grab all the Ground layers
 	var floor_layers = get_tree().get_nodes_in_group("Ground")
+	
+	if floor_layers.is_empty():
+		floor_layers = get_tree().get_nodes_in_group("Building_Ground")
+		if floor_layers.is_empty():
+			return -1
+		inside = true
+	else:
+		inside = false
+		
 	
 	floor_layers.sort_custom(func(a: Node, b: Node) -> bool:
 		if a.z_index != b.z_index:

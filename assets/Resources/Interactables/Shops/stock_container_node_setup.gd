@@ -12,6 +12,8 @@ var disable_selection: bool = false
 
 var discount: float
 
+var currently_selling: bool = false
+
 func _ready():
 	container_start_position = stock_container.position
 	visibility_changed.connect(_visibility_changed)
@@ -44,17 +46,19 @@ func _reset():
 		5:
 			string_type = "Items"
 		
-	_setup(string_type, held_stock, discount)
+	_setup(string_type, held_stock, discount, currently_selling)
 
 func _visibility_changed():
 	if visible == false:
 		return
-	update_item_description.emit(stock_container.get_child(0).stored_item)
+	if stock_container.get_child_count() != 0:
+		update_item_description.emit(stock_container.get_child(0).stored_item)
 
 var held_stock
-func _setup(stock_type, list_of_stock, discount):
+func _setup(stock_type, list_of_stock, discount, selling):
 	self.discount = discount
 	held_stock = list_of_stock
+	currently_selling = selling
 	stock_container = $Scroll/Stock_Container
 	match stock_type:
 		"Weapons":
@@ -71,7 +75,14 @@ func _setup(stock_type, list_of_stock, discount):
 			type = 5
 		_:
 			type = 0
-	$HBoxContainer/Label.text = stock_type
+	if not selling:
+		$Selling.visible = false
+		$Buying.visible = true
+		$Buying/HBoxContainer/Label.text = stock_type
+	else:
+		$Selling.visible = true
+		$Buying.visible = false
+		$Selling/HBoxContainer/Label.text = stock_type
 	for thing in list_of_stock:
 		if thing is Items and type == 5:
 			_add_node(thing)
@@ -115,19 +126,21 @@ func _add_node(node_to_add):
 				already_exists = node.get_index()
 				break
 	if already_exists != -1:
-		stock_container.get_child(already_exists).stored_item.shop_quantity += 1
+		stock_container.get_child(already_exists).stored_item.stack += 1
 		stock_container.get_child(already_exists).update_stock_count()
 		return
 	
 	var new_node = load(stock_node_path)
 	var new_node_instance = new_node.instantiate()
 	
-	new_node_instance._setup(node_to_add, discount)
+	new_node_instance._setup(node_to_add, discount, currently_selling)
 	new_node_instance.node_hovered.connect(thing_hovered)
 	new_node_instance.node_pressed.connect(node_pressed)
 	stock_container.add_child(new_node_instance)
 	
-	if node_to_add.buy_price > GlobalCombatInformation.currency_held or node_to_add.shop_quantity == 0:
+	var adjusted_price = int((node_to_add.buy_price) - (float(node_to_add.buy_price) * discount))
+	
+	if adjusted_price > GlobalCombatInformation.currency_held or node_to_add.stack == 0:
 		new_node_instance.disable()
 
 var current_options
@@ -143,24 +156,36 @@ func node_pressed(item):
 		$Confirmation/TextureRect.texture = item.item_sprite
 		$Confirmation/Label2.text = item.item_name
 	
-	$Scroll.disable()
+	$Scroll.disable(true)
 	disable_selection = true
 	
 	var options = []
-	var adjusted_price = int(float(item.buy_price) - (float(item.buy_price) * discount))
-	
-	for i in range(item.shop_quantity):
-		if (adjusted_price * (i + 1)) <= GlobalCombatInformation.currency_held:
+	var adjusted_price
+	if not currently_selling:
+		adjusted_price = int(float(item.buy_price) - (float(item.buy_price) * discount))
+		
+		for i in range(item.stack):
+			if (adjusted_price * (i + 1)) <= GlobalCombatInformation.currency_held:
+				options.append(str(i + 1))
+			else:
+				break
+	else:
+		$Confirmation/HBoxContainer/Control2/Label.text = "Sell"
+		adjusted_price = int(float(item.sell_price) + float(item.sell_price) * discount)
+		
+		for i in range(item.stack):
 			options.append(str(i + 1))
-		else:
-			break
 			
 	$Confirmation/Label.text = str(adjusted_price)
 	$Confirmation/OptionCycle._setup(0, options)
 	await_purchase(item)
 
 func update_projected_price(options, cur_option):
-	$Confirmation/Label.text = str(int(options[cur_option]) * (int(float(perusing_item.buy_price) - float(perusing_item.buy_price) * discount)))
+	if not currently_selling:
+		$Confirmation/Label.text = str(int(options[cur_option]) * (int(float(perusing_item.buy_price) - float(perusing_item.buy_price) * discount)))
+	else:
+		$Confirmation/Label.text = str(int(options[cur_option]) * (int(float(perusing_item.sell_price) + float(perusing_item.sell_price) * discount)))
+
 
 var perusing_item
 signal confirmation
@@ -172,16 +197,21 @@ func await_purchase(item):
 	if descision:
 		var amount_purchased = int($Confirmation/OptionCycle/HBoxContainer/Label.text)
 		
-		var adjusted_price = int(float(item.buy_price) - (float(item.buy_price) * discount)) * amount_purchased
+		if not currently_selling:
+			var adjusted_price = int(float(item.buy_price) - (float(item.buy_price) * discount)) * amount_purchased
 
-		GlobalCombatInformation.update_currency(-1 * adjusted_price)
-		item.shop_quantity -= amount_purchased
-		for i in range(amount_purchased):
-			if item is equipment or item is weapon:
-				GlobalCombatInformation.equipment_added_to_list(item, true if item is weapon else false)
-			elif item is Items:
-				GlobalCombatInformation.add_item(item)
+			GlobalCombatInformation.update_currency(-1 * adjusted_price)
+			item.stack -= amount_purchased
+			for i in range(amount_purchased):
+				if item is equipment or item is weapon:
+					GlobalCombatInformation.equipment_added_to_list(item, true if item is weapon else false)
+				elif item is Items:
+					GlobalCombatInformation.add_item(item)
+		else:
+			var adjusted_price = int(float(item.sell_price) + (float(item.sell_price) * discount)) * amount_purchased
 
+			GlobalCombatInformation.update_currency(1 * adjusted_price)
+			GlobalCombatInformation.remove_thing(item, amount_purchased)
 
 func cancel_button_pressed(event):
 	if event is InputEventMouseButton:

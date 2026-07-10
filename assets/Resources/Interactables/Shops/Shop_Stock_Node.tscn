@@ -26,23 +26,24 @@ script = ExtResource("1_jeaih")
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 
 [node name="Panel" type="Panel" parent="Control" unique_id=2014716296]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_top = -1.0
 offset_right = 326.0
 offset_bottom = 17.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7tpxp")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=465109059]
+[node name="Not Selling" type="HBoxContainer" parent="." unique_id=465109059]
 layout_mode = 0
 offset_right = 322.0
 offset_bottom = 32.0
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="thing_texture" type="TextureRect" parent="HBoxContainer" unique_id=742681000]
+[node name="thing_texture" type="TextureRect" parent="Not Selling" unique_id=742681000]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 offset_transform_enabled = true
@@ -51,35 +52,83 @@ offset_transform_scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ava2f")
 stretch_mode = 3
 
-[node name="thing_name" type="Label" parent="HBoxContainer" unique_id=1609764525]
+[node name="thing_name" type="Label" parent="Not Selling" unique_id=1609764525]
 custom_minimum_size = Vector2(150.015, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-19.005, -5.48)
+mouse_filter = 1
 text = "Training Sword0000000"
 vertical_alignment = 1
 
-[node name="thing_in_stock" type="Label" parent="HBoxContainer" unique_id=1151305206]
+[node name="thing_in_stock" type="Label" parent="Not Selling" unique_id=1151305206]
 custom_minimum_size = Vector2(61.4, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-31.715, -6.16)
+mouse_filter = 1
 text = "9999"
 horizontal_alignment = 2
 
-[node name="thing_in_inventory" type="Label" parent="HBoxContainer" unique_id=1340719119]
+[node name="thing_in_inventory" type="Label" parent="Not Selling" unique_id=1340719119]
 custom_minimum_size = Vector2(49.095, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-35.485, -6.16)
+mouse_filter = 1
 text = "999900"
 horizontal_alignment = 2
 
-[node name="thing_price" type="Label" parent="HBoxContainer" unique_id=3449112]
+[node name="thing_price" type="Label" parent="Not Selling" unique_id=3449112]
 custom_minimum_size = Vector2(63.995, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-51.25, -6.16)
+mouse_filter = 1
+text = "50"
+horizontal_alignment = 2
+
+[node name="Selling" type="HBoxContainer" parent="." unique_id=862644614]
+layout_mode = 0
+offset_right = 382.0
+offset_bottom = 32.0
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 27
+alignment = 1
+
+[node name="thing_texture" type="TextureRect" parent="Selling" unique_id=765081079]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-8, -8)
+offset_transform_scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ava2f")
+stretch_mode = 3
+
+[node name="thing_name" type="Label" parent="Selling" unique_id=1987335829]
+custom_minimum_size = Vector2(150.015, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-40.905, -6.895)
+mouse_filter = 1
+text = "Training Sword0000000"
+vertical_alignment = 1
+
+[node name="thing_in_inventory" type="Label" parent="Selling" unique_id=925452938]
+custom_minimum_size = Vector2(49.095, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-16.92, -6.16)
+mouse_filter = 1
+text = "999900"
+horizontal_alignment = 2
+
+[node name="thing_price" type="Label" parent="Selling" unique_id=639441604]
+custom_minimum_size = Vector2(63.995, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-51.25, -6.16)
+mouse_filter = 1
 text = "50"
 horizontal_alignment = 2
 
@@ -90,12 +139,14 @@ offset_top = 16.000008
 offset_right = 348.0
 offset_bottom = 33.734077
 rotation = -0.31415927
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ekxs0")
 
 [node name="Label" type="Label" parent="Discount" unique_id=226195565]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 18.0
+mouse_filter = 1
 text = "-100%"
 horizontal_alignment = 2
 
