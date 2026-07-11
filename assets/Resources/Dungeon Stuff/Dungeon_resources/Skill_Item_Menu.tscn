@@ -2,6 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bsut778c7sfq3" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/skill_item_menu_controller.gd" id="1_tuohm"]
 [ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="2_ery3k"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="3_nfgmx"]
+[ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="4_uevtr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nfgmx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
+size = Vector2(643, 359)
 
 [node name="SkillItemMenu" type="Control" unique_id=946804038]
 layout_mode = 3
@@ -12,23 +19,59 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tuohm")
 
-[node name="Panel" type="Panel" parent="." unique_id=391083354]
+[node name="Background" type="Control" parent="." unique_id=1916264620]
+anchors_preset = 0
+offset_left = 383.0
+offset_top = 160.0
+offset_right = 423.0
+offset_bottom = 200.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=738929062]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 242.0
+offset_bottom = 187.0
+texture = ExtResource("3_nfgmx")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=2091892535]
+layout_mode = 0
+offset_right = 249.0
+offset_bottom = 195.0
+texture = ExtResource("4_uevtr")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=391083354 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+layout_mode = 0
+offset_left = 396.165
+offset_top = 168.18
+offset_right = 639.16504
+offset_bottom = 359.18
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nfgmx")
 script = ExtResource("2_ery3k")
+mouse_scroll_detection_area = NodePath("../Area2D")
+scroll_bar = NodePath("../VScrollBar")
 
 [node name="GridContainer" type="GridContainer" parent="Panel" unique_id=555049411]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/v_separation = 35
 
-[node name="Background" type="Control" parent="." unique_id=1916264620]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Area2D" type="Area2D" parent="." unique_id=1445991128]
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=738929062]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=304732343]
+position = Vector2(320.5, 178.5)
+shape = SubResource("RectangleShape2D_7tpxp")
+
+[node name="VScrollBar" type="VScrollBar" parent="." unique_id=400648888]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 615.0
+offset_top = 191.0
+offset_right = 623.0
+offset_bottom = 343.0

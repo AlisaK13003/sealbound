@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bdncivkt5ewpn"]
 
 [ext_resource type="Script" uid="uid://cmuy52sot1frj" path="res://assets/Resources/Dungeon Stuff/dungeon_item_menu.gd" id="1_7ukf3"]
-[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_7ukf3"]
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="3_04tce"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_qj71s"]
 [ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="5_v71lr"]
@@ -10,17 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="8_4gmtm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxs0"]
-
-[sub_resource type="Gradient" id="Gradient_04tce"]
-offsets = PackedFloat32Array(0.47185433, 0.9884106)
-colors = PackedColorArray(0.5254902, 0.11372549, 0.0627451, 1, 0.4393073, 0.36581087, 2.8878452e-07, 1)
-metadata/_snap_count = 2
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qj71s"]
-gradient = SubResource("Gradient_04tce")
-width = 256
-fill = 1
-fill_to = Vector2(1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
@@ -66,7 +54,6 @@ offset_left = 45.0
 offset_top = 24.0
 offset_right = 283.0
 offset_bottom = 175.0
-texture = ExtResource("2_7ukf3")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
@@ -95,18 +82,6 @@ layout_mode = 2
 mouse_filter = 0
 theme_override_constants/h_separation = 80
 theme_override_constants/v_separation = -5
-
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect3" unique_id=339399417]
-modulate = Color(1, 1, 1, 0.78431374)
-z_index = -1
-layout_mode = 0
-offset_left = 5.999996
-offset_top = 4.0000076
-offset_right = 466.60608
-offset_bottom = 292.88885
-scale = Vector2(0.495, 0.495)
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_qj71s")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=164521297]
 layout_mode = 0
@@ -139,10 +114,10 @@ vertical_alignment = 1
 
 [node name="Panel" type="Panel" parent="." unique_id=314846155 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
 layout_mode = 0
-offset_left = 52.0
-offset_top = 30.0
-offset_right = 272.0
-offset_bottom = 168.0
+offset_left = 53.0
+offset_top = -8.0
+offset_right = 273.0
+offset_bottom = 130.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 script = ExtResource("5_v71lr")
 mouse_scroll_detection_area = NodePath("../Area2D")
@@ -179,10 +154,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=726066439]
-modulate = Color(0.796243, 0.796243, 0.796243, 1)
+modulate = Color(0.79607844, 0.79607844, 0.79607844, 0.44313726)
 layout_mode = 0
 offset_left = 56.0
-offset_top = 32.0
+offset_top = -5.0
 offset_right = 272.0
 offset_bottom = 162.0
 texture = ExtResource("6_pr8ec")
@@ -190,7 +165,7 @@ texture = ExtResource("6_pr8ec")
 [node name="NinePatchRect2" type="NinePatchRect" parent="Control" unique_id=1391663786]
 layout_mode = 0
 offset_left = 47.0
-offset_top = 24.0
+offset_top = -12.0
 offset_right = 282.0
 offset_bottom = 172.0
 texture = ExtResource("7_rpax8")

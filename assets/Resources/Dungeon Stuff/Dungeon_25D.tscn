@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ccdj2neuofomx"]
 
-[ext_resource type="Script" uid="uid://bftcak8hng7gw" path="res://scenes/Dungeon/dungeon.gd" id="1_xfoey"]
+[ext_resource type="Script" uid="uid://cn6380072d430" path="res://scenes/Dungeon/dungeon.gd" id="1_xfoey"]
 [ext_resource type="Resource" uid="uid://cw3vpqck0mh18" path="res://assets/characters/player/MMC_Combatant_Information.tres" id="2_t7hpr"]
 [ext_resource type="Resource" uid="uid://boqnrhovktrug" path="res://assets/characters/rowan/Rowan_Combatant_Information.tres" id="3_og2ux"]
 [ext_resource type="Resource" uid="uid://dbt45tuwoqu3c" path="res://assets/characters/lyra/Lyra_Combatant_Information.tres" id="4_edm4l"]

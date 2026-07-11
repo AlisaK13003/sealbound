@@ -247,7 +247,6 @@ func on_death():
 	if stored_combatant.is_combatant_enemy:
 		self.queue_free()
 	
-		
 func execute_defend():
 	is_defending = true
 
@@ -496,7 +495,7 @@ func _on_enemy_collision_mouse_entered():
 		selection_area_sprite.visible = true
 		selection_area_sprite.play("selectable")
 		if can_be_unselected:
-			parent_reference.unselect_all(false if stored_combatant.is_combatant_enemy else true)
+			parent_reference.unselect_all()
 			parent_reference.select_individual(false if stored_combatant.is_combatant_enemy else true, child_number)
 
 func _mouse_confirmation_given(_camera, event, _event_position, _normal, _shape_idx):

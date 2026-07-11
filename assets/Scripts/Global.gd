@@ -604,6 +604,17 @@ var controller_mapping: Dictionary = {
 	"Pause": "Controller_Pause",
 }
 
+enum key_options {
+	UP = 0,
+	DOWN = 1,
+	LEFT = 2, 
+	RIGHT = 3,
+	CONFIRM = 4,
+	CANCEL = 5,
+	DUNGEON_ITEM = 6,
+	DUNGEON_SKILL = 7
+}
+
 var keyboard_mouse_icon_mapping: Dictionary = {
 	"up": 88,
 	"down": 89,

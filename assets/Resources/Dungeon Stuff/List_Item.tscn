@@ -82,7 +82,7 @@ texture = ExtResource("2_ud1yq")
 stretch_mode = 2
 
 [node name="Item_Name" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=1412283802]
-custom_minimum_size = Vector2(200, 42.18)
+custom_minimum_size = Vector2(115.285, 42.18)
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -93,6 +93,10 @@ vertical_alignment = 1
 
 [node name="Item_Count" type="Label" parent="HBoxContainer/Container/HBoxContainer" unique_id=476639380]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-38.725, 0)
+text = "x99"
+horizontal_alignment = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer" unique_id=577751092]
 visible = false

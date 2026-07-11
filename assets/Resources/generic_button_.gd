@@ -1,7 +1,5 @@
 extends TextureButton
 
-@export var input_event_that_will_activate : String
-
 @export var button_name: String
 
 @onready var button_name_text = $HBoxContainer/Label2
@@ -14,13 +12,15 @@ signal activated
 
 @export var disabled_: bool = false
 
+@export var button_to_active: Global.key_options = 0
+
 func _ready():
 	if disabled_:
 		return
 	button_name_text.text = button_name
-	if input_event_that_will_activate != "":
-		var event_to_check = InputMap.action_get_events(input_event_that_will_activate)[0]
-		var _incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
+
+	var event_to_check = InputMap.action_get_events(Global.keyboard_mouse_icon_mapping.keys()[button_to_active])[0]
+	var _incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
 
 	Global.swapped_to_controller.connect(swap_to_controller_icons)
 	swap_to_controller_icons(Global.using_controller)
@@ -31,22 +31,21 @@ func update_name(new_name: String):
 # 10 x_frames 10 v_frames for keyboard
 # 4 h_frames 11 v_frames for controller
 func swap_to_controller_icons(do_it):
-	if input_event_that_will_activate != "":
-		if not do_it:
-			var kb_event = get_input_for_action(input_event_that_will_activate, true)
-			var position_to_get = Global.key_sprite_map[kb_event.physical_keycode]
-			
-			button_icon.hframes = 10
-			button_icon.vframes = 10
-			button_icon.texture = keyboard_mouse_icon_sprites
-			button_icon.frame = position_to_get
-		else:
-			var ctrl_event = get_input_for_action(Global.controller_mapping[input_event_that_will_activate], false)
-			var position_to_get = get_controller_sprite_index(ctrl_event)
-			button_icon.hframes = 4
-			button_icon.vframes = 11
-			button_icon.texture = controller_icon_sprites
-			button_icon.frame = position_to_get
+	if not do_it:
+		var kb_event = get_input_for_action(Global.keyboard_mouse_icon_mapping.keys()[button_to_active], true)
+		var position_to_get = Global.key_sprite_map[kb_event.physical_keycode]
+		
+		button_icon.hframes = 10
+		button_icon.vframes = 10
+		button_icon.texture = keyboard_mouse_icon_sprites
+		button_icon.frame = position_to_get
+	else:
+		var ctrl_event = get_input_for_action(Global.controller_mapping[Global.keyboard_mouse_icon_mapping.keys()[button_to_active]], false)
+		var position_to_get = get_controller_sprite_index(ctrl_event)
+		button_icon.hframes = 4
+		button_icon.vframes = 11
+		button_icon.texture = controller_icon_sprites
+		button_icon.frame = position_to_get
 			
 func get_controller_sprite_index(event: InputEvent) -> int:
 	if event is InputEventJoypadButton:
@@ -80,12 +79,16 @@ func get_key_name_for_action(action_name: String) -> String:
 		
 	return "Unbound"
 
-func _input(_event):
-	if input_event_that_will_activate != "":
-		if Global.get_input_mapping(input_event_that_will_activate):
-			activated.emit()
+func _input(_event):	
+	if not is_visible_in_tree():
+		return
+	if Global.get_input_mapping(Global.keyboard_mouse_icon_mapping.keys()[button_to_active]):
+		activated.emit()
+		get_viewport().set_input_as_handled()
 
 func _gui_input(event):
+	if not is_visible_in_tree():
+		return
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
 		activated.emit()
-		print("PRESSED")
+		get_viewport().set_input_as_handled()

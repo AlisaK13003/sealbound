@@ -14,8 +14,8 @@ var person_frames
 var inflicted_with_status: bool = false
 
 func _setup(person_to_setup: generic_combatants):
-	person_max_health = int(person_to_setup.combatant_stats.max_health)
-	current_health = int(person_to_setup.combatant_stats.health)
+	person_max_health = int(person_to_setup.actual_stats.max_health)
+	current_health = int(person_to_setup.actual_stats.health)
 	health_num.text = str(current_health) + " / " + str(person_max_health)
 	
 	var health_percentage = float(current_health) / person_max_health

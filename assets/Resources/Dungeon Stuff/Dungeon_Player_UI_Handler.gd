@@ -4,8 +4,7 @@ class_name dungeon_gui
 
 @onready var item_menu = $Item_Menu
 @onready var skill_menu = $Skill_Menu
-@onready var base_menu = $NinePatchRect/Base_Menu
-@onready var base_menu_nine = $NinePatchRect
+@onready var base_menu = $NinePatchRect
 
 @onready var item_button = $NinePatchRect/Base_Menu/Item
 @onready var skill_button = $NinePatchRect/Base_Menu/Skill
@@ -24,11 +23,6 @@ class_name dungeon_gui
 @onready var selection_area = $Selection_Indicator
 
 @onready var black_box = $ColorRect
-@onready var dungeon_floor_label = $NinePatchRect3
-@onready var dungeon_floor_text = $NinePatchRect3/Dungeon_Floor
-@onready var previous_floor_label = $NinePatchRect3/Dungeon_Floor/MarginContainer/VBoxContainer/Previous_floor
-@onready var current_floor_label = $NinePatchRect3/Dungeon_Floor/MarginContainer/VBoxContainer/Current_Floor
-@onready var floor_label_container = $NinePatchRect3/Dungeon_Floor/MarginContainer
 
 @onready var portrait_container = $Party_Portrait_Container
 @onready var mana_label = $"Mana Bar/Label"
@@ -50,83 +44,61 @@ var selected_action = 3
 
 @export var how_long_should_base_menu_be: float = 210.0
 
+
+signal basic_attack
+signal skill_used
+signal item_used
+signal defended
+signal run_action
+
 func _setup(parent_reference):
 	black_box.visible = true
-	dungeon_floor_label.visible = true
+	
 	if not has_been_setup:
 		item_button.activated.connect(_item_menu_pressed)
 		skill_button.activated.connect(_skill_menu_pressed)
 		attack_button.activated.connect(_base_attack_emitted)
-		defend_button.activated.connect(_defend_executed)
+		defend_button.activated.connect(_thought_about_defending)
 		run_button.activated.connect(run_button_pressed)
 		confirmation_yes.activated.connect(confirmation_button_.bind(true))
 		confirmation_no.activated.connect(confirmation_button_.bind(false))
 		back_button_.activated.connect(_back_button_pressed)
 		confirm.activated.connect(_confirm_button_pressed)
-	await unfurl_base_menu(true)
-	#await GlobalCombatInformation.load_items()
-	#item_menu._setup(GlobalCombatInformation.all_held_items, self, "I/nt/ne/nm/ns")
-	#skill_menu._setup(GlobalCombatInformation.active_party_slots[2].combatant_skills, self, "S/nk/ni/nl/nl\ns")
+		
+		$Action_Hint/Targetting/Target_L.activated.connect(parent_reference.update_selected_enemy.bind(-1))
+		$Action_Hint/Targetting/Target_R.activated.connect(parent_reference.update_selected_enemy.bind(1))
+		
+		basic_attack.connect(parent_reference.basic_attack)
+		skill_used.connect(parent_reference.skill_used)
+		item_used.connect(parent_reference.item_used)
+		defended.connect(parent_reference.player_defended)
+		run_action.connect(parent_reference.ran_from_combat)
+		
+	base_menu.visible = true
 	self.visible = true
 	p_ref = parent_reference
-	dungeon_floor_text.text = parent_reference.current_dungeon_run.dungeon_name
-	floor_label_container.visible = false
 
-	#await get_tree().create_timer(2).timeout
 	var tween = create_tween()
 	tween.tween_property(black_box, "modulate:a", 0.0, 1)
 	await tween.finished
 	black_box.visible = false
-	dungeon_floor_label.visible = false
-	floor_label_container.visible = true
+
 	bond_bar.value = GlobalCombatInformation.cur_bond_attack_val
 	bond_bar.max_value = GlobalCombatInformation.max_BP * 2
 	has_been_setup = true
 
-func unfurl_base_menu(open):
-	var tween = create_tween()
-	if open:
-		base_menu_nine.visible = true
-	tween.tween_property(base_menu_nine, "size:x", (custom_minimum_size.x + how_long_should_base_menu_be if open else 0), 0.25)
-	if open:
-		update_action_hints()
-	else:
-		action_hint_area.visible = false
-	await tween.finished
-
 func run_button_pressed():
 	p_ref.action_taken.emit(["RUN", ""])
 
-func _input(event):
-	if not has_been_setup:
-		return
-	if Global.get_input_mapping("down"):
-		cycle_inside_menu(false)
-	elif Global.get_input_mapping("left"):
-		if p_ref.selecting_entity:
-			p_ref.update_selected_enemy(-1)
-	elif Global.get_input_mapping("right"):
-		if p_ref.selecting_entity:
-			p_ref.update_selected_enemy(1)
-	elif Global.get_input_mapping("up"):
-		cycle_inside_menu(true)
-
-func cycle_inside_menu(up_or_down):
-	if item_menu.visible:
-		item_menu.update_selection(-1 if up_or_down else 1)
-	elif skill_menu.visible:
-		skill_menu.update_selection(-1 if up_or_down else 1)
-		
 func hide_gui(show_back_button):
 	item_menu.visible = false
 	skill_menu.visible = false
 	back_button_.visible = show_back_button
 	selection_area.visible = false
-	await unfurl_base_menu(false)
-
+	base_menu.visible = false
 
 func show_base_gui():
-	await unfurl_base_menu(true)
+	base_menu.visible = true
 	selection_area.visible = true
 	update_action_hints()
 
@@ -136,23 +108,39 @@ func new_player_turn(item_list):
 func swap_to_new_player(item_list):
 	executing_item = false
 	executing_skill = false
-	await item_menu._setup(item_list, p_ref, "Items")
-	await skill_menu._setup(p_ref.get_player(p_ref.active_player_turn).stored_combatant.combatant_skills, p_ref, "Skills")
+	skill_menu._setup(GlobalCombatInformation.active_party_slots[p_ref.active_player_turn].combatant_skills)
+	item_menu._setup()
+	
+	if not skill_menu.thing_selected.is_connected(_display_enemy_selection):
+		skill_menu.thing_selected.connect(_display_enemy_selection)
+	if not item_menu.thing_selected.is_connected(_display_enemy_selection):
+		item_menu.thing_selected.connect(_display_enemy_selection)
+	
 	show_base_gui()
 
 func _base_attack_emitted():
-	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
-		await unfurl_base_menu(false)
-		p_ref.attack_button_pressed()
+	if base_menu.visible:
+		base_menu.visible = false
+		basic_attack.emit()
 		hide_gui(false)
 
-func _defend_executed():
-	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
-		await unfurl_base_menu(false)
-		p_ref.defend_button_pressed()
+func _thought_about_defending():
+	if base_menu.visible:
+		base_menu.visible = false
 		hide_gui(false)
+		p_ref.unselect_all()
+		setup_confirmation_button("Defend", p_ref.get_player(p_ref.active_player_turn).stored_combatant)
+
+func confirmation_button_(confirm_or_deny):
+	if confirm_or_deny:
+		defended.emit()
+	else:
+		p_ref.revert_to_default_UI()
 
 func _back_button_pressed():
+	if base_menu.visible:
+		return
+	p_ref.unselect_all()
 	if executing_item:
 		item_menu.visible = true
 		p_ref.confirmation.emit(false)
@@ -169,87 +157,78 @@ func _back_button_pressed():
 		item_menu.visible = false
 		skill_menu.visible = false
 		back_button_.visible = false
-		await unfurl_base_menu(true)
+		base_menu.visible = true
 		p_ref.select_individual(false, 0)
 		p_ref.make_enemies_selectable()
 		selection_area.visible = true
 		update_action_hints()
 
-
 func _confirm_button_pressed():
 	if item_menu.visible:
-		item_menu.selection_confirmed()
-		selection_area.visible = not is_aoe
+		item_menu.node_selected()
 	elif skill_menu.visible:
-		if skill_menu.selection_confirmed():
-			selection_area.visible = not is_aoe
-	elif executing_item:
-		item_menu.execute_selection()
-		selection_area.visible = false
-	elif executing_skill:
-		skill_menu.execute_selection()
-		selection_area.visible = false
+		skill_menu.node_selected()
+	else:
+		if executing_item:
+			execute_item()
+			selection_area.visible = false
+		elif executing_skill:
+			execute_skill()
+			selection_area.visible = false
 	update_action_hints()
 
+signal confirmation_given
+func execute_skill():
+	$Action_Hint.visible = false
+	skill_used.emit(skill_menu.selected_item, skill_menu.selected_item_index)
+
+func execute_item():
+	$Action_Hint.visible = false
+	item_used.emit(item_menu.selected_item, item_menu.selected_item_index)
+
 func _skill_menu_pressed():
-	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
+	if base_menu.visible:
 		selection_area.visible = false
 		p_ref.no_one_can_be_selected()
 		skill_menu.visible = true
-		await unfurl_base_menu(false)
+		base_menu.visible = false
 		back_button_.visible = true
-		#skill_menu.drop_and_swing_in()
 	update_action_hints()
 	
 func _item_menu_pressed():
-	if base_menu_nine.visible and base_menu_nine.size.x == how_long_should_base_menu_be:
+	if base_menu.visible:
 		selection_area.visible = false
 		p_ref.no_one_can_be_selected()
 		item_menu.visible = true
-		await unfurl_base_menu(false)
-		#item_menu.drop_and_swing_in()
+		base_menu.visible = false
 		back_button_.visible = true
 	update_action_hints()
+	
+signal display_enemies
+func _display_enemy_selection(thing_used):
+	p_ref.selecting_entity = true
+	if thing_used is Items:
+		is_aoe = thing_used.is_aoe_item
+		executing_item = true
+		display_enemies.emit(thing_used.is_aoe_item, true if thing_used.does_what & 10 else false, false)
+	elif thing_used is moves:
+		is_aoe = thing_used.is_skill_aoe
+		executing_skill = true
+		display_enemies.emit(thing_used.is_skill_aoe, thing_used.targets_party, thing_used.targets_self)
+	selection_area.visible = not is_aoe
 
-func _executing_item(yes_or_no, item: Items):
-	executing_item = yes_or_no
-	is_aoe = item.is_aoe_item
-	selected_item = item
-
-var selected_skill: moves
-var selected_item: Items
-func _executing_skill(yes_or_no, skill: moves):
-	selection_area.visible = not skill.is_skill_aoe
-	executing_skill = yes_or_no
-	is_aoe = skill.is_skill_aoe
-	selected_skill = skill
-
-func confirmation_button_(confirm_or_deny):
-	p_ref.actual_confirmation.emit(confirm_or_deny)
-
-func setup_confirmation_button(move_name, entity_used_on_name, used_on):
-	#if used_on is generic_combatants and not used_on.is_combatant_enemy:
-	#	p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, p_ref.active_player_turn))
-	#elif used_on is combat_template:
-	#	if used_on.stored_combatant.is_combatant_enemy:
-	#		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(false, used_on.child_number))
-	#	else:
-	#		p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, used_on.child_number))
-	#elif used_on == 4:
-	#	p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(true, 4))
-	#elif used_on == 5:
-	#	p_ref.sci_fi_enhance_zoom(p_ref.get_camera_offset(false, 6))
+func setup_confirmation_button(move_name, used_on: generic_combatants):
 	confirmation_button.visible = true
 	var question_label = confirmation_button.get_child(0)
-	question_label.text = "Use " + move_name + " on " + entity_used_on_name + "?"
+	question_label.text = "Use " + move_name + " on " + used_on.combatant_name + "?"
 
 func update_action_hints():
 	$Action_Hint.visible = true
-	if base_menu_nine.visible:
+	if base_menu.visible:
 		targeting.visible = true; confirm.visible = false; back_button_.visible = false
-	if skill_menu.visible or item_menu.visible:
+	elif skill_menu.visible or item_menu.visible:
 		confirm.visible = true; back_button_.visible = true; targeting.visible = false
-	if executing_item or executing_skill:
+	elif executing_item or executing_skill:
 		confirm.visible = true; back_button_.visible = true; targeting.visible = not is_aoe
 
 func update_selection_section(combatant: combat_template):
@@ -279,30 +258,3 @@ func set_bond_attack(value):
 
 func update_bond_attack(update_value):
 	bond_bar.value += clamp(abs(update_value), 0, bond_bar.max_value)
-
-func next_floor(current_floor):
-	black_box.visible = true
-	dungeon_floor_label.visible = true
-	
-	current_floor_label.text = str(current_floor + 1) + "F"
-	previous_floor_label.text = str(current_floor + 2) + "F"
-	
-	black_box.modulate.a = 0.0
-	
-	var tween = create_tween()
-	tween.tween_property(black_box, "modulate:a", 1.0, 0.5)
-	
-	await tween.finished
-	
-	tween = create_tween()
-	tween.tween_property(floor_label_container, "theme_override_constants/margin_top", 126, 2)
-		
-	await tween.finished
-	await get_tree().create_timer(1).timeout
-	tween = create_tween()
-	tween.tween_property(black_box, "modulate:a", 0, 0.5)
-	
-	dungeon_floor_label.visible = false
-	tween = create_tween()
-	tween.tween_property(floor_label_container, "theme_override_constants/margin_top", -124, 1)
-	await get_tree().create_timer(2).timeout
