@@ -3,6 +3,10 @@ extends Node2D
 const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
 const OPENING_CUTSCENE_PATH = "res://assets/Resources/Cutscenes/opening_tutorial.json"
 const INFIRMARY_WAKEUP_CUTSCENE_PATH = "res://assets/Resources/Cutscenes/infirmary_wakeup.json"
+const INFIRMARY_FALLBACK_PLAYER_POSITION = Vector2(2302, -749)
+const SCENE1_MC_MARKER_NAMES = ["Scene1_MCSpawn", "Scene1_MC_Spawn"]
+const SCENE1_SERA_MARKER_NAMES = ["Scene1_SeraSpawn", "Scene1_Sera_Spawn"]
+const SCENE1_SERA_NODE_NAME = "Sera_NPC"
 
 @onready var mc: AnimatedSprite2D = $Actors/MC
 @onready var shadow: AnimatedSprite2D = $Actors/ShadowyFigure
@@ -103,9 +107,43 @@ func _on_opening_cutscene_finished() -> void:
 	Global.pending_cutscene_path = INFIRMARY_WAKEUP_CUTSCENE_PATH
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Infirmary"
-	Global.set_pending_player_spawn_position(Vector2(2302, -749))
 	AreaStateManager._setup()
+	_prepare_infirmary_wakeup_positions()
 	AreaStateManager.swap_scene(self)
+
+
+func _prepare_infirmary_wakeup_positions() -> void:
+	var building_scene = AreaStateManager.building_insides_instance
+	if building_scene == null:
+		Global.set_pending_player_spawn_position(INFIRMARY_FALLBACK_PLAYER_POSITION)
+		return
+
+	var mc_marker := _find_marker_by_names(building_scene, SCENE1_MC_MARKER_NAMES)
+	if mc_marker != null:
+		Global.set_pending_player_spawn_position(mc_marker.global_position)
+	else:
+		push_warning("Scene1 MC spawn marker not found. Using fallback infirmary position.")
+		Global.set_pending_player_spawn_position(INFIRMARY_FALLBACK_PLAYER_POSITION)
+
+	var sera_marker := _find_marker_by_names(building_scene, SCENE1_SERA_MARKER_NAMES)
+	if sera_marker == null:
+		push_warning("Scene1 Sera spawn marker not found.")
+		return
+
+	var sera_node := building_scene.find_child(SCENE1_SERA_NODE_NAME, true, false) as Node2D
+	if sera_node == null:
+		push_warning("Scene1 Sera NPC not found in Building Insides scene.")
+		return
+
+	sera_node.global_position = sera_marker.global_position
+
+
+func _find_marker_by_names(root: Node, marker_names: Array) -> Marker2D:
+	for marker_name in marker_names:
+		var marker := root.find_child(str(marker_name), true, false) as Marker2D
+		if marker != null:
+			return marker
+	return null
 
 func _move_actor_to_marker(actor: AnimatedSprite2D, marker: Marker2D, marker_offset: Vector2, duration: float, hide_after := false) -> Signal:
 	return _move_actor_to_position(actor, marker.global_position + marker_offset, duration, hide_after)
