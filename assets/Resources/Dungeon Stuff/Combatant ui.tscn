@@ -5,6 +5,146 @@
 [ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="3_2ttuk"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_2ttuk"]
 [ext_resource type="Texture2D" uid="uid://dcjptti4pnwbx" path="res://assets/tile sheets/Status box.png" id="5_sjbc2"]
+[ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="6_sjbc2"]
+[ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="7_6j17h"]
+
+[sub_resource type="Animation" id="Animation_sjbc2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D2:offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_iqe56"]
+resource_name = "Take_Damage"
+length = 2.7333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664, 2.0666666),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.1, 1.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -40)]
+}
+
+[sub_resource type="Animation" id="Animation_6j17h"]
+resource_name = "Use_Item"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.2333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(40, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.4, 2.2333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqe56"]
+_data = {
+&"RESET": SubResource("Animation_sjbc2"),
+&"Take_Damage": SubResource("Animation_iqe56"),
+&"Use_Item": SubResource("Animation_6j17h")
+}
 
 [node name="CombatantUi" type="Control" unique_id=1169996085]
 layout_mode = 3
@@ -22,10 +162,10 @@ script = ExtResource("1_b2wl4")
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 0
-offset_left = 13.0
-offset_top = 212.0
-offset_right = 43.0
-offset_bottom = 221.0
+offset_left = 236.0
+offset_top = 316.0
+offset_right = 266.0
+offset_bottom = 325.0
 scale = Vector2(3, 3)
 mouse_filter = 2
 max_value = 50.0
@@ -74,10 +214,10 @@ columns = 4
 z_index = 10
 texture_filter = 1
 layout_mode = 0
-offset_left = -4.0
-offset_top = 105.0
-offset_right = 112.0
-offset_bottom = 164.0
+offset_left = 219.0
+offset_top = 209.0
+offset_right = 335.0
+offset_bottom = 268.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 5
@@ -87,3 +227,16 @@ theme_override_fonts/font = ExtResource("4_2ttuk")
 theme_override_font_sizes/font_size = 58
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1787674393]
+position = Vector2(265, 242)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("6_sjbc2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=272382881]
+libraries/ = SubResource("AnimationLibrary_iqe56")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2022594419]
+position = Vector2(271, 224)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_6j17h")

@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="1_42j3u"]
 [ext_resource type="Script" uid="uid://gr3f280redud" path="res://assets/Resources/Dungeon Stuff/Handle_Portrait_Updates.gd" id="1_bswx1"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="2_42j3u"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_bswx1"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="3_jhf3i"]
 [ext_resource type="Texture2D" uid="uid://5b2lsp0ywx31" path="res://assets/tile sheets/Move Sprites/Stun_Status.png" id="5_pn1e0"]
 [ext_resource type="Texture2D" uid="uid://c3tye7kcdf1d7" path="res://assets/tile sheets/Move Sprites/Sleep_Status.png" id="6_t0ncg"]
@@ -9,22 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://b1qeayxmm5tkf" path="res://assets/tile sheets/Move Sprites/Poison_Status.png" id="8_ypv6w"]
 [ext_resource type="Texture2D" uid="uid://dv053puynt24h" path="res://assets/tile sheets/Move Sprites/Freeze_Status.png" id="9_o7gp5"]
 [ext_resource type="Texture2D" uid="uid://dp47tc8eq64k5" path="res://assets/tile sheets/Move Sprites/Burn_Status.png" id="11_2s1to"]
-[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_bswx1"]
-
-[sub_resource type="Gradient" id="Gradient_m12gh"]
-offsets = PackedFloat32Array(0, 0.8240741)
-colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswx1"]
-gradient = SubResource("Gradient_m12gh")
-width = 16
-height = 16
-fill_to = Vector2(0.77991456, 0.77991456)
-repeat = 2
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2s1to"]
-texture = SubResource("GradientTexture2D_bswx1")
-region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
 
 [node name="PartyPortrait" type="Control" unique_id=812714871]
 layout_mode = 3
@@ -39,27 +25,46 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bswx1")
 
+[node name="background" type="Control" parent="." unique_id=114021704]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="background" unique_id=558146571]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 4.0000005
+offset_right = 228.51851
+offset_bottom = 41.037033
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("2_42j3u")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="background" unique_id=833874614]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 242.03703
+offset_bottom = 51.85185
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("3_bswx1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="Portrait" type="Sprite2D" parent="." unique_id=1341695875]
 z_index = 1
 position = Vector2(0.36842108, 1.8421054)
 scale = Vector2(0.6315789, 0.6315789)
 texture = ExtResource("1_42j3u")
 offset = Vector2(19.605, 11.06)
-
-[node name="Health_Num" type="Label" parent="." unique_id=1156423034]
-layout_mode = 0
-offset_left = 11.0
-offset_top = -1.0
-offset_right = 102.0
-offset_bottom = 26.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_fonts/font = ExtResource("3_jhf3i")
-theme_override_font_sizes/font_size = 13
-text = "100 / 100"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Statuses" type="Control" parent="." unique_id=571215200]
 anchors_preset = 0
@@ -127,25 +132,54 @@ offset_bottom = 53.873787
 scale = Vector2(0.515, 0.515)
 texture = ExtResource("11_2s1to")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=833874614]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2144974579]
 layout_mode = 0
-offset_left = 5.0
-offset_right = 188.33333
-offset_bottom = 51.85185
-scale = Vector2(0.54, 0.54)
-texture = ExtResource("12_bswx1")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
+offset_left = 8.0
+offset_top = -6.0
+offset_right = 141.0
+offset_bottom = 34.0
+alignment = 1
 
-[node name="Panel" type="Panel" parent="." unique_id=1429280131]
-z_index = -1
+[node name="Health_Num" type="Label" parent="HBoxContainer" unique_id=1156423034]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("3_jhf3i")
+theme_override_font_sizes/font_size = 13
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Health_Num2" type="Label" parent="HBoxContainer" unique_id=1176913032]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("3_jhf3i")
+theme_override_font_sizes/font_size = 13
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health_Num3" type="Label" parent="HBoxContainer" unique_id=552713741]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("3_jhf3i")
+theme_override_font_sizes/font_size = 13
+text = "10000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="." unique_id=1803789453]
+visible = false
 layout_mode = 0
-offset_left = 9.0
-offset_top = 2.0
-offset_right = 101.0
-offset_bottom = 26.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_2s1to")
+offset_left = 131.0
+offset_top = 6.0
+offset_right = 171.0
+offset_bottom = 24.0
+text = "acting"

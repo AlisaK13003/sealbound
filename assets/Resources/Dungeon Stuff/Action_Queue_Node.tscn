@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cj8btyoi0oqq5"]
+
+[ext_resource type="Script" uid="uid://c4fp4rx4eqcrh" path="res://assets/Resources/Dungeon Stuff/action_queue_node.gd" id="1_5jv5p"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="1_rnb5t"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="2_5jv5p"]
+[ext_resource type="Texture2D" uid="uid://iovi8qgsw6fv" path="res://assets/characters/orion/orion_portraits.png" id="3_m6p68"]
+
+[node name="ActionQueueNode" type="Control" unique_id=1690600671]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5jv5p")
+
+[node name="Background" type="Control" parent="." unique_id=492892106]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=725653250]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 130.0
+offset_bottom = 25.0
+texture = ExtResource("1_rnb5t")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=1730441404]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 140.0
+offset_bottom = 33.0
+texture = ExtResource("2_5jv5p")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1604454648]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 0
+offset_left = -46.0
+offset_top = 4.0
+offset_right = -3.0
+offset_bottom = 22.0
+text = "acting"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=60724955]
+layout_mode = 0
+offset_right = 169.0
+offset_bottom = 32.0
+
+[node name="Container" type="Container" parent="HBoxContainer" unique_id=2049447993]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/Container" unique_id=440200358]
+position = Vector2(11, 7.000003)
+scale = Vector2(0.47916666, 0.47916666)
+texture = ExtResource("3_m6p68")
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1143829754]
+custom_minimum_size = Vector2(93.495, 0)
+layout_mode = 2
+offset_transform_enabled = true
+theme_override_font_sizes/font_size = 12
+text = "Slime Creature"

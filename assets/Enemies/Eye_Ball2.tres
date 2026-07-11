@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://yvrmypgackkj"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_bfyy1"]
+[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="2_120uf"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_b4jvw"]
+[ext_resource type="Resource" uid="uid://dmw404labrblk" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Fallen Adventurer Blade.tres" id="3_120uf"]
+[ext_resource type="Resource" uid="uid://b7g01c5jo4trt" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/The Whole Eye.tres" id="4_5dk1w"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="5_1teix"]
+[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="6_bibcr"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="7_dwyko"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="8_57wph"]
+
+[sub_resource type="Resource" id="Resource_bcr84"]
+script = ExtResource("1_bfyy1")
+move_name = "Summon Thing"
+move_description = "MURDER BOT"
+attack_power = null
+does_damage = false
+mana_cost = 2
+does_summon = true
+summons_who = ExtResource("2_120uf")
+summon_count_range = Vector2i(1, 1)
+status_type = null
+removes_status = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_uyw4s"]
+script = ExtResource("2_b4jvw")
+level = 2
+max_health = 65
+health = 65
+attack = 35
+defense = 25
+magic = 20
+resistance = 20
+speed = 40
+luck = 3
+evasion = 3
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_o16x7"]
+script = ExtResource("2_b4jvw")
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[sub_resource type="Resource" id="Resource_f2dqj"]
+script = ExtResource("7_dwyko")
+equipment_stats = SubResource("Resource_o16x7")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"
+
+[sub_resource type="Resource" id="Resource_otd26"]
+script = ExtResource("8_57wph")
+attack_accuracy = 100
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
+
+[resource]
+script = ExtResource("5_1teix")
+combatant_name = "Eye-Ball"
+combatant_stats = SubResource("Resource_uyw4s")
+is_combatant_enemy = true
+stored_weapon = SubResource("Resource_otd26")
+stored_equipment = SubResource("Resource_f2dqj")
+drop_table = Dictionary[Resource, float]({
+ExtResource("3_120uf"): 0.1
+})
+quest_item_drop = ExtResource("4_5dk1w")
+coin_drop_range = Vector2i(0, 10)
+bond_drop_range = Vector2i(0, 3)
+combatant_skills = Array[ExtResource("1_bfyy1")]([SubResource("Resource_bcr84")])
+sprite_frames = ExtResource("6_bibcr")
+idle_speed = 0.25
+death_speed = 1.0
+walk_speed = 2.0
+attack_speed = Array[float]([2.0, 2.0])
+sprite_scale = 0.006
+sprite_offset = Vector2(-38, -21)
+metadata/_custom_type_script = "uid://125iickqse23"

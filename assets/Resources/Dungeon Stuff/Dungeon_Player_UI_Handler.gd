@@ -2,6 +2,7 @@ extends Control
 
 class_name dungeon_gui
 
+@onready var options_menu = $Options_Menu
 @onready var item_menu = $Item_Menu
 @onready var skill_menu = $Skill_Menu
 @onready var base_menu = $Base_Menu
@@ -9,7 +10,7 @@ class_name dungeon_gui
 @onready var item_button = $Base_Menu/Item
 @onready var skill_button = $Base_Menu/Skill
 @onready var attack_button = $Base_Menu/Attack
-@onready var defend_button = $Base_Menu/Defend
+@onready var option_button = $Base_Menu/Options
 @onready var run_button = $GenericButton
 
 @onready var confirmation_yes = $Confirmation/GenericButton
@@ -30,9 +31,11 @@ class_name dungeon_gui
 
 @onready var action_hint_area = $Action_Hint
 
+@onready var action_queue_list = $ActionQueue
+
 var test_mode = false
 
-var p_ref
+var p_ref: dungeon_loop
 
 var executing_skill = false
 var executing_item = false
@@ -58,7 +61,7 @@ func _setup(parent_reference):
 		item_button.activated.connect(_item_menu_pressed)
 		skill_button.activated.connect(_skill_menu_pressed)
 		attack_button.activated.connect(_base_attack_emitted)
-		defend_button.activated.connect(_thought_about_defending)
+		option_button.activated.connect(options_menu_option)
 		run_button.activated.connect(run_button_pressed)
 		confirmation_yes.activated.connect(confirmation_button_.bind(true))
 		confirmation_no.activated.connect(confirmation_button_.bind(false))
@@ -102,21 +105,38 @@ func show_base_gui():
 	selection_area.visible = true
 	update_action_hints()
 
-func new_player_turn(item_list):
-	swap_to_new_player(item_list)
+func new_player_turn():
+	swap_to_new_player()
+	action_queue_list.update_turn_queue_ui(p_ref.all_combatants)
 
-func swap_to_new_player(item_list):
+func update_turn_queue_ui():
+	action_queue_list.update_turn_queue_ui(p_ref.all_combatants)
+
+func swap_to_new_player():
 	executing_item = false
 	executing_skill = false
 	skill_menu._setup(GlobalCombatInformation.active_party_slots[p_ref.active_player_turn].combatant_skills)
 	item_menu._setup()
-	
+	options_menu._setup()
 	if not skill_menu.thing_selected.is_connected(_display_enemy_selection):
 		skill_menu.thing_selected.connect(_display_enemy_selection)
 	if not item_menu.thing_selected.is_connected(_display_enemy_selection):
 		item_menu.thing_selected.connect(_display_enemy_selection)
+	if not options_menu.thing_selected.is_connected(handle_option_selection):
+		options_menu.thing_selected.connect(handle_option_selection)
 	
 	show_base_gui()
+
+func handle_option_selection(option_index):
+	match option_index:
+		# Defend
+		0:
+			_thought_about_defending()
+		# Run
+		1:
+			run_action.emit()
+		2:
+			print("You are trying to view the queue")
 
 func _base_attack_emitted():
 	if base_menu.visible:
@@ -125,17 +145,27 @@ func _base_attack_emitted():
 		hide_gui(false)
 
 func _thought_about_defending():
-	if base_menu.visible:
-		base_menu.visible = false
-		hide_gui(false)
-		p_ref.unselect_all()
-		setup_confirmation_button("Defend", p_ref.get_player(p_ref.active_player_turn).stored_combatant)
+	base_menu.visible = false
+	hide_gui(false)
+	p_ref.unselect_all()
+	setup_confirmation_button("Defend", p_ref.get_player(p_ref.active_player_turn).stored_combatant)
 
+func options_menu_option():
+	if base_menu.visible:
+		selection_area.visible = false
+		p_ref.no_one_can_be_selected()
+		options_menu.visible = true
+		base_menu.visible = false
+		back_button_.visible = true
+	update_action_hints()
+		
 func confirmation_button_(confirm_or_deny):
 	if confirm_or_deny:
 		defended.emit()
 	else:
-		p_ref.revert_to_default_UI()
+		$Confirmation.visible = false
+		$Options_Menu.visible = true
+		update_action_hints()
 
 func _back_button_pressed():
 	if base_menu.visible:
@@ -153,9 +183,10 @@ func _back_button_pressed():
 		executing_skill = false
 		selection_area.visible = false
 		update_action_hints()
-	elif skill_menu.visible or item_menu.visible:
+	elif skill_menu.visible or item_menu.visible or options_menu.visible:
 		item_menu.visible = false
 		skill_menu.visible = false
+		options_menu.visible = false
 		back_button_.visible = false
 		base_menu.visible = true
 		p_ref.select_individual(false, 0)
@@ -168,6 +199,8 @@ func _confirm_button_pressed():
 		item_menu.node_selected()
 	elif skill_menu.visible:
 		skill_menu.node_selected()
+	elif options_menu.visible:
+		options_menu.node_selected()
 	else:
 		if executing_item:
 			execute_item()
@@ -206,16 +239,59 @@ func _item_menu_pressed():
 	
 signal display_enemies
 func _display_enemy_selection(thing_used):
-	p_ref.selecting_entity = true
+	p_ref.can_select_things(thing_used)
 	if thing_used is Items:
-		is_aoe = thing_used.is_aoe_item
 		executing_item = true
+		is_aoe = thing_used.is_aoe_item
+		
+		if thing_used.does_what == 2:
+			if is_aoe:
+				p_ref.no_one_can_be_selected()
+				p_ref.select_all_players()
+				update_selection_section(null)
+			else:
+				p_ref.make_players_selectable()
+				p_ref.select_individual(true, p_ref.active_player_turn)
+				update_selection_section(p_ref.get_player(p_ref.active_player_turn))
+		else:
+			if is_aoe:
+				p_ref.no_one_can_be_selected()
+				p_ref.select_all_enemies()
+				update_selection_section(null)
+			else:
+				p_ref.no_one_can_be_selected()
+				p_ref.make_enemies_selectable()
+				p_ref.select_individual(false, 0)
+				update_selection_section(p_ref.enemy_shit.get_child(0))
+		
 		display_enemies.emit(thing_used.is_aoe_item, true if thing_used.does_what & 10 else false, false)
 	elif thing_used is moves:
-		is_aoe = thing_used.is_skill_aoe
 		executing_skill = true
+		is_aoe = thing_used.is_skill_aoe
+		if thing_used.targets_party:
+			if thing_used.targets_self:
+				p_ref.no_one_can_be_selected()
+				p_ref.select_individual(true, p_ref.active_player_turn)
+				update_selection_section(p_ref.get_player(p_ref.active_player_turn))
+			elif is_aoe:
+				p_ref.no_one_can_be_selected()
+				p_ref.select_all_players()
+				update_selection_section(null)
+			else:
+				p_ref.make_players_selectable()
+				p_ref.select_individual(true, p_ref.active_player_turn)
+				update_selection_section(p_ref.get_player(p_ref.active_player_turn))
+		else:
+			if is_aoe:
+				p_ref.select_all_enemies()
+				update_selection_section(null)
+			else:
+				p_ref.make_enemies_selectable()
+				p_ref.select_individual(false, 0)
+				update_selection_section(p_ref.enemy_shit.get_child(0))
+		
 		display_enemies.emit(thing_used.is_skill_aoe, thing_used.targets_party, thing_used.targets_self)
-	selection_area.visible = not is_aoe
+	selection_area.visible = true
 
 func setup_confirmation_button(move_name, used_on: generic_combatants):
 	confirmation_button.visible = true
@@ -226,24 +302,24 @@ func update_action_hints():
 	$Action_Hint.visible = true
 	if base_menu.visible:
 		targeting.visible = true; confirm.visible = false; back_button_.visible = false
-	elif skill_menu.visible or item_menu.visible:
+	elif skill_menu.visible or item_menu.visible or options_menu.visible:
 		confirm.visible = true; back_button_.visible = true; targeting.visible = false
 	elif executing_item or executing_skill:
 		confirm.visible = true; back_button_.visible = true; targeting.visible = not is_aoe
 
-func update_selection_section(combatant: combat_template, thing_used = null, aoe = false):
-	if thing_used is Items:
-		$Selection_Indicator/GridContainer/TextureRect.texture = thing_used.item_sprite
-		$Selection_Indicator/GridContainer/Enemy_Name2.text = thing_used.item_name
-	elif thing_used is moves:
-		$Selection_Indicator/GridContainer/TextureRect.texture = thing_used.move_sprite
-		$Selection_Indicator/GridContainer/Enemy_Name2.text = thing_used.move_name
+func update_selection_section(combatant: combat_template):
+	if executing_item:
+		$Selection_Indicator/GridContainer/TextureRect.texture = item_menu.selected_item.item_sprite if item_menu.selected_item.item_sprite != null else load("res://assets/Equipment/Equipment Sprites/Feet.png")
+		$Selection_Indicator/GridContainer/Enemy_Name2.text = item_menu.selected_item.item_name
+	elif executing_skill:
+		$Selection_Indicator/GridContainer/TextureRect.texture = skill_menu.selected_item.move_sprite if skill_menu.selected_item.move_sprite != null else load("res://assets/Equipment/Equipment Sprites/Feet.png")
+		$Selection_Indicator/GridContainer/Enemy_Name2.text = skill_menu.selected_item.move_name
 	else:
 		$Selection_Indicator/GridContainer/TextureRect.texture = load("res://assets/Equipment/Equipment Sprites/Feet.png")
 		$Selection_Indicator/GridContainer/Enemy_Name2.text = "Base Attack"
 	
-	if aoe:
-		$Selection_Indicator/GridContainer/Enemy_Level.text = "All Enemies"
+	if is_aoe:
+		$Selection_Indicator/GridContainer/Enemy_Level.text = "All"
 		$Selection_Indicator/GridContainer/Enemy_Name.text = ""
 	else:
 		$Selection_Indicator/GridContainer/Enemy_Level.text = "Lv. " + str(combatant.stored_combatant.actual_stats.level)

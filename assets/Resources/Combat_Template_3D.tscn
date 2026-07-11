@@ -6,6 +6,43 @@
 [ext_resource type="PackedScene" uid="uid://dywa8njfjb1kd" path="res://assets/Resources/Dungeon Stuff/Combatant ui.tscn" id="3_drjmm"]
 [ext_resource type="Script" uid="uid://d0pnuy6nbgr42" path="res://assets/Resources/subviewport_fix.gd" id="4_mmlnl"]
 
+[sub_resource type="Animation" id="Animation_51gu7"]
+resource_name = "Take_Damage"
+length = 2.0666666
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 1.6666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7mydf"]
+length = 1.9666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6666667, 1.3666667, 1.9666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.2, 0, 0.6784314), Color(1, 0.18039216, 0.19215687, 0.9254902), Color(1, 0.18039216, 0.19215687, 0.5764706), Color(1, 0.18039216, 0.19215687, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ymnl"]
+_data = {
+&"On_Death": SubResource("Animation_51gu7"),
+&"RESET": SubResource("Animation_7mydf")
+}
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_51gu7"]
 viewport_path = NodePath("Sprite3D2/SubViewport")
 
@@ -59,17 +96,21 @@ animations = [{
 [node name="CombatTemplate3d" type="Node3D" unique_id=240556923]
 script = ExtResource("1_51gu7")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=531432783]
+libraries/ = SubResource("AnimationLibrary_2ymnl")
+
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="." unique_id=367047411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16055357, 0.15642697, 0)
+modulate = Color(1, 0.2, 0, 0.6784314)
 billboard = 1
 texture_filter = 0
 sprite_frames = ExtResource("2_51gu7")
 animation = &"On_Attack_1"
-frame_progress = 0.6581595
+frame_progress = 0.70251656
 speed_scale = 2.0
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
-transform = Transform3D(0.1949839, 0, -0.0025053758, 0, 0.195, 0, 0.0025053758, 0, 0.1949839, -0.21860272, 0.00048226118, 0.6535214)
+transform = Transform3D(0.1949839, 0, -0.0025053758, 0, 0.195, 0, 0.0025053758, 0, 0.1949839, -1.056, 0.387, 0.063)
 billboard = 1
 texture_filter = 0
 texture = SubResource("ViewportTexture_51gu7")
@@ -85,7 +126,7 @@ render_target_update_mode = 4
 [node name="CombatantUi" parent="Sprite3D2/SubViewport" unique_id=1169996085 instance=ExtResource("3_drjmm")]
 
 [node name="Enemy_Collision" type="Area3D" parent="Sprite3D2" unique_id=1958587253]
-transform = Transform3D(0.0381074, -0.034002624, -0.11954767, 0.010536364, 0.1254742, -0.032329682, 0.12384185, -0.00021228948, 0.03953661, -11.904573, 1.8277214, -0.78445864)
+transform = Transform3D(0.0381074, -0.034002624, -0.11954767, 0.010536364, 0.1254742, -0.032329682, 0.12384185, -0.00021228948, 0.03953661, -11.915401, 1.8277215, -1.6272026)
 script = ExtResource("4_mmlnl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Enemy_Collision" unique_id=376378909]

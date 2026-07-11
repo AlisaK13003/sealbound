@@ -8,6 +8,7 @@ class_name combatant_ui
 @onready var health_differential_label = $Health_Differential
 @onready var status_timer_node = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Status_Timer.tscn")
 @onready var current_health_label = $TextureProgressBar/Label
+@onready var animation_player = $AnimationPlayer
 
 enum statuses {
 	STUN = 1 << 0,
@@ -113,6 +114,7 @@ func update_grid_size():
 		status_visible_container.custom_minimum_size = Vector2(54, 29 + (9 * ((status_container.get_child_count() / 4 if status_container.get_child_count() & 4 == 0 else ceili(float(status_container.get_child_count()) / 4))) - 1))
 	
 func update_damage_label(health_differential, type_of_damage):
+	animation_player.play("Take_Damage")
 	match type_of_damage:
 		"HEAL":
 			health_differential_label.modulate = Color.LAWN_GREEN
@@ -135,6 +137,7 @@ func update_damage_label(health_differential, type_of_damage):
 		health_differential_label.text = str(health_differential)
 	health_bar.value -= health_differential
 	current_health_label.text = str(int(health_bar.value))
+	
 	var tween = create_tween()
 	
 	tween.tween_property(health_differential_label, "position", Vector2(health_differential_label.position.x, previous_y_level - 20.0), 0.3)
@@ -150,3 +153,8 @@ func update_damage_label(health_differential, type_of_damage):
 	health_differential_label.position.y = previous_y_level
 	health_differential_label.modulate = Color.WHITE_SMOKE
 	await get_tree().create_timer(0.5).timeout
+
+func play_use_item_animation(which_item: Items):
+	$Sprite2D.texture = which_item.item_sprite
+	$AnimationPlayer.play("Use_Item")
+	print("PLAYING ANIMATION")

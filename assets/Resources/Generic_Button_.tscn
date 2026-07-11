@@ -7,9 +7,9 @@
 [node name="GenericButton" type="TextureButton" unique_id=1034936178]
 custom_minimum_size = Vector2(65.16, 18.32)
 offset_left = 4.0
-offset_top = 6.0
+offset_top = 5.0
 offset_right = 69.16
-offset_bottom = 34.0
+offset_bottom = 35.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 script = ExtResource("1_s28mv")
@@ -37,6 +37,8 @@ frame = 22
 [node name="Label2" type="Label" parent="HBoxContainer" unique_id=698061328]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+offset_transform_enabled = true
 theme_override_fonts/font = ExtResource("3_xv3tk")
 theme_override_font_sizes/font_size = 16
-text = "Next"
+text = "Nextddddd"
+horizontal_alignment = 2

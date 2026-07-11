@@ -14,6 +14,8 @@ signal activated
 
 @export var button_to_active: Global.key_options = 0
 
+@export var text_on_left_of_button: bool = false
+
 func _ready():
 	if disabled_:
 		return
@@ -24,6 +26,11 @@ func _ready():
 
 	Global.swapped_to_controller.connect(swap_to_controller_icons)
 	swap_to_controller_icons(Global.using_controller)
+	
+	if text_on_left_of_button:
+		$HBoxContainer/Label2.offset_left = -150
+		
+	
 
 func update_name(new_name: String):
 	button_name_text.text = new_name

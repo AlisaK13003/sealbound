@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckc4ktd8gbxdm" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_UI_Handler.gd" id="1_ijjon"]
 [ext_resource type="Texture2D" uid="uid://ctd64c1cvs2io" path="res://assets/tile sheets/BP_Under.png" id="2_irdl1"]
+[ext_resource type="PackedScene" uid="uid://bsvfww658sxlt" path="res://assets/Resources/Dungeon Stuff/Action_Queue.tscn" id="2_m12gh"]
 [ext_resource type="Texture2D" uid="uid://d0f1puf6ehmr2" path="res://assets/tile sheets/BP_Over.png" id="3_m12gh"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="6_irdl1"]
 [ext_resource type="PackedScene" uid="uid://m4g35580f06k" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Skill_Item_Menu.tscn" id="7_bvf2b"]
@@ -27,18 +28,7 @@ gradient = SubResource("Gradient_04tce")
 fill = 1
 fill_to = Vector2(1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irdl1"]
-bg_color = Color(0.5128465, 0.5735708, 0.8962405, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.7691465, 0.78199226, 0.97865075, 1)
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
 [node name="DungeonPlayerGui" type="Control" unique_id=217185090]
 z_index = -1
@@ -55,22 +45,33 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_ijjon")
 
+[node name="ActionQueue" parent="." unique_id=1456268488 instance=ExtResource("2_m12gh")]
+layout_mode = 1
+offset_left = 6.0
+offset_top = -48.0
+offset_right = 6.0
+offset_bottom = -48.0
+
 [node name="Bond_Attack" type="TextureProgressBar" parent="." unique_id=591956324]
 layout_mode = 0
-offset_left = 198.0
-offset_top = -43.0
-offset_right = 465.58005
-offset_bottom = -25.666664
+offset_left = 136.0
+offset_top = 74.0
+offset_right = 251.73679
+offset_bottom = 91.333336
+rotation = -1.5707964
+nine_patch_stretch = true
+stretch_margin_left = 15
+stretch_margin_right = 15
 texture_under = ExtResource("2_irdl1")
 texture_progress = ExtResource("3_m12gh")
 
 [node name="Base_Menu" type="GridContainer" parent="." unique_id=1741746522]
 z_index = 1
 layout_mode = 0
-offset_left = 44.0
-offset_top = 203.0
-offset_right = 251.0
-offset_bottom = 260.0
+offset_left = 38.000008
+offset_top = 232.0
+offset_right = 245.0
+offset_bottom = 289.0
 scale = Vector2(0.625, 0.625)
 theme_override_constants/h_separation = 37
 theme_override_constants/v_separation = 21
@@ -79,28 +80,39 @@ columns = 2
 [node name="Item" parent="Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-10, 20)
+flip_h = true
 button_name = "Items"
 button_to_active = 6
+text_on_left_of_button = true
 
 [node name="Skill" parent="Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-30, -20)
 button_name = "Skill"
 button_to_active = 7
 
 [node name="Attack" parent="Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(139.91, -20)
 button_name = "Attack"
 button_to_active = 4
 
-[node name="Defend" parent="Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
+[node name="Options" parent="Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
-button_name = "Defend"
+offset_transform_enabled = true
+offset_transform_position = Vector2(-30, 20)
+button_name = "Options"
 button_to_active = 5
 
 [node name="Skill_Menu" parent="." unique_id=946804038 instance=ExtResource("7_bvf2b")]
+visible = false
 layout_mode = 1
 offset_left = -1.0
 offset_top = -49.000008
@@ -108,12 +120,22 @@ offset_right = -0.99993896
 offset_bottom = -49.0
 
 [node name="Item_Menu" parent="." unique_id=1217682468 instance=ExtResource("7_bvf2b")]
+visible = false
 layout_mode = 1
 offset_left = -1.0
 offset_top = -49.000008
 offset_right = -0.99993896
 offset_bottom = -49.0
 is_item_menu = true
+
+[node name="Options_Menu" parent="." unique_id=735930746 instance=ExtResource("7_bvf2b")]
+visible = false
+layout_mode = 1
+offset_left = -1.0
+offset_top = -49.000008
+offset_right = -0.99993896
+offset_bottom = -49.0
+is_for_options = true
 
 [node name="GenericButton" parent="." unique_id=397479680 instance=ExtResource("12_0ob4l")]
 visible = false
@@ -175,10 +197,10 @@ button_to_active = 3
 
 [node name="Selection_Indicator" type="NinePatchRect" parent="." unique_id=1210431277]
 layout_mode = 0
-offset_left = 391.0
-offset_top = 202.0
-offset_right = 635.0
-offset_bottom = 306.0
+offset_left = 418.0
+offset_top = 261.0
+offset_right = 634.0
+offset_bottom = 312.0
 texture = ExtResource("6_irdl1")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -192,8 +214,8 @@ z_index = -1
 layout_mode = 0
 offset_left = 9.0
 offset_top = 8.0
-offset_right = 234.0
-offset_bottom = 98.0
+offset_right = 206.0
+offset_bottom = 44.0
 texture = ExtResource("7_m12gh")
 
 [node name="GridContainer" type="GridContainer" parent="Selection_Indicator" unique_id=1321424670]
@@ -360,29 +382,50 @@ offset_top = -47.0
 offset_right = 633.0
 offset_bottom = -10.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_irdl1")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 
 [node name="Label" type="Label" parent="Mana Bar" unique_id=628296512]
 z_index = 5
 texture_filter = 1
 layout_mode = 0
-offset_left = 7.000061
-offset_top = 12.0
-offset_right = 101.00006
-offset_bottom = 89.0
+offset_top = 17.0
+offset_right = 39.0
+offset_bottom = 94.0
 theme_override_font_sizes/font_size = 16
 text = "3/3"
+horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Mana Bar" unique_id=1515659383]
 z_index = 5
 texture_filter = 1
 layout_mode = 0
-offset_left = 1.000061
-offset_top = 38.0
-offset_right = 41.00006
-offset_bottom = 56.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 43.0
+offset_bottom = 14.0
 theme_override_font_sizes/font_size = 16
 text = "Mana"
+horizontal_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Mana Bar" unique_id=465194604]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("7_m12gh")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Mana Bar" unique_id=2021588986]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -8.0
+offset_right = 49.0
+offset_bottom = 49.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Party_Portrait_Container" type="Control" parent="." unique_id=1266545485]
 anchors_preset = 0
@@ -399,9 +442,9 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 8.0
-offset_top = 9.0
+offset_top = 33.0
 offset_right = 8.0
-offset_bottom = 48.999954
+offset_bottom = 72.999954
 grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 1
@@ -413,10 +456,10 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 35.0
-offset_top = -21.0
-offset_right = 35.0
-offset_bottom = 19.0
+offset_left = 6.0
+offset_top = -9.0
+offset_right = 6.0
+offset_bottom = 31.0
 grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 1
@@ -428,9 +471,9 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 61.0
+offset_left = 8.0
 offset_top = -51.0
-offset_right = 61.0
+offset_right = 8.0
 offset_bottom = -11.0
 grow_horizontal = 1
 grow_vertical = 1

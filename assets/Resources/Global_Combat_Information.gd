@@ -484,11 +484,14 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	rewards_scene_ = rewards_scene
 	
 var rewards_scene_
-func bring_back_combat(_rewards_scene):
+func bring_back_combat(_rewards_scene = null):
 	get_tree().root.add_child(explorable_dungeon_scene)
 	explorable_dungeon_scene.movement_locked = false
 	if is_instance_valid(rewards_scene_):
 		rewards_scene_.queue_free()
+	
+	if get_tree().has_node(dungeon_loop_scene):
+		get_tree().remove_child(dungeon_loop_scene)
 	
 	if should_remove_enemy:
 		var enemy_to_remove = instance_from_id(previous_enemy_encountered)

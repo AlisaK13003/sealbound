@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bsvfww658sxlt"]
+
+[ext_resource type="Script" uid="uid://ci64rrt1q41c6" path="res://assets/Resources/Dungeon Stuff/action_queue_controller.gd" id="1_xnp07"]
+
+[node name="ActionQueue" type="Control" unique_id=1456268488]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xnp07")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1011434625]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 56.0
+offset_right = 544.0
+offset_bottom = 96.0
+theme_override_constants/v_separation = 34

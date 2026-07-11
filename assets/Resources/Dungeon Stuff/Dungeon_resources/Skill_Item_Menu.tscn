@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="2_ery3k"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="3_nfgmx"]
 [ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="4_uevtr"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="4_x400g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nfgmx"]
 
@@ -27,15 +28,17 @@ offset_right = 423.0
 offset_bottom = 200.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=738929062]
+modulate = Color(1, 1, 1, 0.5764706)
 layout_mode = 0
 offset_left = 9.0
-offset_top = 8.0
+offset_top = 59.0
 offset_right = 242.0
 offset_bottom = 187.0
 texture = ExtResource("3_nfgmx")
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=2091892535]
 layout_mode = 0
+offset_top = 50.0
 offset_right = 249.0
 offset_bottom = 195.0
 texture = ExtResource("4_uevtr")
@@ -45,6 +48,40 @@ patch_margin_right = 15
 patch_margin_bottom = 15
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=1912002278]
+modulate = Color(1, 1, 1, 0.5764706)
+layout_mode = 0
+offset_left = 118.0
+offset_top = 22.0
+offset_right = 234.99994
+offset_bottom = 47.0
+texture = ExtResource("3_nfgmx")
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="Background" unique_id=1890044542]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 12.0
+offset_right = 245.0
+offset_bottom = 55.0
+texture = ExtResource("4_x400g")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Label" type="Label" parent="Background" unique_id=869097040]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 24.0
+offset_right = 232.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Items"
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="." unique_id=391083354 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
 layout_mode = 0
@@ -59,9 +96,10 @@ scroll_bar = NodePath("../VScrollBar")
 
 [node name="GridContainer" type="GridContainer" parent="Panel" unique_id=555049411]
 layout_mode = 0
+offset_top = 46.685
 offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/v_separation = 35
+offset_bottom = 86.68501
+theme_override_constants/v_separation = 25
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1445991128]
 
@@ -71,7 +109,7 @@ shape = SubResource("RectangleShape2D_7tpxp")
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=400648888]
 layout_mode = 0
-offset_left = 615.0
-offset_top = 191.0
-offset_right = 623.0
+offset_left = 623.0
+offset_top = 222.0
+offset_right = 631.0
 offset_bottom = 343.0

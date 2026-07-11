@@ -11,26 +11,35 @@ signal did_a_thing(what_thing)
 signal just_hovered(index)
 
 func _setup(skill_item):
-	stored_thing = skill_item
-	if skill_item is moves:
-		$Skills.visible = true
+	if skill_item != null and not skill_item is String:
+		stored_thing = skill_item
+		if skill_item is moves:
+			$Skills.visible = true
+			$Items.queue_free()
+			$Options.queue_free()
+			thing_name = $Skills/HBoxContainer/Label2
+			thing_bp_cost = $Skills/HBoxContainer/Label
+			thing_texture = $Skills/HBoxContainer/TextureRect
 		
-		thing_name = $Skills/HBoxContainer/Label2
-		thing_bp_cost = $Skills/HBoxContainer/Label
-		thing_texture = $Skills/HBoxContainer/TextureRect
-	
-		thing_name.text = skill_item.move_name
-		thing_bp_cost.text = str(skill_item.mana_cost) + " BP"
-		thing_texture.texture = skill_item.move_sprite
-	elif skill_item is Items:
-		$Items.visible = true
+			thing_name.text = skill_item.move_name
+			thing_bp_cost.text = str(skill_item.mana_cost) + " BP"
+			thing_texture.texture = skill_item.move_sprite
+		elif skill_item is Items:
+			$Items.visible = true
+			$Skills.queue_free()
+			$Options.queue_free()
+			thing_name = $Items/HBoxContainer/Label2
+			thing_quantity = $Items/HBoxContainer/Label
+			thing_texture = $Items/HBoxContainer/TextureRect
+			thing_name.text = skill_item.item_name
+			thing_quantity.text = str(skill_item.stack)
+			thing_texture.texture = skill_item.item_sprite
+	else:
+		$Options.visible = true
+		$Options/Label.text = skill_item
+		$Items.queue_free()
+		$Skills.queue_free()
 		
-		thing_name = $Items/HBoxContainer/Label2
-		thing_quantity = $Items/HBoxContainer/Label
-		thing_texture = $Items/HBoxContainer/TextureRect
-		thing_name.text = skill_item.item_name
-		thing_quantity.text = str(skill_item.stack)
-		thing_texture.texture = skill_item.item_sprite
 
 func highlight(should_highlight):
 	if should_highlight:

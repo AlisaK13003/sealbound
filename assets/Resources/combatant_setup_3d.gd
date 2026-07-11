@@ -12,6 +12,7 @@ class_name combat_template
 @onready var ui_sprite = $Sprite3D2
 @onready var rng = RandomNumberGenerator.new()
 @onready var animator = SpriteFrames.new()
+@onready var animation_player = $AnimationPlayer
 
 var currently_selectable : bool
 var stored_combatant : generic_combatants
@@ -27,6 +28,8 @@ var base_location: Vector3
 var displacement = Vector3(0.3, 0, 0)
 var can_be_unselected: bool = true
 var current_mana = 3
+
+var time_until_turn
 
 # Percentages that stat buff / debuffs affect combat
 var attack_up_down: float = 1.25
@@ -131,6 +134,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	if combatant == null:
 		is_empty = true
 		return
+	
 	parent_reference = parent_ref
 	child_number = child_num
 	base_location = self.global_position
@@ -149,6 +153,8 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		stored_combatant.gather_actual_stats()
 	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
 
+	time_until_turn = 10000.0 / obtain_stat(stats.SPEED)
+
 	animated_sprite.offset = combatant.sprite_offset
 	animated_sprite.modulate = Color.WHITE
 	current_mana = 3
@@ -164,6 +170,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 	animated_sprite.play("Idle")
 	has_been_setup = true
+	
 	
 func update_health(change_health_value, what_action = null):
 	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
@@ -181,6 +188,7 @@ func update_health(change_health_value, what_action = null):
 					if update_portrait != null:
 						update_portrait._update_health(current_damage)
 					stored_combatant.actual_stats.health -= current_damage
+
 					await combatant_ui_.update_damage_label(current_damage, what_action)
 				await get_tree().create_timer(1.5)
 				change_health_value.pop_front()
@@ -202,14 +210,17 @@ func update_health(change_health_value, what_action = null):
 				if update_portrait != null:
 					update_portrait._update_health(damage_to_take)
 				stored_combatant.actual_stats.health -= damage_to_take
+
 				await combatant_ui_.update_damage_label(damage_to_take, what_action)
 	else:
 		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
 			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
 			stored_combatant.actual_stats.health -= damage_to_take
+
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
+	
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	
@@ -217,6 +228,13 @@ func update_health(change_health_value, what_action = null):
 		await on_death()
 	parent_reference.turn_ended.emit()
 # Combat related stuff
+
+func use_item(which_item):
+	if stored_combatant.is_MC:
+		animated_sprite.play("Use_Item")	
+	combatant_ui_.play_use_item_animation(which_item)
+	await combatant_ui_.animation_player.animation_finished
+	return
 
 func on_death():
 	stored_combatant.is_dead = true
@@ -226,15 +244,12 @@ func on_death():
 		_remove_active_status(status_.status_type)
 	active_statuses.clear()
 	stored_combatant.is_dead = true
-	if not parent_reference.training:
-		await get_tree().create_timer(0.5).timeout
-		
+	if not parent_reference.training:		
 		if stored_combatant.is_combatant_enemy:
+			combatant_ui_.visible = false
+			animation_player.play("RESET")
 			parent_reference.killed_enemies.append(stored_combatant)
-			animated_sprite.play("On_Death")
-			animated_sprite.speed_scale = 1.5
-			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
-			await animated_sprite.animation_finished
+			await animation_player.animation_finished
 		else:
 			animated_sprite.play("On_Death")
 			animated_sprite.speed_scale = 1.5
@@ -483,6 +498,7 @@ func attack_animation(what_attack_anim):
 		animated_sprite.play(what_attack)
 		animated_sprite.sprite_frames.set_animation_loop(what_attack, false)
 		await animated_sprite.animation_finished
+
 	animated_sprite.play("Idle")
 	animated_sprite.speed_scale = stored_combatant.idle_speed
 	

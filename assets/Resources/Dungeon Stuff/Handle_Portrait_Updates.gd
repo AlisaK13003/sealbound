@@ -2,7 +2,8 @@ extends Control
 
 class_name player_portraits
 
-@onready var health_num = $Health_Num
+@onready var cur_health_num = $HBoxContainer/Health_Num
+@onready var max_health_num = $HBoxContainer/Health_Num3
 @onready var party_portrait = $Portrait
 #@onready var portrait_name = $VBoxContainer/Name
 @onready var portrait_status = $Statuses
@@ -16,7 +17,8 @@ var inflicted_with_status: bool = false
 func _setup(person_to_setup: generic_combatants):
 	person_max_health = int(person_to_setup.actual_stats.max_health)
 	current_health = int(person_to_setup.actual_stats.health)
-	health_num.text = str(current_health) + " / " + str(person_max_health)
+	cur_health_num.text = str(current_health)
+	max_health_num.text = str(person_max_health)
 	
 	var health_percentage = float(current_health) / person_max_health
 	person_frames = person_to_setup.party_member_portrait
@@ -31,9 +33,9 @@ func _setup(person_to_setup: generic_combatants):
 	
 func _update_health(health_value):
 	health_value *= -1
-
-	health_num.text = str(clamp(current_health + health_value, 0, person_max_health)) + " / " + str(person_max_health)
 	current_health = clamp(current_health + health_value, 0, person_max_health)
+	cur_health_num.text = str(current_health)
+	
 	var health_percentage = float(current_health) / person_max_health
 
 	if not inflicted_with_status:
