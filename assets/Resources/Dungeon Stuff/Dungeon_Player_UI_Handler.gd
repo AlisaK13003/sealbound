@@ -4,12 +4,12 @@ class_name dungeon_gui
 
 @onready var item_menu = $Item_Menu
 @onready var skill_menu = $Skill_Menu
-@onready var base_menu = $NinePatchRect
+@onready var base_menu = $Base_Menu
 
-@onready var item_button = $NinePatchRect/Base_Menu/Item
-@onready var skill_button = $NinePatchRect/Base_Menu/Skill
-@onready var attack_button = $NinePatchRect/Base_Menu/Attack
-@onready var defend_button = $NinePatchRect/Base_Menu/Defend
+@onready var item_button = $Base_Menu/Item
+@onready var skill_button = $Base_Menu/Skill
+@onready var attack_button = $Base_Menu/Attack
+@onready var defend_button = $Base_Menu/Defend
 @onready var run_button = $GenericButton
 
 @onready var confirmation_yes = $Confirmation/GenericButton
@@ -231,12 +231,27 @@ func update_action_hints():
 	elif executing_item or executing_skill:
 		confirm.visible = true; back_button_.visible = true; targeting.visible = not is_aoe
 
-func update_selection_section(combatant: combat_template):
-	if combatant.stored_combatant.is_combatant_enemy:
-		selection_area.get_child(0).get_child(0).text = "Lv " + str(combatant.stored_combatant.combatant_stats.level)
+func update_selection_section(combatant: combat_template, thing_used = null, aoe = false):
+	if thing_used is Items:
+		$Selection_Indicator/GridContainer/TextureRect.texture = thing_used.item_sprite
+		$Selection_Indicator/GridContainer/Enemy_Name2.text = thing_used.item_name
+	elif thing_used is moves:
+		$Selection_Indicator/GridContainer/TextureRect.texture = thing_used.move_sprite
+		$Selection_Indicator/GridContainer/Enemy_Name2.text = thing_used.move_name
 	else:
-		selection_area.get_child(0).get_child(0).text = "             "
-	selection_area.get_child(0).get_child(1).text = combatant.stored_combatant.combatant_name
+		$Selection_Indicator/GridContainer/TextureRect.texture = load("res://assets/Equipment/Equipment Sprites/Feet.png")
+		$Selection_Indicator/GridContainer/Enemy_Name2.text = "Base Attack"
+	
+	if aoe:
+		$Selection_Indicator/GridContainer/Enemy_Level.text = "All Enemies"
+		$Selection_Indicator/GridContainer/Enemy_Name.text = ""
+	else:
+		$Selection_Indicator/GridContainer/Enemy_Level.text = "Lv. " + str(combatant.stored_combatant.actual_stats.level)
+		$Selection_Indicator/GridContainer/Enemy_Name.text = combatant.stored_combatant.combatant_name
+	#if combatant.stored_combatant.is_combatant_enemy:
+	#	$Selection_Indicator/GridContainer/Enemy_Level.text = "Lv " + str(combatant.stored_combatant.combatant_stats.level)
+
+	#selection_area.get_child(0).get_child(1).text = combatant.stored_combatant.combatant_name
 
 func get_player_portrait(portrait_to_get: int):
 	if portrait_to_get > 3:

@@ -3,27 +3,14 @@
 [ext_resource type="Script" uid="uid://ckc4ktd8gbxdm" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_UI_Handler.gd" id="1_ijjon"]
 [ext_resource type="Texture2D" uid="uid://ctd64c1cvs2io" path="res://assets/tile sheets/BP_Under.png" id="2_irdl1"]
 [ext_resource type="Texture2D" uid="uid://d0f1puf6ehmr2" path="res://assets/tile sheets/BP_Over.png" id="3_m12gh"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="6_irdl1"]
 [ext_resource type="PackedScene" uid="uid://m4g35580f06k" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Skill_Item_Menu.tscn" id="7_bvf2b"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="7_m12gh"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="9_4wwtq"]
 [ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="10_bvf2b"]
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="11_irdl1"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="12_0ob4l"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
-
-[sub_resource type="Gradient" id="Gradient_m12gh"]
-offsets = PackedFloat32Array(0, 0.8240741)
-colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ob4l"]
-gradient = SubResource("Gradient_m12gh")
-width = 16
-height = 16
-fill = 2
-fill_from = Vector2(0, 0.5)
-fill_to = Vector2(1, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_557e4"]
-texture = SubResource("GradientTexture2D_0ob4l")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12gh"]
 bg_color = Color(0.43897805, 0.6789561, 0.24209201, 1)
@@ -77,54 +64,37 @@ offset_bottom = -25.666664
 texture_under = ExtResource("2_irdl1")
 texture_progress = ExtResource("3_m12gh")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=783263123]
-z_index = -1
-clip_contents = true
-layout_mode = 0
-offset_left = -53.0
-offset_top = 232.0
-offset_right = 247.0
-offset_bottom = 290.0
-mouse_filter = 1
-texture = ExtResource("11_irdl1")
-patch_margin_left = 13
-patch_margin_top = 7
-patch_margin_right = 15
-patch_margin_bottom = 8
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="Base_Menu" type="GridContainer" parent="NinePatchRect" unique_id=1741746522]
+[node name="Base_Menu" type="GridContainer" parent="." unique_id=1741746522]
 z_index = 1
 layout_mode = 0
-offset_left = 79.99999
-offset_top = 10.999987
-offset_right = 287.0
-offset_bottom = 67.999985
+offset_left = 44.0
+offset_top = 203.0
+offset_right = 251.0
+offset_bottom = 260.0
 scale = Vector2(0.625, 0.625)
 theme_override_constants/h_separation = 37
 theme_override_constants/v_separation = 21
 columns = 2
 
-[node name="Item" parent="NinePatchRect/Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
+[node name="Item" parent="Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 button_name = "Items"
 button_to_active = 6
 
-[node name="Skill" parent="NinePatchRect/Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
+[node name="Skill" parent="Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 button_name = "Skill"
 button_to_active = 7
 
-[node name="Attack" parent="NinePatchRect/Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
+[node name="Attack" parent="Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 button_name = "Attack"
 button_to_active = 4
 
-[node name="Defend" parent="NinePatchRect/Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
+[node name="Defend" parent="Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 button_name = "Defend"
@@ -205,55 +175,74 @@ button_to_active = 3
 
 [node name="Selection_Indicator" type="NinePatchRect" parent="." unique_id=1210431277]
 layout_mode = 0
-offset_left = 211.0
-offset_top = 14.0
-offset_right = 383.0
-offset_bottom = 49.0
-texture = ExtResource("12_m12gh")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
+offset_left = 391.0
+offset_top = 202.0
+offset_right = 635.0
+offset_bottom = 306.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Selection_Indicator" unique_id=610789980]
-layout_mode = 0
-offset_left = 8.0
-offset_top = -2.0
-offset_right = 341.99997
-offset_bottom = 39.0
-theme_override_constants/separation = 0
-
-[node name="Enemy_Level" type="Label" parent="Selection_Indicator/HBoxContainer" unique_id=1340457795]
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
-text = "Lv 1"
-
-[node name="Enemy_Name" type="Label" parent="Selection_Indicator/HBoxContainer" unique_id=715042902]
-custom_minimum_size = Vector2(121.9, 0)
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
-text = "Puppy"
-horizontal_alignment = 2
-
-[node name="Panel" type="Panel" parent="Selection_Indicator" unique_id=1193801347]
+[node name="NinePatchRect" type="NinePatchRect" parent="Selection_Indicator" unique_id=77145520]
 z_index = -1
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 167.0
-offset_bottom = 28.0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 234.0
+offset_bottom = 98.0
+texture = ExtResource("7_m12gh")
+
+[node name="GridContainer" type="GridContainer" parent="Selection_Indicator" unique_id=1321424670]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 169.0
+offset_bottom = 65.0
+theme_override_constants/v_separation = -7
+columns = 2
+
+[node name="Enemy_Level" type="Label" parent="Selection_Indicator/GridContainer" unique_id=1340457795]
+layout_mode = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxTexture_557e4")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Lv 1"
+
+[node name="Enemy_Name" type="Label" parent="Selection_Indicator/GridContainer" unique_id=715042902]
+custom_minimum_size = Vector2(121.9, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(2, 0)
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Puppy"
+
+[node name="TextureRect" type="TextureRect" parent="Selection_Indicator/GridContainer" unique_id=602977919]
+custom_minimum_size = Vector2(40.975, 32)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.6, 0.6)
+stretch_mode = 3
+
+[node name="Enemy_Name2" type="Label" parent="Selection_Indicator/GridContainer" unique_id=988088726]
+custom_minimum_size = Vector2(121.9, 0)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2885289, 0.21919352, 0.20186323, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Crowdbreaker"
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="." unique_id=1119225598]
 visible = false

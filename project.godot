@@ -60,6 +60,7 @@ folder_colors={
 Ground=""
 Walls=""
 Building_Ground=""
+Overworld_Player=""
 
 [gui]
 

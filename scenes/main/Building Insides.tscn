@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="2_kwhot"]
 [ext_resource type="AudioStream" uid="uid://b8p1ls3ua1xqp" path="res://assets/Audio/BGM/Week 17 - Alley Cat DUMPSTER DIVIN.ogg" id="2_pwgv3"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="3_24omh"]
-[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="3_f5vtb"]
 [ext_resource type="Texture2D" uid="uid://df2fapg5qkd1s" path="res://assets/tile sheets/Building_Insides_3_.0.png" id="4_bi516"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="4_yn88j"]
 [ext_resource type="Texture2D" uid="uid://cslssp7gn3qnm" path="res://assets/tile sheets/Building Insides 2-sheet.png" id="8_530qt"]
@@ -4473,10 +4472,9 @@ sources/3 = SubResource("TileSetAtlasSource_0exmj")
 sources/4 = SubResource("TileSetAtlasSource_48oeh")
 sources/5 = SubResource("TileSetAtlasSource_dh7fj")
 
-[node name="BuildingInsides" type="Node2D" unique_id=2092508538 node_paths=PackedStringArray("player_node")]
+[node name="BuildingInsides" type="Node2D" unique_id=2092508538]
 y_sort_enabled = true
 script = ExtResource("1_0o3x6")
-player_node = NodePath("Player")
 is_building_insides = true
 bgm = ExtResource("2_pwgv3")
 
@@ -4740,10 +4738,10 @@ tile_set = SubResource("TileSet_bi516")
 
 [node name="Panel" type="Panel" parent="Library" unique_id=1194972105]
 z_index = -2
-offset_left = -191.0
-offset_top = -206.0
-offset_right = 215.0
-offset_bottom = 60.0
+offset_left = 375.483
+offset_top = -4211.931
+offset_right = 781.48303
+offset_bottom = -3945.9312
 theme_override_styles/panel = SubResource("StyleBoxFlat_0o3x6")
 metadata/_edit_use_anchors_ = true
 
@@ -4887,12 +4885,6 @@ position = Vector2(1543, -747)
 tile_map_data = PackedByteArray("AAAHAAAAAgAEAB8AAAABAAYAAgAFAB4AAAADAAYAAgAEAB0AAAAPAP//AgAEAB0AAAAHAP//AgADAB4AAAACAAsAAgAEAB8AAAAJAP7/AgALABYAAAAbAP3/AgACABcAAAAbAP7/AgACABcAAAAbAP//AgACABcAAAAbAAAAAgACABcAAAAbAAEAAgACABcAAAAbAAIAAgACABcAAAAbAAMAAgACABcAAAAbAAQAAgACABcAAAAbAAUAAgACABcAAAAbAAYAAgACABcAAAAbAAcAAgACABcAAAAbAAgAAgACABcAAAAbAAkAAgACABcAAAAbAAoAAgACABcAAAAbAAsAAgACABcAAAAbAAwAAgACABcAAAAbAA0AAgACABcAAAAbAA4AAgACABcAAAAbAA8AAgACABcAAAAbABAAAgACABcAAAAbABEAAgACABgAAAAaABEAAgABABgAAAAZABEAAgABABgAAAAYABEAAgABABgAAAAXABEAAgABABgAAAAWABEAAgABABgAAAAVABEAAgABABgAAAAUABEAAgABABgAAAATABEAAgABABgAAAASABEAAgABABgAAAARABEAAgABABgAAAAQABEAAgABABgAAAAPABEAAgABABgAAAAOABEAAgABABgAAAANABEAAgABABgAAAAMABEAAgABABgAAAALABEAAgABABgAAAAKABEAAgABABgAAAAJABEAAgABABgAAAAIABEAAgABABgAAAAHABEAAgABABgAAAAGABEAAgABABgAAAAFABEAAgABABgAAAAEABEAAgABABgAAAADABEAAgABABgAAAACABEAAgABABgAAAABABEAAgABABgAAAAAABEAAgABABgAAAD//xEAAgABABgAAAD9/xEAAgAAABgAAAD9/xAAAgAAABcAAAD9/w8AAgAAABcAAAD9/w4AAgAAABcAAAD9/w0AAgAAABcAAAD9/wwAAgAAABcAAAD9/wsAAgAAABcAAAD9/woAAgAAABcAAAD9/wkAAgAAABcAAAD9/wgAAgAAABcAAAD9/wcAAgAAABcAAAD9/wYAAgAAABcAAAD9/wUAAgAAABcAAAD9/wQAAgAAABcAAAD9/wMAAgAAABcAAAD9/wIAAgAAABcAAAD9/wEAAgAAABcAAAD9/wAAAgAAABcAAAD9////AgAAABcAAAD9//7/AgAAABcAAAD9//z/AgAAABcAAAD9//3/AgAAABcAAAD9//v/AgAAABcAAAD9//r/AgAAABcAAAD9//n/AgAAABcAAAD9//j/AgAAABcAAAD9//f/AgAAABcAAAD9//b/AgAAABcAAAD9//X/AgAAABcAAAD9//T/AgAAABcAAAD9//P/AgAAABcAAAD9//L/AgAAABcAAAD9//H/AgAAABcAAAAbAPz/AgACABcAAAAbAPv/AgACABcAAAAbAPr/AgACABcAAAAbAPn/AgACABcAAAAbAPj/AgACABcAAAAbAPf/AgACABcAAAAbAPb/AgACABcAAAAbAPX/AgACABcAAAAbAPT/AgACABcAAAAbAPP/AgACABcAAAAbAPL/AgACABcAAAAbAPH/AgACABcAAAD//+7/AgABABYAAAAAAO7/AgABABYAAAABAO7/AgABABYAAAACAO7/AgABABYAAAADAO7/AgABABYAAAAEAO7/AgABABYAAAAFAO7/AgABABYAAAAGAO7/AgABABYAAAAHAO7/AgABABYAAAAIAO7/AgABABYAAAAJAO7/AgABABYAAAAKAO7/AgABABYAAAALAO7/AgABABYAAAAMAO7/AgABABYAAAANAO7/AgABABYAAAAOAO7/AgABABYAAAAPAO7/AgABABYAAAAQAO7/AgABABYAAAARAO7/AgABABYAAAASAO7/AgABABYAAAATAO7/AgABABYAAAAUAO7/AgABABYAAAAVAO7/AgABABYAAAAWAO7/AgABABYAAAAXAO7/AgABABYAAAAYAO7/AgABABYAAAAZAO7/AgABABYAAAAaAO7/AgABABYAAAAbAO7/AgACABYAAAD9/+//AgAAABcAAAD9//D/AgAAABcAAAAbAO//AgACABcAAAAbAPD/AgACABcAAAAOAO//AgAIABYAAAAUAO//AgAIABYAAAAAAP7/AgAFABYAAAD9/+3/AgAAABYAAAAJAO//AgAIABYAAAA=")
 tile_set = SubResource("TileSet_bi516")
 
-[node name="Player" parent="." unique_id=355956441 instance=ExtResource("3_f5vtb")]
-z_index = 5
-position = Vector2(471, -2144)
-scale = Vector2(0.75, 0.75)
-move_speed = 200.0
-
 [node name="Bedroom" type="Node2D" parent="." unique_id=938564508]
 y_sort_enabled = true
 
@@ -4914,5 +4906,4 @@ default_z_index = 12
 counter_z_index = 9
 use_counter_draw_order = true
 
-[node name="UniversalCamera" parent="." unique_id=1015878525 node_paths=PackedStringArray("target") instance=ExtResource("17_3xqff")]
-target = NodePath("../Player")
+[node name="UniversalCamera" parent="." unique_id=1015878525 instance=ExtResource("17_3xqff")]

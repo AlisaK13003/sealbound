@@ -6,28 +6,18 @@ var hearthwynn_hub_scene: String = "res://scenes/main/hearthwynn.res"
 var cliff_side_scene: String = "res://scenes/main/Cliff Siude.tscn"
 var spooky_forest_scene: String = "res://scenes/main/Forest.tscn"
 var building_insides_scene: String = "res://scenes/main/Building Insides.tscn"
+var player_scene: String = "res://scenes/main/player.tscn"
 
 var hearthwynn_instance
 var cliff_side_instance
 var spooky_forest_instance
 var building_insides_instance
+var player_instance
 
 var active_scene
 
 var currently_transitioning: bool = false
 
-func _ready():
-	currently_transitioning = true
-	Fade.fade_out(0.0)
-	var hearthwynn = load(hearthwynn_hub_scene)
-	var cliff_side = load(cliff_side_scene)
-	var spooky_forest = load(spooky_forest_scene)
-	var building_insides = load(building_insides_scene)
-	
-	hearthwynn_instance = hearthwynn.instantiate()
-	cliff_side_instance = cliff_side.instantiate()
-	spooky_forest_instance = spooky_forest.instantiate()
-	building_insides_instance = building_insides.instantiate()
 
 func _setup(transition = true):
 	currently_transitioning = transition
@@ -36,11 +26,20 @@ func _setup(transition = true):
 	var cliff_side = load(cliff_side_scene)
 	var spooky_forest = load(spooky_forest_scene)
 	var building_insides = load(building_insides_scene)
+	var player_node = load(player_scene)
 	
 	hearthwynn_instance = hearthwynn.instantiate()
 	cliff_side_instance = cliff_side.instantiate()
 	spooky_forest_instance = spooky_forest.instantiate()
 	building_insides_instance = building_insides.instantiate()
+	player_instance = player_node.instantiate()
+	
+func wipe_for_dungeon():
+	hearthwynn_instance.queue_free()
+	cliff_side_instance.queue_free()
+	spooky_forest_instance.queue_free()
+	building_insides_instance.queue_free()
+	player_instance.queue_free()
 	
 func swap_scene(scene_to_remove = null):
 	_perform_swap_scene.call_deferred(scene_to_remove)
@@ -72,11 +71,17 @@ func _perform_swap_scene(scene_to_remove = null):
 			scene_to_swap_to = hearthwynn_instance 
 	
 	get_tree().root.add_child(scene_to_swap_to)
-	
+	get_tree().current_scene = scene_to_swap_to
+	if player_instance.get_parent() != null:
+		player_instance.get_parent().remove_child(player_instance)
+
+	get_tree().current_scene.add_child(player_instance)
+		
 	scene_to_swap_to.swap_to_me()
 	AudioManager.stop_bgm()
-	get_tree().current_scene = scene_to_swap_to
+
 	
+
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	

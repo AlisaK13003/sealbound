@@ -76,6 +76,7 @@ var training: bool = false
 var testing: bool = false
 func _ready():
 	setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
+	print_orphan_nodes()
 	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false

@@ -70,6 +70,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046935797, 0)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background" unique_id=62143497]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 2.7801843, 4.59894, 0.86376476)
 light_energy = 0.694
+light_bake_mode = 1
 sky_mode = 1
 
 [node name="Dungeon_Dungeon" type="Node3D" parent="Background" unique_id=847566466]
@@ -77,18 +78,22 @@ visible = false
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Background" unique_id=893694391]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7526412, 1.9938134, -0.02320695)
+light_bake_mode = 1
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Background" unique_id=1399918265]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 5.6435122, 1.9938134, -0.02320695)
 light_color = Color(1, 0.12941177, 0.07450981, 1)
+light_bake_mode = 1
 
 [node name="Walls" type="Node3D" parent="Background" unique_id=1212649921]
 
 [node name="Section_1_Dungeon_Wall" parent="Background/Walls" unique_id=1488638431 instance=ExtResource("11_t7hpr")]
 transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 0.82436585, 0.3597523, -0.14147305)
+visible = false
 
 [node name="Section_1_Dungeon_Wall2" parent="Background/Walls" unique_id=1701125532 instance=ExtResource("11_t7hpr")]
 transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 1.7515721, 0.3597523, 0.0973157)
+visible = false
 
 [node name="Section_1_Dungeon_Wall3" parent="Background/Walls" unique_id=1928143560 instance=ExtResource("11_t7hpr")]
 transform = Transform3D(0.07267618, -0.018524926, 8.097502e-10, 0, -3.2783543e-09, -0.075, 0.018524926, 0.07267618, -3.1767768e-09, 2.6221635, 0.35972315, 0.3217908)

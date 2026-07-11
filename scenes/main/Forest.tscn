@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_b841q"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="2_f2gc6"]
-[ext_resource type="PackedScene" uid="uid://cw2kwy7c22qh7" path="res://scenes/main/player.tscn" id="3_bgyl7"]
 [ext_resource type="Texture2D" uid="uid://dtdnwj17184h" path="res://assets/tile sheets/Darker foliage.png" id="4_1uopn"]
 [ext_resource type="Texture2D" uid="uid://co5ogkcvh1r2t" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet.png" id="5_1uopn"]
 [ext_resource type="Texture2D" uid="uid://de3hjxptpnepq" path="res://assets/Potion_Shop (1).png" id="6_rld5i"]
@@ -2982,7 +2981,7 @@ size = Vector2(83, 28)
 [node name="TestForestLeft" type="Node2D" unique_id=1563172430 node_paths=PackedStringArray("player_node")]
 y_sort_enabled = true
 script = ExtResource("1_b841q")
-player_node = NodePath("Player")
+player_node = NodePath("")
 
 [node name="Left Side" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
 z_index = 2
@@ -3022,11 +3021,6 @@ tile_set = SubResource("TileSet_fqaix")
 z_index = -1
 tile_map_data = PackedByteArray("AABQAMn/AAAEAAwAAABRAMn/AAAJAA0AAABRAMj/AAAIAA4AAABSAMj/AAAJAA0AAABTAMf/AAAJAA0AAABSAMf/AAAIAA4AAABTAMb/AAAIAA4AAABUAMb/AAAFAAwAAABVAMb/AAAHAAwAAABQAMr/AAAEAA0AAABQAMv/AAALAA8AAABPAMv/AAAGAAwAAABOAMv/AAAEAAwAAABOAMz/AAAMAA0AAABPAMz/AAAHAA0AAEBQAMz/AAAHAA4AAEBRAMz/AAALAAwAAABSAMz/AAAFAA0AAABTAMz/AAAFAA0AAABUAMz/AAAKAA4AAABVAMv/AAAIAAwAAABVAMz/AAAJAA8AAABRAMv/AAAFAA0AAABRAMr/AAAFAA0AAABSAMr/AAAFAA0AAABSAMn/AAAFAA0AAABTAMr/AAAFAA0AAABTAMv/AAAFAA0AAABSAMv/AAAFAA0AAABUAMv/AAAFAA0AAABUAMr/AAAFAA0AAABUAMn/AAAFAA0AAABTAMn/AAAFAA0AAABTAMj/AAAFAA0AAABUAMj/AAAFAA0AAABUAMf/AAAFAA0AAABVAMf/AAAHAA0AAABVAMj/AAAKAA0AAABVAMn/AAAFAA0AAABVAMr/AAAFAA0AAABWAMj/AAAGAAwAAABWAMv/AAANAA0AAABWAMn/AAAFAA0AAABWAMr/AAAKAA4AAABUAM3/AAANAA0AAABSAM3/AAAHAA0AAEBTAM3/AAAHAA0AAEBRAM3/AAAMAA0AAABXAMj/AAAFAAwAAABYAMj/AAAGAAwAAABXAMn/AAAFAA0AAABYAMn/AAAFAA0AAABYAMr/AAAFAAwAACBZAMn/AAAFAA0AAABaAMn/AAAKAA4AAABaAMj/AAAFAA0AAABaAMf/AAAJAA0AAABbAMf/AAAFAA0AAABbAMb/AAALAA8AAABcAMb/AAAFAA0AAABdAMb/AAAFAA0AAABdAMf/AAAFAA0AAABcAMf/AAAFAA0AAABcAMj/AAAFAA0AAABbAMj/AAAFAA0AAABbAMn/AAAFAAwAACBdAMj/AAAIAAwAAABcAMn/AAAGAAwAACBXAMr/AAAFAAwAACBZAMf/AAAIABAAAABZAMj/AAALAA8AAABaAMb/AAAIAA4AAABbAMX/AAAMAAwAAABdAMX/AAAHAA0AAHBcAMX/AAAHAA0AAHBeAMX/AAANAAwAAABeAMb/AAAHAA0AAABeAMf/AAAHAA4AAABeAMj/AAAJABEAAABdAMn/AAAJAA8AAABaAMr/AAAJABEAAABZAMr/AAAGAAwAACA=")
 tile_set = SubResource("TileSet_4ala6")
-
-[node name="Player" parent="." unique_id=355956441 instance=ExtResource("3_bgyl7")]
-y_sort_enabled = true
-position = Vector2(1200, -568)
-move_speed = 300.0
 
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 

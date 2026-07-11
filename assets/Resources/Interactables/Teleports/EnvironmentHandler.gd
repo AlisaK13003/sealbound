@@ -2,16 +2,18 @@ extends Node2D
 
 const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
 
-@export var player_node : Node2D
-
 @export var is_building_insides: bool = false
 
 @export var bgm: AudioStream
+
+var player_node
 
 func _ready():
 	AudioManager.play_bgm(bgm)
 
 func swap_to_me():
+	player_node = get_tree().get_first_node_in_group("Overworld_Player")
+	print(player_node)
 	var entry_loading_zone: String = Global.current_loading_zone
 	var should_start_entry_cutscene := Global.should_start_lyra_tavern_cutscene(entry_loading_zone)
 	teleport_player_to_spawn()
@@ -53,6 +55,7 @@ func teleport_player_to_spawn():
 	#else:
 	#	spawn_point = spawn_point.get_child(0)
 	spawn_point.is_disabled = true
+	await get_tree().physics_frame
 	player_node.global_position = spawn_point.global_position
 	#_apply_pending_player_spawn_position()
 
@@ -120,6 +123,7 @@ func is_loading_zone_node(node: Node) -> bool:
 
 func set_camera_limits():
 	var camera := get_node_or_null("UniversalCamera") as Camera2D
+	camera.target = player_node
 	if camera == null:
 		push_warning("EnvironmentHandler: Player camera was not found in %s." % scene_file_path)
 		return
@@ -140,7 +144,6 @@ func set_camera_limits():
 	camera.limit_right = bottom_right_bounds.x
 	camera.limit_top = upper_left_bounds.y
 	camera.limit_bottom = bottom_right_bounds.y
-
 func get_camera_bounds_node() -> Node2D:
 	if not is_building_insides:
 		var overworld_bounds := get_node_or_null("Camera Bounds") as Node2D
