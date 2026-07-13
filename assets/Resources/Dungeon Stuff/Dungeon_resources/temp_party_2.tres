@@ -2,11 +2,8 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_dmw0s"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_oakox"]
-[ext_resource type="Resource" uid="uid://dmhaxgxe2w5q1" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Shielding Strike.tres" id="2_8v2a8"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_dhfcn"]
-[ext_resource type="Resource" uid="uid://p38m7hh5chwp" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Hold Fast.tres" id="3_ikrf0"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="4_i1avj"]
-[ext_resource type="Resource" uid="uid://m5dnd2snq2qa" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Rowan Skills/Forgebound Resolve.tres" id="4_ouiim"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="5_dmw0s"]
 [ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="7_redy1"]
 [ext_resource type="SpriteFrames" uid="uid://lfd6d0e3grfw" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="9_ouiim"]
@@ -69,7 +66,6 @@ party_member_portrait = SubResource("AnimatedTexture_w05um")
 combatant_stats = SubResource("Resource_qx3or")
 stored_weapon = SubResource("Resource_8v2a8")
 stored_equipment = SubResource("Resource_b6bld")
-combatant_skills = Array[ExtResource("1_dmw0s")]([ExtResource("2_8v2a8"), ExtResource("3_ikrf0"), ExtResource("4_ouiim")])
 sprite_frames = ExtResource("9_ouiim")
 idle_speed = 0.2
 walk_speed = 0.7
