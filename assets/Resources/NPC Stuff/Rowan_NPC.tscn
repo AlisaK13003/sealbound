@@ -132,23 +132,28 @@ npc_id = "rowan"
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/rowan/Weekly.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
+position = Vector2(0, -74.665)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC_Clickable" unique_id=2012646422]
 position = Vector2(0.5, 9)
 shape = SubResource("RectangleShape2D_7u671")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=575912758]
+position = Vector2(0, -5.654999)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_l0ocd")
 animation = &"idle"
 autoplay = "idle"
+offset = Vector2(0, -120.69)
 
 [node name="Player_In_Range" type="Area2D" parent="." unique_id=289574461]
+position = Vector2(0, -74.665)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=1695977954]
 shape = SubResource("CircleShape2D_ilmyp")
 
 [node name="ShopController" type="Node2D" parent="." unique_id=827537280]
+position = Vector2(0, -74.665)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("4_bd4on")
 

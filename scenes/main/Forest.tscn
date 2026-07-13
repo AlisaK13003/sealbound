@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://co5ogkcvh1r2t" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet.png" id="5_1uopn"]
 [ext_resource type="Texture2D" uid="uid://de3hjxptpnepq" path="res://assets/Potion_Shop (1).png" id="6_rld5i"]
 [ext_resource type="Texture2D" uid="uid://dvxumex7afkjl" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet-sheet.png" id="7_rld5i"]
+[ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="7_xsjiv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1uopn"]
 texture = ExtResource("5_1uopn")
@@ -2978,10 +2979,9 @@ sources/2 = SubResource("TileSetAtlasSource_nxhgi")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rld5i"]
 size = Vector2(83, 28)
 
-[node name="TestForestLeft" type="Node2D" unique_id=1563172430 node_paths=PackedStringArray("player_node")]
+[node name="TestForestLeft" type="Node2D" unique_id=1563172430]
 y_sort_enabled = true
 script = ExtResource("1_b841q")
-player_node = NodePath("")
 
 [node name="Left Side" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
 z_index = 2
@@ -3069,3 +3069,5 @@ location_data = {
 "Current Location/Spot" = "Apothecary"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Apothecary"
+
+[node name="UniversalCamera" parent="." unique_id=1015878525 instance=ExtResource("7_xsjiv")]

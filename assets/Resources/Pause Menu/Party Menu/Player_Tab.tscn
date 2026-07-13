@@ -27,15 +27,14 @@ script = ExtResource("1_fx3ht")
 
 [node name="Without_HP" type="Control" parent="." unique_id=1873854818]
 anchors_preset = 0
-offset_left = -13.59
-offset_right = 26.41
-offset_bottom = 40.0
+offset_right = 75.0
+offset_bottom = 29.0
 mouse_filter = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Without_HP" unique_id=1170559715]
 layout_mode = 0
-offset_left = 12.0
-offset_right = 90.0
+offset_left = -1.0
+offset_right = 76.59
 offset_bottom = 31.0
 texture = ExtResource("2_wk1yj")
 patch_margin_left = 15
@@ -65,15 +64,16 @@ mouse_filter = 2
 texture = ExtResource("3_it2d1")
 
 [node name="Sprite2D" type="Sprite2D" parent="Without_HP" unique_id=808291165]
-position = Vector2(17.59, 11.999999)
+z_index = 1
+position = Vector2(10, 11)
 scale = Vector2(0.51777774, 0.51777774)
 texture = ExtResource("1_8d751")
 
 [node name="Label" type="Label" parent="Without_HP" unique_id=462013437]
 layout_mode = 0
-offset_left = 29.59
+offset_left = 20.0
 offset_top = 7.0
-offset_right = 98.59
+offset_right = 89.0
 offset_bottom = 50.0
 theme_override_colors/font_color = Color(0.3647059, 0.3647059, 0.80784315, 1)
 theme_override_colors/font_shadow_color = Color(0.44291076, 0.44291076, 0.44291073, 1)
@@ -87,6 +87,7 @@ text = "Cassian
 vertical_alignment = 3
 
 [node name="With_HP" type="Control" parent="." unique_id=1801140712]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
