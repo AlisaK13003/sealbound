@@ -80,7 +80,11 @@ ExtResource("3_5k1ry"): 0.1
 quest_item_drop = ExtResource("4_5k1ry")
 coin_drop_range = Vector2i(0, 10)
 bond_drop_range = Vector2i(0, 3)
-combatant_skills = Array[ExtResource("1_8ulno")]([SubResource("Resource_8x0pw"), SubResource("Resource_ho304"), SubResource("Resource_nw6bc")])
+combatant_skills_ = Dictionary[ExtResource("1_8ulno"), bool]({
+SubResource("Resource_8x0pw"): true,
+SubResource("Resource_ho304"): true,
+SubResource("Resource_nw6bc"): true
+})
 sprite_frames = ExtResource("7_1sfu2")
 idle_speed = 0.25
 death_speed = 1.0
@@ -88,4 +92,5 @@ walk_speed = 2.0
 attack_speed = Array[float]([2.0, 2.0])
 sprite_scale = 0.006
 sprite_offset = Vector2(-38, -21)
+equip_sprite_offset = Vector2(16, 0)
 metadata/_custom_type_script = "uid://125iickqse23"

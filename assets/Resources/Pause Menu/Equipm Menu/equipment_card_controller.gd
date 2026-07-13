@@ -32,7 +32,7 @@ func _setup(combatant: generic_combatants):
 	#$GridContainer/Panel4/Chestplate.text = chestplate_info["name"] + ": \n     " + combatant.stored_chestplate.get_stat_string()
 	#$GridContainer/Panel6/Charm.text = charm_info["name"] + ": \n     " + combatant.stored_charm.get_stat_string()
 	
-	$GridContainer3/HBoxContainer/Health2.text = str(combatant.actual_stats.health)
+	$GridContainer3/HBoxContainer/Health2.text = str(combatant.actual_stats.max_health)
 	$GridContainer3/HBoxContainer2/Attack2.text = str(combatant.actual_stats.attack)
 	$GridContainer3/HBoxContainer3/Defense2.text = str(combatant.actual_stats.defense)
 	$GridContainer3/HBoxContainer4/Magic2.text = str(combatant.actual_stats.magic)
@@ -41,7 +41,7 @@ func _setup(combatant: generic_combatants):
 	$GridContainer3/HBoxContainer7/Luck2.text = str(combatant.actual_stats.luck)
 	$GridContainer3/HBoxContainer8/Evasion2.text = str(combatant.actual_stats.evasion)
 	
-	$GridContainer3/HBoxContainer/Health3.text = str(combatant.actual_stats.health)
+	$GridContainer3/HBoxContainer/Health3.text = str(combatant.actual_stats.max_health)
 	$GridContainer3/HBoxContainer2/Attack3.text = str(combatant.actual_stats.attack)
 	$GridContainer3/HBoxContainer3/Defense3.text = str(combatant.actual_stats.defense)
 	$GridContainer3/HBoxContainer4/Magic3.text = str(combatant.actual_stats.magic)
@@ -82,7 +82,7 @@ func update_stuff():
 	update_boxes(stored_combatant.stored_charm, false)
 	update_boxes(stored_combatant.stored_chestplate, false)
 	
-	$GridContainer3/HBoxContainer/Health2.text = str(stored_combatant.actual_stats.health)
+	$GridContainer3/HBoxContainer/Health2.text = str(stored_combatant.actual_stats.max_health)
 	$GridContainer3/HBoxContainer2/Attack2.text = str(stored_combatant.actual_stats.attack)
 	$GridContainer3/HBoxContainer3/Defense2.text = str(stored_combatant.actual_stats.defense)
 	$GridContainer3/HBoxContainer4/Magic2.text = str(stored_combatant.actual_stats.magic)
@@ -128,7 +128,7 @@ func _reset():
 	for child in $GridContainer3.get_children():
 		child.get_child(3).add_theme_color_override("font_color", Color.WHITE)
 
-	$GridContainer3/HBoxContainer/Health3.text = str(stored_combatant.actual_stats.health)
+	$GridContainer3/HBoxContainer/Health3.text = str(stored_combatant.actual_stats.max_health)
 	$GridContainer3/HBoxContainer2/Attack3.text = str(stored_combatant.actual_stats.attack)
 	$GridContainer3/HBoxContainer3/Defense3.text = str(stored_combatant.actual_stats.defense)
 	$GridContainer3/HBoxContainer4/Magic3.text = str(stored_combatant.actual_stats.magic)
@@ -163,7 +163,7 @@ func update_prediction_stats(selected_equipment, is_weapon):
 		temp_combatant.stored_weapon = selected_equipment
 	temp_combatant.gather_actual_stats()
 	
-	$GridContainer3/HBoxContainer/Health3.text = str(temp_combatant.actual_stats.health)
+	$GridContainer3/HBoxContainer/Health3.text = str(temp_combatant.actual_stats.max_health)
 	$GridContainer3/HBoxContainer2/Attack3.text = str(temp_combatant.actual_stats.attack)
 	$GridContainer3/HBoxContainer3/Defense3.text = str(temp_combatant.actual_stats.defense)
 	$GridContainer3/HBoxContainer4/Magic3.text = str(temp_combatant.actual_stats.magic)

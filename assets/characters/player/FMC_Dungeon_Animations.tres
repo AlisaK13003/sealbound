@@ -167,6 +167,10 @@ region = Rect2(384, 160, 96, 80)
 atlas = ExtResource("1_6m73u")
 region = Rect2(480, 160, 96, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xquuu"]
+atlas = ExtResource("1_6m73u")
+region = Rect2(192, 320, 96, 80)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_6m73u"]
 atlas = ExtResource("1_6m73u")
 region = Rect2(672, 160, 96, 80)
@@ -351,6 +355,14 @@ animations = [{
 }],
 "loop": 1,
 "name": &"On_Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xquuu")
+}],
+"loop": 1,
+"name": &"On_Defend",
 "speed": 5.0
 }, {
 "frames": [{

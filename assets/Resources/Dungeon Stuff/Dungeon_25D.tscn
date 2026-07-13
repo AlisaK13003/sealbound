@@ -22,12 +22,26 @@ encounterable_enemy = ExtResource("7_edm4l")
 enemies = Array[ExtResource("8_7uj4b")]([ExtResource("7_edm4l"), ExtResource("9_edm4l"), ExtResource("7_edm4l")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
-[sub_resource type="Environment" id="Environment_a4wc1"]
-background_mode = 1
-background_color = Color(0.32889554, 0.15117607, 0.1512739, 0.3764706)
-background_energy_multiplier = 0.25
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iegkx"]
+sky_top_color = Color(0.23461884, 0.43408224, 0.7936482, 1)
+sky_horizon_color = Color(0.7191061, 0.6563358, 0.38681856, 1)
+sky_curve = 0.13995501
+
+[sub_resource type="Sky" id="Sky_7uj4b"]
+sky_material = SubResource("ProceduralSkyMaterial_iegkx")
+
+[sub_resource type="Environment" id="Environment_7tpxp"]
+background_mode = 2
+sky = SubResource("Sky_7uj4b")
+sky_custom_fov = 176.4
+sky_rotation = Vector3(-0.30892327, 0, 0.2635447)
+ambient_light_color = Color(0.7519673, 0.79785115, 0.89352727, 1)
 reflected_light_source = 1
-ssao_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.7176471, 0.654902, 0.3882353, 1)
+fog_light_energy = 0.17
+fog_density = 1.0
+fog_depth_end = 1274.9
 
 [node name="Dungeon25d" type="Node3D" unique_id=248229616]
 script = ExtResource("1_xfoey")
@@ -37,7 +51,9 @@ party_slot_3 = ExtResource("4_edm4l")
 temp_item_list = Array[ExtResource("12_iegkx")]([ExtResource("7_og2ux"), ExtResource("7_og2ux")])
 test_encounter = SubResource("Resource_t7hpr")
 
-[node name="UI" type="Control" parent="." unique_id=738875588]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672914703]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=738875588]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -47,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="DungeonPlayerGui" parent="UI" unique_id=217185090 instance=ExtResource("8_og2ux")]
+[node name="DungeonPlayerGui" parent="CanvasLayer/UI" unique_id=217185090 instance=ExtResource("8_og2ux")]
 z_index = 0
 layout_mode = 1
 offset_left = -1.0
@@ -55,7 +71,6 @@ offset_right = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=916271913]
 transform = Transform3D(0.2850301, 0.35639808, -0.8897968, 0.0658624, 0.9188279, 0.389124, 0.9562531, -0.16951619, 0.23842037, -1.806746, 1.954, 2.6065888)
-environment = SubResource("Environment_a4wc1")
 projection = 1
 fov = 15.0
 size = 2.5
@@ -99,10 +114,10 @@ transform = Transform3D(-0.42636693, 0, 0.10250454, 0, 0.4, 0, -0.10867951, 0, -
 [node name="Dungeon_2" type="Node3D" parent="Background/Floor_Tiles" unique_id=940084801]
 
 [node name="Forest_Grid_Tile" parent="Background/Floor_Tiles/Dungeon_2" unique_id=1480615734 instance=ExtResource("9_w732d")]
-transform = Transform3D(0.21318346, 0, -0.049399804, 0, 0.25, 0, 0.054339785, 0, 0.19380315, 1.4338025, -0.2637664, 1.3085171)
+transform = Transform3D(0.21318346, 0, -0.049399804, 0, 0.25, 0, 0.054339785, 0, 0.19380315, 1.4338025, -0.3557254, 1.3085171)
 
 [node name="Forest_Grid_Tile2" parent="Background/Floor_Tiles/Dungeon_2" unique_id=2023437079 instance=ExtResource("9_w732d")]
-transform = Transform3D(0.21318346, 0, -0.049399804, 0, 0.25, 0, 0.054339785, 0, 0.19380315, 2.937, -0.264, 1.75)
+transform = Transform3D(0.21318346, 0, -0.049399804, 0, 0.25, 0, 0.054339785, 0, 0.19380315, 2.937, -0.355959, 1.6785834)
 
 [node name="Player_Container" type="Node3D" parent="." unique_id=91559947]
 transform = Transform3D(1, 0, 0, 0, 0.98480767, 0.17364818, 0, -0.17364818, 0.98480767, 0.255, 0.358, 1.082)
@@ -121,3 +136,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29058766, 0.38658774, 1.083
 stream = ExtResource("14_7uj4b")
 attenuation_model = 1
 volume_db = 80.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=707732171]
+environment = SubResource("Environment_7tpxp")

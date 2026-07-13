@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="Items" format=3 uid="uid://u5sgund2vvpb"]
 
+[ext_resource type="Texture2D" uid="uid://bgjl8cg6vmg8g" path="res://assets/tile sheets/Health_Potion.png" id="1_p2b0v"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_r7rqf"]
 
 [resource]
 script = ExtResource("1_r7rqf")
-item_name = "Altho Eh Pinto"
-item_description = "Heals HP for a moderate amount"
-shop_quantity = 3
+item_name = "Potion of Healing"
+item_description = "Heals 50 HP."
+item_sprite = ExtResource("1_p2b0v")
 does_what = 2
 what_is_it = 1
-amount_to_heal_or_deal = 100
+amount_to_heal_or_deal = 50
 removes_status = null
 give_status = null
 metadata/_custom_type_script = "uid://qecrevyq2xlu"

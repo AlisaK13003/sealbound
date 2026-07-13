@@ -65,7 +65,9 @@ ExtResource("3_120uf"): 0.1
 quest_item_drop = ExtResource("4_5dk1w")
 coin_drop_range = Vector2i(0, 10)
 bond_drop_range = Vector2i(0, 3)
-combatant_skills = Array[ExtResource("1_bfyy1")]([SubResource("Resource_bcr84")])
+combatant_skills_ = Dictionary[ExtResource("1_bfyy1"), bool]({
+SubResource("Resource_bcr84"): true
+})
 sprite_frames = ExtResource("6_bibcr")
 idle_speed = 0.25
 death_speed = 1.0

@@ -185,7 +185,13 @@ stored_equipment = SubResource("Resource_jcqwx")
 stored_charm = ExtResource("6_uwea6")
 stored_boots = ExtResource("5_d3o0m")
 stored_chestplate = ExtResource("7_7rixd")
-combatant_skills = Array[ExtResource("1_26prq")]([SubResource("Resource_pyue4"), SubResource("Resource_xg20h"), SubResource("Resource_tyfxl"), SubResource("Resource_eke01"), SubResource("Resource_vwpng")])
+combatant_skills_ = Dictionary[ExtResource("1_26prq"), bool]({
+SubResource("Resource_pyue4"): false,
+SubResource("Resource_xg20h"): true,
+SubResource("Resource_tyfxl"): true,
+SubResource("Resource_eke01"): true,
+SubResource("Resource_vwpng"): true
+})
 sprite_frames = ExtResource("4_uwea6")
 idle_speed = 0.5
 death_speed = 0.5

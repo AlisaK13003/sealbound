@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dgs2lhgc5rktk"]
 
 [ext_resource type="Script" uid="uid://ckc4ktd8gbxdm" path="res://assets/Resources/Dungeon Stuff/Dungeon_Player_UI_Handler.gd" id="1_ijjon"]
-[ext_resource type="Texture2D" uid="uid://ctd64c1cvs2io" path="res://assets/tile sheets/BP_Under.png" id="2_irdl1"]
 [ext_resource type="PackedScene" uid="uid://bsvfww658sxlt" path="res://assets/Resources/Dungeon Stuff/Action_Queue.tscn" id="2_m12gh"]
-[ext_resource type="Texture2D" uid="uid://d0f1puf6ehmr2" path="res://assets/tile sheets/BP_Over.png" id="3_m12gh"]
+[ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="3_557e4"]
+[ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="4_wbipj"]
+[ext_resource type="Texture2D" uid="uid://c0ym1jw7hb06c" path="res://assets/tile sheets/Health_Progress.png" id="5_25sw1"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="6_irdl1"]
 [ext_resource type="PackedScene" uid="uid://m4g35580f06k" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Skill_Item_Menu.tscn" id="7_bvf2b"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="7_m12gh"]
@@ -12,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="11_irdl1"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="12_0ob4l"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
+[ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="13_hpcpt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12gh"]
 bg_color = Color(0.43897805, 0.6789561, 0.24209201, 1)
@@ -45,71 +47,174 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_ijjon")
 
-[node name="ActionQueue" parent="." unique_id=1456268488 instance=ExtResource("2_m12gh")]
-layout_mode = 1
-offset_left = 6.0
-offset_top = -48.0
-offset_right = 6.0
-offset_bottom = -48.0
+[node name="Control" type="Control" parent="." unique_id=125984558]
+anchors_preset = 0
+offset_left = 19.0
+offset_top = 219.0
+offset_right = 129.0
+offset_bottom = 274.0
 
-[node name="Bond_Attack" type="TextureProgressBar" parent="." unique_id=591956324]
+[node name="Background" type="Control" parent="Control" unique_id=1787462325]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect7" type="NinePatchRect" parent="Control/Background" unique_id=950231262]
+clip_contents = true
 layout_mode = 0
-offset_left = 136.0
-offset_top = 74.0
-offset_right = 251.73679
-offset_bottom = 91.333336
-rotation = -1.5707964
-nine_patch_stretch = true
-stretch_margin_left = 15
-stretch_margin_right = 15
-texture_under = ExtResource("2_irdl1")
-texture_progress = ExtResource("3_m12gh")
+offset_left = 55.0
+offset_top = 45.0
+offset_right = 135.0
+offset_bottom = 67.0
+texture = ExtResource("7_m12gh")
 
-[node name="Base_Menu" type="GridContainer" parent="." unique_id=1741746522]
+[node name="NinePatchRect8" type="NinePatchRect" parent="Control/Background" unique_id=865985445]
+clip_contents = true
+layout_mode = 0
+offset_left = -4.0
+offset_top = 20.0
+offset_right = 76.0
+offset_bottom = 42.0
+texture = ExtResource("7_m12gh")
+
+[node name="NinePatchRect9" type="NinePatchRect" parent="Control/Background" unique_id=479099907]
+clip_contents = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = -6.0
+offset_right = 135.0
+offset_bottom = 16.0
+texture = ExtResource("7_m12gh")
+
+[node name="NinePatchRect10" type="NinePatchRect" parent="Control/Background" unique_id=353736514]
+clip_contents = true
+layout_mode = 0
+offset_left = 110.0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 42.0
+texture = ExtResource("7_m12gh")
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Control/Background" unique_id=720207997]
+clip_contents = true
+layout_mode = 0
+offset_left = 45.0
+offset_top = 35.0
+offset_right = 144.00008
+offset_bottom = 76.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="Control/Background" unique_id=1980338690]
+clip_contents = true
+layout_mode = 0
+offset_left = 45.0
+offset_top = -15.0
+offset_right = 144.00008
+offset_bottom = 26.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="Control/Background" unique_id=34605652]
+clip_contents = true
+layout_mode = 0
+offset_left = -14.0
+offset_top = 10.0
+offset_right = 85.0
+offset_bottom = 51.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="NinePatchRect6" type="NinePatchRect" parent="Control/Background" unique_id=1942181835]
+clip_contents = true
+layout_mode = 0
+offset_left = 100.0
+offset_top = 10.0
+offset_right = 198.99985
+offset_bottom = 51.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="Base_Menu" type="GridContainer" parent="Control" unique_id=1741746522]
 z_index = 1
 layout_mode = 0
-offset_left = 38.000008
-offset_top = 232.0
-offset_right = 245.0
-offset_bottom = 289.0
+offset_left = 19.000008
+offset_top = 13.0
+offset_right = 226.0
+offset_bottom = 70.0
 scale = Vector2(0.625, 0.625)
 theme_override_constants/h_separation = 37
 theme_override_constants/v_separation = 21
 columns = 2
 
-[node name="Item" parent="Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
+[node name="Item" parent="Control/Base_Menu" unique_id=1034936178 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-10, 20)
+offset_transform_position = Vector2(-24, 20)
 flip_h = true
 button_name = "Items"
 button_to_active = 6
 text_on_left_of_button = true
 
-[node name="Skill" parent="Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
+[node name="Skill" parent="Control/Base_Menu" unique_id=1956248684 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-30, -20)
+offset_transform_position = Vector2(-33, -20)
 button_name = "Skill"
 button_to_active = 7
 
-[node name="Attack" parent="Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
+[node name="Attack" parent="Control/Base_Menu" unique_id=1636690511 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(139.91, -20)
+offset_transform_position = Vector2(156, -20)
 button_name = "Attack"
 button_to_active = 4
 
-[node name="Options" parent="Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
+[node name="Options" parent="Control/Base_Menu" unique_id=1329121186 instance=ExtResource("12_0ob4l")]
 z_index = -1
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-30, 20)
+offset_transform_position = Vector2(-32, 20)
 button_name = "Options"
 button_to_active = 5
+
+[node name="ActionQueue" parent="Control" unique_id=1456268488 instance=ExtResource("2_m12gh")]
+layout_mode = 1
+offset_left = -13.0
+offset_top = -267.0
+offset_right = -13.0
+offset_bottom = -267.0
+
+[node name="Bond_Attack" type="TextureProgressBar" parent="." unique_id=591956324]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -3.0
+offset_right = 209.0
+offset_bottom = 14.333336
+nine_patch_stretch = true
+stretch_margin_left = 15
+stretch_margin_right = 15
+texture_under = ExtResource("3_557e4")
+texture_over = ExtResource("4_wbipj")
+texture_progress = ExtResource("5_25sw1")
+tint_under = Color(0.15294118, 0.16078432, 1, 1)
+tint_over = Color(1, 1, 0, 1)
+tint_progress = Color(1, 0.22352941, 0.03529412, 1)
 
 [node name="Skill_Menu" parent="." unique_id=946804038 instance=ExtResource("7_bvf2b")]
 visible = false
@@ -212,7 +317,7 @@ axis_stretch_vertical = 2
 [node name="NinePatchRect" type="NinePatchRect" parent="Selection_Indicator" unique_id=77145520]
 z_index = -1
 layout_mode = 0
-offset_left = 9.0
+offset_left = 10.0
 offset_top = 8.0
 offset_right = 206.0
 offset_bottom = 44.0
@@ -377,48 +482,26 @@ texture = SubResource("GradientTexture2D_m12gh")
 z_index = 5
 texture_filter = 1
 layout_mode = 0
-offset_left = 598.0
-offset_top = -47.0
-offset_right = 633.0
-offset_bottom = -10.0
+offset_left = 550.0
+offset_top = -42.0
+offset_right = 585.0
+offset_bottom = -5.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 
-[node name="Label" type="Label" parent="Mana Bar" unique_id=628296512]
-z_index = 5
-texture_filter = 1
-layout_mode = 0
-offset_top = 17.0
-offset_right = 39.0
-offset_bottom = 94.0
-theme_override_font_sizes/font_size = 16
-text = "3/3"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="Mana Bar" unique_id=1515659383]
-z_index = 5
-texture_filter = 1
-layout_mode = 0
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 43.0
-offset_bottom = 14.0
-theme_override_font_sizes/font_size = 16
-text = "Mana"
-horizontal_alignment = 1
-
 [node name="NinePatchRect" type="NinePatchRect" parent="Mana Bar" unique_id=465194604]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 6.0
+offset_right = 80.0
+offset_bottom = 26.0
 texture = ExtResource("7_m12gh")
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="Mana Bar" unique_id=2021588986]
 layout_mode = 0
-offset_left = -10.0
-offset_top = -8.0
-offset_right = 49.0
-offset_bottom = 49.0
+offset_left = -4.0
+offset_top = -7.0
+offset_right = 90.0
+offset_bottom = 36.0
 texture = ExtResource("6_irdl1")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -427,54 +510,103 @@ patch_margin_bottom = 15
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Party_Portrait_Container" type="Control" parent="." unique_id=1266545485]
-anchors_preset = 0
-offset_left = -5.0
-offset_top = 12.0
-offset_right = 35.0
-offset_bottom = 51.99996
+[node name="HBoxContainer" type="HBoxContainer" parent="Mana Bar" unique_id=1737696135]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -6.0
+offset_right = 59.0
+offset_bottom = 34.0
+
+[node name="TextureRect" type="TextureRect" parent="Mana Bar/HBoxContainer" unique_id=664292724]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_hpcpt")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Mana Bar/HBoxContainer" unique_id=628296512]
+z_index = 5
+texture_filter = 1
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 1.795)
+theme_override_font_sizes/font_size = 16
+text = "3/3"
+horizontal_alignment = 1
+
+[node name="Party_Portrait_Container" type="GridContainer" parent="." unique_id=1697670016]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -36.0
+offset_right = 267.0
+offset_bottom = 4.0
+theme_override_constants/h_separation = 132
+columns = 3
 
 [node name="PartyPortrait_1" parent="Party_Portrait_Container" unique_id=812714871 instance=ExtResource("10_bvf2b")]
 z_index = 5
 texture_filter = 1
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 8.0
-offset_top = 33.0
-offset_right = 8.0
-offset_bottom = 72.999954
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 2
 mouse_filter = 1
 
 [node name="PartyPortrait_2" parent="Party_Portrait_Container" unique_id=777293950 instance=ExtResource("10_bvf2b")]
 z_index = 5
 texture_filter = 1
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 6.0
-offset_top = -9.0
-offset_right = 6.0
-offset_bottom = 31.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 2
 mouse_filter = 1
 
 [node name="PartyPortrait_3" parent="Party_Portrait_Container" unique_id=2074810481 instance=ExtResource("10_bvf2b")]
 z_index = 5
 texture_filter = 1
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 8.0
-offset_top = -51.0
-offset_right = 8.0
-offset_bottom = -11.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 2
 mouse_filter = 1
+
+[node name="Button" type="Button" parent="." unique_id=841942967]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 49.0
+offset_right = 113.0
+offset_bottom = 69.0
+
+[node name="Bond_Attack_Button" type="Control" parent="." unique_id=1548042993]
+visible = false
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 26.0
+offset_right = 54.0
+offset_bottom = 66.0
+
+[node name="NinePatchRect11" type="NinePatchRect" parent="Bond_Attack_Button" unique_id=1520463687]
+clip_contents = true
+layout_mode = 0
+offset_left = -5.0
+offset_top = -7.0
+offset_right = 75.0
+offset_bottom = 15.0
+texture = ExtResource("7_m12gh")
+
+[node name="NinePatchRect12" type="NinePatchRect" parent="Bond_Attack_Button" unique_id=2123415271]
+clip_contents = true
+layout_mode = 0
+offset_left = -15.0
+offset_top = -17.0
+offset_right = 83.99985
+offset_bottom = 24.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="GenericButton" parent="Bond_Attack_Button" unique_id=1687715893 instance=ExtResource("12_0ob4l")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 65.16
+offset_bottom = 30.0
+button_name = "Bond Attack"
+button_to_active = 8
+
+[connection signal="value_changed" from="Bond_Attack" to="." method="_on_bond_attack_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

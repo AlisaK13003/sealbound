@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="inventory_items" format=3 uid="uid://cy7yv3npd4xox"]
 
 [ext_resource type="Script" uid="uid://dopm2iiu5evk5" path="res://assets/Resources/Interactables/VillageInventory/Inventory_Items.gd" id="1_cmael"]
-[ext_resource type="Texture2D" uid="uid://dh66bertmhorp" path="res://assets/Sprites/Items/potionHeal.png" id="1_qj8r8"]
+[ext_resource type="Texture2D" uid="uid://dh66bertmhorp" path="res://assets/tile sheets/potionHeal.png" id="1_qj8r8"]
 
 [resource]
 script = ExtResource("1_cmael")

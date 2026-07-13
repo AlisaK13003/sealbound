@@ -4,15 +4,16 @@ signal skill_clicked
 
 var is_selected: bool = false
 
+var stored_move
+
 func _setup(move: moves):
+	stored_move = move
 	$HBoxContainer/TextureRect.texture = move.move_sprite
 	if move.move_sprite == null:
 		$HBoxContainer/TextureRect.texture = load("res://assets/tile sheets/Move Sprites/Crowd_Breaker.png")
 	$HBoxContainer/Label.text = move.move_name
 	$HBoxContainer/Label2.text = str(move.mana_cost) + " BP"
 	$AnimatedSprite2D.play("default")
-
-
 
 func update_selection(selected):
 	if selected:

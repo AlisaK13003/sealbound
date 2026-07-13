@@ -190,7 +190,7 @@ func update_skill_description(pressed_skill):
 	var move_index: int
 	for move in skill_card_container.get_child(menu_tabs.current_selection).get_child(0).get_children():
 		if move.get_instance_id() == pressed_skill:
-			selected_skill = GlobalCombatInformation.all_party_slots[menu_tabs.current_selection].combatant_skills[move.get_index()]
+			selected_skill = move.stored_move
 			move_index = move.get_index()
 			if move.has_method("update_selection"):
 				move.update_selection(true)
@@ -240,7 +240,7 @@ func _ready_to_use_skill(skill_to_use: moves):
 				_set_node_mouse_disabled(child, true) 
 	else:
 		for child in menu_tabs.get_children():
-			child.update_highlight(child.get_index() == caster_index)
+			child.highlight(child.get_index() == caster_index)
 			_set_node_mouse_disabled(child, false)
 
 func _set_node_mouse_disabled(node: Node, disabled: bool) -> void:
@@ -270,9 +270,9 @@ func _on_panel_gui_input(event):
 				var selected_skill
 				for child in skill_card_container.get_child(menu_tabs.current_selection).get_child(0).get_children():
 					if child.is_selected:
-						selected_skill = child
+						selected_skill = child.stored_move
 						break
-				var skill = GlobalCombatInformation.all_party_slots[menu_tabs.current_selection].combatant_skills[selected_skill.get_index()]
+				var skill = selected_skill
 				
 				if GlobalCombatInformation.current_BP < skill.mana_cost:
 					return

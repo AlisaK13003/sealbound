@@ -35,6 +35,7 @@ var save_load_menu: Node
 var menu_buttons: Array[BaseButton] = []
 
 func _ready() -> void:
+	Fade.fade_out(0.0)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_cache_editor_nodes()
 	_configure_load_menu()
@@ -42,6 +43,7 @@ func _ready() -> void:
 	_setup_menu_arrow()
 	_show_main_menu()
 	Global.time_paused = true
+
 
 func _on_button_pressed() -> void:
 	_start_game_without_cutscene()

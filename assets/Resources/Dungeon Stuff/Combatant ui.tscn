@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="2_xosph"]
 [ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="3_2ttuk"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_2ttuk"]
+[ext_resource type="Texture2D" uid="uid://c0ym1jw7hb06c" path="res://assets/tile sheets/Health_Progress.png" id="4_iqe56"]
 [ext_resource type="Texture2D" uid="uid://dcjptti4pnwbx" path="res://assets/tile sheets/Status box.png" id="5_sjbc2"]
 [ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="6_sjbc2"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="7_6j17h"]
@@ -70,6 +71,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_iqe56"]
 resource_name = "Take_Damage"
@@ -97,6 +110,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -40)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.06666667, 2.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_6j17h"]
@@ -172,7 +197,8 @@ max_value = 50.0
 value = 50.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_xosph")
-texture_progress = ExtResource("3_2ttuk")
+texture_over = ExtResource("3_2ttuk")
+texture_progress = ExtResource("4_iqe56")
 
 [node name="Label" type="Label" parent="TextureProgressBar" unique_id=64147251]
 layout_mode = 0
@@ -187,13 +213,13 @@ theme_override_font_sizes/font_size = 12
 text = "55"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1792076839]
-visible = false
 layout_mode = 0
-offset_left = 71.0
-offset_top = 243.0
-offset_right = 114.75
-offset_bottom = 280.5
-scale = Vector2(2, 2)
+offset_left = 321.0
+offset_top = 320.0
+offset_right = 364.75
+offset_bottom = 357.5
+rotation = 3.1415927
+scale = Vector2(-2, 2)
 texture = ExtResource("5_sjbc2")
 patch_margin_left = 11
 patch_margin_top = 6
@@ -204,11 +230,13 @@ axis_stretch_vertical = 2
 
 [node name="GridContainer" type="GridContainer" parent="NinePatchRect" unique_id=999220777]
 layout_mode = 0
-offset_right = 56.16291
-offset_bottom = 34.726685
-theme_override_constants/h_separation = 13
+offset_left = 0.50000155
+offset_top = 39.5
+offset_right = 56.66291
+offset_bottom = 74.226685
+rotation = -1.5707964
+theme_override_constants/h_separation = 25
 theme_override_constants/v_separation = 17
-columns = 4
 
 [node name="Health_Differential" type="Label" parent="." unique_id=1728968201]
 z_index = 10
@@ -237,6 +265,7 @@ texture = ExtResource("6_sjbc2")
 libraries/ = SubResource("AnimationLibrary_iqe56")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2022594419]
+visible = false
 position = Vector2(271, 224)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("7_6j17h")

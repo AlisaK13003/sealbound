@@ -3,7 +3,6 @@ extends Control
 @export var dungeon_scenes: Array[String]
 var current_selected_dungeon: int = 0
 
-@onready var dungeon_select_buttons = $CanvasLayer/HBoxContainer
 @onready var container_thing = $CanvasLayer/Control
 
 @onready var hidden_load = $CanvasLayer/ColorRect
@@ -13,26 +12,33 @@ var current_selected_dungeon: int = 0
 @onready var return_to_hearthwynn = $CanvasLayer/HBoxContainer2/GenericButton2
 @onready var travel_to_dungeon = $CanvasLayer/HBoxContainer2/GenericButton
 
+@onready var menu_tabs = $MenuTabs
+
+@export var menu_tab_icons: Array[Texture2D]
+
 func _ready():
 	hidden_load.visible = false
 	
 	return_to_hearthwynn.activated.connect(travel.bind(false))
 	travel_to_dungeon.activated.connect(travel.bind(true))
-	
-	for child in dungeon_select_buttons.get_children():
-		child.pressed.connect(change_selected_dungeon.bind(child.get_index()))
 		
 	for dungeon in GlobalCombatInformation.dungeon_types:
 		container_thing.get_child(GlobalCombatInformation.dungeon_types.find(dungeon))._setup(dungeon)
-		dungeon_select_buttons.get_child(GlobalCombatInformation.dungeon_types.find(dungeon)).update_name(dungeon.dungeon_name)
-		
-	for button in dungeon_select_buttons.get_children():
-		if button.button_name_text.text == "Soon":
-			button.visible = false
+
+	menu_tabs._setup(["hi", "HI"], "res://assets/Resources/Dungeon Stuff/Select_screen_dungeon_tab.tscn", menu_tab_icons)
+
+	menu_tabs.selection_changed.connect(_tab_changed)
 
 	apply_demo_dungeon_locks()
 	show_selected_dungeon()
 	await Fade.fade_out(0.5)
+
+func _tab_changed(which_tab):
+	for child in container_thing.get_children():
+		if child.get_index() == which_tab:
+			child.visible = true
+		else:
+			child.visible = false
 
 var in_cycle = false
 func _physics_process(_delta):
@@ -50,7 +56,7 @@ func apply_demo_dungeon_locks() -> void:
 	for child in container_thing.get_children():
 		child.visible = false
 
-	for button in dungeon_select_buttons.get_children():
+	for button in menu_tabs.get_children():
 		var dungeon_index: int = button.get_index()
 		var has_dungeon: bool = dungeon_index < GlobalCombatInformation.dungeon_types.size()
 		var is_unlocked: bool = has_dungeon and Global.is_demo_dungeon_unlocked(dungeon_index)
@@ -97,7 +103,7 @@ func travel(set_off_for_dungeon):
 			return
 		await Fade.fade_in(1)
 		await GlobalCombatInformation.load_items()
-		GlobalCombatInformation.transition_to_dungeon(current_selected_dungeon)
+		GlobalCombatInformation.transition_to_dungeon(menu_tabs.current_selection)
 	else:
 		await Fade.fade_in(1)
 		Global.current_region = "Village"
@@ -105,8 +111,4 @@ func travel(set_off_for_dungeon):
 		Global.current_loading_zone = "Spooky Forest"
 		GlobalCombatInformation.in_dungeon = false
 		AreaStateManager._setup(false)
-		var hearthwynn_scene: Node = await Fade.change_scene("res://scenes/main/Hearthwynn.tscn")
-		if hearthwynn_scene != null and hearthwynn_scene.has_method("swap_to_me"):
-			await hearthwynn_scene.swap_to_me()
-		else:
-			await Fade.fade_out(0.5)
+		AreaStateManager.swap_scene(self)

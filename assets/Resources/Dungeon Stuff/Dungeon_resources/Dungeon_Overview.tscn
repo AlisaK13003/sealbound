@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://clofehiiykd5s"]
 
 [ext_resource type="Script" uid="uid://bf6inxm7vnjpp" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/dungeon_overview_setup.gd" id="1_wiht4"]
-[ext_resource type="Texture2D" uid="uid://cpwt5olgmynmt" path="res://assets/tile sheets/EyeBall/Idle/Dungeon_Wall.png" id="2_8e04e"]
-[ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="3_sjfyd"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_sjfyd"]
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="3_8e04e"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="4_5x85t"]
 
 [node name="DungeonOverview" type="Control" unique_id=2129955901]
 layout_mode = 3
@@ -13,120 +14,141 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wiht4")
 
-[node name="Panel" type="Panel" parent="." unique_id=2039032687]
-clip_contents = true
+[node name="Background" type="Control" parent="." unique_id=1716609998]
+anchors_preset = 0
+offset_left = -18.87
+offset_right = 21.129984
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1710942067]
 layout_mode = 0
-offset_left = 91.0
-offset_top = 23.0
-offset_right = 511.0
+offset_left = 103.0
+offset_top = 18.0
+offset_right = 589.0
 offset_bottom = 272.0
+texture = ExtResource("2_sjfyd")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=287111143]
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=90776644]
+modulate = Color(0.7539839, 0.75398386, 0.75398386, 1)
 layout_mode = 0
-offset_left = 19.0
-offset_top = 6.0
-offset_right = 404.72418
-offset_bottom = 241.0
-texture = ExtResource("2_8e04e")
+offset_left = 120.0
+offset_top = 51.0
+offset_right = 262.0
+offset_bottom = 194.0
+texture = ExtResource("3_8e04e")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=909025060]
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=50967851]
 layout_mode = 0
-offset_left = -30.0
-offset_right = 359.0
-offset_bottom = 147.0
-mouse_filter = 2
-theme_override_constants/margin_left = 147
-theme_override_constants/margin_top = 75
+offset_left = 111.0
+offset_top = 43.0
+offset_right = 270.0
+offset_bottom = 203.0
+texture = ExtResource("4_5x85t")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer" unique_id=832319563]
-layout_mode = 2
-theme_override_constants/margin_left = 237
-theme_override_constants/margin_top = 19
+[node name="NinePatchRect4" type="NinePatchRect" parent="Background" unique_id=2009115248]
+modulate = Color(0.7539839, 0.75398386, 0.75398386, 1)
+layout_mode = 0
+offset_left = 278.0
+offset_top = 51.0
+offset_right = 572.0
+offset_bottom = 238.0
+texture = ExtResource("3_8e04e")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer" unique_id=883101658]
-layout_mode = 2
+[node name="NinePatchRect5" type="NinePatchRect" parent="Background" unique_id=1161701477]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 43.0
+offset_right = 582.0
+offset_bottom = 247.0
+texture = ExtResource("4_5x85t")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="Label6" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer" unique_id=1926172553]
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Found Enemies:"
-
-[node name="Found_Enemies" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer" unique_id=1494444648]
-layout_mode = 2
-columns = 2
-
-[node name="Control" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies" unique_id=356303098]
-clip_contents = true
-custom_minimum_size = Vector2(42, 38)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies/Control" unique_id=1802615758]
-sprite_frames = ExtResource("3_sjfyd")
-animation = &"Idle"
-offset = Vector2(25.05, 3.165)
-
-[node name="Control2" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies" unique_id=1273523129]
-clip_contents = true
-custom_minimum_size = Vector2(42.105, 38.435)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies/Control2" unique_id=1561639842]
-sprite_frames = ExtResource("3_sjfyd")
-animation = &"Idle"
-offset = Vector2(25.05, 3.165)
-
-[node name="Control3" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies" unique_id=2123571437]
-clip_contents = true
-custom_minimum_size = Vector2(42.105, 38.435)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies/Control3" unique_id=1145138653]
-sprite_frames = ExtResource("3_sjfyd")
-animation = &"Idle"
-offset = Vector2(25.05, 3.165)
-
-[node name="Control4" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies" unique_id=1624425260]
-clip_contents = true
-custom_minimum_size = Vector2(42.105, 38.435)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer/MarginContainer/VBoxContainer/Found_Enemies/Control4" unique_id=815338660]
-sprite_frames = ExtResource("3_sjfyd")
-animation = &"Idle"
-offset = Vector2(25.05, 3.165)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=321193861]
-layout_mode = 2
-theme_override_constants/separation = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1108367265]
-layout_mode = 2
-theme_override_constants/separation = 19
-
-[node name="Dungeon_Name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=318080587]
-layout_mode = 2
+[node name="Dungeon_Name" type="Label" parent="." unique_id=318080587]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 30.0
+offset_right = 557.0
+offset_bottom = 48.0
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Creepy Dungeon:                  "
+horizontal_alignment = 1
 
-[node name="Floor_Count" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1396000570]
+[node name="Found_Enemies" type="GridContainer" parent="." unique_id=1494444648]
+z_index = 130
+layout_mode = 0
+offset_left = 117.855
+offset_top = 59.0
+offset_right = 504.85507
+offset_bottom = 96.99999
+theme_override_constants/h_separation = 36
+theme_override_constants/v_separation = 45
+columns = 2
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1057383779]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 53.0
+offset_right = 479.0
+offset_bottom = 92.99997
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer" unique_id=508205470]
+layout_mode = 2
+text = "Potential Drops:"
+
+[node name="Label2" type="Label" parent="GridContainer" unique_id=1924960992]
+layout_mode = 2
+
+[node name="GridContainer2" type="GridContainer" parent="." unique_id=1250785938]
+layout_mode = 0
+offset_left = 97.585
+offset_top = 200.0
+offset_right = 398.585
+offset_bottom = 262.0
+
+[node name="Floor_Count" type="Label" parent="GridContainer2" unique_id=1396000570]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Expect 4-5 Floors"
 
-[node name="Average_Level" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1623705055]
+[node name="Average_Level" type="Label" parent="GridContainer2" unique_id=1623705055]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Level 5"
 
-[node name="Seal" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=731424349]
+[node name="Seal" type="Label" parent="GridContainer2" unique_id=731424349]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

@@ -75,9 +75,7 @@ func fade_out(duration: float):
 		await tween.finished
 		fade_thing_2.visible = false
 
-
 	is_fading = false
-
 
 func _on_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/main/Basic Start Screen.tscn")

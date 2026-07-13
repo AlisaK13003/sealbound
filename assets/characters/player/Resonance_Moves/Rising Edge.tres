@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://b1m45dwoackkb"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_dm38m"]
+
+[resource]
+script = ExtResource("1_dm38m")
+move_name = "Rising Edge"
+move_description = "Deals heavy damage"
+attack_power = 2
+status_type = null
+removes_status = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"

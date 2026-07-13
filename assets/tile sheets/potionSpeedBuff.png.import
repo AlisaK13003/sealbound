@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj3pcve3t854o"
-path="res://.godot/imported/potionAoEDamage.png-04e2b29d6659f96efdba7509144a0ada.ctex"
+uid="uid://cvluhxjp41ivt"
+path="res://.godot/imported/potionSpeedBuff.png-1a95a83c3ecd8934c3725616f235f85b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Items/potionAoEDamage.png"
-dest_files=["res://.godot/imported/potionAoEDamage.png-04e2b29d6659f96efdba7509144a0ada.ctex"]
+source_file="res://assets/tile sheets/potionSpeedBuff.png"
+dest_files=["res://.godot/imported/potionSpeedBuff.png-1a95a83c3ecd8934c3725616f235f85b.ctex"]
 
 [params]
 

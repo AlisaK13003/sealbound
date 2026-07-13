@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvluhxjp41ivt"
-path="res://.godot/imported/potionSpeedBuff.png-8e4eec4aac29956788d425c036958903.ctex"
+uid="uid://caaewv5fnihel"
+path="res://.godot/imported/Leather Helmet.png-bcbdeefc02a8c6333da58cefd1ba3184.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Items/potionSpeedBuff.png"
-dest_files=["res://.godot/imported/potionSpeedBuff.png-8e4eec4aac29956788d425c036958903.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Leather Helmet.png"
+dest_files=["res://.godot/imported/Leather Helmet.png-bcbdeefc02a8c6333da58cefd1ba3184.ctex"]
 
 [params]
 

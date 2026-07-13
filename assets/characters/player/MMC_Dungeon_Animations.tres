@@ -167,6 +167,10 @@ region = Rect2(384, 240, 96, 80)
 atlas = ExtResource("2_mq0yt")
 region = Rect2(480, 240, 96, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsd8l"]
+atlas = ExtResource("2_mq0yt")
+region = Rect2(96, 320, 96, 80)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mq0yt"]
 atlas = ExtResource("2_mq0yt")
 region = Rect2(672, 240, 96, 80)
@@ -351,6 +355,14 @@ animations = [{
 }],
 "loop": 1,
 "name": &"On_Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsd8l")
+}],
+"loop": 1,
+"name": &"On_Defend",
 "speed": 5.0
 }, {
 "frames": [{

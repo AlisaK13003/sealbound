@@ -7,6 +7,7 @@ class_name player_portraits
 @onready var party_portrait = $Portrait
 #@onready var portrait_name = $VBoxContainer/Name
 @onready var portrait_status = $Statuses
+@onready var health_bar = $TextureProgressBar
 
 var person_max_health = 0
 var current_health = 0
@@ -19,7 +20,8 @@ func _setup(person_to_setup: generic_combatants):
 	current_health = int(person_to_setup.actual_stats.health)
 	cur_health_num.text = str(current_health)
 	max_health_num.text = str(person_max_health)
-	
+	health_bar.max_value = person_max_health
+	health_bar.value = current_health
 	var health_percentage = float(current_health) / person_max_health
 	person_frames = person_to_setup.party_member_portrait
 	
@@ -35,7 +37,7 @@ func _update_health(health_value):
 	health_value *= -1
 	current_health = clamp(current_health + health_value, 0, person_max_health)
 	cur_health_num.text = str(current_health)
-	
+	health_bar.value = current_health
 	var health_percentage = float(current_health) / person_max_health
 
 	if not inflicted_with_status:

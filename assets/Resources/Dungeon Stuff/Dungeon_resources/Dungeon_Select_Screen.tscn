@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://bl0fbkeqwgs7p"]
 
 [ext_resource type="Script" uid="uid://5ntsh2a3wxkl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Travel_to_dungeon.gd" id="1_owdmc"]
+[ext_resource type="Texture2D" uid="uid://4kl0710u5cha" path="res://assets/tile sheets/Creepy_dungeon_section_wall.png" id="2_0ovy0"]
+[ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="3_owdmc"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="4_rw4us"]
 [ext_resource type="PackedScene" uid="uid://clofehiiykd5s" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Overview.tscn" id="6_0ovy0"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="6_xdkxl"]
 
 [sub_resource type="Gradient" id="Gradient_rcxy4"]
 offsets = PackedFloat32Array(0.6651652, 0.9654655)
@@ -24,50 +27,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_owdmc")
+menu_tab_icons = Array[Texture2D]([ExtResource("2_0ovy0"), ExtResource("3_owdmc")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1101859366]
 offset = Vector2(1.35, 129.205)
 transform = Transform2D(1, 0, 0, 1, 1.35, 129.205)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1786508087]
-offset_left = 8.65
-offset_top = -114.205
-offset_right = 544.65
-offset_bottom = -74.205
-theme_override_constants/separation = 406
-
-[node name="GenericButton" parent="CanvasLayer/HBoxContainer" unique_id=1034936178 instance=ExtResource("4_rw4us")]
-layout_mode = 2
-action_mode = 0
-input_event_that_will_activate = "up"
-button_name = "Soon"
-disabled_ = true
-
-[node name="GenericButton2" parent="CanvasLayer/HBoxContainer" unique_id=2086090258 instance=ExtResource("4_rw4us")]
-layout_mode = 2
-input_event_that_will_activate = "up"
-button_name = "Soon"
-disabled_ = true
-
-[node name="GenericButton3" parent="CanvasLayer/HBoxContainer" unique_id=172920399 instance=ExtResource("4_rw4us")]
-visible = false
-layout_mode = 2
-input_event_that_will_activate = "up"
-button_name = "Soon"
-disabled_ = true
-
-[node name="GenericButton4" parent="CanvasLayer/HBoxContainer" unique_id=441815521 instance=ExtResource("4_rw4us")]
-visible = false
-layout_mode = 2
-input_event_that_will_activate = "up"
-button_name = "Soon"
-disabled_ = true
-
-[node name="GenericButton5" parent="CanvasLayer/HBoxContainer" unique_id=1036667174 instance=ExtResource("4_rw4us")]
-visible = false
-layout_mode = 2
-button_name = "Soon"
-disabled_ = true
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
 layout_mode = 3
@@ -101,15 +65,17 @@ offset_left = 8.65
 offset_top = 200.79501
 offset_right = 542.65
 offset_bottom = 240.79501
-theme_override_constants/separation = 404
+theme_override_constants/separation = 363
 
 [node name="GenericButton2" parent="CanvasLayer/HBoxContainer2" unique_id=1503599191 instance=ExtResource("4_rw4us")]
 layout_mode = 2
 button_name = "Return to Hearthwynn"
+button_to_active = 5
 
 [node name="GenericButton" parent="CanvasLayer/HBoxContainer2" unique_id=766834764 instance=ExtResource("4_rw4us")]
 layout_mode = 2
 button_name = "Travel to Dungeon"
+button_to_active = 4
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1479204639]
 layout_mode = 0
@@ -130,3 +96,12 @@ offset_right = 708.0
 offset_bottom = 424.00003
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("6_xdkxl")]
+layout_mode = 0
+offset_left = 101.46
+offset_top = 10.08
+offset_right = 101.46
+offset_bottom = 10.08
+theme_override_constants/h_separation = 342
+columns = 2

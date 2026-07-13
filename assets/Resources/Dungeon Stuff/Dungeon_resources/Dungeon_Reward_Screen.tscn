@@ -87,7 +87,6 @@ offset_top = 288.0
 offset_right = 599.16003
 offset_bottom = 306.32
 scale = Vector2(1, 1)
-input_event_that_will_activate = "confirm"
 button_name = "Next"
 
 [node name="Return_Button" parent="CanvasLayer" unique_id=1394715110 instance=ExtResource("2_sg15t")]
@@ -97,7 +96,6 @@ offset_top = 288.0
 offset_right = 598.16003
 offset_bottom = 306.32
 scale = Vector2(1, 1)
-input_event_that_will_activate = "confirm"
 button_name = "Return"
 
 [node name="Container" type="Container" parent="CanvasLayer" unique_id=1649165335]

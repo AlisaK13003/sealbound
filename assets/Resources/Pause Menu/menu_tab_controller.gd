@@ -13,6 +13,8 @@ extends GridContainer
 
 @export var dont_highlight: bool = false
 
+@export var dont_disable_reselection: bool = false
+
 var current_selection = 0
 var tab_node_path = "res://assets/Resources/Pause Menu/menu_tab_node.tscn"
 
@@ -122,7 +124,7 @@ func cycle_input(event, index, make_noise = false):
 	if event is InputEventMouseMotion:
 		return
 	
-	if index == current_selection:
+	if index == current_selection and not dont_disable_reselection:
 		return
 	
 	if event is InputEventMouseButton:

@@ -23,7 +23,6 @@ mouse_filter = 1
 texture = ExtResource("2_jc2l0")
 
 [node name="Items" type="Control" parent="." unique_id=603768657]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -33,19 +32,20 @@ mouse_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 34
 
 [node name="TextureRect" type="TextureRect" parent="Items/HBoxContainer" unique_id=952999029]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_jc2l0")
 stretch_mode = 3
 
 [node name="Label2" type="Label" parent="Items/HBoxContainer" unique_id=394115279]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(156.405, 0)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-30.475, 0)
+offset_transform_position = Vector2(-8.05, 0)
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.34407577, 0.34407574, 0.34407574, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -54,14 +54,14 @@ text = "Altho eh Pinto"
 [node name="Label3" type="Label" parent="Items/HBoxContainer" unique_id=1078670005]
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-8.945, 0)
+offset_transform_position = Vector2(0.145, 0)
 mouse_filter = 1
 text = "x"
 
 [node name="Label" type="Label" parent="Items/HBoxContainer" unique_id=1728308324]
+custom_minimum_size = Vector2(17, 0)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-41.71, 0)
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.34407577, 0.34407574, 0.34407574, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

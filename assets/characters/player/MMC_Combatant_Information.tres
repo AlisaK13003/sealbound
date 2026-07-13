@@ -1,9 +1,12 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://cw3vpqck0mh18"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_v7xaa"]
+[ext_resource type="Resource" uid="uid://cc8cbamkugwqv" path="res://assets/characters/player/Resonance_Moves/Cross Slash.tres" id="2_brmf3"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_xavbm"]
+[ext_resource type="Resource" uid="uid://c7tfx2wsw0rko" path="res://assets/characters/player/Resonance_Moves/Deflect.tres" id="3_07esi"]
 [ext_resource type="Texture2D" uid="uid://shjpgimgv7sp" path="res://assets/characters/player/playerMale_portraits.png" id="3_td0jh"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_brmf3"]
+[ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_vauhd"]
 [ext_resource type="SpriteFrames" uid="uid://b7aeudu53hdro" path="res://assets/characters/player/MMC_Dungeon_Animations.tres" id="5_07esi"]
 [ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="6_vauhd"]
 [ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="7_w8xwj"]
@@ -12,42 +15,6 @@
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="10_glmf3"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="11_o711s"]
 [ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="12_7gsig"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nht1f"]
-load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ltybf"]
-load_path = "res://.godot/imported/Crowd_Breaker.png-04e109804fdd4ed04f0fd775c31a4815.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0kyw"]
-load_path = "res://.godot/imported/Toggled_Crowd_Breaker.png-17d6b74b6ff203aad340fd0c46b1f4b1.ctex"
-
-[sub_resource type="Resource" id="Resource_s2epw"]
-script = ExtResource("1_v7xaa")
-move_name = "Crowdbreaker"
-move_description = "Damage all enemies. Enemies now target Lyra"
-attack_power = 2
-multi_hit = true
-guaranteed_hit_count = 2
-max_hit_count = 2
-status_type = 983040
-removes_status = null
-chance_of_status_condition = 0.75
-is_skill_aoe = true
-normal_sprite = SubResource("CompressedTexture2D_ltybf")
-pressed_sprite = SubResource("CompressedTexture2D_p0kyw")
-disabled_sprite = SubResource("CompressedTexture2D_nht1f")
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_53q4p"]
-script = ExtResource("1_v7xaa")
-attack_power = null
-mana_cost = 2
-does_status = true
-status_type = 24
-removes_status = null
-is_skill_aoe = true
-metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("2_xavbm")
@@ -92,7 +59,11 @@ stored_equipment = SubResource("Resource_onp7b")
 stored_charm = ExtResource("7_w8xwj")
 stored_boots = ExtResource("6_vauhd")
 stored_chestplate = ExtResource("8_ujq20")
-combatant_skills = Array[ExtResource("1_v7xaa")]([SubResource("Resource_s2epw"), SubResource("Resource_53q4p")])
+combatant_skills_ = Dictionary[ExtResource("1_v7xaa"), bool]({
+ExtResource("2_brmf3"): true,
+ExtResource("3_07esi"): true,
+ExtResource("4_vauhd"): true
+})
 sprite_frames = ExtResource("5_07esi")
 idle_speed = 1.0
 death_speed = 0.5

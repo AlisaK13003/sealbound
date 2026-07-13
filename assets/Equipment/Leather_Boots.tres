@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_cbalh"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="1_hb4bh"]
-[ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="1_nmlh2"]
+[ext_resource type="Texture2D" uid="uid://cbh73kklbygq1" path="res://assets/Equipment/Equipment Sprites/Leather Boots.png" id="1_nmlh2"]
 
 [sub_resource type="Resource" id="Resource_5rluu"]
 script = ExtResource("1_hb4bh")

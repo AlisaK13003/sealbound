@@ -5,13 +5,13 @@ class_name dungeon_gui
 @onready var options_menu = $Options_Menu
 @onready var item_menu = $Item_Menu
 @onready var skill_menu = $Skill_Menu
-@onready var base_menu = $Base_Menu
+@onready var base_menu = $Control
 
-@onready var item_button = $Base_Menu/Item
-@onready var skill_button = $Base_Menu/Skill
-@onready var attack_button = $Base_Menu/Attack
-@onready var option_button = $Base_Menu/Options
-@onready var run_button = $GenericButton
+@onready var item_button = $Control/Base_Menu/Item
+@onready var skill_button = $Control/Base_Menu/Skill
+@onready var attack_button = $Control/Base_Menu/Attack
+@onready var option_button = $Control/Base_Menu/Options
+@onready var bond_attack_button = $Bond_Attack_Button
 
 @onready var confirmation_yes = $Confirmation/GenericButton
 @onready var confirmation_no = $Confirmation/GenericButton2
@@ -26,12 +26,12 @@ class_name dungeon_gui
 @onready var black_box = $ColorRect
 
 @onready var portrait_container = $Party_Portrait_Container
-@onready var mana_label = $"Mana Bar/Label"
+@onready var mana_label = $"Mana Bar/HBoxContainer/Label"
 @onready var bond_bar = $Bond_Attack
 
 @onready var action_hint_area = $Action_Hint
 
-@onready var action_queue_list = $ActionQueue
+@onready var action_queue_list = $Control/ActionQueue
 
 var test_mode = false
 
@@ -42,11 +42,6 @@ var executing_item = false
 var is_aoe = false
 
 var has_been_setup: bool = false
-
-var selected_action = 3
-
-@export var how_long_should_base_menu_be: float = 210.0
-
 
 signal basic_attack
 signal skill_used
@@ -62,7 +57,6 @@ func _setup(parent_reference):
 		skill_button.activated.connect(_skill_menu_pressed)
 		attack_button.activated.connect(_base_attack_emitted)
 		option_button.activated.connect(options_menu_option)
-		run_button.activated.connect(run_button_pressed)
 		confirmation_yes.activated.connect(confirmation_button_.bind(true))
 		confirmation_no.activated.connect(confirmation_button_.bind(false))
 		back_button_.activated.connect(_back_button_pressed)
@@ -76,6 +70,7 @@ func _setup(parent_reference):
 		item_used.connect(parent_reference.item_used)
 		defended.connect(parent_reference.player_defended)
 		run_action.connect(parent_reference.ran_from_combat)
+		$Bond_Attack_Button/GenericButton.activated.connect(parent_reference.player_did_bond_attack)
 		
 	base_menu.visible = true
 	self.visible = true
@@ -115,7 +110,7 @@ func update_turn_queue_ui():
 func swap_to_new_player():
 	executing_item = false
 	executing_skill = false
-	skill_menu._setup(GlobalCombatInformation.active_party_slots[p_ref.active_player_turn].combatant_skills)
+	skill_menu._setup(GlobalCombatInformation.active_party_slots[p_ref.active_player_turn].combatant_skills_)
 	item_menu._setup()
 	options_menu._setup()
 	if not skill_menu.thing_selected.is_connected(_display_enemy_selection):
@@ -349,3 +344,12 @@ func set_bond_attack(value):
 
 func update_bond_attack(update_value):
 	bond_bar.value += clamp(abs(update_value), 0, bond_bar.max_value)
+
+func _on_button_pressed():
+	bond_bar.value += 1
+
+func _on_bond_attack_value_changed(value):
+	if bond_bar.value == bond_bar.max_value:
+		$Bond_Attack_Button.visible = true
+	else:
+		$Bond_Attack_Button.visible = false

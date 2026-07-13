@@ -72,6 +72,29 @@ patch_margin_bottom = 15
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[node name="NinePatchRect5" type="NinePatchRect" parent="Background" unique_id=721785695]
+modulate = Color(1, 1, 1, 0.5764706)
+layout_mode = 0
+offset_left = -218.0
+offset_top = 124.76
+offset_right = -5.000061
+offset_bottom = 183.0
+texture = ExtResource("3_nfgmx")
+
+[node name="NinePatchRect6" type="NinePatchRect" parent="Background" unique_id=234588311]
+layout_mode = 0
+offset_left = -227.0
+offset_top = 115.99999
+offset_right = 5.0
+offset_bottom = 191.0
+texture = ExtResource("4_x400g")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
 [node name="Label" type="Label" parent="Background" unique_id=869097040]
 layout_mode = 0
 offset_left = 120.0
@@ -113,3 +136,55 @@ offset_left = 623.0
 offset_top = 222.0
 offset_right = 631.0
 offset_bottom = 343.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1560545813]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 287.0
+offset_right = 376.0
+offset_bottom = 346.0
+
+[node name="Description" type="Label" parent="VBoxContainer" unique_id=1159379420]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
+theme_override_font_sizes/font_size = 10
+text = "Hits all enemies multiple times"
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=584658846]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -6)
+alignment = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=2089554980]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
+text = "BP:"
+horizontal_alignment = 2
+
+[node name="Thing_Cost" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=646822229]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
+text = "15"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=581841335]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
+text = "/"
+horizontal_alignment = 2
+
+[node name="Total_Bond" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=158331210]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
+text = "30"
+horizontal_alignment = 2

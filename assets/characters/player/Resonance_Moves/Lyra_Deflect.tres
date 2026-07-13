@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://ddtxaujyg66ai"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_toatf"]
+
+[resource]
+script = ExtResource("1_toatf")
+move_name = "Deflect"
+move_description = "Increases defense for one turn"
+attack_power = null
+does_damage = false
+does_status = true
+status_type = 393216
+removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
+targets_party = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"

@@ -9,7 +9,7 @@ class_name dungeon_loop
 
 @export var temp_item_list : Array[Items]
 
-@onready var gui: dungeon_gui = $UI/DungeonPlayerGui
+@onready var gui: dungeon_gui = $CanvasLayer/UI/DungeonPlayerGui
 
 @onready var slot_1: combat_template = $Player_Container/Player_Slot1
 @onready var slot_2: combat_template = $Player_Container/Player_Slot2
@@ -79,6 +79,7 @@ var skills_enemies_have_used: int = 0
 var training: bool = false
 var testing: bool = false
 func _ready():
+	return
 	setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
 	return
 	Fade.fade_thing.visible = false
@@ -181,6 +182,7 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 		gui.get_player_portrait(1).visible = false
 		gui.get_player_portrait(2).visible = false
 	
+	AudioManager.play_bgm(AudioManager.BATTLE_MUSIC)
 	return await battle_loop(encounter, is_boss)
 	
 	#item_menu.setup(temp_item_list, self)
@@ -319,13 +321,11 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	var highest_wave_reached = 0
 	var did_players_win: bool = false
 	gui.update_mana_display(current_bond_points, true)
-	# Main battle loop, continues until every wave has been fought, or party dies
 	for i in range(number_of_waves_to_fight):
 		highest_wave_reached += 1
 		turn_count = 0
 		is_wave_over = false
 		setup_encounter(encounter, is_boss)
-		# Handles individual waves, continues until wave concludes
 		determine_order()
 		gui.update_turn_queue_ui()
 		while(not is_wave_over):
@@ -355,7 +355,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 						number_of_alive_players += 1
 			# Wait so all animations can finish
 			if not training:
-				await get_tree().create_timer(0.0).timeout
+				await get_tree().create_timer(0.5).timeout
 			await get_tree().process_frame
 			if number_of_alive_enemies == 0:
 				is_wave_over = true
@@ -379,6 +379,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				else:
 					#var thing = await handle_player_move_selection(current_combatant.stored_combatant)
 					selecting_entity = false
+					current_actor.animated_sprite.play("Idle")
 					await gui.new_player_turn()
 					make_enemies_selectable()
 					select_individual(false, 0)
@@ -410,36 +411,38 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 	
 	rng = RandomNumberGenerator.new()
 	var possible_enemy_actions: Array[enemy_weighting]
-	
+
 	var attacking_enemy: combat_template
-	var doing_player = false
 	for enemy in enemy_shit.get_children():
 		if enemy_to_attack == enemy.stored_combatant:
 			attacking_enemy = enemy
-	for action in range(attacking_enemy.stored_combatant.combatant_skills.size() + 1):
-		if attacking_enemy.stored_combatant.combatant_skills[action - 1].does_summon and action != 0:
-			var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, null, false, attacking_enemy.stored_combatant.combatant_skills[action - 1])
+			
+	for player in player_container.get_children():
+		if player.stored_combatant.is_dead:
+			continue
+		else:
+			var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player)
+			possible_enemy_actions.append(new_action)
+			
+	for action: moves in attacking_enemy.stored_combatant.combatant_skills_.keys():
+		if action.does_summon:
+			var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, null, false, action)
 			possible_enemy_actions.append(new_action)
 			continue
 		else:
 			for player in player_container.get_children():
 				if player.stored_combatant.is_dead:
 					continue
-				if action == 0:
-					var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player)
+
+					var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player, true, action)
 					possible_enemy_actions.append(new_action)
 					continue
-				else:
-					var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player, true, attacking_enemy.stored_combatant.combatant_skills[action - 1])
+			if action.targets_party:
+				for enemy in enemy_shit.get_children():
+					if not enemy.visible:
+						continue
+					var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, enemy, false, action)
 					possible_enemy_actions.append(new_action)
-					continue
-			if action != 0:
-				if attacking_enemy.stored_combatant.combatant_skills[action - 1].targets_party:
-					for enemy in enemy_shit.get_children():
-						if not enemy.visible:
-							continue
-						var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, enemy, false, attacking_enemy.stored_combatant.combatant_skills[action - 1])
-						possible_enemy_actions.append(new_action)
 
 	var finalized_enemy_actions: Array[enemy_weighting] = []
 	for action: enemy_weighting in possible_enemy_actions:
@@ -543,14 +546,14 @@ func execute_enemy_skills(action):
 					if skill_used.targets_party:
 						par_task.append(func(e=entity): 
 							if is_instance_valid(e):
-								await e.handle_status(skill_used.status_type)
+								await e.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 						)
 					else:
 						chance = rng.randf_range(0, 1)
 						if chance <= skill_used.chance_of_status_condition:
 							par_task.append(func(e=entity): 
 								if is_instance_valid(e):
-									await e.handle_status(skill_used.status_type)
+									await e.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 							)
 				if skill_used.does_remove_status or skill_used.removes_status:
 					if skill_used.targets_party:
@@ -595,14 +598,14 @@ func execute_enemy_skills(action):
 					if skill_used.targets_party:
 						parallel_tasks.append(func(): 
 							if is_instance_valid(person_recieving):
-								await person_recieving.handle_status(skill_used.status_type)
+								await person_recieving.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 						)
 					else:
 						chance = rng.randf_range(0, 1)
 						if chance <= skill_used.chance_of_status_condition:
 							parallel_tasks.append(func(): 
 								if is_instance_valid(person_recieving):
-									await person_recieving.handle_status(skill_used.status_type)
+									await person_recieving.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 							)
 				if skill_used.removes_status:
 					if skill_used.targets_party:
@@ -722,11 +725,13 @@ func skill_used(skill_used: moves, skill_index):
 	var action_on_who = return_whos_highlighted(skill_used.targets_party)
 	GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
 	unselect_all()
+	gui.update_mana_display(-1 * skill_used.mana_cost, false)
+
 	selecting_entity = false
 	action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
 	action_sequence.append(func(): $AudioStreamPlayer3D.play())
+	action_sequence.append(func(): await gui.update_bond_attack(skill_used.mana_cost))
 	action_sequence.append(func(): await execute_skills_fixed(skill_used, action_on_who))
-	
 	await action_queue(action_sequence)
 	turn_ended.emit()
 	
@@ -759,7 +764,7 @@ func execute_items_fixed(item_used, acted_on_who):
 			if item_used.removes_status != null:
 				par_task.append(func(): await entity.remove_status(item_used.removes_status))
 			if item_used.give_status != null:
-				par_task.append(func(): await entity.handle_status(item_used.give_status))
+				par_task.append(func(): await entity.handle_status(item_used.give_status, 3))
 			seq_task.insert(0, func(): await await_parallel(par_task))
 	else:
 		if item_used.does_what == 2:
@@ -769,14 +774,46 @@ func execute_items_fixed(item_used, acted_on_who):
 		if item_used.removes_status != null:
 			par_task.append(func(): await acted_on_who.remove_status(item_used.removes_status))
 		if item_used.give_status != null:
-			par_task.append(func(): await acted_on_who.handle_status(item_used.give_status))
+			par_task.append(func(): await acted_on_who.handle_status(item_used.give_status, 3))
 	
 		seq_task.insert(0, func(): await await_parallel(par_task))
 	await action_queue(seq_task)
 	current_player.animated_sprite.play("Idle")
 	current_player.animated_sprite.speed_scale = current_player.stored_combatant.idle_speed
 	turn_ended.emit()
+
+func player_did_bond_attack():
+	gui.base_menu.visible = false
+	gui.hide_gui(false)
+	gui.set_bond_attack(0)
 	
+	var action_sequence: Array[Callable] = []
+	print("BOND ATTACXK")
+	var alive_player_count = 0
+	for player in player_container.get_children():
+		if player.stored_combatant.is_dead:
+			continue
+		else:
+			alive_player_count += 1
+	
+	var attacking = return_whos_highlighted(false)
+	unselect_all()
+	if attacking is Array:
+		var par_task: Array[Callable] = []
+		for entity in attacking:
+			var base_damage = calculate_damage(get_player(active_player_turn), 1.0, entity, false, false)
+			var actual_damage = base_damage[0] + (base_damage[0] * (0.2 * alive_player_count))
+			par_task.append(func(): await entity.update_health(actual_damage))
+		action_sequence.append(func(): await await_parallel(par_task))
+	else:
+		var base_damage = calculate_damage(get_player(active_player_turn), 3.0, attacking, false, false)
+		print(base_damage)
+		var actual_damage = base_damage[0] + (base_damage[0] * (0.2 * alive_player_count))
+		action_sequence.append(func(): await attacking.update_health(actual_damage))
+	await action_queue(action_sequence)
+
+	turn_ended.emit()
+
 func ran_from_combat():
 	GlobalCombatInformation.bring_back_combat()
 
@@ -813,7 +850,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 				if chance <= skill_used.chance_of_status_condition:
 					par_task.append(func(e=entity): 
 						if is_instance_valid(e):
-							await e.handle_status(skill_used.status_type)
+							await e.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 					)
 			if skill_used.removes_status:
 				chance = rng.randf_range(0, 1)
@@ -867,7 +904,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 				if chance <= skill_used.chance_of_status_condition:
 					parallel_tasks.append(func(): 
 						if is_instance_valid(acted_on_who):
-							await acted_on_who.handle_status(skill_used.status_type)
+							await acted_on_who.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 					)
 			if skill_used.removes_status:
 				chance = rng.randf_range(0, 1)
@@ -896,7 +933,6 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 							if is_instance_valid(acted_on_who):
 								await acted_on_who.update_health(0, "MISS")
 						)
-	parallel_tasks.append(func(): await gui.update_mana_display(-1 * skill_used.mana_cost, false))
 	action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
 	await action_queue(action_sequence)
 	return
@@ -1113,9 +1149,9 @@ func revert_camera():
 
 #region DAMAGE
 
-func check_if_critical_hit(current_individual: combat_template) -> bool:
+func check_if_critical_hit(current_individual: combat_template, attacking: combat_template) -> bool:
 	var chance_of_crit_hit = rng.randf_range(0.0, 1.0)
-	var crit_threshold = 0.04 + (float(current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)) / 100.0)
+	var crit_threshold = 0.05 + (float(current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)) - float(attacking.obtain_stat(attacking.stats.CRIT_CHANCE)) * 0.005)
 	return chance_of_crit_hit <= crit_threshold
 
 
@@ -1131,7 +1167,7 @@ func get_skill_boost(skill_used: moves) -> float:
 		2: return 2
 	return 1.0
 
-func calculate_damage(attacker: combat_template, skill_power: float, target: combat_template, is_magic: bool) -> Array:
+func calculate_damage(attacker: combat_template, skill_power: float, target: combat_template, is_magic: bool, can_crit: bool = true) -> Array:
 	var atk = float(attacker.obtain_stat(
 		attacker.stats.MAGIC if is_magic else attacker.stats.ATTACK
 	))
@@ -1140,19 +1176,22 @@ func calculate_damage(attacker: combat_template, skill_power: float, target: com
 	))
 	var level = float(attacker.stored_combatant.actual_stats.level)
 
-	# Level curve: starts at 5, grows meaningfully
 	var level_factor = 5.0 + (level * 2.0)
 
 	var base = (atk * level_factor) / max(def, 1.0)
 	var damage = base * skill_power
-
-	var is_crit = check_if_critical_hit(attacker)
-	if is_crit:
-		var crit_multiplier = float(1.5)
-		damage *= crit_multiplier
+	
+	var is_crit = check_if_critical_hit(attacker, target)
+	if can_crit:
+		if is_crit:
+			var crit_multiplier = float(1.5) + float(attacker.stored_combatant.actual_stats.crit_damage)
+			damage *= crit_multiplier
+	else:
+		is_crit = 0
 
 	damage *= rng.randf_range(0.95, 1.05)
 	return [ceili(damage), 1 if is_crit else 0]
+
 
 func calculate_evasion(entity_being_attacked: combat_template, attack_hit_chance: float = 90.0) -> float:
 	var attacker_evasion = float(entity_being_attacked.obtain_stat(entity_being_attacked.stats.EVASION)) + 200.0

@@ -115,6 +115,7 @@ scale = Vector2(0.46, 0.46)
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 46
 be_vertical = true
+dont_disable_reselection = true
 
 [node name="Windows" type="Control" parent="." unique_id=1877301607]
 z_index = 2

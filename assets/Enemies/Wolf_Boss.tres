@@ -60,7 +60,11 @@ combatant_stats = SubResource("Resource_b2qww")
 is_combatant_enemy = true
 coin_drop_range = Vector2i(0, 100)
 bond_drop_range = Vector2i(0, 50)
-combatant_skills = Array[ExtResource("1_gly0j")]([SubResource("Resource_sxoqn"), SubResource("Resource_bqewb"), SubResource("Resource_5574v")])
+combatant_skills_ = Dictionary[ExtResource("1_gly0j"), bool]({
+SubResource("Resource_sxoqn"): true,
+SubResource("Resource_bqewb"): true,
+SubResource("Resource_5574v"): true
+})
 sprite_frames = ExtResource("4_6qo0b")
 idle_speed = 1.0
 death_speed = 1.0

@@ -263,19 +263,19 @@ func add_quest(quest_: quest):
 	check_quest_progress.emit()
 
 func _ready():
-	all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
-	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
-	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
-	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
+	#all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
+	#all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
+	#all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
+	#all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
 	
 	for member in all_party_slots:
 		member.gather_actual_stats()
 
 	load_items()
 	
-	active_party_slots.append(all_party_slots[0])
-	active_party_slots.append(all_party_slots[1])
-	active_party_slots.append(all_party_slots[2])
+	#active_party_slots.append(all_party_slots[0])
+	#active_party_slots.append(all_party_slots[1])
+	#active_party_slots.append(all_party_slots[2])
 	calculate_BP()
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
@@ -417,7 +417,6 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	active_party_slots[2] = output[2][2].duplicate()
 	
 	current_BP = output[2][3]
-	cur_bond_attack_val = output[2][4]
 
 	if did_players_win:
 		should_remove_enemy = true
@@ -508,7 +507,7 @@ func update_stored_combat_information():
 
 func load_saved_data(data):
 	#all_party_slots.clear()
-	#active_party_slots.clear()
+	active_party_slots.clear()
 	all_held_equipment.clear()
 	all_held_weapons.clear()
 	all_held_items.clear()
@@ -520,7 +519,7 @@ func load_saved_data(data):
 		var new_party_member: generic_combatants = load(party_member["path"])
 		new_party_member.load_save(party_member)
 		new_party_member.gather_actual_stats()
-		#all_party_slots.append(new_party_member)
+		all_party_slots.append(new_party_member)
 
 	for equipment_ in data["equipment_slots"].values():
 		var new_equipment = load(equipment_["path"])
@@ -556,9 +555,11 @@ func load_saved_data(data):
 	if data.has("active_slots"):
 		for idx in data["active_slots"]:
 			var i = int(idx)
+			print("ACTGIVE PARTY SLOT SIZE: ", active_party_slots.size())
+			if active_party_slots.size() >= MAX_PARTY_SIZE:
+				break 
 			if i >= 0 and i < all_party_slots.size():
 				active_party_slots.append(all_party_slots[i])
-				
 			
 	calculate_BP()
 	for combatant in all_party_slots:
@@ -601,6 +602,8 @@ func export_to_JSON():
 	var active_indices: Array = []
 	for member in active_party_slots:
 		var exists = all_party_slots.find_custom(func(person: generic_combatants) -> bool: return member.combatant_name == person.combatant_name)
+		if active_indices.size() > 2:
+			break
 		if exists != -1:
 			active_indices.append(exists)
 

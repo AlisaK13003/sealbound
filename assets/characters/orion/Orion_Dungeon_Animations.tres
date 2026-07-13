@@ -167,6 +167,14 @@ region = Rect2(384, 240, 96, 80)
 atlas = ExtResource("1_okm42")
 region = Rect2(480, 240, 96, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndxhk"]
+atlas = ExtResource("1_okm42")
+region = Rect2(288, 80, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lebe3"]
+atlas = ExtResource("1_okm42")
+region = Rect2(0, 80, 96, 80)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_fi4kt"]
 atlas = ExtResource("1_f3433")
 region = Rect2(0, 560, 96, 80)
@@ -347,6 +355,22 @@ animations = [{
 }],
 "loop": 1,
 "name": &"On_Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndxhk")
+}],
+"loop": 1,
+"name": &"On_Defend",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lebe3")
+}],
+"loop": 1,
+"name": &"Use_Item",
 "speed": 5.0
 }, {
 "frames": [{

@@ -10,8 +10,6 @@ class_name moves
 @export var multi_hit : bool
 @export var guaranteed_hit_count : int
 @export var max_hit_count : int
-
-@export var is_unlocked: bool = true
 @export var is_magic_skill: bool = false
 
 @export var does_damage: bool = true
@@ -45,9 +43,9 @@ class_name moves
 	"Attack+:65536",
 	"Defense+:131072",
 	"Evasion+:262144",
-	"CritChance+:524288"
+	"CritChance+:524288",
 	) var status_type
-	
+
 @export_flags(
 	"Stun:1",
 	"Sleep:2",

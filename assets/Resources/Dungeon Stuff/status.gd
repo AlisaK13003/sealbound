@@ -52,7 +52,8 @@ var status_name_map: Dictionary = {
 	1 << 20: "Accuracy+"
 }
 
-func setup():
+func setup(lasts):
 	for key in status_name_map:
 		if status_type & key:
 			status_name = status_name_map[key]
+	remaining_turns = lasts

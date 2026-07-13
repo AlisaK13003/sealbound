@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://d1ibbgu4xexxo"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_1v5aj"]
+
+[resource]
+script = ExtResource("1_1v5aj")
+move_name = "Cross Slash"
+move_description = "Deals moderate damage to one enemy. "
+attack_power = 1
+mana_cost = 2
+status_type = null
+removes_status = null
+metadata/_custom_type_script = "uid://djfkp740jjn43"

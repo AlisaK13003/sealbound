@@ -27,6 +27,7 @@ theme_override_constants/v_separation = 5
 be_vertical = true
 dont_offset_on_click = true
 dont_highlight = true
+dont_disable_reselection = true
 
 [node name="Settings_Windows" type="Control" parent="." unique_id=896181735]
 anchors_preset = 0

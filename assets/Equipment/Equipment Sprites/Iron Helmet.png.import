@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwnwqohocotig"
-path="res://.godot/imported/potionMagicBuff.png-a9da645d3466ee0c09c90a7b70a85de2.ctex"
+uid="uid://cxeiarb82dn8k"
+path="res://.godot/imported/Iron Helmet.png-f026871cfe649225cb99cde62a0453e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Items/potionMagicBuff.png"
-dest_files=["res://.godot/imported/potionMagicBuff.png-a9da645d3466ee0c09c90a7b70a85de2.ctex"]
+source_file="res://assets/Equipment/Equipment Sprites/Iron Helmet.png"
+dest_files=["res://.godot/imported/Iron Helmet.png-f026871cfe649225cb99cde62a0453e8.ctex"]
 
 [params]
 

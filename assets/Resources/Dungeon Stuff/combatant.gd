@@ -25,7 +25,7 @@ var actual_stats: stats
 @export var coin_drop_range: Vector2i
 @export var bond_drop_range: Vector2i
 
-@export var combatant_skills : Array[moves]
+@export var combatant_skills_: Dictionary[moves, bool]
 
 @export var sprite_frames: SpriteFrames
 @export var idle_speed: float

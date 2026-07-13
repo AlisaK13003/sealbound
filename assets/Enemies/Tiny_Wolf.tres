@@ -32,4 +32,5 @@ death_speed = 1.0
 walk_speed = 1.0
 sprite_scale = 0.01
 sprite_offset = Vector2(-20, -20)
+equip_sprite_offset = Vector2(18, 21)
 metadata/_custom_type_script = "uid://125iickqse23"

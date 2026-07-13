@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://b1qeayxmm5tkf" path="res://assets/tile sheets/Move Sprites/Poison_Status.png" id="8_ypv6w"]
 [ext_resource type="Texture2D" uid="uid://dv053puynt24h" path="res://assets/tile sheets/Move Sprites/Freeze_Status.png" id="9_o7gp5"]
 [ext_resource type="Texture2D" uid="uid://dp47tc8eq64k5" path="res://assets/tile sheets/Move Sprites/Burn_Status.png" id="11_2s1to"]
+[ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="12_k4vyt"]
+[ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="13_pn1e0"]
+[ext_resource type="Texture2D" uid="uid://c0ym1jw7hb06c" path="res://assets/tile sheets/Health_Progress.png" id="14_t0ncg"]
 
 [node name="PartyPortrait" type="Control" unique_id=812714871]
 layout_mode = 3
@@ -33,9 +36,9 @@ offset_bottom = 40.0
 [node name="NinePatchRect2" type="NinePatchRect" parent="background" unique_id=558146571]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 4.0000005
+offset_top = 5.000001
 offset_right = 228.51851
-offset_bottom = 41.037033
+offset_bottom = 40.18518
 scale = Vector2(0.54, 0.54)
 texture = ExtResource("2_42j3u")
 patch_margin_left = 8
@@ -134,9 +137,9 @@ texture = ExtResource("11_2s1to")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2144974579]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 26.0
 offset_top = -6.0
-offset_right = 141.0
+offset_right = 128.0
 offset_bottom = 34.0
 alignment = 1
 
@@ -183,3 +186,20 @@ offset_top = 6.0
 offset_right = 171.0
 offset_bottom = 24.0
 text = "acting"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1924082584]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 21.0
+offset_right = 132.0
+offset_bottom = 29.0
+value = 60.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("12_k4vyt")
+texture_over = ExtResource("13_pn1e0")
+texture_progress = ExtResource("14_t0ncg")
+tint_under = Color(0.49803922, 1, 1, 1)

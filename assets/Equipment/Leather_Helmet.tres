@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="equipment" format=3 uid="uid://cgici7h4i007m"]
 
-[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="1_3eio3"]
+[ext_resource type="Texture2D" uid="uid://caaewv5fnihel" path="res://assets/Equipment/Equipment Sprites/Leather Helmet.png" id="1_3eio3"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_4d8si"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_gjbw3"]
 

@@ -230,8 +230,7 @@ func update_health(change_health_value, what_action = null):
 # Combat related stuff
 
 func use_item(which_item):
-	if stored_combatant.is_MC:
-		animated_sprite.play("Use_Item")	
+	animated_sprite.play("Use_Item")	
 	combatant_ui_.play_use_item_animation(which_item)
 	await combatant_ui_.animation_player.animation_finished
 	return
@@ -264,6 +263,7 @@ func on_death():
 	
 func execute_defend():
 	is_defending = true
+	animated_sprite.play("On_Defend")
 
 # Checks if you can click the entity to execute skill/attack
 func do_nothing_3d(_camera, event, _event_position, _normal, _shape_idx):
@@ -272,7 +272,7 @@ func do_nothing_3d(_camera, event, _event_position, _normal, _shape_idx):
 			parent_reference.confirmation.emit(child_number)
 
 # Status Stuff
-func handle_status(incoming_statuses):
+func handle_status(incoming_statuses, turn_limit):
 	for key in conflicts.keys():
 		var opposite = conflicts[key]
 		if (incoming_statuses & key) and (all_active_effects & opposite):
@@ -284,7 +284,7 @@ func handle_status(incoming_statuses):
 			if key <= statuses.AGRO and already_inflicted_with_major_status:
 				for _status in active_statuses:
 					if _status.status_type & key:
-						_status.remaining_turns = 3
+						_status.remaining_turns = turn_limit
 						break
 			else:
 				if (all_active_effects != 0) and (all_active_effects & key) == key:
@@ -292,13 +292,13 @@ func handle_status(incoming_statuses):
 						if _status.status_type & (incoming_statuses & key):
 							if _status.status_type < statuses.ATTACKdown:
 								parent_reference.gui.update_bond_attack(0.5)
-							_status.remaining_turns += 3
+							_status.remaining_turns += turn_limit
 							break
 				else:
 					var add_status = status.new()
 					add_status.status_type = key
 					already_inflicted_with_major_status = true
-					add_status.setup()
+					add_status.setup(turn_limit)
 					if add_status.status_type < statuses.ATTACKdown:
 						if stored_combatant.is_combatant_enemy:
 							parent_reference.gui.update_bond_attack(0.5)
@@ -505,6 +505,7 @@ func attack_animation(what_attack_anim):
 #endregion
 
 func _on_enemy_collision_mouse_entered():
+	print("ENTERED")
 	if not has_been_setup:
 		return
 	if currently_selectable and not stored_combatant.is_dead :

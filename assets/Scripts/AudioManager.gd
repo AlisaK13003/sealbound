@@ -11,6 +11,8 @@ const SCROLL_CLICK: AudioStream = preload("res://assets/Audio/UI SFX_MENU_Scroll
 const MENU_OPEN: AudioStream = preload("res://assets/Audio/UI SFX_InGameMenu_Open.ogg")
 const MENU_CLOSE: AudioStream = preload("res://assets/Audio/UI SFX_InGameMenu_Close.ogg")
 
+const BATTLE_MUSIC: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/[FC] Anomaly Field.ogg")
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	

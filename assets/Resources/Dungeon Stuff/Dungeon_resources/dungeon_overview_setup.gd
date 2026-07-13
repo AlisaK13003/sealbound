@@ -1,13 +1,11 @@
 extends Control
 
-@onready var dungeon_name_label = $MarginContainer/HBoxContainer/VBoxContainer/Dungeon_Name
-@onready var floor_count_label = $MarginContainer/HBoxContainer/VBoxContainer/Floor_Count
-@onready var average_level_label = $MarginContainer/HBoxContainer/VBoxContainer/Average_Level
-@onready var seal_boss_label = $MarginContainer/HBoxContainer/VBoxContainer/Seal
+@onready var dungeon_name_label = $Dungeon_Name
+@onready var floor_count_label = $GridContainer2/Floor_Count
+@onready var average_level_label = $GridContainer2/Average_Level
+@onready var seal_boss_label = $GridContainer2/Seal
 
-@onready var dungeon_image = $Panel/TextureRect
-
-@onready var enemies = $MarginContainer/MarginContainer/VBoxContainer/Found_Enemies
+@onready var enemies = $Found_Enemies
 
 func _setup(dungeon_type_: dungeon_type):
 	dungeon_name_label.text = dungeon_type_.dungeon_name
@@ -15,21 +13,38 @@ func _setup(dungeon_type_: dungeon_type):
 	var avg_level_count = 0
 	var total_level = 0
 	var unique_enemies = []
+	var unique_items = []
+	for chest_drop in dungeon_type_.chest_drops.keys():
+		for item in chest_drop:
+			if unique_items.find(item) == -1:
+				unique_items.append(item)
+	for item in unique_items:
+		var new_label = Label.new()
+		new_label.text = item.item_name
+		$GridContainer.add_child(new_label)
+	
+	if dungeon_type_.does_dungeon_have_boss:
+		seal_boss_label.text = "Seal Guardian: " + dungeon_type_.boss_encounter.encounterable_enemy.combatant_name
+	
 	for possible_wave in dungeon_type_.potential_encounters:
 		for enemy in possible_wave.enemies:
 			if unique_enemies.find(enemy) == -1:
 				unique_enemies.append(enemy)
 			avg_level_count += 1
 			total_level += enemy.combatant_stats.level
-	for enemy_slot in enemies.get_children():
-		if unique_enemies.size() <= enemy_slot.get_index():
-			enemy_slot.visible = false
-			continue
-		enemy_slot.get_child(0).sprite_frames = unique_enemies[enemy_slot.get_index()].sprite_frames
-		enemy_slot.get_child(0).play("Idle")
-		enemy_slot.get_child(0).speed_scale = unique_enemies[enemy_slot.get_index()].idle_speed
-	
-	dungeon_image.texture = dungeon_type_.dungeon_background
+	for enemy_slot in unique_enemies:
+		var cont = Container.new()
+		var new_sprite = AnimatedSprite2D.new()
+		
+		cont.custom_minimum_size = Vector2(32, 32)
+		
+		cont.add_child(new_sprite)
+		enemies.add_child(cont)
+		new_sprite.offset = enemy_slot.equip_sprite_offset
+		new_sprite.sprite_frames = enemy_slot.sprite_frames
+		new_sprite.play("Idle")
+		new_sprite.speed_scale = enemy_slot.idle_speed
+
 	if total_level == 0 or avg_level_count == 0:
 		return
 	average_level_label.text = "Avg Lv: " + str(total_level / avg_level_count)

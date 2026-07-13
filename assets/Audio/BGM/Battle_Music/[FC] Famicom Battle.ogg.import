@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dl27mwldybtna"
+path="res://.godot/imported/[FC] Famicom Battle.ogg-da964aff2b49f004f44326307612107d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Audio/BGM/Battle_Music/[FC] Famicom Battle.ogg"
+dest_files=["res://.godot/imported/[FC] Famicom Battle.ogg-da964aff2b49f004f44326307612107d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
