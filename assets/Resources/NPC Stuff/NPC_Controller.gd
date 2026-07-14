@@ -15,6 +15,7 @@ var pending_choice_action: String = ""
 
 var current_location
 const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
+const PLAYER_VISUAL_SPRITE_SCALE := Vector2(0.135, 0.135)
 
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
@@ -31,6 +32,7 @@ const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
 @export var counter_z_index: int = 0
 @export var counter_draw_order_y: float = -720.0
 @export var use_counter_draw_order: bool = false
+@export var match_player_visual_scale: bool = true
 
 var schedule_info
 var loaded_schedule_day: int = -1
@@ -42,6 +44,7 @@ var cutscene_restore_state: Dictionary = {}
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
+	normalize_to_player_visual_scale()
 	if shop_controller != null:
 		shop_controller.shop_closed.connect(close_shop)
 	Global.time_updated.connect(navigate)
@@ -65,6 +68,19 @@ func _ready():
 			dialogue_system.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
 	navigate.call_deferred()
+
+
+func normalize_to_player_visual_scale() -> void:
+	if not match_player_visual_scale:
+		return
+	if animated_sprite == null:
+		return
+	if is_zero_approx(animated_sprite.scale.x) or is_zero_approx(animated_sprite.scale.y):
+		return
+	scale = Vector2(
+		PLAYER_VISUAL_SPRITE_SCALE.x / abs(animated_sprite.scale.x),
+		PLAYER_VISUAL_SPRITE_SCALE.y / abs(animated_sprite.scale.y)
+	)
 
 
 # If there is no schedule to execute, or if player is talking, do nothing
