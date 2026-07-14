@@ -7,7 +7,12 @@ extends Control
 
 @onready var enemies = $Found_Enemies
 
-func _setup(dungeon_type_: dungeon_type):
+var stored_dungeon
+var stored_quest
+
+func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
+	stored_dungeon = dungeon_type_
+	stored_quest = quest_dungeon
 	dungeon_name_label.text = dungeon_type_.dungeon_name
 	floor_count_label.text = "Expect " + str(dungeon_type_.minimum_number_of_floors) + " - " + str(dungeon_type_.max_number_of_floors) + " floors."
 	var avg_level_count = 0

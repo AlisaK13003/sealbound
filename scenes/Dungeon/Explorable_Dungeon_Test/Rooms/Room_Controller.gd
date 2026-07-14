@@ -104,50 +104,52 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, spawn
 	var clutter_spawn_chance = 1
 	if group_id == -1:
 		clutter_spawn_chance = 0.3
-	var clutter = $Clutter
-	for clutter_child in clutter.find_children("*", "CollisionShape3D", true, false):
-		clutter_child.set_deferred("disabled", true)
-	if spawn_clutter < clutter_spawn_chance:
-		
-		clutter.visible = true
-		
-		match group_id:
-			-1:
-				var non_templated_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
-				non_templated_clutter.visible = true
-				non_templated_clutter.get_child(1).visible = true
-				var children = non_templated_clutter.get_child(1).get_children()
-				if children.is_empty():
-					return
-					
-				for child in children:
-					child.visible = false
-					
-				var picked_child = non_templated_clutter.get_child(1).get_children().pick_random()
-				picked_child.visible = true
+	
+	var clutter = get_node_or_null("Clutter")
+	if clutter != null:
+		for clutter_child in clutter.find_children("*", "CollisionShape3D", true, false):
+			clutter_child.set_deferred("disabled", true)
+		if spawn_clutter < clutter_spawn_chance:
+			
+			clutter.visible = true
+			
+			match group_id:
+				-1:
+					var non_templated_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
+					non_templated_clutter.visible = true
+					non_templated_clutter.get_child(1).visible = true
+					var children = non_templated_clutter.get_child(1).get_children()
+					if children.is_empty():
+						return
+						
+					for child in children:
+						child.visible = false
+						
+					var picked_child = non_templated_clutter.get_child(1).get_children().pick_random()
+					picked_child.visible = true
 
-				picked_child.set_deferred("disabled", false)
-			1:
-				pass
-			2:
-				pass
-			3:
-				if room_classification == 5 and is_center:
-					var template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
-					template_clutter.visible = true
-					template_clutter.get_child(0).visible = true
-					template_clutter.get_child(0).get_children().pick_random().visible = true
-					
-				elif room_classification == 3:
-					var template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
-					template_clutter.visible = true
-					template_clutter.get_child(0).visible = true
-					template_clutter.get_child(0).get_children().pick_random().visible = true
+					picked_child.set_deferred("disabled", false)
+				1:
+					pass
+				2:
+					pass
+				3:
+					if room_classification == 5 and is_center:
+						var template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
+						template_clutter.visible = true
+						template_clutter.get_child(0).visible = true
+						template_clutter.get_child(0).get_children().pick_random().visible = true
+						
+					elif room_classification == 3:
+						var template_clutter = clutter.get_child(p_ref.current_dungeon.type_of_dungeon)
+						template_clutter.visible = true
+						template_clutter.get_child(0).visible = true
+						template_clutter.get_child(0).get_children().pick_random().visible = true
 
-			4:
-				pass
-			5:
-				pass
+				4:
+					pass
+				5:
+					pass
 	
 	#if has_pillars:
 	#	for pillar in $Pillars.get_children():

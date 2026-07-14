@@ -324,6 +324,11 @@ func update_selection_section(combatant: combat_template):
 
 	#selection_area.get_child(0).get_child(1).text = combatant.stored_combatant.combatant_name
 
+func play_game_over():
+	$GameOver/AnimationPlayer.play("On_Gameover")
+	await $GameOver/AnimationPlayer.animation_finished
+	await Fade.fade_in(2.0)
+
 func get_player_portrait(portrait_to_get: int):
 	if portrait_to_get > 3:
 		print("UGH")

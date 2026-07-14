@@ -19,6 +19,8 @@ class_name quest
 # If you put in a normal item it will require that quantity of it
 @export var completion_requirements: Dictionary
 @export var should_spawn_dungeon_room: bool = false
+@export var required_spawn: bool = false
+@export var special_dungeon: dungeon_type = null
 var does_player_have_special_item: bool = false
 @export var item_sprite: Texture2D
 

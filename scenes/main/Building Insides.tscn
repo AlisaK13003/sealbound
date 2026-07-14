@@ -560,10 +560,10 @@ texture = ExtResource("2_f5vtb")
 texture = ExtResource("4_bi516")
 5:7/size_in_atlas = Vector2i(4, 4)
 5:7/0 = 0
-5:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.146793, -16.914501, 32.014664, -16.621864, 32.307297, 9.715603, -28.561516, 9.130329)
+5:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-27.788162, -8.183571, -28.327744, 25.989586, 31.025635, 25.989586, 30.486053, -7.284279)
 9:7/size_in_atlas = Vector2i(4, 4)
 9:7/0 = 0
-9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.146793, -16.914501, 32.014664, -16.621864, 32.307297, 9.715603, -27.976242, 8.252411)
+9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-27.788162, -8.183571, -28.327744, 25.989586, 31.025635, 25.989586, 30.486053, -7.284279)
 13:10/size_in_atlas = Vector2i(3, 4)
 13:10/0 = 0
 13:10/0/y_sort_origin = 8
@@ -807,7 +807,7 @@ texture = ExtResource("4_bi516")
 3:22/size_in_atlas = Vector2i(2, 3)
 3:22/0 = 0
 3:22/0/y_sort_origin = 20
-3:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.774521, -7.6826477, 15.9995, -8.398731, 16.51099, 8.480583, -16.797508, 7.9179344)
+3:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.097355, 7.5540667, 15.377922, 8.093642, 16.097359, 23.921211, -16.097355, 24.280926)
 5:22/size_in_atlas = Vector2i(3, 3)
 5:22/0 = 0
 5:22/0/y_sort_origin = 17
@@ -824,21 +824,26 @@ texture = ExtResource("4_bi516")
 15:25/0 = 0
 0:22/0 = 0
 0:22/0/texture_origin = Vector2i(-8, -9)
+0:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:23/0 = 0
 2:23/0 = 0
 2:23/0/texture_origin = Vector2i(8, 7)
-2:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.161524, -15.043392, -1.0701141, -15.214886, -0.8986206, 0.39100647, -16.161524, 1.2484703)
+2:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.917497, -15.2879925, -0.449646, -14.568558, -0.62950516, 1.2590103, -15.917498, 1.4388695)
 2:24/0 = 0
 2:24/0/texture_origin = Vector2i(8, 7)
+2:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:22/0 = 0
 2:22/0/texture_origin = Vector2i(8, 7)
+2:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:22/0 = 0
 1:22/0/texture_origin = Vector2i(8, 7)
+1:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:23/0 = 0
 0:23/0/texture_origin = Vector2i(-8, 7)
 0:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.5697956, -14.711723, 16.001673, -14.711723, 15.605986, 0.91799927, 0.27302742, 0.621233)
 0:24/0 = 0
 0:24/0/texture_origin = Vector2i(-8, 7)
+0:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:24/0 = 0
 1:24/0/texture_origin = Vector2i(8, 7)
 1:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.161524, -15.043392, -1.0701141, -15.214886, -0.8986206, 0.39100647, -16.161524, 1.2484703)
@@ -1338,9 +1343,13 @@ texture = ExtResource("10_j3ov1")
 3:10/0 = 0
 4:10/0 = 0
 5:10/0 = 0
+5:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:10/0 = 0
+6:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:10/0 = 0
+7:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:10/0 = 0
+8:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:10/0 = 0
 10:10/0 = 0
 11:10/0 = 0
@@ -1578,9 +1587,12 @@ texture = ExtResource("10_j3ov1")
 21:21/0 = 0
 22:21/0 = 0
 0:22/0 = 0
+0:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:22/0 = 0
 1:22/0/texture_origin = Vector2i(16, -16)
+1:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:22/0 = 0
+2:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:22/0 = 0
 3:22/0/texture_origin = Vector2i(0, -7)
 4:22/0 = 0
@@ -1621,9 +1633,11 @@ texture = ExtResource("10_j3ov1")
 30:22/0 = 0
 31:22/0 = 0
 0:23/0 = 0
+0:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:23/0 = 0
 2:23/0 = 0
 2:23/0/texture_origin = Vector2i(16, -16)
+2:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-22.752129, 7.913782, -8, 8, -7.1044197, 23.561493, -23.111847, 23.561493)
 3:23/0 = 0
 3:23/0/texture_origin = Vector2i(0, -7)
 3:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -1668,8 +1682,11 @@ texture = ExtResource("10_j3ov1")
 30:23/0 = 0
 31:23/0 = 0
 0:24/0 = 0
+0:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:24/0 = 0
+1:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:24/0 = 0
+2:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:24/0 = 0
 3:24/0/texture_origin = Vector2i(0, -7)
 3:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -1714,7 +1731,6 @@ texture = ExtResource("10_j3ov1")
 2:25/0 = 0
 3:25/0 = 0
 21:25/0 = 0
-21:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 24:25/0 = 0
 25:25/0 = 0
 26:25/0 = 0
@@ -6365,12 +6381,12 @@ connected_node_names = ["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"]
 "Connected To" = ["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"]
 
 [node name="Tavern_Path5" parent="BuildingLocationContainer" unique_id=166055671 instance=ExtResource("3_24omh")]
-position = Vector2(1695, -739)
+position = Vector2(1695, -746)
 connected_node_names = ["Tavern_Counter", "Tavern_Path4"]
 "Connected To" = ["Tavern_Counter", "Tavern_Path4"]
 
 [node name="Tavern_Counter" parent="BuildingLocationContainer" unique_id=2065408732 instance=ExtResource("3_24omh")]
-position = Vector2(1730, -739)
+position = Vector2(1732, -739)
 connected_node_names = ["Tavern_Path5"]
 "Connected To" = ["Tavern_Path5"]
 
@@ -6389,7 +6405,7 @@ connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
 "Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
 
 [node name="Tavern_LyraRoom" parent="BuildingLocationContainer" unique_id=860912794 instance=ExtResource("3_24omh")]
-position = Vector2(1778, -1051)
+position = Vector2(1795.85, -1051)
 connected_node_names = ["Tavern_Path6"]
 "Connected To" = ["Tavern_Path6"]
 
@@ -6675,7 +6691,7 @@ tile_set = SubResource("TileSet_bi516")
 [node name="On_Top" type="TileMapLayer" parent="Infirmary" unique_id=179488742 groups=["Building_Ground"]]
 z_index = 2
 position = Vector2(-185, -202)
-tile_map_data = PackedByteArray("AAADABAABQABABgAAAAEABAABQABABgAAAAFABAABQABABgAAAAGABAABQABABgAAAAHABAABQABABgAAAAIABAABQABABgAAAAJABAABQABABgAAAAKABAABQABABgAAAALABAABQABABgAAAAMABAABQABABgAAAANABAABQABABgAAAAOABAABQABABgAAAAPABAABQABABgAAAAQABAABQABABgAAAARABAABQABABgAAAASABAABQABABgAAAATABAABQABABgAAAAUABAABQABABgAAAAVABAABQABABgAAAAWABAABQABABgAAAAXABAABQABABgAAAAYABAABQABABgAAAAZABAABQABABgAAAAaABAABQABABgAAAAbABAABQABABgAAAAcABAABQABABgAAAAdABAABQABABgAAAAfAA8ABQACABcAAAAfAA4ABQACABcAAAAfAA0ABQACABcAAAAfAAwABQACABcAAAAfAAsABQACABcAAAAfAAoABQACABcAAAAfAAkABQACABcAAAAfAAgABQACABcAAAAfAAcABQACABcAAAAfAAYABQACABcAAAAfAAUABQACABcAAAAfAAQABQACABcAAAAfAAMABQACABcAAAAfAAIABQACABcAAAAfAAEABQACABcAAAAfAAAABQACABcAAAAeABAABQACABgAAAAfAP//BQACABcAAAAfAP7/BQACABcAAAAfAP3/BQACABcAAAAeAP3/BQACABYAAAACAA8ABQAAABcAAAACAA4ABQAAABcAAAACAA0ABQAAABcAAAACAAwABQAAABcAAAACAAsABQAAABcAAAACAAoABQAAABcAAAACAAkABQAAABcAAAACAAgABQAAABcAAAACAAcABQAAABcAAAACAAYABQAAABcAAAACAAUABQAAABcAAAACAAQABQAAABcAAAACAAMABQAAABcAAAACAAIABQAAABcAAAACAAEABQAAABcAAAACAAAABQAAABcAAAACAP//BQAAABcAAAACAP7/BQAAABcAAAACAP3/BQAAABYAAAACABAABQAAABgAAAAcAA0ABQARAB0AAAAcAA4ABQARAB4AAAAcAA8ABQARAB8AAAAdAA0ABQASAB0AAAAdAA4ABQASAB4AAAAdAA8ABQASAB8AAAADAAQABAANAAQAAAAEAAQABAANAAQAAAAFAAQABAANAAQAAAAGAAQABAANAAQAAAAHAAQABAANAAQAAAAIAAQABAANAAQAAAAJAAQABAANAAQAAAAKAAQABAANAAQAAAALAAQABAANAAQAAAAMAAQABAANAAQAAAANAAQABAANAAQAAAAOAAQABAANAAQAAAAQAA0ABQAGAB8AAAASAAwABQAGAB8AAAA=")
+tile_map_data = PackedByteArray("AAADABAABQABABgAAAAEABAABQABABgAAAAFABAABQABABgAAAAGABAABQABABgAAAAHABAABQABABgAAAAIABAABQABABgAAAAJABAABQABABgAAAAKABAABQABABgAAAALABAABQABABgAAAAMABAABQABABgAAAANABAABQABABgAAAAOABAABQABABgAAAAPABAABQABABgAAAAQABAABQABABgAAAARABAABQABABgAAAASABAABQABABgAAAATABAABQABABgAAAAUABAABQABABgAAAAVABAABQABABgAAAAWABAABQABABgAAAAXABAABQABABgAAAAYABAABQABABgAAAAZABAABQABABgAAAAaABAABQABABgAAAAbABAABQABABgAAAAcABAABQABABgAAAAdABAABQABABgAAAAfAA8ABQACABcAAAAfAA4ABQACABcAAAAfAA0ABQACABcAAAAfAAwABQACABcAAAAfAAsABQACABcAAAAfAAoABQACABcAAAAfAAkABQACABcAAAAfAAgABQACABcAAAAfAAcABQACABcAAAAfAAYABQACABcAAAAfAAUABQACABcAAAAfAAQABQACABcAAAAfAAMABQACABcAAAAfAAIABQACABcAAAAfAAEABQACABcAAAAfAAAABQACABcAAAAeABAABQACABgAAAAfAP//BQACABcAAAAfAP7/BQACABcAAAAfAP3/BQACABcAAAAeAP3/BQACABYAAAACAA8ABQAAABcAAAACAA4ABQAAABcAAAACAA0ABQAAABcAAAACAAwABQAAABcAAAACAAsABQAAABcAAAACAAoABQAAABcAAAACAAkABQAAABcAAAACAAgABQAAABcAAAACAAcABQAAABcAAAACAAYABQAAABcAAAACAAUABQAAABcAAAACAAQABQAAABcAAAACAAMABQAAABcAAAACAAIABQAAABcAAAACAAEABQAAABcAAAACAAAABQAAABcAAAACAP//BQAAABcAAAACAP7/BQAAABcAAAACAP3/BQAAABYAAAACABAABQAAABgAAAAcAA0ABQARAB0AAAAcAA4ABQARAB4AAAAcAA8ABQARAB8AAAAdAA0ABQASAB0AAAAdAA4ABQASAB4AAAAdAA8ABQASAB8AAAADAAQABAANAAQAAAAEAAQABAANAAQAAAAFAAQABAANAAQAAAAGAAQABAANAAQAAAAHAAQABAANAAQAAAAIAAQABAANAAQAAAAJAAQABAANAAQAAAAKAAQABAANAAQAAAALAAQABAANAAQAAAAMAAQABAANAAQAAAANAAQABAANAAQAAAAOAAQABAANAAQAAAASAAwABQAGAB8AAAA=")
 tile_set = SubResource("TileSet_bi516")
 
 [node name="Sera_NPC" parent="Infirmary" unique_id=1076509440 instance=ExtResource("10_sera")]
@@ -6697,6 +6713,8 @@ position = Vector2(-1446, -3269)
 y_sort_enabled = true
 
 [node name="Walls_Player_FRONT" type="TileMapLayer" parent="Tavern/New_Tile_amps" unique_id=1047916043 groups=["Building_Ground"]]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(1543, -747)
 tile_map_data = PackedByteArray("AAD//+//AgADABYAAAABAO//AgADABYAAAADAO//AgADABYAAAAFAO//AgADABYAAAAHAO//AgADABYAAAALAO//AgADABYAAAARAO//AgADABYAAAAZAO//AgADABYAAAAJAO//AgAIABYAAAAPAO//AgAIABYAAAAUAO//AgAIABYAAAAXAO//AgADABYAAAAWAO//AgADABYAAAASAO//AgADABYAAAANAO//AgADABYAAAA=")
 tile_set = SubResource("TileSet_bi516")
@@ -6757,13 +6775,11 @@ disable_teleport = true
 "Destination Location/Spot" = "Bedroom"
 
 [node name="Lyra_NPC" parent="." unique_id=823861240 node_paths=PackedStringArray("location_container") instance=ExtResource("9_24omh")]
-z_index = 12
 position = Vector2(1777, -1070)
-scale = Vector2(0.27999023, 0.27999023)
+scale = Vector2(0.54, 0.54)
 location_container = NodePath("../BuildingLocationContainer")
 speed = 80.0
 default_z_index = 12
 counter_z_index = 9
-use_counter_draw_order = true
 
 [node name="UniversalCamera" parent="." unique_id=1015878525 instance=ExtResource("17_3xqff")]

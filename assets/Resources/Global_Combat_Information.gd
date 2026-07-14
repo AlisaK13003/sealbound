@@ -149,6 +149,8 @@ signal equipment_added
 signal stats_potentially_updated
 
 func add_equipment_to_list(equip, is_weapon):
+	if equip == null:
+		return
 	var index = search_for_index_of_thing(equip)
 	if index != -1:
 		if is_weapon:
@@ -288,8 +290,9 @@ func _ready():
 	all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
-	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
-	
+	#all_party_slots.append(load("res://assets/characters/orion/Orion_dungeon_combatant.tres"))
+	#all_party_slots.append(load("res://assets/characters/sera/Sera_Combatant_Information.tres"))
+	#all_party_slots.append(load("res://assets/characters/kaela/Kaela_Combatant_Information.tres"))
 	for member in all_party_slots:
 		member.gather_actual_stats()
 
@@ -303,43 +306,43 @@ func _ready():
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
 	
 	
-	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
+	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
 
 	
-	all_held_equipment.append(load("res://assets/Equipment/Gold_Bracelet.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Ruby Necklace.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Plated_Boots.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Leather_Helmet.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Gold_Bracelet.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Ruby Necklace.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Plated_Boots.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Leather_Helmet.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Leather_Boots.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Iron_Helmet.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Iron_Chestplate.tres"))
 	all_held_equipment.append(load("res://assets/Equipment/Lather_Chestplate.tres"))
 	
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
-	active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
 
-	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
-	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
-	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
-	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
-	completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
+	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
 
 	await get_tree().create_timer(0.5).timeout
 
@@ -353,11 +356,11 @@ var dungeon_loop_scene #: dungeon_loop
 
 var selected_dungeon_
 
-func transition_to_dungeon(selected_dungeon):
+func transition_to_dungeon(selected_dungeon, quest_dungeon = null):
 	AreaStateManager.currently_transitioning = true
 	AudioManager.stop_bgm()
-	selected_dungeon_ = selected_dungeon
-	current_dungeon = dungeon_types[selected_dungeon_]
+	selected_dungeon_ = selected_dungeon.type_of_dungeon
+	current_dungeon = selected_dungeon
 	
 	match selected_dungeon_:
 		0:
@@ -374,7 +377,7 @@ func transition_to_dungeon(selected_dungeon):
 	bond_attack_fill = 2 * max_BP
 	current_BP = max_BP
 	AreaStateManager.currently_transitioning = false
-	await dungeon_scene._setup(dungeon_types[selected_dungeon])
+	await dungeon_scene._setup(selected_dungeon, quest_dungeon)
 		
 func return_dropped_items(drops, player = null):
 	drops.sort()
@@ -560,39 +563,66 @@ func load_saved_data(data):
 	all_held_items.clear()
 	active_quests.clear()
 	completed_quests.clear()
-	dungeon_types.clear()
+	#dungeon_types.clear()
 
 	for party_member in data["player_slots"].values():
+		if not ResourceLoader.exists(party_member["path"], "PackedScene"):
+			continue
 		var new_party_member: generic_combatants = load(party_member["path"])
+		var index = all_party_slots.find_custom(func(member: generic_combatants): return new_party_member.combatant_name == member.combatant_name)
+		if index != -1:
+			continue
+			
+		
 		new_party_member.load_save(party_member)
 		new_party_member.gather_actual_stats()
 		all_party_slots.append(new_party_member)
 
 	for equipment_ in data["equipment_slots"].values():
+		if not ResourceLoader.exists(equipment_["path"], "PackedScene"):
+			continue
 		var new_equipment = load(equipment_["path"])
+		if new_equipment == null:
+			continue
 		add_equipment_to_list(new_equipment, false)
 		var index = search_for_index_of_thing(new_equipment)
 		all_held_equipment[index].stack = equipment_["stack"]
 
 	for weapon_ in data["weapon_slots"].values():
+		if not ResourceLoader.exists(weapon_["path"], "PackedScene"):
+			continue
 		var new_equipment = load(weapon_["path"])
+		if new_equipment == null:
+			continue
 		add_equipment_to_list(new_equipment, true)
+
 		var index = search_for_index_of_thing(new_equipment)
 		all_held_equipment[index].stack = weapon_["stack"]
 
 	for item_ in data["item_slots"].values():
+		if not ResourceLoader.exists(item_["path"], "PackedScene"):
+			continue
 		var new_item = load(item_["path"])
+		if new_item == null:
+			continue
 		add_item(new_item)
 		var index = search_for_index_of_thing(new_item)
-		all_held_equipment[index].stack = item_["stack"]
+
+		all_held_items[index].stack = item_["stack"]
 		
 	for a_quest in data["active_quests"].values():
+		if not ResourceLoader.exists(a_quest["path"], "PackedScene"):
+			continue
 		active_quests.append(load(a_quest["path"]))
 
 	for com_quest in data["com_quests"].values():
+		if not ResourceLoader.exists(com_quest["path"], "PackedScene"):
+			continue
 		completed_quests.append(load(com_quest["path"]))
 
 	for d_type in data["dungeon_types"].values():
+		if not ResourceLoader.exists(d_type["path"], "PackedScene"):
+			continue
 		var new_d_type: dungeon_type = load(d_type["path"])
 		new_d_type.load_save_data(d_type)
 		dungeon_types.append(new_d_type)

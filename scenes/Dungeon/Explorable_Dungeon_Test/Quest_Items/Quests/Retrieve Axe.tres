@@ -6,6 +6,37 @@
 [ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://assets/characters/lyra/Lyra_portraits.png" id="2_lvomc"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_lvomc"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_00gfj"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="8_mvm84"]
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="9_0pse6"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="10_l6oaq"]
+[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="11_ircvw"]
+[ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="12_q8uxj"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bj2my"]
+
+[sub_resource type="Resource" id="Resource_5x85t"]
+script = ExtResource("8_mvm84")
+encounterable_enemy = ExtResource("9_0pse6")
+enemies = Array[ExtResource("10_l6oaq")]([ExtResource("9_0pse6")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_hg5wu"]
+script = ExtResource("8_mvm84")
+encounterable_enemy = ExtResource("11_ircvw")
+enemies = Array[ExtResource("10_l6oaq")]([ExtResource("11_ircvw")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_8e04e"]
+script = ExtResource("12_q8uxj")
+dungeon_name = "Forest"
+dungeon_background = SubResource("PlaceholderTexture2D_bj2my")
+max_number_of_floors = 1
+minimum_number_of_floors = 1
+potential_encounters = Array[ExtResource("8_mvm84")]([SubResource("Resource_5x85t"), SubResource("Resource_hg5wu")])
+first_time_floor_count = 1
+type_of_dungeon = 1
+quest_dungeon = true
+metadata/_custom_type_script = "uid://3loyjc4d808j"
 
 [resource]
 script = ExtResource("4_00gfj")
@@ -16,5 +47,7 @@ quest_description = "Lyra lost her axe in the forest. Bring it back so she can o
 dungeon_location = 1
 difficult_level = 1
 should_spawn_dungeon_room = true
+required_spawn = true
+special_dungeon = SubResource("Resource_8e04e")
 item_sprite = ExtResource("1_8rjlo")
 metadata/_custom_type_script = "uid://npoqdralsply"

@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="12_0ob4l"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="13_hpcpt"]
+[ext_resource type="PackedScene" uid="uid://5hv36dmlb7qq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/GameOver.tscn" id="15_wbipj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12gh"]
 bg_color = Color(0.43897805, 0.6789561, 0.24209201, 1)
@@ -607,6 +608,14 @@ offset_right = 65.16
 offset_bottom = 30.0
 button_name = "Bond Attack"
 button_to_active = 8
+
+[node name="GameOver" parent="." unique_id=1060670807 instance=ExtResource("15_wbipj")]
+z_index = 68
+layout_mode = 1
+offset_left = 4.0
+offset_top = -47.0
+offset_right = 4.0
+offset_bottom = -47.0
 
 [connection signal="value_changed" from="Bond_Attack" to="." method="_on_bond_attack_value_changed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

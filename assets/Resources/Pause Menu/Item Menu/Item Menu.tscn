@@ -169,10 +169,10 @@ offset_bottom = 18.0
 
 [node name="MenuTabs2" parent="." unique_id=1039694540 instance=ExtResource("2_wns33")]
 layout_mode = 0
-offset_left = -186.72
-offset_top = -41.025
-offset_right = -186.72
-offset_bottom = -41.025
+offset_left = -195.635
+offset_top = -43.14
+offset_right = -195.635
+offset_bottom = -43.14
 scale = Vector2(0.805, 0.805)
 theme_override_constants/h_separation = 158
 columns = 3

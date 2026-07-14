@@ -45,6 +45,7 @@ func _on_area_3d_body_entered(body):
 				if quest_.quest_name == what_quest_am_i.quest_name:
 					quest_.does_player_have_special_item = true
 					quest_.should_spawn_dungeon_room = false
+					GlobalCombatInformation.dungeon_over()
 					break
 		elif should_give_key:
 			if is_boss_key and not GlobalCombatInformation.holding_boss_key:

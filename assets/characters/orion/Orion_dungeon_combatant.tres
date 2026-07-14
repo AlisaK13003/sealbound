@@ -21,10 +21,14 @@ luck = 28
 evasion = 40
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccs0m"]
+atlas = ExtResource("3_7bwxd")
+region = Rect2(52, 8, 41, 61)
+
 [resource]
 script = ExtResource("2_6ldo4")
 combatant_name = "Orion"
-party_member_portrait = ExtResource("3_7bwxd")
+party_member_portrait = SubResource("AtlasTexture_ccs0m")
 combatant_stats = SubResource("Resource_53ph1")
 sprite_frames = ExtResource("5_8fhlr")
 idle_speed = 1.0

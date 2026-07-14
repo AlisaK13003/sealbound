@@ -226,7 +226,7 @@ var same_directions: Dictionary = {
 }
 
 func _ready():
-	print("HELLO")
+	return
 	#build_dungeon()
 
 func build_dungeon(boss_floor):
@@ -343,10 +343,7 @@ func build_rooms(room_storage, boss_floor):
 	var valid_critical_path_found: bool = false
 	
 	var should_spawn_quest_room: bool = false
-	for quest_: quest in GlobalCombatInformation.active_quests:
-		if quest_.should_spawn_dungeon_room and not quest_.does_player_have_special_item and quest_.dungeon_location == GlobalCombatInformation.selected_dungeon_:
-			should_spawn_quest_room = true
-			break
+
 	var rng = RandomNumberGenerator.new()
 	randomize()
 	rng.randomize()

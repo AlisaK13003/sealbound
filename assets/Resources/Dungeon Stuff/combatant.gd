@@ -109,20 +109,38 @@ func gather_actual_stats():
 func add_up_stats() -> stats:
 	if is_combatant_enemy:
 		return combatant_stats
+		
+	if combatant_stats == null:
+		push_error("combatant_stats is null in add_up_stats()")
+		return null
+
 	var health = combatant_stats.health
 	if actual_stats != null:
 		health = actual_stats.health
-	var step_1: stats = add_stats(stored_equipment.equipment_stats, stored_boots.equipment_stats)
-	var step_2: stats = add_stats(stored_chestplate.equipment_stats, stored_charm.equipment_stats)
-	var step_3: stats = add_stats(step_1, step_2)
-	var step_4: stats = add_stats(step_3, combatant_stats)
 
-	step_4.attack += stored_weapon.weapon_attack
-	step_4.magic += stored_weapon.weapon_magic
-	step_4.crit_chance += stored_weapon.weapon_crit_chance
-	step_4.crit_damage += stored_weapon.weapon_crit_damage
-	step_4.health = clamp(health, 0, step_4.max_health)
-	return step_4.duplicate()
+	var final_stats: stats = combatant_stats.duplicate()
+
+	if stored_equipment != null and stored_equipment.equipment_stats != null:
+		final_stats = add_stats(final_stats, stored_equipment.equipment_stats)
+		
+	if stored_boots != null and stored_boots.equipment_stats != null:
+		final_stats = add_stats(final_stats, stored_boots.equipment_stats)
+		
+	if stored_chestplate != null and stored_chestplate.equipment_stats != null:
+		final_stats = add_stats(final_stats, stored_chestplate.equipment_stats)
+		
+	if stored_charm != null and stored_charm.equipment_stats != null:
+		final_stats = add_stats(final_stats, stored_charm.equipment_stats)
+
+	if stored_weapon != null:
+		final_stats.attack += stored_weapon.weapon_attack
+		final_stats.magic += stored_weapon.weapon_magic
+		final_stats.crit_chance += stored_weapon.weapon_crit_chance
+		final_stats.crit_damage += stored_weapon.weapon_crit_damage
+
+	final_stats.health = clamp(health, 0, final_stats.max_health)
+	
+	return final_stats
 
 func add_stats(stat_1: stats, stat_2: stats):
 	var new_stats = stats.new()

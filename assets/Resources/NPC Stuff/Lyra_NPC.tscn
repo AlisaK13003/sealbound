@@ -125,23 +125,29 @@ animations = [{
 radius = 114.0
 
 [node name="NpcTemplate" type="Node2D" unique_id=823861240]
+y_sort_enabled = true
 script = ExtResource("1_lyra1")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/lyra_dialogue.json"
 npc_id = "lyra"
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/lyra/Weekday.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736806]
+position = Vector2(1, -24)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC_Clickable" unique_id=2012646425]
 position = Vector2(-1, -1.5)
 shape = SubResource("RectangleShape2D_7u671")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=575912761]
+z_index = 1
+y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_l0ocd")
 animation = &"idle"
+offset = Vector2(0, -88.795)
 
 [node name="Player_In_Range" type="Area2D" parent="." unique_id=289574464]
+position = Vector2(0, -24)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=1695977957]
 shape = SubResource("CircleShape2D_ilmyp")

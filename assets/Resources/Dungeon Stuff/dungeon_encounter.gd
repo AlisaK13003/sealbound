@@ -14,6 +14,8 @@ class_name dungeon_type
 
 @export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 
+@export var quest_dungeon: bool = false
+
 var is_this_dungeon_unlocked: bool = false
 
 @export var chest_drops: Dictionary[Array, float]

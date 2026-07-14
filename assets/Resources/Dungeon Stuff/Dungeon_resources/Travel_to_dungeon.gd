@@ -14,18 +14,38 @@ var current_selected_dungeon: int = 0
 
 @onready var menu_tabs = $MenuTabs
 
-@export var menu_tab_icons: Array[Texture2D]
+#@export var menu_tab_icons: Array[Texture2D]
 
+var dungeon_overview_path = "res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Overview.tscn"
+
+var doing_a_quest_dungeon: bool = true
+var which_dungeon
 func _ready():
 	hidden_load.visible = false
 	
 	return_to_hearthwynn.activated.connect(travel.bind(false))
 	travel_to_dungeon.activated.connect(travel.bind(true))
-		
+	var menu_tab_icons: Array[Texture2D] = []
+	var dungeon_names = []
 	for dungeon in GlobalCombatInformation.dungeon_types:
-		container_thing.get_child(GlobalCombatInformation.dungeon_types.find(dungeon))._setup(dungeon)
+		var new_dungeon_over = load(dungeon_overview_path)
+		var new_dungeon_over_inst = new_dungeon_over.instantiate()
+		container_thing.add_child(new_dungeon_over_inst)
+		new_dungeon_over_inst._setup(dungeon)
+		dungeon_names.append(dungeon.dungeon_name)
+		menu_tab_icons.append(dungeon.dungeon_background)
 
-	menu_tabs._setup(["hi", "HI"], "res://assets/Resources/Dungeon Stuff/Select_screen_dungeon_tab.tscn", menu_tab_icons)
+	for quest_ in GlobalCombatInformation.active_quests:
+		if quest_.required_spawn:
+			doing_a_quest_dungeon = true
+			var new_dungeon_over = load(dungeon_overview_path)
+			var new_dungeon_over_inst = new_dungeon_over.instantiate()
+			container_thing.add_child(new_dungeon_over_inst)
+			new_dungeon_over_inst._setup(quest_.special_dungeon, quest_)
+			dungeon_names.append(quest_.special_dungeon.dungeon_name)
+			menu_tab_icons.append(quest_.special_dungeon.dungeon_background)
+	
+	menu_tabs._setup(dungeon_names, "res://assets/Resources/Dungeon Stuff/Select_screen_dungeon_tab.tscn", menu_tab_icons)
 
 	menu_tabs.selection_changed.connect(_tab_changed)
 
@@ -50,6 +70,7 @@ func _physics_process(_delta):
 		await tween.finished
 		in_cycle = false
 
+var unlocked_dungeons = []
 func apply_demo_dungeon_locks() -> void:
 	var found_unlocked_dungeon := false
 
@@ -59,8 +80,13 @@ func apply_demo_dungeon_locks() -> void:
 	for button in menu_tabs.get_children():
 		var dungeon_index: int = button.get_index()
 		var has_dungeon: bool = dungeon_index < GlobalCombatInformation.dungeon_types.size()
-		var is_unlocked: bool = has_dungeon and Global.is_demo_dungeon_unlocked(dungeon_index)
+		var is_unlocked: bool = (has_dungeon and Global.is_demo_dungeon_unlocked(dungeon_index) and not doing_a_quest_dungeon) or $CanvasLayer/Control.get_child(dungeon_index).stored_dungeon.quest_dungeon
 		button.visible = is_unlocked
+		if is_unlocked:
+			if has_dungeon:
+				unlocked_dungeons.append(GlobalCombatInformation.dungeon_types[dungeon_index])
+			elif $CanvasLayer/Control.get_child(dungeon_index).stored_dungeon.quest_dungeon:
+				unlocked_dungeons.append($CanvasLayer/Control.get_child(dungeon_index).stored_dungeon)
 		if is_unlocked and not found_unlocked_dungeon:
 			current_selected_dungeon = dungeon_index
 			found_unlocked_dungeon = true
@@ -77,6 +103,9 @@ func is_dungeon_unlocked(dungeon_select: int) -> bool:
 	return dungeon_select >= 0 and dungeon_select < GlobalCombatInformation.dungeon_types.size() and Global.is_demo_dungeon_unlocked(dungeon_select)
 
 func show_dungeon_locked_message(dungeon_select: int) -> void:
+	if $CanvasLayer/Control.get_child(dungeon_select).stored_dungeon.quest_dungeon:
+		return
+	
 	if not Global.has_story_flag(Global.STORY_FLAG_LYRA_AXE_QUEST_STARTED):
 		Global.show_mc_thought(Global.LYRA_FIRST_OBJECTIVE_TEXT)
 	elif dungeon_select == Global.DUNGEON_INDEX_CAVE:
@@ -98,12 +127,17 @@ func hide_all_info():
 
 func travel(set_off_for_dungeon):
 	if set_off_for_dungeon:
-		if not is_dungeon_unlocked(current_selected_dungeon):
+		if not is_dungeon_unlocked(current_selected_dungeon) and not $CanvasLayer/Control.get_child(current_selected_dungeon).stored_dungeon.quest_dungeon:
 			show_dungeon_locked_message(current_selected_dungeon)
 			return
 		await Fade.fade_in(1)
 		await GlobalCombatInformation.load_items()
-		GlobalCombatInformation.transition_to_dungeon(menu_tabs.current_selection)
+		var child_index = 0
+		for child in $CanvasLayer/Control.get_children():
+			if child.visible:
+				child_index = child.get_index()
+				break
+		GlobalCombatInformation.transition_to_dungeon(unlocked_dungeons[menu_tabs.current_selection], $CanvasLayer/Control.get_child(child_index).stored_quest)
 	else:
 		await Fade.fade_in(1)
 		Global.current_region = "Village"

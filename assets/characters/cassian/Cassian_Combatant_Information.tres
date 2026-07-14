@@ -29,6 +29,10 @@ luck = 5
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouqog"]
+atlas = ExtResource("6_yjsed")
+region = Rect2(52, 8, 41, 61)
+
 [sub_resource type="Resource" id="Resource_7q5rk"]
 script = ExtResource("5_4nyv2")
 defense = 30
@@ -52,7 +56,7 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 [resource]
 script = ExtResource("6_nmpqa")
 combatant_name = "Cassian"
-party_member_portrait = ExtResource("6_yjsed")
+party_member_portrait = SubResource("AtlasTexture_ouqog")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
 stored_equipment = SubResource("Resource_onp7b")

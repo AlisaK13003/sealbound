@@ -101,9 +101,9 @@ text = "2 BP"
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("3_atayv")]
 layout_mode = 0
-offset_left = -236.325
+offset_left = -241.715
 offset_top = -25.65
-offset_right = -236.325
+offset_right = -241.715
 offset_bottom = -25.65
 scale = Vector2(1.4, 1.4)
 theme_override_constants/h_separation = 155

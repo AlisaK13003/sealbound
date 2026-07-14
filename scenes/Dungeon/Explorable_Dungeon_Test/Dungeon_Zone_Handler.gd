@@ -26,7 +26,6 @@ enum cardinal_directions_locks {X, Y, Z}
 
 signal zone_changed
 
-
 #region DungeonGeneratingHelpers
 
 #endregion
@@ -57,10 +56,13 @@ func can_move():
 func cant_move():
 	movement_locked = true
 
+var current_quest_dungeon: quest
 var combat_scene_#: dungeon_loop
 var should_spawn_boss_floor: bool = false
-func _setup(dungeon_type_: dungeon_type):
+func _setup(dungeon_type_: dungeon_type, quest_ = null):
 	#await Fade.fade_in(0.0)
+	if quest_ != null:
+		current_quest_dungeon = quest_
 	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
 	current_dungeon = dungeon_type_
 	if dungeon_type_.does_dungeon_have_boss:
@@ -282,47 +284,67 @@ func instantiate_rooms(room_storage, boss_floor):
 		if room_storage[room_].group_id == 6 and room_storage[room_].is_center:
 			spawn_boss_in_room = true
 		
-		if room_storage[room_].room_name_type == "Q":
-			var possible_quests = []
-			for quest_: quest in GlobalCombatInformation.active_quests:
-				if quest_.dungeon_location == GlobalCombatInformation.selected_dungeon_ and quest_.should_spawn_dungeon_room and not quest_.does_player_have_special_item:
-					possible_quests.append(quest_)
-			new_room._setup(self, room_storage[room_].group_id, is_center, possible_quests.pick_random())
-		else:
-			new_room._setup(self, room_storage[room_].group_id, is_center, spawn_boss_in_room)
+		#if room_storage[room_].room_name_type == "Q":
+		#	var possible_quests = []
+		#	for quest_: quest in GlobalCombatInformation.active_quests:
+		#		if quest_.dungeon_location == GlobalCombatInformation.selected_dungeon_ and quest_.should_spawn_dungeon_room and not quest_.does_player_have_special_item:
+		#			possible_quests.append(quest_)
+		#	new_room._setup(self, room_storage[room_].group_id, is_center, possible_quests.pick_random())
+		#else:
+		new_room._setup(self, room_storage[room_].group_id, is_center, spawn_boss_in_room)
 			
 		if is_locked:
 			new_room.lock_room(true)
 
-	var spawn_locked_room = rng.randf()
-	if boss_floor:
-		var spawned_key: bool = false
-		var room_caps = []
-		for room_ in active_room_nodes.values():
-			if room_.room_classification == 2:
-				room_caps.append(room_)
-		while not spawned_key:
-			var room_to_have_key = room_caps.pick_random()
-			if not room_to_have_key.is_locked and not room_to_have_key.has_key:
-				room_to_have_key.set_key_spawn(true)
-				spawned_key = true
-	if spawn_locked_room < 1.0:
-		var room_caps = []
-		var chest_rooms = []
-		for room_ in active_room_nodes.values():
-			if room_.room_classification == 2:
-				room_caps.append(room_)
-			if room_.room_classification == 7:
-				chest_rooms.append(room_)
-		
-		if not room_caps.is_empty() and not chest_rooms.is_empty():
-			var room_to_be_locked = chest_rooms.pick_random()
-			var room_to_have_key = room_caps.pick_random()
+	if current_quest_dungeon == null:
+		var spawn_locked_room = rng.randf()
+		if boss_floor:
+			var spawned_key: bool = false
+			var room_caps = []
+			for room_ in active_room_nodes.values():
+				if room_.room_classification == 2:
+					room_caps.append(room_)
+			while not spawned_key:
+				var room_to_have_key = room_caps.pick_random()
+				if not room_to_have_key.is_locked and not room_to_have_key.has_key:
+					room_to_have_key.set_key_spawn(true)
+					spawned_key = true
+		if spawn_locked_room < 1.0:
+			var room_caps = []
+			var chest_rooms = []
+			for room_ in active_room_nodes.values():
+				if room_.room_classification == 2:
+					room_caps.append(room_)
+				if room_.room_classification == 7:
+					chest_rooms.append(room_)
 			
-			if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
-				room_to_be_locked.lock_room(false)
-				room_to_have_key.set_key_spawn()
+			if not room_caps.is_empty() and not chest_rooms.is_empty():
+				var room_to_be_locked = chest_rooms.pick_random()
+				var room_to_have_key = room_caps.pick_random()
+				
+				if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
+					room_to_be_locked.lock_room(false)
+					room_to_have_key.set_key_spawn()
+	else:
+		var room_to_make_thing = []
+		for room_ in active_room_nodes.values():
+			if room_.room_classification == 2:
+				room_to_make_thing.append(room_)
+				
+		var room_to_do_thing: room = room_to_make_thing.pick_random()
 		
+		var room_to_load = load("res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Quest_Room.tscn")
+		var new_room: room = room_to_load.instantiate()
+		new_room.room_coords = room_to_do_thing.room_coords
+		new_room.position = Vector3(room_to_do_thing.room_coords.x * tile_size, 0, room_to_do_thing.room_coords.y * tile_size)
+		new_room.room_directions = room_to_do_thing.room_directions
+		new_room.scale *= float(tile_size / normal_tile_size)
+		active_room_nodes[room_to_do_thing.room_coords] = new_room
+		new_room.rotation_degrees.y = room_storage[new_room.room_coords].get_rotation_degrees_()
+		navigation_region.add_child(new_room)
+		
+		new_room._setup(self, room_storage[new_room.room_coords].group_id, false, false, false, current_quest_dungeon)
+
 	return true
 
 func battle_initiated(with_what_enemy: generic_combatants, node_id, is_boss: bool = false):

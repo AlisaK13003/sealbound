@@ -6,8 +6,9 @@
 [ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_v7ef8"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_ninqq"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_k5dor"]
-[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="7_kmwv5"]
+[ext_resource type="Texture2D" uid="uid://dt28ffm0cjyop" path="res://assets/characters/sera/Sera_portraits.png" id="6_uxf71"]
 [ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="8_5r0t4"]
+[ext_resource type="SpriteFrames" uid="uid://quv3sxqeys4b" path="res://assets/characters/sera/Sera_Dungeon_Animations.tres" id="8_mvb5o"]
 [ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="9_dviuu"]
 [ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="10_ab1v6"]
 [ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="11_jh7j2"]
@@ -28,34 +29,9 @@ luck = 5
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hnmxi"]
-load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4yw31"]
-atlas = SubResource("CompressedTexture2D_hnmxi")
-region = Rect2(50, 4, 42, 67)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qv10l"]
-load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hq8kc"]
-atlas = SubResource("CompressedTexture2D_qv10l")
-region = Rect2(98, 4, 42, 67)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7p5cp"]
-load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rvkf"]
-atlas = SubResource("CompressedTexture2D_7p5cp")
-region = Rect2(146, 4, 42, 67)
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_bufki"]
-frames = 3
-frame_0/texture = SubResource("AtlasTexture_4yw31")
-frame_1/texture = SubResource("AtlasTexture_hq8kc")
-frame_1/duration = 1.0
-frame_2/texture = SubResource("AtlasTexture_8rvkf")
-frame_2/duration = 1.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrwr2"]
+atlas = ExtResource("6_uxf71")
+region = Rect2(50, 4, 41, 67)
 
 [sub_resource type="Resource" id="Resource_7q5rk"]
 script = ExtResource("5_ninqq")
@@ -80,7 +56,7 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 [resource]
 script = ExtResource("6_k5dor")
 combatant_name = "Sera"
-party_member_portrait = SubResource("AnimatedTexture_bufki")
+party_member_portrait = SubResource("AtlasTexture_yrwr2")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
 stored_equipment = SubResource("Resource_onp7b")
@@ -99,7 +75,7 @@ resonance_skills_ = Dictionary[String, Array]({
 "Orion": [],
 "Rowan": []
 })
-sprite_frames = ExtResource("7_kmwv5")
+sprite_frames = ExtResource("8_mvb5o")
 idle_speed = 1.0
 walk_speed = 0.7
 attack_speed = Array[float]([1.0, 1.5])

@@ -77,10 +77,16 @@ func _perform_swap_scene(scene_to_remove = null):
 
 	get_tree().current_scene.add_child(player_instance)
 		
+	if Global.current_region == "Buildings_Insides":
+		player_instance.move_speed = 150.0
+		player_instance.scale = Vector2(0.7, 0.7)
+	else:
+		player_instance.move_speed = 90.0
+		player_instance.scale = Vector2(1.0, 1.0)
+		
 	scene_to_swap_to.swap_to_me()
 	AudioManager.stop_bgm()
 
-	
 
 	await get_tree().physics_frame
 	await get_tree().physics_frame

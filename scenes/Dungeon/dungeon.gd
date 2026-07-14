@@ -79,7 +79,7 @@ var skills_enemies_have_used: int = 0
 var training: bool = false
 var testing: bool = false
 func _ready():
-	setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
+	#setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
 	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
@@ -400,6 +400,8 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 			gui.next_floor(i)
 			await get_tree().create_timer(2).timeout
 			
+	if not did_players_win:
+		await gui.play_game_over()
 	party_slot_1 = get_player(0).stored_combatant.duplicate()
 	party_slot_2 = get_player(1).stored_combatant.duplicate()
 	party_slot_3 = get_player(2).stored_combatant.duplicate()

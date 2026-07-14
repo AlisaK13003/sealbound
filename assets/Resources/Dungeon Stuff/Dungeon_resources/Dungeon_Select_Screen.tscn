@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://bl0fbkeqwgs7p"]
 
 [ext_resource type="Script" uid="uid://5ntsh2a3wxkl" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Travel_to_dungeon.gd" id="1_owdmc"]
-[ext_resource type="Texture2D" uid="uid://4kl0710u5cha" path="res://assets/tile sheets/Creepy_dungeon_section_wall.png" id="2_0ovy0"]
-[ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="3_owdmc"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="4_rw4us"]
-[ext_resource type="PackedScene" uid="uid://clofehiiykd5s" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Overview.tscn" id="6_0ovy0"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="6_xdkxl"]
 
 [sub_resource type="Gradient" id="Gradient_rcxy4"]
@@ -27,7 +24,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_owdmc")
-menu_tab_icons = Array[Texture2D]([ExtResource("2_0ovy0"), ExtResource("3_owdmc")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1101859366]
 offset = Vector2(1.35, 129.205)
@@ -40,14 +36,6 @@ offset_left = -14.0
 offset_top = -93.22
 offset_right = 26.0
 offset_bottom = -53.22
-mouse_filter = 2
-
-[node name="DungeonOverview" parent="CanvasLayer/Control" unique_id=2129955901 instance=ExtResource("6_0ovy0")]
-layout_mode = 1
-mouse_filter = 2
-
-[node name="DungeonOverview2" parent="CanvasLayer/Control" unique_id=954683996 instance=ExtResource("6_0ovy0")]
-layout_mode = 1
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=390468899]

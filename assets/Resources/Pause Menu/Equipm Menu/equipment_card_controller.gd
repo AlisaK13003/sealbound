@@ -18,11 +18,11 @@ var chestplate_slot
 
 func _setup(combatant: generic_combatants):
 	visibility_changed.connect(_reset)
-	weapon_info = combatant.stored_weapon.return_stuff()
-	chestplate_info = combatant.stored_chestplate.return_stuff()
-	boot_info = combatant.stored_boots.return_stuff()
-	helmet_info = combatant.stored_equipment.return_stuff()
-	charm_info = combatant.stored_charm.return_stuff()
+	weapon_info = combatant.stored_weapon.return_stuff() if combatant.stored_weapon != null else null
+	chestplate_info = combatant.stored_chestplate.return_stuff() if combatant.stored_chestplate != null else null
+	boot_info = combatant.stored_boots.return_stuff() if combatant.stored_boots != null else null
+	helmet_info = combatant.stored_equipment.return_stuff() if combatant.stored_equipment != null else null
+	charm_info = combatant.stored_charm.return_stuff() if combatant.stored_charm != null else null
 	
 	stored_combatant = combatant
 	
@@ -56,11 +56,11 @@ func _setup(combatant: generic_combatants):
 	charm_slot = $GridContainer2/Charm_Slot
 	chestplate_slot = $GridContainer2/Chestplate_Slot
 	
-	weapon_slot.get_child(0).texture = weapon_info["texture"]
-	chestplate_slot.get_child(0).texture = chestplate_info["texture"]
-	boots_slot.get_child(0).texture = boot_info["texture"]
-	helmet_slot.get_child(0).texture = helmet_info["texture"]
-	charm_slot.get_child(0).texture = charm_info["texture"]
+	weapon_slot.get_child(0).texture = weapon_info["texture"] if weapon_info != null else null
+	chestplate_slot.get_child(0).texture = chestplate_info["texture"] if weapon_info != null else null
+	boots_slot.get_child(0).texture = boot_info["texture"] if weapon_info != null else null
+	helmet_slot.get_child(0).texture = helmet_info["texture"] if weapon_info != null else null
+	charm_slot.get_child(0).texture = charm_info["texture"] if weapon_info != null else null
 
 	weapon_slot.gui_input.connect(_on_equip_slot_gui_input.bind(0))
 	chestplate_slot.gui_input.connect(_on_equip_slot_gui_input.bind(4))
@@ -101,27 +101,28 @@ func update_stuff():
 	
 func update_boxes(equip, is_weapon):
 	if is_weapon:
-		weapon_info = stored_combatant.stored_weapon.return_stuff()
+		weapon_info = stored_combatant.stored_weapon.return_stuff() if stored_combatant.stored_weapon != null else null
 		#$GridContainer/Panel3/Weapon.text = weapon_info["name"] + ": \n     " + stored_combatant.stored_weapon.get_stat_string()
-		weapon_slot.get_child(0).texture = weapon_info["texture"]
+		weapon_slot.get_child(0).texture = weapon_info["texture"] if weapon_info != null else null
 	else:
-		match equip.equipment_type:
-			0:
-				helmet_info = stored_combatant.stored_equipment.return_stuff()
-				#$GridContainer/Panel2/Helmet.text = helmet_info["name"] + ": \n     " + stored_combatant.stored_equipment.get_stat_string()
-				helmet_slot.get_child(0).texture = helmet_info["texture"]
-			1:
-				chestplate_info = stored_combatant.stored_chestplate.return_stuff()
-				#$GridContainer/Panel4/Chestplate.text = chestplate_info["name"] + ": \n     " + stored_combatant.stored_chestplate.get_stat_string()
-				chestplate_slot.get_child(0).texture = chestplate_info["texture"]
-			2:
-				boot_info = stored_combatant.stored_boots.return_stuff()
-				#$GridContainer/Panel5/Boots.text = boot_info["name"] + ": \n     " + stored_combatant.stored_boots.get_stat_string()
-				boots_slot.get_child(0).texture = boot_info["texture"]
-			3:
-				charm_info = stored_combatant.stored_charm.return_stuff()
-				#$GridContainer/Panel6/Charm.text = charm_info["name"] + ": \n     " + stored_combatant.stored_charm.get_stat_string()
-				charm_slot.get_child(0).texture = charm_info["texture"]
+		if equip != null:
+			match equip.equipment_type:
+				0:
+					helmet_info = stored_combatant.stored_equipment.return_stuff() if stored_combatant.stored_equipment != null else null
+					#$GridContainer/Panel2/Helmet.text = helmet_info["name"] + ": \n     " + stored_combatant.stored_equipment.get_stat_string()
+					helmet_slot.get_child(0).texture = helmet_info["texture"] if helmet_info != null else null
+				1:
+					chestplate_info = stored_combatant.stored_chestplate.return_stuff() if stored_combatant.stored_chestplate != null else null
+					#$GridContainer/Panel4/Chestplate.text = chestplate_info["name"] + ": \n     " + stored_combatant.stored_chestplate.get_stat_string()
+					chestplate_slot.get_child(0).texture = chestplate_info["texture"] if chestplate_info != null else null
+				2:
+					boot_info = stored_combatant.stored_boots.return_stuff() if stored_combatant.stored_boots != null else null
+					#$GridContainer/Panel5/Boots.text = boot_info["name"] + ": \n     " + stored_combatant.stored_boots.get_stat_string()
+					boots_slot.get_child(0).texture = boot_info["texture"] if boot_info != null else null
+				3:
+					charm_info = stored_combatant.stored_charm.return_stuff() if stored_combatant.stored_charm != null else null
+					#$GridContainer/Panel6/Charm.text = charm_info["name"] + ": \n     " + stored_combatant.stored_charm.get_stat_string()
+					charm_slot.get_child(0).texture = charm_info["texture"] if charm_info != null else null
 func _reset():
 	update_stuff()
 	

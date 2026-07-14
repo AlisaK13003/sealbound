@@ -145,7 +145,7 @@ func update_selected_item(instance_id = null, from_click: bool = false):
 			item_.highlight(false)
 	display_item()
 
-func display_item(selected_item = null):
+func display_item(selected_item_ = null):
 	var current_container = null
 	var mask = 0
 	match visible_tab:
@@ -169,9 +169,9 @@ func display_item(selected_item = null):
 	
 	found_item = current_container.get_parent().current_item
 	
-	found_item = current_container.get_child(found_item).what_am_i
-	
-	if found_item != null:
+	if found_item != null and current_container.get_child_count() != 0:
+		found_item = current_container.get_child(found_item).what_am_i
+
 		$"Item Description/VBoxContainer/Label".text = found_item.item_name
 		$"Item Description/VBoxContainer/Label2".text = found_item.item_description
 		$"Item Description/VBoxContainer/TextureRect".texture = found_item.item_sprite
