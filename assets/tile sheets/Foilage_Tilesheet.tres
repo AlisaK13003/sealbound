@@ -55,7 +55,7 @@ margins = Vector2i(0, 13)
 9:0/0 = 0
 9:0/0/texture_origin = Vector2i(13, 36)
 9:0/0/y_sort_origin = 45
-9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.3579483, 30.875221, 8.346313, 26.640472, 17.970757, 45.119392, 1.4167175, 50.89406, -13.982388, 42.424553, -15.137321, 35.109978, -10.13261, 33.18509)
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10.683608, 1.187067, 2.8687458, 0.49461174, 9.892229, 5.0450363, 5.242882, 10.386841, -2.2752132, 12.563131, -10.188996, 9.397617, -18.89416, 6.2321033)
 19:2/size_in_atlas = Vector2i(3, 3)
 19:2/0 = 0
 19:2/0/texture_origin = Vector2i(0, 16)
@@ -76,7 +76,7 @@ margins = Vector2i(0, 13)
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(7, 34)
 1:0/0/y_sort_origin = 45
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.539917, 26.948433, 8.346313, 26.640472, 17.970757, 45.119392, 1.4167175, 50.89406, -13.982388, 42.424553, -15.137321, 35.109978, -10.13261, 33.18509)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10.683608, 1.187067, 2.8687458, 0.49461174, 9.892229, 5.0450363, 5.242882, 10.386841, -2.2752132, 12.563131, -10.188996, 9.397617, -18.89416, 6.2321033)
 0:6/0 = 0
 0:6/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_5db5w")
 
