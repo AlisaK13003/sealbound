@@ -34,6 +34,31 @@ func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 	
 	_on_visibility_changed()
+	GlobalCombatInformation.update_resonance.connect(_setup)
+	
+func _setup():
+	for child in menu_tabs.get_children():
+		menu_tabs.remove_child(child)
+		child.queue_free()
+	for child in skill_card_container.get_children():
+		skill_card_container.remove_child(child)
+		child.queue_free()
+	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
+	for child in range(menu_tabs.get_child_count()):
+		menu_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child, true)
+		var new_skill_card = load("res://assets/Resources/Pause Menu/Skills Menu/party_skill_card.tscn")
+		var card_instance = new_skill_card.instantiate()
+		card_instance._setup(GlobalCombatInformation.all_party_slots[child])
+		
+		skill_card_container.add_child(card_instance)
+		if card_instance.get_index() != 0:
+			card_instance.visible = false
+				
+	for card in $Control.get_children():
+		for move_card in card.move_container.get_children():
+			move_card.skill_clicked.connect(update_skill_description)
+				
+	_on_visibility_changed()
 	
 func _on_visibility_changed() -> void:
 	if visible:

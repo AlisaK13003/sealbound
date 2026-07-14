@@ -130,11 +130,10 @@ func update_damage_label(health_differential, type_of_damage):
 				await get_tree().create_timer(0.5).timeout
 		"DAMAGE":
 			health_differential_label.modulate = Color.WHITE_SMOKE
-	
 	var previous_y_level =	health_differential_label.position.y
 	health_differential_label.visible = true
 	if type_of_damage != "MISS":
-		health_differential_label.text = str(health_differential)
+		health_differential_label.text = str(int(health_differential if health_differential > 0 else -1 * health_differential))
 	health_bar.value -= health_differential
 	current_health_label.text = str(int(health_bar.value))
 	

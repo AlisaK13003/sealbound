@@ -690,14 +690,18 @@ func set_using_controller(do_it):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	swapped_to_controller.emit(do_it)
 
-func get_input_mapping(input_string):
+func get_input_mapping(input_string: String, event: InputEvent = null) -> bool:
 	if input_string == "Open_Map" or input_string == "Quest_Menu":
-		return
+		return false
 	
+	var target_action = input_string
 	if using_controller:
-		return Input.is_action_just_pressed(controller_mapping[input_string])
+		target_action = controller_mapping[input_string]
+	
+	if event != null:
+		return event.is_action_pressed(target_action)
 	else:
-		return Input.is_action_just_pressed(input_string)
+		return Input.is_action_just_pressed(target_action)
 
 func get_continuous_input_mapping(input_string):
 	if using_controller:

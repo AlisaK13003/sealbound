@@ -1,9 +1,17 @@
 extends Control
 
-var stored_combatant = null
+var stored_combatant: generic_combatants = null
 
 func _ready():
 	GlobalCombatInformation.check_player_values.connect(_setup)
+	GlobalCombatInformation.update_resonance.connect(update_resonance)
+	$GenericButton.activated.connect(_on_member_resonated)
+	
+func update_resonance():
+	if stored_combatant.resonated_with:
+		$Label2/CheckBox.button_pressed = true
+	else:
+		$Label2/CheckBox.button_pressed = false
 
 func _setup(combatant: generic_combatants = null):
 	if combatant == null:
@@ -37,18 +45,33 @@ func _setup(combatant: generic_combatants = null):
 	if combatant.is_MC:
 		$Label/CheckBox.disabled = true
 		$Label/CheckBox.button_pressed = true
+		$Label2/CheckBox.disabled = true
 	else:
 		if GlobalCombatInformation.check_if_member_is_active(combatant):
 			$Label/CheckBox.button_pressed = true
 		$Label/CheckBox.disabled = false
-		
+	
 	stored_combatant = combatant
 	if GlobalCombatInformation.in_dungeon:
 		$Label/CheckBox.disabled = true
 	
-
+	if stored_combatant.resonated_with:
+		$Label2/CheckBox.button_pressed = true
+	else:
+		$Label2/CheckBox.button_pressed = false
+	
 func _on_check_box_toggled(toggled_on):
 	if toggled_on:
 		GlobalCombatInformation.add_active_member(stored_combatant)
 	else:
 		GlobalCombatInformation.remove_active_member(stored_combatant)
+
+func _on_member_resonated():
+	if stored_combatant.is_MC:
+		return
+	if $Label2/CheckBox.button_pressed:
+		GlobalCombatInformation.resonate_with_a_member(stored_combatant, false)
+		$Label2/CheckBox.button_pressed = false
+	else:
+		GlobalCombatInformation.resonate_with_a_member(stored_combatant, true)
+		$Label2/CheckBox.button_pressed = true

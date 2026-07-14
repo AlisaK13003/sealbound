@@ -27,10 +27,18 @@ func _ready():
 	Global.swapped_to_controller.connect(swap_to_controller_icons)
 	swap_to_controller_icons(Global.using_controller)
 	
+	activated.connect(play_noise)
+	
 	if text_on_left_of_button:
 		$HBoxContainer/Label2.offset_left = -150
 		
-	
+func play_noise():
+	if button_to_active == Global.key_options.CANCEL:
+		AudioManager.play_ui_sound(AudioManager.CANCEL_CLICK)
+	elif button_to_active == Global.key_options.CONFIRM:
+		AudioManager.play_ui_sound(AudioManager.CONFIRM_CLICK)
+	else:
+		AudioManager.play_ui_sound(AudioManager.SCROLL)
 
 func update_name(new_name: String):
 	button_name_text.text = new_name
@@ -87,9 +95,11 @@ func get_key_name_for_action(action_name: String) -> String:
 	return "Unbound"
 
 func _input(_event):	
-	if not is_visible_in_tree():
+	if get_viewport().is_input_handled():
 		return
-	if Global.get_input_mapping(Global.keyboard_mouse_icon_mapping.keys()[button_to_active]):
+	if not is_visible_in_tree() or not is_inside_tree():
+		return
+	if Global.get_input_mapping(Global.keyboard_mouse_icon_mapping.keys()[button_to_active], _event) and is_inside_tree():
 		activated.emit()
 		get_viewport().set_input_as_handled()
 

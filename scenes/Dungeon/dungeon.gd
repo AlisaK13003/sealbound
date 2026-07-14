@@ -79,8 +79,7 @@ var skills_enemies_have_used: int = 0
 var training: bool = false
 var testing: bool = false
 func _ready():
-	return
-	setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
+	#setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
 	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
@@ -218,6 +217,8 @@ func advance_turn(actor):
 		
 	var living_combatants: Array[combat_template] = []
 	for entity in all_combatants:
+		if entity == null:
+			continue
 		if not entity.stored_combatant.is_dead:
 			living_combatants.append(entity)
 	all_combatants = living_combatants
@@ -275,7 +276,8 @@ func setup_encounter(new_encounter: dungeon_wave, is_boss):
 			elif i >= 3:
 				new_enemy_instance.position = Vector3(0.8 - ((i - 3) * 0.2), 0.0, 0.35 + ((i - 3) * 0.55))
 		else:
-			new_enemy_instance.position = Vector3(0.0, 0.0, 1.5)
+			AudioManager.play_bgm(AudioManager.BOSS_BATTLE_MUSIC)
+			new_enemy_instance.position = Vector3(-0.7, 0.0, 0.75)
 		new_enemy_instance.setup(enemy_list[i].duplicate(true), self, i)
 		all_combatants.append(new_enemy_instance)
 	turn_ended.emit()
@@ -332,6 +334,10 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 			turn_count += 1
 			
 			var current_actor = get_next_actor()
+			
+			# If player is dead, you lost
+			if current_actor.stored_combatant.is_MC and current_actor.stored_combatant.is_dead:
+				return
 
 			# After each turn checks if all players or all enemies are dead
 			var number_of_alive_enemies = 0
@@ -374,18 +380,18 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 			else:	
 				active_player_turn = current_actor.child_number
 				if training:
-					print("HII")
 					await execute_player_auto_turn(current_actor.stored_combatant, turn_count, training)
 				else:
 					#var thing = await handle_player_move_selection(current_combatant.stored_combatant)
 					selecting_entity = false
+					await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
+					gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
 					current_actor.animated_sprite.play("Idle")
 					await gui.new_player_turn()
 					make_enemies_selectable()
 					select_individual(false, 0)
 					await turn_ended
-					await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
-					gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
+
 					#if thing == "RUN":
 					#	return killed_enemies
 				hidden_default()
@@ -434,9 +440,9 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 				if player.stored_combatant.is_dead:
 					continue
 
-					var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player, true, action)
-					possible_enemy_actions.append(new_action)
-					continue
+				var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player, true, action)
+				possible_enemy_actions.append(new_action)
+				continue
 			if action.targets_party:
 				for enemy in enemy_shit.get_children():
 					if not enemy.visible:
@@ -469,20 +475,13 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 		
 	var action_sequence: Array[Callable]
 	var par_task : Array[Callable]
-	$AudioStreamPlayer3D.stream = load("res://assets/Resources/SFX/Eye-laser.wav")
 	if selected_action.is_base_attack:
 		if testing:
 			action_sequence.append(func(): await deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
 		if not testing:
-			#action_sequence.append(func(): await attacking_enemy.walk_animation())
-			#action_sequence.append(func(): await attacking_enemy.walk_towards_entity(selected_action.targetting_who.global_position))
 			action_sequence.append(func(): await attacking_enemy.attack_animation(0))
-			action_sequence.append(func(): $AudioStreamPlayer3D.play())
-
-
 			action_sequence.append(func(): deal_damage(attacking_enemy, selected_action.targetting_who, false, null))
 		
-		#set_health_bar_values(selected_action.targetting_who.child_number)
 		await action_queue(action_sequence)
 	else:
 		if not testing:
@@ -526,7 +525,6 @@ func execute_enemy_skills(action):
 				var seq_task: Array[Callable] = []
 				var par_task : Array[Callable] = []
 		
-				# Bake the wait time immediately
 				var wait_time: float = 0.25 * entity.get_index()
 				seq_task.append(func(): await get_tree().create_timer(wait_time).timeout)
 
@@ -694,13 +692,13 @@ func get_player(player_to_get: int):
 	return $Player_Container.get_child(player_to_get)
 
 func basic_attack():
+	gui.action_hint_area.visible = false
 	var action_sequence: Array[Callable]
 	var current_player = get_player(active_player_turn)
 	
 	var target_node = return_whos_highlighted(false)
 	unselect_all()
 	action_sequence.append(func(): await current_player.attack_animation(0))
-	action_sequence.append(func(): $AudioStreamPlayer3D.play())
 	action_sequence.append(func(): await deal_damage(current_player, target_node, false, null))
 		
 	await action_queue(action_sequence)
@@ -709,6 +707,7 @@ func basic_attack():
 	turn_ended.emit()
 		
 func player_defended():
+	gui.action_hint_area.visible = false
 	var current_player = get_player(active_player_turn)
 	var action_sequence: Array[Callable]
 
@@ -719,6 +718,7 @@ func player_defended():
 	turn_ended.emit()
 
 func skill_used(skill_used: moves, skill_index):
+	gui.action_hint_area.visible = false
 	var action_sequence: Array[Callable]
 	var current_player = get_player(active_player_turn)
 	
@@ -729,7 +729,6 @@ func skill_used(skill_used: moves, skill_index):
 
 	selecting_entity = false
 	action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
-	action_sequence.append(func(): $AudioStreamPlayer3D.play())
 	action_sequence.append(func(): await gui.update_bond_attack(skill_used.mana_cost))
 	action_sequence.append(func(): await execute_skills_fixed(skill_used, action_on_who))
 	await action_queue(action_sequence)
@@ -737,6 +736,7 @@ func skill_used(skill_used: moves, skill_index):
 	
 	
 func item_used(item_used: Items, item_index):
+	gui.action_hint_area.visible = false
 	var action_sequence : Array[Callable]
 	
 	var action_on_who = return_whos_highlighted(item_used.does_what == 2)
@@ -744,7 +744,7 @@ func item_used(item_used: Items, item_index):
 	unselect_all()
 	var current_player = get_player(active_player_turn)
 	action_sequence.append(func(): await current_player.use_item(item_used))
-	action_sequence.append(func(): $AudioStreamPlayer3D.play())
+	action_sequence.append(func(): await AudioManager.play_ui_sound(AudioManager.USE_ITEM))
 	action_sequence.append(func(): await execute_items_fixed(item_used, action_on_who))
 	selecting_entity = false
 	await action_queue(action_sequence)
@@ -815,6 +815,7 @@ func player_did_bond_attack():
 	turn_ended.emit()
 
 func ran_from_combat():
+	get_viewport().set_input_as_handled()
 	GlobalCombatInformation.bring_back_combat()
 
 func execute_skills_fixed(skill_used: moves, acted_on_who):
@@ -1151,7 +1152,13 @@ func revert_camera():
 
 func check_if_critical_hit(current_individual: combat_template, attacking: combat_template) -> bool:
 	var chance_of_crit_hit = rng.randf_range(0.0, 1.0)
-	var crit_threshold = 0.05 + (float(current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)) - float(attacking.obtain_stat(attacking.stats.CRIT_CHANCE)) * 0.005)
+	
+	var current_cc = current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)
+	var attacker_cc = attacking.obtain_stat(attacking.stats.CRIT_CHANCE)
+	print()
+	print(current_cc - attacker_cc)
+	print(((current_cc - attacker_cc) * 0.005) + 0.05)
+	var crit_threshold = 0.05 + ((float(current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)) - float(attacking.obtain_stat(attacking.stats.CRIT_CHANCE))) * 0.005)
 	return chance_of_crit_hit <= crit_threshold
 
 
@@ -1806,7 +1813,7 @@ func update_selected_enemy(what_direction):
 		if gui.skill_menu.selected_item.targets_self:
 			return
 	
-	
+	AudioManager.play_ui_sound(AudioManager.SCROLL)
 	var ret = get_num_selected()
 	if ret[1]:
 		if ret[0] == 4:

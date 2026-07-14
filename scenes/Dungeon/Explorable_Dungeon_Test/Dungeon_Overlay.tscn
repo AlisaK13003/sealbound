@@ -79,10 +79,15 @@ offset_left = 295.0
 offset_top = 77.0
 offset_right = -345.0
 offset_bottom = -282.99994
-tab_names = Array[String](["M", "P", "S", "E", "I", "Q", "S"])
+tab_names = Array[String](["M", "a", "P", "S", "E", "I", "Q", "S"])
 is_dungeon_menu = true
 mini_map_handler = NodePath("../MiniMap")
-tab_icons = Array[Texture2D]([ExtResource("5_iefge"), ExtResource("6_xd072"), ExtResource("7_hwkf0"), ExtResource("8_iurbj"), ExtResource("9_vtc43"), ExtResource("10_jfmyb"), ExtResource("11_lad1f")])
+tab_icons = Array[Texture2D]([ExtResource("5_iefge"), ExtResource("6_xd072"), ExtResource("6_xd072"), ExtResource("7_hwkf0"), ExtResource("8_iurbj"), ExtResource("9_vtc43"), ExtResource("10_jfmyb"), ExtResource("11_lad1f")])
+
+[node name="MenuTabs" parent="PauseMenu" index="2" unique_id=1267646118]
+offset_top = -11.495
+offset_bottom = -11.495
+theme_override_constants/v_separation = 33
 
 [node name="MiniMap" parent="." unique_id=1818784448 instance=ExtResource("5_5ae0w")]
 layout_mode = 1
@@ -90,3 +95,5 @@ offset_top = -2.0
 offset_bottom = -2.0
 
 [connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]
+
+[editable path="PauseMenu"]

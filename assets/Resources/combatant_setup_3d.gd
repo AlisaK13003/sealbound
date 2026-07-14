@@ -173,6 +173,12 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	
 	
 func update_health(change_health_value, what_action = null):
+	if what_action != null and what_action != "MISS":
+		if change_health_value > 0:
+			AudioManager.play_ui_sound(AudioManager.BATTLE_DEAL_DAMAGE)
+		elif change_health_value <= 0:
+			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
+
 	var update_portrait = parent_reference.gui.get_player_portrait(child_number) if not stored_combatant.is_combatant_enemy else null
 	if what_action != "STATUS":
 		if what_action == "MISS":
@@ -182,15 +188,15 @@ func update_health(change_health_value, what_action = null):
 			while(current_damage is int or current_damage != "MISS"):
 				if is_defending and change_health_value > 0:
 					update_portrait._update_health(current_damage * 0.6)
-					stored_combatant.actual_stats.health -= current_damage * 0.6
+					stored_combatant.take_damage(-1 * current_damage * 0.6)
 					await combatant_ui_.update_damage_label(current_damage * 0.6, what_action)
 				else:
 					if update_portrait != null:
 						update_portrait._update_health(current_damage)
-					stored_combatant.actual_stats.health -= current_damage
+					stored_combatant.take_damage(-1 * current_damage)
 
 					await combatant_ui_.update_damage_label(current_damage, what_action)
-				await get_tree().create_timer(1.5)
+				await get_tree().create_timer(1.5).timeout
 				change_health_value.pop_front()
 				if change_health_value.size() == 0:
 					break
@@ -204,19 +210,19 @@ func update_health(change_health_value, what_action = null):
 			var damage_to_take = int(ceili(change_health_value))
 			if is_defending:
 				update_portrait._update_health(damage_to_take * 0.6)
-				stored_combatant.actual_stats.health -= damage_to_take * 0.6
+				stored_combatant.take_damage(-1 * damage_to_take * 0.6) 
 				await combatant_ui_.update_damage_label(damage_to_take * 0.6, what_action)
 			else:
 				if update_portrait != null:
 					update_portrait._update_health(damage_to_take)
-				stored_combatant.actual_stats.health -= damage_to_take
+				stored_combatant.take_damage(-1 * damage_to_take)
 
 				await combatant_ui_.update_damage_label(damage_to_take, what_action)
 	else:
 		var damage_to_take = int(ceili(change_health_value))
 		if not stored_combatant.is_combatant_enemy:
 			parent_reference.gui.get_player_portrait(child_number)._update_health(damage_to_take)
-			stored_combatant.actual_stats.health -= damage_to_take
+			stored_combatant.take_damage(-1 * damage_to_take)
 
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
@@ -226,7 +232,6 @@ func update_health(change_health_value, what_action = null):
 	
 	if stored_combatant.actual_stats.health <= 0:
 		await on_death()
-	parent_reference.turn_ended.emit()
 # Combat related stuff
 
 func use_item(which_item):
@@ -285,6 +290,7 @@ func handle_status(incoming_statuses, turn_limit):
 				for _status in active_statuses:
 					if _status.status_type & key:
 						_status.remaining_turns = turn_limit
+						AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
 						break
 			else:
 				if (all_active_effects != 0) and (all_active_effects & key) == key:
@@ -293,9 +299,11 @@ func handle_status(incoming_statuses, turn_limit):
 							if _status.status_type < statuses.ATTACKdown:
 								parent_reference.gui.update_bond_attack(0.5)
 							_status.remaining_turns += turn_limit
+							AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
 							break
 				else:
 					var add_status = status.new()
+					AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
 					add_status.status_type = key
 					already_inflicted_with_major_status = true
 					add_status.setup(turn_limit)
@@ -329,8 +337,6 @@ func _remove_active_status(type_to_remove: int):
 func take_turn(player_portrait: player_portraits = null):
 	if stored_combatant.is_combatant_enemy:
 		current_mana += 1
-	elif parent_reference.training:
-		current_mana += 1
 	is_defending = false
 	if all_active_effects != null:
 		for key in status_map:
@@ -340,6 +346,15 @@ func take_turn(player_portrait: player_portraits = null):
 		for _status in range(active_statuses.size() - 1, -1, -1):
 			active_statuses[_status].remaining_turns -= 1
 			combatant_ui_.update_active_status(active_statuses[_status])
+			if active_statuses[_status].status_type == statuses.POISON:
+				AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
+			elif active_statuses[_status].status_type == statuses.DEFENSEup:
+				AudioManager.play_ui_sound(AudioManager.BATTLE_DEF_UP)
+			elif active_statuses[_status].status_type == statuses.ATTACKup:
+				AudioManager.play_ui_sound(AudioManager.BATTLE_ATK_UP)
+			else:
+				AudioManager.play_ui_sound(AudioManager.BATTLE_GENERIC_STAT)
+				
 			if active_statuses[_status].remaining_turns == 0:
 				if active_statuses[_status].status_type <= statuses.AGRO:
 					already_inflicted_with_major_status = false

@@ -94,12 +94,12 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 						Global.mouse_texture.texture = null
 						node_parent.holding_item = null
 					return
-			if held_item.item_resource_path != node_parent.holding_item.item_resource_path or held_item.amount_held == held_item.stack_amount:
-				return
-			else:
-				Global.added_just_one_item(node_parent.holding_item, slot_number)
-				node_parent.holding_item.amount_held -= 1
-				if node_parent.holding_item.amount_held == 0:
-					Global.mouse_texture.texture = null
-					node_parent.holding_item = null
-					return
+			#if held_item.item_resource_path != node_parent.holding_item.item_resource_path or held_item.amount_held == held_item.stack_amount:
+			#	return
+			#else:
+			#	Global.added_just_one_item(node_parent.holding_item, slot_number)
+			#	node_parent.holding_item.amount_held -= 1
+			#	if node_parent.holding_item.amount_held == 0:
+			#		Global.mouse_texture.texture = null
+			#		node_parent.holding_item = null
+			#		return

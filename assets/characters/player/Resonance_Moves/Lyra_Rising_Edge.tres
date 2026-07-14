@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_6rtei")
-move_name = "Rising Edge"
+move_name = "Furt Rising Edge"
 move_description = "Deals heavy damage"
 attack_power = 2
 status_type = null

@@ -76,7 +76,7 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
 script = ExtResource("6_nmpqa")
-combatant_name = "MC"
+combatant_name = "Cassian"
 party_member_portrait = SubResource("AnimatedTexture_bufki")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")

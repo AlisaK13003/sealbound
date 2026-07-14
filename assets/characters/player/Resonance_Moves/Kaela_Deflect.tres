@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_hisld")
-move_name = "Deflect"
+move_name = "Cadence Deflect"
 move_description = "Increases defense for one turn"
 attack_power = null
 does_damage = false

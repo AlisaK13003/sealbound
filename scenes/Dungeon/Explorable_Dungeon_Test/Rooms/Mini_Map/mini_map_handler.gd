@@ -16,7 +16,6 @@ class_name mini_map_class
 @onready var f_grid = $Full_Screen_Map/Panel/GridContainer
 
 @onready var mini_map = $MiniMap
-@onready var map_button = $Map_Button
 
 var p_ref: explorable_dungeon
 
@@ -106,9 +105,6 @@ var found_offset = false
 var enemy_list: Array
 
 var can_move_fullscreen_map: bool = false
-
-func _ready():
-	map_button.activated.connect(open_map)
 
 func hide_mini_map():
 	$MiniMap.visible = false

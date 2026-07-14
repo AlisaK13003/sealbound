@@ -213,6 +213,7 @@ theme_override_font_sizes/font_size = 12
 text = "55"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1792076839]
+visible = false
 layout_mode = 0
 offset_left = 321.0
 offset_top = 320.0

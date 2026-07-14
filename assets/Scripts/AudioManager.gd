@@ -4,14 +4,35 @@ var sfx_player: AudioStreamPlayer
 var bgm_player: AudioStreamPlayer 
 var tile_sfx: AudioStreamPlayer
 
-const CONFIRM_CLICK: AudioStream = null
-const CANCEL_CLICK: AudioStream = null
-const SCROLL: AudioStream = preload("res://assets/Audio/UI SFX_MENU_Scroll.ogg")
-const SCROLL_CLICK: AudioStream = preload("res://assets/Audio/UI SFX_MENU_Scroll.ogg")
-const MENU_OPEN: AudioStream = preload("res://assets/Audio/UI SFX_InGameMenu_Open.ogg")
-const MENU_CLOSE: AudioStream = preload("res://assets/Audio/UI SFX_InGameMenu_Close.ogg")
+const CONFIRM_CLICK: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/013_Confirm_03.wav")
+const CANCEL_CLICK: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/029_Decline_09.wav")
+const SCROLL: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/001_Hover_01.wav")
+const SCROLL_CLICK: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/001_Hover_01.wav")
+const MENU_OPEN: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/092_Pause_04.wav")
+const MENU_CLOSE: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/098_Unpause_04.wav")
 
 const BATTLE_MUSIC: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/[FC] Anomaly Field.ogg")
+const BOSS_BATTLE_MUSIC: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/[FC] Like FF Battle .ogg")
+
+const BATTLE_HEAL: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/02_Heal_02.wav")
+const BATTLE_TAKE_DAMAGE: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/15_Impact_flesh_02.wav")
+const BATTLE_DEAL_DAMAGE: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/22_Slash_04.wav")
+
+const BATTLE_DEF_UP: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/17_Def_buff_01.wav")
+const BATTLE_ATK_UP: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/16_Atk_buff_04.wav")
+const BATTLE_GENERIC_STAT: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/21_Debuff_01.wav")
+
+const ENCOUNTER: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/55_Encounter_02.wav")
+
+const USE_ITEM: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/051_use_item_01.wav")
+
+const BUY_SELL_SOMETHING: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/079_Buy_sell_01.wav")
+
+const STATUS_SOUND: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/46_Poison_01.wav")
+
+
+const CREEPY_DUNGEON_BGM: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/HeatOfBattle.ogg")
+const FOREST_DUNGEON_BGM: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/Garbage Patch.ogg")
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

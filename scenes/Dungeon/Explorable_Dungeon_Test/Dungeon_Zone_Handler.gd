@@ -4,7 +4,6 @@ class_name explorable_dungeon
 
 #@onready var dungeon_camera = $Dungeon_Camera
 @onready var player = $"3dPlayer2"
-@onready var dungeon_zones: Array[Node] = $Zones.get_children()
 @onready var navigation_region = $NavigationRegion3D
 @onready var enemy_container = $Enemies
 
@@ -349,8 +348,7 @@ func battle_initiated(with_what_enemy: generic_combatants, node_id, is_boss: boo
 	#await combat_scene_.setup(current_dungeon, potential_encounters[random_encounter])
 
 func return_to_exploring():
-	await player.mini_map_store_enemy_list(enemy_container.get_children())
-	print("BACK")
+	await player.dungeon_overlay.mini_map.store_current_enemy_list(enemy_container.get_children())
 	#in_combat = false
 	await Fade.fade_out(2.0)
 	in_combat = false

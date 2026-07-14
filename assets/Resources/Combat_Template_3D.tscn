@@ -130,15 +130,19 @@ render_target_update_mode = 4
 
 [node name="Enemy_Collision" type="Area3D" parent="Sprite3D2" unique_id=1958587253]
 transform = Transform3D(0.0381074, -0.034002624, -0.11954767, 0.010536364, 0.1254742, -0.032329682, 0.12384185, -0.00021228948, 0.03953661, -3.903678, -2.0591643, -1.780705)
+monitoring = false
+monitorable = false
 script = ExtResource("4_mmlnl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/Enemy_Collision" unique_id=376378909]
 transform = Transform3D(0.9957185, 0.0913864, 0.0139018595, -0.0915304, 0.9537115, 0.28645518, 0.012919784, -0.28650117, 0.9579928, 22.397438, -18.815147, -67.58636)
 shape = SubResource("CapsuleShape3D_51gu7")
+disabled = true
 debug_fill = false
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=546371427]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042127967, 0.21524617, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042127967, 0.6147385, 0)
+top_level = true
 visible = false
 offset = Vector2(-20.32, 7.885)
 pixel_size = 0.005
@@ -146,6 +150,7 @@ billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_y4m62")
 animation = &"selectable"
+frame_progress = 0.31421456
 speed_scale = -0.5
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1832887350]
@@ -153,6 +158,7 @@ speed_scale = -0.5
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1838682731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29155636, -0.32203448)
 shape = SubResource("BoxShape3D_7tpxp")
+disabled = true
 
 [connection signal="input_event" from="Sprite3D2/Enemy_Collision" to="." method="_mouse_confirmation_given"]
 [connection signal="mouse_entered" from="Sprite3D2/Enemy_Collision" to="." method="_on_enemy_collision_mouse_entered"]

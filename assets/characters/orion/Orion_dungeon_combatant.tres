@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("2_6ldo4")
+combatant_name = "Orion"
 metadata/_custom_type_script = "uid://125iickqse23"

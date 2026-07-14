@@ -1,9 +1,6 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://b2ykyv1nweiy1"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_hw41m"]
-[ext_resource type="Resource" uid="uid://cc8cbamkugwqv" path="res://assets/characters/player/Resonance_Moves/Cross Slash.tres" id="2_34rdf"]
-[ext_resource type="Resource" uid="uid://c7tfx2wsw0rko" path="res://assets/characters/player/Resonance_Moves/Deflect.tres" id="3_xbr8s"]
-[ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_bojdn"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_rdyxu"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_c3yhw"]
 [ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="7_tbj4s"]
@@ -79,7 +76,7 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [resource]
 script = ExtResource("6_c3yhw")
-combatant_name = "MC"
+combatant_name = "Kaela"
 party_member_portrait = SubResource("AnimatedTexture_bufki")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
@@ -87,7 +84,6 @@ stored_equipment = SubResource("Resource_onp7b")
 stored_charm = ExtResource("9_qno0m")
 stored_boots = ExtResource("8_4eqew")
 stored_chestplate = ExtResource("10_e4p10")
-combatant_skills = Array[ExtResource("1_hw41m")]([ExtResource("2_34rdf"), ExtResource("3_xbr8s"), ExtResource("4_bojdn")])
 sprite_frames = ExtResource("7_tbj4s")
 idle_speed = 1.0
 walk_speed = 0.7

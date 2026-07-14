@@ -48,6 +48,28 @@ func add_active_member(combatant: generic_combatants):
 	if active_party_slots.size() > MAX_PARTY_SIZE:
 		Global.cant_leave_menu = true
 	calculate_BP()
+
+signal update_resonance
+func resonate_with_a_member(which_member: generic_combatants, activated):
+	for member in all_party_slots:
+		if member.combatant_name == which_member.combatant_name and activated:
+			member.resonated_with = true
+		else:
+			member.resonated_with = false
+	resonance_updated(which_member.is_MC, activated)
+	
+func resonance_updated(is_mc = false, activated = false):
+	var resonated_with_name
+	if not is_mc and activated:
+		for member in all_party_slots:
+			if member.resonated_with:
+				resonated_with_name = member.combatant_name
+				break
+	else:
+		resonated_with_name = "Base"
+			
+	active_party_slots[0].update_moves(active_party_slots[0].resonance_skills_[resonated_with_name])
+	update_resonance.emit()
 	
 func remove_active_member(combatant: generic_combatants):
 	for combatant_ in range(active_party_slots.size()):
@@ -262,7 +284,7 @@ func add_quest(quest_: quest):
 	active_quests.append(quest_)
 	check_quest_progress.emit()
 
-func _ready():
+func _ready():	
 	#all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
 	#all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	#all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
@@ -330,14 +352,19 @@ var dungeon_loop_scene #: dungeon_loop
 var selected_dungeon_
 
 func transition_to_dungeon(selected_dungeon):
+	AudioManager.stop_bgm()
 	selected_dungeon_ = selected_dungeon
 	current_dungeon = dungeon_types[selected_dungeon_]
+	
+	match selected_dungeon_:
+		0:
+			AudioManager.play_bgm(AudioManager.CREEPY_DUNGEON_BGM)
+		1:
+			AudioManager.play_bgm(AudioManager.FOREST_DUNGEON_BGM)
+	
 	var dungeon_scene = await Fade.change_scene("res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Test.tscn")
 
 	explorable_dungeon_scene = dungeon_scene
-	
-	var temp2 = load("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn")
-	dungeon_loop_scene = temp2.instantiate()
 
 	for party_member in active_party_slots:
 		max_BP += party_member.bond_level * 5
@@ -379,8 +406,8 @@ func dungeon_over():
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Bedroom"
 	AreaStateManager._setup(false)
-	get_tree().call_deferred("change_scene_to_file", "res://scenes/main/Building Insides.tscn")
-	
+	AreaStateManager.swap_scene(self)
+		
 	await get_tree().process_frame
 	await get_tree().physics_frame
 	get_tree().current_scene.swap_to_me()
@@ -395,8 +422,12 @@ func dungeon_over():
 var current_dungeon
 
 func initiate_combat(encounter, node_id, is_boss: bool = false):
+	AudioManager.stop_bgm()
 	if is_combat_active:
 		return
+	var temp2 = load("res://assets/Resources/Dungeon Stuff/Dungeon_25D.tscn")
+	dungeon_loop_scene = temp2.instantiate()
+	AudioManager.play_ui_sound(AudioManager.ENCOUNTER)
 	is_combat_active = true
 	previous_enemy_encountered = node_id
 	await Fade.fade_in(0.5)
@@ -484,13 +515,22 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	
 var rewards_scene_
 func bring_back_combat(_rewards_scene = null):
-	get_tree().root.add_child(explorable_dungeon_scene)
-	explorable_dungeon_scene.movement_locked = false
+	AudioManager.stop_bgm()
+	match selected_dungeon_:
+		0:
+			AudioManager.play_bgm(AudioManager.CREEPY_DUNGEON_BGM)
+		1:
+			AudioManager.play_bgm(AudioManager.FOREST_DUNGEON_BGM)
+	get_tree().root.add_child.call_deferred(explorable_dungeon_scene)
+	
+	explorable_dungeon_scene.set_deferred("movement_locked", false)
+	
 	if is_instance_valid(rewards_scene_):
 		rewards_scene_.queue_free()
 	
-	if get_tree().has_node(dungeon_loop_scene):
-		get_tree().remove_child(dungeon_loop_scene)
+	if is_instance_valid(dungeon_loop_scene) and dungeon_loop_scene.is_inside_tree():
+		dungeon_loop_scene.get_parent().remove_child.call_deferred(dungeon_loop_scene)
+		dungeon_loop_scene.queue_free()
 	
 	if should_remove_enemy:
 		var enemy_to_remove = instance_from_id(previous_enemy_encountered)

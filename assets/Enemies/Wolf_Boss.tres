@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_gly0j"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_53rjc"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_b2qww"]
-[ext_resource type="SpriteFrames" uid="uid://c0ntd54xbioc6" path="res://assets/Enemies/Wolf_Boss_Sprite_Frames.tres" id="4_6qo0b"]
+[ext_resource type="SpriteFrames" uid="uid://b0wou18gkoe7f" path="res://assets/Enemies/Tiny_Wolf_Sprite_Frames.tres" id="4_b2qww"]
 
 [sub_resource type="Resource" id="Resource_sxoqn"]
 script = ExtResource("1_gly0j")
@@ -58,6 +58,7 @@ script = ExtResource("2_53rjc")
 combatant_name = "Great Wolf"
 combatant_stats = SubResource("Resource_b2qww")
 is_combatant_enemy = true
+should_flip_sprite = true
 coin_drop_range = Vector2i(0, 100)
 bond_drop_range = Vector2i(0, 50)
 combatant_skills_ = Dictionary[ExtResource("1_gly0j"), bool]({
@@ -65,12 +66,12 @@ SubResource("Resource_sxoqn"): true,
 SubResource("Resource_bqewb"): true,
 SubResource("Resource_5574v"): true
 })
-sprite_frames = ExtResource("4_6qo0b")
+sprite_frames = ExtResource("4_b2qww")
 idle_speed = 1.0
 death_speed = 1.0
 walk_speed = 1.0
 attack_speed = Array[float]([1.0, 1.0, 1.0, 1.0])
 sprite_scale = 0.02
-sprite_offset = Vector2(0, 16)
+sprite_offset = Vector2(-27, 15)
 experience_mult = 2
 metadata/_custom_type_script = "uid://125iickqse23"

@@ -27,6 +27,8 @@ var actual_stats: stats
 
 @export var combatant_skills_: Dictionary[moves, bool]
 
+@export var resonance_skills_: Dictionary[String, Array]
+
 @export var sprite_frames: SpriteFrames
 @export var idle_speed: float
 @export var death_speed: float
@@ -46,7 +48,14 @@ var actual_stats: stats
 @export var bond_level: GlobalCombatInformation.bonds
 
 @export var is_MC: bool = false
-		
+
+var resonated_with: bool = false
+
+func update_moves(moves_list):
+	combatant_skills_.clear()
+	for move in moves_list:
+		combatant_skills_[move] = true
+
 func restore_health():
 	combatant_stats.health = combatant_stats.max_health
 
@@ -64,7 +73,10 @@ func heal(skill_used: moves, person_who_used_skill: generic_combatants):
 	else:
 		actual_stats.health = actual_stats.max_health
 	GlobalCombatInformation.check_player_values.emit()
-	
+
+func take_damage(amount):
+	actual_stats.health += int(amount)
+
 func export_to_JSON():
 	return {
 		"path": resource_path,

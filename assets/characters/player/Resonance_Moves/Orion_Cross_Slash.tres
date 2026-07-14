@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_hoe5c")
-move_name = "Cross Slash"
+move_name = "Duelist Cross Slash"
 move_description = "Deals moderate damage to one enemy. "
 attack_power = 1
 mana_cost = 2

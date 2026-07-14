@@ -48,9 +48,9 @@ func fully_reset():
 	#_setup()
 func update_money_total(old_money_count, differential):
 	$Label.text = str(old_money_count)
-
-	for i in range(differential):
-		$Label.text = str(int($Label.text) + 1)
+	AudioManager.play_ui_sound(AudioManager.BUY_SELL_SOMETHING)
+	for i in range(differential * -1):
+		$Label.text = str(int($Label.text) + (-1 if differential < 0 else 1))
 		await get_tree().create_timer(0.01).timeout
 
 func _update_item_description(with_item):

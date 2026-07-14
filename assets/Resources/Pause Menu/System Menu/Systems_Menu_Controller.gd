@@ -197,6 +197,8 @@ func tab_changed(which_tab):
 		return
 	if which_tab == menu_tab.get_child_count() - 2:
 		get_tree().change_scene_to_file("res://scenes/main/TitleScreen.tscn")
+		Global.is_in_menu = false
+		Global.is_paused = false
 		return
 	menu_tab.visible = false
 	back_button.visible = true

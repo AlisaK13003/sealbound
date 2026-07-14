@@ -35,6 +35,7 @@ func _setup(person_to_setup: generic_combatants):
 	
 func _update_health(health_value):
 	health_value *= -1
+	health_value = int(health_value)
 	current_health = clamp(current_health + health_value, 0, person_max_health)
 	cur_health_num.text = str(current_health)
 	health_bar.value = current_health

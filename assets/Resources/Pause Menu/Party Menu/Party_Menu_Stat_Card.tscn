@@ -6,8 +6,10 @@
 [ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="4_re2eu"]
 [ext_resource type="Texture2D" uid="uid://d0i0eybic4oqc" path="res://assets/Equipment/Equipment Sprites/Feet.png" id="5_bk7q8"]
 [ext_resource type="Texture2D" uid="uid://dbahlm1mocqnc" path="res://assets/tile sheets/Health Behind.png" id="6_bk7q8"]
-[ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="7_0r7i3"]
+[ext_resource type="Texture2D" uid="uid://ctbel6gv2ncat" path="res://assets/tile sheets/Health_Foreground.png" id="7_3vndl"]
+[ext_resource type="Texture2D" uid="uid://c0ym1jw7hb06c" path="res://assets/tile sheets/Health_Progress.png" id="8_8ltjt"]
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="9_3vndl"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="10_8ltjt"]
 
 [node name="PartyMenuStatCard" type="Control" unique_id=1574348551]
 layout_mode = 3
@@ -327,14 +329,17 @@ offset_left = 96.555
 offset_top = 175.0
 offset_right = 269.5551
 offset_bottom = 184.0
-value = 77.0
+value = 29.0
 nine_patch_stretch = true
 stretch_margin_left = 4
 stretch_margin_top = 1
 stretch_margin_right = 3
 stretch_margin_bottom = 3
 texture_under = ExtResource("6_bk7q8")
-texture_progress = ExtResource("7_0r7i3")
+texture_over = ExtResource("7_3vndl")
+texture_progress = ExtResource("8_8ltjt")
+tint_under = Color(1, 0.105882354, 1, 1)
+tint_progress = Color(0.31604648, 0.47395146, 1, 1)
 
 [node name="GridContainer3" type="GridContainer" parent="." unique_id=1446961732]
 z_index = 5
@@ -386,12 +391,22 @@ offset_transform_enabled = true
 offset_transform_position = Vector2(-7, -7)
 texture = ExtResource("9_3vndl")
 
+[node name="GenericButton" parent="." unique_id=1034936178 instance=ExtResource("10_8ltjt")]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 173.0
+offset_right = 52.160004
+offset_bottom = 203.0
+button_name = ""
+button_to_active = 7
+text_on_left_of_button = true
+
 [node name="Label" type="Label" parent="." unique_id=1745837958]
 layout_mode = 0
 offset_left = -25.65
-offset_top = 171.0
+offset_top = 151.35
 offset_right = 63.35
-offset_bottom = 189.0
+offset_bottom = 169.35
 theme_override_colors/font_outline_color = Color(0, 0.20392157, 0.7372549, 1)
 theme_override_constants/outline_size = 3
 text = "Add to Party"
@@ -403,6 +418,24 @@ offset_top = -4.0
 offset_right = 114.0
 offset_bottom = 20.0
 disabled = true
+
+[node name="Label2" type="Label" parent="." unique_id=741407595]
+layout_mode = 0
+offset_left = -25.65
+offset_top = 169.985
+offset_right = 63.35
+offset_bottom = 187.985
+theme_override_colors/font_outline_color = Color(0, 0.20392157, 0.7372549, 1)
+theme_override_constants/outline_size = 3
+text = "Resonate"
+horizontal_alignment = 2
+
+[node name="CheckBox" type="CheckBox" parent="Label2" unique_id=237497809]
+layout_mode = 0
+offset_left = 90.0
+offset_top = -4.0
+offset_right = 114.0
+offset_bottom = 20.0
 
 [node name="NinePatchRect4" type="NinePatchRect" parent="." unique_id=317575492]
 z_index = 1

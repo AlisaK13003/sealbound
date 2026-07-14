@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://nvulh6gh6b3v" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Mini_Map/mini_map_handler.gd" id="1_wqiif"]
 [ext_resource type="Texture2D" uid="uid://5agq3odbpb4s" path="res://assets/tile sheets/Dungeon Arrow.png" id="2_idjb4"]
-[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="3_wqiif"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="4_yqkol"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqiif"]
@@ -196,14 +195,3 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
-
-[node name="Map_Button" parent="." unique_id=1034936178 instance=ExtResource("3_wqiif")]
-visible = false
-layout_mode = 0
-offset_left = 4.718
-offset_top = 348.0
-offset_right = 69.878006
-offset_bottom = 376.0
-input_event_that_will_activate = "Open_Map"
-button_name = "Map"
-disabled_ = true
