@@ -19,7 +19,7 @@ const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var shop_controller: Node = get_node_or_null("ShopController")
+@onready var shop_controller: Node = get_node_or_null("CanvasLayer/ShopInterface")
 
 @export_file("*.json") var dialogue_path: String
 @export var npc_id: String = ""
@@ -42,6 +42,8 @@ var cutscene_restore_state: Dictionary = {}
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
+	if shop_controller != null:
+		shop_controller.shop_closed.connect(close_shop)
 	Global.time_updated.connect(navigate)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
@@ -533,11 +535,21 @@ func _on_dialogue_system_choice_action_requested(action: String, choice_data: Di
 	pending_choice_action = action
 
 func open_shop() -> void:
-	if shop_controller != null and shop_controller.has_method("show_shop"):
-		shop_controller.show_shop()
+	if shop_controller != null:
+		show_shop()
 		return
 
 	push_warning("NPC_Controller: No ShopController child found to open.")
+
+func show_shop():
+	$CanvasLayer.visible = true
+	Global.is_paused = true
+	Global.is_in_menu = true
+	
+func close_shop():
+	$CanvasLayer.visible = false
+	Global.is_paused = false
+	Global.is_in_menu = false
 
 # Determines if the player is in range to talk with NPC
 func _on_player_in_range_area_entered(area):

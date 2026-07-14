@@ -49,6 +49,7 @@ func _ready():
 			quest_item_container.add_child(new_node_instance)
 
 	for item_menu in item_containers_parent.get_children():
+		item_menu.selection_updated.connect(display_item)
 		for item_ in item_menu.get_child(0).get_children():
 			item_.item_clicked.connect(update_selected_item.bind(true))
 		if item_menu.get_index() != 0:
@@ -102,7 +103,6 @@ func _fully_reset():
 	current_item = 0
 	update_selected_item()
 
-
 func tab_changed(which_tab):
 	if not is_visible_in_tree():
 		return
@@ -121,13 +121,14 @@ func tab_changed(which_tab):
 	update_selected_item()
 
 func update_selected_item(instance_id = null, from_click: bool = false):
-	if from_click:
-		var active_container = item_containers_parent.get_child(visible_tab)
-		for item_ in active_container.get_children():
-			if item_.get_instance_id() == instance_id:
-				current_item = item_.get_index()
-				break
-
+	var active_container = item_containers_parent.get_child(visible_tab)
+	for item_ in active_container.get_children():
+		if item_.get_instance_id() == instance_id:
+			current_item = item_.get_index()
+			print(current_item)
+			break
+	print("HIASDAS")
+	
 	var current_container = null
 	match visible_tab:
 		0:
@@ -144,7 +145,7 @@ func update_selected_item(instance_id = null, from_click: bool = false):
 			item_.highlight(false)
 	display_item()
 
-func display_item():
+func display_item(selected_item = null):
 	var current_container = null
 	var mask = 0
 	match visible_tab:
@@ -159,13 +160,17 @@ func display_item():
 			mask = 100
 			
 	var count = -1
-	var found_item: Items = null
-	for item_ in GlobalCombatInformation.all_held_items:
-		if item_.what_is_it & mask:
-			count += 1
-			if count == current_item:
-				found_item = item_
-		
+	var found_item = null
+	#for item_ in GlobalCombatInformation.all_held_items:
+	#	if item_.what_is_it & mask:
+	#		count += 1
+	#		if count == current_item:
+	#			found_item = item_
+	
+	found_item = current_container.get_parent().current_item
+	
+	found_item = current_container.get_child(found_item).what_am_i
+	
 	if found_item != null:
 		$"Item Description/VBoxContainer/Label".text = found_item.item_name
 		$"Item Description/VBoxContainer/Label2".text = found_item.item_description

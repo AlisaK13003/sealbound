@@ -10,6 +10,9 @@ size = Vector2(67, 38)
 [sub_resource type="CircleShape2D" id="CircleShape2D_t8y7u"]
 radius = 57.004234
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
+size = Vector2(75, 41)
+
 [node name="QuestBoard" type="Node2D" unique_id=1065708173]
 script = ExtResource("1_xib73")
 
@@ -33,13 +36,19 @@ offset_right = -0.00012207031
 offset_bottom = 1.9999695
 parent = NodePath("../..")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1356818265]
-offset_left = -34.0
-offset_top = -30.0
-offset_right = 35.224487
-offset_bottom = 23.0
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1915404993]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, 13.455)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_h1qg2")
-expand_mode = 3
+offset = Vector2(0, -73.125)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2038073405]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=232191028]
+position = Vector2(0.5, 19.5)
+shape = SubResource("RectangleShape2D_7tpxp")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

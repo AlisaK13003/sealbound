@@ -16,6 +16,12 @@ var am_i_accepted: bool
 signal on_click(quest_, quest_index)
 
 func setup_(quest_: quest, i):
+	var index_ = GlobalCombatInformation.active_quests.find_custom(func(a: quest): return a.quest_name == quest_.quest_name)
+	if index_ != -1:
+		am_i_accepted = true
+		accepted_image.visible = true
+		
+
 	quest_name_label.text = quest_.quest_name
 	quest_giver_label.text = quest_.quest_giver
 	quest_location_label.text = quest_.quest_description

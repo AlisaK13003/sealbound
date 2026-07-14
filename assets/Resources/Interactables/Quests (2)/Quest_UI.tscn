@@ -35,7 +35,7 @@ offset_top = 50.0
 offset_right = 201.0
 offset_bottom = 242.0
 scale = Vector2(0.685, 0.685)
-theme_override_constants/separation = 64
+theme_override_constants/separation = 69
 
 [node name="MissionPaper1" type="Sprite2D" parent="." unique_id=1948265229]
 position = Vector2(177, 67)

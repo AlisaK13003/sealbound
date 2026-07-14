@@ -109,7 +109,9 @@ func gather_actual_stats():
 func add_up_stats() -> stats:
 	if is_combatant_enemy:
 		return combatant_stats
-	
+	var health = combatant_stats.health
+	if actual_stats != null:
+		health = actual_stats.health
 	var step_1: stats = add_stats(stored_equipment.equipment_stats, stored_boots.equipment_stats)
 	var step_2: stats = add_stats(stored_chestplate.equipment_stats, stored_charm.equipment_stats)
 	var step_3: stats = add_stats(step_1, step_2)
@@ -119,7 +121,7 @@ func add_up_stats() -> stats:
 	step_4.magic += stored_weapon.weapon_magic
 	step_4.crit_chance += stored_weapon.weapon_crit_chance
 	step_4.crit_damage += stored_weapon.weapon_crit_damage
-	
+	step_4.health = clamp(health, 0, step_4.max_health)
 	return step_4.duplicate()
 
 func add_stats(stat_1: stats, stat_2: stats):

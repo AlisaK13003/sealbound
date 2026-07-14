@@ -406,4 +406,9 @@ animations = [{
 "loop": 1,
 "name": &"Walk_Right",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"Walk_Up",
+"speed": 5.0
 }]

@@ -108,6 +108,7 @@ func _tab_changed(tab):
 				
 			target_member.heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
 			menu_tabs.get_child(caster_index).update_damage_label(heal_amount)
+			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
 			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
 			_revert_to_caster() 
 			return
@@ -117,7 +118,7 @@ func _tab_changed(tab):
 
 				_reject_cast_and_restore_visuals()
 				return
-				
+			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
 			for person in range(GlobalCombatInformation.all_party_slots.size()):
 				var heal_amount = 0
 				if skill_used.get_skill_boost() != 999:
@@ -133,7 +134,6 @@ func _tab_changed(tab):
 		else:
 			var target_member = GlobalCombatInformation.all_party_slots[tab]
 			if target_member.actual_stats.health >= target_member.actual_stats.max_health:
-
 				_reject_cast_and_restore_visuals()
 				return
 				
@@ -142,7 +142,7 @@ func _tab_changed(tab):
 				heal_amount = clamp((GlobalCombatInformation.all_party_slots[caster_index].actual_stats.magic + skill_used.get_skill_boost()), 0, target_member.actual_stats.max_health)
 			else:
 				heal_amount = target_member.actual_stats.max_health
-				
+			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
 			target_member.heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
 			menu_tabs.get_child(tab).update_damage_label(heal_amount)
 			

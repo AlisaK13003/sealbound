@@ -7,7 +7,7 @@ class_name combat_template
 @onready var combatant_ui_: combatant_ui = $Sprite3D2/SubViewport/CombatantUi
 @onready var status_sprite = load("res://assets/tile sheets/Up_Arrow.png")
 @onready var enemy_collision = $Sprite3D2/Enemy_Collision
-@onready var selection_area_sprite = $AnimatedSprite3D
+@onready var selection_area_sprite = $Sprite3D2/AnimatedSprite3D
 @onready var animated_sprite = $AnimatedSprite3D2
 @onready var ui_sprite = $Sprite3D2
 @onready var rng = RandomNumberGenerator.new()
@@ -170,6 +170,8 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	animated_sprite.frame = (rng.randi_range(0, (animated_sprite.sprite_frames.get_frame_count("Idle")) - 1))
 	animated_sprite.play("Idle")
 	has_been_setup = true
+	selection_area_sprite.position = self.global_position
+	selection_area_sprite.offset = Vector2(-35, 45)
 	
 	
 func update_health(change_health_value, what_action = null):
@@ -258,6 +260,7 @@ func on_death():
 			animated_sprite.play("On_Death")
 			animated_sprite.speed_scale = 1.5
 			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
+			await get_tree().create_timer(1.0).timeout
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.gui.get_player_portrait(child_number).update_statuses(self)
 	else:

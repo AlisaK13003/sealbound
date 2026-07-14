@@ -90,13 +90,15 @@ offset_left = -10.0
 offset_top = -30.0
 offset_right = 91.0
 offset_bottom = 90.0
-theme_override_constants/separation = 26
+theme_override_constants/separation = 17
 
 [node name="Label" type="Label" parent="Item Description/VBoxContainer" unique_id=370302291]
 custom_minimum_size = Vector2(93.755, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 10
 text = "Item Name"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Item Description/VBoxContainer" unique_id=715720784]
 layout_mode = 2

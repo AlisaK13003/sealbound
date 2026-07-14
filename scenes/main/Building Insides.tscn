@@ -17,6 +17,23 @@
 [ext_resource type="Texture2D" uid="uid://676sprefi7p8" path="res://assets/tile sheets/cauldron.png" id="13_5q4q6"]
 [ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="17_3xqff"]
 
+[sub_resource type="Gradient" id="Gradient_5q4q6"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vnv2d"]
+gradient = SubResource("Gradient_5q4q6")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3xqff"]
+panorama = SubResource("GradientTexture1D_vnv2d")
+
+[sub_resource type="Sky" id="Sky_5q4q6"]
+sky_material = SubResource("PanoramaSkyMaterial_3xqff")
+
+[sub_resource type="Environment" id="Environment_7tpxp"]
+background_mode = 2
+background_color = Color(0.37413925, 0.37413928, 0.37413922, 1)
+background_energy_multiplier = 5.11
+sky = SubResource("Sky_5q4q6")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0o3x6"]
 texture = ExtResource("1_r1w2i")
 0:0/0 = 0
@@ -6227,6 +6244,9 @@ y_sort_enabled = true
 script = ExtResource("1_0o3x6")
 is_building_insides = true
 bgm = ExtResource("2_pwgv3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=612929194]
+environment = SubResource("Environment_7tpxp")
 
 [node name="BuildingLocationContainer" parent="." unique_id=364046489 instance=ExtResource("2_kwhot")]
 position = Vector2(-1446, -3269)

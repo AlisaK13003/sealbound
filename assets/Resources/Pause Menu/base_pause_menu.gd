@@ -17,7 +17,7 @@ func _ready():
 	GlobalCombatInformation.did_something_with_money.connect(update_display)
 	GlobalCombatInformation.did_something_with_BP.connect(update_display)
 	
-func update_display():
+func update_display(old_money_count = 0, currency_change = 0):
 	currency.text = "Money: " + str(GlobalCombatInformation.currency_held)
 	cur_bp.text = "BP: " + str(GlobalCombatInformation.current_BP) + "/" + str(GlobalCombatInformation.max_BP)
 	

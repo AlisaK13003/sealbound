@@ -245,4 +245,5 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 textures/default_filters/use_nearest_mipmap_filter=true
 camera/depth_of_field/depth_of_field_use_jitter=true
+environment/defaults/default_clear_color=Color(0.1882353, 0.16078432, 0.16078432, 1)
 2d/snap/snap_2d_transforms_to_pixel=true

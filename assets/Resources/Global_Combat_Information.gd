@@ -116,12 +116,12 @@ func add_item(item_to_add):
 		for item in item_to_add:
 			if item.what_is_it & 010:
 				if all_held_valuables.find(item) == -1:
-					all_held_valuables.append(item)
+					all_held_valuables.append(item.duplicate())
 				else:
 					all_held_valuables[all_held_valuables.find(item)].stack += 1
 			else:
 				if all_held_items.find(item) == -1:
-					all_held_items.append(item)
+					all_held_items.append(item.duplicate())
 				else:
 					all_held_items[all_held_items.find(item)].stack += 1
 		check_quest_progress.emit()
@@ -157,9 +157,9 @@ func add_equipment_to_list(equip, is_weapon):
 			all_held_equipment[index].stack += 1
 	else:
 		if is_weapon:
-			all_held_weapons.append(equip)
+			all_held_weapons.append(equip.duplicate())
 		else:
-			all_held_equipment.append(equip)
+			all_held_equipment.append(equip.duplicate())
 		if equip.stack == 0:
 			equip.stack = 1
 	equipment_added.emit()
@@ -285,19 +285,19 @@ func add_quest(quest_: quest):
 	check_quest_progress.emit()
 
 func _ready():	
-	#all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
-	#all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
-	#all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
-	#all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
+	all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
+	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
+	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
+	all_party_slots.append(load("res://assets/characters/orion/Orion_thing.tres"))
 	
 	for member in all_party_slots:
 		member.gather_actual_stats()
 
 	load_items()
 	
-	#active_party_slots.append(all_party_slots[0])
-	#active_party_slots.append(all_party_slots[1])
-	#active_party_slots.append(all_party_slots[2])
+	active_party_slots.append(all_party_slots[0])
+	active_party_slots.append(all_party_slots[1])
+	active_party_slots.append(all_party_slots[2])
 	calculate_BP()
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
@@ -343,6 +343,8 @@ func _ready():
 
 	await get_tree().create_timer(0.5).timeout
 
+	
+
 	finished.emit()
 	check_quest_progress.emit()
 
@@ -352,6 +354,7 @@ var dungeon_loop_scene #: dungeon_loop
 var selected_dungeon_
 
 func transition_to_dungeon(selected_dungeon):
+	AreaStateManager.currently_transitioning = true
 	AudioManager.stop_bgm()
 	selected_dungeon_ = selected_dungeon
 	current_dungeon = dungeon_types[selected_dungeon_]
@@ -370,6 +373,7 @@ func transition_to_dungeon(selected_dungeon):
 		max_BP += party_member.bond_level * 5
 	bond_attack_fill = 2 * max_BP
 	current_BP = max_BP
+	AreaStateManager.currently_transitioning = false
 	await dungeon_scene._setup(dungeon_types[selected_dungeon])
 		
 func return_dropped_items(drops, player = null):
@@ -401,15 +405,16 @@ func dungeon_over():
 	await Fade.fade_in(1.0)
 	for member in all_party_slots:
 		member.restore_health()
-	dungeon_loop_scene.queue_free()
+	if dungeon_loop_scene != null:
+		dungeon_loop_scene.queue_free()
 	explorable_dungeon_scene.queue_free()
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Bedroom"
 	AreaStateManager._setup(false)
-	AreaStateManager.swap_scene(self)
+	AreaStateManager.swap_scene()
 		
 	await get_tree().process_frame
-	await get_tree().physics_frame
+	#await get_tree().physics_frame
 	get_tree().current_scene.swap_to_me()
 	await Fade.fade_out(1.0)
 	Global.player_advanced_day(true)
@@ -515,6 +520,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	
 var rewards_scene_
 func bring_back_combat(_rewards_scene = null):
+	AreaStateManager.currently_transitioning = true
 	AudioManager.stop_bgm()
 	match selected_dungeon_:
 		0:
@@ -541,6 +547,7 @@ func bring_back_combat(_rewards_scene = null):
 	is_combat_active = false
 	get_tree().current_scene = explorable_dungeon_scene
 	explorable_dungeon_scene.return_to_exploring()
+	AreaStateManager.currently_transitioning = false
 
 func update_stored_combat_information():
 	pass

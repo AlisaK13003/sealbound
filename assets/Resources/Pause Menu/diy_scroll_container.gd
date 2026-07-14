@@ -169,6 +169,7 @@ func scroll_down():
 	container.get_child(current_item).was_hovered()
 	update_selected_item()
 
+signal selection_updated
 func update_selected_item():
 	if not panel:
 		return
@@ -179,6 +180,7 @@ func update_selected_item():
 			item.highlight(true)
 		else:
 			item.highlight(false)
+	selection_updated.emit(current_item)
 
 func disable(keep_visibility: bool = false):
 	self.visible = keep_visibility

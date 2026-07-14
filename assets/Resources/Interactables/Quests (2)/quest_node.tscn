@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccond57fltreb" path="res://assets/Resources/Interactables/Quests (2)/quest_node_controller.gd" id="1_umtdc"]
 [ext_resource type="Texture2D" uid="uid://dggadw7mbuiqp" path="res://assets/Resources/Interactables/Quests (2)/Gold.png" id="2_6svtd"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_87ijo"]
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="3_j5gla"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_g3gxy"]
 
@@ -30,7 +31,27 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_umtdc")
 
+[node name="Background" type="Control" parent="." unique_id=7116010]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1080375276]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 457.0
+offset_bottom = 67.0
+texture = ExtResource("2_87ijo")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
 [node name="Panel" type="Panel" parent="." unique_id=1664935892]
+visible = false
 layout_mode = 0
 offset_left = 4.0
 offset_top = 2.0

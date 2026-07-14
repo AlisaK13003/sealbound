@@ -15,7 +15,7 @@ var persistent_sell_inventory
 
 var tabs : Array[String]
 @export var is_player_selling: bool = false
-
+signal shop_closed
 @export_flags("Weapon", "Item", "Helmets", "Chestplate", "Boots", "Charms", "Valuables") var item_types_to_sell = 0
 
 @onready var weapon_stock_container = $Stock_Container/Weapons
@@ -49,9 +49,11 @@ func fully_reset():
 func update_money_total(old_money_count, differential):
 	$Label.text = str(old_money_count)
 	AudioManager.play_ui_sound(AudioManager.BUY_SELL_SOMETHING)
-	for i in range(differential * -1):
+	
+	for i in range(differential if differential > 0 else -1 * differential):
 		$Label.text = str(int($Label.text) + (-1 if differential < 0 else 1))
 		await get_tree().create_timer(0.01).timeout
+	$Label.text = str(GlobalCombatInformation.currency_held)
 
 func _update_item_description(with_item):
 	if with_item is Items:
@@ -174,3 +176,7 @@ func populate_shop_stock(stock):
 					charm_stock_container._add_node(thing)
 		elif thing is weapon:
 			weapon_stock_container._add_node(thing)
+
+
+func _on_button_pressed():
+	shop_closed.emit()

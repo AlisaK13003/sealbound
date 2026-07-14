@@ -1,9 +1,13 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://hhxs63x781s5"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_bms7a"]
+[ext_resource type="Resource" uid="uid://x035pcrm1a8q" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Cassian Skills/Corrosive_Shot.tres" id="2_ouqog"]
+[ext_resource type="Resource" uid="uid://cy2k08p1l4pjw" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Cassian Skills/Volatile Mixture.tres" id="3_r2tkb"]
+[ext_resource type="Resource" uid="uid://djwjyvcsdetmq" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Cassian Skills/Calculated Dost.tres" id="4_ccs0m"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_4nyv2"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_nmpqa"]
-[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="7_orxam"]
+[ext_resource type="Texture2D" uid="uid://bci72r7y43t48" path="res://assets/characters/cassian/cassian_portraits.png" id="6_yjsed"]
+[ext_resource type="SpriteFrames" uid="uid://dipb7dgwtec41" path="res://assets/characters/cassian/Cassian_Dungeon_Animations.tres" id="8_emvvf"]
 [ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="8_vc6yn"]
 [ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="9_iks7w"]
 [ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="10_sswh7"]
@@ -24,35 +28,6 @@ speed = 40
 luck = 5
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hnmxi"]
-load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4yw31"]
-atlas = SubResource("CompressedTexture2D_hnmxi")
-region = Rect2(50, 4, 42, 67)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qv10l"]
-load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hq8kc"]
-atlas = SubResource("CompressedTexture2D_qv10l")
-region = Rect2(98, 4, 42, 67)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7p5cp"]
-load_path = "res://.godot/imported/MCfemale_portraits.png-1d5ef67b89ed38643bed8c79ae4eea59.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rvkf"]
-atlas = SubResource("CompressedTexture2D_7p5cp")
-region = Rect2(146, 4, 42, 67)
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_bufki"]
-frames = 3
-frame_0/texture = SubResource("AtlasTexture_4yw31")
-frame_1/texture = SubResource("AtlasTexture_hq8kc")
-frame_1/duration = 1.0
-frame_2/texture = SubResource("AtlasTexture_8rvkf")
-frame_2/duration = 1.0
 
 [sub_resource type="Resource" id="Resource_7q5rk"]
 script = ExtResource("5_4nyv2")
@@ -77,15 +52,21 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 [resource]
 script = ExtResource("6_nmpqa")
 combatant_name = "Cassian"
-party_member_portrait = SubResource("AnimatedTexture_bufki")
+party_member_portrait = ExtResource("6_yjsed")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
 stored_equipment = SubResource("Resource_onp7b")
 stored_charm = ExtResource("9_iks7w")
 stored_boots = ExtResource("8_vc6yn")
 stored_chestplate = ExtResource("10_sswh7")
-sprite_frames = ExtResource("7_orxam")
+combatant_skills_ = Dictionary[ExtResource("1_bms7a"), bool]({
+ExtResource("2_ouqog"): true,
+ExtResource("3_r2tkb"): true,
+ExtResource("4_ccs0m"): true
+})
+sprite_frames = ExtResource("8_emvvf")
 idle_speed = 1.0
+death_speed = 1.0
 walk_speed = 0.7
 attack_speed = Array[float]([1.0, 1.5])
 sprite_scale = 0.007

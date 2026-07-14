@@ -79,7 +79,7 @@ var skills_enemies_have_used: int = 0
 var training: bool = false
 var testing: bool = false
 func _ready():
-	#setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
+	setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
 	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
@@ -749,6 +749,7 @@ func item_used(item_used: Items, item_index):
 	selecting_entity = false
 	await action_queue(action_sequence)
 	turn_ended.emit()
+	gui.action_hint_area.visible = false
 	
 func execute_items_fixed(item_used, acted_on_who):
 	var seq_task: Array[Callable] = []

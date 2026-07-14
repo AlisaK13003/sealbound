@@ -212,7 +212,7 @@ func await_purchase(item):
 			item.stack -= amount_purchased
 			for i in range(amount_purchased):
 				if item is equipment or item is weapon:
-					GlobalCombatInformation.equipment_added_to_list(item, true if item is weapon else false)
+					GlobalCombatInformation.add_equipment_to_list(item, true if item is weapon else false)
 				elif item is Items:
 					GlobalCombatInformation.add_item(item)
 		else:

@@ -32,6 +32,14 @@ func _ready():
 	if text_on_left_of_button:
 		$HBoxContainer/Label2.offset_left = -150
 		
+	visibility_changed.connect(on_vis_change)
+		
+func on_vis_change():
+	if visible:
+		set_process_input(true)
+	else:
+		set_process_input(false)
+		
 func play_noise():
 	if button_to_active == Global.key_options.CANCEL:
 		AudioManager.play_ui_sound(AudioManager.CANCEL_CLICK)
@@ -95,15 +103,33 @@ func get_key_name_for_action(action_name: String) -> String:
 	return "Unbound"
 
 func _input(_event):	
+	if AreaStateManager.currently_transitioning:
+		return
+	if _is_queued_for_deletion_recursive():
+		return
 	if get_viewport().is_input_handled():
 		return
 	if not is_visible_in_tree() or not is_inside_tree():
 		return
 	if Global.get_input_mapping(Global.keyboard_mouse_icon_mapping.keys()[button_to_active], _event) and is_inside_tree():
-		activated.emit()
 		get_viewport().set_input_as_handled()
+		activated.emit()
+
+func _is_queued_for_deletion_recursive() -> bool:
+	if is_queued_for_deletion():
+		return true
+	var parent = get_parent()
+	while parent:
+		if parent.is_queued_for_deletion():
+			return true
+		parent = parent.get_parent()
+	return false
 
 func _gui_input(event):
+	if AreaStateManager.currently_transitioning:
+		return
+	if _is_queued_for_deletion_recursive():
+		return
 	if not is_visible_in_tree():
 		return
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):

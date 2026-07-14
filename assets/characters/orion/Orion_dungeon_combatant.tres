@@ -2,8 +2,33 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_j7qan"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_6ldo4"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_yrwr2"]
+[ext_resource type="Texture2D" uid="uid://iovi8qgsw6fv" path="res://assets/characters/orion/orion_portraits.png" id="3_7bwxd"]
+[ext_resource type="SpriteFrames" uid="uid://crp2e8l3va520" path="res://assets/characters/orion/Orion_Dungeon_Animations.tres" id="5_8fhlr"]
+
+[sub_resource type="Resource" id="Resource_53ph1"]
+script = ExtResource("2_yrwr2")
+max_health = 334
+health = 167
+attack = 12
+defense = 121
+magic = 34
+resistance = 82
+crit_chance = 24
+crit_damage = 43
+speed = 28
+luck = 28
+evasion = 40
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("2_6ldo4")
 combatant_name = "Orion"
+party_member_portrait = ExtResource("3_7bwxd")
+combatant_stats = SubResource("Resource_53ph1")
+sprite_frames = ExtResource("5_8fhlr")
+idle_speed = 1.0
+death_speed = 1.0
+walk_speed = 1.0
+attack_speed = Array[float]([1.0, 1.0])
 metadata/_custom_type_script = "uid://125iickqse23"

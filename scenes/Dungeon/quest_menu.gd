@@ -67,6 +67,7 @@ func _ready():
 	visibility_changed.connect(_reset)
 	
 	for child in quest_container.get_children():
+		child.selection_updated.connect(tab_changed)
 		child._setup()
 		for child_ in child.get_children():
 			if child_ == null or child_.get_child_count() == 0:
@@ -156,8 +157,8 @@ func tab_changed(which_tab):
 			active_desc_container.get_child(child).visible = true
 			quest_container.get_child(0).current_item = child
 			quest_container.get_child(1).current_item = child
-			quest_container.get_child(0).update_selected_item()
-			quest_container.get_child(1).update_selected_item()
+			#quest_container.get_child(0).update_selected_item()
+			#quest_container.get_child(1).update_selected_item()
 			current_item = which_tab
 		else:
 			active_desc_container.get_child(child).visible = false
@@ -165,6 +166,12 @@ func tab_changed(which_tab):
 func quest_type_type_changed(which_tab):
 	current_item = 0
 	current_slot = 0
+
+	$Quest_Container/Panel.current_item = 0
+	$Quest_Container/Panel2.current_item = 0
+
+	$Quest_Container/Panel.update_selected_item()
+	$Quest_Container/Panel2.update_selected_item()
 
 	match which_tab:
 		0: # Active Quests
@@ -197,7 +204,7 @@ func quest_type_type_changed(which_tab):
 	scroll_bar.max_value = max(0, active_quest_container.get_child_count() - 6)
 	scroll_bar.value = 0
 	
-	update_selected_item()
+	#update_selected_item()
 
 
 func update_selected_item():

@@ -28,7 +28,7 @@ func _ready():
 # Upon player loading in, setup necessary information
 func _setup(what_child_am_i, parent):
 	slot_number = what_child_am_i
-	held_item = Global.village_inventory[what_child_am_i].duplicate(true) if Global.village_inventory[what_child_am_i] != null else null
+	#held_item = Global.village_inventory[what_child_am_i].duplicate(true) if Global.village_inventory[what_child_am_i] != null else null
 	if held_item != null:
 		holding_item = true
 		held_item.amount_held = Global.village_inventory[what_child_am_i].amount_held
@@ -74,24 +74,24 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 				return
 			if held_item != null:
 				node_parent.selected_item = slot_number
-				held_item.amount_held = Global.village_inventory[slot_number].amount_held
+				#held_item.amount_held = Global.village_inventory[slot_number].amount_held
 				node_parent.holding_item = held_item
-				Global.mouse_texture.texture = held_item.item_texture
-				Global.remove_from_inventory(slot_number)
+				#Global.mouse_texture.texture = held_item.item_texture
+				#Global.remove_from_inventory(slot_number)
 				empty_cell()
 	if event.is_action_pressed("Mouse_Right_Click"):
 		if node_parent.holding_item != null:
 			if held_item == null:
 				if node_parent.holding_item.amount_held == 1:
-					Global.added_just_one_item(node_parent.holding_item, slot_number)
-					Global.mouse_texture.texture = null
+					#Global.added_just_one_item(node_parent.holding_item, slot_number)
+					#Global.mouse_texture.texture = null
 					node_parent.holding_item = null
 					return
 				else:
 					node_parent.holding_item.amount_held -= 1
-					Global.added_just_one_item(node_parent.holding_item.duplicate(true), slot_number)
+					#Global.added_just_one_item(node_parent.holding_item.duplicate(true), slot_number)
 					if node_parent.holding_item.amount_held == 0:
-						Global.mouse_texture.texture = null
+						#Global.mouse_texture.texture = null
 						node_parent.holding_item = null
 					return
 			#if held_item.item_resource_path != node_parent.holding_item.item_resource_path or held_item.amount_held == held_item.stack_amount:

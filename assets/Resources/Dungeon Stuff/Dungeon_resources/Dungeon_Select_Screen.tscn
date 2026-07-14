@@ -70,12 +70,16 @@ theme_override_constants/separation = 363
 [node name="GenericButton2" parent="CanvasLayer/HBoxContainer2" unique_id=1503599191 instance=ExtResource("4_rw4us")]
 layout_mode = 2
 button_name = "Return to Hearthwynn"
+disabled_ = false
 button_to_active = 5
+text_on_left_of_button = false
 
 [node name="GenericButton" parent="CanvasLayer/HBoxContainer2" unique_id=766834764 instance=ExtResource("4_rw4us")]
 layout_mode = 2
 button_name = "Travel to Dungeon"
+disabled_ = false
 button_to_active = 4
+text_on_left_of_button = false
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1479204639]
 layout_mode = 0

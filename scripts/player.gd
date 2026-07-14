@@ -14,6 +14,9 @@ var in_menu : bool = false
 @export var male_idle_texture: Texture2D = preload("res://assets/characters/player/male_idle.png")
 @export var male_walk_texture: Texture2D = preload("res://assets/characters/player/male_walk.png")
 
+@export var male_sprite_frames: SpriteFrames
+@export var female_sprite_frames: SpriteFrames
+
 @export var walking_on_dirt: Array[AudioStream]
 @export var walking_on_sand_gravel: Array[AudioStream]
 @export var walking_on_stone: Array[AudioStream]

@@ -18,7 +18,7 @@ func _setup(thing):
 		item_sprite.texture = thing.item_sprite
 		count.text = str(thing.stack)
 		what_am_i = thing
-		
+
 func highlight(selected):
 	if selected:
 		$TextureRect2.visible = true
@@ -28,7 +28,9 @@ func highlight(selected):
 		$Background/NinePatchRect.modulate = Color.WHITE
 
 func was_hovered():
-	pass
+	return
+	$TextureRect2.visible = true
+	$Background/NinePatchRect.modulate = Color.BEIGE
 
 func _on_gui_input(event):
 	return
