@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cw2kwy7c22qh7"]
 
 [ext_resource type="Script" uid="uid://dif2asb4yaqcb" path="res://scripts/player.gd" id="1_2hlsy"]
+[ext_resource type="SpriteFrames" uid="uid://b7aeudu53hdro" path="res://assets/characters/player/MMC_Dungeon_Animations.tres" id="2_buet6"]
 [ext_resource type="AudioStream" uid="uid://brs0d2a5y1jb4" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 6.ogg" id="2_fj35x"]
-[ext_resource type="Texture2D" uid="uid://but2qc21w7p6x" path="res://assets/characters/player/female_idle.png" id="2_riacy"]
 [ext_resource type="PackedScene" uid="uid://d2uwb21vjxvyl" path="res://assets/Resources/Pause Menu/Pause_Menu.tscn" id="2_tpytq"]
 [ext_resource type="Script" uid="uid://b65vy44at32r8" path="res://assets/Scripts/day_tracker.gd" id="3_2gs60"]
-[ext_resource type="Texture2D" uid="uid://d1rlbttsh3lkd" path="res://assets/characters/player/female_walk.png" id="3_q2ck2"]
+[ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="3_ter5l"]
 [ext_resource type="AudioStream" uid="uid://dqr7qn8236u36" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 5.ogg" id="3_tp8rc"]
 [ext_resource type="AudioStream" uid="uid://dj5yby61rr7he" path="res://assets/Audio/Tile_SFX/Grass/Footstep Grass 4.ogg" id="4_buet6"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="5_2idcg"]
@@ -31,120 +31,6 @@
 radius = 8.0
 height = 20.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u2d4w"]
-atlas = ExtResource("2_riacy")
-region = Rect2(0, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nsfi6"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(0, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2idcg"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(192, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0f7gw"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(384, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0r2ug"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(576, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wwhpq"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(1536, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5d4y1"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(1728, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ov6ka"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(1920, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4vh7"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(2112, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mrsny"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(768, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tmp5k"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(960, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hv5p7"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(1152, 0, 192, 288)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2m6ln"]
-atlas = ExtResource("3_q2ck2")
-region = Rect2(1344, 0, 192, 288)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_tmp5k"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u2d4w")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nsfi6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2idcg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0f7gw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0r2ug")
-}],
-"loop": 1,
-"name": &"walk_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wwhpq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5d4y1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ov6ka")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i4vh7")
-}],
-"loop": 1,
-"name": &"walk_side",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mrsny")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tmp5k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hv5p7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2m6ln")
-}],
-"loop": 1,
-"name": &"walk_up",
-"speed": 7.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3y00o"]
 size = Vector2(84, 152)
 
@@ -154,6 +40,8 @@ z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_2hlsy")
 move_speed = 150.0
+male_sprite_frames = ExtResource("2_buet6")
+female_sprite_frames = ExtResource("3_ter5l")
 walking_on_dirt = Array[AudioStream]([ExtResource("2_fj35x"), ExtResource("3_tp8rc"), ExtResource("4_buet6"), ExtResource("5_ter5l"), ExtResource("6_a3j67"), ExtResource("7_pwv13")])
 walking_on_sand_gravel = Array[AudioStream]([ExtResource("8_i3jui"), ExtResource("9_s7rwl"), ExtResource("10_si5i2"), ExtResource("11_w3uhr"), ExtResource("12_15a76")])
 walking_on_stone = Array[AudioStream]([ExtResource("13_r2ufn"), ExtResource("14_dve5e"), ExtResource("15_ntp18"), ExtResource("16_s602h")])
@@ -172,12 +60,10 @@ scale = Vector2(0.5, 0.5)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1076860614]
 texture_filter = 1
 position = Vector2(0, 3)
-scale = Vector2(0.135, 0.135)
-sprite_frames = SubResource("SpriteFrames_tmp5k")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.8544937
-offset = Vector2(0, -120)
+scale = Vector2(0.85, 0.85)
+sprite_frames = ExtResource("3_ter5l")
+animation = &"On_Death"
+offset = Vector2(1, -24)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 position = Vector2(0, 3)

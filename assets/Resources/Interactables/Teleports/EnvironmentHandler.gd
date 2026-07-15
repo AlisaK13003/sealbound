@@ -8,15 +8,14 @@ const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd"
 
 var player_node
 
-func _ready():
-	AudioManager.play_bgm(bgm)
-
 func swap_to_me():
 	player_node = get_tree().get_first_node_in_group("Overworld_Player")
 	print(player_node)
 	var entry_loading_zone: String = Global.current_loading_zone
 	var should_start_entry_cutscene := Global.should_start_lyra_tavern_cutscene(entry_loading_zone)
 	teleport_player_to_spawn()
+	AudioManager.play_bgm(bgm, true)
+
 	if should_start_entry_cutscene:
 		prepare_lyra_tavern_cutscene()
 	set_camera_limits()
@@ -28,8 +27,7 @@ func swap_to_me():
 	await Fade.fade_out(0.5)
 	if should_start_entry_cutscene:
 		start_lyra_tavern_cutscene()
-	AudioManager.play_bgm(bgm, true)
-
+	
 func teleport_player_to_spawn():
 	if player_node == null:
 		return

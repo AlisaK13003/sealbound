@@ -126,7 +126,6 @@ var play_time_seconds: int
 var play_time_minutes: int
 var play_time_hours: int
 
-# This variable could be replaced with a check based on seconds in the day
 var am_or_pm: bool
 var current_day: int = 0
 var current_year: int = 0
@@ -180,6 +179,7 @@ func _physics_process(delta):
 		update_time()
 		running_time = 0
 
+signal player_passed_out
 func update_time():
 	play_time_seconds += 1
 	seconds_since_day_started += 1
@@ -224,7 +224,7 @@ func player_advanced_day(did_they_pass_out):
 	_save_to_slot()
 	if did_they_pass_out:
 		spawn_location = null
-	day_passed.emit()
+	day_passed.emit(did_they_pass_out)
 
 func debug_skip_day() -> void:
 	player_advanced_day(false)
@@ -232,7 +232,7 @@ func debug_skip_day() -> void:
 
 func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
 	record_previous_time()
-	current_minute += minutes
+	current_minute += 60
 	while current_minute >= 60:
 		current_minute -= 60
 		current_hour += 1

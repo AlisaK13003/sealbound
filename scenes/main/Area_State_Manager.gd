@@ -70,12 +70,17 @@ func _perform_swap_scene(scene_to_remove = null):
 		_:
 			scene_to_swap_to = hearthwynn_instance 
 	
-	get_tree().root.add_child(scene_to_swap_to)
+	if scene_to_swap_to.get_parent() != get_tree().root:
+		if scene_to_swap_to.get_parent() != null:
+			scene_to_swap_to.get_parent().remove_child(scene_to_swap_to)
+		get_tree().root.add_child(scene_to_swap_to)
+	
 	get_tree().current_scene = scene_to_swap_to
-	if player_instance.get_parent() != null:
-		player_instance.get_parent().remove_child(player_instance)
 
-	get_tree().current_scene.add_child(player_instance)
+	if player_instance.get_parent() != scene_to_swap_to:
+		if player_instance.get_parent() != null:
+			player_instance.get_parent().remove_child(player_instance)
+		scene_to_swap_to.add_child(player_instance)
 		
 	if Global.current_region == "Buildings_Insides":
 		player_instance.move_speed = 250.0
@@ -85,8 +90,6 @@ func _perform_swap_scene(scene_to_remove = null):
 		player_instance.scale = Vector2(1.0, 1.0)
 		
 	scene_to_swap_to.swap_to_me()
-	AudioManager.stop_bgm()
-
 
 	await get_tree().physics_frame
 	await get_tree().physics_frame

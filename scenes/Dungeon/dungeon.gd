@@ -142,8 +142,9 @@ func hide():
 	gui.get_child(0).visible = false
 
 func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss: bool):
-	#Fade.fade_thing.visible = false
-	#Fade.fade_thing_2.visible = false
+	for person in GlobalCombatInformation.active_party_slots:
+		person.gather_actual_stats()
+
 	gui.call_deferred("hide_gui", false)
 	Fade.fade_out(0.0)
 	self.current_dungeon_run = current_dungeon_type
@@ -158,7 +159,7 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 			child.visible = false
 			
 	gui._setup(self)
-
+	
 	gui.get_player_portrait(0)._setup(GlobalCombatInformation.active_party_slots[0])
 	slot_1.setup(GlobalCombatInformation.active_party_slots[0], self, 0)
 	all_combatants.append(slot_1)
@@ -1272,12 +1273,12 @@ func execute_player_auto_turn(player_to_act, _turn_number, testing):
 			if not enemy.visible or enemy.stored_combatant.is_dead:
 				continue
 			if action == 0:
-				var new_action = await player_weighting.new(enemy_shit, player_container, attacking_player, enemy)
+				var new_action = player_weighting.new(enemy_shit, player_container, attacking_player, enemy)
 				possible_player_actions.append(new_action)
 			elif attacking_player.stored_combatant.combatant_skills[action - 1].is_skill_aoe and enemy.get_index() > 0:
 				continue
 			else:
-				var new_action = await player_weighting.new(enemy_shit, player_container, attacking_player, enemy, true, attacking_player.stored_combatant.combatant_skills[action - 1])
+				var new_action = player_weighting.new(enemy_shit, player_container, attacking_player, enemy, true, attacking_player.stored_combatant.combatant_skills[action - 1])
 				possible_player_actions.append(new_action)
 				
 		if action != 0:
@@ -1289,7 +1290,7 @@ func execute_player_auto_turn(player_to_act, _turn_number, testing):
 					continue
 				if attacking_player.stored_combatant.combatant_skills[action - 1].is_skill_aoe and player.get_index() > 0:
 					continue
-				var new_action = await player_weighting.new(enemy_shit, player_container, attacking_player, player, false, attacking_player.stored_combatant.combatant_skills[action - 1])
+				var new_action = player_weighting.new(enemy_shit, player_container, attacking_player, player, false, attacking_player.stored_combatant.combatant_skills[action - 1])
 				possible_player_actions.append(new_action)
 
 	var finalized_player_actions: Array[player_weighting] = []

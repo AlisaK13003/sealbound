@@ -43,6 +43,7 @@ func _ready() -> void:
 	_setup_menu_arrow()
 	_show_main_menu()
 	Global.time_paused = true
+	AudioManager.play_bgm(load("res://assets/Audio/BGM/Week 18 - Distant Skyline CITY LIGHTS.ogg"))
 
 
 func _on_button_pressed() -> void:

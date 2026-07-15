@@ -42,6 +42,9 @@ func _reset():
 	menu_tab.cycle_input(null, -10)
 	tab_changed(0)
 
+func update_fsm():
+	mini_map.center_fullscreen_around_tile(windows.get_child(0).current_player_room_coords)
+
 func tab_changed(which_tab):
 	if not Global.is_paused:
 		return

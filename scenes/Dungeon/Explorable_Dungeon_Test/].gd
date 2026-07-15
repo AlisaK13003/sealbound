@@ -49,6 +49,7 @@ func _input(event):
 			Global.menu_opened.emit()
 			Global.is_paused = true
 			pause_menu.visible = true
+			pause_menu.update_fsm()
 			get_tree().paused = true
 			get_viewport().set_input_as_handled()
 		else:

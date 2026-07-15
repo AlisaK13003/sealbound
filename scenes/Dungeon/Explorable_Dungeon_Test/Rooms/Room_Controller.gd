@@ -72,6 +72,10 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, spawn
 	elif room_classification == 8:
 		if quest_type != null:
 			$SpinningSprite._setup(quest_type)
+			var clutter = get_node_or_null("Clutter")
+			if clutter != null: clutter.queue_free()
+		else:
+			$SpinningSprite.queue_free()
 	elif room_classification == 9:
 		$SpinningSprite._setup()
 	
@@ -89,6 +93,7 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, spawn
 			floor_panel.visible = true
 		else:
 			floor_panel.visible = false
+			floor_panel.queue_free()
 		
 	for child in wall_children:
 		child._setup(p_ref.current_dungeon.type_of_dungeon, p_ref.player.camera_pivot.rotation_degrees.y, self.rotation_degrees.y)
@@ -150,7 +155,8 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, spawn
 					pass
 				5:
 					pass
-	
+		else:
+			clutter.queue_free()
 	#if has_pillars:
 	#	for pillar in $Pillars.get_children():
 	#		if pillar.get_index() == p_ref.current_dungeon.type_of_dungeon - 1:

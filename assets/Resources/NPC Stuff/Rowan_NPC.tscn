@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_q6rq3"]
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="3_1gx6e"]
-[ext_resource type="Script" uid="uid://dhqvej4044swv" path="res://assets/Scripts/Resource Scripts/shop_controller.gd" id="4_bd4on"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_4xdjx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
@@ -152,20 +151,17 @@ position = Vector2(0, -74.665)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=1695977954]
 shape = SubResource("CircleShape2D_ilmyp")
 
-[node name="ShopController" type="Node2D" parent="." unique_id=827537280]
-position = Vector2(0, -74.665)
-scale = Vector2(0.5, 0.5)
-script = ExtResource("4_bd4on")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1386862115]
 
-[node name="ShopInterface" parent="ShopController" unique_id=1487542661 instance=ExtResource("5_4xdjx")]
+[node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 instance=ExtResource("5_4xdjx")]
 visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 290.0
-offset_top = 144.0
-offset_right = 290.0
-offset_bottom = 144.0
+offset_left = 145.0
+offset_top = -2.665001
+offset_right = 145.0
+offset_bottom = -2.665001
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.5636769, 0.5636769)

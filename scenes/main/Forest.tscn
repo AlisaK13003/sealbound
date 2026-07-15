@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_b841q"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="2_f2gc6"]
+[ext_resource type="AudioStream" uid="uid://dphb4jspo44e0" path="res://assets/Audio/BGM/Week 16 - Vacation Day ADVENTURE.ogg" id="2_rld5i"]
 [ext_resource type="Texture2D" uid="uid://dtdnwj17184h" path="res://assets/tile sheets/Darker foliage.png" id="4_1uopn"]
 [ext_resource type="Texture2D" uid="uid://dj0n3w27hkd4l" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet-sheet-sheet-sheet.png" id="5_1uopn"]
 [ext_resource type="Texture2D" uid="uid://de3hjxptpnepq" path="res://assets/Potion_Shop (1).png" id="6_rld5i"]
@@ -624,6 +625,7 @@ sources/2 = SubResource("TileSetAtlasSource_xsjiv")
 [node name="TestForestLeft" type="Node2D" unique_id=1563172430]
 y_sort_enabled = true
 script = ExtResource("1_b841q")
+bgm = ExtResource("2_rld5i")
 
 [node name="Left Side" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
 z_index = 2
@@ -634,10 +636,10 @@ position = Vector2(-195, 1543)
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 
 [node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=867972228]
-position = Vector2(-12, -0.8511963)
+position = Vector2(-365, 831)
 
 [node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=1450480538]
-position = Vector2(1780, 831.1488)
+position = Vector2(1427, 1663)
 
 [node name="Apothecary Building" type="Sprite2D" parent="." unique_id=649060307]
 y_sort_enabled = true
