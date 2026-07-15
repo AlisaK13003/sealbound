@@ -4,6 +4,22 @@ extends RefCounted
 var facing_left: bool = false
 var facing_direction: StringName = &"down"
 
+func face(sprite: AnimatedSprite2D, direction: StringName) -> void:
+	match direction:
+		&"down":
+			facing_direction = &"down"
+		&"up":
+			facing_direction = &"up"
+		&"left":
+			facing_direction = &"side"
+			facing_left = true
+		&"right":
+			facing_direction = &"side"
+			facing_left = false
+		_:
+			return
+	_play_idle_for_facing(sprite)
+
 func sync(sprite: AnimatedSprite2D, motion: Vector2) -> void:
 	if sprite == null or sprite.sprite_frames == null:
 		return

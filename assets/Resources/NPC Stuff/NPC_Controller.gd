@@ -15,7 +15,7 @@ var pending_choice_action: String = ""
 
 var current_location
 const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
-const PLAYER_VISUAL_SPRITE_SCALE := Vector2(0.135, 0.135)
+var current_destination = null
 
 @onready var clickable_area : Area2D = $NPC_Clickable
 @onready var check_player_in_range: Area2D = $Player_In_Range
@@ -32,7 +32,6 @@ const PLAYER_VISUAL_SPRITE_SCALE := Vector2(0.135, 0.135)
 @export var counter_z_index: int = 0
 @export var counter_draw_order_y: float = -720.0
 @export var use_counter_draw_order: bool = false
-@export var match_player_visual_scale: bool = true
 
 var schedule_info
 var loaded_schedule_day: int = -1
@@ -44,7 +43,6 @@ var cutscene_restore_state: Dictionary = {}
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
-	normalize_to_player_visual_scale()
 	if shop_controller != null:
 		shop_controller.shop_closed.connect(close_shop)
 	Global.time_updated.connect(navigate)
@@ -70,19 +68,6 @@ func _ready():
 	navigate.call_deferred()
 
 
-func normalize_to_player_visual_scale() -> void:
-	if not match_player_visual_scale:
-		return
-	if animated_sprite == null:
-		return
-	if is_zero_approx(animated_sprite.scale.x) or is_zero_approx(animated_sprite.scale.y):
-		return
-	scale = Vector2(
-		PLAYER_VISUAL_SPRITE_SCALE.x / abs(animated_sprite.scale.x),
-		PLAYER_VISUAL_SPRITE_SCALE.y / abs(animated_sprite.scale.y)
-	)
-
-
 # If there is no schedule to execute, or if player is talking, do nothing
 # If player stopped talking, wait 3 seconds till they start going again 
 # Otherwise have the npc move towards their destination
@@ -93,6 +78,7 @@ func _process(delta):
 		return
 	if path_nodes.is_empty():
 		walking = false
+		apply_location_facing(current_destination)
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		if leaving_scene:
 			self.visible = false
@@ -120,6 +106,8 @@ func _process(delta):
 	if global_position.distance_to(current_target) < 0.1:
 		global_position = current_target
 		path_nodes.pop_front() 
+		if path_nodes.is_empty():
+			apply_location_facing(current_destination)
 
 func update_schedule_draw_order() -> void:
 	if not use_counter_draw_order:
@@ -278,6 +266,7 @@ func catch_up_to_scene_schedule(path: String) -> void:
 func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
 	if not ensure_location_container():
 		return
+	current_destination = details["end_location"]
 	var travel_minutes = max(1, int(details.get("travel_minutes", DEFAULT_SCHEDULE_TRAVEL_MINUTES)))
 	var path_ids = location_container.get_path_between(details["start_location"], details["end_location"])
 	if path_ids.is_empty():
@@ -366,6 +355,7 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 func set_path(start_point, end_point, snap_to_start: bool = false):
 	if not ensure_location_container():
 		return
+	current_destination = end_point
 	var path_ids = location_container.get_path_between(start_point, end_point)
 	var start_index = location_container.get_location_index(start_point)
 	path_nodes.clear()
@@ -386,6 +376,24 @@ func place_at_location(location):
 		return
 	var target_node = location_container.get_child(location_index)
 	self.position = target_node.location_position[2]
+	current_destination = location
+	apply_location_facing(location)
+
+func apply_location_facing(location) -> void:
+	if location == null or animated_sprite == null:
+		return
+	if not ensure_location_container():
+		return
+	var location_index = location_container.get_location_index(location)
+	if location_index < 0 or location_index >= location_container.get_child_count():
+		return
+	var target_node = location_container.get_child(location_index)
+	if not target_node.has_method("get_arrival_facing"):
+		return
+	var arrival_facing = str(target_node.get_arrival_facing())
+	if arrival_facing.is_empty() or arrival_facing == "none":
+		return
+	animation_driver.face(animated_sprite, StringName(arrival_facing))
 
 func pin_to_location_for_cutscene(location) -> void:
 	if schedule_paused_for_cutscene:

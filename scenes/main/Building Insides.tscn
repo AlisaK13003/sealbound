@@ -8190,6 +8190,7 @@ connected_node_names = ["Tavern_Counter", "Tavern_Path4"]
 
 [node name="Tavern_Counter" parent="BuildingLocationContainer" unique_id=2065408732 instance=ExtResource("3_24omh")]
 position = Vector2(1730, -744)
+arrival_facing = "down"
 connected_node_names = ["Tavern_Path5"]
 "Connected To" = ["Tavern_Path5"]
 
