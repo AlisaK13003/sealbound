@@ -6,6 +6,7 @@ extends Node2D
 @onready var matrix_index: int = self.get_index()
 @export var connected_to_places: Array[int]
 @export var template_sprite: Texture2D
+@export_enum("none", "down", "up", "left", "right") var arrival_facing: String = "none"
 @onready var spriteNode: Sprite2D = $Sprite2D
 @onready var labelNode: Label = $Label
 
@@ -17,6 +18,9 @@ extends Node2D
 
 func _ready():
 	spriteNode.texture = template_sprite
+
+func get_arrival_facing() -> String:
+	return arrival_facing
 
 func get_sibling_names_string() -> String:
 	var names = []

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dm61ohpbv70c2"]
+
+[node name="PartyAttackCutscene" type="Node2D" unique_id=1155587204]
+
+[node name="ScreenRoot" type="Control" parent="." unique_id=211805]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backgrounds" type="Control" parent="ScreenRoot" unique_id=1413271881]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreepyDungeon" type="TextureRect" parent="ScreenRoot/Backgrounds" unique_id=770392643]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ForestDungeon" type="TextureRect" parent="ScreenRoot/Backgrounds" unique_id=784573047]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DarkOverlay" type="ColorRect" parent="ScreenRoot" unique_id=1793917803]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FlashOverlay" type="ColorRect" parent="ScreenRoot" unique_id=554546090]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ActorLayer" type="Node2D" parent="ScreenRoot" unique_id=684457614]
+
+[node name="PartySlot1" type="AnimatedSprite2D" parent="ScreenRoot/ActorLayer" unique_id=1786690829]
+
+[node name="PartySlot2" type="AnimatedSprite2D" parent="ScreenRoot/ActorLayer" unique_id=1690263163]
+
+[node name="PartySlot3" type="AnimatedSprite2D" parent="ScreenRoot/ActorLayer" unique_id=1860919156]
+
+[node name="EnemyTargetAnchor" type="Marker2D" parent="ScreenRoot/ActorLayer" unique_id=157487690]
+
+[node name="EffectsLayer" type="Node2D" parent="ScreenRoot" unique_id=405574313]
+
+[node name="SlashEffect" type="AnimatedSprite2D" parent="ScreenRoot/EffectsLayer" unique_id=377527704]
+
+[node name="ImpactEffect" type="AnimatedSprite2D" parent="ScreenRoot/EffectsLayer" unique_id=552660813]
+
+[node name="TextLayer" type="Control" parent="ScreenRoot" unique_id=1480317504]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AttackNamePanel" type="NinePatchRect" parent="ScreenRoot/TextLayer" unique_id=562507308]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AttackNameLabel" type="Label" parent="ScreenRoot/TextLayer/AttackNamePanel" unique_id=1926466417]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenRoot" unique_id=343061755]
