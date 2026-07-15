@@ -153,9 +153,13 @@ texture = ExtResource("5_1uopn")
 22:4/0 = 0
 23:4/0 = 0
 24:4/0 = 0
+24:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.242882, 0.09892082, -0.89030075, -4.1547375, 2.6709023, -7.122406, 8, -8, 8, -5.3418045, 3.165514, -5.2428827, -2.769825, -0.49461174, -2.769825, 8, -4.9461155, 8)
 25:4/0 = 0
+25:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6.5288725, 8, -6.4299498, 8, -4.6493483, 8, -4.2536592, -8, -4.2536592)
 26:4/0 = 0
+26:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6.5288725, 8, -6.4299498, 8, -4.6493483, 8, -4.2536592, -8, -4.2536592)
 27:4/0 = 0
+27:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.791378, -6.2321053, 4.1547375, -0.89030075, 7.122406, 2.6709023, 8, 8, 5.3418045, 8, 5.2428827, 3.165514, -1.7806015, -4.352582, -8, -4.9461155, -8, -6.4299498)
 28:4/0 = 0
 29:4/0 = 0
 30:4/0 = 0
@@ -184,9 +188,11 @@ texture = ExtResource("5_1uopn")
 22:5/0 = 0
 23:5/0 = 0
 24:5/0 = 0
+24:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.8364153, 8, -5.4407263, -8, -3.3633575, -8, -3.561203, -8, -3.4622803, 8)
 25:5/0 = 0
 26:5/0 = 0
 27:5/0 = 0
+27:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(5.8364153, 8, 6.331026, -8, 4.4515038, -8, 5.143959, -8, 4.352581, 8)
 28:5/0 = 0
 29:5/0 = 0
 30:5/0 = 0
@@ -215,9 +221,11 @@ texture = ExtResource("5_1uopn")
 22:6/0 = 0
 23:6/0 = 0
 24:6/0 = 0
+24:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.8364153, 8, -5.4407263, -8, -3.3633575, -8, -3.561203, -8, -3.4622803, 8)
 25:6/0 = 0
 26:6/0 = 0
 27:6/0 = 0
+27:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(5.8364153, 8, 5.4407263, -8, 3.3633575, -8, 3.561203, -8, 3.4622803, 8)
 28:6/0 = 0
 29:6/0 = 0
 30:6/0 = 0
@@ -588,15 +596,19 @@ texture = ExtResource("4_1uopn")
 0:0/size_in_atlas = Vector2i(7, 7)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(17, 45)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6.5288725, 5.440727, 0.29676628, -8, 6.331026, -20.67476, -0.6924572)
 7:0/size_in_atlas = Vector2i(7, 7)
 7:0/0 = 0
 7:0/0/texture_origin = Vector2i(17, 45)
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6.5288725, 5.440727, 0.29676628, -8, 6.331026, -20.67476, -0.6924572)
 15:0/size_in_atlas = Vector2i(3, 2)
 15:0/0 = 0
 15:0/0/texture_origin = Vector2i(0, 11)
+15:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 5.539648, 2.8687458, -4.74827, 1.582756)
 15:2/size_in_atlas = Vector2i(3, 2)
 15:2/0 = 0
 15:2/0/texture_origin = Vector2i(0, 11)
+15:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 5.539648, 2.8687458, -4.74827, 1.582756)
 16:4/size_in_atlas = Vector2i(2, 2)
 16:4/0 = 0
 17:6/0 = 0
@@ -613,11 +625,14 @@ texture = ExtResource("4_1uopn")
 11:8/size_in_atlas = Vector2i(3, 5)
 11:8/0 = 0
 11:8/0/texture_origin = Vector2i(0, 31)
+11:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.9245605, -8.804085, -0.395689, -12.167443, 3.8579693, -12.4642105, 6.2321053, -7.122406, 8, 3.3633575, 2.1762905, 4.9461136, -6.331027, 4.1547356, -10.584686, 1.582756)
 8:7/size_in_atlas = Vector2i(3, 4)
 8:7/0 = 0
 8:7/0/texture_origin = Vector2i(0, 22)
+8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.6277943, -4.4515038, -0.49461174, -9.100852, 5.242882, -4.2536592, 8, 3.3633575, 2.1762905, 4.9461136, -6.331027, 4.1547356, -10.584686, 1.582756)
 
 [sub_resource type="TileSet" id="TileSet_fqaix"]
+physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_rld5i")
 sources/2 = SubResource("TileSetAtlasSource_xsjiv")
 
@@ -634,10 +649,10 @@ position = Vector2(-195, 1543)
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 
 [node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=867972228]
-position = Vector2(-12, -0.8511963)
+position = Vector2(-365, 831)
 
 [node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=1450480538]
-position = Vector2(1780, 831.1488)
+position = Vector2(1426, 1663)
 
 [node name="Apothecary Building" type="Sprite2D" parent="." unique_id=649060307]
 y_sort_enabled = true

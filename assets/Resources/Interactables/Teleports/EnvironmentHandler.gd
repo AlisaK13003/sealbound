@@ -1,6 +1,7 @@
 extends Node2D
 
 const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
+const BORDER_THICKNESS := 64.0
 
 @export var is_building_insides: bool = false
 
@@ -96,6 +97,35 @@ func restore_cutscene_actor(actor: Node) -> void:
 	if is_instance_valid(actor) and actor.has_method("restore_after_cutscene"):
 		actor.restore_after_cutscene()
 
+func build_world_border(top_left: Vector2, bottom_right: Vector2) -> void:
+	if has_node("WorldBorder"):
+		return  # scene instances are reused; build once per session
+	var border := StaticBody2D.new()
+	border.name = "WorldBorder"
+	border.top_level = true  # use global coords, ignore any root rotation (Cliff has one)
+	add_child(border)
+
+	var w := bottom_right.x - top_left.x
+	var h := bottom_right.y - top_left.y
+	var cx := (top_left.x + bottom_right.x) * 0.5
+	var cy := (top_left.y + bottom_right.y) * 0.5
+	var t := BORDER_THICKNESS
+
+	# [center, size] per edge; top/bottom overhang by 2t to seal the corners
+	var edges := [
+		[Vector2(cx, top_left.y - t * 0.5), Vector2(w + t * 2.0, t)],      # top
+		[Vector2(cx, bottom_right.y + t * 0.5), Vector2(w + t * 2.0, t)],  # bottom
+		[Vector2(top_left.x - t * 0.5, cy), Vector2(t, h)],                # left
+		[Vector2(bottom_right.x + t * 0.5, cy), Vector2(t, h)],           # right
+	]
+	for edge in edges:
+		var shape := RectangleShape2D.new()
+		shape.size = edge[1]
+		var col := CollisionShape2D.new()
+		col.shape = shape
+		col.position = edge[0]
+		border.add_child(col)
+		
 func find_loading_zone_spawn(loading_zone_name: String) -> Node2D:
 	var named_node = find_child(loading_zone_name, true, false)
 	if named_node != null:
@@ -123,11 +153,11 @@ func is_loading_zone_node(node: Node) -> bool:
 
 func set_camera_limits():
 	var camera := get_node_or_null("UniversalCamera") as Camera2D
-	camera.target = player_node
 	if camera == null:
 		push_warning("EnvironmentHandler: Player camera was not found in %s." % scene_file_path)
 		return
-
+		
+	camera.target = player_node
 	var camera_bounds := get_camera_bounds_node()
 	if camera_bounds == null:
 		return
@@ -144,6 +174,7 @@ func set_camera_limits():
 	camera.limit_right = bottom_right_bounds.x
 	camera.limit_top = upper_left_bounds.y
 	camera.limit_bottom = bottom_right_bounds.y
+	build_world_border(upper_left_bounds, bottom_right_bounds)
 func get_camera_bounds_node() -> Node2D:
 	if not is_building_insides:
 		var overworld_bounds := get_node_or_null("Camera Bounds") as Node2D
