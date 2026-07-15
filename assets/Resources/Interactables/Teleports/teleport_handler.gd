@@ -5,6 +5,8 @@ extends Node
 
 @export var disable_teleport: bool = false
 
+@export var confirmation_before_teleport: bool = false
+
 @export var location_data: Dictionary = {
 	"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"],
 	"Forest": ["Apothecary", "Left Side"],
@@ -23,6 +25,14 @@ var _target_spot: String = ""
 
 func _enter_tree():
 	is_disabled = false
+
+func _ready():
+	if not confirmation_before_teleport:
+		$Area2D2.queue_free()
+		$GenericButton.queue_free()
+	else:
+		$Area2D.queue_free()
+		$GenericButton.activated.connect(_on_area_2d_body_entered)
 
 func _set(property, value):
 	match property:
@@ -96,24 +106,37 @@ func _get_property_list():
 
 var is_disabled: bool = false
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(body = null):
 	if disable_teleport:
 		return
-		
-	if body.is_in_group("Overworld_Player") and not is_disabled:
-		if AreaStateManager.currently_transitioning:
-			is_disabled = true
-		if not is_disabled:
-			is_disabled = true 
-			
-			AreaStateManager.currently_transitioning = true
-			Global.current_loading_zone = _target_spot
-			Global.current_location = _target_region
-			Global.current_region = _target_region
+	if body == null:
+		AreaStateManager.currently_transitioning = true
+		Global.current_loading_zone = _target_spot
+		Global.current_location = _target_region
+		Global.current_region = _target_region
 
-			await Fade.fade_in(1.0)
-			AreaStateManager.swap_scene()
+		await Fade.fade_in(1.0)
+		AreaStateManager.swap_scene()
+	elif body.is_in_group("Overworld_Player") :
+		AreaStateManager.currently_transitioning = true
+		Global.current_loading_zone = _target_spot
+		Global.current_location = _target_region
+		Global.current_region = _target_region
+
+		await Fade.fade_in(1.0)
+		AreaStateManager.swap_scene()
 		
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("Overworld_Player"):
 		is_disabled = false
+
+var player_in_range: bool = false
+func _on_area_2d_2_body_entered(body):
+	if body.is_in_group("Overworld_Player"):
+		player_in_range = true
+		$GenericButton.visible = true
+		
+func _on_area_2d_2_body_exited(body):
+	if body.is_in_group("Overworld_Player"):
+		player_in_range = true
+		$GenericButton.visible = false

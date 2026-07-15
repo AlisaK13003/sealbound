@@ -507,6 +507,13 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	
 	for player: generic_combatants in active_party_slots:
 		player.add_experience(int(float(experience_gained) / (active_party_slots.size() - 1)))
+	
+	for player: generic_combatants in active_party_slots:
+		var index = all_party_slots.find_custom(func(person: generic_combatants): return player.combatant_name == person.combatant_name)
+		if index != -1:
+			all_party_slots[index] = player.duplicate()
+			all_party_slots[index].gather_actual_stats()
+		
 	currency_held += coins_gained
 	check_quest_progress.emit()
 
@@ -680,7 +687,6 @@ func export_to_JSON():
 
 	for item_ in range(all_held_items.size()):
 		item_slots["slot_" + str(item_)] = all_held_items[item_].export_to_JSON()
-		print(item_slots["slot_" + str(item_)])
 
 	for quest_ in range(active_quests.size()):
 		active_quest_slots["quest_" + str(quest_)] = {"path": active_quests[quest_].resource_path}

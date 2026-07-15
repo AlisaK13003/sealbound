@@ -404,8 +404,10 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	if not did_players_win:
 		await gui.play_game_over()
 	party_slot_1 = get_player(0).stored_combatant.duplicate()
-	party_slot_2 = get_player(1).stored_combatant.duplicate()
-	party_slot_3 = get_player(2).stored_combatant.duplicate()
+	if get_player(1).stored_combatant != null:
+		party_slot_2 = get_player(1).stored_combatant.duplicate()
+	if get_player(2).stored_combatant != null:
+		party_slot_3 = get_player(2).stored_combatant.duplicate()
 			
 	var ret_val = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
 	print(current_bond_points)

@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://c3mh2w7joj81k"]
 
 [ext_resource type="Script" uid="uid://b4ql3x6sr7vsf" path="res://assets/Resources/Interactables/Teleports/teleport_handler.gd" id="1_7spty"]
+[ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="2_7spty"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_frbkq"]
 radius = 16.03122
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7tpxp"]
+radius = 47.042534
+
 [node name="LoadingZone" type="Node2D" unique_id=1216423571]
 script = ExtResource("1_7spty")
+confirmation_before_teleport = null
 "Current Location/Region" = "Forest"
 "Current Location/Spot" = "Left Side"
 "Destination Location/Region" = "Forest"
@@ -20,5 +25,22 @@ shape = SubResource("CircleShape2D_frbkq")
 [node name="Marker2D" type="Marker2D" parent="." unique_id=888315718]
 position = Vector2(51, 0)
 
+[node name="Area2D2" type="Area2D" parent="." unique_id=1932023451]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=330411549]
+shape = SubResource("CircleShape2D_7tpxp")
+
+[node name="GenericButton" parent="." unique_id=1034936178 instance=ExtResource("2_7spty")]
+visible = false
+z_index = 100
+offset_left = -14.0
+offset_top = -83.0
+offset_right = 51.160004
+offset_bottom = -53.0
+button_name = "Enter"
+button_to_active = 4
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]

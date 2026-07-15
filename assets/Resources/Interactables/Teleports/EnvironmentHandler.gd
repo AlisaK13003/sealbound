@@ -44,6 +44,7 @@ func teleport_player_to_spawn():
 	print("Current Loading Zone ", Global.current_loading_zone)
 	print("Current Region ", Global.current_region)
 	var spawn_point = find_loading_zone_spawn(Global.current_loading_zone)
+	spawn_point = spawn_point.find_child("Marker2D")
 	if spawn_point == null:
 		push_warning("EnvironmentHandler: Could not find loading zone spawn '%s' in %s." % [Global.current_loading_zone, scene_file_path])
 		_apply_pending_player_spawn_position()
@@ -53,7 +54,7 @@ func teleport_player_to_spawn():
 	#	spawn_point = spawn_point
 	#else:
 	#	spawn_point = spawn_point.get_child(0)
-	spawn_point.is_disabled = true
+	
 	await get_tree().physics_frame
 	player_node.global_position = spawn_point.global_position
 	#_apply_pending_player_spawn_position()

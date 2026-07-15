@@ -58,6 +58,9 @@ func _setup(coins_gained: int , experience_gained: int, bond_gained: int, items_
 		var index = GlobalCombatInformation.active_party_slots.find(active_member)
 		var child_to_update = party_container.get_child(index)
 		child_to_update._setup(active_member)
+	for child in party_container.get_children():
+		if child.get_index() >= GlobalCombatInformation.active_party_slots.size():
+			child.queue_free()
 	portraits_populated.emit()
 
 func swapped_page():

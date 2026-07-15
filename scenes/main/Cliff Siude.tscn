@@ -716,14 +716,15 @@ schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday
 
 [node name="Cliff Entrance" parent="." unique_id=1216423571 instance=ExtResource("7_0brsi")]
 z_index = 2
-position = Vector2(-7.8751144, 421.04514)
+position = Vector2(8.12973, 421.96436)
+confirmation_before_teleport = false
 "Current Location/Region" = "Cliff Side"
 "Current Location/Spot" = "Cliff Entrance"
 "Destination Location/Region" = "Village"
 "Destination Location/Spot" = "Cliff Side"
 
 [node name="CollisionShape2D" parent="Cliff Entrance/Area2D" parent_id_path=PackedInt32Array(1216423571, 416868945) index="0" unique_id=1179238723]
-scale = Vector2(1, 11.9)
+scale = Vector2(1, 9.475)
 shape = SubResource("RectangleShape2D_e4jcd")
 
 [node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("9_ehub8")]
