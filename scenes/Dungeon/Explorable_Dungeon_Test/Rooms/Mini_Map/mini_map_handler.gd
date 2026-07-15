@@ -199,9 +199,9 @@ func _physics_process(delta):
 		var current_enemy_2: Sprite2D = full_screen_fots.get_child(enemy)
 		
 		if enemy_list[enemy] == null:
-			enemy_list.erase(enemy)
 			current_enemy.queue_free()
 			current_enemy_2.queue_free()
+			continue
 		
 		if grid_container.get_child(get_minimap_index(enemy_list[enemy].current_grid_pos.x, enemy_list[enemy].current_grid_pos.y)).main_room_texture.texture == null:
 			current_enemy.visible = false

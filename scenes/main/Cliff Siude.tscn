@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dc08xpss5koyp"]
 
 [ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_blhe8"]
+[ext_resource type="AudioStream" uid="uid://bml14f0mguevj" path="res://assets/Audio/BGM/Week 26 - Seaside CORAL REEF.ogg" id="2_eyc0n"]
 [ext_resource type="PackedScene" uid="uid://bts05athym3op" path="res://assets/Resources/NPC Stuff/NPC_template.tscn" id="2_u4ula"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="7_0brsi"]
 [ext_resource type="Texture2D" uid="uid://dj0n3w27hkd4l" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet-sheet-sheet-sheet.png" id="7_6kpat"]
@@ -8,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="9_ehub8"]
 [ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="10_e4jcd"]
 [ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="10_ojbj2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4jcd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e4jcd"]
 texture = ExtResource("7_6kpat")
@@ -700,6 +703,7 @@ sources/2 = SubResource("TileSetAtlasSource_6cw13")
 y_sort_enabled = true
 rotation = 0.0050469562
 script = ExtResource("1_blhe8")
+bgm = ExtResource("2_eyc0n")
 
 [node name="NpcTemplate" parent="." unique_id=823861237 node_paths=PackedStringArray("location_container") instance=ExtResource("2_u4ula")]
 z_index = 3
@@ -712,11 +716,15 @@ schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday
 
 [node name="Cliff Entrance" parent="." unique_id=1216423571 instance=ExtResource("7_0brsi")]
 z_index = 2
-position = Vector2(59.063232, 403.70703)
+position = Vector2(-7.8751144, 421.04514)
 "Current Location/Region" = "Cliff Side"
 "Current Location/Spot" = "Cliff Entrance"
 "Destination Location/Region" = "Village"
 "Destination Location/Spot" = "Cliff Side"
+
+[node name="CollisionShape2D" parent="Cliff Entrance/Area2D" parent_id_path=PackedInt32Array(1216423571, 416868945) index="0" unique_id=1179238723]
+scale = Vector2(1, 11.9)
+shape = SubResource("RectangleShape2D_e4jcd")
 
 [node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("9_ehub8")]
 position = Vector2(1497, -1395)
@@ -749,14 +757,15 @@ connected_node_names = ["KeyPointNode16", "KeyPointNode17"]
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=1632946481]
 
 [node name="Upper Left" type="Node2D" parent="Camera Bounds" unique_id=779573869]
-position = Vector2(1.005, 5)
+position = Vector2(1.0151281, 2.994915)
 
 [node name="Bottom Right" type="Node2D" parent="Camera Bounds" unique_id=387260037]
-position = Vector2(1793.2217, 831.9603)
+position = Vector2(1579.184, 825.04047)
 
 [node name="UniversalCamera" parent="." unique_id=1015878525 instance=ExtResource("10_e4jcd")]
 
 [node name="Layers" type="Node2D" parent="." unique_id=1465665734]
+y_sort_enabled = true
 
 [node name="Grass" type="TileMapLayer" parent="Layers" unique_id=1480036676]
 z_index = -1
@@ -801,8 +810,11 @@ tile_map_data = PackedByteArray("AAAEAGYAAgAOAAoAAAAGAAkAAgAQAAcAAAAHADYAAgAQAAc
 tile_set = SubResource("TileSet_elati")
 
 [node name="Trees" type="TileMapLayer" parent="Layers" unique_id=2021937267]
-z_index = -1
+z_index = 1
+y_sort_enabled = true
 position = Vector2(1, 1)
 scale = Vector2(1.0000001, 1.0000001)
 tile_map_data = PackedByteArray("AAAFAA4AAgAPAAIAAAAkAAMAAgALAAgAAAApACsAAgAPAAIAAAAbADAAAgAIAAcAAAACACcAAgAHAAAAAAAJACEAAgALAAgAAAAGADEAAgAPAAIAAAAJADEAAgAIAAcAAAAXADIAAgAAAAAAAAAiADEAAgAPAAIAAAAJACwAAgAPAAIAAAADACwAAgAAAAAAAAAEAAsAAgAPAAAAAAAIAAQAAgALAAgAAAAVAA0AAgALAAgAAAATAAcAAgAIAAcAAAAOAAkAAgAIAAcAAAA+AAQAAgAHAAAAAAAFACIAAgAPAAIAAAA0AC0AAgAHAAAAAAAMACQAAgAHAAAAAAALAA8AAgAAAAAAAAAYAAIAAgAAAAAAAAAOAAEAAgAPAAIAAAADAAQAAgAAAAAAAAA8ABoAAgAAAAAAAAA8ABAAAgAHAAAAAAAvAB4AAgAHAAAAAAAiABsAAgAPAAIAAAAlABcAAgAPAAIAAAAnADEAAgAAAAAAAAAsADIAAgAPAAIAAAA=")
 tile_set = SubResource("TileSet_elati")
+
+[editable path="Cliff Entrance"]

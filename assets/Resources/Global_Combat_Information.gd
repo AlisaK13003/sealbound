@@ -112,8 +112,11 @@ func load_items():
 		add_item(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres"))
 
 func add_item(item_to_add):
+	if item_to_add == null:
+		return
 	if item_to_add is Array:
 		for item in item_to_add:
+			if item.stack != 1: item.stack = 1
 			if item.what_is_it & 010:
 				if all_held_valuables.find(item) == -1:
 					all_held_valuables.append(item.duplicate())
@@ -127,11 +130,13 @@ func add_item(item_to_add):
 		check_quest_progress.emit()
 		return
 	if item_to_add.what_is_it & 010:
+		if item_to_add.stack != 1: item_to_add.stack = 1
 		if all_held_valuables.find(item_to_add) == -1:
 			all_held_valuables.append(item_to_add)
 		else:
 			all_held_valuables[all_held_valuables.find(item_to_add)].stack += 1
 	else:
+		if item_to_add.stack != 1: item_to_add.stack = 1
 		if all_held_items.find(item_to_add) == -1:
 			all_held_items.append(item_to_add)
 		else:
@@ -151,6 +156,7 @@ signal stats_potentially_updated
 func add_equipment_to_list(equip, is_weapon):
 	if equip == null:
 		return
+	if equip.stack != 1: equip.stack = 1
 	var index = search_for_index_of_thing(equip)
 	if index != -1:
 		if is_weapon:
@@ -346,10 +352,15 @@ func _ready():
 
 	await get_tree().create_timer(0.5).timeout
 
+	for dungeon in range(dungeon_types.size()):
+		if dungeon >= amount_of_dungeons:
+			dungeon_types.remove_at(dungeon)
 	
 
 	finished.emit()
 	check_quest_progress.emit()
+	
+const amount_of_dungeons = 2
 
 var explorable_dungeon_scene# : explorable_dungeon
 var dungeon_loop_scene #: dungeon_loop
@@ -548,7 +559,7 @@ func bring_back_combat(_rewards_scene = null):
 		#explorable_dungeon_scene.enemy_container.remove_child(previous_enemy_encountered)
 	
 	is_combat_active = false
-	get_tree().current_scene = explorable_dungeon_scene
+	get_tree().set_deferred("current_scene", explorable_dungeon_scene)
 	explorable_dungeon_scene.return_to_exploring()
 	AreaStateManager.currently_transitioning = false
 
@@ -641,6 +652,10 @@ func load_saved_data(data):
 	calculate_BP()
 	for combatant in all_party_slots:
 		combatant.gather_actual_stats()
+	var dungeons = dungeon_types.duplicate()
+	for dungeon in range(dungeons.size()):
+		if dungeon >= amount_of_dungeons:
+			dungeon_types.erase(dungeons[dungeon])
 	
 func export_to_JSON():
 	var ret_dict: Dictionary = {}

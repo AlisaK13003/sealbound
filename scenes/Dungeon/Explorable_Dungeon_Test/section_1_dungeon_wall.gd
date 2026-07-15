@@ -15,6 +15,7 @@ func _setup(what_dungeon_to_use, pivot_rotation = 0.0, parent_rotation = 0.0, fo
 			child.visible = true
 		else:
 			child.visible = false
+			child.queue_free()
 	
 	if for_combat:
 		return

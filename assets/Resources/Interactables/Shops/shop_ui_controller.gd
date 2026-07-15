@@ -32,7 +32,7 @@ func _ready():
 	persistent_shop_stock = shop_stock.duplicate()
 	_setup()
 	
-func fully_reset():
+func fully_reset(pass_out):
 	shop_stock.clear()
 	shop_stock = persistent_shop_stock.duplicate()
 	
@@ -47,6 +47,9 @@ func fully_reset():
 	
 	#_setup()
 func update_money_total(old_money_count, differential):
+	if not is_visible_in_tree():
+		return
+	
 	$Label.text = str(old_money_count)
 	AudioManager.play_ui_sound(AudioManager.BUY_SELL_SOMETHING)
 	

@@ -8336,7 +8336,9 @@ tile_map_data = PackedByteArray("AAAIAAUABAANAAQAAAAHAAUABAANAAQAAAAGAAUABAANAAQ
 tile_set = SubResource("TileSet_bi516")
 
 [node name="NpcTemplate" parent="Apothecary" unique_id=823861237 instance=ExtResource("8_ahl7k")]
-position = Vector2(161, -54)
+z_index = 1
+y_sort_enabled = true
+position = Vector2(-2335, -3460)
 scale = Vector2(0.32, 0.32)
 
 [node name="NpcTemplate2" parent="Apothecary" unique_id=741802667 instance=ExtResource("9_y5k7i")]

@@ -152,8 +152,10 @@ func _add_node(node_to_add):
 		new_node_instance.disable()
 
 var current_options
-func node_pressed(item):
+func node_pressed(item_index):
 	$Confirmation.visible = true
+	var item = stock_container.get_child(item_index).stored_item
+	
 	if item is weapon:
 		$Confirmation/TextureRect.texture = item.weapon_texture
 		$Confirmation/Label2.text = item.weapon_name
@@ -209,17 +211,19 @@ func await_purchase(item):
 			var adjusted_price = int(float(item.buy_price) - (float(item.buy_price) * discount)) * amount_purchased
 
 			GlobalCombatInformation.update_currency(-1 * adjusted_price)
-			item.stack -= amount_purchased
 			for i in range(amount_purchased):
 				if item is equipment or item is weapon:
-					GlobalCombatInformation.add_equipment_to_list(item, true if item is weapon else false)
+					GlobalCombatInformation.add_equipment_to_list(item.duplicate(), true if item is weapon else false)
 				elif item is Items:
-					GlobalCombatInformation.add_item(item)
+					GlobalCombatInformation.add_item(item.duplicate())
+			item.stack -= amount_purchased
 		else:
 			var adjusted_price = int(float(item.sell_price) + (float(item.sell_price) * discount)) * amount_purchased
 
 			GlobalCombatInformation.update_currency(1 * adjusted_price)
 			GlobalCombatInformation.remove_thing(item, amount_purchased)
+		
+		_reset()
 
 func cancel_button_pressed(event):
 	if event is InputEventMouseButton:

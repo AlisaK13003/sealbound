@@ -43,6 +43,34 @@ func _ready() -> void:
 	pause_menu.visible = false
 	if not Global.pending_cutscene_path.is_empty():
 		call_deferred("_play_pending_cutscene")
+	Global.day_passed.connect(_pass_out)
+
+var transitioning_day: bool = false
+func _pass_out(did_pass_out):
+	transitioning_day = true
+	if did_pass_out:
+		animated_sprite.play("ow_passout")
+		print("you passed out")
+		await animated_sprite.animation_finished
+		Global.current_region = "Buildings_Insides"
+		Global.current_loading_zone = "Infirmary"
+		var building_scene = AreaStateManager.building_insides_instance
+
+		var mc_marker := _find_marker_by_names(building_scene, ["Scene1_MCSpawn", "Scene1_MC_Spawn"])
+		
+		await Fade.fade_in(1.0)
+		AreaStateManager.swap_scene(self)
+		await Fade.fade_out(2.0)
+	else:
+		pass
+	transitioning_day = false
+
+func _find_marker_by_names(root: Node, marker_names: Array) -> Marker2D:
+	for marker_name in marker_names:
+		var marker := root.find_child(str(marker_name), true, false) as Marker2D
+		if marker != null:
+			return marker
+	return null
 
 func _process(_delta: float) -> void:
 	_update_tutorial_label()
@@ -53,6 +81,10 @@ func _process(_delta: float) -> void:
 		over_the_head_sprite.texture = null
 
 func _physics_process(_delta: float) -> void:
+	if transitioning_day:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	if Global.is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning or Global.is_paused:
 		velocity = Vector2.ZERO
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
@@ -155,7 +187,8 @@ func apply_gender_sprite() -> void:
 	if Global.player_gender == "male":
 		idle_texture = male_idle_texture
 		walk_texture = male_walk_texture
-	animated_sprite.sprite_frames = _build_overworld_sprite_frames(idle_texture, walk_texture)
+	
+	animated_sprite.sprite_frames = female_sprite_frames#_build_overworld_sprite_frames(idle_texture, walk_texture)
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
 func _build_overworld_sprite_frames(idle_texture: Texture2D, walk_texture: Texture2D) -> SpriteFrames:

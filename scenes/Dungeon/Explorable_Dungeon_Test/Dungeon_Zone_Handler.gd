@@ -344,7 +344,11 @@ func instantiate_rooms(room_storage, boss_floor):
 		navigation_region.add_child(new_room)
 		
 		new_room._setup(self, room_storage[new_room.room_coords].group_id, false, false, false, current_quest_dungeon)
-
+		
+		for room_ in active_room_nodes.values():
+			if room_.room_coords == new_room.room_coords and new_room.room_classification == 2:
+				room_.queue_free()
+				break
 	return true
 
 func battle_initiated(with_what_enemy: generic_combatants, node_id, is_boss: bool = false):

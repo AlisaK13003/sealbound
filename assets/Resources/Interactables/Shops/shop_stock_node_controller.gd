@@ -1,6 +1,7 @@
 extends Control
 
 var stored_item
+var discount
 
 var thing_texture
 var thing_name
@@ -16,6 +17,7 @@ signal node_pressed
 
 func _setup(thing, discount, is_sell_node_):
 	stored_item = thing
+	self.discount = discount
 	is_sell_node = is_sell_node_
 	var label_name = ""
 	var label_texture = null
@@ -69,10 +71,13 @@ func _setup(thing, discount, is_sell_node_):
 			return
 	if GlobalCombatInformation.search_for_thing(thing) != null:
 		thing_in_inventory.text = str(GlobalCombatInformation.search_for_thing(thing).stack)
+	else:
+		thing_in_inventory.text = "0"
 
 func _ready():
 	GlobalCombatInformation.equipment_added.connect(update_everything)
 	GlobalCombatInformation.check_quest_progress.connect(update_everything)
+	GlobalCombatInformation.did_something_with_money.connect(update_everything)
 
 func highlight(highlight):
 	if highlight:
@@ -87,7 +92,7 @@ func update_stock_count():
 		thing_in_stock.text = str(stored_item.stack)
 	thing_in_inventory.text = str(GlobalCombatInformation.search_for_thing(stored_item))
 
-func update_everything():
+func update_everything(amount = null, amount2 = null):
 	#thing_texture.texture = label_texture if label_texture != null else load("res://assets/Equipment/Equipment Sprites/Rusty Sword.png")
 	#thing_name.text = label_name if label_name != "" else "Training Sword"
 	#thing_price.text = label_price if label_price != "" else "50"
@@ -113,4 +118,4 @@ func _on_gui_input(event):
 	node_hovered.emit(stored_item, get_index())
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			node_pressed.emit(stored_item)
+			node_pressed.emit(get_index())

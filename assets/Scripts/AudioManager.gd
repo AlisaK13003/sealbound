@@ -34,6 +34,9 @@ const STATUS_SOUND: AudioStream = preload("res://assets/Audio/UI_SFX/BATTLE_SFX/
 const CREEPY_DUNGEON_BGM: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/HeatOfBattle.ogg")
 const FOREST_DUNGEON_BGM: AudioStream = preload("res://assets/Audio/BGM/Battle_Music/Garbage Patch.ogg")
 
+const FOREST_BGM: AudioStream = preload("res://assets/Audio/BGM/Week 16 - Vacation Day ADVENTURE.ogg")
+const CLIFF_SIDE_BGM: AudioStream = preload("res://assets/Audio/BGM/Week 26 - Seaside CORAL REEF.ogg")
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
@@ -75,16 +78,32 @@ func play_tile_sound(stream: AudioStream) -> void:
 	tile_sfx.stream = stream
 	tile_sfx.play()
 
-func play_bgm(stream: AudioStream, override: bool = false) -> void:
+var bgm_tween: Tween
+
+func play_bgm(stream: AudioStream, override: bool = false, fade_time: float = 1.0, target_volume: float = 0.0) -> void:
 	if not stream:
 		return
 	if not override:
 		if bgm_player.stream == stream and bgm_player.playing:
 			return
 		
-	bgm_player.stop()
-	bgm_player.stream = stream
-	bgm_player.play()
+	if bgm_tween and bgm_tween.is_running():
+		bgm_tween.kill()
+		
+	if bgm_player.playing:
+		bgm_tween = create_tween()
+		bgm_tween.tween_property(bgm_player, "volume_db", -80.0, fade_time)
+		
+		bgm_tween.tween_callback(func():
+			bgm_player.stop()
+			bgm_player.stream = stream
+			bgm_player.play()
+		)
+		
+		bgm_tween.tween_property(bgm_player, "volume_db", target_volume, fade_time)
+	else:
+		bgm_player.stream = stream
+		bgm_player.play()
 
 func stop_bgm() -> void:
 	bgm_player.stop()
