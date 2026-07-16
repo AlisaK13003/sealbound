@@ -1,6 +1,8 @@
 class_name CharacterAnimationDriver
 extends RefCounted
 
+const SIDE_IDLE_POSE_FRAME := 2
+
 var facing_left: bool = false
 var facing_direction: StringName = &"down"
 
@@ -56,7 +58,7 @@ func _play_idle_for_facing(sprite: AnimatedSprite2D) -> void:
 		if not sprite.sprite_frames.has_animation(animation_name):
 			continue
 		if String(animation_name).begins_with("walk"):
-			_play_frozen_pose(sprite, animation_name, 1 if facing_direction == &"side" else 0)
+			_play_frozen_pose(sprite, animation_name, SIDE_IDLE_POSE_FRAME if facing_direction == &"side" else 0)
 		else:
 			_play_if_available(sprite, animation_name)
 		return
