@@ -29,14 +29,16 @@ enum bonds {STRANGER, ACQAINTED, WARMED, KINDRED, BOUND, TRUEBOND}
 enum dungeon_types_names {CREEPY, FOREST}
 enum difficulty_multiplier {EASY, MEDIUM, DIFFICULT, REALLYHARD}
 
-var holding_boss_key: bool = false
-var holding_basic_room_key: bool = false
+var holding_boss_key: int = 0
+var holding_basic_room_key: int = 0
 
 signal finished
 
 signal check_quest_progress
 signal reached_end_of_dungeon
 signal check_player_values
+
+signal obtained_or_used_key
 
 const MAX_PARTY_SIZE = 3
 
@@ -415,8 +417,11 @@ var is_combat_active: bool = false
 var previous_enemy_encountered
 var should_remove_enemy = false
 
-func dungeon_over():
+func dungeon_over(passed_out: bool = false):
 	await Fade.fade_in(1.0)
+	holding_boss_key = 0
+	holding_basic_room_key = 0
+	
 	for member in all_party_slots:
 		member.restore_health()
 	if dungeon_loop_scene != null:
@@ -424,14 +429,14 @@ func dungeon_over():
 	explorable_dungeon_scene.queue_free()
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Bedroom"
-	AreaStateManager._setup(false)
+	AreaStateManager._setup(passed_out)
 	AreaStateManager.swap_scene()
 		
 	await get_tree().process_frame
 	#await get_tree().physics_frame
 	get_tree().current_scene.swap_to_me()
 	await Fade.fade_out(1.0)
-	Global.player_advanced_day(true)
+	Global.player_advanced_day(false)
 	
 	#AreaStateManager.swap_scene(null)
 	
@@ -471,7 +476,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	if did_players_win:
 		should_remove_enemy = true
 	else:
-		dungeon_over()
+		dungeon_over(true)
 		return
 	
 	var coins_gained: int = 0

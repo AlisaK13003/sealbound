@@ -31,12 +31,10 @@ offset_bottom = 168.0
 theme_override_constants/separation = 25
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=1509274551]
-visible = false
 layout_mode = 0
-offset_left = 569.0
-offset_top = 1.0
-offset_right = 639.0
-offset_bottom = 41.0
+offset_left = 564.0
+offset_right = 640.0
+offset_bottom = 40.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer3" unique_id=2028633730]
 layout_mode = 2
@@ -49,7 +47,7 @@ stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer3/HBoxContainer2" unique_id=1973718938]
 layout_mode = 2
-text = "x1"
+text = "x0"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer3" unique_id=409187382]
 layout_mode = 2
@@ -62,7 +60,7 @@ stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer3/HBoxContainer" unique_id=696187033]
 layout_mode = 2
-text = "x1"
+text = "x0"
 
 [node name="CheckBox" type="CheckBox" parent="." unique_id=905592332]
 layout_mode = 0

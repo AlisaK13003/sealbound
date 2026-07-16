@@ -3,29 +3,39 @@
 [ext_resource type="Script" uid="uid://ccond57fltreb" path="res://assets/Resources/Interactables/Quests (2)/quest_node_controller.gd" id="1_umtdc"]
 [ext_resource type="Texture2D" uid="uid://dggadw7mbuiqp" path="res://assets/Resources/Interactables/Quests (2)/Gold.png" id="2_6svtd"]
 [ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_87ijo"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_88qrk"]
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="3_j5gla"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="4_g3gxy"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbq0"]
-bg_color = Color(0.32792747, 0.24988261, 0.087906934, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.41467434, 0.32069528, 0.13787058, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="4_yvf05"]
+[ext_resource type="Texture2D" uid="uid://pfuhauy61si8" path="res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png" id="6_n4f55"]
+[ext_resource type="Texture2D" uid="uid://ctbel6gv2ncat" path="res://assets/tile sheets/Health_Foreground.png" id="9_38qru"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_umtdc"]
 size = Vector2(444, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tpxp"]
+atlas = ExtResource("6_n4f55")
+region = Rect2(50, 4, 41, 67)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxs0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ued3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goyxb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_brthv"]
 
 [node name="QuestNode" type="Control" unique_id=2112167932]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -5.0
+offset_right = -2.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -41,7 +51,7 @@ layout_mode = 0
 offset_left = -4.0
 offset_top = -4.0
 offset_right = 457.0
-offset_bottom = 67.0
+offset_bottom = 100.0
 texture = ExtResource("2_87ijo")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -50,17 +60,31 @@ patch_margin_bottom = 15
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Panel" type="Panel" parent="." unique_id=1664935892]
-visible = false
+[node name="NinePatchRect2" type="NinePatchRect" parent="Background" unique_id=861896546]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 2.0
-offset_right = 448.0
-offset_bottom = 62.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_ewbq0")
+offset_left = 292.0
+offset_top = 14.0
+offset_right = 452.0
+offset_bottom = 94.0
+texture = ExtResource("3_88qrk")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="Background" unique_id=2075263317]
+modulate = Color(0.646029, 0.646029, 0.646029, 1)
+layout_mode = 0
+offset_left = 347.0
+offset_top = 82.0
+offset_right = 444.0
+offset_bottom = 99.0
+texture = ExtResource("4_yvf05")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=854615143]
+visible = false
 position = Vector2(104, 38)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=265306990]
@@ -69,22 +93,22 @@ shape = SubResource("RectangleShape2D_umtdc")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=470215953]
 layout_mode = 0
-offset_left = 7.0
+offset_left = 56.0
 offset_top = 20.0
-offset_right = 447.0
+offset_right = 449.0
 offset_bottom = 22.0
 mouse_filter = 1
-color = Color(0, 0, 0, 1)
+color = Color(0.28627452, 0.22745098, 0.32156864, 1)
 
 [node name="Quest Rewards" type="HBoxContainer" parent="." unique_id=725312938]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
 anchor_right = 0.007
-offset_left = 356.56
-offset_top = 5.0
-offset_right = 519.56006
-offset_bottom = 37.0
+offset_left = 369.52
+offset_top = 6.0
+offset_right = 532.52
+offset_bottom = 38.0
 scale = Vector2(0.45, 0.45)
 
 [node name="TextureRect" type="TextureRect" parent="Quest Rewards" unique_id=1776965982]
@@ -108,23 +132,23 @@ text = "200"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=561528607]
 layout_mode = 0
-offset_left = 9.999992
-offset_top = 5.9999924
-offset_right = 189.0
-offset_bottom = 67.99999
+offset_left = 56.999996
+offset_top = 7.0000005
+offset_right = 236.0
+offset_bottom = 69.0
 scale = Vector2(0.84, 0.84)
 
 [node name="QuestName" type="Label" parent="VBoxContainer" unique_id=1949900024]
 layout_mode = 2
 text = "I need herbs!"
 
-[node name="QuestGiver" type="Label" parent="VBoxContainer" unique_id=526747216]
-layout_mode = 2
-text = "- sera"
-
 [node name="QuestLocation" type="Label" parent="VBoxContainer" unique_id=1447489564]
+custom_minimum_size = Vector2(261.495, 73.84)
 layout_mode = 2
-text = "Forest Dungeon, 7g"
+offset_transform_enabled = true
+offset_transform_position = Vector2(10.525, 0)
+text = "Forest Dungeon"
+autowrap_mode = 3
 
 [node name="Am_I_Accepted" type="TextureRect" parent="." unique_id=968134524]
 visible = false
@@ -134,5 +158,50 @@ offset_top = 25.0
 offset_right = 446.0
 offset_bottom = 58.0
 texture = ExtResource("4_g3gxy")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1304115724]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 39.0
+offset_bottom = 54.756096
+texture = SubResource("AtlasTexture_7tpxp")
+expand_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=2044507280]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 26.875
+offset_right = 328.0
+offset_bottom = 66.87503
+
+[node name="Button" type="Button" parent="." unique_id=638823841]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 79.0
+offset_right = 445.0
+offset_bottom = 105.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7tpxp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ekxs0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7ued3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_goyxb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_brthv")
+text = "Accept Quest"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Button" unique_id=231306893]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 3.0
+offset_right = 111.0
+offset_bottom = 26.0
+texture = ExtResource("9_38qru")
+
+[node name="QuestGiver" type="Label" parent="." unique_id=526747216]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 189.0
+offset_bottom = 78.0
+text = "- sera"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

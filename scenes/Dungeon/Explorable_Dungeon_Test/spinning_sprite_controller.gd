@@ -48,9 +48,11 @@ func _on_area_3d_body_entered(body):
 					GlobalCombatInformation.dungeon_over()
 					break
 		elif should_give_key:
-			if is_boss_key and not GlobalCombatInformation.holding_boss_key:
+			if is_boss_key and not GlobalCombatInformation.holding_boss_key > 1:
 				self.visible = false
-				GlobalCombatInformation.holding_boss_key = true
+				GlobalCombatInformation.holding_boss_key -= 1
+				GlobalCombatInformation.obtained_or_used_key.emit()
 			elif not GlobalCombatInformation.holding_basic_room_key:
 				self.visible = false
-				GlobalCombatInformation.holding_basic_room_key = true
+				GlobalCombatInformation.holding_basic_room_key += 1
+				GlobalCombatInformation.obtained_or_used_key.emit()

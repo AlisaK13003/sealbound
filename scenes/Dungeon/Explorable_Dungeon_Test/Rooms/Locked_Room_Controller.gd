@@ -24,12 +24,14 @@ func _setup(boss_key):
 
 func _body_entered(body):
 	if body.is_in_group("3D_Player"):
-		if requires_boss_key and GlobalCombatInformation.holding_boss_key:
+		if requires_boss_key and GlobalCombatInformation.holding_boss_key > 0:
 			unlock()
-			GlobalCombatInformation.holding_boss_key = false
-		elif requires_normal_key and GlobalCombatInformation.holding_basic_room_key:
+			GlobalCombatInformation.holding_boss_key -= 1
+			GlobalCombatInformation.obtained_or_used_key.emit()
+		elif requires_normal_key and GlobalCombatInformation.holding_basic_room_key > 0:
 			unlock()
-			GlobalCombatInformation.holding_basic_room_key = false
+			GlobalCombatInformation.holding_basic_room_key -= 1
+			GlobalCombatInformation.obtained_or_used_key.emit()
 
 func unlock():
 	self.visible = false

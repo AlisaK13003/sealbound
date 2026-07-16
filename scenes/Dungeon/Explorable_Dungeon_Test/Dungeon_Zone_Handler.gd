@@ -296,7 +296,7 @@ func instantiate_rooms(room_storage, boss_floor):
 		if is_locked:
 			new_room.lock_room(true)
 
-	if current_quest_dungeon == null:
+	if current_quest_dungeon == null and not current_dungeon.dont_spawn_chests:
 		var spawn_locked_room = rng.randf()
 		if boss_floor:
 			var spawned_key: bool = false
@@ -349,6 +349,23 @@ func instantiate_rooms(room_storage, boss_floor):
 			if room_.room_coords == new_room.room_coords and new_room.room_classification == 2:
 				room_.queue_free()
 				break
+	if current_dungeon.dont_spawn_chests:
+		for room_ in active_room_nodes.values():
+			if room_.room_classification == 7:
+				var room_to_load = load("res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Room_Cap.tscn")
+				var new_room: room = room_to_load.instantiate()
+				new_room.room_coords = room_.room_coords
+				new_room.position = Vector3(room_.room_coords.x * tile_size, 0, room_.room_coords.y * tile_size)
+				new_room.room_directions = room_.room_directions
+				new_room.scale *= float(tile_size / normal_tile_size)
+				active_room_nodes[room_.room_coords] = new_room
+				new_room.rotation_degrees.y = room_storage[new_room.room_coords].get_rotation_degrees_()
+				navigation_region.add_child(new_room)
+				
+				room_.queue_free()
+				
+				new_room._setup(self, room_storage[new_room.room_coords].group_id)
+		
 	return true
 
 func battle_initiated(with_what_enemy: generic_combatants, node_id, is_boss: bool = false):

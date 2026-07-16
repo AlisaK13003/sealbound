@@ -6,6 +6,24 @@ extends Control
 
 var chest_got_node_path = "res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest_Reward_Display_Node.tscn"
 var p_ref
+ 
+func _ready():
+	$HBoxContainer3/HBoxContainer2.visible = false
+	$HBoxContainer3/HBoxContainer.visible = false
+	GlobalCombatInformation.obtained_or_used_key.connect(update_key_values)
+	
+func update_key_values():
+	if GlobalCombatInformation.holding_boss_key > 0:
+		$HBoxContainer3/HBoxContainer.visible = true
+		$HBoxContainer3/HBoxContainer/Label.text = "x" + str(GlobalCombatInformation.holding_boss_key_key)
+	else:
+		$HBoxContainer3/HBoxContainer.visible = false
+		
+	if GlobalCombatInformation.holding_basic_room_key > 0:
+		$HBoxContainer3/HBoxContainer2.visible = true
+		$HBoxContainer3/HBoxContainer2/Label.text = "x" + str(GlobalCombatInformation.holding_basic_room_key)
+	else:
+		$HBoxContainer3/HBoxContainer2.visible = false
 
 func _setup(parent_ref):
 	p_ref = parent_ref

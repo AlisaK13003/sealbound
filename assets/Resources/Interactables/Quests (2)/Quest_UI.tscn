@@ -5,9 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://co28rr8wks40j" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_1.tres" id="3_qwsrt"]
 [ext_resource type="Texture2D" uid="uid://dk8ow86fqnj83" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_2.tres" id="4_lsis7"]
 [ext_resource type="Texture2D" uid="uid://cwfvkw21sg7c7" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_3.tres" id="5_schd3"]
+[ext_resource type="Script" uid="uid://crtryaajhgsf0" path="res://assets/Resources/Pause Menu/diy_scroll_container.gd" id="6_qwsrt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gctrq"]
 size = Vector2(393.5, 226)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwsrt"]
 
 [node name="QuestUi" type="Control" unique_id=490027118]
 layout_mode = 3
@@ -35,7 +38,7 @@ offset_top = 50.0
 offset_right = 201.0
 offset_bottom = 242.0
 scale = Vector2(0.685, 0.685)
-theme_override_constants/separation = 69
+theme_override_constants/separation = 104
 
 [node name="MissionPaper1" type="Sprite2D" parent="." unique_id=1948265229]
 position = Vector2(177, 67)
@@ -108,7 +111,26 @@ step = 1.0
 position = Vector2(320, 132)
 shape = SubResource("RectangleShape2D_gctrq")
 
-[connection signal="scrolling" from="VScrollBar" to="." method="_on_v_scroll_bar_scrolling"]
-[connection signal="value_changed" from="VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[node name="Panel" type="Panel" parent="." unique_id=953051225 node_paths=PackedStringArray("mouse_scroll_detection_area", "scroll_bar")]
+z_index = 1
+clip_contents = true
+layout_mode = 0
+offset_left = 150.0
+offset_top = 47.0
+offset_right = 501.0
+offset_bottom = 232.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qwsrt")
+script = ExtResource("6_qwsrt")
+display_x_items = 2
+scroll_margin = 0
+mouse_scroll_detection_area = NodePath("../Area2D")
+scroll_bar = NodePath("../VScrollBar")
+
+[node name="GridContainer" type="GridContainer" parent="Panel" unique_id=33284325]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 44.0
+offset_bottom = 43.0
+scale = Vector2(0.76, 0.76)
+theme_override_constants/v_separation = 113

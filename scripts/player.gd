@@ -59,7 +59,7 @@ func _pass_out(did_pass_out):
 		var mc_marker := _find_marker_by_names(building_scene, ["Scene1_MCSpawn", "Scene1_MC_Spawn"])
 		
 		await Fade.fade_in(1.0)
-		AreaStateManager.swap_scene(self)
+		AreaStateManager.swap_scene(get_tree().current_scene)
 		await Fade.fade_out(2.0)
 	else:
 		pass
@@ -98,7 +98,12 @@ func _physics_process(_delta: float) -> void:
 		direction = Input.get_vector(Global.controller_mapping["left"], Global.controller_mapping["right"], Global.controller_mapping["up"], Global.controller_mapping["down"])
 		
 	velocity = direction * move_speed
-	animation_driver.sync(animated_sprite, velocity)
+	
+	var anim_velocity = velocity
+	if velocity.x != 0:
+		anim_velocity.y = 0
+	
+	animation_driver.sync(animated_sprite, anim_velocity)
 	
 	move_and_slide()
 	

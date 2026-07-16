@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dgwfhbq2hb0sh" path="res://assets/tile sheets/Selection_Hand.png" id="3_51gu7"]
 [ext_resource type="PackedScene" uid="uid://dywa8njfjb1kd" path="res://assets/Resources/Dungeon Stuff/Combatant ui.tscn" id="3_drjmm"]
 [ext_resource type="Script" uid="uid://d0pnuy6nbgr42" path="res://assets/Resources/subviewport_fix.gd" id="4_mmlnl"]
+[ext_resource type="Texture2D" uid="uid://boj1wri6cne8m" path="res://assets/tile sheets/Shadow.png" id="6_7mydf"]
 
 [sub_resource type="Animation" id="Animation_51gu7"]
 resource_name = "On_Death2"
@@ -159,6 +160,11 @@ debug_fill = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29155636, -0.32203448)
 shape = SubResource("BoxShape3D_7tpxp")
 disabled = true
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=397746873]
+transform = Transform3D(1, 0, 0, 0, -0.30711246, -0.97397596, 0, 1.3197374, -0.22665127, 0.14972973, -0.09378755, -0.043908656)
+offset = Vector2(-2.5, -37.355)
+texture = ExtResource("6_7mydf")
 
 [connection signal="input_event" from="Sprite3D2/Enemy_Collision" to="." method="_mouse_confirmation_given"]
 [connection signal="mouse_entered" from="Sprite3D2/Enemy_Collision" to="." method="_on_enemy_collision_mouse_entered"]

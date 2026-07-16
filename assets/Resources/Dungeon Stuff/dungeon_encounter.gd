@@ -18,6 +18,7 @@ class_name dungeon_type
 
 var is_this_dungeon_unlocked: bool = false
 
+@export var dont_spawn_chests: bool = false
 @export var chest_drops: Dictionary[Array, float]
 
 @export var does_dungeon_have_boss: bool = false
