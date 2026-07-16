@@ -80,7 +80,7 @@ func apply_demo_dungeon_locks() -> void:
 	for button in menu_tabs.get_children():
 		var dungeon_index: int = button.get_index()
 		var has_dungeon: bool = dungeon_index < GlobalCombatInformation.dungeon_types.size()
-		var is_unlocked: bool = (has_dungeon and Global.is_demo_dungeon_unlocked(dungeon_index) and not doing_a_quest_dungeon) or $CanvasLayer/Control.get_child(dungeon_index).stored_dungeon.quest_dungeon
+		var is_unlocked: bool = (StateManager.check_completion(dungeon_index, StateManager.completion_checks.DUNGEON_CHECKS)) or $CanvasLayer/Control.get_child(dungeon_index).stored_dungeon.quest_dungeon
 		button.visible = is_unlocked
 		if is_unlocked:
 			if has_dungeon:

@@ -14,8 +14,9 @@ func _on_game_start_():
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed: 
-		if player_is_in_range and not Global.is_in_menu:
-			if not Global.has_story_flag(Global.STORY_FLAG_QUEST_BOARD_UNLOCKED):
+		if player_is_in_range and not Global.is_in_menu :
+			var quest_board_unlock
+			if not StateManager.check_completion(StateManager.story_beats_lookup.QUEST_BOARD_UNLOCK, StateManager.completion_checks.STORY_CHECKS):
 				Global.show_mc_thought(Global.LYRA_FIRST_OBJECTIVE_TEXT)
 				return
 			if stored_quests_.is_empty():

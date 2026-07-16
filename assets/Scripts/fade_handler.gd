@@ -60,7 +60,6 @@ func fade_out(duration: float):
 	if is_fading:
 		return
 	is_fading = true
-	print("FADING")
 	if use_gradient:
 		var tween = create_tween().set_parallel(true)
 		

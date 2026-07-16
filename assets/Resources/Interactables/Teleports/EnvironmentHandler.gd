@@ -11,23 +11,30 @@ var player_node
 
 func swap_to_me():
 	player_node = get_tree().get_first_node_in_group("Overworld_Player")
-	print(player_node)
 	var entry_loading_zone: String = Global.current_loading_zone
-	var should_start_entry_cutscene := Global.should_start_lyra_tavern_cutscene(entry_loading_zone)
-	teleport_player_to_spawn()
-	AudioManager.play_bgm(bgm, true)
+	await teleport_player_to_spawn()
 
-	if should_start_entry_cutscene:
-		prepare_lyra_tavern_cutscene()
+	AudioManager.play_bgm(bgm, true)
 	set_camera_limits()
-	if should_start_entry_cutscene:
-		refresh_player_camera()
-		await get_tree().process_frame
-		refresh_player_camera()
+	
+	var cutscene_to_start
+	for potential_cutscene in StateManager.story_triggers:
+		if StateManager.should_trigger(potential_cutscene):
+			print("TRIGGERED: ", potential_cutscene)
+			match potential_cutscene:
+				"lyra_tavern_cutscene":
+					cutscene_to_start = potential_cutscene
+					prepare_lyra_tavern_cutscene()
+					refresh_player_camera()
+					await get_tree().process_frame
+					refresh_player_camera()
+
 	await get_tree().create_timer(0.5).timeout
 	await Fade.fade_out(0.5)
-	if should_start_entry_cutscene:
-		start_lyra_tavern_cutscene()
+
+	match cutscene_to_start:
+		"lyra_tavern_cutscene":
+			start_lyra_tavern_cutscene()
 	
 func teleport_player_to_spawn():
 	if player_node == null:
@@ -41,8 +48,6 @@ func teleport_player_to_spawn():
 		_apply_pending_player_spawn_position()
 		return
 		
-	print("Current Loading Zone ", Global.current_loading_zone)
-	print("Current Region ", Global.current_region)
 	var spawn_point = find_loading_zone_spawn(Global.current_loading_zone)
 	spawn_point = spawn_point.find_child("Marker2D")
 	if spawn_point == null:
@@ -66,7 +71,7 @@ func _apply_pending_player_spawn_position() -> void:
 
 func prepare_lyra_tavern_cutscene() -> void:
 	if player_node != null:
-		player_node.global_position = Global.LYRA_TAVERN_PLAYER_POSITION
+		player_node.global_position = $Tavern/LoadingZone/Marker2D.global_position
 
 	var lyra_node = find_child("Lyra_NPC", true, false)
 	if lyra_node != null and lyra_node.has_method("pin_to_location_for_cutscene"):

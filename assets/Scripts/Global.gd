@@ -54,7 +54,7 @@ const STORY_FLAG_QUEST_BOARD_UNLOCKED: String = "quest_board_unlocked"
 const STORY_FLAG_CAVE_DUNGEON_UNLOCKED: String = "cave_dungeon_unlocked"
 const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
 const LYRA_TAVERN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_tavern_room_quest.json"
-const LYRA_TAVERN_PLAYER_POSITION: Vector2 = Vector2(221.0, -2360.0)
+const LYRA_TAVERN_PLAYER_POSITION: Vector2 = Vector2(-2536.0, -3077.0)
 const DUNGEON_INDEX_CAVE: int = 0
 const DUNGEON_INDEX_FOREST: int = 1
 const LYRA_FIRST_OBJECTIVE_TEXT: String = "Sera mentioned I should talk to Lyra. I can find her at the tavern."
@@ -166,9 +166,7 @@ func did_time_reach(hour: int, minute: int) -> bool:
 var time_paused: bool = false
 
 # Updates the current time
-func _physics_process(delta):
-	mouse_texture.global_position = mouse_texture.get_viewport().get_mouse_position()
-	
+func _physics_process(delta):	
 	if AreaStateManager.currently_transitioning or GlobalCombatInformation.in_dungeon:
 		return
 	
@@ -245,16 +243,7 @@ func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
 	time_updated.emit()
 	print("[Debug] Advanced time to day ", current_day, " ", current_hour, ":", "%02d" % current_minute)
 
-func debug_unlock_cave_dungeon() -> void:
-	set_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
-	set_story_flag(STORY_FLAG_CAVE_DUNGEON_UNLOCKED)
-	print("[Debug] Cave dungeon unlocked for testing.")
 
-	var current_scene = get_tree().current_scene
-	if current_scene != null and current_scene.has_method("apply_demo_dungeon_locks"):
-		current_scene.apply_demo_dungeon_locks()
-		if current_scene.has_method("show_selected_dungeon"):
-			current_scene.show_selected_dungeon()
 
 func ensure_npc_bond(npc_id: String) -> Dictionary:
 	if not npc_bonds.has(npc_id):
@@ -346,14 +335,6 @@ func set_pending_player_spawn_position(spawn_position: Vector2) -> void:
 	pending_player_spawn_position = spawn_position
 	has_pending_player_spawn_position = true
 
-func set_story_flag(key: String, value: bool = true) -> void:
-	if key.is_empty():
-		return
-	tutorial_flags[key] = value
-
-func has_story_flag(key: String) -> bool:
-	return bool(tutorial_flags.get(key, false))
-
 func get_player_portrait_sheet() -> String:
 	if player_gender == "male":
 		return "res://GUI/dialogue_system/sprites/portraits/MCmale_portraits.png"
@@ -371,33 +352,7 @@ func show_mc_thought(text: String) -> void:
 		"portrait_frame": "neutral"
 	})
 
-func start_lyra_axe_quest() -> void:
-	set_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
 
-	for existing_quest in GlobalCombatInformation.active_quests:
-		if existing_quest != null and existing_quest.resource_path == LYRA_AXE_QUEST_PATH:
-			print("[Story] Lyra axe quest already active.")
-			GlobalCombatInformation.check_quest_progress.emit()
-			return
-
-	var lyra_quest: quest = load(LYRA_AXE_QUEST_PATH)
-	if lyra_quest == null:
-		push_warning("Global: Could not load Lyra axe quest: %s" % LYRA_AXE_QUEST_PATH)
-		return
-
-	GlobalCombatInformation.add_quest(lyra_quest)
-	print("[Story] Started Lyra axe quest.")
-
-func should_start_lyra_tavern_cutscene(loading_zone_name: String) -> bool:
-	return current_region == "Buildings_Insides" and loading_zone_name == "Tavern" and has_story_flag(STORY_FLAG_SERA_SENT_TO_LYRA) and not has_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
-
-func is_demo_dungeon_unlocked(dungeon_index: int) -> bool:
-	match dungeon_index:
-		DUNGEON_INDEX_FOREST:
-			return has_story_flag(STORY_FLAG_LYRA_AXE_QUEST_STARTED)
-		DUNGEON_INDEX_CAVE:
-			return has_story_flag(STORY_FLAG_CAVE_DUNGEON_UNLOCKED)
-	return false
 
 func apply_loaded_player_profile(data: Dictionary) -> void:
 	set_player_identity(data.get("player_name", player_name), data.get("player_gender", player_gender))
@@ -638,7 +593,7 @@ const MOUSE_DEADZONE: float = 2.0
 
 func _input(event):
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_BRACKETLEFT:
-		debug_unlock_cave_dungeon()
+		StateManager.debug_unlock_cave_dungeon()
 		get_viewport().set_input_as_handled()
 		return
 
@@ -826,19 +781,6 @@ func create_save(content):
 		print("Error: Could not open file for writing: ", FileAccess.get_open_error())
 
 # --------------------------------------------------------------------------------------------------
-var temp_canvas_layer: CanvasLayer
-var mouse_texture: TextureRect
 
 func _ready():
-	temp_canvas_layer = CanvasLayer.new()
-	temp_canvas_layer.layer = 100
-	add_child(temp_canvas_layer)
-	mouse_texture = TextureRect.new()
-	# Maybe replace with this
-	#     Input.set_custom_mouse_cursor(item_texture, Input.CURSOR_ARROW, Vector2(16, 16))
-	mouse_texture.top_level = true
-	
-	temp_canvas_layer.add_child(mouse_texture)
-	for flag in Progression_Flags.values():
-		progression_state[flag] = false
 	time_updated.emit()

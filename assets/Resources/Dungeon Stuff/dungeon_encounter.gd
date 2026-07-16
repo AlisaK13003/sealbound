@@ -24,6 +24,8 @@ var is_this_dungeon_unlocked: bool = false
 @export var does_dungeon_have_boss: bool = false
 @export var boss_encounter: dungeon_wave
 
+@export_enum("Small", "Medium", "Large", "Extra Large") var room_size = 0
+
 var has_beaten_boss: bool = false
 
 func load_save_data(save_data):

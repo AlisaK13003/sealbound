@@ -72,8 +72,10 @@ func check_quest_progress():
 	
 	if can_turn_in_quest:
 		$Button.visible = true
+		$Background/NinePatchRect3.visible = true
 	else:
 		$Button.visible = false
+		$Background/NinePatchRect3.visible = false
 
 func highlight(should_highlight):
 	if should_highlight:

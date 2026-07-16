@@ -241,6 +241,9 @@ func clear_mini_map():
 		var child_to_remove = child
 		#grid_container.remove_child.call_deferred(child)
 		child_to_remove.queue_free()
+		
+	for child in full_screen_map.get_children():
+		child.queue_free()
 	enemy_list.clear()
 	for enemy in enemy_dots.get_children():
 		enemy.queue_free()

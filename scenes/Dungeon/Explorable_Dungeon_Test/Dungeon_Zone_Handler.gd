@@ -122,13 +122,10 @@ func generate_dungeon():
 	print("GENERATING DUNGEON")
 	var new_room_generation: dungeon_generation = dungeon_generation.new()
 	var boss_floor = false
-	current_floor = floor_count
 	if current_floor == floor_count and current_dungeon.does_dungeon_have_boss and not current_dungeon.has_beaten_boss:
 		boss_floor = true
 	
-	
-
-	new_room_generation.build_dungeon(boss_floor)
+	new_room_generation.build_dungeon(boss_floor, current_dungeon.room_size)
 	new_room_generation.evaluate_room_names(new_room_generation.storage)
 	var room_storage = new_room_generation.storage
 	generated_rooms = room_storage
@@ -181,6 +178,8 @@ func generate_dungeon():
 		x_header += "%2d" % world_x 
 	print(x_header)
 	
+	active_room_nodes.clear()
+	player.dungeon_overlay.clear_maps()
 	var ret_val = instantiate_rooms(room_storage, boss_floor)
 	
 	if not ret_val:
@@ -325,7 +324,7 @@ func instantiate_rooms(room_storage, boss_floor):
 				if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
 					room_to_be_locked.lock_room(false)
 					room_to_have_key.set_key_spawn()
-	else:
+	elif current_floor == current_dungeon.first_time_floor_count:
 		var room_to_make_thing = []
 		for room_ in active_room_nodes.values():
 			if room_.room_classification == 2:

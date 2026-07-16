@@ -14,6 +14,8 @@ radius = 57.004234
 size = Vector2(75, 41)
 
 [node name="QuestBoard" type="Node2D" unique_id=1065708173]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_xib73")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1202505987]
@@ -42,7 +44,7 @@ y_sort_enabled = true
 position = Vector2(0, 13.455)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_h1qg2")
-offset = Vector2(0, -73.125)
+offset = Vector2(0, -53.745)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2038073405]
 

@@ -6,7 +6,7 @@ extends Node2D
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Overworld_Player"):
-		if not Global.has_story_flag(Global.STORY_FLAG_LYRA_AXE_QUEST_STARTED):
+		if not StateManager.check_completion(StateManager.story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE, StateManager.completion_checks.STORY_CHECKS):
 			Global.show_mc_thought(Global.LYRA_FIRST_OBJECTIVE_TEXT)
 			return
 		await Fade.fade_in(1)

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://assets/characters/lyra/Lyra_portraits.png" id="2_lvomc"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_lvomc"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_00gfj"]
-[ext_resource type="Resource" uid="uid://5763agr87acy" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres" id="7_00gfj"]
+[ext_resource type="Resource" uid="uid://cf28ka5j1aowb" path="res://scenes/Dungeon/Retrieve_Axe_Dungeon.tres" id="7_00gfj"]
 
 [resource]
 script = ExtResource("4_00gfj")

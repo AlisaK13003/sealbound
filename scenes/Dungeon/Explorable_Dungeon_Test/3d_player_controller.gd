@@ -34,7 +34,8 @@ func _setup(parent_reference):
 
 func setup_fs():
 	await dungeon_overlay._setup_dungeon_pause()
-	entered_new_tile.connect(dungeon_overlay.pause_menu.mini_map._new_room_entered)	
+	if not entered_new_tile.is_connected(dungeon_overlay.pause_menu.mini_map._new_room_entered):
+		entered_new_tile.connect(dungeon_overlay.pause_menu.mini_map._new_room_entered)	
 
 func update_pivot_rotation(spawn_room):
 	match spawn_room.required_directions[0]:

@@ -46,7 +46,6 @@ minimum_number_of_floors = 1
 potential_encounters = Array[ExtResource("2_2thd2")]([SubResource("Resource_hc7dq"), SubResource("Resource_kk88i"), SubResource("Resource_8ysbo")])
 dungeon_light_color = Color(0.5176471, 0.5529412, 0.8352941, 1)
 first_time_floor_count = 1
-quest_dungeon = true
 chest_drops = Dictionary[Array, float]({
 [ExtResource("9_8crub")]: 0.08,
 [ExtResource("10_0p7lf")]: 0.06,

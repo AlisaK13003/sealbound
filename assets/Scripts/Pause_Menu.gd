@@ -33,6 +33,10 @@ func _setup(dungeon_instance, generated_rooms):
 		new_map.hide_mini_map()
 		new_map.open_full_screen()
 		mini_map = new_map
+	elif is_dungeon_menu and windows.get_child(0) is mini_map_class:
+		mini_map._setup(dungeon_instance, generated_rooms)
+		mini_map.hide_mini_map()
+		mini_map.open_full_screen()
 	
 	windows.get_child(1).visible = false
 	windows.get_child(0).visible = true
@@ -41,6 +45,10 @@ func _setup(dungeon_instance, generated_rooms):
 func _reset():
 	menu_tab.cycle_input(null, -10)
 	tab_changed(0)
+
+func clear_minimap():
+	if mini_map != null:
+		mini_map.clear_mini_map()
 
 func update_fsm():
 	mini_map.center_fullscreen_around_tile(windows.get_child(0).current_player_room_coords)

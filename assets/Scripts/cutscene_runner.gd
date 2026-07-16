@@ -104,7 +104,13 @@ func _advance() -> void:
 		"animation":
 			_play_animation(beat)
 		"flag":
-			Global.set_story_flag(str(beat.get("key", "")), bool(beat.get("value", true)))
+			var key_str: String = str(beat.get("key", ""))
+			var key_enum: int = StateManager.get_beat_enum_from_string(key_str)
+			
+			if key_enum != -1:
+				StateManager.set_story_state(key_enum, bool(beat.get("value", true)))
+			else:
+				push_warning("CutsceneRunner: Unknown story beat key '%s' found in flag beat." % key_str)
 			_advance()
 		"fade":
 			_play_fade(beat)
@@ -391,7 +397,13 @@ func _apply_remaining_state_beats() -> void:
 
 		match str(beat.get("type", "dialogue")):
 			"flag":
-				Global.set_story_flag(str(beat.get("key", "")), bool(beat.get("value", true)))
+				var key_str: String = str(beat.get("key", ""))
+				var key_enum: int = StateManager.get_beat_enum_from_string(key_str)
+				
+				if key_enum != -1:
+					StateManager.set_story_state(key_enum, bool(beat.get("value", true)))
+				else:
+					push_warning("CutsceneRunner: Unknown story beat key '%s' while applying remaining beats." % key_str)
 			"objective":
 				Global.current_tutorial_objective = str(beat.get("text", ""))
 			"action":
@@ -406,7 +418,7 @@ func _apply_remaining_state_beats() -> void:
 func _run_action(action_name: String) -> void:
 	match action_name:
 		"start_lyra_axe_quest":
-			Global.start_lyra_axe_quest()
+			StateManager.start_lyra_axe_quest()
 
 func _end() -> void:
 	if has_finished:

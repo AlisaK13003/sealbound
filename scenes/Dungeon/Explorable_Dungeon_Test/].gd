@@ -30,7 +30,13 @@ func _setup(parent_ref):
 	
 func _setup_dungeon_pause():
 	pause_menu._setup(p_ref, p_ref.generated_rooms)
-	
+
+func clear_maps():
+	if mini_map != null:
+		mini_map.clear_mini_map()
+	if pause_menu != null and pause_menu.mini_map != null:
+		pause_menu.mini_map.clear_mini_map()
+
 func display_gotten_chest_items(item_got):
 	for item in item_got:
 		var new_node = load(chest_got_node_path)

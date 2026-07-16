@@ -229,14 +229,14 @@ func _ready():
 	return
 	#build_dungeon()
 
-func build_dungeon(boss_floor):
+func build_dungeon(boss_floor, floor_sizing):
 	build_room_templates()
 
 	var room_storage: Dictionary[Vector2i, dungeon_room]
 
 	var valid_room_layout_generated: bool = false
 	while not valid_room_layout_generated:
-		if await build_rooms(room_storage, boss_floor):
+		if await build_rooms(room_storage, boss_floor, floor_sizing):
 			valid_room_layout_generated = true
 		else:
 			room_storage.clear()
@@ -328,7 +328,7 @@ var current_room_count = 0
 
 signal down_has_been_placed
 
-func build_rooms(room_storage, boss_floor):
+func build_rooms(room_storage, boss_floor, size):
 	print("BUILDING ROOMS")
 
 	# Sets up spawn location
@@ -347,8 +347,18 @@ func build_rooms(room_storage, boss_floor):
 	var rng = RandomNumberGenerator.new()
 	randomize()
 	rng.randomize()
-	var main_walker_lifetime: int = rng.randi_range(15, 40)
-
+	
+	var main_walker_lifetime = 10
+	match size:
+		0:
+			main_walker_lifetime = rng.randi_range(15, 30)
+		1:
+			main_walker_lifetime = rng.randi_range(25, 50)
+		2:
+			main_walker_lifetime = rng.randi_range(55, 70)
+		3:
+			main_walker_lifetime = rng.randi_range(70, 100)
+	
 	var dont_need_to_restart: bool = true
 	var break_out_to_restart: bool = false
 	while dont_need_to_restart:
@@ -371,7 +381,7 @@ func build_rooms(room_storage, boss_floor):
 			template_chance = rng.randf_range(0.4, 0.16)
 			t_way_chance = rng.randf_range(template_chance, 0.25)
 			four_way_chance = rng.randf_range(t_way_chance, 0.3)
-			main_walker_lifetime = rng.randi_range(40, 50)
+			main_walker_lifetime = rng.randi_range(55, 70)
 			main_walker_setps = 0
 			max_three_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 5), 3, 6)
 
@@ -550,7 +560,19 @@ func build_rooms(room_storage, boss_floor):
 				has_all_directions_been_satisfied = true
 				continue
 				
-			var small_walker_allowed_steps = randi_range(2, 6)
+			rng.randomize()
+			var small_walker_allowed_steps = rng.randi_range(2, 6)
+			
+			match size:
+				0:
+					small_walker_allowed_steps = rng.randi_range(0, 2)
+				1:
+					small_walker_allowed_steps = rng.randi_range(1, 3)
+				2:
+					small_walker_allowed_steps = rng.randi_range(2, 4)
+				3:
+					small_walker_allowed_steps = rng.randi_range(2, 6)
+			
 			if current_four_way_count == max_four_way_count:
 				small_walker_allowed_steps = 2
 			elif current_three_way_count == max_three_way_count:
