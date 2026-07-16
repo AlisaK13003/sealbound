@@ -19252,6 +19252,14 @@ position = Vector2(-185, -202)
 tile_map_data = PackedByteArray("AAADAAMAAQAKAAAAAAAGAAMAAQAQAAMAAAAIAAEAAQAPAAIAAAAIAAIAAQAPAAMAAAAIAAQAAQAPAAMAAAAIAAUAAQAPAAUAAAAIAAcAAQAPAAYAAAAJAAcAAQAVAAIAAAAKAAcAAQAWAAIAAAALAAcAAQAWAAIAAAAMAAcAAQAWAAIAAAANAAcAAQAWAAIAAAAOAAcAAQAWAAIAAAAPAAcAAQAWAAIAAAAQAAcAAQAWAAIAAAARAAcAAQAXAAIAAAARAAMAAQAYAAIAAAALAAMAAQAYAAIAAAANAAIAAQAPAAAAAAA=")
 tile_set = SubResource("TileSet_bi516")
 
+[node name="Node2D" type="Node2D" parent="Blacksmith" unique_id=441164639]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Blacksmith/Node2D" unique_id=1180913357]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blacksmith/Node2D/StaticBody2D" unique_id=609169462]
+position = Vector2(-1, 5)
+polygon = PackedVector2Array(-26, 14, -136, 14, -136, -166, -53, -166, -53, -157, -54, -73, -48, -73, -48, -155, 122, -157, 122, 3, 121, 7, 119, 10, 115, 12, 21, 15, 22, 24, 126, 15, 124, -177, -141, -179, -147, -170, -146, 11, -143, 21, -26, 21)
+
 [node name="Apothecary" type="Node2D" parent="." unique_id=1260228072]
 y_sort_enabled = true
 position = Vector2(2814, -679)
