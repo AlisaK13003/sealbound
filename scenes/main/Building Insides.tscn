@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ckp71tv7lpfj5" path="res://assets/Resources/NPC Stuff/Rowan_NPC.tscn" id="9_y5k7i"]
 [ext_resource type="Texture2D" uid="uid://bvq6kwakc5ilq" path="res://assets/tile sheets/Building_Insides_3_.0-sheet.png" id="10_j3ov1"]
 [ext_resource type="PackedScene" uid="uid://c3wh0bpm7dbcr" path="res://assets/Resources/NPC Stuff/Sera_NPC.tscn" id="10_sera"]
+[ext_resource type="Script" uid="uid://dchlssf8hedjv" path="res://scenes/main/JournalEntry.gd" id="11_3xqff"]
 [ext_resource type="Texture2D" uid="uid://676sprefi7p8" path="res://assets/tile sheets/cauldron.png" id="13_5q4q6"]
 [ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="17_3xqff"]
 
@@ -1828,6 +1829,9 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkmk0"]
+radius = 58.21512
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5q4q6"]
 texture = ExtResource("1_r1w2i")
@@ -6422,6 +6426,16 @@ offset_right = 215.0
 offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0o3x6")
 metadata/_edit_use_anchors_ = true
+
+[node name="Node2D" type="Node2D" parent="Blacksmith" unique_id=1438829765]
+position = Vector2(-124, -109)
+script = ExtResource("11_3xqff")
+book_text = "A cozy abode for a sturdy fellow, you breathe in a wiff of the charcoal aroma and feel at peace"
+
+[node name="Area2D" type="Area2D" parent="Blacksmith/Node2D" unique_id=1050059497]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blacksmith/Node2D/Area2D" unique_id=1156787003]
+shape = SubResource("CircleShape2D_mkmk0")
 
 [node name="Apothecary" type="Node2D" parent="." unique_id=1260228072]
 y_sort_enabled = true
