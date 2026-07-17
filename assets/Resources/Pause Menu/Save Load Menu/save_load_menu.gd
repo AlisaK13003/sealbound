@@ -152,7 +152,7 @@ func _apply_save_data(data: Dictionary):
 	if data.has("progression_states"):
 		StateManager.load_story_states(data["progression_states"])
 		
-	Global.current_loading_zone = "Bedroom"
+	Global.current_loading_zone = "Bedspawn"
 	Global.current_region = "Buildings_Insides"
 		
 	get_tree().paused = false
@@ -166,7 +166,6 @@ func _get_saved_location(data: Dictionary) -> String:
 	return data.get("current_location", "Village")
 
 func _delete_selected():
-	print("HELLOOOOO")
 	if selected_slot < 0:
 		return
 	var path = SAVE_DIR + "slot_%d.json" % selected_slot

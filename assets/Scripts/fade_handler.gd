@@ -54,12 +54,10 @@ func fade_in(duration: float):
 		var tween = create_tween()
 		tween.tween_property(fade_thing_2, "modulate:a", 1.0, duration)
 		await tween.finished
-	is_fading = false
 
 func fade_out(duration: float):
-	if is_fading:
+	if not is_fading:
 		return
-	is_fading = true
 	if use_gradient:
 		var tween = create_tween().set_parallel(true)
 		

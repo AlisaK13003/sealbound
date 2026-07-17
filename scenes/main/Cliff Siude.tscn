@@ -701,7 +701,7 @@ sources/2 = SubResource("TileSetAtlasSource_6cw13")
 
 [node name="Cliff Side" type="Node2D" unique_id=981634707]
 y_sort_enabled = true
-rotation = 0.0050469562
+rotation = -0.17627825
 script = ExtResource("1_blhe8")
 bgm = ExtResource("2_eyc0n")
 
@@ -718,6 +718,12 @@ schedule_path = "res://assets/Resources/NPC Stuff/Schedules/Test_Villager/Monday
 z_index = 2
 position = Vector2(8.12973, 421.96436)
 confirmation_before_teleport = false
+location_data = {
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit"],
+"Cliff Side": ["Cliff Entrance"],
+"Forest": ["Apothecary", "Left Side"],
+"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
+}
 "Current Location/Region" = "Cliff Side"
 "Current Location/Spot" = "Cliff Entrance"
 "Destination Location/Region" = "Village"
@@ -814,6 +820,7 @@ tile_set = SubResource("TileSet_elati")
 z_index = 1
 y_sort_enabled = true
 position = Vector2(1, 1)
+rotation = 0.17453292
 scale = Vector2(1.0000001, 1.0000001)
 tile_map_data = PackedByteArray("AAAFAA4AAgAPAAIAAAAkAAMAAgALAAgAAAApACsAAgAPAAIAAAAbADAAAgAIAAcAAAACACcAAgAHAAAAAAAJACEAAgALAAgAAAAGADEAAgAPAAIAAAAJADEAAgAIAAcAAAAXADIAAgAAAAAAAAAiADEAAgAPAAIAAAAJACwAAgAPAAIAAAADACwAAgAAAAAAAAAEAAsAAgAPAAAAAAAIAAQAAgALAAgAAAAVAA0AAgALAAgAAAATAAcAAgAIAAcAAAAOAAkAAgAIAAcAAAA+AAQAAgAHAAAAAAAFACIAAgAPAAIAAAA0AC0AAgAHAAAAAAAMACQAAgAHAAAAAAALAA8AAgAAAAAAAAAYAAIAAgAAAAAAAAAOAAEAAgAPAAIAAAADAAQAAgAAAAAAAAA8ABoAAgAAAAAAAAA8ABAAAgAHAAAAAAAvAB4AAgAHAAAAAAAiABsAAgAPAAIAAAAlABcAAgAPAAIAAAAnADEAAgAAAAAAAAAsADIAAgAPAAIAAAA=")
 tile_set = SubResource("TileSet_elati")

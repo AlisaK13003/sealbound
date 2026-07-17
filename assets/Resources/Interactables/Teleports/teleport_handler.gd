@@ -11,7 +11,7 @@ extends Node
 	"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"],
 	"Forest": ["Apothecary", "Left Side"],
 	"Cliff Side": ["Cliff Entrance"],
-	"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom"]
+	"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn"]
 }:
 	set(value):
 		location_data = value
@@ -107,7 +107,7 @@ func _get_property_list():
 var is_disabled: bool = false
 
 func _on_area_2d_body_entered(body = null):
-	if disable_teleport:
+	if disable_teleport or AreaStateManager.currently_transitioning:
 		return
 	if body == null:
 		AreaStateManager.currently_transitioning = true
@@ -125,18 +125,18 @@ func _on_area_2d_body_entered(body = null):
 
 		await Fade.fade_in(1.0)
 		AreaStateManager.swap_scene()
-		
-func _on_area_2d_body_exited(body):
-	if body.is_in_group("Overworld_Player"):
-		is_disabled = false
 
 var player_in_range: bool = false
 func _on_area_2d_2_body_entered(body):
+	if disable_teleport:
+		return
 	if body.is_in_group("Overworld_Player"):
 		player_in_range = true
 		$GenericButton.visible = true
 		
 func _on_area_2d_2_body_exited(body):
+	if disable_teleport:
+		return
 	if body.is_in_group("Overworld_Player"):
 		player_in_range = true
 		$GenericButton.visible = false

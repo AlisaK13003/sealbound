@@ -12,7 +12,7 @@ var player_node
 func swap_to_me():
 	player_node = get_tree().get_first_node_in_group("Overworld_Player")
 	var entry_loading_zone: String = Global.current_loading_zone
-	await teleport_player_to_spawn()
+	teleport_player_to_spawn()
 
 	AudioManager.play_bgm(bgm, true)
 	set_camera_limits()
@@ -41,7 +41,7 @@ func swap_to_me():
 					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.LYRA_UNLOCKED)
 					
 
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	await Fade.fade_out(0.5)
 
 	match cutscene_to_start:
@@ -199,8 +199,10 @@ func get_camera_bounds_node() -> Node2D:
 		return overworld_bounds
 
 	var room_name := Global.current_loading_zone
-	if room_name == "Bedroom":
+	if room_name == "Bedroom_Exit":
 		room_name = "Tavern"
+	if room_name == "Bedspawn":
+		room_name = "Bedroom"
 	if room_name == "":
 		push_warning("EnvironmentHandler: Cannot set building camera bounds without a current loading zone.")
 		return null
