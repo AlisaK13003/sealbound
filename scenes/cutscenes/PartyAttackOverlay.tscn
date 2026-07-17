@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b5v8kk3qtewbl"]
+
+[ext_resource type="Script" uid="uid://culuwf3ajxvqf" path="res://scenes/cutscenes/party_attack_overlay.gd" id="1_78rbh"]
+
+[node name="PartyAttackOverlay" type="CanvasLayer" unique_id=314667051]
+process_mode = 3
+layer = 50
+script = ExtResource("1_78rbh")
+
+[node name="AttackActors" type="Node2D" parent="." unique_id=1895486721]
+
+[node name="PartySprite1" type="AnimatedSprite2D" parent="AttackActors" unique_id=252901987]
+z_index = 20
+position = Vector2(93, 253)
+
+[node name="PartySprite2" type="AnimatedSprite2D" parent="AttackActors" unique_id=460763025]
+z_index = 21
+position = Vector2(145, 192)
+
+[node name="PartySprite3" type="AnimatedSprite2D" parent="AttackActors" unique_id=507588655]
+z_index = 22
+position = Vector2(194, 255)
+
+[node name="SlashEffects" type="Node2D" parent="." unique_id=2028705283]
+
+[node name="Slash1" type="AnimatedSprite2D" parent="SlashEffects" unique_id=1227472440]
+visible = false
+z_index = 50
+position = Vector2(418, 224)
+
+[node name="Slash2" type="AnimatedSprite2D" parent="SlashEffects" unique_id=1564922586]
+visible = false
+z_index = 50
+position = Vector2(443, 191)
+
+[node name="Slash3" type="AnimatedSprite2D" parent="SlashEffects" unique_id=1112875836]
+visible = false
+z_index = 50
+position = Vector2(468, 230)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=981820577]

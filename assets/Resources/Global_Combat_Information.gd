@@ -32,6 +32,9 @@ enum difficulty_multiplier {EASY, MEDIUM, DIFFICULT, REALLYHARD}
 var holding_boss_key: int = 0
 var holding_basic_room_key: int = 0
 
+const FEMALE_MC_COMBATANT_PATH: String = "res://assets/characters/player/FMC_Combatant_Information.tres"
+const MALE_MC_COMBATANT_PATH: String = "res://assets/characters/player/MMC_Combatant_Information.tres"
+
 var all_character_information = [
 	"res://assets/characters/sera/Sera_Combatant_Information.tres",
 	"res://assets/characters/lyra/Lyra_Combatant_Information.tres",
@@ -39,8 +42,8 @@ var all_character_information = [
 	"res://assets/characters/kaela/Kaela_Combatant_Information.tres",
 	"res://assets/characters/cassian/Cassian_Combatant_Information.tres",
 	"res://assets/characters/orion/Orion_dungeon_combatant.tres",
-	"res://assets/characters/player/FMC_Combatant_Information.tres",
-	"res://assets/characters/player/MMC_Dungeon_Animations.tres"
+	FEMALE_MC_COMBATANT_PATH,
+	MALE_MC_COMBATANT_PATH
 ]
 
 signal finished
@@ -118,6 +121,76 @@ func calculate_BP():
 			current_BP += member.bond_level * 5
 			max_BP += member.bond_level * 5
 
+func apply_player_gender_to_combatant() -> void:
+	var player_combatant: generic_combatants = _load_player_combatant_for_gender()
+	if player_combatant == null:
+		return
+	var all_index: int = _find_mc_slot(all_party_slots)
+	var active_index: int = _find_mc_slot(active_party_slots)
+	var previous_combatant: generic_combatants = null
+	if active_index != -1:
+		previous_combatant = active_party_slots[active_index]
+	elif all_index != -1:
+		previous_combatant = all_party_slots[all_index]
+
+	_copy_mc_progress(previous_combatant, player_combatant)
+	player_combatant.is_MC = true
+	player_combatant.gather_actual_stats()
+
+	if all_index == -1:
+		all_party_slots.insert(0, player_combatant)
+	else:
+		all_party_slots[all_index] = player_combatant
+
+	if active_index == -1:
+		active_party_slots.insert(0, player_combatant)
+	else:
+		active_party_slots[active_index] = player_combatant
+
+	calculate_BP()
+	check_player_values.emit()
+
+func _load_player_combatant_for_gender() -> generic_combatants:
+	var combatant_path: String = FEMALE_MC_COMBATANT_PATH
+	var global_singleton = get_node_or_null("/root/Global")
+	if global_singleton != null and Global.player_gender == "male":
+		combatant_path = MALE_MC_COMBATANT_PATH
+	var loaded_combatant = load(combatant_path)
+	if loaded_combatant is generic_combatants:
+		return loaded_combatant
+	push_warning("Could not load player combatant at %s" % combatant_path)
+	return null
+
+func _find_mc_slot(slots: Array[generic_combatants]) -> int:
+	for i in range(slots.size()):
+		var member: generic_combatants = slots[i]
+		if member == null:
+			continue
+		if member.is_MC or member.resource_path == FEMALE_MC_COMBATANT_PATH or member.resource_path == MALE_MC_COMBATANT_PATH:
+			return i
+	return -1
+
+func _copy_mc_progress(previous_combatant: generic_combatants, new_combatant: generic_combatants) -> void:
+	if previous_combatant == null or new_combatant == null or previous_combatant == new_combatant:
+		return
+	new_combatant.current_stored_slot = previous_combatant.current_stored_slot
+	new_combatant.total_experience_points = previous_combatant.total_experience_points
+	new_combatant.bond_points = previous_combatant.bond_points
+	new_combatant.bond_level = previous_combatant.bond_level
+	new_combatant.resonated_with = previous_combatant.resonated_with
+	new_combatant.stored_weapon = previous_combatant.stored_weapon
+	new_combatant.stored_equipment = previous_combatant.stored_equipment
+	new_combatant.stored_charm = previous_combatant.stored_charm
+	new_combatant.stored_boots = previous_combatant.stored_boots
+	new_combatant.stored_chestplate = previous_combatant.stored_chestplate
+	if previous_combatant.combatant_stats != null and new_combatant.combatant_stats != null:
+		new_combatant.combatant_stats.level = previous_combatant.combatant_stats.level
+		new_combatant.combatant_stats.health = clamp(
+			previous_combatant.combatant_stats.health,
+			0,
+			new_combatant.combatant_stats.max_health
+		)
+
 signal did_something_with_BP
 func do_something_with_BP(amount):
 	current_BP = clamp(current_BP + amount, 0, max_BP)
@@ -128,6 +201,23 @@ func update_currency(currency_change):
 	var old_money_count = currency_held
 	currency_held += currency_change
 	did_something_with_money.emit(old_money_count, currency_change)
+
+func _get_safe_combatant_level(combatant: generic_combatants) -> int:
+	if combatant == null:
+		return 1
+	if combatant.combatant_stats != null:
+		return max(1, int(combatant.combatant_stats.level))
+	if combatant.actual_stats != null:
+		return max(1, int(combatant.actual_stats.level))
+	push_warning("Combatant '%s' has no stats resource for level rewards. Falling back to level 1." % combatant.combatant_name)
+	return 1
+
+func _ensure_combatant_stats_ready(combatant: generic_combatants) -> bool:
+	if combatant == null or combatant.combatant_stats == null:
+		return false
+	if combatant.actual_stats == null:
+		combatant.gather_actual_stats()
+	return combatant.actual_stats != null
 
 func check_if_member_is_active(combatant: generic_combatants):
 	for combatant_ in active_party_slots:
@@ -329,7 +419,9 @@ func complete_quest(quest_: quest):
 
 func _ready():	
 	update_available_party_members.connect(new_members_available)
-	all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
+	var player_combatant: generic_combatants = _load_player_combatant_for_gender()
+	if player_combatant != null:
+		all_party_slots.append(player_combatant)
 	#all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
 	#all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
 	#all_party_slots.append(load("res://assets/characters/orion/Orion_dungeon_combatant.tres"))
@@ -340,9 +432,11 @@ func _ready():
 
 	load_items()
 	
-	active_party_slots.append(all_party_slots[0])
+	if not all_party_slots.is_empty():
+		active_party_slots.append(all_party_slots[0])
 	#active_party_slots.append(all_party_slots[1])
 	#active_party_slots.append(all_party_slots[2])
+	apply_player_gender_to_combatant()
 	calculate_BP()
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
@@ -498,13 +592,17 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	print("YOU KJILLED ", enemies_killed)
 	# output[2] = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
 	
-	active_party_slots[0] = output[2][0].duplicate()
-	if output[2][1] != null:
-		active_party_slots[1] = output[2][1].duplicate()
-	if output[2][2] != null:
-		active_party_slots[2] = output[2][2].duplicate()
+	var returned_party_slots: Array = output[2]
+	var party_result_count: int = mini(3, active_party_slots.size())
+	for i in range(party_result_count):
+		if i >= returned_party_slots.size():
+			continue
+		if returned_party_slots[i] == null:
+			continue
+		active_party_slots[i] = returned_party_slots[i].duplicate()
 	
-	current_BP = output[2][3]
+	if returned_party_slots.size() > 3:
+		current_BP = returned_party_slots[3]
 
 	if did_players_win:
 		should_remove_enemy = true
@@ -527,9 +625,11 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 				enemies_to_check.append(thing)
 	
 	for enemy: generic_combatants in enemies_killed:
+		if enemy == null:
+			continue
 		var is_quest_target = enemies_to_check.any(func(e): return e.combatant_name == enemy.combatant_name)
 		print("ARE YOU A QUEST TARGET ", is_quest_target )
-		if is_quest_target:
+		if is_quest_target and enemy.quest_item_drop != null:
 			var chance = rng.randf()
 			if chance < 1.0:
 				var drop_num = rng.randi_range(1, 3)
@@ -537,14 +637,18 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 					quest_items_gained.append(enemy.quest_item_drop.duplicate())
 				
 		coins_gained += int(randi_range(enemy.coin_drop_range.x, enemy.coin_drop_range.y) * randf_range(0.5, 1.5))
-		experience_gained += clamp(int(pow(enemy.combatant_stats.level, enemy.experience_mult + 1) * randf_range(0.5, 1.2)), 1, enemy.experience_mult + 1 * 1.2)
+		var enemy_level: int = _get_safe_combatant_level(enemy)
+		experience_gained += clamp(int(pow(enemy_level, enemy.experience_mult + 1) * randf_range(0.5, 1.2)), 1, enemy.experience_mult + 1 * 1.2)
 		var returned_items = return_dropped_items(enemy.drop_table)
 		if returned_items != null:
 			stuff_gained.append(returned_items)
 		bond_gained += int(randi_range(enemy.bond_drop_range.x, enemy.bond_drop_range.y) * randf_range(0.5, 1.2))
 	
+	var exp_divisor = max(1, active_party_slots.size() - 1)
 	for player: generic_combatants in active_party_slots:
-		player.add_experience(int(float(experience_gained) / (active_party_slots.size() - 1)))
+		if not _ensure_combatant_stats_ready(player):
+			continue
+		player.add_experience(int(float(experience_gained) / exp_divisor))
 	
 	for player: generic_combatants in active_party_slots:
 		var index = all_party_slots.find_custom(func(person: generic_combatants): return player.combatant_name == person.combatant_name)

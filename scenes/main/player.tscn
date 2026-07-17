@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://dyw057mkk2s2p" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 3.ogg" id="19_1j5b0"]
 [ext_resource type="AudioStream" uid="uid://br73qy1r8f0cm" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 2.ogg" id="20_cx2ir"]
 [ext_resource type="AudioStream" uid="uid://c4qu20laovkrl" path="res://assets/Audio/Tile_SFX/Wood/Footstep Wood 1.ogg" id="21_ja1pu"]
+[ext_resource type="Texture2D" uid="uid://dl8xl2bbba7s4" path="res://assets/tile sheets/Menu-tab.png" id="25_tp8rc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_riacy"]
 radius = 8.0
@@ -84,22 +85,31 @@ offset_right = -344.04
 offset_bottom = 61.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=456559786]
-anchors_preset = -1
-anchor_left = 0.196875
-anchor_top = -0.13125
-anchor_right = 0.196875
-anchor_bottom = -0.13125
-offset_left = 342.96
-offset_top = 23.0
-offset_right = 577.95996
-offset_bottom = 125.0
+[node name="TimePanel2" type="NinePatchRect" parent="CanvasLayer" unique_id=113834138]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -111.0
+offset_top = 6.0
+offset_right = 26.0
+offset_bottom = 58.0
+grow_horizontal = 0
+scale = Vector2(0.76, 0.76)
+texture = ExtResource("25_tp8rc")
+
+[node name="Label" type="Label" parent="CanvasLayer/TimePanel2" unique_id=456559786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.272727
+offset_bottom = -1.727272
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_2idcg")
-theme_override_font_sizes/font_size = 16
-text = "Day 0 Year 0
-06:00
-"
+theme_override_font_sizes/font_size = 12
+text = "Day 1, Year 1
+6:00 AM"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_2gs60")
-metadata/_edit_use_anchors_ = true

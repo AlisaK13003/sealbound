@@ -3,6 +3,8 @@ extends Node
 class_name dungeon_loop
 
 #region Variables
+const PARTY_ATTACK_OVERLAY_SCENE := preload("res://scenes/cutscenes/PartyAttackOverlay.tscn")
+
 @export var party_slot_1 : generic_combatants
 @export var party_slot_2: generic_combatants
 @export var party_slot_3: generic_combatants
@@ -194,14 +196,20 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 #endregion
 
 #region CombatHelpers
+func _has_combatant(entity) -> bool:
+	return entity != null and is_instance_valid(entity) and entity.stored_combatant != null
+
+func _is_living_combatant(entity) -> bool:
+	return _has_combatant(entity) and not entity.stored_combatant.is_dead
+
 func determine_order() -> void:
 	all_combatants.clear()
 	
 	for slot in $Player_Container.get_children():
-		if slot.visible:
+		if slot.visible and _is_living_combatant(slot):
 			all_combatants.append(slot)
 	for enemy_slot in enemy_shit.get_children():
-		if enemy_slot.visible:
+		if enemy_slot.visible and _is_living_combatant(enemy_slot):
 			all_combatants.append(enemy_slot)
 	
 	all_combatants.sort_custom(func(a, b) -> int:
@@ -217,14 +225,12 @@ func get_next_actor():
 func advance_turn(actor):
 	var completed_actor = all_combatants.pop_front()
 	
-	if completed_actor and not completed_actor.stored_combatant.is_dead:
+	if _is_living_combatant(completed_actor):
 		all_combatants.append(completed_actor)
 		
 	var living_combatants: Array[combat_template] = []
 	for entity in all_combatants:
-		if entity == null:
-			continue
-		if not entity.stored_combatant.is_dead:
+		if _is_living_combatant(entity):
 			living_combatants.append(entity)
 	all_combatants = living_combatants
 	
@@ -235,7 +241,7 @@ func calculate_turn_order() -> Array:
 	
 	var simulations = []
 	for entity in all_combatants:
-		if not entity.stored_combatant.is_dead:
+		if _is_living_combatant(entity):
 			var speed = entity.obtain_stat(entity.stats.SPEED)
 			simulations.append({
 				"entity": entity,
@@ -339,16 +345,21 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 			turn_count += 1
 			
 			var current_actor = get_next_actor()
+			if not _has_combatant(current_actor):
+				is_wave_over = true
+				break
 			
 			# If player is dead, you lost
 			if current_actor.stored_combatant.is_MC and current_actor.stored_combatant.is_dead:
-				return
+				is_wave_over = true
+				did_players_win = false
+				break
 
 			# After each turn checks if all players or all enemies are dead
 			var number_of_alive_enemies = 0
 			var number_of_alive_players = 0
 			
-			if slot_1.stored_combatant.is_dead:
+			if not _is_living_combatant(slot_1):
 				is_wave_over = true
 				did_players_win = false
 				break
@@ -361,9 +372,8 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 					number_of_alive_enemies += 1
 			# Player check
 			for player in player_container.get_children():
-				if player.visible:
-					if not player.stored_combatant.is_dead:
-						number_of_alive_players += 1
+				if player.visible and _is_living_combatant(player):
+					number_of_alive_players += 1
 			# Wait so all animations can finish
 			if not training:
 				await get_tree().create_timer(0.5).timeout
@@ -409,20 +419,23 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 			
 	if not did_players_win:
 		await gui.play_game_over()
-	party_slot_1 = get_player(0).stored_combatant.duplicate()
-	if get_player(1) != -1 and get_player(1).stored_combatant != null:
-		party_slot_2 = get_player(1).stored_combatant.duplicate()
-	else:
-		party_slot_2 = null
-	if get_player(1) != -1 and get_player(2).stored_combatant != null:
-		party_slot_3 = get_player(2).stored_combatant.duplicate()
-	else:
-		party_slot_3 = null
 			
-	var ret_val = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
+	var ret_val: Array = _collect_active_party_results()
+	ret_val.append(current_bond_points)
+	ret_val.append(gui.bond_bar.value)
 	print(current_bond_points)
 	return [killed_enemies, did_players_win, ret_val]
 	#return [number_of_killed_players, number_of_killed_enemies, player_container, highest_wave_reached, number_of_waves_to_fight, cum_player_health, skills_enemies_have_used]
+
+func _collect_active_party_results() -> Array:
+	var results: Array = []
+	var slots: Array = [slot_1, slot_2, slot_3]
+	for slot in slots:
+		if slot == null or not slot.visible or slot.stored_combatant == null:
+			results.append(null)
+			continue
+		results.append(slot.stored_combatant.duplicate())
+	return results
 
 #region EntityTurns
 
@@ -439,9 +452,7 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 			attacking_enemy = enemy
 			
 	for player in player_container.get_children():
-		if player == null:
-			continue
-		if player.stored_combatant.is_dead:
+		if not _is_living_combatant(player):
 			continue
 		else:
 			var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player)
@@ -454,7 +465,7 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 			continue
 		else:
 			for player in player_container.get_children():
-				if player.stored_combatant.is_dead:
+				if not _is_living_combatant(player):
 					continue
 
 				var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, player, true, action)
@@ -530,6 +541,8 @@ func execute_enemy_skills(action):
 			
 			for entity in targets:
 				if not is_instance_valid(entity):
+					continue
+				if not _has_combatant(entity):
 					continue
 
 				if entity.stored_combatant.is_combatant_enemy:
@@ -811,13 +824,14 @@ func player_did_bond_attack():
 	print("BOND ATTACXK")
 	var alive_player_count = 0
 	for player in player_container.get_children():
-		if player.stored_combatant.is_dead:
+		if not _is_living_combatant(player):
 			continue
 		else:
 			alive_player_count += 1
 	
 	var attacking = return_whos_highlighted(false)
 	unselect_all()
+	action_sequence.append(func(): await _play_party_attack_overlay(attacking))
 	if attacking is Array:
 		var par_task: Array[Callable] = []
 		for entity in attacking:
@@ -833,6 +847,11 @@ func player_did_bond_attack():
 	await action_queue(action_sequence)
 
 	turn_ended.emit()
+
+func _play_party_attack_overlay(targets) -> void:
+	var overlay = PARTY_ATTACK_OVERLAY_SCENE.instantiate()
+	add_child(overlay)
+	await overlay.play_attack(player_container.get_children(), targets)
 
 func ran_from_combat():
 	get_viewport().set_input_as_handled()
@@ -1018,7 +1037,7 @@ func select_individual(is_player, index):
 		if is_player:
 			if index >= 3:
 				break
-			if get_player(index).stored_combatant.is_dead:
+			if not _is_living_combatant(get_player(index)):
 				continue
 			get_player(index).selected(true)
 			break
@@ -1041,7 +1060,7 @@ func unselect_all():
 func make_players_selectable():
 	selecting_entity = true
 	for player in player_container.get_children():
-		if player.stored_combatant.is_dead:
+		if not _is_living_combatant(player):
 			continue
 		player.could_be_selected()
 
@@ -1055,16 +1074,15 @@ func make_enemies_selectable():
 func select_all_players():
 	selecting_entity = false
 	for player in player_container.get_children():
-		if not player.stored_combatant.is_dead:
+		if _is_living_combatant(player):
 			player.selected(false)
 	
 func select_all_enemies():
 	selecting_entity = false
 	for enemy in enemy_shit.get_children():
-		if not enemy.visible:
+		if not enemy.visible or not _is_living_combatant(enemy):
 			continue
-		if enemy.visible or not enemy.stored_combatant.is_dead:
-			enemy.selected(false)
+		enemy.selected(false)
 
 func return_whos_highlighted(targets_party):
 	var highlighted_entities = []
@@ -1286,7 +1304,7 @@ func execute_player_auto_turn(player_to_act, _turn_number, testing):
 			
 	for action in range(attacking_player.stored_combatant.combatant_skills.size() + 1):
 		for enemy in enemy_shit.get_children():
-			if not enemy.visible or enemy.stored_combatant.is_dead:
+			if not enemy.visible or not _is_living_combatant(enemy):
 				continue
 			if action == 0:
 				var new_action = player_weighting.new(enemy_shit, player_container, attacking_player, enemy)
@@ -1302,7 +1320,7 @@ func execute_player_auto_turn(player_to_act, _turn_number, testing):
 			if not skill.targets_party and not skill.targets_self:
 				continue  # offensive skill, skip player targets entirely
 			for player in player_container.get_children():
-				if player.stored_combatant.is_dead:
+				if not _is_living_combatant(player):
 					continue
 				if attacking_player.stored_combatant.combatant_skills[action - 1].is_skill_aoe and player.get_index() > 0:
 					continue
@@ -1444,7 +1462,7 @@ class player_weighting:
 				if skill_type_ref.does_status or skill_type_ref.removes_status:
 					if not skill_type_ref.targets_party:
 						for enemy in enemy_container.get_children():
-							if not enemy.visible or enemy.stored_combatant.is_dead:
+							if enemy.stored_combatant == null or not enemy.visible or enemy.stored_combatant.is_dead:
 								continue
 							if skill_type_ref.does_remove_status and enemy.check_if_status_is_there(skill_type_ref.removes_status):
 								should_do_status += 1
@@ -1452,7 +1470,7 @@ class player_weighting:
 								should_do_status += 1
 					else:
 						for player in player_container.get_children():
-							if player.stored_combatant.is_dead:
+							if player.stored_combatant == null or player.stored_combatant.is_dead:
 								continue
 							if skill_type_ref.does_remove_status and player.check_if_status_is_there(skill_type_ref.removes_status):
 								should_do_status += 1
@@ -1551,7 +1569,7 @@ class enemy_weighting:
 					if skill_type.does_status or skill_type.removes_status:
 						if not skill_type.targets_party:
 							for player in player_container.get_children():
-								if player.stored_combatant.is_dead:
+								if player.stored_combatant == null or player.stored_combatant.is_dead:
 									continue
 								if skill_type.does_remove_status and player.check_if_status_is_there(skill_type.removes_status):
 									should_do_status += 1
@@ -1559,7 +1577,7 @@ class enemy_weighting:
 									should_do_status += 1
 						else:
 							for enemy in enemy_container.get_children():
-								if not enemy.visible:
+								if enemy.stored_combatant == null or not enemy.visible:
 									continue
 								if enemy.stored_combatant.is_dead:
 									continue
@@ -1619,7 +1637,7 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 			if skill_used.is_skill_aoe:
 				if skill_used.targets_party:
 					for enemy in enemy_shit.get_children():
-						if not enemy.visible or enemy.stored_combatant.is_dead:
+						if not enemy.visible or not _is_living_combatant(enemy):
 							continue
 						if skill_used.does_remove_status and enemy.check_if_status_is_there(skill_used.removes_status):
 							new_weighting += remove_status_weight
@@ -1634,7 +1652,7 @@ func gather_true_action_weights(action_to_test: enemy_weighting):
 					new_weighting = new_weighting / (get_alive_player_or_enemy_count(not action_to_test.targetting_player))
 				else:
 					for player in player_container.get_children():
-						if player.stored_combatant.is_dead:
+						if not _is_living_combatant(player):
 							continue
 						if skill_used.does_status and not player.check_if_status_is_there(skill_used.status_type):
 							new_weighting += give_player_status_weight
@@ -1692,7 +1710,7 @@ func gather_player_action_weights(action_to_test: player_weighting) -> float:
 		if skill_used.is_skill_aoe:
 			if skill_used.targets_party:
 				for player in player_container.get_children():
-					if player.stored_combatant.is_dead:
+					if not _is_living_combatant(player):
 						continue
 					if skill_used.does_remove_status and ((skill_used.status_type <= action_to_test.person_acting.statuses.AGRO and player.check_if_status_is_there(skill_used.removes_status)) or (skill_used.status_type > action_to_test.person_acting.statuses.STUNIMMUNITY and player.check_if_status_is_there(skill_used.remove_status))):
 						new_weighting += p_give_player_status_weight
@@ -1710,7 +1728,7 @@ func gather_player_action_weights(action_to_test: player_weighting) -> float:
 					new_weighting = new_weighting / divisor
 			else:
 				for enemy in enemy_shit.get_children():
-					if not enemy.visible or enemy.stored_combatant.is_dead:
+					if not enemy.visible or not _is_living_combatant(enemy):
 						continue
 					if skill_used.does_status:
 						new_weighting += p_give_player_status_weight
@@ -1792,12 +1810,12 @@ func get_alive_player_or_enemy_count(is_player):
 	var count = 0
 	if is_player:
 		for player in player_container.get_children():
-			if player.stored_combatant.is_dead:
+			if not _is_living_combatant(player):
 				continue
 			count += 1
 	else:
 		for enemy in enemy_shit.get_children():
-			if not enemy.visible or enemy.stored_combatant.is_dead:
+			if not enemy.visible or not _is_living_combatant(enemy):
 				continue
 			count += 1
 	return count

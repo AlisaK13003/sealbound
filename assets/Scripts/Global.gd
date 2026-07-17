@@ -263,6 +263,9 @@ func set_player_identity(new_name: String, new_gender: String) -> void:
 	player_name = new_name.strip_edges()
 	if player_name.is_empty():
 		player_name = get_default_player_name(player_gender)
+	var combat_info = get_node_or_null("/root/GlobalCombatInformation")
+	if combat_info != null and combat_info.has_method("apply_player_gender_to_combatant"):
+		combat_info.apply_player_gender_to_combatant()
 	player_identity_changed.emit()
 
 func start_new_game(new_name: String, new_gender: String) -> void:

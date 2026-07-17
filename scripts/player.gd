@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
+const OVERWORLD_SPRITE_DISPLAY_HEIGHT: float = 39.0
 
 var in_menu : bool = false
 @export var move_speed : float = 300.0
@@ -56,7 +57,7 @@ func _pass_out(did_pass_out):
 		Global.current_loading_zone = "Bedspawn"
 		var building_scene = AreaStateManager.building_insides_instance
 
-		var mc_marker := _find_marker_by_names(building_scene, ["Scene1_MCSpawn", "Scene1_MC_Spawn"])
+		var mc_marker: Marker2D = _find_marker_by_names(building_scene, ["Scene1_MCSpawn", "Scene1_MC_Spawn"])
 		
 		await Fade.fade_in(1.0)
 		AreaStateManager.swap_scene(get_tree().current_scene)
@@ -67,7 +68,7 @@ func _pass_out(did_pass_out):
 
 func _find_marker_by_names(root: Node, marker_names: Array) -> Marker2D:
 	for marker_name in marker_names:
-		var marker := root.find_child(str(marker_name), true, false) as Marker2D
+		var marker: Marker2D = root.find_child(str(marker_name), true, false) as Marker2D
 		if marker != null:
 			return marker
 	return null
@@ -192,28 +193,35 @@ func apply_gender_sprite() -> void:
 	if Global.player_gender == "male":
 		idle_texture = male_idle_texture
 		walk_texture = male_walk_texture
-	
-	animated_sprite.sprite_frames = female_sprite_frames#_build_overworld_sprite_frames(idle_texture, walk_texture)
+
+	animated_sprite.sprite_frames = _build_overworld_sprite_frames(idle_texture, walk_texture)
+	var display_scale: float = OVERWORLD_SPRITE_DISPLAY_HEIGHT / float(walk_texture.get_height())
+	animated_sprite.scale = Vector2(display_scale, display_scale)
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
 func _build_overworld_sprite_frames(idle_texture: Texture2D, walk_texture: Texture2D) -> SpriteFrames:
 	var frames = SpriteFrames.new()
 	frames.remove_animation("default")
+	var walk_frame_width: int = int(walk_texture.get_width() / 12.0)
+	var walk_frame_height: int = int(walk_texture.get_height())
+	var idle_frame_width: int = mini(int(idle_texture.get_width()), walk_frame_width)
+	var idle_frame_x: int = maxi(0, int((idle_texture.get_width() - idle_frame_width) / 2.0))
+
 	frames.add_animation("idle")
 	frames.set_animation_loop("idle", true)
 	frames.set_animation_speed("idle", 5.0)
-	frames.add_frame("idle", _atlas_frame(idle_texture, Rect2(0, 0, 192, 288)))
-	_add_walk_animation(frames, "walk_down", walk_texture, [0, 1, 2, 3], 5.0)
-	_add_walk_animation(frames, "walk_up", walk_texture, [4, 5, 6, 7], 7.0)
-	_add_walk_animation(frames, "walk_side", walk_texture, [8, 9, 10, 11], 5.0)
+	frames.add_frame("idle", _atlas_frame(idle_texture, Rect2(idle_frame_x, 0, idle_frame_width, idle_texture.get_height())))
+	_add_walk_animation(frames, "walk_down", walk_texture, [0, 1, 2, 3], 5.0, Vector2i(walk_frame_width, walk_frame_height))
+	_add_walk_animation(frames, "walk_up", walk_texture, [4, 5, 6, 7], 7.0, Vector2i(walk_frame_width, walk_frame_height))
+	_add_walk_animation(frames, "walk_side", walk_texture, [8, 9, 10, 11], 5.0, Vector2i(walk_frame_width, walk_frame_height))
 	return frames
 
-func _add_walk_animation(frames: SpriteFrames, animation_name: StringName, texture: Texture2D, frame_indexes: Array[int], speed: float) -> void:
+func _add_walk_animation(frames: SpriteFrames, animation_name: StringName, texture: Texture2D, frame_indexes: Array[int], speed: float, frame_size: Vector2i) -> void:
 	frames.add_animation(animation_name)
 	frames.set_animation_loop(animation_name, true)
 	frames.set_animation_speed(animation_name, speed)
 	for frame_index in frame_indexes:
-		frames.add_frame(animation_name, _atlas_frame(texture, Rect2(frame_index * 192, 0, 192, 288)))
+		frames.add_frame(animation_name, _atlas_frame(texture, Rect2(frame_index * frame_size.x, 0, frame_size.x, frame_size.y)))
 
 func _atlas_frame(texture: Texture2D, region: Rect2) -> AtlasTexture:
 	var atlas_texture = AtlasTexture.new()

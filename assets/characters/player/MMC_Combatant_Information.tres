@@ -49,10 +49,30 @@ weapon_attack = 30
 attack_accuracy = 90
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmc_neutral_0"]
+atlas = ExtResource("3_td0jh")
+region = Rect2(50, 4, 42, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmc_neutral_1"]
+atlas = ExtResource("3_td0jh")
+region = Rect2(98, 4, 42, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmc_neutral_2"]
+atlas = ExtResource("3_td0jh")
+region = Rect2(146, 4, 42, 67)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_mmc_portrait"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_mmc_neutral_0")
+frame_1/texture = SubResource("AtlasTexture_mmc_neutral_1")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_mmc_neutral_2")
+frame_2/duration = 1.0
+
 [resource]
 script = ExtResource("4_brmf3")
 combatant_name = "MC"
-party_member_portrait = ExtResource("3_td0jh")
+party_member_portrait = SubResource("AnimatedTexture_mmc_portrait")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
 stored_equipment = SubResource("Resource_onp7b")
