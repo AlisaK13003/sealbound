@@ -29,9 +29,25 @@ luck = 5
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yrwr2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5khg"]
 atlas = ExtResource("6_uxf71")
 region = Rect2(50, 4, 41, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_us74d"]
+atlas = ExtResource("6_uxf71")
+region = Rect2(98, 4, 41, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htf56"]
+atlas = ExtResource("6_uxf71")
+region = Rect2(146, 4, 41, 67)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_swmp1"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_d5khg")
+frame_1/texture = SubResource("AtlasTexture_us74d")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_htf56")
+frame_2/duration = 1.0
 
 [sub_resource type="Resource" id="Resource_7q5rk"]
 script = ExtResource("5_ninqq")
@@ -56,7 +72,7 @@ metadata/_custom_type_script = "uid://c8pcj6siqledr"
 [resource]
 script = ExtResource("6_k5dor")
 combatant_name = "Sera"
-party_member_portrait = SubResource("AtlasTexture_yrwr2")
+party_member_portrait = SubResource("AnimatedTexture_swmp1")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
 stored_equipment = SubResource("Resource_onp7b")
@@ -81,5 +97,4 @@ walk_speed = 0.7
 attack_speed = Array[float]([1.0, 1.5])
 sprite_scale = 0.007
 sprite_offset = Vector2(-32, 0)
-is_MC = true
 metadata/_custom_type_script = "uid://125iickqse23"

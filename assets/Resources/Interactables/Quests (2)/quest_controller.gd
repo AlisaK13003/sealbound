@@ -21,6 +21,7 @@ class_name quest
 @export var special_dungeon: dungeon_type = null
 var does_player_have_special_item: bool = false
 @export var item_sprite: Texture2D
+@export var item_sprite_pixel_size: float = 0.005
 
 @export_category("Quest Rewards")
 @export var reward_money: int

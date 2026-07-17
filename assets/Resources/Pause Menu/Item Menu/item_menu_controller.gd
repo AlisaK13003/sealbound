@@ -23,12 +23,21 @@ var container_start_position: Vector2
 
 var item_containers_parent
 
-func _ready():
-	item_containers_parent = $Item_Container
+func _setup():
+	for child in party_tabs.get_children():
+		party_tabs.remove_child(child)
+		child.queue_free()
 	party_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
+
 	for child in range(party_tabs.get_child_count()):
 		party_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child, true)
+
+
+func _ready():
+	GlobalCombatInformation.member_added.connect(_setup)
 	
+	item_containers_parent = $Item_Container
+
 	container_start_position = item_containers_parent.position
 	menu_tabs._setup(["Items", "Valuables", "Quest Items"])
 	menu_tabs.selection_changed.connect(tab_changed)

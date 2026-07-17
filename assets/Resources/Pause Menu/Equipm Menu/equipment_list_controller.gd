@@ -27,7 +27,8 @@ func _setup():
 		add_child(new_node_instance)
 		#new_node_instance.move_left(new_node_instance.get_index())
 	sort_children()
-	GlobalCombatInformation.equipment_added.connect(_reset_contents)
+	if not GlobalCombatInformation.equipment_added.is_connected(_reset_contents):
+		GlobalCombatInformation.equipment_added.connect(_reset_contents)
 		
 func equipment_selected(instance_id, equip):
 	#for child in get_children():

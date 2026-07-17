@@ -58,15 +58,21 @@ func update_moves(moves_list):
 
 func restore_health():
 	combatant_stats.health = combatant_stats.max_health
+	actual_stats.health = actual_stats.max_health
 
-func add_experience(amount_to_add):
+func add_experience(amount_to_add: int) -> int:
 	total_experience_points += amount_to_add
-	#combatant_stats.level
-	while(total_experience_points >= ceili((100 * pow(1.2, combatant_stats.level)) - 120)):
+	
+	while total_experience_points >= ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120):
 		combatant_stats.level += 1
 		actual_stats.level += 1
 	
-	return (ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120) - (total_experience_points - ceili((100 * pow(1.2, combatant_stats.level)) - 120)))
+	var next_level_requirement = ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120)
+	
+	return next_level_requirement - total_experience_points
+
+func get_level_threshold(lvl: int) -> int:
+	return ceili((100 * pow(1.2, lvl)) - 120)
 
 func heal(skill_used: moves, person_who_used_skill: generic_combatants):
 	if skill_used.get_skill_boost() != 999:

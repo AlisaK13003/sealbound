@@ -55,17 +55,27 @@ signal update_available_party_members
 
 const MAX_PARTY_SIZE = 3
 
+signal member_added
 func new_members_available():
 	for key in StateManager.party_member_unlocked:
-		all_party_slots.append(load(all_character_information[key]))
+		add_new_member(load(all_character_information[key]))
+	member_added.emit()
+
+func add_new_member(combatant: generic_combatants):
+	var index = all_party_slots.find_custom(func(person: generic_combatants): return combatant.combatant_name == person.combatant_name)
+	if index == -1:
+		all_party_slots.append(combatant)
+		combatant.gather_actual_stats()
 
 func add_active_member(combatant: generic_combatants):
 	if combatant == null:
 		return
-	active_party_slots.append(combatant)
-	check_player_values.emit()
-	if active_party_slots.size() > MAX_PARTY_SIZE:
-		Global.cant_leave_menu = true
+	var index = active_party_slots.find_custom(func(person: generic_combatants): return combatant.combatant_name == person.combatant_name)
+	if index == -1:
+		active_party_slots.append(combatant)
+		check_player_values.emit()
+		if active_party_slots.size() > MAX_PARTY_SIZE:
+			Global.cant_leave_menu = true
 	calculate_BP()
 
 signal update_resonance
@@ -376,17 +386,12 @@ func _ready():
 	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
 	#completed_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
 
-	await get_tree().create_timer(0.5).timeout
-
-	for dungeon in range(dungeon_types.size()):
-		if dungeon >= amount_of_dungeons:
-			dungeon_types.remove_at(dungeon)
-	
+	await get_tree().create_timer(0.5).timeout	
 
 	finished.emit()
 	check_quest_progress.emit()
 	
-const amount_of_dungeons = 2
+const amount_of_dungeons = 3
 
 var explorable_dungeon_scene# : explorable_dungeon
 var dungeon_loop_scene #: dungeon_loop
@@ -448,9 +453,11 @@ func dungeon_over(passed_out: bool = false):
 	
 	for member in all_party_slots:
 		member.restore_health()
+	check_player_values.emit()
 	if dungeon_loop_scene != null:
 		dungeon_loop_scene.queue_free()
-	explorable_dungeon_scene.queue_free()
+	if explorable_dungeon_scene != null:
+		explorable_dungeon_scene.queue_free()
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Bedroom"
 	AreaStateManager._setup(passed_out)
@@ -492,8 +499,10 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	# output[2] = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
 	
 	active_party_slots[0] = output[2][0].duplicate()
-	active_party_slots[1] = output[2][1].duplicate()
-	active_party_slots[2] = output[2][2].duplicate()
+	if output[2][1] != null:
+		active_party_slots[1] = output[2][1].duplicate()
+	if output[2][2] != null:
+		active_party_slots[2] = output[2][2].duplicate()
 	
 	current_BP = output[2][3]
 
@@ -612,7 +621,7 @@ func load_saved_data(data):
 	completed_quests.clear()
 
 	for party_member in data["player_slots"].values():
-		if not ResourceLoader.exists(party_member["path"], "PackedScene"):
+		if not ResourceLoader.exists(party_member["path"], ""):
 			continue
 		var new_party_member: generic_combatants = load(party_member["path"])
 		var index = all_party_slots.find_custom(func(member: generic_combatants): return new_party_member.combatant_name == member.combatant_name)
@@ -625,7 +634,7 @@ func load_saved_data(data):
 		all_party_slots.append(new_party_member)
 
 	for equipment_ in data["equipment_slots"].values():
-		if not ResourceLoader.exists(equipment_["path"], "PackedScene"):
+		if not ResourceLoader.exists(equipment_["path"], ""):
 			continue
 		var new_equipment = load(equipment_["path"])
 		if new_equipment == null:
@@ -635,7 +644,7 @@ func load_saved_data(data):
 		all_held_equipment[index].stack = equipment_["stack"]
 
 	for weapon_ in data["weapon_slots"].values():
-		if not ResourceLoader.exists(weapon_["path"], "PackedScene"):
+		if not ResourceLoader.exists(weapon_["path"], ""):
 			continue
 		var new_equipment = load(weapon_["path"])
 		if new_equipment == null:
@@ -646,7 +655,7 @@ func load_saved_data(data):
 		all_held_equipment[index].stack = weapon_["stack"]
 
 	for item_ in data["item_slots"].values():
-		if not ResourceLoader.exists(item_["path"], "PackedScene"):
+		if not ResourceLoader.exists(item_["path"], ""):
 			continue
 		var new_item = load(item_["path"])
 		if new_item == null:
@@ -657,12 +666,12 @@ func load_saved_data(data):
 		all_held_items[index].stack = item_["stack"]
 		
 	for a_quest in data["active_quests"].values():
-		if not ResourceLoader.exists(a_quest["path"], "PackedScene"):
+		if not ResourceLoader.exists(a_quest["path"], ""):
 			continue
 		active_quests.append(load(a_quest["path"]))
 
 	for com_quest in data["com_quests"].values():
-		if not ResourceLoader.exists(com_quest["path"], "PackedScene"):
+		if not ResourceLoader.exists(com_quest["path"], ""):
 			continue
 		completed_quests.append(load(com_quest["path"]))
 
@@ -682,8 +691,9 @@ func load_saved_data(data):
 		combatant.gather_actual_stats()
 	var dungeons = dungeon_types.duplicate()
 	for dungeon in range(dungeons.size()):
-		if dungeon >= amount_of_dungeons:
+		if dungeon > amount_of_dungeons:
 			dungeon_types.erase(dungeons[dungeon])
+	print()
 	
 func export_to_JSON():
 	var ret_dict: Dictionary = {}

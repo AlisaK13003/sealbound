@@ -69,7 +69,7 @@ layout_mode = 0
 offset_left = 278.0
 offset_top = 51.0
 offset_right = 572.0
-offset_bottom = 238.0
+offset_bottom = 195.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -83,7 +83,36 @@ layout_mode = 0
 offset_left = 269.0
 offset_top = 43.0
 offset_right = 582.0
-offset_bottom = 247.0
+offset_bottom = 204.0
+texture = ExtResource("4_5x85t")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect6" type="NinePatchRect" parent="Background" unique_id=1566418219]
+modulate = Color(0.7539839, 0.75398386, 0.75398386, 1)
+layout_mode = 0
+offset_left = 278.0
+offset_top = 203.0
+offset_right = 572.0
+offset_bottom = 256.0
+texture = ExtResource("3_8e04e")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect7" type="NinePatchRect" parent="Background" unique_id=898409631]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 195.0
+offset_right = 582.0
+offset_bottom = 265.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -153,3 +182,14 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Seal Guardian: ???"
+
+[node name="Dungeon_description" type="Label" parent="." unique_id=461585924]
+custom_minimum_size = Vector2(291.94, 53.17)
+layout_mode = 0
+offset_left = 260.0
+offset_top = 206.0
+offset_right = 551.94
+offset_bottom = 259.16998
+theme_override_font_sizes/font_size = 12
+text = "asdfasdfasdasdf asdfasd asdfasd asdf asdf asdfa sdf asdf "
+autowrap_mode = 2

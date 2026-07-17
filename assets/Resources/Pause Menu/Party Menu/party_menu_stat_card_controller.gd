@@ -16,6 +16,7 @@ func update_resonance():
 func _setup(combatant: generic_combatants = null):
 	if combatant == null:
 		combatant = stored_combatant
+	stored_combatant = combatant
 	$VBoxContainer/GridContainer3/Level.text = "Level: " + str(combatant.actual_stats.level)
 	$GridContainer2/HBoxContainer/Health2.text = str(combatant.actual_stats.health)
 	$GridContainer2/HBoxContainer2/Attack2.text = str(combatant.actual_stats.attack)
@@ -39,8 +40,8 @@ func _setup(combatant: generic_combatants = null):
 	$AnimatedSprite2D.sprite_frames = combatant.sprite_frames
 	$AnimatedSprite2D.play("Idle")
 	$AnimatedSprite2D.offset = combatant.equip_sprite_offset
-	$EXP_bar.max_value = ceili((100 * pow(1.2, combatant.combatant_stats.level)) - 120) - (combatant.total_experience_points - ceili((100 * pow(1.2, combatant.combatant_stats.level)) - 120))
-	$EXP_bar.value = $EXP_bar.max_value - combatant.add_experience(0) 
+
+	update_exp_bar(stored_combatant)
 
 	if combatant.is_MC:
 		$Label/CheckBox.disabled = true
@@ -51,7 +52,7 @@ func _setup(combatant: generic_combatants = null):
 			$Label/CheckBox.button_pressed = true
 		$Label/CheckBox.disabled = false
 	
-	stored_combatant = combatant
+
 	if GlobalCombatInformation.in_dungeon:
 		$Label/CheckBox.disabled = true
 	
@@ -59,7 +60,15 @@ func _setup(combatant: generic_combatants = null):
 		$Label2/CheckBox.button_pressed = true
 	else:
 		$Label2/CheckBox.button_pressed = false
+
+func update_exp_bar(combatant):	
+	var current_level_req = combatant.get_level_threshold(stored_combatant.combatant_stats.level)   
+	var next_level_req = combatant.get_level_threshold(stored_combatant.combatant_stats.level + 1)  
 	
+	$EXP_bar.min_value = current_level_req
+	$EXP_bar.max_value = next_level_req
+	$EXP_bar.value = combatant.total_experience_points
+
 func _on_check_box_toggled(toggled_on):
 	if toggled_on:
 		GlobalCombatInformation.add_active_member(stored_combatant)

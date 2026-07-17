@@ -91,9 +91,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("6_xdkxl")]
 layout_mode = 0
-offset_left = 101.46
+offset_left = 80.025
 offset_top = 10.08
-offset_right = 101.46
+offset_right = 80.025
 offset_bottom = 10.08
-theme_override_constants/h_separation = 342
-columns = 2
+theme_override_constants/h_separation = 45
+columns = 20

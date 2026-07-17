@@ -19,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_qwsrt")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1700042292]
@@ -119,6 +119,7 @@ offset_left = 150.0
 offset_top = 47.0
 offset_right = 501.0
 offset_bottom = 232.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qwsrt")
 script = ExtResource("6_qwsrt")
 display_x_items = 2

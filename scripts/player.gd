@@ -53,7 +53,7 @@ func _pass_out(did_pass_out):
 		print("you passed out")
 		await animated_sprite.animation_finished
 		Global.current_region = "Buildings_Insides"
-		Global.current_loading_zone = "Infirmary"
+		Global.current_loading_zone = "Bedspawn"
 		var building_scene = AreaStateManager.building_insides_instance
 
 		var mc_marker := _find_marker_by_names(building_scene, ["Scene1_MCSpawn", "Scene1_MC_Spawn"])

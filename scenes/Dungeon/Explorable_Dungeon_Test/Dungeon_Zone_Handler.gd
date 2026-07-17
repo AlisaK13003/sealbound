@@ -232,25 +232,25 @@ func generate_dungeon():
 	var enemy_count = 0
 	var enemy_array: Array[CharacterBody3D]
 	enemy_spawnable_rooms.shuffle()
-	
-	for room_ in enemy_spawnable_rooms:
-		if room_ is MeshInstance3D or room_.room_classification in [0, 1]:
-			continue
-		else:
-			if enemy_count > number_of_enemies:
-				break
-			var potential_enemy_encounters = randi_range(0, current_dungeon.potential_encounters.size() - 1)
-			var new_enemy = load(enemy_scene)
-			var new_enemy_instance = new_enemy.instantiate()
-			
-			new_enemy_instance.position.x = (room_.room_coords.x) * tile_size
-			new_enemy_instance.position.z = (room_.room_coords.y) * tile_size
-			new_enemy_instance.position.y = 2.0
+	if not current_dungeon.potential_encounters.is_empty():
+		for room_ in enemy_spawnable_rooms:
+			if room_ is MeshInstance3D or room_.room_classification in [0, 1]:
+				continue
+			else:
+				if enemy_count > number_of_enemies:
+					break
+				var potential_enemy_encounters = randi_range(0, current_dungeon.potential_encounters.size() - 1)
+				var new_enemy = load(enemy_scene)
+				var new_enemy_instance = new_enemy.instantiate()
+				
+				new_enemy_instance.position.x = (room_.room_coords.x) * tile_size
+				new_enemy_instance.position.z = (room_.room_coords.y) * tile_size
+				new_enemy_instance.position.y = 2.0
 
-			enemy_container.add_child(new_enemy_instance)
-			new_enemy_instance._setup(self, current_dungeon.potential_encounters[potential_enemy_encounters].encounterable_enemy)
-			enemy_array.append(new_enemy_instance)
-			enemy_count += 1
+				enemy_container.add_child(new_enemy_instance)
+				new_enemy_instance._setup(self, current_dungeon.potential_encounters[potential_enemy_encounters].encounterable_enemy)
+				enemy_array.append(new_enemy_instance)
+				enemy_count += 1
 			
 	player.store_enemy_list(enemy_array)
 	player.setup_fs()
@@ -396,6 +396,7 @@ func return_to_exploring():
 	#in_combat = false
 	await Fade.fade_out(2.0)
 	in_combat = false
+	
 	for i in range(Engine.get_frames_per_second() * 3):
 		await get_tree().process_frame
 	for enemy in enemy_container.get_children():

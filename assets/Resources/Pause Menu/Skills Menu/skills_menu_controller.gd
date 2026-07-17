@@ -35,6 +35,7 @@ func _ready():
 	
 	_on_visibility_changed()
 	GlobalCombatInformation.update_resonance.connect(_setup)
+	GlobalCombatInformation.member_added.connect(_setup)
 	
 func _setup():
 	for child in menu_tabs.get_children():

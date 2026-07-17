@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://bybvhu5qy6aur"]
+
+[ext_resource type="Texture2D" uid="uid://4kl0710u5cha" path="res://assets/tile sheets/Creepy_dungeon_section_wall.png" id="1_4j6jr"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_hfiyr"]
+[ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_4j6jr"]
+
+[resource]
+script = ExtResource("2_4j6jr")
+dungeon_name = "Ore Deposits"
+dungeon_background = ExtResource("1_4j6jr")
+dungeon_description = "This place is known to house many a rare ore, which is why the local blacksmith uses this place to stock up."
+max_number_of_floors = 1
+minimum_number_of_floors = 1
+dungeon_light_color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+first_time_floor_count = 1
+quest_dungeon = true
+dont_spawn_chests = true
+metadata/_custom_type_script = "uid://3loyjc4d808j"

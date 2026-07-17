@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 script = ExtResource("6_mka7e")
 dungeon_name = "Forest Dungeon"
 dungeon_background = ExtResource("1_vh8sp")
+dungeon_description = "This place is a forest!"
 max_number_of_floors = 7
 minimum_number_of_floors = 4
 potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), ExtResource("6_vh8sp")])

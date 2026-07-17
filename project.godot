@@ -51,7 +51,8 @@ version_control/autoload_on_startup=true
 folder_colors={
 "res://assets/Audio/": "pink",
 "res://assets/Resources/Interactables/Shops/": "yellow",
-"res://assets/tile sheets/Move Sprites/": "red"
+"res://assets/tile sheets/Move Sprites/": "red",
+"res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/": "blue"
 }
 
 [global_group]

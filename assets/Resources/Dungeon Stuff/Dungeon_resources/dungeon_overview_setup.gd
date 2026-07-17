@@ -5,12 +5,14 @@ extends Control
 @onready var average_level_label = $GridContainer2/Average_Level
 @onready var seal_boss_label = $GridContainer2/Seal
 
+@onready var dungeon_description = $Dungeon_description
 @onready var enemies = $Found_Enemies
 
 var stored_dungeon
 var stored_quest
 
 func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
+	dungeon_description.text = dungeon_type_.dungeon_description
 	stored_dungeon = dungeon_type_
 	stored_quest = quest_dungeon
 	dungeon_name_label.text = dungeon_type_.dungeon_name

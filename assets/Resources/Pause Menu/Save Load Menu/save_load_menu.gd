@@ -146,11 +146,11 @@ func _apply_save_data(data: Dictionary):
 	Global.save_loaded.emit()
 	Global.time_updated.emit()
 	
-	if data.has("combat"):
-		GlobalCombatInformation.load_saved_data(data["combat"]) 
-		
 	if data.has("progression_states"):
 		StateManager.load_story_states(data["progression_states"])
+	
+	if data.has("combat"):
+		GlobalCombatInformation.load_saved_data(data["combat"]) 
 		
 	Global.current_loading_zone = "Bedspawn"
 	Global.current_region = "Buildings_Insides"

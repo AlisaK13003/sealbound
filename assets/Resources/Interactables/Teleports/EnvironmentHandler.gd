@@ -39,6 +39,19 @@ func swap_to_me():
 					StateManager.set_story_state(StateManager.story_beats_lookup.QUEST_BOARD_UNLOCK, true)
 					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.SERA_UNLOCKED)
 					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.LYRA_UNLOCKED)
+				"give_ore_to_blacksmith":
+					print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
+					StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
+					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED)
+					GlobalCombatInformation.complete_quest(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
+					StateManager.pseduo_story_time = Global.current_day
+				"think_about_forest_clearing_mc_thought":
+					print("THOUGHT ABOUT RETURNING TO THE CLEARING")
+					StateManager.set_story_state(StateManager.story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING)
+				"talk_to_sera_about_clearing":
+					print("TALKED TO SERA ABOUT CLEARING")
+					StateManager.set_story_state(StateManager.story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR)
+					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.SEAL_DUNGEON_UNLOCKED)
 					
 
 	await get_tree().create_timer(1.0).timeout

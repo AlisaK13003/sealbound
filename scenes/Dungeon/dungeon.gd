@@ -182,6 +182,10 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 		gui.get_player_portrait(1).visible = false
 		gui.get_player_portrait(2).visible = false
 	
+	for player in player_container.get_children():
+		if player.stored_combatant == null:
+			player.queue_free()
+	
 	AudioManager.play_bgm(AudioManager.BATTLE_MUSIC)
 	return await battle_loop(encounter, is_boss)
 	
@@ -385,6 +389,8 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				else:
 					#var thing = await handle_player_move_selection(current_combatant.stored_combatant)
 					selecting_entity = false
+					if get_player(active_player_turn).stored_combatant == null or get_player(active_player_turn).stored_combatant.is_dead:
+						continue
 					await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
 					gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
 					current_actor.animated_sprite.play("Idle")
@@ -404,10 +410,14 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	if not did_players_win:
 		await gui.play_game_over()
 	party_slot_1 = get_player(0).stored_combatant.duplicate()
-	if get_player(1).stored_combatant != null:
+	if get_player(1) != -1 and get_player(1).stored_combatant != null:
 		party_slot_2 = get_player(1).stored_combatant.duplicate()
-	if get_player(2).stored_combatant != null:
+	else:
+		party_slot_2 = null
+	if get_player(1) != -1 and get_player(2).stored_combatant != null:
 		party_slot_3 = get_player(2).stored_combatant.duplicate()
+	else:
+		party_slot_3 = null
 			
 	var ret_val = [party_slot_1, party_slot_2, party_slot_3, current_bond_points, gui.bond_bar.value]
 	print(current_bond_points)
@@ -429,6 +439,8 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 			attacking_enemy = enemy
 			
 	for player in player_container.get_children():
+		if player == null:
+			continue
 		if player.stored_combatant.is_dead:
 			continue
 		else:
@@ -694,6 +706,8 @@ func execute_enemy_skills(action):
 #region PARTY
 
 func get_player(player_to_get: int):
+	if player_to_get >= player_container.get_child_count():
+		return -1
 	return $Player_Container.get_child(player_to_get)
 
 func basic_attack():

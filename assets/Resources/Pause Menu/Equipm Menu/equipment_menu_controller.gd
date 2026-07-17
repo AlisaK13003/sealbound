@@ -16,6 +16,7 @@ var container_start_position: Vector2
 @export var equip_sounds_weapon: Array[AudioStream]
 
 func _ready():
+	GlobalCombatInformation.member_added.connect(_setup)
 	visibility_changed.connect(_reset)
 	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 	
@@ -41,6 +42,45 @@ func _ready():
 		child._setup()
 		child.visible = false
 
+func _setup():
+	if not visibility_changed.is_connected(_reset):
+		visibility_changed.connect(_reset)
+	
+	for child in menu_tabs.get_children():
+		menu_tabs.remove_child(child)
+		child.queue_free()
+	for child in card_container.get_children():
+		card_container.remove_child(child)
+		child.queue_free()
+	
+	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
+	
+	for child in range(menu_tabs.get_child_count()):
+		if child >= GlobalCombatInformation.all_party_slots.size():
+			break
+		menu_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child)
+		
+		var new_page = load(equipment_card_path)
+		var new_page_instance = new_page.instantiate()
+		new_page_instance._setup(GlobalCombatInformation.all_party_slots[child])
+		
+		if not new_page_instance.equip_slot_pressed.is_connected(show_equip_menu):
+			new_page_instance.equip_slot_pressed.connect(show_equip_menu)
+		
+		card_container.add_child(new_page_instance)
+	
+	for child in list_container.get_children():
+		child.get_child(0)._setup()
+		if not child.get_child(0).equipment_swapped.is_connected(_setup_equip_button):
+			child.get_child(0).equipment_swapped.connect(_setup_equip_button)
+	
+	if not menu_tabs.selection_changed.is_connected(tab_changed):
+		menu_tabs.selection_changed.connect(tab_changed)
+	menu_tabs.cycle_input(null, 0)
+	
+	for child in list_container.get_children():
+		child._setup()
+		child.visible = false
 	
 func _reset(should_continue_cycling: bool = true):
 	if should_continue_cycling:

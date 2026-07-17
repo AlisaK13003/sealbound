@@ -276,9 +276,6 @@ func start_new_game(new_name: String, new_gender: String) -> void:
 	npc_bonds.clear()
 	tutorial_flags.clear()
 	current_tutorial_objective = ""
-	if GlobalCombatInformation != null:
-		GlobalCombatInformation.active_quests.clear()
-		GlobalCombatInformation.completed_quests.clear()
 	record_previous_time()
 	current_year = 0
 	current_day = 0

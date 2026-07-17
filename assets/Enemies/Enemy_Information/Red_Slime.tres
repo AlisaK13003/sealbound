@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://dgayl81emhx22"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_rs2y3"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_yru2e"]
+
+[resource]
+script = ExtResource("2_yru2e")
+metadata/_custom_type_script = "uid://125iickqse23"

@@ -1,9 +1,5 @@
 extends Node
 
-
-
-var story_beat_to_quest: Dictionary[int, quest] = {}
-
 var dungeon_states: Dictionary[int, bool] = {}
 var story_states: Dictionary[int, bool] = {}
 var seal_completion_states: Dictionary[int, bool] = {}
@@ -27,17 +23,29 @@ var story_triggers: Dictionary = {
 	},
 	"quest_board_unlock_cutscene": {
 		"region": "Buildings_Insides",
-		"loading_zone": "Tavern",
+		"loading_zone": "Bedspawn",
 		"required": [story_beats_lookup.TURNED_IN_LYRA_QUEST], 
 		"day_requirement": 3,
 	},
 	"cave_dungeon_entry": {
 		"required": [story_beats_lookup.CAVE_DUNGEON_UNLOCKED]
 	},
+	"give_ore_to_blacksmith": {
+		"region": "Buildings_Insides",
+		"loading_zone": "Blacksmith",
+		"required": [story_beats_lookup.READY_TO_TURN_IN_BLACKSMITH_QUEST]
+	},
 	"think_about_forest_clearing_mc_thought": {
+		"region": "Buildings_Insides",
+		"loading_zone": "Bedspawn",
 		"required": [story_beats_lookup.BLACKSMITH_QUEST_FINISHED],
 		"day_requirement": 5
-	}
+	},
+	"talk_to_sera_about_clearing": {
+		"region": "Buildings_Insides",
+		"loading_zone": "Infirmary",
+		"required": [story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING]
+	},
 }
 
 func should_trigger(trigger_id: String) -> bool:
@@ -79,6 +87,8 @@ enum story_beats_lookup {
 	SEEN_OPENING_CUTSCENE = 10,
 	READY_TO_TURN_IN_AXE_QUEST = 11,
 	BLACKSMITH_QUEST_FINISHED = 12,
+	TALKED_TO_SERA_ABOUT_CLEAR = 13,
+	READY_TO_TURN_IN_BLACKSMITH_QUEST = 14,
 }
 
 enum seal_dungeon_completion {
@@ -102,7 +112,7 @@ func export_to_json() -> Dictionary:
 		"story_states": story_states,
 		"seal_completion_states": seal_completion_states,
 		"party_member_unlocked": party_member_unlocked,
-		"story_time": pseduo_story_time
+		"story_time": str(pseduo_story_time)
 	}
 
 func load_story_states(states: Dictionary) -> void:
@@ -110,7 +120,7 @@ func load_story_states(states: Dictionary) -> void:
 	story_states = _convert_keys_to_int(states.get("story_states", {}))
 	seal_completion_states = _convert_keys_to_int(states.get("seal_completion_states", {}))
 	party_member_unlocked = _convert_keys_to_int(states.get("party_member_unlocked", {}))
-	pseduo_story_time = states.get("story_time", 0)
+	pseduo_story_time = int(states.get("story_time", 0))
 
 func _convert_keys_to_int(raw_dict: Dictionary) -> Dictionary[int, bool]:
 	var typed_dict: Dictionary[int, bool] = {}
@@ -156,11 +166,22 @@ func has_story_state(key: int) -> bool:
 func start_story_beat(beat: int) -> void:
 	set_story_state(beat, true)
 	print("[Story] Beat reached: ", beat)
-	
-	if story_beat_to_quest.has(beat):
-		var associated_quest = story_beat_to_quest[beat]
-		if associated_quest != null and is_instance_valid(GlobalCombatInformation):
-			GlobalCombatInformation.add_quest(associated_quest)
+
+var currently_available_quests = []
+signal new_state
+func add_quests_to_board():
+	var quests_to_add = []
+	if check_completion(story_beats_lookup.QUEST_BOARD_UNLOCK, completion_checks.STORY_CHECKS):
+		quests_to_add.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
+	if check_completion(story_beats_lookup.STARTER_FOREST_DUNGEON_UNLOCKED, completion_checks.STORY_CHECKS):
+		quests_to_add.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
+	if check_completion(story_beats_lookup.BLACKSMITH_QUEST_FINISHED, completion_checks.STORY_CHECKS):
+		quests_to_add.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+
+	for quest_: quest in quests_to_add:
+		var index = currently_available_quests.find_custom(func(available_quests: quest): return quest_.quest_name == available_quests.quest_name)
+		if index == -1:
+			currently_available_quests.append(quest_.duplicate())
 
 func start_lyra_axe_quest() -> void:
 	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)

@@ -52,13 +52,13 @@ func _ready():
 		new_description_instance._setup(GlobalCombatInformation.active_quests[child])
 	
 	for child in range(GlobalCombatInformation.completed_quests.size()):
-		completed_quest_tabs.get_child(child)._setup(GlobalCombatInformation.completed_quests[child])
+		completed_quest_tabs.get_child(child)._setup(GlobalCombatInformation.completed_quests[child].duplicate())
 		
 		var new_description = load(quest_description_node)
 		var new_description_instance = new_description.instantiate()
 		
 		completed_quest_description_container.add_child(new_description_instance)
-		new_description_instance._setup(GlobalCombatInformation.completed_quests[child])
+		new_description_instance._setup(GlobalCombatInformation.completed_quests[child].duplicate())
 
 	GlobalCombatInformation.check_quest_progress.connect(update_quests)
 	menu_tabs.selection_changed.connect(tab_changed)

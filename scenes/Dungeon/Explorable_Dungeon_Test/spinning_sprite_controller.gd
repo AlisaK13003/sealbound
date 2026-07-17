@@ -15,6 +15,7 @@ func _setup(quest_: quest = null, is_key_room: bool = false, boss_key: bool = fa
 	if quest_ != null:
 		what_quest_am_i = quest_
 		self.texture = quest_.item_sprite
+		self.pixel_size = quest_.item_sprite_pixel_size
 	elif is_key_room:
 		should_give_key = true
 		is_boss_key = boss_key
