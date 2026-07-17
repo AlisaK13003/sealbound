@@ -45,6 +45,9 @@ func _on_area_3d_body_entered(body):
 				if quest_.quest_name == what_quest_am_i.quest_name:
 					quest_.does_player_have_special_item = true
 					quest_.should_spawn_dungeon_room = false
+					
+					StateManager.set_story_state(quest_.state_to_set_upon_completion, true)
+
 					GlobalCombatInformation.dungeon_over()
 					break
 		elif should_give_key:

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://dkn8e628a6r77"]
+
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_1rkgn"]
+[ext_resource type="Resource" uid="uid://b1miktyc4wfni" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Wolf_Boss.tres" id="1_8chwe"]
+[ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="2_7iqy5"]
+[ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_7yfg2"]
+
+[resource]
+script = ExtResource("2_7yfg2")
+dungeon_name = "Seal Dungeon"
+dungeon_background = ExtResource("2_7iqy5")
+max_number_of_floors = 10
+minimum_number_of_floors = 10
+type_of_dungeon = 1
+does_dungeon_have_boss = true
+boss_encounter = ExtResource("1_8chwe")
+room_size = 2
+metadata/_custom_type_script = "uid://3loyjc4d808j"

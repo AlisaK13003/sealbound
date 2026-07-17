@@ -1,5 +1,7 @@
 extends Node
 
+
+
 var story_beat_to_quest: Dictionary[int, quest] = {}
 
 var dungeon_states: Dictionary[int, bool] = {}
@@ -17,8 +19,24 @@ var story_triggers: Dictionary = {
 		"required": [story_beats_lookup.TALKED_TO_SERA_IN_INFIRMARY],
 		"excluded": [story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE]
 	},
+	"turning_in_lyra_axe_cutscene": {
+		"region": "Buildings_Insides",
+		"loading_zone": "Bedroom",
+		"required": [story_beats_lookup.READY_TO_TURN_IN_AXE_QUEST],
+		"excluded": [story_beats_lookup.TURNED_IN_LYRA_QUEST]
+	},
+	"quest_board_unlock_cutscene": {
+		"region": "Buildings_Insides",
+		"loading_zone": "Tavern",
+		"required": [story_beats_lookup.TURNED_IN_LYRA_QUEST], 
+		"day_requirement": 3,
+	},
 	"cave_dungeon_entry": {
 		"required": [story_beats_lookup.CAVE_DUNGEON_UNLOCKED]
+	},
+	"think_about_forest_clearing_mc_thought": {
+		"required": [story_beats_lookup.BLACKSMITH_QUEST_FINISHED],
+		"day_requirement": 5
 	}
 }
 
@@ -27,7 +45,7 @@ func should_trigger(trigger_id: String) -> bool:
 		return false
 		
 	var config: Dictionary = story_triggers[trigger_id]
-	return evaluate_conditions(config.get("required", []), config.get("excluded", []), config.get("region", ""), config.get("loading_zone", ""))
+	return evaluate_conditions(config.get("required", []), config.get("excluded", []), config.get("region", ""), config.get("loading_zone", ""), config.get("day_requirement", 0))
 
 var state_mapping: Dictionary[String, int] = {
 	"sera_sent_to_lyra": story_beats_lookup.TALKED_TO_SERA_IN_INFIRMARY,
@@ -44,6 +62,7 @@ enum completion_checks {
 enum dungeon_state_lookup {
 	CREEPY_DUNGEON_UNLOCKED = 0,
 	FOREST_DUNGEON_UNLOCKED = 1,
+	SEAL_DUNGEON_UNLOCKED = 2,
 }
 
 enum story_beats_lookup {
@@ -58,6 +77,8 @@ enum story_beats_lookup {
 	SERA_SENT_TO_LYRA = 8,            
 	CAVE_DUNGEON_UNLOCKED = 9,        
 	SEEN_OPENING_CUTSCENE = 10,
+	READY_TO_TURN_IN_AXE_QUEST = 11,
+	BLACKSMITH_QUEST_FINISHED = 12,
 }
 
 enum seal_dungeon_completion {
@@ -71,6 +92,8 @@ enum party_member_unlock_lookup {
 	KAELA_UNLOCKED = 3,
 	CASSIAN_UNLOCKED = 4,
 	ORION_UNLOCKED = 5,
+	FMC_UNLOCKED = 6,
+	MMC_UNLOCKED = 7
 }
 
 func export_to_json() -> Dictionary:
@@ -116,6 +139,14 @@ func check_completion(story_check: int, type_of_check: int) -> bool:
 func search_dict(dictionary: Dictionary[int, bool], story_check: int) -> bool:
 	return dictionary.get(story_check, false)
 
+func set_party_member_unlock(key: int, value: bool = true):
+	party_member_unlocked[key] = value
+	if value:
+		GlobalCombatInformation.update_available_party_members.emit()
+
+func set_dungeon_unlock(key: int, value: bool = true):
+	dungeon_states[key] = value
+
 func set_story_state(key: int, value: bool = true) -> void:
 	story_states[key] = value
 
@@ -149,7 +180,7 @@ func start_lyra_axe_quest() -> void:
 	print("[Story] Started Lyra axe quest.")
 
 
-func evaluate_conditions(required_beats: Array = [], excluded_beats: Array = [], target_region: String = "", target_loading_zone: String = "") -> bool:
+func evaluate_conditions(required_beats: Array = [], excluded_beats: Array = [], target_region: String = "", target_loading_zone: String = "", day_requirement: int = false) -> bool:
 	if not target_region.is_empty() and Global.current_region != target_region:
 		return false
 		
@@ -163,7 +194,10 @@ func evaluate_conditions(required_beats: Array = [], excluded_beats: Array = [],
 	for beat in excluded_beats:
 		if has_story_state(beat):
 			return false
-			
+	
+	if pseduo_story_time + day_requirement > Global.current_day:
+		return false
+	
 	return true
 
 func should_start_lyra_tavern_cutscene(loading_zone_name: String) -> bool:
@@ -173,14 +207,6 @@ func should_start_lyra_tavern_cutscene(loading_zone_name: String) -> bool:
 		and has_story_state(story_beats_lookup.TALKED_TO_SERA_IN_INFIRMARY) 
 		and not has_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
 	)
-
-func is_demo_dungeon_unlocked(dungeon_index: int) -> bool:
-	match dungeon_index:
-		dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED:
-			return has_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
-		dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED:
-			return has_story_state(story_beats_lookup.CAVE_DUNGEON_UNLOCKED)
-	return false
 
 func debug_unlock_cave_dungeon() -> void:
 	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)

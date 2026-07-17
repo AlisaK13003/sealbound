@@ -28,6 +28,18 @@ func swap_to_me():
 					refresh_player_camera()
 					await get_tree().process_frame
 					refresh_player_camera()
+				"turning_in_lyra_axe_cutscene":
+					print("RETURN AXE")
+					StateManager.pseduo_story_time = Global.current_day
+					GlobalCombatInformation.complete_quest(GlobalCombatInformation.active_quests[GlobalCombatInformation.active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == "Find Lyra's Axe")])
+					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
+					StateManager.set_story_state(StateManager.story_beats_lookup.TURNED_IN_LYRA_QUEST, true)
+				"quest_board_unlock_cutscene":
+					print("COMPLETED LYRA QUEST")
+					StateManager.set_story_state(StateManager.story_beats_lookup.QUEST_BOARD_UNLOCK, true)
+					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.SERA_UNLOCKED)
+					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.LYRA_UNLOCKED)
+					
 
 	await get_tree().create_timer(0.5).timeout
 	await Fade.fade_out(0.5)

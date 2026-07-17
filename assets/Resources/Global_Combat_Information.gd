@@ -32,6 +32,17 @@ enum difficulty_multiplier {EASY, MEDIUM, DIFFICULT, REALLYHARD}
 var holding_boss_key: int = 0
 var holding_basic_room_key: int = 0
 
+var all_character_information = [
+	"res://assets/characters/sera/Sera_Combatant_Information.tres",
+	"res://assets/characters/lyra/Lyra_Combatant_Information.tres",
+	"res://assets/characters/rowan/Rowan_Combatant_Information.tres",
+	"res://assets/characters/kaela/Kaela_Combatant_Information.tres",
+	"res://assets/characters/cassian/Cassian_Combatant_Information.tres",
+	"res://assets/characters/orion/Orion_dungeon_combatant.tres",
+	"res://assets/characters/player/FMC_Combatant_Information.tres",
+	"res://assets/characters/player/MMC_Dungeon_Animations.tres"
+]
+
 signal finished
 
 signal check_quest_progress
@@ -40,7 +51,13 @@ signal check_player_values
 
 signal obtained_or_used_key
 
+signal update_available_party_members
+
 const MAX_PARTY_SIZE = 3
+
+func new_members_available():
+	for key in StateManager.party_member_unlocked:
+		all_party_slots.append(load(all_character_information[key]))
 
 func add_active_member(combatant: generic_combatants):
 	if combatant == null:
@@ -294,10 +311,17 @@ func add_quest(quest_: quest):
 	active_quests.append(quest_)
 	check_quest_progress.emit()
 
+func complete_quest(quest_: quest):
+	var quest_index = active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == quest_.quest_name)
+	if quest_index != -1:
+		completed_quests.append(quest_.duplicate())
+		active_quests.remove_at(quest_index)
+
 func _ready():	
+	update_available_party_members.connect(new_members_available)
 	all_party_slots.append(load("res://assets/characters/player/FMC_Combatant_Information.tres"))
-	all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
-	all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
+	#all_party_slots.append(load("res://assets/characters/rowan/Rowan_Combatant_Information.tres"))
+	#all_party_slots.append(load("res://assets/characters/lyra/Lyra_Combatant_Information.tres"))
 	#all_party_slots.append(load("res://assets/characters/orion/Orion_dungeon_combatant.tres"))
 	#all_party_slots.append(load("res://assets/characters/sera/Sera_Combatant_Information.tres"))
 	#all_party_slots.append(load("res://assets/characters/kaela/Kaela_Combatant_Information.tres"))
@@ -307,12 +331,12 @@ func _ready():
 	load_items()
 	
 	active_party_slots.append(all_party_slots[0])
-	active_party_slots.append(all_party_slots[1])
-	active_party_slots.append(all_party_slots[2])
+	#active_party_slots.append(all_party_slots[1])
+	#active_party_slots.append(all_party_slots[2])
 	calculate_BP()
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Creepy_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
-	
+	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/First_Seal_Dungeon.tres"))
 	
 	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
 	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
@@ -586,7 +610,6 @@ func load_saved_data(data):
 	all_held_items.clear()
 	active_quests.clear()
 	completed_quests.clear()
-	#dungeon_types.clear()
 
 	for party_member in data["player_slots"].values():
 		if not ResourceLoader.exists(party_member["path"], "PackedScene"):
@@ -643,13 +666,6 @@ func load_saved_data(data):
 			continue
 		completed_quests.append(load(com_quest["path"]))
 
-	for d_type in data["dungeon_types"].values():
-		if not ResourceLoader.exists(d_type["path"], "PackedScene"):
-			continue
-		var new_d_type: dungeon_type = load(d_type["path"])
-		new_d_type.load_save_data(d_type)
-		dungeon_types.append(new_d_type)
-
 	currency_held = int(data["held_currency"])
 
 	if data.has("active_slots"):
@@ -677,7 +693,6 @@ func export_to_JSON():
 	var item_slots: Dictionary = {}
 	var active_quest_slots: Dictionary = {}
 	var completed_quest_list: Dictionary = {}
-	var d_types: Dictionary = {}
 
 	for party_member in range(all_party_slots.size()):
 		var new_key = "slot_" + str(party_member)
@@ -694,13 +709,10 @@ func export_to_JSON():
 		item_slots["slot_" + str(item_)] = all_held_items[item_].export_to_JSON()
 
 	for quest_ in range(active_quests.size()):
-		active_quest_slots["quest_" + str(quest_)] = {"path": active_quests[quest_].resource_path}
+		active_quest_slots["quest_" + str(quest_)] = active_quests[quest_].export_to_JSON()
 
 	for com_quest_ in range(completed_quests.size()):
-		completed_quest_list["quest_" + str(com_quest_)] = {"path": completed_quests[com_quest_].resource_path}
-
-	for d_type in range(dungeon_types.size()):
-		d_types["dtype_" + str(d_type)] = dungeon_types[d_type].export_to_JSON()
+		completed_quest_list["quest_" + str(com_quest_)] = completed_quests[com_quest_].export_to_JSON()
 
 	var active_indices: Array = []
 	for member in active_party_slots:
@@ -717,7 +729,6 @@ func export_to_JSON():
 	ret_dict["item_slots"] = item_slots
 	ret_dict["active_quests"] = active_quest_slots
 	ret_dict["com_quests"] = completed_quest_list
-	ret_dict["dungeon_types"] = d_types
 	ret_dict["held_currency"] = currency_held
 
 	return ret_dict

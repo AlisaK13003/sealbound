@@ -1,11 +1,9 @@
 extends Node
 
-# When these gain more functionality they will be added to their own areas
 # --------------------------------------------------------------------------------------------------
 
 signal menu_opened
 signal menu_closed
-
 signal update_stock
 
 var cant_leave_menu: bool = false
@@ -35,6 +33,9 @@ var pending_cutscene_path: String = ""
 var has_pending_player_spawn_position: bool = false
 var pending_player_spawn_position: Vector2 = Vector2.ZERO
 
+const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
+const LYRA_TAVERN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_tavern_room_quest.json"
+
 signal player_identity_changed
 
 const BOND_TIER_NAMES: Array[String] = [
@@ -47,34 +48,10 @@ const BOND_TIER_NAMES: Array[String] = [
 ]
 const BOND_TIER_SIZE: int = 15
 const DAILY_TALK_BOND_EXP: int = 5
-const STORY_FLAG_OPENING_CUTSCENE_SEEN: String = "opening_cutscene_seen"
-const STORY_FLAG_SERA_SENT_TO_LYRA: String = "sera_sent_to_lyra"
-const STORY_FLAG_LYRA_AXE_QUEST_STARTED: String = "lyra_axe_quest_started"
-const STORY_FLAG_QUEST_BOARD_UNLOCKED: String = "quest_board_unlocked"
-const STORY_FLAG_CAVE_DUNGEON_UNLOCKED: String = "cave_dungeon_unlocked"
-const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
-const LYRA_TAVERN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_tavern_room_quest.json"
 const LYRA_TAVERN_PLAYER_POSITION: Vector2 = Vector2(-2536.0, -3077.0)
-const DUNGEON_INDEX_CAVE: int = 0
-const DUNGEON_INDEX_FOREST: int = 1
 const LYRA_FIRST_OBJECTIVE_TEXT: String = "Sera mentioned I should talk to Lyra. I can find her at the tavern."
 
 var npc_bonds: Dictionary = {}
-
-enum Progression_Flags {
-	SEAL_1,
-	SEAL_2,
-	SEAL_3,
-	SEAL_4,
-	SEAL_5,
-	SEAL_6,
-	SEAL_7,
-	QUEST_1,
-	QUEST_2,
-	QUEST_3,
-	QUEST_4,
-	QUEST_5
-}
 
 enum locations {
 	Apothecary,
@@ -101,21 +78,6 @@ enum weather {
 	Rainy,
 	Windy,
 	Snowy,
-}
-
-var progression_state = {
-	"SEAL_1": true,
-	"SEAL_2": false,
-	"SEAL_3": false,
-	"SEAL_4": false,
-	"SEAL_5": false,
-	"SEAL_6": false,
-	"SEAL_7": false,
-	"QUEST_1": false,
-	"QUEST_2": false,
-	"QUEST_3": true,
-	"QUEST_4": false,
-	"QUEST_5": false
 }
 
 # Time related stuff
@@ -243,8 +205,6 @@ func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
 	time_updated.emit()
 	print("[Debug] Advanced time to day ", current_day, " ", current_hour, ":", "%02d" % current_minute)
 
-
-
 func ensure_npc_bond(npc_id: String) -> Dictionary:
 	if not npc_bonds.has(npc_id):
 		npc_bonds[npc_id] = {
@@ -352,11 +312,8 @@ func show_mc_thought(text: String) -> void:
 		"portrait_frame": "neutral"
 	})
 
-
-
 func apply_loaded_player_profile(data: Dictionary) -> void:
 	set_player_identity(data.get("player_name", player_name), data.get("player_gender", player_gender))
-	tutorial_flags = data.get("tutorial_flags", tutorial_flags)
 	current_tutorial_objective = data.get("current_tutorial_objective", current_tutorial_objective)
 	current_day = int(data.get("current_day", current_day))
 	current_year = int(data.get("current_year", current_year))
@@ -704,9 +661,6 @@ func load_save_data():
 		AreaStateManager._setup()
 		AreaStateManager.swap_scene(self)
 		
-		progression_state.clear()
-		for key in data["progression_state"]:
-			progression_state[int(key)] = data["progression_state"][key]
 		save_loaded.emit()
 		time_updated.emit()
 	else:
@@ -716,13 +670,10 @@ func get_save_data() -> Dictionary:
 	var save_dict = {
 		"player_name": player_name,
 		"player_gender": player_gender,
-		"tutorial_flags": tutorial_flags,
-		"current_tutorial_objective": current_tutorial_objective,
 		"current_day": current_day,
 		"current_year": current_year,
 		"current_hour": current_hour,
 		"current_minute": current_minute,
-		"progression_state": progression_state,
 
 		"npc_bonds": npc_bonds,
 	}
@@ -741,6 +692,7 @@ func _save_to_slot():
 	data["play_time_minutes"] = play_time_minutes
 	data["play_time_seconds"] = play_time_seconds
 	data["combat"] = GlobalCombatInformation.export_to_JSON()
+	data["progression_states"] = StateManager.export_to_json()
 	
 	var json_string = JSON.stringify(data, "\t")
 	if CURRENT_SAVE_SLOT != null:

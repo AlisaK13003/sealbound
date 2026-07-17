@@ -99,8 +99,8 @@ func show_selected_dungeon() -> void:
 	if current_selected_dungeon >= 0 and current_selected_dungeon < container_thing.get_child_count():
 		container_thing.get_child(current_selected_dungeon).visible = true
 
-func is_dungeon_unlocked(dungeon_select: int) -> bool:
-	return dungeon_select >= 0 and dungeon_select < GlobalCombatInformation.dungeon_types.size() and Global.is_demo_dungeon_unlocked(dungeon_select)
+func is_dungeon_unlocked(dungeon_select) -> bool:
+	return StateManager.check_completion(dungeon_select, StateManager.completion_checks.DUNGEON_CHECKS)
 
 func show_dungeon_locked_message(dungeon_select: int) -> void:
 	if $CanvasLayer/Control.get_child(dungeon_select).stored_dungeon.quest_dungeon:
@@ -127,7 +127,9 @@ func hide_all_info():
 
 func travel(set_off_for_dungeon):
 	if set_off_for_dungeon:
-		if not is_dungeon_unlocked(current_selected_dungeon) and not $CanvasLayer/Control.get_child(current_selected_dungeon).stored_dungeon.quest_dungeon:
+		var dungeon_type_ = $CanvasLayer/Control.get_child(current_selected_dungeon).stored_dungeon
+		
+		if not is_dungeon_unlocked(dungeon_type_.dungeon_unlock_type) and not $CanvasLayer/Control.get_child(current_selected_dungeon).stored_dungeon.quest_dungeon:
 			show_dungeon_locked_message(current_selected_dungeon)
 			return
 		await Fade.fade_in(1)

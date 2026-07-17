@@ -143,16 +143,14 @@ func _apply_save_data(data: Dictionary):
 	if data.has("npc_bonds"):
 		Global.npc_bonds = data["npc_bonds"]
 	
-	if data.has("progression_state"):
-		Global.progression_state.clear()
-		for key in data["progression_state"]:
-			Global.progression_state[key] = data["progression_state"][key]
-
 	Global.save_loaded.emit()
 	Global.time_updated.emit()
 	
 	if data.has("combat"):
 		GlobalCombatInformation.load_saved_data(data["combat"]) 
+		
+	if data.has("progression_states"):
+		StateManager.load_story_states(data["progression_states"])
 		
 	Global.current_loading_zone = "Bedroom"
 	Global.current_region = "Buildings_Insides"

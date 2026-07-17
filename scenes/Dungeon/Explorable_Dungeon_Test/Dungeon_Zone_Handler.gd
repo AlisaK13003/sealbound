@@ -88,6 +88,7 @@ var setting_up_new_floor = false
 func entered_new_floor():
 	if current_floor == floor_count:
 		movement_locked = true
+		
 		GlobalCombatInformation.dungeon_over()
 		return
 	else:

@@ -13,6 +13,7 @@ class_name dungeon_type
 @export var first_time_floor_count: int = 10
 
 @export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
+@export var dungeon_unlock_type: StateManager.dungeon_state_lookup
 
 @export var quest_dungeon: bool = false
 
