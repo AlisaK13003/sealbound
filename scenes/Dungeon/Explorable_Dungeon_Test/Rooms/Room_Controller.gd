@@ -66,7 +66,7 @@ func _setup(p_ref_: explorable_dungeon, group_id, is_center: bool = false, spawn
 	self.p_ref = p_ref_
 	var wall_children = $Walls.get_children()
 	if room_classification == 1:
-		get_node("StairDownTeleporter").go_down_floor.connect(p_ref.entered_new_floor)
+		get_node("StairDownTeleporter").go_down_floor.connect(p_ref.request_stair_transition)
 	elif room_classification == 7:
 		$Chest.chest_opened.connect(give_player_chest_item)	
 	elif room_classification == 8:

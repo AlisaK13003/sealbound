@@ -40,6 +40,13 @@ var movement_locked = false
 
 var generation_failed = false
 var potential_encounters: Array[generic_combatants]
+var exit_prompt_layer: CanvasLayer
+var exit_prompt_panel: Control
+var exit_prompt_open: bool = false
+var exit_prompt_previous_mouse_mode: int = Input.MOUSE_MODE_VISIBLE
+var exit_prompt_previous_menu_state: bool = false
+
+signal exit_prompt_answered(confirmed: bool)
 
 func _ready():
 	Global.menu_opened.connect(cant_move)
@@ -89,6 +96,144 @@ func remove_old_dungeon():
 	await player.clear_mini_map()
 
 var setting_up_new_floor = false
+func request_stair_transition() -> void:
+	if setting_up_new_floor or movement_locked:
+		return
+	if current_floor >= floor_count:
+		await _confirm_dungeon_exit()
+		return
+	await entered_new_floor()
+
+func _confirm_dungeon_exit() -> void:
+	if exit_prompt_open:
+		return
+	_ensure_exit_prompt()
+	exit_prompt_open = true
+	movement_locked = true
+	exit_prompt_previous_mouse_mode = Input.mouse_mode
+	exit_prompt_previous_menu_state = Global.is_in_menu
+	Global.is_in_menu = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	exit_prompt_panel.visible = true
+
+	var stay_button: Button = exit_prompt_panel.get_node_or_null("Panel/MarginContainer/VBoxContainer/ButtonRow/StayButton") as Button
+	if stay_button != null:
+		stay_button.grab_focus()
+
+	var confirmed: bool = await exit_prompt_answered
+	exit_prompt_panel.visible = false
+	Global.is_in_menu = exit_prompt_previous_menu_state
+	Input.mouse_mode = exit_prompt_previous_mouse_mode
+
+	if confirmed:
+		await entered_new_floor()
+	else:
+		movement_locked = false
+
+func _ensure_exit_prompt() -> void:
+	if exit_prompt_panel != null and is_instance_valid(exit_prompt_panel):
+		return
+
+	exit_prompt_layer = CanvasLayer.new()
+	exit_prompt_layer.name = "DungeonExitPromptLayer"
+	exit_prompt_layer.layer = 80
+	exit_prompt_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(exit_prompt_layer)
+
+	exit_prompt_panel = Control.new()
+	exit_prompt_panel.name = "DungeonExitPrompt"
+	exit_prompt_panel.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_prompt_panel.visible = false
+	exit_prompt_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	exit_prompt_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	exit_prompt_layer.add_child(exit_prompt_panel)
+
+	var blocker: ColorRect = ColorRect.new()
+	blocker.name = "Blocker"
+	blocker.color = Color(0.0, 0.0, 0.0, 0.45)
+	blocker.set_anchors_preset(Control.PRESET_FULL_RECT)
+	blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+	exit_prompt_panel.add_child(blocker)
+
+	var panel: Panel = Panel.new()
+	panel.name = "Panel"
+	panel.anchor_left = 0.5
+	panel.anchor_top = 0.5
+	panel.anchor_right = 0.5
+	panel.anchor_bottom = 0.5
+	panel.offset_left = -150.0
+	panel.offset_top = -64.0
+	panel.offset_right = 150.0
+	panel.offset_bottom = 64.0
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	exit_prompt_panel.add_child(panel)
+
+	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.66, 0.42, 0.21, 0.96)
+	panel_style.border_color = Color(0.35, 0.16, 0.06, 1.0)
+	panel_style.set_border_width_all(3)
+	panel.add_theme_stylebox_override("panel", panel_style)
+
+	var margin: MarginContainer = MarginContainer.new()
+	margin.name = "MarginContainer"
+	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 16)
+	margin.add_theme_constant_override("margin_top", 14)
+	margin.add_theme_constant_override("margin_right", 16)
+	margin.add_theme_constant_override("margin_bottom", 14)
+	panel.add_child(margin)
+
+	var column: VBoxContainer = VBoxContainer.new()
+	column.name = "VBoxContainer"
+	column.alignment = BoxContainer.ALIGNMENT_CENTER
+	column.add_theme_constant_override("separation", 14)
+	margin.add_child(column)
+
+	var prompt_label: Label = Label.new()
+	prompt_label.name = "PromptLabel"
+	prompt_label.text = "Are you sure you want to exit?"
+	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	prompt_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	prompt_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	prompt_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	column.add_child(prompt_label)
+
+	var button_row: HBoxContainer = HBoxContainer.new()
+	button_row.name = "ButtonRow"
+	button_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	button_row.add_theme_constant_override("separation", 16)
+	column.add_child(button_row)
+
+	var stay_button: Button = Button.new()
+	stay_button.name = "StayButton"
+	stay_button.text = "Stay"
+	stay_button.custom_minimum_size = Vector2(90.0, 28.0)
+	stay_button.pressed.connect(_resolve_exit_prompt.bind(false))
+	button_row.add_child(stay_button)
+
+	var exit_button: Button = Button.new()
+	exit_button.name = "ExitButton"
+	exit_button.text = "Exit"
+	exit_button.custom_minimum_size = Vector2(90.0, 28.0)
+	exit_button.pressed.connect(_resolve_exit_prompt.bind(true))
+	button_row.add_child(exit_button)
+
+func _resolve_exit_prompt(confirmed: bool) -> void:
+	if not exit_prompt_open:
+		return
+	exit_prompt_open = false
+	exit_prompt_answered.emit(confirmed)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not exit_prompt_open:
+		return
+	if event.is_action_pressed("cancel") or event.is_action_pressed("ui_cancel") or event.is_action_pressed("Pause"):
+		_resolve_exit_prompt(false)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("confirm") or event.is_action_pressed("ui_accept"):
+		_resolve_exit_prompt(true)
+		get_viewport().set_input_as_handled()
+
 func entered_new_floor():
 	if current_floor == floor_count:
 		movement_locked = true

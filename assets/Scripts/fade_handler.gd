@@ -16,6 +16,7 @@ func _ready():
 	else:
 		fade_thing.visible = true
 		fade_thing_2.visible = false
+	reset_to_clear()
 	return
 	#await fade_in(2)
 
@@ -29,6 +30,18 @@ func change_scene(target_path: String):
 
 	var new_scene: Node = get_tree().current_scene
 	return new_scene
+
+func reset_to_clear() -> void:
+	is_fading = false
+	if fade_thing != null:
+		fade_thing.texture = fade_thing.texture.duplicate()
+		grad_tex = fade_thing.texture
+		grad_tex.fill_from = Vector2(-1.0, 0.0)
+		grad_tex.fill_to = Vector2(0.0, 0.0)
+		fade_thing.visible = false
+	if fade_thing_2 != null:
+		fade_thing_2.modulate.a = 0.0
+		fade_thing_2.visible = false
 
 
 func fade_in(duration: float):

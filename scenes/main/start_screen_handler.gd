@@ -35,8 +35,7 @@ var save_load_menu: Node
 var menu_buttons: Array[BaseButton] = []
 
 func _ready() -> void:
-	Fade.fade_in(0.0)
-	Fade.fade_out(0.0)
+	Fade.reset_to_clear()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_cache_editor_nodes()
 	_configure_load_menu()
