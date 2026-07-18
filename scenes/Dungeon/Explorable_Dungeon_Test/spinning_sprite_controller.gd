@@ -14,7 +14,7 @@ func _setup(quest_: quest = null, is_key_room: bool = false, boss_key: bool = fa
 	self.visible = true
 	if quest_ != null:
 		what_quest_am_i = quest_
-		self.texture = quest_.item_sprite
+		self.texture = quest_.item_to_drop.item_sprite
 		self.pixel_size = quest_.item_sprite_pixel_size
 	elif is_key_room:
 		should_give_key = true
@@ -47,8 +47,8 @@ func _on_area_3d_body_entered(body):
 					quest_.does_player_have_special_item = true
 					quest_.should_spawn_dungeon_room = false
 					
+					GlobalCombatInformation.add_item(what_quest_am_i.item_to_drop.get_path_custom())
 					StateManager.set_story_state(quest_.state_to_set_upon_completion, true)
-
 					GlobalCombatInformation.dungeon_over()
 					break
 		elif should_give_key:

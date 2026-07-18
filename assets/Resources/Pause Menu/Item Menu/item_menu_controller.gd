@@ -27,10 +27,18 @@ func _setup():
 	for child in party_tabs.get_children():
 		party_tabs.remove_child(child)
 		child.queue_free()
+		
+	# Setup the parent tab container
 	party_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 
+	# If party_tabs._setup() defers child addition, we wait a frame to let the nodes spawn
+	if party_tabs.get_child_count() == 0 and GlobalCombatInformation.all_party_slots.size() > 0:
+		await get_tree().process_frame
+
 	for child in range(party_tabs.get_child_count()):
-		party_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child, true)
+		var tab_node = party_tabs.get_child(child)
+		if is_instance_valid(tab_node):
+			tab_node._setup(GlobalCombatInformation.all_party_slots[child], child, true)
 
 
 func _ready():
@@ -43,6 +51,9 @@ func _ready():
 	menu_tabs.selection_changed.connect(tab_changed)
 	
 	visibility_changed.connect(_reset)
+	
+	# Execute initial setup on start so preexisting party members are drawn
+	_setup()
 	
 	for item: Items in GlobalCombatInformation.all_held_items:
 		var new_node = load(item_scene)
@@ -76,6 +87,10 @@ func _ready():
 
 
 func _reset():
+	# If the menu is being made visible again, refresh the party tabs
+	if is_visible_in_tree():
+		_setup()
+		
 	current_item = 0
 	selected_item = null
 	visible_tab = 0
@@ -170,11 +185,6 @@ func display_item(selected_item_ = null):
 			
 	var count = -1
 	var found_item = null
-	#for item_ in GlobalCombatInformation.all_held_items:
-	#	if item_.what_is_it & mask:
-	#		count += 1
-	#		if count == current_item:
-	#			found_item = item_
 	
 	found_item = current_container.get_parent().current_item
 	
@@ -195,4 +205,3 @@ func disable():
 	
 func enable():
 	item_containers_parent.get_child(0).enable()
-	

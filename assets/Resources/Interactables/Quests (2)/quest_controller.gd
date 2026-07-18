@@ -20,7 +20,7 @@ class_name quest
 @export var required_spawn: bool = false
 @export var special_dungeon: dungeon_type = null
 var does_player_have_special_item: bool = false
-@export var item_sprite: Texture2D
+@export var item_to_drop: Items
 @export var item_sprite_pixel_size: float = 0.005
 
 @export_category("Quest Rewards")
@@ -32,8 +32,11 @@ var does_player_have_special_item: bool = false
 
 @export var custom_resource_path: String
 
-func export_to_JSON():
-	if resource_path == "":
-		return {"path": custom_resource_path}
+func get_path_custom():
+	if resource_path != "":
+		return resource_path
 	else:
-		return {"path": resource_path}
+		return self.get_meta("original_path", "")
+
+func export_to_JSON():
+	return {"path": get_path_custom()}

@@ -488,16 +488,16 @@ func instantiate_rooms(room_storage, boss_floor):
 		new_room.position = Vector3(room_to_do_thing.room_coords.x * tile_size, 0, room_to_do_thing.room_coords.y * tile_size)
 		new_room.room_directions = room_to_do_thing.room_directions
 		new_room.scale *= float(tile_size / normal_tile_size)
-		active_room_nodes[room_to_do_thing.room_coords] = new_room
+
+		room_to_do_thing.queue_free()
+		
+		active_room_nodes[new_room.room_coords] = new_room
+		
 		new_room.rotation_degrees.y = room_storage[new_room.room_coords].get_rotation_degrees_()
 		navigation_region.add_child(new_room)
 		
 		new_room._setup(self, room_storage[new_room.room_coords].group_id, false, false, false, current_quest_dungeon)
 		
-		for room_ in active_room_nodes.values():
-			if room_.room_coords == new_room.room_coords and new_room.room_classification == 2:
-				room_.queue_free()
-				break
 	if current_dungeon.dont_spawn_chests:
 		for room_ in active_room_nodes.values():
 			if room_.room_classification == 7:

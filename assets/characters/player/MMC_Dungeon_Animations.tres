@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://btd1xqnjrdmx1" path="res://assets/characters/player/MC_Attack_Animations.png" id="1_n4u88"]
 [ext_resource type="Texture2D" uid="uid://c6yw2gwtipi3j" path="res://assets/characters/player/MMC-FMC_Dungeon_Animations.png" id="2_mq0yt"]
+[ext_resource type="Texture2D" uid="uid://cwtob505vkxa4" path="res://assets/characters/player/MC_Walk_Animations.png" id="3_0rf3o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w1mpj"]
 atlas = ExtResource("1_n4u88")
@@ -207,6 +208,22 @@ region = Rect2(192, 400, 96, 80)
 atlas = ExtResource("1_n4u88")
 region = Rect2(192, 320, 96, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mt2r"]
+atlas = ExtResource("3_0rf3o")
+region = Rect2(195, 256, 141, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7loq7"]
+atlas = ExtResource("3_0rf3o")
+region = Rect2(195, 320, 141, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7oqu"]
+atlas = ExtResource("3_0rf3o")
+region = Rect2(195, 384, 141, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le4d2"]
+atlas = ExtResource("3_0rf3o")
+region = Rect2(195, 448, 141, 64)
+
 [resource]
 animations = [{
 "frames": [{
@@ -405,5 +422,22 @@ animations = [{
 }],
 "loop": 1,
 "name": &"Walk_Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mt2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7loq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7oqu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le4d2")
+}],
+"loop": 1,
+"name": &"ow_passout",
 "speed": 5.0
 }]

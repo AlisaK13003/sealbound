@@ -16,6 +16,8 @@ var container_start_position: Vector2
 @export var equip_sounds_weapon: Array[AudioStream]
 
 func _ready():
+	GlobalCombatInformation.add_equipment_to_list("res://assets/Equipment/Training_Sword.tres", true)
+	
 	GlobalCombatInformation.member_added.connect(_setup)
 	visibility_changed.connect(_reset)
 	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
@@ -174,6 +176,8 @@ func equipment_equipped(equipped_equipment):
 			3:
 				list_container.get_child(3).get_child(0).update_contents(unequipped)
 				list_container.get_child(3).update_selected_item()
+				
+	GlobalCombatInformation.gather_states()
 	
 func show_equip_menu(which_menu):
 	$TextureRect/TextureRect.visible = false

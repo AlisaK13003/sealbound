@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="quest" format=3 uid="uid://ckvjm4udjmx8g"]
 
-[ext_resource type="Texture2D" uid="uid://noly64u4lge5" path="res://assets/characters/weapons/IMG_0688.png" id="1_8rjlo"]
+[ext_resource type="Resource" uid="uid://dgecqlyuwrqo3" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Lyras_Axe.tres" id="1_00gfj"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_qgj2p"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_8rjlo"]
 [ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://assets/characters/lyra/Lyra_portraits.png" id="2_lvomc"]
@@ -20,7 +20,7 @@ state_to_set_upon_completion = 11
 should_spawn_dungeon_room = true
 required_spawn = true
 special_dungeon = ExtResource("7_00gfj")
-item_sprite = ExtResource("1_8rjlo")
-item_sprite_pixel_size = 0.002
+item_to_drop = ExtResource("1_00gfj")
+item_sprite_pixel_size = 0.02
 custom_resource_path = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
 metadata/_custom_type_script = "uid://npoqdralsply"

@@ -34,6 +34,7 @@ func swap_to_me():
 					GlobalCombatInformation.complete_quest(GlobalCombatInformation.active_quests[GlobalCombatInformation.active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == "Find Lyra's Axe")])
 					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
 					StateManager.set_story_state(StateManager.story_beats_lookup.TURNED_IN_LYRA_QUEST, true)
+					GlobalCombatInformation.remove_thing(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Lyras_Axe.tres"), -1)
 				"quest_board_unlock_cutscene":
 					print("COMPLETED LYRA QUEST")
 					StateManager.set_story_state(StateManager.story_beats_lookup.QUEST_BOARD_UNLOCK, true)
@@ -44,6 +45,7 @@ func swap_to_me():
 					StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
 					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED)
 					GlobalCombatInformation.complete_quest(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
+					GlobalCombatInformation.remove_thing(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"), -1)
 					StateManager.pseduo_story_time = Global.current_day
 				"think_about_forest_clearing_mc_thought":
 					print("THOUGHT ABOUT RETURNING TO THE CLEARING")
@@ -52,6 +54,8 @@ func swap_to_me():
 					print("TALKED TO SERA ABOUT CLEARING")
 					StateManager.set_story_state(StateManager.story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR)
 					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.SEAL_DUNGEON_UNLOCKED)
+				"first_seal_dungeon_cutscene":
+					print("SEAL DUNGEON CUTSCENE")
 					
 
 	await get_tree().create_timer(1.0).timeout

@@ -29,6 +29,8 @@ var displacement = Vector3(0.3, 0, 0)
 var can_be_unselected: bool = true
 var current_mana = 3
 
+var is_dead: bool = false
+
 var time_until_turn
 
 # Percentages that stat buff / debuffs affect combat
@@ -142,7 +144,6 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 		combatant_ui_.remove_active_status(status_)
 		_remove_active_status(status_.status_type)
 		
-	
 	all_active_effects = 0
 	active_statuses.clear()
 	if not combatant.is_combatant_enemy:
@@ -228,12 +229,12 @@ func update_health(change_health_value, what_action = null):
 
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
 
-	
+	if stored_combatant.actual_stats.health <= 0:
+		await on_death()
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
 	
-	if stored_combatant.actual_stats.health <= 0:
-		await on_death()
+
 # Combat related stuff
 
 func use_item(which_item):
@@ -243,7 +244,9 @@ func use_item(which_item):
 	return
 
 func on_death():
+	parent_reference.someone_is_dying = true
 	stored_combatant.is_dead = true
+	is_dead = true
 	enemy_collision.visible = false
 	all_active_effects = 0
 	for status_ in active_statuses:
@@ -253,21 +256,28 @@ func on_death():
 	if not parent_reference.training:		
 		if stored_combatant.is_combatant_enemy:
 			combatant_ui_.visible = false
-			animation_player.play("RESET")
+			animation_player.play("On_Death")
 			parent_reference.killed_enemies.append(stored_combatant)
 			await animation_player.animation_finished
 		else:
 			animated_sprite.play("On_Death")
 			animated_sprite.speed_scale = 1.5
 			animated_sprite.sprite_frames.set_animation_loop("On_Death", false)
+			if stored_combatant.is_MC:
+				parent_reference.main_character_died.emit()
+				parent_reference.turn_ended.emit()
 			await get_tree().create_timer(1.0).timeout
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.gui.get_player_portrait(child_number).update_statuses(self)
 	else:
 		parent_reference.gui.update_bond_attack(0.5)
+		
+	parent_reference.finished_dying.emit()
+	parent_reference.someone_is_dying = false
 	animated_sprite.modulate = Color.WHITE
 	if stored_combatant.is_combatant_enemy:
-		self.queue_free()
+		self.visible = false
+	
 	
 func execute_defend():
 	is_defending = true
@@ -285,6 +295,7 @@ func handle_status(incoming_statuses, turn_limit):
 		var opposite = conflicts[key]
 		if (incoming_statuses & key) and (all_active_effects & opposite):
 			combatant_ui_.remove_active_status(opposite)
+			parent_reference.gui.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
 			_remove_active_status(opposite)
 			incoming_statuses &= ~key
 	for key in status_map:
@@ -365,7 +376,7 @@ func take_turn(player_portrait: player_portraits = null):
 				_remove_active_status(active_statuses[_status].status_type)
 				
 	if not stored_combatant.is_combatant_enemy:
-		player_portrait.update_statuses(self)
+		await player_portrait.update_statuses(self)
 
 # Functions that run if status is active
 

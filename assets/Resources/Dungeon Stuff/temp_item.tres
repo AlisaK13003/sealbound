@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_y1h3q")
-item_name = "Bomb"
+item_name = "Dev-Bomb"
 item_description = "Insta-Kills an enemy"
 item_sprite = ExtResource("1_axywx")
 does_what = 1

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://dgecqlyuwrqo3"]
+
+[ext_resource type="Texture2D" uid="uid://cpe47p6wgp3ca" path="res://assets/Equipment/Equipment Sprites/Rusty Axe.png" id="1_5hwro"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_0706l"]
+
+[resource]
+script = ExtResource("1_0706l")
+item_name = "Lyra's Axe"
+item_description = "The axe Lyra Lost"
+item_sprite = ExtResource("1_5hwro")
+what_is_it = 4
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

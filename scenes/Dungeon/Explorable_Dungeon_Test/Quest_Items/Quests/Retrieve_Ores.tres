@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="quest" format=3 uid="uid://dlmqbam8wskdb"]
 
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_kd4lq"]
-[ext_resource type="Texture2D" uid="uid://ct8afu1s8vphp" path="res://assets/tile sheets/Blacksmith Ore.png" id="1_swmp1"]
+[ext_resource type="Resource" uid="uid://ut1qhtuxq51b" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Ore.tres" id="1_swmp1"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_th5uh"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_swmp1"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_d5khg"]
@@ -17,7 +17,7 @@ state_to_set_upon_completion = 14
 should_spawn_dungeon_room = true
 required_spawn = true
 special_dungeon = ExtResource("6_d5khg")
-item_sprite = ExtResource("1_swmp1")
+item_to_drop = ExtResource("1_swmp1")
 item_sprite_pixel_size = 0.03
 custom_resource_path = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"
 metadata/_custom_type_script = "uid://npoqdralsply"

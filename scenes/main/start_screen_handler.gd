@@ -47,6 +47,8 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
+	StateManager.clear()
+	
 	_start_game_without_cutscene()
 
 func _cache_editor_nodes() -> void:
@@ -341,6 +343,7 @@ func _show_load_game() -> void:
 		arrow.visible = false
 
 func _begin_new_game() -> void:
+	StateManager.clear()
 	var gender = selected_gender
 	if gender.is_empty() and gender_options != null:
 		gender = "male" if gender_options.selected == 1 else "female"

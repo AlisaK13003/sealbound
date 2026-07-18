@@ -50,9 +50,9 @@ var transitioning_day: bool = false
 func _pass_out(did_pass_out):
 	transitioning_day = true
 	if did_pass_out:
-		animated_sprite.play("ow_passout")
+		#animated_sprite.play("ow_passout")
 		print("you passed out")
-		await animated_sprite.animation_finished
+		#await animated_sprite.animation_finished
 		Global.current_region = "Buildings_Insides"
 		Global.current_loading_zone = "Bedspawn"
 		var building_scene = AreaStateManager.building_insides_instance

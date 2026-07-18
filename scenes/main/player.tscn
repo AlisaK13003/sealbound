@@ -63,8 +63,8 @@ texture_filter = 1
 position = Vector2(0, 3)
 scale = Vector2(0.85, 0.85)
 sprite_frames = ExtResource("3_ter5l")
-animation = &"On_Death"
-offset = Vector2(1, -24)
+animation = &"walk_up"
+offset = Vector2(1, -118)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1895782239 groups=["Overworld_Player"]]
 position = Vector2(0, 3)
@@ -84,6 +84,19 @@ offset_top = 61.0
 offset_right = -344.04
 offset_bottom = 61.0
 metadata/_edit_use_anchors_ = true
+
+[node name="TimePanel3" type="NinePatchRect" parent="CanvasLayer" unique_id=238316542]
+modulate = Color(0.08627451, 0.08627451, 0.08627451, 0.6509804)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -108.0
+offset_top = 10.0
+offset_right = 29.0
+offset_bottom = 62.0
+grow_horizontal = 0
+scale = Vector2(0.76, 0.76)
+texture = ExtResource("25_tp8rc")
 
 [node name="TimePanel2" type="NinePatchRect" parent="CanvasLayer" unique_id=113834138]
 anchors_preset = 1
@@ -106,6 +119,10 @@ offset_top = 2.272727
 offset_bottom = -1.727272
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.89263654, 0.70039994, 0.5735161, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7607843)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("5_2idcg")
 theme_override_font_sizes/font_size = 12
 text = "Day 1, Year 1

@@ -7,18 +7,12 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_tlfsy"]
 [ext_resource type="SpriteFrames" uid="uid://c5dtxhh6ihchf" path="res://assets/characters/player/FMC_Dungeon_Animations.tres" id="4_ugwqx"]
 [ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_vafx3"]
-[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_56mnt"]
 [ext_resource type="Resource" uid="uid://c0fqbwytbhwok" path="res://assets/characters/player/Resonance_Moves/Cassian_Cross_Slash.tres" id="6_cj6en"]
-[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_vafx3"]
 [ext_resource type="Resource" uid="uid://clmph8mkn7fgo" path="res://assets/characters/player/Resonance_Moves/Cassian_Deflect.tres" id="7_5vlnk"]
 [ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="7_p13j7"]
 [ext_resource type="Resource" uid="uid://bvncadj8ike22" path="res://assets/characters/player/Resonance_Moves/Cassian_Rising_Edge.tres" id="8_cil30"]
-[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="8_fkcbn"]
 [ext_resource type="Resource" uid="uid://vu2jlgwp35cl" path="res://assets/characters/player/Resonance_Moves/Kaela_Cross_Slash.tres" id="9_7oyne"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="9_jlbeq"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="10_5qihp"]
 [ext_resource type="Resource" uid="uid://c6d7qwe4hvva8" path="res://assets/characters/player/Resonance_Moves/Kaela_Deflect.tres" id="10_sjxuq"]
-[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="11_p38ga"]
 [ext_resource type="Resource" uid="uid://bamge42pf2dkr" path="res://assets/characters/player/Resonance_Moves/Kaela_Rising Edge.tres" id="11_u48wj"]
 [ext_resource type="Resource" uid="uid://fbc7dpwk1hgb" path="res://assets/characters/player/Resonance_Moves/Lyra_Cross_Slash.tres" id="12_e6jsi"]
 [ext_resource type="Resource" uid="uid://ddtxaujyg66ai" path="res://assets/characters/player/Resonance_Moves/Lyra_Deflect.tres" id="13_o5kob"]
@@ -32,11 +26,15 @@
 [ext_resource type="Resource" uid="uid://c1pshol7hr85y" path="res://assets/characters/player/Resonance_Moves/Sera_Cross_Slash.tres" id="21_ddtuc"]
 [ext_resource type="Resource" uid="uid://b8alu8cc4ft3r" path="res://assets/characters/player/Resonance_Moves/Sera_Deflect.tres" id="22_37v5x"]
 [ext_resource type="Resource" uid="uid://c0t6hh5gmvhba" path="res://assets/characters/player/Resonance_Moves/Sera_Rising Edge.tres" id="23_78wwr"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="26_hjaik"]
+[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="27_qtf4g"]
+[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="29_cj6en"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="30_5vlnk"]
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("2_7yrul")
 max_health = 75
-health = 5
+health = 75
 attack = 80
 defense = 25
 magic = 28
@@ -75,35 +73,15 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_8rvkf")
 frame_2/duration = 1.0
 
-[sub_resource type="Resource" id="Resource_7q5rk"]
-script = ExtResource("2_7yrul")
-defense = 30
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_onp7b"]
-script = ExtResource("9_jlbeq")
-equipment_name = "Beanie"
-equipment_sprite = ExtResource("8_fkcbn")
-equipment_stats = SubResource("Resource_7q5rk")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_8byxm"]
-script = ExtResource("10_5qihp")
-weapon_name = "Lucifer's Blade"
-weapon_texture = ExtResource("11_p38ga")
-weapon_attack = 30
-attack_accuracy = 90
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
 [resource]
 script = ExtResource("3_tlfsy")
 combatant_name = "MC"
 party_member_portrait = SubResource("AnimatedTexture_bufki")
 combatant_stats = SubResource("Resource_ms118")
-stored_weapon = SubResource("Resource_8byxm")
-stored_equipment = SubResource("Resource_onp7b")
-stored_charm = ExtResource("6_vafx3")
-stored_boots = ExtResource("5_56mnt")
+stored_weapon = ExtResource("30_5vlnk")
+stored_equipment = ExtResource("29_cj6en")
+stored_charm = ExtResource("27_qtf4g")
+stored_boots = ExtResource("26_hjaik")
 stored_chestplate = ExtResource("7_p13j7")
 combatant_skills_ = Dictionary[ExtResource("1_ugwqx"), bool]({
 ExtResource("2_lln6l"): true,

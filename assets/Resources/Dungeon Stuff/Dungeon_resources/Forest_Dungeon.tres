@@ -25,5 +25,6 @@ potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8s
 dungeon_light_color = Color(1, 0.92156863, 0.8, 1)
 first_time_floor_count = 7
 type_of_dungeon = 1
+dungeon_unlock_type = 1
 room_size = 1
 metadata/_custom_type_script = "uid://3loyjc4d808j"

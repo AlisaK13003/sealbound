@@ -82,6 +82,7 @@ var training: bool = false
 var testing: bool = false
 func _ready():
 	#setup(GlobalCombatInformation.dungeon_types[0], test_encounter, false)
+	
 	return
 	Fade.fade_thing.visible = false
 	Fade.fade_thing_2.visible = false
@@ -176,11 +177,8 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 			slot_3.setup(GlobalCombatInformation.active_party_slots[2], self, 2)
 			all_combatants.append(slot_3)
 		else:
-			slot_3.visible = false
 			gui.get_player_portrait(2).visible = false
 	else:
-		slot_2.visible = false
-		slot_3.visible = false
 		gui.get_player_portrait(1).visible = false
 		gui.get_player_portrait(2).visible = false
 	
@@ -200,7 +198,9 @@ func _has_combatant(entity) -> bool:
 	return entity != null and is_instance_valid(entity) and entity.stored_combatant != null
 
 func _is_living_combatant(entity) -> bool:
-	return _has_combatant(entity) and not entity.stored_combatant.is_dead
+	if not is_instance_valid(entity) or entity.is_queued_for_deletion():
+		return false
+	return not entity.is_dead
 
 func determine_order() -> void:
 	all_combatants.clear()
@@ -227,11 +227,16 @@ func advance_turn(actor):
 	
 	if _is_living_combatant(completed_actor):
 		all_combatants.append(completed_actor)
+	else:
+		completed_actor.queue_free()
 		
 	var living_combatants: Array[combat_template] = []
 	for entity in all_combatants:
 		if _is_living_combatant(entity):
 			living_combatants.append(entity)
+		else:
+			if is_instance_valid(entity) and entity.stored_combatant.is_combatant_enemy:
+				entity.queue_free()
 	all_combatants = living_combatants
 	
 	gui.update_turn_queue_ui()
@@ -296,6 +301,13 @@ func setup_encounter(new_encounter: dungeon_wave, is_boss):
 
 var turn_count: int = 0
 
+signal main_character_died
+
+var someone_is_dying: bool = false
+signal finished_dying
+
+var current_actor
+
 func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	skills_enemies_have_used = 0
 	training = false
@@ -344,13 +356,19 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 		while(not is_wave_over):
 			turn_count += 1
 			
-			var current_actor = get_next_actor()
+			current_actor = get_next_actor()
+			
+			if not is_instance_valid(current_actor) or current_actor.is_queued_for_deletion():
+				all_combatants.erase(current_actor)
+				advance_turn(current_actor)
+				continue
+			
 			if not _has_combatant(current_actor):
 				is_wave_over = true
 				break
 			
 			# If player is dead, you lost
-			if current_actor.stored_combatant.is_MC and current_actor.stored_combatant.is_dead:
+			if get_player(0).stored_combatant.is_MC and get_player(0).is_dead:
 				is_wave_over = true
 				did_players_win = false
 				break
@@ -368,7 +386,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 			for enemy in enemy_shit.get_children():
 				if enemy.stored_combatant == null:
 					continue
-				if not enemy.stored_combatant.is_dead:
+				if not enemy.is_dead:
 					number_of_alive_enemies += 1
 			# Player check
 			for player in player_container.get_children():
@@ -389,28 +407,41 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				
 			# Enemy Turn
 			if current_actor.stored_combatant.is_combatant_enemy:
+				while someone_is_dying:
+					await get_tree().process_frame
+				someone_is_dying = false
+				
 				active_player_turn = current_actor.child_number
 				await execute_enemy_turn(current_actor.stored_combatant, turn_count, training)
 			# Player Turn
 			else:	
 				active_player_turn = current_actor.child_number
+				
+				if current_actor.stored_combatant.is_MC and current_actor.is_dead:
+					is_wave_over = true
+					did_players_win = false
+					break
+				
+				while someone_is_dying:
+					await get_tree().process_frame
+				someone_is_dying = false
+				
 				if training:
 					await execute_player_auto_turn(current_actor.stored_combatant, turn_count, training)
 				else:
 					#var thing = await handle_player_move_selection(current_combatant.stored_combatant)
 					selecting_entity = false
-					if get_player(active_player_turn).stored_combatant == null or get_player(active_player_turn).stored_combatant.is_dead:
+					if get_player(active_player_turn).stored_combatant == null or get_player(active_player_turn).is_dead:
+						advance_turn(current_actor)
 						continue
-					await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
-					gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
 					current_actor.animated_sprite.play("Idle")
 					await gui.new_player_turn()
 					make_enemies_selectable()
 					select_individual(false, 0)
 					await turn_ended
+					await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
+					gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
 
-					#if thing == "RUN":
-					#	return killed_enemies
 				hidden_default()
 			advance_turn(current_actor)
 		if i != number_of_waves_to_fight - 1:
@@ -426,6 +457,12 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	print(current_bond_points)
 	return [killed_enemies, did_players_win, ret_val]
 	#return [number_of_killed_players, number_of_killed_enemies, player_container, highest_wave_reached, number_of_waves_to_fight, cum_player_health, skills_enemies_have_used]
+
+func someone_died():
+	if current_actor.stored_combatant.is_combatant_enemy:
+		pass
+	else:
+		pass
 
 func _collect_active_party_results() -> Array:
 	var results: Array = []

@@ -13,9 +13,15 @@ class_name equipment
 @export var sell_price: int = 10
 @export var stack: int = 1
 
+func get_path_custom():
+	if resource_path != "":
+		return resource_path
+	else:
+		return self.get_meta("original_path", "")
+
 func export_to_JSON():
 	return {
-		"path": resource_path,
+		"path": get_path_custom(),
 		"stack": stack
 	}
 

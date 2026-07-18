@@ -10,7 +10,6 @@ var currency_held: int = 200
 var all_held_equipment: Array[equipment]
 var all_held_weapons: Array[weapon]
 var all_held_items: Array[Items]
-var all_held_valuables: Array[Items]
 
 var dungeon_types: Array[dungeon_type] = []
 
@@ -63,13 +62,21 @@ func new_members_available():
 	for key in StateManager.party_member_unlocked:
 		add_new_member(load(all_character_information[key]))
 	member_added.emit()
+	for member in all_party_slots:
+		member.restore_health()
+
+func gather_states():
+	for member in all_party_slots:
+		member.gather_actual_stats()
+	check_player_values.emit()
 
 func add_new_member(combatant: generic_combatants):
 	var index = all_party_slots.find_custom(func(person: generic_combatants): return combatant.combatant_name == person.combatant_name)
 	if index == -1:
 		all_party_slots.append(combatant)
 		combatant.gather_actual_stats()
-
+		combatant.restore_health()
+		
 func add_active_member(combatant: generic_combatants):
 	if combatant == null:
 		return
@@ -227,39 +234,38 @@ func check_if_member_is_active(combatant: generic_combatants):
 
 func load_items():
 	for i in range(15):
-		add_item(load("res://assets/Resources/Dungeon Stuff/temp_item.tres"))
-		add_item(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres"))
+		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
+		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 
 func add_item(item_to_add):
-	if item_to_add == null:
+	if item_to_add == null or item_to_add == "":
 		return
 	if item_to_add is Array:
 		for item in item_to_add:
+			var mew_item = load(item)
+			var temp_copy = mew_item.duplicate()
+			
+			temp_copy.set_meta("original_path", mew_item.resource_path)
+			
 			if item.stack != 1: item.stack = 1
-			if item.what_is_it & 010:
-				if all_held_valuables.find(item) == -1:
-					all_held_valuables.append(item.duplicate())
-				else:
-					all_held_valuables[all_held_valuables.find(item)].stack += 1
+			var index = all_held_items.find_custom(func(new_item: Items): return new_item.item_name == temp_copy.item_name)
+			if index != -1:
+				all_held_items[index].stack += temp_copy.stack
 			else:
-				if all_held_items.find(item) == -1:
-					all_held_items.append(item.duplicate())
-				else:
-					all_held_items[all_held_items.find(item)].stack += 1
+				all_held_items.append(temp_copy)
 		check_quest_progress.emit()
 		return
-	if item_to_add.what_is_it & 010:
-		if item_to_add.stack != 1: item_to_add.stack = 1
-		if all_held_valuables.find(item_to_add) == -1:
-			all_held_valuables.append(item_to_add)
-		else:
-			all_held_valuables[all_held_valuables.find(item_to_add)].stack += 1
 	else:
-		if item_to_add.stack != 1: item_to_add.stack = 1
-		if all_held_items.find(item_to_add) == -1:
-			all_held_items.append(item_to_add)
+		var mew_item = load(item_to_add)
+		var temp_copy = mew_item.duplicate()
+		
+		temp_copy.set_meta("original_path", mew_item.resource_path)
+		if temp_copy.stack != 1: temp_copy.stack = 1
+		var index = all_held_items.find_custom(func(new_item: Items): return new_item.item_name == temp_copy.item_name)
+		if index != -1:
+			all_held_items[index].stack += temp_copy.stack
 		else:
-			all_held_items[all_held_items.find(item_to_add)].stack += 1
+			all_held_items.append(temp_copy)
 	check_quest_progress.emit()
 
 func equipment_added_to_list(type, is_weapon):
@@ -272,23 +278,28 @@ func equipment_added_to_list(type, is_weapon):
 signal equipment_added
 signal stats_potentially_updated
 
-func add_equipment_to_list(equip, is_weapon):
-	if equip == null:
+func add_equipment_to_list(equip_path, is_weapon):
+	if equip_path == "":
 		return
-	if equip.stack != 1: equip.stack = 1
-	var index = search_for_index_of_thing(equip)
+	var mew_item = load(equip_path)
+	var temp_copy = mew_item.duplicate()
+	
+	temp_copy.set_meta("original_path", mew_item.resource_path)
+		
+	if temp_copy.stack != 1: temp_copy.stack = 1
+	var index = search_for_index_of_thing(temp_copy)
 	if index != -1:
 		if is_weapon:
-			all_held_weapons[index].stack += 1
+			all_held_weapons[index].stack += temp_copy.stack
 		else:
-			all_held_equipment[index].stack += 1
+			all_held_equipment[index].stack += temp_copy.stack
 	else:
 		if is_weapon:
-			all_held_weapons.append(equip.duplicate())
+			all_held_weapons.append(temp_copy)
 		else:
-			all_held_equipment.append(equip.duplicate())
-		if equip.stack == 0:
-			equip.stack = 1
+			all_held_equipment.append(temp_copy)
+		if temp_copy.stack == 0:
+			temp_copy.stack = 1
 	equipment_added.emit()
 
 func remove_thing(thing_to_remove, amount_to_remove):
@@ -299,16 +310,14 @@ func remove_thing(thing_to_remove, amount_to_remove):
 		if thing_to_remove is equipment:
 			list_to_alter = all_held_equipment
 		if thing_to_remove is Items:
-			if thing_to_remove.what_is_it & 010:
-				list_to_alter = all_held_equipment
-			elif thing_to_remove.what_is_it & 001:
-				list_to_alter = all_held_items
-			else:
-				list_to_alter = all_held_equipment
+			list_to_alter = all_held_items
 		if thing_to_remove is weapon:
 			list_to_alter = all_held_weapons
 		
-		index.stack -= amount_to_remove
+		if amount_to_remove > 0:
+			index.stack -= amount_to_remove
+		else:
+			index.stack = 0
 		if index.stack <= 0:
 			list_to_alter.erase(index)
 		check_quest_progress.emit()
@@ -318,7 +327,8 @@ func add_equipment(player_index, equip, is_weapon):
 	var ret_equipment = null
 	if is_weapon:
 		if all_party_slots[player_index].stored_weapon != null:
-			add_equipment_to_list(all_party_slots[player_index].stored_weapon, is_weapon)
+			var path = all_party_slots[player_index].stored_weapon.get_path_custom()
+			add_equipment_to_list(path, is_weapon)
 			ret_equipment = all_party_slots[player_index].stored_weapon
 		remove_thing(equip, 1)
 		all_party_slots[player_index].stored_weapon = equip
@@ -328,8 +338,8 @@ func add_equipment(player_index, equip, is_weapon):
 			# Helmet
 			0:
 				if all_party_slots[player_index].stored_equipment != null:
-					add_equipment_to_list(all_party_slots[player_index].stored_equipment, is_weapon)
-
+					var path = all_party_slots[player_index].stored_equipment.get_path_custom()
+					add_equipment_to_list(path, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_equipment
 				remove_thing(equip_, 1)
 				all_held_equipment.erase(equip_)
@@ -338,21 +348,24 @@ func add_equipment(player_index, equip, is_weapon):
 			# Chestplate
 			1:
 				if all_party_slots[player_index].stored_chestplate != null:
-					add_equipment_to_list(all_party_slots[player_index].stored_chestplate, is_weapon)
+					var path = all_party_slots[player_index].stored_chestplate.get_path_custom()
+					add_equipment_to_list(path, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_chestplate
 				remove_thing(equip_, 1)
 				all_party_slots[player_index].stored_chestplate = equip
 			# Boots
 			2:
 				if all_party_slots[player_index].stored_boots != null:
-					add_equipment_to_list(all_party_slots[player_index].stored_boots, is_weapon)
+					var path = all_party_slots[player_index].stored_boots.get_path_custom()
+					add_equipment_to_list(path, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_boots
 				remove_thing(equip_, 1)
 				all_party_slots[player_index].stored_boots = equip.duplicate()
 			# Charm
 			3:
 				if all_party_slots[player_index].stored_charm != null:
-					add_equipment_to_list(all_party_slots[player_index].stored_charm, is_weapon)
+					var path = all_party_slots[player_index].stored_charm.get_path_custom()
+					add_equipment_to_list(path, is_weapon)
 					ret_equipment = all_party_slots[player_index].stored_charm
 				remove_thing(equip_, 1)
 				all_party_slots[player_index].stored_charm = equip
@@ -363,14 +376,9 @@ func add_equipment(player_index, equip, is_weapon):
 	return ret_equipment
 	
 func search_for_item(desired_item: Items):
-	if all_held_items.find(desired_item) != -1:
-		var found_index = all_held_items.find_custom(func(item: Items) -> bool: return item.item_name == desired_item.item_name)
-		if found_index != -1:
-			return all_held_items[found_index]
-	if all_held_valuables.find(desired_item) != -1:
-		var found_index = all_held_valuables.find_custom(func(item: Items) -> bool: return item.item_name == desired_item.item_name)
-		if found_index != -1:
-			return all_held_valuables[found_index]
+	var index = all_held_items.find_custom(func(new_item: Items): return new_item.item_name == desired_item.item_name)
+	if index != -1:
+		return all_held_items[index]
 	return null
 
 func search_for_thing(desired_thing):
@@ -400,15 +408,17 @@ func search_for_index_of_thing(desired_thing):
 			var found_index = all_held_items.find_custom(func(item: Items) -> bool: return item.item_name == desired_thing.item_name)
 			if found_index != -1:
 				return found_index
-		if all_held_valuables.find(desired_thing) != -1:
-			var found_index = all_held_valuables.find_custom(func(item: Items) -> bool: return item.item_name == desired_thing.item_name)
-			if found_index != -1:
-				return found_index
+
 		return -1
 	return -1
 
-func add_quest(quest_: quest):
-	active_quests.append(quest_)
+func add_quest(quest_: String):
+	var mew_item = load(quest_)
+	var temp_copy = mew_item.duplicate()
+	
+	temp_copy.set_meta("original_path", mew_item.resource_path)
+	
+	active_quests.append(temp_copy)
 	check_quest_progress.emit()
 
 func complete_quest(quest_: quest):
@@ -430,7 +440,7 @@ func _ready():
 	for member in all_party_slots:
 		member.gather_actual_stats()
 
-	load_items()
+	#load_items()
 	
 	if not all_party_slots.is_empty():
 		active_party_slots.append(all_party_slots[0])
@@ -442,10 +452,10 @@ func _ready():
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Forest_Dungeon.tres"))
 	dungeon_types.append(load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/First_Seal_Dungeon.tres"))
 	
-	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
-	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
-	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
+	add_equipment_to_list("res://assets/Equipment/Training_Sword.tres", true)
+	add_equipment_to_list("res://assets/Equipment/Training_Dagger.tres", true)
+	add_equipment_to_list("res://assets/Equipment/Training_Sword.tres", true)
+	add_equipment_to_list("res://assets/Equipment/Training_Dagger.tres", true)
 	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
 	#add_equipment_to_list(load("res://assets/Equipment/Training_Dagger.tres"), true)
 	#add_equipment_to_list(load("res://assets/Equipment/Training_Sword.tres"), true)
@@ -460,10 +470,10 @@ func _ready():
 	#all_held_equipment.append(load("res://assets/Equipment/Ruby Necklace.tres"))
 	#all_held_equipment.append(load("res://assets/Equipment/Plated_Boots.tres"))
 	#all_held_equipment.append(load("res://assets/Equipment/Leather_Helmet.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Leather_Boots.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Iron_Helmet.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Iron_Chestplate.tres"))
-	all_held_equipment.append(load("res://assets/Equipment/Lather_Chestplate.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Leather_Boots.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Iron_Helmet.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Iron_Chestplate.tres"))
+	#all_held_equipment.append(load("res://assets/Equipment/Lather_Chestplate.tres"))
 	
 	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"))
 	#active_quests.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
@@ -484,6 +494,9 @@ func _ready():
 
 	finished.emit()
 	check_quest_progress.emit()
+	
+	for member in all_party_slots:
+		member.restore_health()
 	
 const amount_of_dungeons = 3
 
@@ -553,7 +566,7 @@ func dungeon_over(passed_out: bool = false):
 	if explorable_dungeon_scene != null:
 		explorable_dungeon_scene.queue_free()
 	Global.current_region = "Buildings_Insides"
-	Global.current_loading_zone = "Bedroom"
+	Global.current_loading_zone = "Bedspawn"
 	AreaStateManager._setup(passed_out)
 	AreaStateManager.swap_scene()
 		
@@ -740,34 +753,27 @@ func load_saved_data(data):
 	for equipment_ in data["equipment_slots"].values():
 		if not ResourceLoader.exists(equipment_["path"], ""):
 			continue
-		var new_equipment = load(equipment_["path"])
-		if new_equipment == null:
+		var new_equipment = equipment_["path"]
+		if new_equipment == "":
 			continue
 		add_equipment_to_list(new_equipment, false)
-		var index = search_for_index_of_thing(new_equipment)
-		all_held_equipment[index].stack = equipment_["stack"]
 
 	for weapon_ in data["weapon_slots"].values():
 		if not ResourceLoader.exists(weapon_["path"], ""):
 			continue
-		var new_equipment = load(weapon_["path"])
-		if new_equipment == null:
+		var new_equipment = weapon_["path"]
+		if new_equipment == "":
 			continue
 		add_equipment_to_list(new_equipment, true)
 
-		var index = search_for_index_of_thing(new_equipment)
-		all_held_equipment[index].stack = weapon_["stack"]
 
 	for item_ in data["item_slots"].values():
 		if not ResourceLoader.exists(item_["path"], ""):
 			continue
-		var new_item = load(item_["path"])
-		if new_item == null:
+		var new_item = item_["path"]
+		if new_item == "":
 			continue
 		add_item(new_item)
-		var index = search_for_index_of_thing(new_item)
-
-		all_held_items[index].stack = item_["stack"]
 		
 	for a_quest in data["active_quests"].values():
 		if not ResourceLoader.exists(a_quest["path"], ""):

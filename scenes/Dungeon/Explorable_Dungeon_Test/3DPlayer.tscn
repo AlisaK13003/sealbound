@@ -35,12 +35,12 @@ script = ExtResource("3_trhba")
 player = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=24082279 node_paths=PackedStringArray("player")]
-transform = Transform3D(0.70710677, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.70710677, -0.35355338, 0.6123724, 6.485, 7.19, 9.225)
+transform = Transform3D(0.7071067, -0.35355338, 0.61237234, 0, 0.8660254, 0.49999994, -0.7071067, -0.35355338, 0.61237234, 6.775, 6.85, 9.225)
 environment = SubResource("Environment_7ued3")
 h_offset = 1.935
 projection = 1
 current = true
-size = 7.205
+size = 6.251
 near = 0.001
 script = ExtResource("3_3lwvn")
 player = NodePath("../..")

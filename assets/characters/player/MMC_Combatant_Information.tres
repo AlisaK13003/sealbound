@@ -8,18 +8,16 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_brmf3"]
 [ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_vauhd"]
 [ext_resource type="SpriteFrames" uid="uid://b7aeudu53hdro" path="res://assets/characters/player/MMC_Dungeon_Animations.tres" id="5_07esi"]
-[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="6_vauhd"]
-[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="7_w8xwj"]
 [ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="8_ujq20"]
-[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="9_6chgw"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="10_glmf3"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="11_o711s"]
-[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="12_7gsig"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="9_xavbm"]
+[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="10_td0jh"]
+[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="12_brmf3"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="13_07esi"]
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("2_xavbm")
 max_health = 75
-health = 5
+health = 75
 attack = 80
 defense = 25
 magic = 28
@@ -28,26 +26,6 @@ speed = 40
 luck = 5
 evasion = 10
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_7q5rk"]
-script = ExtResource("2_xavbm")
-defense = 30
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_onp7b"]
-script = ExtResource("10_glmf3")
-equipment_name = "Beanie"
-equipment_sprite = ExtResource("9_6chgw")
-equipment_stats = SubResource("Resource_7q5rk")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_8byxm"]
-script = ExtResource("11_o711s")
-weapon_name = "Lucifer's Blade"
-weapon_texture = ExtResource("12_7gsig")
-weapon_attack = 30
-attack_accuracy = 90
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mmc_neutral_0"]
 atlas = ExtResource("3_td0jh")
@@ -74,10 +52,10 @@ script = ExtResource("4_brmf3")
 combatant_name = "MC"
 party_member_portrait = SubResource("AnimatedTexture_mmc_portrait")
 combatant_stats = SubResource("Resource_ms118")
-stored_weapon = SubResource("Resource_8byxm")
-stored_equipment = SubResource("Resource_onp7b")
-stored_charm = ExtResource("7_w8xwj")
-stored_boots = ExtResource("6_vauhd")
+stored_weapon = ExtResource("13_07esi")
+stored_equipment = ExtResource("12_brmf3")
+stored_charm = ExtResource("10_td0jh")
+stored_boots = ExtResource("9_xavbm")
 stored_chestplate = ExtResource("8_ujq20")
 combatant_skills_ = Dictionary[ExtResource("1_v7xaa"), bool]({
 ExtResource("2_brmf3"): true,

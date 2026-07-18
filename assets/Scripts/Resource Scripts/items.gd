@@ -68,8 +68,14 @@ class_name Items
 	"Accuracy+:1048576"
 	) var give_status
 
+func get_path_custom():
+	if resource_path != "":
+		return resource_path
+	else:
+		return self.get_meta("original_path", "")
+
 func export_to_JSON():
 	return {
-		"path": resource_path,
+		"path": resource_path if resource_path != "" else get_meta("original_path", ""),
 		"stack": stack
 	}

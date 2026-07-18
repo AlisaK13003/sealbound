@@ -16,7 +16,7 @@
 [sub_resource type="Resource" id="Resource_uwim3"]
 script = ExtResource("2_g6mva")
 max_health = 95
-health = 95
+health = 1
 attack = 60
 defense = 25
 magic = 23

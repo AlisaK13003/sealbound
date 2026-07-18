@@ -17,7 +17,7 @@ var story_triggers: Dictionary = {
 	},
 	"turning_in_lyra_axe_cutscene": {
 		"region": "Buildings_Insides",
-		"loading_zone": "Bedroom",
+		"loading_zone": "Bedspawn",
 		"required": [story_beats_lookup.READY_TO_TURN_IN_AXE_QUEST],
 		"excluded": [story_beats_lookup.TURNED_IN_LYRA_QUEST]
 	},
@@ -25,7 +25,6 @@ var story_triggers: Dictionary = {
 		"region": "Buildings_Insides",
 		"loading_zone": "Bedspawn",
 		"required": [story_beats_lookup.TURNED_IN_LYRA_QUEST], 
-		"day_requirement": 3,
 	},
 	"cave_dungeon_entry": {
 		"required": [story_beats_lookup.CAVE_DUNGEON_UNLOCKED]
@@ -52,6 +51,13 @@ var story_triggers: Dictionary = {
 		"required": [story_beats_lookup.FIRST_SEAL_DUNGEON_BEATEN]
 	}
 }
+
+func clear():
+	dungeon_states.clear()
+	story_states.clear()
+	seal_completion_states.clear()
+	party_member_unlocked.clear()
+	pseduo_story_time = 0
 
 func should_trigger(trigger_id: String) -> bool:
 	if not story_triggers.has(trigger_id):
@@ -178,16 +184,25 @@ signal new_state
 func add_quests_to_board():
 	var quests_to_add = []
 	if check_completion(story_beats_lookup.QUEST_BOARD_UNLOCK, completion_checks.STORY_CHECKS):
-		quests_to_add.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
+		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
 	if check_completion(story_beats_lookup.STARTER_FOREST_DUNGEON_UNLOCKED, completion_checks.STORY_CHECKS):
-		quests_to_add.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
+		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
 	if check_completion(story_beats_lookup.BLACKSMITH_QUEST_FINISHED, completion_checks.STORY_CHECKS):
-		quests_to_add.append(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
 
 	for quest_: quest in quests_to_add:
 		var index = currently_available_quests.find_custom(func(available_quests: quest): return quest_.quest_name == available_quests.quest_name)
 		if index == -1:
 			currently_available_quests.append(quest_.duplicate())
+
+func add_quest(quest_path):
+	var mew_item = load(quest_path)
+	var temp_copy = mew_item.duplicate()
+	
+	temp_copy.set_meta("original_path", mew_item.resource_path)
+	return temp_copy
+
+	
 
 func start_lyra_axe_quest() -> void:
 	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
@@ -203,7 +218,7 @@ func start_lyra_axe_quest() -> void:
 		push_warning("Global: Could not load Lyra axe quest: %s" % LYRA_AXE_QUEST_PATH)
 		return
 
-	GlobalCombatInformation.add_quest(lyra_quest)
+	GlobalCombatInformation.add_quest(LYRA_AXE_QUEST_PATH)
 	print("[Story] Started Lyra axe quest.")
 
 

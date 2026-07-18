@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_d3o0m"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_n5n1p"]
 [ext_resource type="SpriteFrames" uid="uid://c6rujn44womum" path="res://assets/characters/lyra/Lyra_Dungeon_Animations.tres" id="4_uwea6"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_7rixd"]
-[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_d3o0m"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_4bmwk"]
-[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_uwea6"]
-[ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="7_7rixd"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="5_uwea6"]
+[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="6_7rixd"]
+[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="7_4bmwk"]
+[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="8_m3koh"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="9_5l7vs"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m3koh"]
 load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
@@ -118,7 +118,7 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 [sub_resource type="Resource" id="Resource_dx6g1"]
 script = ExtResource("2_d3o0m")
 max_health = 90
-health = 90
+health = 1
 attack = 95
 defense = 25
 magic = 24
@@ -157,34 +157,16 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_lyae5")
 frame_2/duration = 1.0
 
-[sub_resource type="Resource" id="Resource_gtipd"]
-script = ExtResource("2_d3o0m")
-defense = 30
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_jcqwx"]
-script = ExtResource("5_7rixd")
-equipment_name = "Adamant Armor"
-equipment_stats = SubResource("Resource_gtipd")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_pfgd8"]
-script = ExtResource("6_4bmwk")
-weapon_name = "Kokuseki Senjin"
-weapon_attack = 30
-attack_accuracy = 95
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
 [resource]
 script = ExtResource("3_n5n1p")
 combatant_name = "Lyra"
 party_member_portrait = SubResource("AnimatedTexture_cygc5")
 combatant_stats = SubResource("Resource_dx6g1")
-stored_weapon = SubResource("Resource_pfgd8")
-stored_equipment = SubResource("Resource_jcqwx")
-stored_charm = ExtResource("6_uwea6")
-stored_boots = ExtResource("5_d3o0m")
-stored_chestplate = ExtResource("7_7rixd")
+stored_weapon = ExtResource("9_5l7vs")
+stored_equipment = ExtResource("8_m3koh")
+stored_charm = ExtResource("6_7rixd")
+stored_boots = ExtResource("5_uwea6")
+stored_chestplate = ExtResource("7_4bmwk")
 combatant_skills_ = Dictionary[ExtResource("1_26prq"), bool]({
 SubResource("Resource_pyue4"): false,
 SubResource("Resource_xg20h"): true,

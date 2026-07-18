@@ -94,6 +94,7 @@ func hide_gui(show_back_button):
 	back_button_.visible = show_back_button
 	selection_area.visible = false
 	base_menu.visible = false
+	$Action_Hint.visible = false
 
 func show_base_gui():
 	base_menu.visible = true
@@ -101,6 +102,12 @@ func show_base_gui():
 	update_action_hints()
 
 func new_player_turn():
+	while p_ref.someone_is_dying:
+		await get_tree().process_frame
+	if p_ref.get_player(p_ref.active_player_turn).is_dead:
+		p_ref.turn_ended.emit()
+		return
+	
 	swap_to_new_player()
 	action_queue_list.update_turn_queue_ui(p_ref.all_combatants)
 
@@ -108,6 +115,11 @@ func update_turn_queue_ui():
 	action_queue_list.update_turn_queue_ui(p_ref.all_combatants)
 
 func swap_to_new_player():
+	while p_ref.someone_is_dying:
+		await get_tree().process_frame
+	if p_ref.get_player(p_ref.active_player_turn).is_dead:
+		p_ref.turn_ended.emit()
+		return
 	executing_item = false
 	executing_skill = false
 	skill_menu._setup(GlobalCombatInformation.active_party_slots[p_ref.active_player_turn].combatant_skills_)
@@ -192,10 +204,13 @@ func _back_button_pressed():
 func _confirm_button_pressed():
 	if item_menu.visible:
 		item_menu.node_selected()
+		update_action_hints()
 	elif skill_menu.visible:
 		skill_menu.node_selected()
+		update_action_hints()
 	elif options_menu.visible:
 		options_menu.node_selected()
+		update_action_hints()
 	else:
 		if executing_item:
 			execute_item()
@@ -203,14 +218,16 @@ func _confirm_button_pressed():
 		elif executing_skill:
 			execute_skill()
 			selection_area.visible = false
-	update_action_hints()
+	
 
 signal confirmation_given
 func execute_skill():
 	$Action_Hint.visible = false
+	hide_gui(false)
 	skill_used.emit(skill_menu.selected_item, skill_menu.selected_item_index)
 
 func execute_item():
+	hide_gui(false)
 	$Action_Hint.visible = false
 	item_used.emit(item_menu.selected_item, item_menu.selected_item_index)
 

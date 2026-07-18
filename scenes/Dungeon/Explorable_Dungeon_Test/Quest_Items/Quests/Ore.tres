@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://ut1qhtuxq51b"]
+
+[ext_resource type="Texture2D" uid="uid://ct8afu1s8vphp" path="res://assets/tile sheets/Blacksmith Ore.png" id="1_e6rs5"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_teump"]
+
+[resource]
+script = ExtResource("1_teump")
+item_name = "Ore"
+item_description = "The Blacksmith wanted this"
+item_sprite = ExtResource("1_e6rs5")
+what_is_it = 4
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

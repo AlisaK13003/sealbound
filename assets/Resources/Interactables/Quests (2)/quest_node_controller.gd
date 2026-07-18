@@ -103,6 +103,6 @@ func setup_(quest_: quest, i):
 
 func _on_button_pressed():
 	print("ACCEPTED QUEST")
-	GlobalCombatInformation.add_quest(what_quest_am_i.duplicate())
+	GlobalCombatInformation.add_quest(what_quest_am_i.get_path_custom())
 	on_click.emit()
 	self.queue_free()

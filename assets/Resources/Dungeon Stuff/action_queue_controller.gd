@@ -9,6 +9,8 @@ func update_turn_queue_ui(upcoming_turns):
 	
 	var new_portrait = load(PORTRAIT_SCENE)
 	for entity in range(upcoming_turns.size()):
+		if upcoming_turns[entity].is_dead:
+			continue
 		var portrait = new_portrait.instantiate()
 		turn_queue_container.add_child(portrait)
 
