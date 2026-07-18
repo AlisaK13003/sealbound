@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="dungeon_wave" format=3 uid="uid://bmijxtgtfeyxf"]
+
+[ext_resource type="Resource" uid="uid://c53bl6mg31nk4" path="res://assets/Enemies/Red_Slime_Creature.tres" id="1_02s0e"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="1_ox0qs"]
+[ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_xlywj"]
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="3_b2m56"]
+[ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="4_ol6f5"]
+
+[resource]
+script = ExtResource("2_xlywj")
+encounterable_enemy = ExtResource("1_02s0e")
+enemies = Array[ExtResource("1_ox0qs")]([ExtResource("1_02s0e"), ExtResource("3_b2m56"), ExtResource("3_b2m56"), ExtResource("4_ol6f5")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"

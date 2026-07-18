@@ -32,10 +32,10 @@ transform = Transform2D(1, 0, 0, 1, 1.35, 129.205)
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1562437039]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -14.0
-offset_top = -93.22
-offset_right = 26.0
-offset_bottom = -53.22
+offset_left = 65.79
+offset_top = -141.205
+offset_right = 105.78998
+offset_bottom = -101.205
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=390468899]
@@ -89,11 +89,21 @@ offset_bottom = 424.00003
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("6_xdkxl")]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=348352244]
 layout_mode = 0
-offset_left = 80.025
-offset_top = 10.08
-offset_right = 80.025
-offset_bottom = 10.08
+offset_left = 7.85
+offset_right = 72.85
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=669656079]
+custom_minimum_size = Vector2(128.635, 0)
+layout_mode = 2
+text = "Dungeons"
+horizontal_alignment = 1
+
+[node name="MenuTabs" parent="VBoxContainer" unique_id=1267646118 instance=ExtResource("6_xdkxl")]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -4.635)
 theme_override_constants/h_separation = 45
-columns = 20
+theme_override_constants/v_separation = 40

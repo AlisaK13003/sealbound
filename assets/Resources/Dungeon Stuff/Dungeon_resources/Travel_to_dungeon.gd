@@ -12,47 +12,70 @@ var current_selected_dungeon: int = 0
 @onready var return_to_hearthwynn = $CanvasLayer/HBoxContainer2/GenericButton2
 @onready var travel_to_dungeon = $CanvasLayer/HBoxContainer2/GenericButton
 
-@onready var menu_tabs = $MenuTabs
+@onready var menu_tabs = $VBoxContainer/MenuTabs
 
 #@export var menu_tab_icons: Array[Texture2D]
 
 var dungeon_overview_path = "res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Overview.tscn"
 
 var which_dungeon
+var dungeon_entries
 func _ready():
 	hidden_load.visible = false
 	
 	return_to_hearthwynn.activated.connect(travel.bind(false))
 	travel_to_dungeon.activated.connect(travel.bind(true))
-	var menu_tab_icons: Array[Texture2D] = []
-	var dungeon_names = []
-	for dungeon in GlobalCombatInformation.dungeon_types:
-		var new_dungeon_over = load(dungeon_overview_path)
-		var new_dungeon_over_inst = new_dungeon_over.instantiate()
-		container_thing.add_child(new_dungeon_over_inst)
-		new_dungeon_over_inst._setup(dungeon)
-		dungeon_names.append(dungeon.dungeon_name)
-		menu_tab_icons.append(dungeon.dungeon_background)
+	
+	dungeon_entries = []
+	
+	for dungeon in range(GlobalCombatInformation.dungeon_types.size()):
+		dungeon_entries.append({
+			"dungeon": GlobalCombatInformation.dungeon_types[dungeon],
+			"quest": null,
+			"index": dungeon
+		})
 
 	for quest_ in GlobalCombatInformation.active_quests:
 		if quest_.required_spawn:
-			var new_dungeon_over = load(dungeon_overview_path)
-			var new_dungeon_over_inst = new_dungeon_over.instantiate()
-			container_thing.add_child(new_dungeon_over_inst)
-			new_dungeon_over_inst._setup(quest_.special_dungeon, quest_)
-			dungeon_names.append(quest_.special_dungeon.dungeon_name)
-			menu_tab_icons.append(quest_.special_dungeon.dungeon_background)
+			dungeon_entries.append({
+				"dungeon": quest_.special_dungeon,
+				"quest": quest_
+			})
 			
 	for quest_ in GlobalCombatInformation.completed_quests:
 		if quest_.required_spawn:
-			var new_dungeon_over = load(dungeon_overview_path)
-			var new_dungeon_over_inst = new_dungeon_over.instantiate()
-			container_thing.add_child(new_dungeon_over_inst)
-			new_dungeon_over_inst._setup(quest_.special_dungeon, quest_.duplicate())
-			dungeon_names.append(quest_.special_dungeon.dungeon_name)
-			menu_tab_icons.append(quest_.special_dungeon.dungeon_background)
+			dungeon_entries.append({
+				"dungeon": quest_.special_dungeon,
+				"quest": quest_.duplicate()
+			})
+	
+	dungeon_entries.sort_custom(func(a, b):
+		return a.dungeon.type_of_dungeon < b.dungeon.type_of_dungeon
+	)
+	
+	var menu_tab_icons: Array[Texture2D] = []
+	var dungeon_names = []
+	
+	for entry in dungeon_entries:
+		var dungeon = entry.dungeon
+		var quest_ = entry.quest
+		
+		var new_dungeon_over = load(dungeon_overview_path)
+		var new_dungeon_over_inst = new_dungeon_over.instantiate()
+		container_thing.add_child(new_dungeon_over_inst)
+		
+		if quest_ == null:
+			new_dungeon_over_inst._setup(dungeon)
+		else:
+			new_dungeon_over_inst._setup(dungeon, quest_)
+			
+		dungeon_names.append(dungeon.dungeon_name)
+		menu_tab_icons.append(dungeon.dungeon_background)
 	
 	menu_tabs._setup(dungeon_names, "res://assets/Resources/Dungeon Stuff/Select_screen_dungeon_tab.tscn", menu_tab_icons)
+	
+	for child in range(menu_tabs.get_child_count()):
+		menu_tabs.get_child(child).get_node("Label").text = dungeon_names[child]
 
 	menu_tabs.selection_changed.connect(_tab_changed)
 	
@@ -63,6 +86,7 @@ func _ready():
 			
 	apply_demo_dungeon_locks()
 	await Fade.fade_out(0.5)
+	
 
 func _tab_changed(which_tab):
 	current_selected_dungeon = which_tab
@@ -88,13 +112,18 @@ func apply_demo_dungeon_locks() -> void:
 	for child in container_thing.get_children():
 		child.visible = false
 
-	for button in menu_tabs.get_children():
-		var dungeon_index: int = button.get_index()
-		var is_unlocked: bool = (StateManager.check_completion(dungeon_index, StateManager.completion_checks.DUNGEON_CHECKS)) or $CanvasLayer/Control.get_child(dungeon_index).stored_dungeon.quest_dungeon
-		button.visible = is_unlocked
+	var count = 0
+	for entry: Dictionary in dungeon_entries:
+		var is_unlocked: bool = false
+		if entry.has("index"):
+			is_unlocked = StateManager.check_completion(entry["index"], StateManager.completion_checks.DUNGEON_CHECKS)
+		elif entry.has("quest") and entry["quest"] != null:
+			is_unlocked = true
+		menu_tabs.get_child(count).visible = is_unlocked
 		if is_unlocked and not found_unlocked_dungeon:
-			$CanvasLayer/Control.get_child(dungeon_index).visible = true
+			$CanvasLayer/Control.get_child(count).visible = true
 			found_unlocked_dungeon = true
+		count += 1
 
 func is_dungeon_unlocked(dungeon_select) -> bool:
 	return StateManager.check_completion(dungeon_select, StateManager.completion_checks.DUNGEON_CHECKS)

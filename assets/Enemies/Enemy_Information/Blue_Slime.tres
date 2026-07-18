@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("2_ytpp8")
+equip_flip = true
 metadata/_custom_type_script = "uid://125iickqse23"

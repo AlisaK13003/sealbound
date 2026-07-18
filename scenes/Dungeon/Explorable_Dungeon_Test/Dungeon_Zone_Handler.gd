@@ -63,6 +63,10 @@ func _setup(dungeon_type_: dungeon_type, quest_ = null):
 	#await Fade.fade_in(0.0)
 	if quest_ != null:
 		current_quest_dungeon = quest_
+		var index = GlobalCombatInformation.completed_quests.find_custom(func(stored_quests: quest): return quest_.quest_name == stored_quests.quest_name)
+		if index != -1:
+			current_quest_dungeon = null
+		
 	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
 	current_dungeon = dungeon_type_
 	if dungeon_type_.does_dungeon_have_boss:

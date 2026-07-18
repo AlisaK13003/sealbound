@@ -38,6 +38,7 @@ var actual_stats: stats
 
 @export var sprite_offset: Vector2 = Vector2(0, 0)
 @export var equip_sprite_offset: Vector2 = Vector2(0, 0)
+@export var equip_flip: bool = false
 
 @export_enum("EASY", "MEDIUM", "DIFFICLT", "REALLY_HARD") var experience_mult = 0
 

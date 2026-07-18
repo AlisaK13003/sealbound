@@ -39,7 +39,7 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 				unique_enemies.append(enemy)
 			avg_level_count += 1
 			total_level += enemy.combatant_stats.level
-	for enemy_slot in unique_enemies:
+	for enemy_slot: generic_combatants in unique_enemies:
 		var cont = Container.new()
 		var new_sprite = AnimatedSprite2D.new()
 		
@@ -51,6 +51,7 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 		new_sprite.sprite_frames = enemy_slot.sprite_frames
 		new_sprite.play("Idle")
 		new_sprite.speed_scale = enemy_slot.idle_speed
+		new_sprite.flip_h = enemy_slot.equip_flip
 
 	if total_level == 0 or avg_level_count == 0:
 		return

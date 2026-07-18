@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://b3jmaf2g42rkv" path="res://assets/Resources/Dungeon Stuff/select_screen_dungeon_tab.gd" id="1_kwdpf"]
 [ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="2_un7rs"]
 [ext_resource type="Texture2D" uid="uid://unkhjjhrin6q" path="res://assets/tile sheets/New_Background_Border.png" id="3_fu5ci"]
+[ext_resource type="Texture2D" uid="uid://b0srpdssqty0m" path="res://assets/tile sheets/Selection Arrow.png" id="4_un7rs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
 [node name="SelectScreenDungeonTab" type="Control" unique_id=1284389976]
 layout_mode = 3
@@ -13,30 +16,57 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kwdpf")
 
-[node name="Panel" type="Panel" parent="." unique_id=746450526]
+[node name="Panel" type="Panel" parent="." unique_id=1669224868]
 clip_contents = true
 layout_mode = 0
-offset_left = 5.0
+offset_left = 8.0
 offset_top = 5.0
-offset_right = 33.0
-offset_bottom = 33.0
-mouse_filter = 1
+offset_right = 117.0
+offset_bottom = 31.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 
 [node name="TextureRect" type="TextureRect" parent="Panel" unique_id=817974701]
 layout_mode = 0
-offset_left = -13.0
-offset_top = -1.0
-offset_right = 208.0
-offset_bottom = 131.0
+offset_left = -3.0
+offset_top = -6.0
+offset_right = 445.69696
+offset_bottom = 262.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_un7rs")
-stretch_mode = 3
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=213050614]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -1.0
-offset_right = 39.0
+offset_right = 126.0
 offset_bottom = 39.0
 mouse_filter = 1
 texture = ExtResource("3_fu5ci")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="Label" type="Label" parent="." unique_id=313150294]
+custom_minimum_size = Vector2(104.69, 0)
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 118.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "First Seal Dungeon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=748400959]
+visible = false
+layout_mode = 0
+offset_left = -4.0
+offset_top = 9.0
+offset_right = 36.0
+offset_bottom = 49.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_un7rs")

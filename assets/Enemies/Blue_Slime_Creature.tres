@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://pdelwnygqoqn"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_ux2nj"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_grrpo"]
+[ext_resource type="Resource" uid="uid://c2jaij1f2xa7p" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Nomad's Skull.tres" id="3_31pkb"]
+[ext_resource type="Resource" uid="uid://bb57x0jdso0sf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Slime Ball.tres" id="4_58tp1"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="5_jvfb4"]
+[ext_resource type="SpriteFrames" uid="uid://bveqhui5i3ibk" path="res://assets/Enemies/Blue_Slime_Frames.tres" id="6_ux2nj"]
+
+[sub_resource type="Resource" id="Resource_bvd8k"]
+script = ExtResource("1_ux2nj")
+move_name = "Slimer"
+attack_power = 1
+accuracy = 85
+guaranteed_hit_count = 1
+max_hit_count = 1
+is_magic_skill = true
+does_status = true
+status_type = 8
+removes_status = null
+chance_of_status_condition = 0.5
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_ftsl5"]
+script = ExtResource("2_grrpo")
+level = 5
+max_health = 85
+health = 85
+attack = 26
+defense = 13
+magic = 29
+resistance = 2
+speed = 3
+luck = 1
+evasion = 17
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("5_jvfb4")
+combatant_name = "Slime-Creature"
+combatant_stats = SubResource("Resource_ftsl5")
+is_combatant_enemy = true
+should_flip_sprite = true
+drop_table = Dictionary[Resource, float]({
+ExtResource("3_31pkb"): 0.05
+})
+quest_item_drop = ExtResource("4_58tp1")
+coin_drop_range = Vector2i(1, 15)
+bond_drop_range = Vector2i(0, 5)
+combatant_skills_ = Dictionary[ExtResource("1_ux2nj"), bool]({
+SubResource("Resource_bvd8k"): true
+})
+sprite_frames = ExtResource("6_ux2nj")
+idle_speed = 1.0
+death_speed = 1.0
+walk_speed = 1.0
+attack_speed = Array[float]([1.0, 1.0])
+sprite_scale = 0.008
+sprite_offset = Vector2(-55, -10)
+equip_sprite_offset = Vector2(-9, 4)
+equip_flip = true
+experience_mult = 1
+metadata/_custom_type_script = "uid://125iickqse23"

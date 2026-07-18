@@ -25,7 +25,7 @@ layout_mode = 0
 offset_left = 103.0
 offset_top = 18.0
 offset_right = 589.0
-offset_bottom = 272.0
+offset_bottom = 333.0
 texture = ExtResource("2_sjfyd")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -40,7 +40,7 @@ layout_mode = 0
 offset_left = 120.0
 offset_top = 51.0
 offset_right = 262.0
-offset_bottom = 194.0
+offset_bottom = 244.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -54,7 +54,7 @@ layout_mode = 0
 offset_left = 111.0
 offset_top = 43.0
 offset_right = 270.0
-offset_bottom = 203.0
+offset_bottom = 252.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -69,7 +69,7 @@ layout_mode = 0
 offset_left = 278.0
 offset_top = 51.0
 offset_right = 572.0
-offset_bottom = 195.0
+offset_bottom = 244.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -83,7 +83,7 @@ layout_mode = 0
 offset_left = 269.0
 offset_top = 43.0
 offset_right = 582.0
-offset_bottom = 204.0
+offset_bottom = 252.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -95,10 +95,10 @@ axis_stretch_vertical = 1
 [node name="NinePatchRect6" type="NinePatchRect" parent="Background" unique_id=1566418219]
 modulate = Color(0.7539839, 0.75398386, 0.75398386, 1)
 layout_mode = 0
-offset_left = 278.0
-offset_top = 203.0
+offset_left = 119.869995
+offset_top = 252.0
 offset_right = 572.0
-offset_bottom = 256.0
+offset_bottom = 316.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -109,10 +109,10 @@ axis_stretch_vertical = 1
 
 [node name="NinePatchRect7" type="NinePatchRect" parent="Background" unique_id=898409631]
 layout_mode = 0
-offset_left = 269.0
-offset_top = 195.0
+offset_left = 109.869995
+offset_top = 243.0
 offset_right = 582.0
-offset_bottom = 265.0
+offset_bottom = 326.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -140,7 +140,7 @@ offset_top = 59.0
 offset_right = 504.85507
 offset_bottom = 96.99999
 theme_override_constants/h_separation = 36
-theme_override_constants/v_separation = 45
+theme_override_constants/v_separation = 10
 columns = 2
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1057383779]
@@ -160,36 +160,40 @@ layout_mode = 2
 
 [node name="GridContainer2" type="GridContainer" parent="." unique_id=1250785938]
 layout_mode = 0
-offset_left = 97.585
-offset_top = 200.0
-offset_right = 398.585
-offset_bottom = 262.0
+offset_left = 103.0
+offset_top = 254.0
+offset_right = 404.0
+offset_bottom = 316.0
 
 [node name="Floor_Count" type="Label" parent="GridContainer2" unique_id=1396000570]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
 text = "Expect 4-5 Floors"
 
 [node name="Average_Level" type="Label" parent="GridContainer2" unique_id=1623705055]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
 text = "Level 5"
 
 [node name="Seal" type="Label" parent="GridContainer2" unique_id=731424349]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "Seal Guardian: ???"
+theme_override_font_sizes/font_size = 10
+text = "Seal Guardian: Great Wolf"
 
 [node name="Dungeon_description" type="Label" parent="." unique_id=461585924]
 custom_minimum_size = Vector2(291.94, 53.17)
 layout_mode = 0
-offset_left = 260.0
-offset_top = 206.0
-offset_right = 551.94
-offset_bottom = 259.16998
+offset_left = 261.0
+offset_top = 254.0
+offset_right = 552.94
+offset_bottom = 317.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
-text = "asdfasdfasdasdf asdfasd asdfasd asdf asdf asdfa sdf asdf "
+text = "asdfasdfasdasdf asdfasd asdfasd asdf asdf asdfa sdf asdf"
 autowrap_mode = 2

@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="3_t75kh"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_eqpjp"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="6_mka7e"]
+[ext_resource type="Resource" uid="uid://bmijxtgtfeyxf" path="res://assets/Enemies/Encounters/Slime_Family.tres" id="6_r5wgs"]
 [ext_resource type="Resource" uid="uid://ds136auw6ifkt" path="res://assets/Enemies/Encounters/Tiny_Wolfs.tres" id="6_vh8sp"]
 
 [sub_resource type="Resource" id="Resource_vh8sp"]
@@ -20,7 +21,7 @@ dungeon_background = ExtResource("1_vh8sp")
 dungeon_description = "This place is a forest!"
 max_number_of_floors = 7
 minimum_number_of_floors = 4
-potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), ExtResource("6_vh8sp")])
+potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), ExtResource("6_vh8sp"), ExtResource("6_r5wgs")])
 dungeon_light_color = Color(1, 0.92156863, 0.8, 1)
 first_time_floor_count = 7
 type_of_dungeon = 1

@@ -34,5 +34,6 @@ walk_speed = 1.0
 attack_speed = Array[float]([1.0, 1.0])
 sprite_scale = 0.01
 sprite_offset = Vector2(-35, -2)
-equip_sprite_offset = Vector2(18, 21)
+equip_sprite_offset = Vector2(-10, 0)
+equip_flip = true
 metadata/_custom_type_script = "uid://125iickqse23"
