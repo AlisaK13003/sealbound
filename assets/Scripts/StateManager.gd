@@ -46,6 +46,11 @@ var story_triggers: Dictionary = {
 		"loading_zone": "Infirmary",
 		"required": [story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING]
 	},
+	"first_seal_dungeon_cutscene": {
+		"region": "Buildings_Insides",
+		"loading_zone": "Bedspawn",
+		"required": [story_beats_lookup.FIRST_SEAL_DUNGEON_BEATEN]
+	}
 }
 
 func should_trigger(trigger_id: String) -> bool:
@@ -89,6 +94,7 @@ enum story_beats_lookup {
 	BLACKSMITH_QUEST_FINISHED = 12,
 	TALKED_TO_SERA_ABOUT_CLEAR = 13,
 	READY_TO_TURN_IN_BLACKSMITH_QUEST = 14,
+	FIRST_SEAL_DUNGEON_BEATEN = 15
 }
 
 enum seal_dungeon_completion {
