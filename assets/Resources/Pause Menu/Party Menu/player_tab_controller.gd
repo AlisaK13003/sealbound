@@ -13,6 +13,7 @@ func _ready():
 func now_an_active_member():
 	if stored_combatant == null:
 		return
+	$With_HP/HBoxContainer/Label2.text = stored_combatant.combatant_name
 	if GlobalCombatInformation.check_if_member_is_active(stored_combatant):
 		if should_show_hp:
 			$With_HP/TextureRect.visible = true

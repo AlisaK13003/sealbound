@@ -36,7 +36,7 @@ func _ready():
 		})
 
 	for quest_ in GlobalCombatInformation.active_quests:
-		if quest_.required_spawn:
+		if quest_.required_spawn and GlobalCombatInformation.completed_quests.find_custom(func(finished_quests: quest): return finished_quests.special_dungeon.dungeon_name == quest_.special_dungeon.dungeon_name) == -1:
 			dungeon_entries.append({
 				"dungeon": quest_.special_dungeon,
 				"quest": quest_

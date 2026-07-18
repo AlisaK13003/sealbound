@@ -39,4 +39,7 @@ func get_path_custom():
 		return self.get_meta("original_path", "")
 
 func export_to_JSON():
-	return {"path": get_path_custom()}
+	return {
+		"path": get_path_custom(),
+		"special_item": does_player_have_special_item
+		}

@@ -3,6 +3,7 @@ extends Control
 @onready var chest_drop_parent = $VBoxContainer
 @onready var mini_map = $MiniMap
 @onready var pause_menu = $PauseMenu
+@onready var floor_counter = $Label
 
 var chest_got_node_path = "res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest_Reward_Display_Node.tscn"
 var p_ref
@@ -11,7 +12,10 @@ func _ready():
 	$HBoxContainer3/HBoxContainer2.visible = false
 	$HBoxContainer3/HBoxContainer.visible = false
 	GlobalCombatInformation.obtained_or_used_key.connect(update_key_values)
-	
+
+func update_floor_label(new_floor: int, floor_count: int):
+	floor_counter.text = "Floor: " + str(new_floor) + " / " + str(floor_count)
+
 func update_key_values():
 	if GlobalCombatInformation.holding_boss_key > 0:
 		$HBoxContainer3/HBoxContainer.visible = true

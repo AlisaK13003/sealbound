@@ -31,7 +31,7 @@ func swap_to_me():
 				"turning_in_lyra_axe_cutscene":
 					print("RETURN AXE")
 					StateManager.pseduo_story_time = Global.current_day
-					GlobalCombatInformation.complete_quest(GlobalCombatInformation.active_quests[GlobalCombatInformation.active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == "Find Lyra's Axe")])
+					GlobalCombatInformation.complete_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres")
 					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
 					StateManager.set_story_state(StateManager.story_beats_lookup.TURNED_IN_LYRA_QUEST, true)
 					GlobalCombatInformation.remove_thing(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Lyras_Axe.tres"), -1)
@@ -44,8 +44,9 @@ func swap_to_me():
 					print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
 					StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
 					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED)
-					GlobalCombatInformation.complete_quest(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
+					GlobalCombatInformation.complete_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres")
 					GlobalCombatInformation.remove_thing(load("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"), -1)
+					GlobalCombatInformation.add_equipment_to_list("res://assets/Equipment/Training_Dagger.tres", true)
 					StateManager.pseduo_story_time = Global.current_day
 				"think_about_forest_clearing_mc_thought":
 					print("THOUGHT ABOUT RETURNING TO THE CLEARING")

@@ -92,6 +92,15 @@ layout_mode = 1
 offset_top = -2.0
 offset_bottom = -2.0
 
+[node name="Label" type="Label" parent="." unique_id=1132027962]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 345.0
+offset_right = 81.0
+offset_bottom = 363.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Floor: 1 / 10"
+
 [connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]
 
 [editable path="PauseMenu"]

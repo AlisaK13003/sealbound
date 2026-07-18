@@ -143,7 +143,7 @@ func apply_player_gender_to_combatant() -> void:
 	_copy_mc_progress(previous_combatant, player_combatant)
 	player_combatant.is_MC = true
 	player_combatant.gather_actual_stats()
-
+	player_combatant.combatant_name = Global.player_name
 	if all_index == -1:
 		all_party_slots.insert(0, player_combatant)
 	else:
@@ -156,6 +156,7 @@ func apply_player_gender_to_combatant() -> void:
 
 	calculate_BP()
 	check_player_values.emit()
+	member_added.emit()
 
 func _load_player_combatant_for_gender() -> generic_combatants:
 	var combatant_path: String = FEMALE_MC_COMBATANT_PATH
@@ -412,19 +413,25 @@ func search_for_index_of_thing(desired_thing):
 		return -1
 	return -1
 
-func add_quest(quest_: String):
+func add_quest(quest_: String, has_special_item: bool = false):
 	var mew_item = load(quest_)
-	var temp_copy = mew_item.duplicate()
+	var temp_copy: quest = mew_item.duplicate()
 	
 	temp_copy.set_meta("original_path", mew_item.resource_path)
 	
 	active_quests.append(temp_copy)
+	temp_copy.does_player_have_special_item = has_special_item
 	check_quest_progress.emit()
 
-func complete_quest(quest_: quest):
-	var quest_index = active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == quest_.quest_name)
+func complete_quest(quest_path: String):
+	var new_quest = load(quest_path)
+	var temp_copy: quest = new_quest.duplicate()
+	
+	temp_copy.set_meta("original_path", new_quest.resource_path)
+	
+	var quest_index = active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == temp_copy.quest_name)
 	if quest_index != -1:
-		completed_quests.append(quest_.duplicate())
+		completed_quests.append(temp_copy)
 		active_quests.remove_at(quest_index)
 
 func _ready():	
@@ -745,7 +752,6 @@ func load_saved_data(data):
 		if index != -1:
 			continue
 			
-		
 		new_party_member.load_save(party_member)
 		new_party_member.gather_actual_stats()
 		all_party_slots.append(new_party_member)
@@ -778,7 +784,8 @@ func load_saved_data(data):
 	for a_quest in data["active_quests"].values():
 		if not ResourceLoader.exists(a_quest["path"], ""):
 			continue
-		active_quests.append(load(a_quest["path"]))
+		var new_quest = a_quest["path"]
+		add_quest(new_quest, a_quest["special_item"])
 
 	for com_quest in data["com_quests"].values():
 		if not ResourceLoader.exists(com_quest["path"], ""):

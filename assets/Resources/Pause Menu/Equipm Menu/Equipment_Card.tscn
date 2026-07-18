@@ -255,6 +255,44 @@ offset_right = 37.333336
 offset_bottom = 36.20333
 texture = ExtResource("3_7clkj")
 
+[node name="Chestplate_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=1777994591]
+self_modulate = Color(1, 0.101960786, 1, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("2_1itkr")
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer2/Chestplate_Slot" unique_id=1566990413]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_1itkr")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer2/Chestplate_Slot" unique_id=1909990257]
+z_index = 1
+custom_minimum_size = Vector2(70.505, 0)
+layout_mode = 0
+offset_left = -19.810028
+offset_top = -17.665009
+offset_right = 50.69497
+offset_bottom = 5.3349915
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 19
+text = "Chest"
+horizontal_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Chestplate_Slot" unique_id=636266167]
+layout_mode = 0
+offset_left = -5.3333435
+offset_top = -5.796669
+offset_right = 37.33332
+offset_bottom = 36.20333
+texture = ExtResource("3_7clkj")
+
 [node name="Boots_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=1656568203]
 self_modulate = Color(1, 0.80784315, 0.12156863, 1)
 custom_minimum_size = Vector2(32, 32)
@@ -324,44 +362,6 @@ text = "Charm"
 horizontal_alignment = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Charm_Slot" unique_id=866941325]
-layout_mode = 0
-offset_left = -5.3333435
-offset_top = -5.796669
-offset_right = 37.33332
-offset_bottom = 36.20333
-texture = ExtResource("3_7clkj")
-
-[node name="Chestplate_Slot" type="NinePatchRect" parent="GridContainer2" unique_id=1777994591]
-self_modulate = Color(1, 0.101960786, 1, 1)
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-mouse_filter = 0
-texture = ExtResource("2_1itkr")
-
-[node name="TextureRect" type="TextureRect" parent="GridContainer2/Chestplate_Slot" unique_id=1566990413]
-texture_filter = 1
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("6_1itkr")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="GridContainer2/Chestplate_Slot" unique_id=1909990257]
-z_index = 1
-custom_minimum_size = Vector2(70.505, 0)
-layout_mode = 0
-offset_left = -19.810028
-offset_top = -17.665009
-offset_right = 50.69497
-offset_bottom = 5.3349915
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 19
-text = "Chest"
-horizontal_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="GridContainer2/Chestplate_Slot" unique_id=636266167]
 layout_mode = 0
 offset_left = -5.3333435
 offset_top = -5.796669

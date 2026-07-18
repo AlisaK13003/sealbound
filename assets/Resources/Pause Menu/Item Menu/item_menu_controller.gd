@@ -12,7 +12,7 @@ var item_scene = "res://assets/Resources/Pause Menu/Item Menu/Display_item.tscn"
 
 @export var menu_parent : Control
 @export var custom_tab_path: String
-@export var display_how_many_items: int = 15 # Used strictly for mechanical view scaling
+@export var display_how_many_items: int = 15 
 
 @onready var scroll_bar = $VScrollBar
 
@@ -28,10 +28,8 @@ func _setup():
 		party_tabs.remove_child(child)
 		child.queue_free()
 		
-	# Setup the parent tab container
 	party_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 
-	# If party_tabs._setup() defers child addition, we wait a frame to let the nodes spawn
 	if party_tabs.get_child_count() == 0 and GlobalCombatInformation.all_party_slots.size() > 0:
 		await get_tree().process_frame
 
@@ -52,7 +50,6 @@ func _ready():
 	
 	visibility_changed.connect(_reset)
 	
-	# Execute initial setup on start so preexisting party members are drawn
 	_setup()
 	
 	for item: Items in GlobalCombatInformation.all_held_items:
@@ -87,7 +84,6 @@ func _ready():
 
 
 func _reset():
-	# If the menu is being made visible again, refresh the party tabs
 	if is_visible_in_tree():
 		_setup()
 		

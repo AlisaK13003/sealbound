@@ -30,8 +30,8 @@ func _setup(combatant: generic_combatants = null):
 	$"VBoxContainer/GridContainer3/Total Exp".text = "EXP: " + str(combatant.total_experience_points)
 	$"VBoxContainer/GridContainer3/Exp to next level".text = "next level: " + str(combatant.add_experience(0))
 	
-	$GridContainer/TextureRect.texture = combatant.stored_equipment.equipment_sprite if combatant.stored_equipment != null else null
-	$GridContainer/TextureRect2.texture = combatant.stored_weapon.weapon_texture if combatant.stored_weapon != null else null
+	$GridContainer/TextureRect2.texture = combatant.stored_equipment.equipment_sprite if combatant.stored_equipment != null else null
+	$GridContainer/TextureRect.texture = combatant.stored_weapon.weapon_texture if combatant.stored_weapon != null else null
 	$GridContainer/TextureRect3.texture = combatant.stored_chestplate.equipment_sprite if combatant.stored_chestplate != null else null
 	$GridContainer/TextureRect4.texture = combatant.stored_boots.equipment_sprite if combatant.stored_boots != null else null
 	$GridContainer/TextureRect5.texture = combatant.stored_charm.equipment_sprite if combatant.stored_charm != null else null

@@ -243,13 +243,14 @@ func entered_new_floor():
 	else:
 		setting_up_new_floor = true
 		current_floor += 1
+		
 		movement_locked = true
 		if current_floor != 1:
 			await Fade.fade_in(2)
 
 		await remove_old_dungeon()
 		setting_up = true
-		
+		player.dungeon_overlay.update_floor_label(current_floor, floor_count)
 		while true:
 			if await generate_dungeon():
 				break
@@ -474,7 +475,7 @@ func instantiate_rooms(room_storage, boss_floor):
 				if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
 					room_to_be_locked.lock_room(false)
 					room_to_have_key.set_key_spawn()
-	elif current_floor == current_dungeon.first_time_floor_count:
+	elif current_floor == current_dungeon.max_number_of_floors and current_quest_dungeon != null and not current_quest_dungeon.does_player_have_special_item:
 		var room_to_make_thing = []
 		for room_ in active_room_nodes.values():
 			if room_.room_classification == 2:

@@ -7,6 +7,10 @@ var equipment_node = "res://assets/Resources/Pause Menu/Equipm Menu/Equipment_Li
 signal equipment_swapped
 
 func _setup():
+	for child in get_children():
+		self.remove_child(child)
+		child.queue_free()
+	
 	var stored_equipment_list = []
 	if what_equipment_am_i == 0:
 		for weapon_ in GlobalCombatInformation.all_held_weapons:

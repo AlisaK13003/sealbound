@@ -88,6 +88,7 @@ func take_damage(amount):
 func export_to_JSON():
 	return {
 		"path": resource_path,
+		"name": combatant_name,
 		"combatant_stats": combatant_stats.export_to_JSON(),
 		"actual_combatant_stats": actual_stats.export_to_JSON(),
 		"stored_equipment": stored_equipment.export_to_JSON(),
@@ -101,6 +102,7 @@ func export_to_JSON():
 
 func load_save(save_info):
 	bond_points = int(save_info.get("bond_points", bond_points))
+	combatant_name = save_info.get("name", combatant_name)
 	bond_level = save_info.get("bond_level", bond_level)
 	current_stored_slot = save_info["current_stored_slot"]
 	total_experience_points = save_info["total_experience_points"]
