@@ -43,6 +43,7 @@ func _physics_process(delta):
 		in_cycle = false
 
 func _leave_rewards_screen():
+	return_button.visible = false
 	if not next_button.visible:
 		Global.current_location = "Village"
 		Global.current_loading_zone = "Infirmary_Spawn"

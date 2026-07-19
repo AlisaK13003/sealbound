@@ -133,5 +133,7 @@ func _gui_input(event):
 	if not is_visible_in_tree():
 		return
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
-		activated.emit()
-		get_viewport().set_input_as_handled()
+		if get_tree() != null:
+			activated.emit()
+		if get_tree() != null:
+			get_viewport().set_input_as_handled()
