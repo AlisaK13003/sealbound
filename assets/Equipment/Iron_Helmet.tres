@@ -6,9 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_2rfm5"]
 script = ExtResource("2_swd1x")
-max_health = 15
-health = 15
-resistance = 7
+max_health = 4
+health = 4
+resistance = 2
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

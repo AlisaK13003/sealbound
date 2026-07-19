@@ -8,6 +8,7 @@ script = ExtResource("1_7ga5t")
 item_name = "Slime Ball"
 item_description = "Icky, someone might want this"
 item_sprite = ExtResource("1_2khbq")
+what_is_it = 4
 targets_players = false
 removes_status = null
 give_status = null

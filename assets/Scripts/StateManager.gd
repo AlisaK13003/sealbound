@@ -25,6 +25,7 @@ var story_triggers: Dictionary = {
 		"region": "Buildings_Insides",
 		"loading_zone": "Bedspawn",
 		"required": [story_beats_lookup.TURNED_IN_LYRA_QUEST], 
+		"excluded": [story_beats_lookup.BLACKSMITH_QUEST_FINISHED, story_beats_lookup.BLACKSMITH_QUEST_UNLOCKED]
 	},
 	"cave_dungeon_entry": {
 		"required": [story_beats_lookup.CAVE_DUNGEON_UNLOCKED]

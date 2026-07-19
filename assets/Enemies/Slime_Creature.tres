@@ -23,16 +23,25 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ftsl5"]
 script = ExtResource("2_ftsl5")
-level = 5
-max_health = 85
-health = 85
-attack = 26
-defense = 13
-magic = 29
-resistance = 2
-speed = 3
+max_health = 22
+health = 22
+attack = 3
+defense = 6
+resistance = 1
+speed = 1
 luck = 1
-evasion = 17
+growth_rates = {
+"attack": 35,
+"crit_chance": 0,
+"crit_damage": 0,
+"defense": 50,
+"evasion": 0,
+"luck": 5,
+"magic": 5,
+"max_health": 80,
+"resistance": 10,
+"speed": 10
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_c56y2"]
 script = ExtResource("2_wo6y6")
-magic = 5
-luck = 2
+magic = 2
+luck = 1
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

@@ -14,6 +14,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n63yt")
 
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=444259103]
+modulate = Color(0, 0, 0, 0.69411767)
+layout_mode = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 67.0
+offset_bottom = 68.0
+texture = ExtResource("1_i1gmn")
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1596712787]
 layout_mode = 0
 offset_right = 64.0

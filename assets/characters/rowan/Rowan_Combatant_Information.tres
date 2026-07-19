@@ -15,15 +15,28 @@
 
 [sub_resource type="Resource" id="Resource_uwim3"]
 script = ExtResource("2_g6mva")
-max_health = 95
-health = 1
-attack = 60
-defense = 25
-magic = 23
-resistance = 75
-speed = 10
-luck = 10
-evasion = 10
+max_health = 28
+health = 28
+attack = 6
+defense = 12
+magic = 1
+resistance = 6
+crit_chance = 3
+crit_damage = 50.0
+speed = 2
+luck = 4
+growth_rates = {
+"attack": 45,
+"crit_chance": 10,
+"crit_damage": 10,
+"defense": 85,
+"evasion": 0,
+"luck": 30,
+"magic": 10,
+"max_health": 85,
+"resistance": 55,
+"speed": 15
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_62dlx"]

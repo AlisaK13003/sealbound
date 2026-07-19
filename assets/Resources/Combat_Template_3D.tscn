@@ -103,18 +103,9 @@ script = ExtResource("1_51gu7")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=531432783]
 libraries/ = SubResource("AnimationLibrary_2ymnl")
 
-[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="." unique_id=367047411]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16055357, 0.15642697, 0)
-modulate = Color(1, 0.2, 0, 0.6784314)
-billboard = 1
-texture_filter = 0
-sprite_frames = ExtResource("2_51gu7")
-animation = &"On_Attack_1"
-frame_progress = 0.70251656
-speed_scale = 2.0
-
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1934259971]
 transform = Transform3D(0.1949839, 0, -0.0025053758, 0, 0.195, 0, 0.0025053758, 0, 0.1949839, -1.056, 0.387, 0.063)
+sorting_offset = 100.0
 billboard = 1
 texture_filter = 0
 texture = SubResource("ViewportTexture_51gu7")
@@ -153,6 +144,19 @@ transform = Transform3D(0.9957185, 0.0913864, 0.0139018595, -0.0915304, 0.953711
 shape = SubResource("CapsuleShape3D_51gu7")
 disabled = true
 debug_fill = false
+
+[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="." unique_id=367047411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16055357, 0.15642697, 0)
+modulate = Color(1, 0.2, 0, 0.6784314)
+billboard = 1
+shaded = true
+double_sided = false
+no_depth_test = true
+texture_filter = 0
+sprite_frames = ExtResource("2_51gu7")
+animation = &"On_Attack_1"
+frame_progress = 0.70251656
+speed_scale = 2.0
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1832887350]
 

@@ -15,8 +15,8 @@ class_name stats
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var magic: int
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var resistance: int
 
-@export_range(0, 1000, 1, "prefer_slider", "or_greater") var crit_chance: int
-@export_range(0, 1000, 1, "prefer_slider", "or_greater") var crit_damage: int
+@export_range(0, 100, 1, "prefer_slider", "or_greater") var crit_chance: int
+@export_range(0, 2, 0.01, "prefer_slider", "or_greater") var crit_damage: float = 0.5
 
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var speed: int:
 	set(value):
@@ -28,6 +28,19 @@ var altered_speed: int:
 		speed_changed.emit(altered_speed)
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var luck: int
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var evasion: int
+
+@export var growth_rates: Dictionary = {
+	"max_health": 70,  # 70% chance to gain +1 HP per level
+	"attack": 40,
+	"defense": 30,
+	"magic": 15,
+	"resistance": 20,
+	"speed": 45,
+	"luck": 30,
+	"evasion": 20,
+	"crit_chance": 10,
+	"crit_damage": 10
+}
 
 signal health_changed(new_value)
 signal speed_changed(new_value)

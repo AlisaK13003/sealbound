@@ -126,7 +126,7 @@ var conflicts = {
 	statuses.ACCURACYup: Color.CADET_BLUE
 }
 
-enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESISTANCE}
+enum stats {ATTACK, DEFENSE, ACCURACY, EVASION, CRIT_CHANCE, SPEED, MAGIC, RESISTANCE, LUCK}
 
 #endregion
 
@@ -157,6 +157,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	time_until_turn = 10000.0 / obtain_stat(stats.SPEED)
 
 	animated_sprite.offset = combatant.sprite_offset
+	animated_sprite.sorting_offset = animated_sprite.global_position.x
 	animated_sprite.modulate = Color.WHITE
 	current_mana = 3
 	animated_sprite.flip_h = combatant.should_flip_sprite
@@ -228,11 +229,12 @@ func update_health(change_health_value, what_action = null):
 			stored_combatant.take_damage(-1 * damage_to_take)
 
 		await combatant_ui_.update_damage_label(damage_to_take, what_action)
-
-	if stored_combatant.actual_stats.health <= 0:
-		await on_death()
+		
 	if not parent_reference.training:	
 		await get_tree().create_timer(0.5).timeout
+	if stored_combatant.actual_stats.health <= 0:
+		await on_death()
+
 	
 
 # Combat related stuff
@@ -407,6 +409,8 @@ func obtain_stat(what_stat):
 			return stored_combatant.actual_stats.magic * ret_stat if (ret_stat != 0) else 1
 		7:
 			return stored_combatant.actual_stats.resistance
+		8:
+			return stored_combatant.actual_stats.luck
 
 func obtain_stat_alteration(what_stat):
 	match what_stat:

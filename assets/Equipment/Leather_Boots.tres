@@ -6,8 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_5rluu"]
 script = ExtResource("1_hb4bh")
-speed = 30
+speed = 11
 luck = 2
+evasion = 2
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

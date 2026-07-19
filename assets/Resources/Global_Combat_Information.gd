@@ -239,16 +239,16 @@ func load_items():
 		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 
 func add_item(item_to_add):
-	if item_to_add == null or item_to_add == "":
-		return
 	if item_to_add is Array:
 		for item in item_to_add:
+			if item == null or item == "":
+				continue
 			var mew_item = load(item)
 			var temp_copy = mew_item.duplicate()
 			
 			temp_copy.set_meta("original_path", mew_item.resource_path)
 			
-			if item.stack != 1: item.stack = 1
+			if temp_copy.stack != 1: temp_copy.stack = 1
 			var index = all_held_items.find_custom(func(new_item: Items): return new_item.item_name == temp_copy.item_name)
 			if index != -1:
 				all_held_items[index].stack += temp_copy.stack
@@ -257,6 +257,8 @@ func add_item(item_to_add):
 		check_quest_progress.emit()
 		return
 	else:
+		if item_to_add == null or item_to_add == "":
+			return
 		var mew_item = load(item_to_add)
 		var temp_copy = mew_item.duplicate()
 		
@@ -372,6 +374,10 @@ func add_equipment(player_index, equip, is_weapon):
 				all_party_slots[player_index].stored_charm = equip
 	for member in all_party_slots:
 		member.gather_actual_stats()
+		
+	var index = active_party_slots.find_custom(func(active_person: generic_combatants): return active_person.combatant_name == all_party_slots[player_index].combatant_name)
+	if index != -1:
+		active_party_slots[index] = all_party_slots[player_index].custom_duplicate()
 	equipment_added.emit()
 	check_player_values.emit()
 	return ret_equipment
@@ -518,11 +524,20 @@ func transition_to_dungeon(selected_dungeon, quest_dungeon = null):
 	selected_dungeon_ = selected_dungeon.type_of_dungeon
 	current_dungeon = selected_dungeon
 	
+	in_dungeon = true
+	is_combat_active = false
+	previous_enemy_encountered = -1
+	should_remove_enemy = false
+	explorable_dungeon_scene = null
+	
 	match selected_dungeon_:
 		0:
 			AudioManager.play_bgm(AudioManager.CREEPY_DUNGEON_BGM)
 		1:
 			AudioManager.play_bgm(AudioManager.FOREST_DUNGEON_BGM)
+	
+	for member in active_party_slots:
+		member.restore_health()
 	
 	var dungeon_scene = await Fade.change_scene("res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Test.tscn")
 
@@ -547,12 +562,13 @@ func return_dropped_items(drops, player = null):
 	var dropped_items
 	for new_chance in drop_chances_:
 		if chance < new_chance + accumulated_chance:
-			GlobalCombatInformation.add_item(drops.find_key(new_chance))
+			#GlobalCombatInformation.add_item(drops.find_key(new_chance).get_path_custom())
 			if player != null:
 				player.display_obtained_items(drops.find_key(new_chance))
-			dropped_items = drops.find_key(new_chance)
+			dropped_items = drops.find_key(new_chance).get_path_custom()
 			break
 		accumulated_chance += new_chance
+
 	if player == null:
 		return dropped_items
 	
@@ -619,7 +635,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 			continue
 		if returned_party_slots[i] == null:
 			continue
-		active_party_slots[i] = returned_party_slots[i].duplicate()
+		active_party_slots[i] = returned_party_slots[i].custom_duplicate()
 	
 	if returned_party_slots.size() > 3:
 		current_BP = returned_party_slots[3]
@@ -654,11 +670,10 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 			if chance < 1.0:
 				var drop_num = rng.randi_range(1, 3)
 				for i in range(drop_num):
-					quest_items_gained.append(enemy.quest_item_drop.duplicate())
+					quest_items_gained.append(enemy.quest_item_drop.get_path_custom())
 				
 		coins_gained += int(randi_range(enemy.coin_drop_range.x, enemy.coin_drop_range.y) * randf_range(0.5, 1.5))
-		var enemy_level: int = _get_safe_combatant_level(enemy)
-		experience_gained += clamp(int(pow(enemy_level, enemy.experience_mult + 1) * randf_range(0.5, 1.2)), 1, enemy.experience_mult + 1 * 1.2)
+		experience_gained += enemy._calculate_enemy_exp(enemy)
 		var returned_items = return_dropped_items(enemy.drop_table)
 		if returned_items != null:
 			stuff_gained.append(returned_items)
@@ -673,7 +688,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	for player: generic_combatants in active_party_slots:
 		var index = all_party_slots.find_custom(func(person: generic_combatants): return player.combatant_name == person.combatant_name)
 		if index != -1:
-			all_party_slots[index] = player.duplicate()
+			all_party_slots[index] = player.custom_duplicate()
 			all_party_slots[index].gather_actual_stats()
 		
 	currency_held += coins_gained
@@ -726,6 +741,11 @@ func bring_back_combat(_rewards_scene = null):
 		explorable_dungeon_scene.enemy_container.remove_child(enemy_to_remove)
 		enemy_to_remove.queue_free()
 		#explorable_dungeon_scene.enemy_container.remove_child(previous_enemy_encountered)
+	
+	for member in active_party_slots:
+		if member.actual_stats.health == 0 or member.combatant_stats.health == 0:
+			member.actual_stats.health = 1
+			member.combatant_stats.health = 1
 	
 	is_combat_active = false
 	get_tree().set_deferred("current_scene", explorable_dungeon_scene)

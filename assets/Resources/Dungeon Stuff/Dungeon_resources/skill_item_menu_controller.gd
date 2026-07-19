@@ -30,6 +30,8 @@ func _setup(move_list = null):
 		if is_item_menu:
 			$VBoxContainer/Description.size.y = 53
 			for item in GlobalCombatInformation.all_held_items:
+				if item.what_is_it & 100 or item.what_is_it & 010:
+					continue
 				var new_item = load(list_node)
 				var new_item_instance = new_item.instantiate()
 				new_item_instance._setup(item)

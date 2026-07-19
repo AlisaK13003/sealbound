@@ -8,17 +8,29 @@
 
 [sub_resource type="Resource" id="Resource_53ph1"]
 script = ExtResource("2_yrwr2")
-max_health = 334
-health = 167
-attack = 12
-defense = 121
-magic = 34
-resistance = 82
-crit_chance = 24
-crit_damage = 43
-speed = 28
-luck = 28
-evasion = 40
+max_health = 18
+health = 18
+attack = 8
+defense = 5
+magic = 2
+resistance = 3
+crit_chance = 10
+crit_damage = 50
+speed = 10
+luck = 5
+evasion = 8
+growth_rates = {
+"attack": 70,
+"crit_chance": 70,
+"crit_damage": 70,
+"defense": 40,
+"evasion": 45,
+"luck": 15,
+"magic": 15,
+"max_health": 50,
+"resistance": 30,
+"speed": 80
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccs0m"]

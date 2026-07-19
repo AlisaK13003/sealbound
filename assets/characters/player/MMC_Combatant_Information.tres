@@ -16,15 +16,29 @@
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("2_xavbm")
-max_health = 75
-health = 75
-attack = 80
-defense = 25
-magic = 28
-resistance = 90
-speed = 40
+max_health = 22
+health = 22
+attack = 7
+defense = 5
+magic = 6
+resistance = 5
+crit_chance = 5
+crit_damage = 50.0
+speed = 7
 luck = 5
-evasion = 10
+evasion = 5
+growth_rates = {
+"attack": 55,
+"crit_chance": 30,
+"crit_damage": 30,
+"defense": 50,
+"evasion": 35,
+"luck": 40,
+"magic": 40,
+"max_health": 60,
+"resistance": 45,
+"speed": 50
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mmc_neutral_0"]

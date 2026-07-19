@@ -23,16 +23,27 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ftsl5"]
 script = ExtResource("2_grrpo")
-level = 5
-max_health = 85
-health = 85
-attack = 26
-defense = 13
-magic = 29
-resistance = 2
-speed = 3
-luck = 1
-evasion = 17
+max_health = 12
+health = 12
+attack = 1
+defense = 1
+magic = 6
+resistance = 5
+speed = 4
+luck = 5
+evasion = 3
+growth_rates = {
+"attack": 10,
+"crit_chance": 0,
+"crit_damage": 0,
+"defense": 15,
+"evasion": 15,
+"luck": 25,
+"magic": 55,
+"max_health": 40,
+"resistance": 45,
+"speed": 40
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

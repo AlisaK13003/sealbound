@@ -18,15 +18,29 @@
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("5_4nyv2")
-max_health = 75
-health = 5
-attack = 80
-defense = 25
-magic = 28
-resistance = 90
-speed = 40
-luck = 5
-evasion = 10
+max_health = 15
+health = 15
+attack = 7
+defense = 3
+magic = 5
+resistance = 4
+crit_chance = 8
+crit_damage = 50
+speed = 9
+luck = 7
+evasion = 9
+growth_rates = {
+"attack": 60,
+"crit_chance": 55,
+"crit_damage": 55,
+"defense": 25,
+"evasion": 50,
+"luck": 55,
+"magic": 50,
+"max_health": 40,
+"resistance": 35,
+"speed": 75
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ouqog"]
@@ -36,6 +50,7 @@ region = Rect2(52, 8, 41, 61)
 [sub_resource type="Resource" id="Resource_7q5rk"]
 script = ExtResource("5_4nyv2")
 defense = 30
+growth_rates = null
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_onp7b"]

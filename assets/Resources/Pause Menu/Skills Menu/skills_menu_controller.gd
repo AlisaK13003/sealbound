@@ -14,6 +14,9 @@ var trying_to_use_skill: bool = false
 var skill_used: moves
 
 func _ready():
+	if GlobalCombatInformation.in_dungeon:
+		$Panel.visible = false
+		$Button_Background.visible = false
 	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 	for child in range(menu_tabs.get_child_count()):
 		menu_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child, true)
@@ -234,8 +237,8 @@ func update_skill_description(pressed_skill):
 		$Skill_Description/AnimatedSprite2D.play("On_Attack_" + str(move_index + 1))
 	
 	if selected_skill.does_heal_party:
-		$Panel.visible = true
-		$Button_Background.visible = true
+		$Panel.visible = true if GlobalCombatInformation.in_dungeon else false
+		$Button_Background.visible = true if GlobalCombatInformation.in_dungeon else false
 		if GlobalCombatInformation.current_BP < selected_skill.mana_cost:
 			$Panel/Label.text = "LOW BP"
 		else:

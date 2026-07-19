@@ -439,8 +439,21 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 					make_enemies_selectable()
 					select_individual(false, 0)
 					await turn_ended
-					await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
-					gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
+					while someone_is_dying:
+						await get_tree().process_frame
+					number_of_alive_enemies = 0
+					for enemy in enemy_shit.get_children():
+						if enemy.stored_combatant == null:
+							continue
+						if not enemy.is_dead:
+							number_of_alive_enemies += 1
+					if number_of_alive_enemies >= 1:
+						await get_player(active_player_turn).take_turn(gui.get_player_portrait(active_player_turn))
+						gui.get_player_portrait(active_player_turn).update_statuses(get_player(active_player_turn))
+					else:
+						is_wave_over = true
+						did_players_win = true
+						break
 
 				hidden_default()
 			advance_turn(current_actor)
@@ -471,7 +484,7 @@ func _collect_active_party_results() -> Array:
 		if slot == null or not slot.visible or slot.stored_combatant == null:
 			results.append(null)
 			continue
-		results.append(slot.stored_combatant.duplicate())
+		results.append(slot.stored_combatant.custom_duplicate())
 	return results
 
 #region EntityTurns
@@ -693,7 +706,7 @@ func execute_enemy_skills(action):
 						)
 				else:
 					if skill_used.does_damage:
-						var check_evasion = calculate_evasion(person_recieving, skill_used.accuracy)
+						var check_evasion = calculate_hit_chance(person_recieving, person_acting, skill_used.accuracy)
 						chance = rng.randf_range(0, 1)
 						if chance <= check_evasion:
 							parallel_tasks.append(func(): 
@@ -944,7 +957,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 					)
 			else:
 				if skill_used.does_damage:
-					var check_evasion = calculate_evasion(entity, skill_used.accuracy)
+					var check_evasion = calculate_hit_chance(current_player, entity, skill_used.accuracy)
 					chance = rng.randf_range(0, 1)
 					if chance <= check_evasion:
 						parallel_tasks.append(func(e=entity): 
@@ -998,7 +1011,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 					)
 			else:
 				if skill_used.does_damage:
-					var check_evasion = calculate_evasion(acted_on_who, skill_used.accuracy)
+					var check_evasion = calculate_hit_chance(current_player, acted_on_who, skill_used.accuracy)
 					chance = rng.randf_range(0, 1)
 					if chance <= check_evasion:
 						parallel_tasks.append(func(): 
@@ -1228,11 +1241,6 @@ func revert_camera():
 func check_if_critical_hit(current_individual: combat_template, attacking: combat_template) -> bool:
 	var chance_of_crit_hit = rng.randf_range(0.0, 1.0)
 	
-	var current_cc = current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)
-	var attacker_cc = attacking.obtain_stat(attacking.stats.CRIT_CHANCE)
-	print()
-	print(current_cc - attacker_cc)
-	print(((current_cc - attacker_cc) * 0.005) + 0.05)
 	var crit_threshold = 0.05 + ((float(current_individual.obtain_stat(current_individual.stats.CRIT_CHANCE)) - float(attacking.obtain_stat(attacking.stats.CRIT_CHANCE))) * 0.005)
 	return chance_of_crit_hit <= crit_threshold
 
@@ -1250,19 +1258,12 @@ func get_skill_boost(skill_used: moves) -> float:
 	return 1.0
 
 func calculate_damage(attacker: combat_template, skill_power: float, target: combat_template, is_magic: bool, can_crit: bool = true) -> Array:
-	var atk = float(attacker.obtain_stat(
-		attacker.stats.MAGIC if is_magic else attacker.stats.ATTACK
-	))
-	var def = float(target.obtain_stat(
-		target.stats.RESISTANCE if is_magic else target.stats.DEFENSE
-	))
-	var level = float(attacker.stored_combatant.actual_stats.level)
-
-	var level_factor = 5.0 + (level * 2.0)
-
-	var base = (atk * level_factor) / max(def, 1.0)
-	var damage = base * skill_power
+	var atk = float(attacker.obtain_stat(attacker.stats.MAGIC if is_magic else attacker.stats.ATTACK))
+	var def = float(target.obtain_stat(target.stats.RESISTANCE if is_magic else target.stats.DEFENSE))
 	
+	var base = (atk * skill_power) - def
+	
+	var damage = max(base, 1.0)	
 	var is_crit = check_if_critical_hit(attacker, target)
 	if can_crit:
 		if is_crit:
@@ -1275,21 +1276,24 @@ func calculate_damage(attacker: combat_template, skill_power: float, target: com
 	return [ceili(damage), 1 if is_crit else 0]
 
 
-func calculate_evasion(entity_being_attacked: combat_template, attack_hit_chance: float = 90.0) -> float:
-	var attacker_evasion = float(entity_being_attacked.obtain_stat(entity_being_attacked.stats.EVASION)) + 200.0
-	var defender_evasion = float(entity_being_attacked.obtain_stat(entity_being_attacked.stats.EVASION)) + 200.0
-	var accuracy_mod = entity_being_attacked.obtain_stat_alteration(entity_being_attacked.stats.ACCURACY)
+func calculate_hit_chance(attacker: combat_template, defender: combat_template, skill_base_accuracy: float = 90.0) -> float:
+	var attacker_luck = float(attacker.obtain_stat(attacker.stats.LUCK))
+	var accuracy_mod = attacker.obtain_stat_alteration(attacker.stats.ACCURACY)
 	
-	var base_hit_chance = (attacker_evasion / defender_evasion) * (attack_hit_chance / 100.0) * accuracy_mod
+	var total_accuracy = (skill_base_accuracy + attacker_luck) * accuracy_mod
 	
-	if entity_being_attacked.stored_combatant.is_combatant_enemy:
-		var equip_evasion = 0.0
-		if entity_being_attacked.stored_combatant.stored_equipment and entity_being_attacked.stored_combatant.stored_equipment.equipment_stats:
-			equip_evasion = float(entity_being_attacked.stored_combatant.stored_equipment.equipment_stats.evasion) * entity_being_attacked.obtain_stat_alteration(entity_being_attacked.stats.EVASION)
-		var equipment_factor = attacker_evasion / ((equip_evasion / 2.0) + 200.0)
-		return base_hit_chance * equipment_factor
+	var defender_evasion = float(defender.obtain_stat(defender.stats.EVASION))
+	var evasion_mod = defender.obtain_stat_alteration(defender.stats.EVASION)
 	
-	return base_hit_chance
+	var equip_evasion = 0.0
+	if defender.stored_combatant.stored_equipment and defender.stored_combatant.stored_equipment.equipment_stats:
+		equip_evasion = float(defender.stored_combatant.stored_equipment.equipment_stats.evasion)
+		
+	var total_evasion = (defender_evasion + equip_evasion) * evasion_mod
+	
+	var final_hit_chance = total_accuracy - total_evasion
+	
+	return clamp(final_hit_chance, 0.0, 100.0)
 
 func deal_damage(entity_attacking: combat_template, entity_being_attacked: combat_template, was_a_skill_used: bool, what_skill_was_used: moves) -> void:
 	if not was_a_skill_used:
@@ -1306,7 +1310,7 @@ func deal_damage(entity_attacking: combat_template, entity_being_attacked: comba
 		await entity_being_attacked.update_health(damage_result[0], "DAMAGE" if damage_result[1] == 0 else "CRIT")
 
 func calculate_multi_hit(skill_used: moves, target: combat_template, attacker: combat_template, skill_power: float):
-	var check_evasion = calculate_evasion(target, float(skill_used.accuracy))
+	var check_evasion = calculate_hit_chance(attacker, target, float(skill_used.accuracy))
 	var total_damage = []
 
 	for hit in range(skill_used.max_hit_count):

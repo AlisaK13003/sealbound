@@ -6,9 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_tha0o"]
 script = ExtResource("2_idada")
-max_health = 50
-health = 50
-defense = 25
+max_health = 3
+health = 3
+defense = 3
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]

@@ -117,15 +117,29 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_dx6g1"]
 script = ExtResource("2_d3o0m")
-max_health = 90
-health = 1
-attack = 95
-defense = 25
-magic = 24
-resistance = 40
-speed = 55
-luck = 20
-evasion = 10
+max_health = 26
+health = 26
+attack = 10
+defense = 7
+magic = 1
+resistance = 2
+crit_chance = 5
+crit_damage = 50.0
+speed = 5
+luck = 3
+evasion = 3
+growth_rates = {
+"attack": 75,
+"crit_chance": 40,
+"crit_damage": 40,
+"defense": 60,
+"evasion": 20,
+"luck": 20,
+"magic": 5,
+"max_health": 80,
+"resistance": 25,
+"speed": 40
+}
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5863t"]

@@ -64,16 +64,48 @@ func restore_health():
 func add_experience(amount_to_add: int) -> int:
 	total_experience_points += amount_to_add
 	
-	while total_experience_points >= ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120):
+	while total_experience_points >= get_level_threshold(combatant_stats.level):
 		combatant_stats.level += 1
 		actual_stats.level += 1
+		handle_level_up_growths() 
 	
-	var next_level_requirement = ceili((100 * pow(1.2, combatant_stats.level + 1)) - 120)
+	var next_level_requirement = get_level_threshold(combatant_stats.level)
 	
 	return next_level_requirement - total_experience_points
 
-func get_level_threshold(lvl: int) -> int:
-	return ceili((100 * pow(1.2, lvl)) - 120)
+func _calculate_enemy_exp(enemy) -> int:
+	var enemy_level: int = enemy.combatant_stats.level
+	
+	var base_exp: float = 0.0
+	match enemy.experience_mult:
+		0: base_exp = 24.0   
+		1: base_exp = 30.0   
+		2: base_exp = 36.0   
+		3: base_exp = 150.0  
+		
+	var level_scaled_exp = base_exp * pow(1.2, enemy_level - 1)
+	
+	var final_exp = level_scaled_exp * randf_range(0.9, 1.1)
+	
+	return max(1, ceili(final_exp))
+
+func handle_level_up_growths():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	for stat_name in combatant_stats.growth_rates.keys():
+		var roll = rng.randi_range(1, 100)
+		
+		if roll <= combatant_stats.growth_rates[stat_name]:
+			var current_value = combatant_stats.get(stat_name)
+			combatant_stats.set(stat_name, current_value + 1)
+			actual_stats.set(stat_name, actual_stats.get(stat_name) + 1)
+			
+			if stat_name == "max_health":
+				combatant_stats.health += 1
+				actual_stats.health += 1
+
+func get_level_threshold(current_level: int) -> int:
+	return ceili(100.0 * pow(float(current_level), 1.5))
 
 func heal(skill_used: moves, person_who_used_skill: generic_combatants):
 	if skill_used.get_skill_boost() != 999:
@@ -115,7 +147,12 @@ func load_save(save_info):
 	
 func gather_actual_stats():
 	actual_stats = add_up_stats()
-	
+
+func custom_duplicate():
+	var copy = self.duplicate()
+	copy.actual_stats = actual_stats.duplicate()
+	return copy
+
 func add_up_stats() -> stats:
 	if is_combatant_enemy:
 		return combatant_stats
