@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://dbnk0dswi7bkt"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_1dutr"]
-[ext_resource type="Resource" uid="uid://cc8cbamkugwqv" path="res://assets/characters/player/Resonance_Moves/Cross Slash.tres" id="2_notfg"]
-[ext_resource type="Resource" uid="uid://c7tfx2wsw0rko" path="res://assets/characters/player/Resonance_Moves/Deflect.tres" id="3_db4bx"]
-[ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_v7ef8"]
+[ext_resource type="Resource" uid="uid://c6ry8qj23xcje" path="res://moves/sera_steady_hands.tres" id="2_ilu6r"]
+[ext_resource type="Resource" uid="uid://cggc7nb75euf2" path="res://moves/sera_shared_burden.tres" id="3_k7ld7"]
+[ext_resource type="Resource" uid="uid://dbaxurss88s52" path="res://moves/sera_gentle_light.tres" id="4_uxf71"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_ninqq"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_k5dor"]
 [ext_resource type="Texture2D" uid="uid://dt28ffm0cjyop" path="res://assets/characters/sera/Sera_portraits.png" id="6_uxf71"]
@@ -23,7 +23,6 @@ defense = 3
 magic = 9
 resistance = 9
 crit_chance = 2
-crit_damage = 50
 speed = 4
 luck = 8
 evasion = 4
@@ -72,9 +71,9 @@ stored_charm = ExtResource("10_k7ld7")
 stored_boots = ExtResource("9_ilu6r")
 stored_chestplate = ExtResource("10_ab1v6")
 combatant_skills_ = Dictionary[ExtResource("1_1dutr"), bool]({
-ExtResource("2_notfg"): true,
-ExtResource("3_db4bx"): true,
-ExtResource("4_v7ef8"): true
+ExtResource("2_ilu6r"): true,
+ExtResource("3_k7ld7"): true,
+ExtResource("4_uxf71"): true
 })
 resonance_skills_ = Dictionary[String, Array]({
 "Cassian": [],

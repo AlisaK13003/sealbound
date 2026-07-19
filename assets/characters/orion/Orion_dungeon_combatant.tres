@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_j7qan"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_6ldo4"]
+[ext_resource type="Resource" uid="uid://f1404ytibcea" path="res://moves/orion_vaulting_strike.tres" id="2_wc3kr"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_yrwr2"]
 [ext_resource type="Texture2D" uid="uid://iovi8qgsw6fv" path="res://assets/characters/orion/orion_portraits.png" id="3_7bwxd"]
+[ext_resource type="Resource" uid="uid://dq7e7hoovpoj8" path="res://moves/orion_stand_beside_me.tres" id="3_rdllg"]
+[ext_resource type="Resource" uid="uid://bnwgky2bkyad6" path="res://moves/orion_piercing_rush.tres" id="4_dy8dd"]
 [ext_resource type="SpriteFrames" uid="uid://crp2e8l3va520" path="res://assets/characters/orion/Orion_Dungeon_Animations.tres" id="5_8fhlr"]
 
 [sub_resource type="Resource" id="Resource_53ph1"]
@@ -15,7 +18,7 @@ defense = 5
 magic = 2
 resistance = 3
 crit_chance = 10
-crit_damage = 50
+crit_damage = 50.0
 speed = 10
 luck = 5
 evasion = 8
@@ -42,6 +45,11 @@ script = ExtResource("2_6ldo4")
 combatant_name = "Orion"
 party_member_portrait = SubResource("AtlasTexture_ccs0m")
 combatant_stats = SubResource("Resource_53ph1")
+combatant_skills_ = Dictionary[ExtResource("1_j7qan"), bool]({
+ExtResource("2_wc3kr"): true,
+ExtResource("3_rdllg"): true,
+ExtResource("4_dy8dd"): true
+})
 sprite_frames = ExtResource("5_8fhlr")
 idle_speed = 1.0
 death_speed = 1.0

@@ -60,7 +60,9 @@ const MAX_PARTY_SIZE = 3
 signal member_added
 func new_members_available():
 	for key in StateManager.party_member_unlocked:
-		add_new_member(load(all_character_information[key]))
+		var new_member = load(all_character_information[key])
+		new_member.set_meta("original_path", all_character_information[key])
+		add_new_member(new_member)
 	member_added.emit()
 	for member in all_party_slots:
 		member.restore_health()
@@ -236,7 +238,7 @@ func check_if_member_is_active(combatant: generic_combatants):
 func load_items():
 	for i in range(15):
 		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
-		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
+		add_item("res://assets/Sprites/Items/BP_Potion.tres")
 
 func add_item(item_to_add):
 	if item_to_add is Array:
@@ -580,7 +582,7 @@ func dungeon_over(passed_out: bool = false):
 	await Fade.fade_in(1.0)
 	holding_boss_key = 0
 	holding_basic_room_key = 0
-	
+	in_dungeon = false
 	for member in all_party_slots:
 		member.restore_health()
 	check_player_values.emit()
@@ -601,7 +603,7 @@ func dungeon_over(passed_out: bool = false):
 	
 	#AreaStateManager.swap_scene(null)
 	
-	in_dungeon = false
+
 	
 
 var current_dungeon
@@ -636,7 +638,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 		if returned_party_slots[i] == null:
 			continue
 		active_party_slots[i] = returned_party_slots[i].custom_duplicate()
-	
+		
 	if returned_party_slots.size() > 3:
 		current_BP = returned_party_slots[3]
 
@@ -747,6 +749,12 @@ func bring_back_combat(_rewards_scene = null):
 			member.actual_stats.health = 1
 			member.combatant_stats.health = 1
 	
+	for person in active_party_slots:
+		var index = all_party_slots.find_custom(func(stored_person: generic_combatants): return person.combatant_name == stored_person.combatant_name)
+		if index != -1:
+			all_party_slots[index] = person.custom_duplicate()
+	check_player_values.emit()
+	
 	is_combat_active = false
 	get_tree().set_deferred("current_scene", explorable_dungeon_scene)
 	explorable_dungeon_scene.return_to_exploring()
@@ -770,11 +778,14 @@ func load_saved_data(data):
 		var new_party_member: generic_combatants = load(party_member["path"])
 		var index = all_party_slots.find_custom(func(member: generic_combatants): return new_party_member.combatant_name == member.combatant_name)
 		if index != -1:
-			continue
-			
-		new_party_member.load_save(party_member)
-		new_party_member.gather_actual_stats()
-		all_party_slots.append(new_party_member)
+			new_party_member.load_save(party_member)
+			new_party_member.gather_actual_stats()
+			all_party_slots[index] = new_party_member.custom_duplicate()
+			print("ASDASD")
+		else:
+			new_party_member.load_save(party_member)
+			new_party_member.gather_actual_stats()
+			all_party_slots.append(new_party_member)
 
 	for equipment_ in data["equipment_slots"].values():
 		if not ResourceLoader.exists(equipment_["path"], ""):

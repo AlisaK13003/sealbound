@@ -15,8 +15,8 @@ func _setup(tab_name_string):
 	panel.size.x = (tab_name_string.length() * 10) + 20
 	shadow_panel.size.x = panel.size.x
 	tab_name.size.x = (tab_name_string.length() * 10) + 20
-	custom_minimum_size = panel.size
-	size = panel.size
+	set_deferred("custom_minimum_size", panel.size)
+	set_deferred("size", panel.size)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tab_name.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel_size = panel.size
@@ -35,8 +35,8 @@ func _update_size(new_size):
 	panel.size.x = new_size
 	shadow_panel.size.x = new_size
 	tab_name.size.x = new_size
-	custom_minimum_size = panel.size
-	size = panel.size
+	set_deferred("custom_minimum_size", panel.size)
+	set_deferred("size", panel.size)
 	$"NinePatchRect/Horizontal List".position.x = panel.size.x / 2
 	$"NinePatchRect/Vertical List".position.x = panel.size.x + 7
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://d1us26f58jd0m"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_sfi27"]
+
+[resource]
+script = ExtResource("1_sfi27")
+move_name = "Sharp Note"
+move_description = "Target one ally. For 3 turns, they gain +15% Crit Chance, +15% Crit Damage, and +15% Speed. Best on DPS characters."
+attack_power = null
+does_damage = false
+mana_cost = 2
+does_status = true
+status_type = 589824
+removes_status = 0
+chance_of_status_condition = 1.0
+targets_party = true

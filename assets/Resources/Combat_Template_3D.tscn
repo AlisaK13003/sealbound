@@ -114,6 +114,7 @@ texture = SubResource("ViewportTexture_51gu7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042127967, 0.6147385, 0)
 top_level = true
 visible = false
+sorting_offset = 1000.0
 offset = Vector2(-20.32, 7.885)
 pixel_size = 0.005
 billboard = 1

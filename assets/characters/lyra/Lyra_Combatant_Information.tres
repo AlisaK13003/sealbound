@@ -2,118 +2,16 @@
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_26prq"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_d3o0m"]
+[ext_resource type="Resource" uid="uid://cjnv8nx2cnnu3" path="res://moves/lyra_second_wind.tres" id="2_m3koh"]
+[ext_resource type="Resource" uid="uid://iarbx3pscjx6" path="res://moves/lyra_heavy_swing.tres" id="3_5l7vs"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_n5n1p"]
+[ext_resource type="Resource" uid="uid://b1h7367r6ab6j" path="res://moves/lyra_crowdbreaker.tres" id="4_ckux8"]
 [ext_resource type="SpriteFrames" uid="uid://c6rujn44womum" path="res://assets/characters/lyra/Lyra_Dungeon_Animations.tres" id="4_uwea6"]
 [ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="5_uwea6"]
 [ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="6_7rixd"]
 [ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="7_4bmwk"]
 [ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="8_m3koh"]
 [ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="9_5l7vs"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m3koh"]
-load_path = "res://.godot/imported/Disabled_Crowd_Breaker.png-d5c8898bc07c647476c0f9c00546c5d3.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5l7vs"]
-load_path = "res://.godot/imported/Crowd_Breaker.png-04e109804fdd4ed04f0fd775c31a4815.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckux8"]
-load_path = "res://.godot/imported/Toggled_Crowd_Breaker.png-17d6b74b6ff203aad340fd0c46b1f4b1.ctex"
-
-[sub_resource type="Resource" id="Resource_pyue4"]
-script = ExtResource("1_26prq")
-move_name = "Crowdbreaker"
-move_description = "Damage all enemies. Enemies now target Lyra"
-attack_power = 2
-multi_hit = true
-guaranteed_hit_count = 2
-max_hit_count = 2
-status_type = 983040
-removes_status = null
-chance_of_status_condition = 0.75
-is_skill_aoe = true
-normal_sprite = SubResource("CompressedTexture2D_5l7vs")
-pressed_sprite = SubResource("CompressedTexture2D_ckux8")
-disabled_sprite = SubResource("CompressedTexture2D_m3koh")
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3gcfs"]
-load_path = "res://.godot/imported/Disabled_Heavy_Swing.png-4d0317366b1d6d985ba676e96e8e5c60.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0gn3v"]
-load_path = "res://.godot/imported/Heavy_Swing.png-6e9c998ba48e77c4ad546bb65163a690.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l0x8c"]
-load_path = "res://.godot/imported/Toggled_Heavy_Swing.png-bf00b963189c16e15e2c2eb3cc2dfb09.ctex"
-
-[sub_resource type="Resource" id="Resource_xg20h"]
-script = ExtResource("1_26prq")
-move_name = "Heavy Swing"
-move_description = "Strong single-target attack. "
-attack_power = 2
-accuracy = 80
-guaranteed_hit_count = 1
-max_hit_count = 1
-mana_cost = 2
-status_type = null
-removes_status = null
-normal_sprite = SubResource("CompressedTexture2D_0gn3v")
-pressed_sprite = SubResource("CompressedTexture2D_l0x8c")
-disabled_sprite = SubResource("CompressedTexture2D_3gcfs")
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjrvv"]
-load_path = "res://.godot/imported/Disabled_Second_Wind.png-31716abe71b770b4a3b1942e6ff838d9.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_megcg"]
-load_path = "res://.godot/imported/Second_Wind.png-f8d66af06893570ed8cfa1e5c2f0908c.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e4t31"]
-load_path = "res://.godot/imported/Toggled_Second_Wind.png-8d5a99258460366ed2817eb3037a24db.ctex"
-
-[sub_resource type="Resource" id="Resource_tyfxl"]
-script = ExtResource("1_26prq")
-move_name = "Second Wind"
-move_description = "Restore moderate HP to self. Gain increased defense and status immunity. Can't act for 2 turns"
-attack_power = null
-is_magic_skill = true
-does_damage = false
-mana_cost = 2
-status_type = null
-removes_status = null
-targets_party = true
-targets_self = true
-does_heal_party = true
-amount_healed = 2
-normal_sprite = SubResource("CompressedTexture2D_megcg")
-pressed_sprite = SubResource("CompressedTexture2D_e4t31")
-disabled_sprite = SubResource("CompressedTexture2D_fjrvv")
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_eke01"]
-script = ExtResource("1_26prq")
-attack_power = null
-does_status = true
-status_type = 65792
-removes_status = null
-chance_of_status_condition = 1.0
-lasts_x_turns = 5
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_vwpng"]
-script = ExtResource("1_26prq")
-move_name = "OP HEAL"
-move_description = "Heals Everyone in the party"
-attack_power = null
-does_damage = false
-mana_cost = 3
-status_type = null
-removes_status = null
-targets_party = true
-is_skill_aoe = true
-does_heal_party = true
-amount_healed = 2
-aoe_heal = true
-metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_dx6g1"]
 script = ExtResource("2_d3o0m")
@@ -182,11 +80,9 @@ stored_charm = ExtResource("6_7rixd")
 stored_boots = ExtResource("5_uwea6")
 stored_chestplate = ExtResource("7_4bmwk")
 combatant_skills_ = Dictionary[ExtResource("1_26prq"), bool]({
-SubResource("Resource_pyue4"): false,
-SubResource("Resource_xg20h"): true,
-SubResource("Resource_tyfxl"): true,
-SubResource("Resource_eke01"): true,
-SubResource("Resource_vwpng"): true
+ExtResource("2_m3koh"): true,
+ExtResource("3_5l7vs"): true,
+ExtResource("4_ckux8"): true
 })
 sprite_frames = ExtResource("4_uwea6")
 idle_speed = 0.5

@@ -294,7 +294,10 @@ func setup_encounter(new_encounter: dungeon_wave, is_boss):
 		else:
 			AudioManager.play_bgm(AudioManager.BOSS_BATTLE_MUSIC)
 			new_enemy_instance.position = Vector3(-0.7, 0.0, 0.75)
-		new_enemy_instance.setup(enemy_list[i].duplicate(true), self, i)
+		var new_enemy_stat = enemy_list[i].duplicate(true)
+		new_enemy_stat.raise_level_by_x(current_dungeon_run.average_dungeon_level, current_dungeon_run.allowed_level_differential)
+			
+		new_enemy_instance.setup(new_enemy_stat, self, i)
 		all_combatants.append(new_enemy_instance)
 	turn_ended.emit()
 #endregion
@@ -833,7 +836,7 @@ func item_used(item_used: Items, item_index):
 	turn_ended.emit()
 	gui.action_hint_area.visible = false
 	
-func execute_items_fixed(item_used, acted_on_who):
+func execute_items_fixed(item_used: Items, acted_on_who):
 	var seq_task: Array[Callable] = []
 	var par_task : Array[Callable] = []
 	var current_player = get_player(active_player_turn)
@@ -850,14 +853,18 @@ func execute_items_fixed(item_used, acted_on_who):
 				par_task.append(func(): await entity.handle_status(item_used.give_status, 3))
 			seq_task.insert(0, func(): await await_parallel(par_task))
 	else:
-		if item_used.does_what == 2:
-			par_task.append(func(): await acted_on_who.update_health(-1 * item_used.amount_to_heal_or_deal, "HEAL"))
-		if item_used.does_what == 1:
-			par_task.append(func(): await acted_on_who.update_health(item_used.amount_to_heal_or_deal, "DAMAGE"))
-		if item_used.removes_status != null:
-			par_task.append(func(): await acted_on_who.remove_status(item_used.removes_status))
-		if item_used.give_status != null:
-			par_task.append(func(): await acted_on_who.handle_status(item_used.give_status, 3))
+		if not item_used.restores_BP:
+			if item_used.does_what == 2:
+				par_task.append(func(): await acted_on_who.update_health(-1 * item_used.amount_to_heal_or_deal, "HEAL"))
+			if item_used.does_what == 1:
+				par_task.append(func(): await acted_on_who.update_health(item_used.amount_to_heal_or_deal, "DAMAGE"))
+			if item_used.removes_status != null:
+				par_task.append(func(): await acted_on_who.remove_status(item_used.removes_status))
+			if item_used.give_status != null:
+				par_task.append(func(): await acted_on_who.handle_status(item_used.give_status, 3))
+		else:
+			par_task.append(func(): await acted_on_who.restore_BP(item_used.amount_to_heal_or_deal))
+			par_task.append(func(): await gui.update_mana_display(item_used.amount_to_heal_or_deal, false))
 	
 		seq_task.insert(0, func(): await await_parallel(par_task))
 	await action_queue(seq_task)
@@ -905,6 +912,7 @@ func _play_party_attack_overlay(targets) -> void:
 
 func ran_from_combat():
 	get_viewport().set_input_as_handled()
+	GlobalCombatInformation.should_remove_enemy = false
 	GlobalCombatInformation.bring_back_combat()
 
 func execute_skills_fixed(skill_used: moves, acted_on_who):

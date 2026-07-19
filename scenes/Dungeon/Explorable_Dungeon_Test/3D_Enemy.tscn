@@ -19,7 +19,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19635624, 0)
 collision_layer = 4294967295
 collision_mask = 4294967295
 script = ExtResource("1_kx1k8")
-speed = 1.0
+speed = 3.0
 patrol_radius = 10.0
 time_to_wait_after_completing_path = 3.0
 

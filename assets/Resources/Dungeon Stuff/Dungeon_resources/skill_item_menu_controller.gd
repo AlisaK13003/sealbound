@@ -57,12 +57,13 @@ func _setup(move_list = null):
 		defend_instance.just_hovered.connect(node_hovered)
 		container.add_child(defend_instance)
 		
-		var run_option = load(list_node)
-		var run_instance = run_option.instantiate()
-		run_instance._setup("Run")
-		run_instance.did_a_thing.connect(node_selected)
-		run_instance.just_hovered.connect(node_hovered)
-		container.add_child(run_instance)
+		if move_list != null and not move_list:
+			var run_option = load(list_node)
+			var run_instance = run_option.instantiate()
+			run_instance._setup("Run")
+			run_instance.did_a_thing.connect(node_selected)
+			run_instance.just_hovered.connect(node_hovered)
+			container.add_child(run_instance)
 		
 		#var action_queue_option = load(list_node)
 		#var action_queue_instance = action_queue_option.instantiate()

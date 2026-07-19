@@ -1,7 +1,10 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://b2ykyv1nweiy1"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_hw41m"]
+[ext_resource type="Resource" uid="uid://d1us26f58jd0m" path="res://moves/kaela_sharp_note.tres" id="2_wyusy"]
+[ext_resource type="Resource" uid="uid://lrbc5gqiqu8n" path="res://moves/kaela_quiet_clarity.tres" id="3_cxk3i"]
 [ext_resource type="Texture2D" uid="uid://boqcvjmxofrim" path="res://assets/characters/kaela/Kaela_portraits.png" id="3_o0krs"]
+[ext_resource type="Resource" uid="uid://d3in8l2fceufr" path="res://moves/kaela_opening_bow.tres" id="4_xr8vv"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_rdyxu"]
 [ext_resource type="SpriteFrames" uid="uid://1emwp73mwnfq" path="res://assets/characters/kaela/Kaela_Dungeon_Animations.tres" id="5_wldd5"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_c3yhw"]
@@ -22,7 +25,7 @@ defense = 2
 magic = 7
 resistance = 6
 crit_chance = 3
-crit_damage = 50
+crit_damage = 50.0
 speed = 9
 luck = 6
 evasion = 10
@@ -74,6 +77,11 @@ stored_equipment = SubResource("Resource_onp7b")
 stored_charm = ExtResource("9_qno0m")
 stored_boots = ExtResource("8_4eqew")
 stored_chestplate = ExtResource("10_e4p10")
+combatant_skills_ = Dictionary[ExtResource("1_hw41m"), bool]({
+ExtResource("2_wyusy"): true,
+ExtResource("3_cxk3i"): true,
+ExtResource("4_xr8vv"): true
+})
 sprite_frames = ExtResource("5_wldd5")
 idle_speed = 1.0
 walk_speed = 0.7

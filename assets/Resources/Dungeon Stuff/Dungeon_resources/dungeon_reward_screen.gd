@@ -74,13 +74,16 @@ func swapped_page():
 		total_gold.text = "Gold: \t" + str(tot_gold)
 		gold_gained.text = "Gained Gold: \t" + str(gold_obtained)
 		if obtained_items != null:
-			for item: Items in obtained_items:
+			for item: String in obtained_items:
 				var new_item = Label.new()
 				new_item.label_settings = label_template.label_settings
 				new_item.custom_minimum_size.x = 100
 				new_item.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-				new_item.text = item.item_name
-				items_gained.add_child(new_item)
+				var actual_item = load(item)
+				
+				new_item.text = actual_item.item_name
+				if items_gained != null :
+					items_gained.add_child(new_item)
 		if items_gained.get_child_count() == 0:
 			var new_item = Label.new()
 			new_item.label_settings = label_template.label_settings

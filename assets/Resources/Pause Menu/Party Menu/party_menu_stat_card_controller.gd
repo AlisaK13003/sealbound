@@ -62,8 +62,8 @@ func _setup(combatant: generic_combatants = null):
 		$Label2/CheckBox.button_pressed = false
 
 func update_exp_bar(combatant):	
-	var current_level_req = combatant.get_level_threshold(stored_combatant.combatant_stats.level)   
-	var next_level_req = combatant.get_level_threshold(stored_combatant.combatant_stats.level + 1)  
+	var current_level_req = combatant.get_level_threshold(stored_combatant.combatant_stats.level - 1)   
+	var next_level_req = combatant.get_level_threshold(stored_combatant.combatant_stats.level)  
 	
 	$EXP_bar.min_value = current_level_req
 	$EXP_bar.max_value = next_level_req

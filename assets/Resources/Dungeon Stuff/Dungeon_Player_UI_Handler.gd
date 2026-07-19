@@ -41,6 +41,8 @@ var executing_skill = false
 var executing_item = false
 var is_aoe = false
 
+var is_boss: bool = false
+
 var has_been_setup: bool = false
 
 signal basic_attack
@@ -75,6 +77,8 @@ func _setup(parent_reference):
 	base_menu.visible = true
 	self.visible = true
 	p_ref = parent_reference
+
+	is_boss = p_ref.current_dungeon_run.does_dungeon_have_boss
 
 	var tween = create_tween()
 	tween.tween_property(black_box, "modulate:a", 0.0, 1)
@@ -124,7 +128,7 @@ func swap_to_new_player():
 	executing_skill = false
 	skill_menu._setup(GlobalCombatInformation.active_party_slots[p_ref.active_player_turn].combatant_skills_)
 	item_menu._setup()
-	options_menu._setup()
+	options_menu._setup(is_boss)
 	if not skill_menu.thing_selected.is_connected(_display_enemy_selection):
 		skill_menu.thing_selected.connect(_display_enemy_selection)
 	if not item_menu.thing_selected.is_connected(_display_enemy_selection):

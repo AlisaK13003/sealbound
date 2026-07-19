@@ -11,6 +11,7 @@ class_name Items
 @export var item_sprite : Texture2D
 
 @export_flags("Deal_Damage", "Heal") var does_what : int
+@export var restores_BP: bool = false
 
 @export_flags("Consumable", "Valuable", "Quest_Item") var what_is_it = 0
 

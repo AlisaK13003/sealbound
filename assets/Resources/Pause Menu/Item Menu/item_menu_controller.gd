@@ -145,9 +145,7 @@ func update_selected_item(instance_id = null, from_click: bool = false):
 	for item_ in active_container.get_children():
 		if item_.get_instance_id() == instance_id:
 			current_item = item_.get_index()
-			print(current_item)
 			break
-	print("HIASDAS")
 	
 	var current_container = null
 	match visible_tab:

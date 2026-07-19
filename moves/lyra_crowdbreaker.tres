@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://b1h7367r6ab6j"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_kvgjl"]
+
+[resource]
+script = ExtResource("1_kvgjl")
+move_name = "Crowdbreaker"
+move_description = "Damage all enemies. Enemies targeting allies are redirected toward Lyra next turn. AoE pressure plus soft protection."
+attack_power = 1
+mana_cost = 3
+does_status = true
+status_type = 256
+removes_status = 0
+chance_of_status_condition = 1.0
+lasts_x_turns = 1
+is_skill_aoe = true

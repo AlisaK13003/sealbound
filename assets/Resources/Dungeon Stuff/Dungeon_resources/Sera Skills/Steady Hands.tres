@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://booadyarb3dka"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_xq44v"]
+
+[resource]
+script = ExtResource("1_xq44v")
+move_name = "Steady Hands"
+move_description = "Gives increased defense and evasion for 3 turns"
+attack_power = null
+is_magic_skill = true
+does_damage = false
+does_status = true
+status_type = 393216
+removes_status = null
+lasts_x_turns = 4
+targets_party = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"

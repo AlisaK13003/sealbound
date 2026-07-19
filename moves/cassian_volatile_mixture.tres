@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://d0rex51257dre"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_bs0uf"]
+
+[resource]
+script = ExtResource("1_bs0uf")
+move_name = "Volatile Mixture"
+move_description = "Infused arrow affecting a small enemy group. Randomly applies Burn, Slow, or Accuracy Reduction. Crowd/status control."
+attack_power = 0
+mana_cost = 2
+does_status = true
+status_type = 5136
+removes_status = 0
+chance_of_status_condition = 1.0
+is_skill_aoe = true

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://iarbx3pscjx6"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_55ow1"]
+
+[resource]
+script = ExtResource("1_55ow1")
+move_name = "Heavy Swing"
+move_description = "Strong single-target attack. If enemy HP is below 50%, deals bonus damage. Direct damage tool."
+attack_power = 1
+status_type = 0
+removes_status = 0

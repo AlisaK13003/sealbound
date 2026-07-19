@@ -13,17 +13,24 @@ func _ready():
 func now_an_active_member():
 	if stored_combatant == null:
 		return
-	$With_HP/HBoxContainer/Label2.text = stored_combatant.combatant_name
-	if GlobalCombatInformation.check_if_member_is_active(stored_combatant):
+	var index = GlobalCombatInformation.all_party_slots.find_custom(func(stored_person: generic_combatants): return stored_combatant.combatant_name == stored_person.combatant_name)
+	var updated_person: generic_combatants
+	if index == -1:
+		return
+	else:
+		updated_person = GlobalCombatInformation.all_party_slots[index]
+		
+	$With_HP/HBoxContainer/Label2.text = updated_person.combatant_name
+	if GlobalCombatInformation.check_if_member_is_active(updated_person):
 		if should_show_hp:
 			$With_HP/TextureRect.visible = true
-			health_label.text = "HP:" + str(stored_combatant.actual_stats.health) + "/" + str(stored_combatant.actual_stats.max_health)
+			health_label.text = "HP:" + str(updated_person.actual_stats.health) + "/" + str(updated_person.actual_stats.max_health)
 		else:
 			$Without_HP/TextureRect.visible = true
 	else:
 		if should_show_hp:
 			$With_HP/TextureRect.visible = false
-			health_label.text = "HP:" + str(stored_combatant.actual_stats.health) + "/" + str(stored_combatant.actual_stats.max_health)
+			health_label.text = "HP:" + str(updated_person.actual_stats.health) + "/" + str(updated_person.actual_stats.max_health)
 		else:
 			$Without_HP/TextureRect.visible = false
 	

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://hhxs63x781s5"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_bms7a"]
-[ext_resource type="Resource" uid="uid://x035pcrm1a8q" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Cassian Skills/Corrosive_Shot.tres" id="2_ouqog"]
-[ext_resource type="Resource" uid="uid://cy2k08p1l4pjw" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Cassian Skills/Volatile Mixture.tres" id="3_r2tkb"]
-[ext_resource type="Resource" uid="uid://djwjyvcsdetmq" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Cassian Skills/Calculated Dost.tres" id="4_ccs0m"]
+[ext_resource type="Resource" uid="uid://d0rex51257dre" path="res://moves/cassian_volatile_mixture.tres" id="2_ouqog"]
+[ext_resource type="Resource" uid="uid://darsud2ffdryi" path="res://moves/cassian_corrosive_shot.tres" id="3_r2tkb"]
+[ext_resource type="Resource" uid="uid://drowr54u7ux8g" path="res://moves/cassian_calculated_dose.tres" id="4_ccs0m"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_4nyv2"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_nmpqa"]
 [ext_resource type="Texture2D" uid="uid://bci72r7y43t48" path="res://assets/characters/cassian/cassian_portraits.png" id="6_yjsed"]
@@ -25,7 +25,7 @@ defense = 3
 magic = 5
 resistance = 4
 crit_chance = 8
-crit_damage = 50
+crit_damage = 50.0
 speed = 9
 luck = 7
 evasion = 9
@@ -50,7 +50,6 @@ region = Rect2(52, 8, 41, 61)
 [sub_resource type="Resource" id="Resource_7q5rk"]
 script = ExtResource("5_4nyv2")
 defense = 30
-growth_rates = null
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [sub_resource type="Resource" id="Resource_onp7b"]

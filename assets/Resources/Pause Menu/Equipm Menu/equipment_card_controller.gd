@@ -76,21 +76,28 @@ func _setup(combatant: generic_combatants):
 	GlobalCombatInformation.equipment_added.connect(update_stuff)
 
 func update_stuff():
-	update_boxes(stored_combatant.stored_weapon, true)
-	update_boxes(stored_combatant.stored_equipment, false)
-	update_boxes(stored_combatant.stored_boots, false)
-	update_boxes(stored_combatant.stored_charm, false)
-	update_boxes(stored_combatant.stored_chestplate, false)
+	var index = GlobalCombatInformation.all_party_slots.find_custom(func(stored_person: generic_combatants): return stored_combatant.combatant_name == stored_person.combatant_name)
+	var updated_person: generic_combatants
+	if index == -1:
+		return
+	else:
+		updated_person = GlobalCombatInformation.all_party_slots[index]
 	
-	$GridContainer3/HBoxContainer/Health2.text = str(stored_combatant.actual_stats.max_health)
-	$GridContainer3/HBoxContainer2/Attack2.text = str(stored_combatant.actual_stats.attack)
-	$GridContainer3/HBoxContainer3/Defense2.text = str(stored_combatant.actual_stats.defense)
-	$GridContainer3/HBoxContainer4/Magic2.text = str(stored_combatant.actual_stats.magic)
-	$GridContainer3/HBoxContainer5/Resistance2.text = str(stored_combatant.actual_stats.resistance)
-	$GridContainer3/HBoxContainer6/Speed2.text = str(stored_combatant.actual_stats.speed)
-	$GridContainer3/HBoxContainer7/Luck2.text = str(stored_combatant.actual_stats.luck)
-	$GridContainer3/HBoxContainer8/Evasion2.text = str(stored_combatant.actual_stats.evasion)
+	update_boxes(updated_person.stored_weapon, true)
+	update_boxes(updated_person.stored_equipment, false)
+	update_boxes(updated_person.stored_boots, false)
+	update_boxes(updated_person.stored_charm, false)
+	update_boxes(updated_person.stored_chestplate, false)
 	
+	$GridContainer3/HBoxContainer/Health2.text = str(updated_person.actual_stats.max_health)
+	$GridContainer3/HBoxContainer2/Attack2.text = str(updated_person.actual_stats.attack)
+	$GridContainer3/HBoxContainer3/Defense2.text = str(updated_person.actual_stats.defense)
+	$GridContainer3/HBoxContainer4/Magic2.text = str(updated_person.actual_stats.magic)
+	$GridContainer3/HBoxContainer5/Resistance2.text = str(updated_person.actual_stats.resistance)
+	$GridContainer3/HBoxContainer6/Speed2.text = str(updated_person.actual_stats.speed)
+	$GridContainer3/HBoxContainer7/Luck2.text = str(updated_person.actual_stats.luck)
+	$GridContainer3/HBoxContainer8/Evasion2.text = str(updated_person.actual_stats.evasion)
+	stored_combatant = updated_person.custom_duplicate()
 	for child in $GridContainer3.get_children():
 		if int(child.get_child(3).text) > int(child.get_child(1).text):
 			child.get_child(3).add_theme_color_override("font_color", Color.GREEN)

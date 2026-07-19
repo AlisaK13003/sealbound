@@ -3,12 +3,12 @@ extends CharacterBody3D
 enum State { PATROL, CHASE, RETURN }
 var current_state: State = State.PATROL
 
-@export var speed: float = 3.0
+@export var speed: float = 5.0
 @export var patrol_radius: float = 12.0 
 @export var return_speed: float = 4.0
 @export var gravity: float = 20.0 
 
-@export var enemy_detection_range: float = 1.0 
+@export var enemy_detection_range: float = 2.0 
 @export var enemy_check_interval: float = 3  
 var enemy_check_timer: float = 0.0
 
@@ -75,6 +75,11 @@ func _physics_process(delta: float) -> void:
 	if p_ref.movement_locked:
 		return
 		
+	
+	if velocity.x >= 0:
+		animator.flip_h = true if not stored_enemy.should_flip_sprite else false
+	else:
+		animator.flip_h = false if not stored_enemy.should_flip_sprite else true
 	
 	if not nav_agent.is_navigation_finished():
 		_check_if_stuck(delta)	

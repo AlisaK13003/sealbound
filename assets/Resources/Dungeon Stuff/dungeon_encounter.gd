@@ -13,6 +13,9 @@ class_name dungeon_type
 
 @export var first_time_floor_count: int = 10
 
+@export_range(1, 99, 1) var average_dungeon_level: int = 1
+@export var allowed_level_differential: int = 2
+
 @export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 @export var dungeon_unlock_type: StateManager.dungeon_state_lookup
 

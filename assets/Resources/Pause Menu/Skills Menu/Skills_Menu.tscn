@@ -63,25 +63,24 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_7tpxp")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_left = 10.869565
-offset_top = 10.869565
 offset_right = 50.869564
-offset_bottom = 50.869564
+offset_bottom = 40.0
 texture = ExtResource("2_1ui7l")
 
 [node name="Label2" type="Label" parent="Skill_Description" unique_id=1497059921]
 layout_mode = 0
 offset_left = 65.21739
-offset_top = 23.913044
+offset_top = 13.043479
 offset_right = 164.21739
-offset_bottom = 41.913044
+offset_bottom = 31.04348
 text = "Crowd Breaker"
 
 [node name="Label" type="Label" parent="Skill_Description" unique_id=1051850748]
 layout_mode = 0
-offset_left = 180.43478
-offset_top = 69.565216
-offset_right = 502.17392
-offset_bottom = 129.56522
+offset_left = 178.26086
+offset_top = 34.782608
+offset_right = 500.0
+offset_bottom = 94.78261
 text = "Initial Equipment: Only masters of the mystic arts are capable of using this skill to it's full potential"
 autowrap_mode = 2
 
@@ -94,9 +93,9 @@ frame_progress = 0.65336436
 [node name="Label3" type="Label" parent="Skill_Description" unique_id=1349139808]
 layout_mode = 0
 offset_left = 456.52173
-offset_top = 21.73913
+offset_top = 10.869565
 offset_right = 496.52173
-offset_bottom = 39.73913
+offset_bottom = 28.869564
 text = "2 BP"
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("3_atayv")]

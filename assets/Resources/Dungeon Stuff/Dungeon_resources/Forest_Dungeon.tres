@@ -24,6 +24,7 @@ minimum_number_of_floors = 4
 potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), ExtResource("6_vh8sp"), ExtResource("6_r5wgs")])
 dungeon_light_color = Color(1, 0.92156863, 0.8, 1)
 first_time_floor_count = 7
+allowed_level_differential = 1
 type_of_dungeon = 1
 dungeon_unlock_type = 1
 room_size = 1

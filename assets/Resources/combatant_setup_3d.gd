@@ -174,9 +174,13 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	has_been_setup = true
 	selection_area_sprite.position = self.global_position
 	selection_area_sprite.offset = Vector2(-35, 45)
-	
+
+func restore_BP(amount_to_restore):
+	await combatant_ui_.update_damage_label(amount_to_restore, "BP")
+	GlobalCombatInformation.do_something_with_BP(amount_to_restore)
 	
 func update_health(change_health_value, what_action = null):
+	parent_reference.someone_is_dying = true
 	if what_action != null and what_action != "MISS":
 		if change_health_value > 0:
 			AudioManager.play_ui_sound(AudioManager.BATTLE_DEAL_DAMAGE)
@@ -234,7 +238,7 @@ func update_health(change_health_value, what_action = null):
 		await get_tree().create_timer(0.5).timeout
 	if stored_combatant.actual_stats.health <= 0:
 		await on_death()
-
+	parent_reference.someone_is_dying = false
 	
 
 # Combat related stuff

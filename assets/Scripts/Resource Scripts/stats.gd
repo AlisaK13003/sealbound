@@ -30,7 +30,7 @@ var altered_speed: int:
 @export_range(0, 1000, 1, "prefer_slider", "or_greater") var evasion: int
 
 @export var growth_rates: Dictionary = {
-	"max_health": 70,  # 70% chance to gain +1 HP per level
+	"max_health": 70,  
 	"attack": 40,
 	"defense": 30,
 	"magic": 15,
@@ -48,13 +48,35 @@ signal speed_changed(new_value)
 func _init():
 	altered_speed = speed
 
-# Don't need to return actual stat values just yet since there are no planned items to permanently boost stats
-# Can just alter stats in the experience function
-# Like simulate level ups on boot
 func export_to_JSON():
 	return {
-		"path": resource_path,
+		"level": str(level),
+		"max_health": str(max_health),  
+		"attack": str(attack),
+		"defense": str(defense),
+		"magic": str(magic),
+		"resistance": str(resistance),
+		"speed": str(speed),
+		"luck": str(luck),
+		"evasion": str(evasion),
+		"crit_chance": str(crit_chance),
+		"crit_damage": str(crit_damage),
+		"path": str(resource_path)
 	}
+
+func load_information(save_data):
+	level = int(save_data.get("level", "0"))
+	max_health = int(save_data.get("max_health", "0"))
+	health = max_health
+	attack = int(save_data.get("attack", "0"))
+	defense = int(save_data.get("defense", "0"))
+	magic = int(save_data.get("magic", "0"))
+	resistance = int(save_data.get("resistance", "0"))
+	speed = int(save_data.get("speed", "0"))
+	luck = int(save_data.get("luck", "0"))
+	evasion = int(save_data.get("evasion", "0"))
+	crit_chance = int(save_data.get("crit_chance", "0"))
+	crit_damage = int(save_data.get("crit_damage", "0"))
 
 func add_stats(stats_to_combine_with: stats):
 	var new_stats = stats.new()

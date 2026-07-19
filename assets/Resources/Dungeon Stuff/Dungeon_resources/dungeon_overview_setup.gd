@@ -17,8 +17,6 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 	stored_quest = quest_dungeon
 	dungeon_name_label.text = dungeon_type_.dungeon_name
 	floor_count_label.text = "Expect " + str(dungeon_type_.minimum_number_of_floors) + " - " + str(dungeon_type_.max_number_of_floors) + " floors."
-	var avg_level_count = 0
-	var total_level = 0
 	var unique_enemies = []
 	var unique_items = []
 	for chest_drop in dungeon_type_.chest_drops.keys():
@@ -33,12 +31,6 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 	if dungeon_type_.does_dungeon_have_boss:
 		seal_boss_label.text = "Seal Guardian: " + dungeon_type_.boss_encounter.encounterable_enemy.combatant_name
 	
-	for possible_wave in dungeon_type_.potential_encounters:
-		for enemy in possible_wave.enemies:
-			if unique_enemies.find(enemy) == -1:
-				unique_enemies.append(enemy)
-			avg_level_count += 1
-			total_level += enemy.combatant_stats.level
 	for enemy_slot: generic_combatants in unique_enemies:
 		var cont = Container.new()
 		var new_sprite = AnimatedSprite2D.new()
@@ -53,6 +45,4 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 		new_sprite.speed_scale = enemy_slot.idle_speed
 		new_sprite.flip_h = enemy_slot.equip_flip
 
-	if total_level == 0 or avg_level_count == 0:
-		return
-	average_level_label.text = "Avg Lv: " + str(total_level / avg_level_count)
+	average_level_label.text = "Avg Lv: " + str(dungeon_type_.average_dungeon_level)

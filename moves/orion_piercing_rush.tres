@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://bnwgky2bkyad6"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_kjti1"]
+
+[resource]
+script = ExtResource("1_kjti1")
+move_name = "Piercing Rush"
+move_description = "Fast single-target thrust with high Crit Chance. If this skill crits, gain bonus Momentum. Momentum starter."
+attack_power = 0
+does_status = true
+status_type = 524288
+removes_status = 0
+chance_of_status_condition = 1.0

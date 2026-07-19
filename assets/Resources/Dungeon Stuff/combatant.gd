@@ -66,7 +66,8 @@ func add_experience(amount_to_add: int) -> int:
 	
 	while total_experience_points >= get_level_threshold(combatant_stats.level):
 		combatant_stats.level += 1
-		actual_stats.level += 1
+		if not is_combatant_enemy:
+			actual_stats.level += 1
 		handle_level_up_growths() 
 	
 	var next_level_requirement = get_level_threshold(combatant_stats.level)
@@ -89,20 +90,18 @@ func _calculate_enemy_exp(enemy) -> int:
 	
 	return max(1, ceili(final_exp))
 
-func handle_level_up_growths():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	for stat_name in combatant_stats.growth_rates.keys():
-		var roll = rng.randi_range(1, 100)
-		
-		if roll <= combatant_stats.growth_rates[stat_name]:
-			var current_value = combatant_stats.get(stat_name)
-			combatant_stats.set(stat_name, current_value + 1)
-			actual_stats.set(stat_name, actual_stats.get(stat_name) + 1)
-			
-			if stat_name == "max_health":
-				combatant_stats.health += 1
-				actual_stats.health += 1
+
+
+func raise_level_by_x(amount_to_raise_by, differential: int = 0):
+	var dif = []
+	for i in range(differential + 1):
+		dif.append(i)
+		if i * -1 != i:
+			dif.append(i * -1)
+	var level_target = clamp(amount_to_raise_by + (dif.pick_random()), 0, 99)
+	for i in range(level_target):
+		var amount_of_exp_to_add = get_level_threshold(combatant_stats.level) - total_experience_points
+		add_experience(max(0, amount_of_exp_to_add))
 
 func get_level_threshold(current_level: int) -> int:
 	return ceili(100.0 * pow(float(current_level), 1.5))
@@ -143,14 +142,15 @@ func load_save(save_info):
 	if save_info["stored_equipment"] != null:
 		stored_equipment = load(save_info["stored_equipment"]["path"])
 	is_MC = save_info.get("is_mc", is_MC)
-	add_experience(total_experience_points)
+	combatant_stats.load_information(save_info["combatant_stats"])
+	gather_actual_stats()
 	
 func gather_actual_stats():
 	actual_stats = add_up_stats()
 
 func custom_duplicate():
-	var copy = self.duplicate()
-	copy.actual_stats = actual_stats.duplicate()
+	var copy = self.duplicate(true)
+	copy.actual_stats = actual_stats.duplicate(true)
 	return copy
 
 func add_up_stats() -> stats:
@@ -165,8 +165,8 @@ func add_up_stats() -> stats:
 	if actual_stats != null:
 		health = actual_stats.health
 
-	var final_stats: stats = combatant_stats.duplicate()
-
+	var final_stats: stats = combatant_stats.duplicate(true)
+	
 	if stored_equipment != null and stored_equipment.equipment_stats != null:
 		final_stats = add_stats(final_stats, stored_equipment.equipment_stats)
 		
@@ -202,4 +202,60 @@ func add_stats(stat_1: stats, stat_2: stats):
 	new_stats.speed = stat_1.speed +  stat_2.speed
 	new_stats.luck = stat_1.luck +  stat_2.luck
 	new_stats.evasion = stat_1.evasion +  stat_2.evasion
+	new_stats.level = max(stat_1.level, stat_2.level)
 	return new_stats
+	
+func _increase_stat(stat_name: String, amount: int) -> void:
+	if combatant_stats == null:
+		return
+		
+	var current_value = combatant_stats.get(stat_name)
+	combatant_stats.set(stat_name, current_value + amount)
+	
+	if not is_combatant_enemy and actual_stats != null:
+		actual_stats.set(stat_name, actual_stats.get(stat_name) + amount)
+		
+	if stat_name == "max_health":
+		combatant_stats.health += amount
+		if not is_combatant_enemy and actual_stats != null:
+			actual_stats.health += amount
+
+
+func handle_level_up_growths() -> void:
+	if combatant_stats == null:
+		return
+		
+	if is_combatant_enemy:
+		for stat_name in combatant_stats.growth_rates.keys():
+			var growth_rate = combatant_stats.growth_rates[stat_name]
+			
+			var prev_accumulated = floor(float(combatant_stats.level - 1) * growth_rate / 100.0)
+			var current_accumulated = floor(float(combatant_stats.level) * growth_rate / 100.0)
+			
+			if current_accumulated > prev_accumulated:
+				_increase_stat(stat_name, 1)
+		return
+
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	var stats_gained_count = 0
+	var stats_not_gained = []
+	
+	for stat_name in combatant_stats.growth_rates.keys():
+		var roll = rng.randi_range(1, 100)
+		if roll <= combatant_stats.growth_rates[stat_name]:
+			_increase_stat(stat_name, 1)
+			stats_gained_count += 1
+		else:
+			stats_not_gained.append(stat_name)
+			
+	var minimum_stats_per_level = 2
+	while stats_gained_count < minimum_stats_per_level and not stats_not_gained.is_empty():
+		var rand_idx = rng.randi_range(0, stats_not_gained.size() - 1)
+		var chosen_stat = stats_not_gained[rand_idx]
+		
+		_increase_stat(chosen_stat, 1)
+		stats_not_gained.remove_at(rand_idx)
+		stats_gained_count += 1
+	

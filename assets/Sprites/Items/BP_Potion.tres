@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://dvtaheeujnq5e"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_32sk3"]
+[ext_resource type="Texture2D" uid="uid://bd2vfntcsx0t4" path="res://assets/tile sheets/Damage_Potion.png" id="1_c78uw"]
+
+[resource]
+script = ExtResource("1_32sk3")
+item_name = "BP-Potion"
+item_description = "Restores BP by 5"
+item_sprite = ExtResource("1_c78uw")
+does_what = 2
+restores_BP = true
+what_is_it = 1
+amount_to_heal_or_deal = 5
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

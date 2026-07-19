@@ -116,6 +116,8 @@ func update_grid_size():
 func update_damage_label(health_differential, type_of_damage):
 	animation_player.play("Take_Damage")
 	match type_of_damage:
+		"BP":
+			health_differential_label.modulate = Color.PALE_VIOLET_RED
 		"HEAL":
 			health_differential_label.modulate = Color.LAWN_GREEN
 		"MISS":

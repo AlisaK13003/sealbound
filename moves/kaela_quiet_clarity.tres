@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://lrbc5gqiqu8n"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_f23bd"]
+
+[resource]
+script = ExtResource("1_f23bd")
+move_name = "Quiet Clarity"
+move_description = "Cleanse all debuffs from one ally. That ally takes 50% less damage next turn. Cleanse plus mitigation."
+attack_power = null
+does_damage = false
+mana_cost = 2
+does_status = true
+does_remove_status = true
+status_type = 131072
+removes_status = 7960
+chance_of_status_condition = 1.0
+lasts_x_turns = 1
+targets_party = true

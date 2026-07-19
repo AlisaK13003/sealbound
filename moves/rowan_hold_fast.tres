@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="moves" format=3 uid="uid://c48odeckn63k2"]
+
+[ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_1w62u"]
+
+[resource]
+script = ExtResource("1_1w62u")
+move_name = "Hold Fast"
+move_description = "Rowan enters Guard Stance for 2 turns: greatly increased Defense, redirects attacks toward Rowan, and reduces incoming damage."
+attack_power = null
+does_damage = false
+mana_cost = 3
+does_status = true
+status_type = 393216
+removes_status = 0
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
+targets_party = true
+targets_self = true
