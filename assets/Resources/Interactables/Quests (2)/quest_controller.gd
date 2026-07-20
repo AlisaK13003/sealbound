@@ -10,6 +10,7 @@ class_name quest
 @export var dungeon_location: GlobalCombatInformation.dungeon_types_names
 @export var difficult_level: GlobalCombatInformation.difficulty_multiplier
 
+@export var can_be_turned_in_at_tavern_box: bool = false
 @export var state_to_set_upon_completion: StateManager.story_beats_lookup
 
 @export_category("Spot")

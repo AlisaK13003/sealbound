@@ -431,6 +431,23 @@ func add_quest(quest_: String, has_special_item: bool = false):
 	temp_copy.does_player_have_special_item = has_special_item
 	check_quest_progress.emit()
 
+func turn_in_all_possible_quests():
+	for active_quest: quest in active_quests:
+		if active_quest.can_be_turned_in_at_tavern_box:
+			if active_quest.special_dungeon != null and active_quest.should_spawn_dungeon_room:
+				if active_quest.does_player_have_special_item:
+					complete_quest(active_quest.get_path_custom())
+			else:
+				var can_complete_quest: bool = true
+				for requirement in active_quest.completion_requirements.keys():
+					var quest_item_: generic_combatants = requirement
+					var item_requirement = active_quest.completion_requirements[requirement]
+					var count_of_item = search_for_item_count(quest_item_.quest_item_drop.item_name)
+					if count_of_item != item_requirement:
+						can_complete_quest = false
+				if can_complete_quest:
+					complete_quest(active_quest.get_path_custom())
+						
 func complete_quest(quest_path: String):
 	var new_quest = load(quest_path)
 	var temp_copy: quest = new_quest.duplicate()
@@ -441,6 +458,13 @@ func complete_quest(quest_path: String):
 	if quest_index != -1:
 		completed_quests.append(temp_copy)
 		active_quests.remove_at(quest_index)
+
+func search_for_item_count(item_name):
+	var index = all_held_items.find_custom(func(stored_item: Items): return stored_item.item_name == item_name)
+	if index != -1:
+		return all_held_items[index].stack
+	else:
+		return 0
 
 func _ready():	
 	update_available_party_members.connect(new_members_available)

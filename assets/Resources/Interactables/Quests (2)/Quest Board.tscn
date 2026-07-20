@@ -41,10 +41,10 @@ parent = NodePath("../..")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1915404993]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(0, 13.455)
+position = Vector2(0, 26.935)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_h1qg2")
-offset = Vector2(0, -53.745)
+offset = Vector2(0, -79.35)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2038073405]
 

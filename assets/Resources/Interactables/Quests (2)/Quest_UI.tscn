@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cumvpqxhdbqn8"]
 
-[ext_resource type="Texture2D" uid="uid://bfmfqtbi4afjp" path="res://assets/Resources/Interactables/Quests (2)/MissionBoard.tres" id="1_gctrq"]
 [ext_resource type="Script" uid="uid://6slscp1v6jog" path="res://assets/Resources/Interactables/Quests (2)/quest_mission_handler.gd" id="1_qwsrt"]
+[ext_resource type="Texture2D" uid="uid://tmud3d4ju4sk" path="res://assets/tile sheets/Mission_Board.png" id="2_qwsrt"]
 [ext_resource type="Texture2D" uid="uid://co28rr8wks40j" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_1.tres" id="3_qwsrt"]
 [ext_resource type="Texture2D" uid="uid://dk8ow86fqnj83" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_2.tres" id="4_lsis7"]
 [ext_resource type="Texture2D" uid="uid://cwfvkw21sg7c7" path="res://assets/Resources/Interactables/Quests (2)/Mission_Paper_3.tres" id="5_schd3"]
@@ -24,11 +24,11 @@ script = ExtResource("1_qwsrt")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1700042292]
 layout_mode = 0
-offset_left = 123.0
-offset_top = 17.0
-offset_right = 514.5322
-offset_bottom = 311.0
-texture = ExtResource("1_gctrq")
+offset_left = 95.0
+offset_top = 1.0
+offset_right = 528.5322
+offset_bottom = 326.53763
+texture = ExtResource("2_qwsrt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=140806472]
 z_index = 2
