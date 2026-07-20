@@ -14,7 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://cgbhrcm22ac5b" path="res://assets/Resources/titleScreen/aboutMe_backgrounds.png" id="8_b70v6"]
 [ext_resource type="Texture2D" uid="uid://dedetwkxc8v4o" path="res://GUI/dialogue_system/sprites/dialogue_box.png" id="9_fnnt3"]
 [ext_resource type="PackedScene" uid="uid://b3dw3d21upxin" path="res://assets/Resources/Pause Menu/Save Load Menu/Save_Load_Menu.tscn" id="10_n4rrd"]
-[ext_resource type="PackedScene" uid="uid://cq3emt0b1euib" path="res://assets/Resources/Pause Menu/System Menu/System_Menu.tscn" id="15_xsgpd"]
+[ext_resource type="PackedScene" uid="uid://b1ua6k77u621q" path="res://assets/Resources/Pause Menu/System Menu/Keybind Node.tscn" id="11_keybd"]
+[ext_resource type="Texture2D" uid="uid://dr5rxo8cvu083" path="res://assets/Resources/titleScreen/contactBoard.png" id="12_note"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4a7rd"]
 
@@ -205,27 +206,6 @@ text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ExitButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=455456809]
-custom_minimum_size = Vector2(125, 28)
-propagate_maximum_size = true
-layout_mode = 2
-texture_normal = ExtResource("4_7l3jx")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/ExitButton" unique_id=2098073161]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
-theme_override_font_sizes/font_size = 12
-text = "Exit"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="CreditsButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=1280005336]
 custom_minimum_size = Vector2(125, 28)
 propagate_maximum_size = true
@@ -244,6 +224,27 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
 theme_override_font_sizes/font_size = 12
 text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="TextureButton" parent="UI/Menu/VBoxContainer" unique_id=455456809]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Menu/VBoxContainer/ExitButton" unique_id=2098073161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Exit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -407,6 +408,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LoadPanel" type="PanelContainer" parent="." unique_id=116812265]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -426,7 +428,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/separation = 60
+theme_override_constants/separation = 72
 
 [node name="BackButton" type="Button" parent="LoadPanel/MarginContainer/LoadRow" unique_id=496686223]
 custom_minimum_size = Vector2(16, 20)
@@ -441,10 +443,384 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="SystemMenu" parent="." unique_id=893803557 instance=ExtResource("15_xsgpd")]
+[node name="CreditsPanel" type="PanelContainer" parent="." unique_id=58162508]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -48.0
+offset_right = 142.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4a7rd")
+
+[node name="MarginContainer" type="MarginContainer" parent="CreditsPanel" unique_id=222346832]
+layout_mode = 2
+
+[node name="CreditsRow" type="HBoxContainer" parent="CreditsPanel/MarginContainer" unique_id=1761051206]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="BackButton" type="Button" parent="CreditsPanel/MarginContainer/CreditsRow" unique_id=1218287794]
+custom_minimum_size = Vector2(16, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5x5j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_awjh7")
+
+[node name="CreditsContent" type="VBoxContainer" parent="CreditsPanel/MarginContainer/CreditsRow" unique_id=1094525166]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CreditsNote" type="TextureRect" parent="CreditsPanel/MarginContainer/CreditsRow/CreditsContent" unique_id=1355360299]
+custom_minimum_size = Vector2(190, 190)
+layout_mode = 2
+texture = ExtResource("12_note")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreditsText" type="Label" parent="CreditsPanel/MarginContainer/CreditsRow/CreditsContent/CreditsNote" unique_id=731314042]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 52.0
+offset_right = -15.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.25, 0.13, 0.06, 1)
+theme_override_font_sizes/font_size = 8
+text = "Alisa Katsionova - Project Manager, Developer
+Gabe - Lead Developer, Core Systems
+Jacob - Level Design, Developer
+Chrystel - Narrative, Art, UI/UX
+Sophia - Art, Tilesheets, Characters"
+horizontal_alignment = 1
+
+[node name="RightBalanceSpacer" type="Control" parent="CreditsPanel/MarginContainer/CreditsRow" unique_id=1032044820]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="SettingsPanel" type="PanelContainer" parent="." unique_id=2039392294]
 visible = false
 layout_mode = 1
-offset_left = -186.305
-offset_top = 48.96
-offset_right = -186.305
-offset_bottom = 48.960045
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -46.0
+offset_right = 63.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4a7rd")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel" unique_id=1606067813]
+layout_mode = 2
+
+[node name="SettingsColumn" type="VBoxContainer" parent="SettingsPanel/MarginContainer" unique_id=1175409688]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SettingsSubpanelTopSpacer" type="Control" parent="SettingsPanel/MarginContainer/SettingsColumn" unique_id=1705875111]
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="TitleRow" type="HBoxContainer" parent="SettingsPanel/MarginContainer/SettingsColumn" unique_id=940227293]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BackColumn" type="VBoxContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow" unique_id=1677030377]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="BackButton" type="Button" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/BackColumn" unique_id=1054003421]
+custom_minimum_size = Vector2(16, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5x5j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_awjh7")
+
+[node name="SettingsContent" type="VBoxContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow" unique_id=1710143400]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 8
+
+[node name="SettingsButtons" type="VBoxContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent" unique_id=1695163953]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VideoButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/SettingsButtons" unique_id=1191389289]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/SettingsButtons/VideoButton" unique_id=469288734]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Video"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/SettingsButtons" unique_id=1164239623]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/SettingsButtons/AudioButton" unique_id=501133047]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Audio"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyConfigButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/SettingsButtons" unique_id=620471322]
+custom_minimum_size = Vector2(125, 28)
+propagate_maximum_size = true
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/SettingsButtons/KeyConfigButton" unique_id=2138987921]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Key Config"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VideoSettings" type="VBoxContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent" unique_id=785242541]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="FpsButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings" unique_id=1637468017]
+custom_minimum_size = Vector2(160, 28)
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings/FpsButton" unique_id=1305722174]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "FPS: 60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResolutionButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings" unique_id=749820557]
+custom_minimum_size = Vector2(160, 28)
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings/ResolutionButton" unique_id=1996259921]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Res: 640x360"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WindowModeButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings" unique_id=184842991]
+custom_minimum_size = Vector2(160, 28)
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings/WindowModeButton" unique_id=323448121]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Mode: Windowed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MonitorButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings" unique_id=586216896]
+custom_minimum_size = Vector2(160, 28)
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings/MonitorButton" unique_id=1466358858]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Monitor: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VsyncButton" type="TextureButton" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings" unique_id=1471227247]
+custom_minimum_size = Vector2(160, 28)
+layout_mode = 2
+texture_normal = ExtResource("4_7l3jx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/VideoSettings/VsyncButton" unique_id=2074501672]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "VSync: Off"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioSettings" type="VBoxContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent" unique_id=294083126]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="GridContainer" type="GridContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings" unique_id=473973547]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings/GridContainer" unique_id=550061384]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "Master"
+
+[node name="MasterSlider" type="HSlider" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings/GridContainer" unique_id=700266169]
+custom_minimum_size = Vector2(135, 18)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.7
+
+[node name="SFXLabel" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings/GridContainer" unique_id=619384813]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings/GridContainer" unique_id=1386282281]
+custom_minimum_size = Vector2(135, 18)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.7
+
+[node name="BGMLabel" type="Label" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings/GridContainer" unique_id=235300924]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36862746, 0.23137255, 0.13725491, 1)
+theme_override_font_sizes/font_size = 12
+text = "BGM"
+
+[node name="BGMSlider" type="HSlider" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/AudioSettings/GridContainer" unique_id=62073648]
+custom_minimum_size = Vector2(135, 18)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.7
+
+[node name="KeyConfigSettings" type="GridContainer" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent" unique_id=722753294]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 14
+columns = 2
+
+[node name="MoveUpBind" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/KeyConfigSettings" unique_id=956081223 instance=ExtResource("11_keybd")]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+key_name = "Move Up"
+input_action = "up"
+
+[node name="MoveDownBind" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/KeyConfigSettings" unique_id=741385180 instance=ExtResource("11_keybd")]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+key_name = "Move Down"
+input_action = "down"
+
+[node name="MoveLeftBind" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/KeyConfigSettings" unique_id=623403851 instance=ExtResource("11_keybd")]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+key_name = "Move Left"
+input_action = "left"
+
+[node name="MoveRightBind" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/KeyConfigSettings" unique_id=44992392 instance=ExtResource("11_keybd")]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+key_name = "Move Right"
+input_action = "right"
+
+[node name="ConfirmBind" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/KeyConfigSettings" unique_id=723506623 instance=ExtResource("11_keybd")]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+key_name = "Confirm"
+input_action = "confirm"
+
+[node name="CancelBind" parent="SettingsPanel/MarginContainer/SettingsColumn/TitleRow/SettingsContent/KeyConfigSettings" unique_id=1756052322 instance=ExtResource("11_keybd")]
+custom_minimum_size = Vector2(130, 46)
+layout_mode = 2
+key_name = "Cancel"
+input_action = "cancel"
