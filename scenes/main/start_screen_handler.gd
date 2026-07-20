@@ -773,6 +773,7 @@ func _begin_new_game() -> void:
 	if gender.is_empty():
 		return
 	Global.start_new_game("You", gender)
+	AudioManager.stop_bgm()
 	if main_menu != null:
 		main_menu.visible = false
 	if setup_panel != null:

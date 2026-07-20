@@ -1,0 +1,236 @@
+{
+  "id": "infirmary_wakeup_scene_1",
+  "beats": [
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.0
+	},
+	{
+	  "type": "wait",
+	  "duration": 0.2
+	},
+	{
+	  "type": "fade",
+	  "direction": "out",
+	  "duration": 0.75
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "[i]You wake the next morning to a gentle jostle. A lamp glows softly on the nearby table, and the girl beside you looks more startled than you feel.[/i]"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "sad",
+	  "text": "...Oh! I'm sorry, I didn't mean to wake you."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "neutral",
+	  "text": "Did you rest well?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "...Where am I?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "",
+	  "text": "[i]The young woman shifts nervously, a bundle of used gauze and bandages in her hands. She answers quietly.[/i]"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "neutral",
+	  "text": "You're in Hearthwynn's infirmary."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "neutral",
+	  "text": "Don't try to sit up too fast, okay?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "What happened?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "sad",
+	  "text": "I found you in the woods, after that blast."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "sad",
+	  "text": "You were hurt badly enough that I wasn't going to leave you there."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "The woods..."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "sad",
+	  "text": "I don't remember."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Villager Girl",
+	  "portrait_frame": "neutral",
+	  "text": "That's alright. You don't have to force it right now."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "neutral",
+	  "text": "Who are you?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "Sera."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "I'm the village priest. I keep the infirmary as well."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "You seem to be showing signs of amnesia... can you remember your name?"
+	},
+	{
+	  "type": "name_entry",
+	  "speaker": "",
+	  "text": "Enter your name:",
+	  "default": "MC"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "neutral",
+	  "text": "{player_name}."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "{player_name}. Okay."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "I won't pry into who you are or where you came from."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "sad",
+	  "text": "I've never seen you before, and people here may be nervous about that."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "But you don't seem like a bad person."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "If you don't have anywhere to go, you can stay in Hearthwynn for now."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "neutral",
+	  "text": "Okay... thanks."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "You can stay at the infirmary for as long as you need. You need rest right now more than anything."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "Though, eventually, you might prefer to have an actual room. You can talk to Lyra about that."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "portrait_frame": "neutral",
+	  "text": "Lyra?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "She runs the tavern south from here. She's a bit rambunctious and loud, but she's kind."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "Tell her I sent you. She'll hear you out."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "As for you... no adventuring for a while. Not until your body catches up with you."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "Rest here tonight. When you're ready, go to the tavern and talk to Lyra."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Sera",
+	  "portrait_frame": "neutral",
+	  "text": "I'll come see you once you get a room and are feeling better."
+	},
+	{
+	  "type": "flag",
+	  "key": "sera_sent_to_lyra",
+	  "value": true
+	},
+	{
+	  "type": "flag",
+	  "key": "opening_cutscene_seen",
+	  "value": true
+	},
+	{
+	  "type": "fade",
+	  "direction": "in",
+	  "duration": 0.35
+	}
+  ]
+}
