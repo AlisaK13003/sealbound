@@ -85,6 +85,8 @@ func _ready():
 			break
 			
 	apply_demo_dungeon_locks()
+	for child in $CanvasLayer/Control.get_children():
+		child.visible = false
 	await Fade.fade_out(0.5)
 	
 

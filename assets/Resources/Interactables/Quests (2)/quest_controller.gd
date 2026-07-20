@@ -14,6 +14,8 @@ class_name quest
 @export var state_to_set_upon_completion: StateManager.story_beats_lookup
 @export var tavern_state_to_set: StateManager.tavern_quest_lookup
 
+@export var ready_to_turn_in_string: String = "See the Blacksmith"
+
 @export_category("Spot")
 # If put in enemy and int it will require that enemies quest item to that quantity
 # If you put in a normal item it will require that quantity of it

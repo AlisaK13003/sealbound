@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cliyosg4e3kdm"]
 
 [ext_resource type="Script" uid="uid://cbinqtn0hl3h3" path="res://assets/Resources/Pause Menu/Quest Menu/quest_overview_setup.gd" id="1_ashy5"]
-[ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="2_hhjc5"]
 [ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="3_a3ya5"]
 
 [node name="QuestOverview" type="Control" unique_id=1739434162]
@@ -16,39 +15,48 @@ script = ExtResource("1_ashy5")
 [node name="Quest_Name" type="Label" parent="." unique_id=2031026851]
 layout_mode = 0
 offset_left = -19.135
-offset_right = 20.865
+offset_right = 155.70001
 offset_bottom = 18.0
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1031811978]
-layout_mode = 0
-offset_left = -30.71
-offset_top = 16.0
-offset_right = 76.441505
-offset_bottom = 80.0
-texture = ExtResource("2_hhjc5")
-expand_mode = 1
-
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1201493867]
 layout_mode = 0
-offset_left = 77.56
-offset_top = 7.705
-offset_right = 168.56018
-offset_bottom = 131.705
-columns = 2
+offset_left = -24.0
+offset_top = 92.0
+offset_right = 67.00018
+offset_bottom = 216.0
+theme_override_constants/h_separation = 66
+theme_override_constants/v_separation = 13
 
 [node name="Label" type="Label" parent="." unique_id=1997914639]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 84.0
-offset_right = 177.0
-offset_bottom = 228.0
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 177.77
+offset_bottom = 160.0
 theme_override_font_sizes/font_size = 10
 text = "Rowan: I seem to have lost my axe in the woods, please retrieve it"
 autowrap_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1457499016]
-position = Vector2(-9, 115)
+position = Vector2(-10, 47)
 texture = ExtResource("3_a3ya5")
 hframes = 4
 frame = 1
+
+[node name="Label2" type="Label" parent="." unique_id=567881106]
+layout_mode = 0
+offset_left = -31.0
+offset_top = 85.0
+offset_right = 14.0
+offset_bottom = 103.0
+text = "Status:"
+
+[node name="Label3" type="Label" parent="." unique_id=1682696744]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 89.0
+offset_right = 114.0
+offset_bottom = 107.0
+theme_override_font_sizes/font_size = 10
+text = "Missing Required Items"

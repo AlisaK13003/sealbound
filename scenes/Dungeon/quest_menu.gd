@@ -58,7 +58,7 @@ func _ready():
 		var new_description_instance = new_description.instantiate()
 		
 		completed_quest_description_container.add_child(new_description_instance)
-		new_description_instance._setup(GlobalCombatInformation.completed_quests[child].duplicate())
+		new_description_instance._setup(GlobalCombatInformation.completed_quests[child].duplicate(), true)
 
 	GlobalCombatInformation.check_quest_progress.connect(update_quests)
 	menu_tabs.selection_changed.connect(tab_changed)
@@ -127,7 +127,7 @@ func update_quests():
 		if child != 0:
 			new_description_instance.visible = false
 		completed_quest_description_container.add_child(new_description_instance)
-		new_description_instance._setup(GlobalCombatInformation.completed_quests[child])
+		new_description_instance._setup(GlobalCombatInformation.completed_quests[child], true)
 
 func _reset():
 	set_process_input(visible)

@@ -49,7 +49,7 @@ func _on_area_3d_body_entered(body):
 					
 					GlobalCombatInformation.add_item(what_quest_am_i.item_to_drop.get_path_custom())
 					StateManager.set_story_state(quest_.state_to_set_upon_completion, true)
-					GlobalCombatInformation.dungeon_over()
+					#GlobalCombatInformation.dungeon_over()
 					break
 		elif should_give_key:
 			if is_boss_key and not GlobalCombatInformation.holding_boss_key > 1:

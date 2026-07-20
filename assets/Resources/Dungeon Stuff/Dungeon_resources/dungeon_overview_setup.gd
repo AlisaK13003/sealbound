@@ -30,6 +30,8 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 	
 	if dungeon_type_.does_dungeon_have_boss:
 		seal_boss_label.text = "Seal Guardian: " + dungeon_type_.boss_encounter.encounterable_enemy.combatant_name
+	else:
+		seal_boss_label.queue_free()
 	
 	for enemy_slot: generic_combatants in unique_enemies:
 		var cont = Container.new()

@@ -491,7 +491,7 @@ func complete_quest(quest_path: String):
 	
 	var quest_index = active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == temp_copy.quest_name)
 	if quest_index != -1:
-		if temp_copy.does_player_have_special_item:
+		if temp_copy.item_to_drop != null:
 			remove_thing(temp_copy.item_to_drop, -1)
 		else:
 			for requirement in temp_copy.completion_requirements.keys():
