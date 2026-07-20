@@ -2,7 +2,7 @@ extends Node2D
 
 const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
 const OPENING_CUTSCENE_PATH = "res://assets/Resources/Cutscenes/opening_tutorial.json"
-const INFIRMARY_WAKEUP_CUTSCENE_PATH = "res://assets/Resources/Cutscenes/infirmary_wakeup.json"
+const INFIRMARY_WAKEUP_CUTSCENE_PATH = "res://assets/Resources/Cutscenes/infirmary_wakeup_rewrite.json"
 const INFIRMARY_FALLBACK_PLAYER_POSITION = Vector2(2302, -749)
 const SCENE1_MC_MARKER_NAMES = ["Scene1_MCSpawn", "Scene1_MC_Spawn"]
 const SCENE1_SERA_MARKER_NAMES = ["Scene1_SeraSpawn", "Scene1_Sera_Spawn"]

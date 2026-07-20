@@ -207,6 +207,8 @@ func add_quest(quest_path):
 
 func start_lyra_axe_quest() -> void:
 	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
+	set_party_member_unlock(party_member_unlock_lookup.LYRA_UNLOCKED)
+	GlobalCombatInformation.add_party_member_by_character_index(party_member_unlock_lookup.LYRA_UNLOCKED, true)
 
 	for existing_quest in GlobalCombatInformation.active_quests:
 		if existing_quest != null and existing_quest.resource_path == LYRA_AXE_QUEST_PATH:
