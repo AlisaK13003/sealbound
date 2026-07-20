@@ -12,13 +12,16 @@ var p_ref
 var can_be_selected
 var can_be_unselected = true
 
-func _setup(item_passed: Items, i_num, parent_ref):
+var disabled: bool = false
+
+func _setup(item_passed: Items, i_num, parent_ref, should_be_disabled: bool = false):
 	p_ref = parent_ref
 	item_name.text = item_passed.item_name
 	item_texture.texture = item_passed.item_sprite
 	index_number = i_num
 	held_item = item_passed
 	item_count = "x" + str(item_passed.stack)
+	disabled = should_be_disabled
 	
 func highlight(should_highlight):
 	if should_highlight:
@@ -59,12 +62,14 @@ func execute_selection():
 	p_ref.p_ref.gui.update_action_hints()
 
 func _on_gui_input(event):
+	if disabled: return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			selection_confirmed()
 			p_ref.p_ref.gui.update_action_hints()
 
 func _notification(what: int) -> void:
+	if disabled: return
 	match what:
 		NOTIFICATION_MOUSE_ENTER:
 			p_ref.unselect_all()

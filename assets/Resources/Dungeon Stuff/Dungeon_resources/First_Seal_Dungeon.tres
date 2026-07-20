@@ -9,8 +9,9 @@
 script = ExtResource("2_7yfg2")
 dungeon_name = "Seal Dungeon"
 dungeon_background = ExtResource("2_7iqy5")
-max_number_of_floors = 10
-minimum_number_of_floors = 10
+max_number_of_floors = 1
+minimum_number_of_floors = 1
+first_time_floor_count = 1
 type_of_dungeon = 1
 does_dungeon_have_boss = true
 boss_encounter = ExtResource("1_8chwe")

@@ -680,19 +680,34 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 		if returned_items != null:
 			stuff_gained.append(returned_items)
 		bond_gained += int(randi_range(enemy.bond_drop_range.x, enemy.bond_drop_range.y) * randf_range(0.5, 1.2))
-	
-	var exp_divisor = max(1, active_party_slots.size() - 1)
-	for player: generic_combatants in active_party_slots:
+		
+
+	var exp_divisor = max(1, all_party_slots.size())
+	var who_leveled_up = []
+	for player: generic_combatants in all_party_slots:
 		if not _ensure_combatant_stats_ready(player):
 			continue
-		player.add_experience(int(float(experience_gained) / exp_divisor))
+		var index = active_party_slots.find_custom(func(person: generic_combatants): return player.combatant_name == person.combatant_name)
+		var current_level = player.combatant_stats.level
+		if index == -1:
+			player.add_experience(int((float(experience_gained) / exp_divisor) / 2))
+			if current_level < player.combatant_stats.level:
+				who_leveled_up.append(true)
+			else:
+				who_leveled_up.append(false)
+		else:
+			active_party_slots[index].add_experience(int(float(experience_gained) / exp_divisor) * 2)
+			if current_level < active_party_slots[index].combatant_stats.level:
+				who_leveled_up.append(true)
+			else:
+				who_leveled_up.append(false)
 	
 	for player: generic_combatants in active_party_slots:
 		var index = all_party_slots.find_custom(func(person: generic_combatants): return player.combatant_name == person.combatant_name)
 		if index != -1:
 			all_party_slots[index] = player.custom_duplicate()
 			all_party_slots[index].gather_actual_stats()
-		
+	
 	currency_held += coins_gained
 	check_quest_progress.emit()
 
@@ -715,7 +730,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	var rewards_scene = temp_rewards.instantiate()
 	get_tree().root.add_child(rewards_scene)
 	get_tree().current_scene = rewards_scene
-	rewards_scene._setup(coins_gained, experience_gained, bond_gained, stuff_gained)
+	rewards_scene._setup(who_leveled_up, experience_gained, stuff_gained)
 	rewards_scene_ = rewards_scene
 	
 var rewards_scene_

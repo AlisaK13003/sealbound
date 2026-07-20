@@ -1,42 +1,21 @@
 [gd_resource type="Resource" script_class="generic_combatants" format=3 uid="uid://c510ukjf5hwyj"]
 
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_gly0j"]
+[ext_resource type="Resource" uid="uid://bxfbuhkvgd1bg" path="res://assets/Enemies/Tiny_Wolf.tres" id="2_6qo0b"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="2_53rjc"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_b2qww"]
 [ext_resource type="SpriteFrames" uid="uid://b0wou18gkoe7f" path="res://assets/Enemies/Tiny_Wolf_Sprite_Frames.tres" id="4_b2qww"]
 
-[sub_resource type="Resource" id="Resource_sxoqn"]
+[sub_resource type="Resource" id="Resource_7iqy5"]
 script = ExtResource("1_gly0j")
-move_name = "Big Bite"
-move_description = "Does a Giant Bite"
-attack_power = 2
-accuracy = 85
-guaranteed_hit_count = 1
-max_hit_count = 1
-status_type = null
-removes_status = null
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_bqewb"]
-script = ExtResource("1_gly0j")
-move_name = "Big Bark"
-move_description = "Walf"
-attack_power = 0
-does_summon = true
-status_type = null
-removes_status = null
-metadata/_custom_type_script = "uid://djfkp740jjn43"
-
-[sub_resource type="Resource" id="Resource_5574v"]
-script = ExtResource("1_gly0j")
-move_name = "Growl"
-move_description = "Lowers defense"
+move_name = "Summon Bark"
 attack_power = null
-is_magic_skill = true
-does_status = true
-status_type = 1536
+does_damage = false
+mana_cost = 3
+does_summon = true
+summons_who = ExtResource("2_6qo0b")
+status_type = null
 removes_status = null
-is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_b2qww"]
@@ -49,7 +28,7 @@ defense = 7
 magic = 2
 resistance = 4
 crit_chance = 8
-crit_damage = 50
+crit_damage = 50.0
 speed = 9
 luck = 8
 evasion = 10
@@ -76,9 +55,7 @@ should_flip_sprite = true
 coin_drop_range = Vector2i(0, 100)
 bond_drop_range = Vector2i(0, 50)
 combatant_skills_ = Dictionary[ExtResource("1_gly0j"), bool]({
-SubResource("Resource_sxoqn"): true,
-SubResource("Resource_bqewb"): true,
-SubResource("Resource_5574v"): true
+SubResource("Resource_7iqy5"): true
 })
 sprite_frames = ExtResource("4_b2qww")
 idle_speed = 1.0

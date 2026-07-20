@@ -1,26 +1,10 @@
 [gd_scene format=3 uid="uid://6plw41byd7nl"]
 
 [ext_resource type="Script" uid="uid://u0e7w8u6gr74" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/dungeon_reward_screen.gd" id="1_wwo72"]
-[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="2_rcxy4"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="2_sg15t"]
-[ext_resource type="PackedScene" uid="uid://c84uqx1xugq71" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Reward_Screen_Portrait.tscn" id="3_rcxy4"]
-[ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="5_plwbi"]
-[ext_resource type="LabelSettings" uid="uid://ba8gew3w266te" path="res://scenes/Dungeon/Item_Drops.tres" id="6_plwbi"]
-
-[sub_resource type="Gradient" id="Gradient_m12gh"]
-offsets = PackedFloat32Array(0, 0.8240741)
-colors = PackedColorArray(0.580078, 0.11793586, 0.05633107, 1, 0.32551172, 0.18616444, 0.3497354, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswx1"]
-gradient = SubResource("Gradient_m12gh")
-width = 16
-height = 16
-fill_to = Vector2(0.77991456, 0.77991456)
-repeat = 2
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rcxy4"]
-texture = SubResource("GradientTexture2D_bswx1")
-region_rect = Rect2(4.42362, 3.8664951, 6.8580227, 7.7961483)
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="3_wwo72"]
+[ext_resource type="Texture2D" uid="uid://dt01gbmixe5kl" path="res://npc/sprites/portraits/Temp_portrait.tres" id="4_wwo72"]
+[ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="5_rcxy4"]
 
 [sub_resource type="Gradient" id="Gradient_rcxy4"]
 offsets = PackedFloat32Array(0.6651652, 0.9654655)
@@ -43,32 +27,6 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_wwo72")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1348787126]
-visible = false
-z_index = 17
-clip_contents = true
-layout_mode = 0
-offset_left = 56.0
-offset_top = 42.0
-offset_right = 548.0
-offset_bottom = 257.0
-texture = ExtResource("2_rcxy4")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="Panel" type="Panel" parent="NinePatchRect" unique_id=353016365]
-z_index = -1
-layout_mode = 0
-offset_left = 6.5
-offset_top = 6.5
-offset_right = 746.5
-offset_bottom = 332.5
-theme_override_styles/panel = SubResource("StyleBoxTexture_rcxy4")
-
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1485425319]
 layout_mode = 0
 offset_left = -216.0
@@ -79,108 +37,15 @@ rotation = -0.94596845
 pivot_offset = Vector2(522.175, 395.66)
 texture = SubResource("GradientTexture2D_plwbi")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=124854014]
-
-[node name="Next_Button" parent="CanvasLayer" unique_id=1034936178 instance=ExtResource("2_sg15t")]
-offset_left = 534.0
-offset_top = 288.0
-offset_right = 599.16003
-offset_bottom = 306.32
-scale = Vector2(1, 1)
-button_name = "Next"
-
-[node name="Return_Button" parent="CanvasLayer" unique_id=1394715110 instance=ExtResource("2_sg15t")]
-visible = false
-offset_left = 533.0
-offset_top = 288.0
-offset_right = 598.16003
-offset_bottom = 306.32
+[node name="Return_Button" parent="." unique_id=1394715110 instance=ExtResource("2_sg15t")]
+z_index = 1
+layout_mode = 0
+offset_left = 531.0
+offset_top = 321.0
+offset_right = 596.16003
+offset_bottom = 339.32
 scale = Vector2(1, 1)
 button_name = "Return"
-
-[node name="Container" type="Container" parent="CanvasLayer" unique_id=1649165335]
-visible = false
-offset_left = 60.0
-offset_top = 44.000004
-offset_right = 99.99997
-offset_bottom = 84.0
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container" unique_id=1122474104]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 14
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Container/MarginContainer" unique_id=999124185]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 41
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=2068695919]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 134
-
-[node name="coins_gained" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1365453962]
-custom_minimum_size = Vector2(129.985, 0)
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_fonts/font = ExtResource("5_plwbi")
-theme_override_font_sizes/font_size = 16
-text = "Gained Coins: 12321"
-
-[node name="total_gold" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1637641435]
-custom_minimum_size = Vector2(77.47, 0)
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_fonts/font = ExtResource("5_plwbi")
-theme_override_font_sizes/font_size = 16
-text = "Gold: 1q231"
-
-[node name="Label" type="Label" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=514353867]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_fonts/font = ExtResource("5_plwbi")
-theme_override_font_sizes/font_size = 16
-text = "Items Gained:"
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer" unique_id=693029812]
-layout_mode = 2
-theme_override_constants/margin_left = 23
-theme_override_constants/margin_top = -30
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Container/MarginContainer/VBoxContainer/MarginContainer" unique_id=1081285176]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/v_separation = 2
-columns = 2
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=1141436618]
-z_index = 1
-clip_contents = true
-offset_left = 88.0
-offset_top = 19.0
-offset_right = 498.489
-offset_bottom = 683.0
-pivot_offset = Vector2(0, 13.79)
-mouse_filter = 2
-theme_override_constants/separation = 400
-
-[node name="RewardScreenPortrait" parent="CanvasLayer/VBoxContainer2" unique_id=333886721 instance=ExtResource("3_rcxy4")]
-layout_mode = 2
-
-[node name="RewardScreenPortrait2" parent="CanvasLayer/VBoxContainer2" unique_id=587151694 instance=ExtResource("3_rcxy4")]
-layout_mode = 2
-
-[node name="RewardScreenPortrait3" parent="CanvasLayer/VBoxContainer2" unique_id=1276219366 instance=ExtResource("3_rcxy4")]
-layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2098184916]
 z_index = -2
@@ -191,19 +56,160 @@ offset_right = 754.13727
 offset_bottom = 399.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="." unique_id=577542636]
-visible = false
-z_index = 14
+[node name="Control" type="Control" parent="." unique_id=481392096]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=381750756]
 layout_mode = 0
-offset_left = -224.0
-offset_top = -38.0
-offset_right = -184.0
-offset_bottom = -20.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.18431373)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 2
-theme_override_constants/shadow_outline_size = 1
-theme_override_fonts/font = ExtResource("5_plwbi")
-text = "hiii"
-label_settings = ExtResource("6_plwbi")
+offset_top = 26.0
+offset_right = 639.0
+offset_bottom = 314.0
+texture = ExtResource("3_wwo72")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Contents" type="Control" parent="Control" unique_id=1523237119]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Contents" unique_id=186272983]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 33.0
+offset_right = 195.0
+offset_bottom = 98.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 57
+text = "Results:"
+
+[node name="GridContainer" type="GridContainer" parent="Control/Contents" unique_id=485513407]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 253.0
+offset_right = 106.0
+offset_bottom = 293.0
+
+[node name="Label3" type="Label" parent="Control/Contents" unique_id=1748063056]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 223.0
+offset_right = 210.0
+offset_bottom = 288.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Items:"
+
+[node name="Label4" type="Label" parent="Control/Contents" unique_id=42009465]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 82.0
+offset_right = 337.0
+offset_bottom = 147.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "EXP Gained: 54654"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Contents" unique_id=527430323]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 168.0
+offset_right = 612.0
+offset_bottom = 208.0
+theme_override_constants/separation = 74
+
+[node name="Container" type="Container" parent="Control/Contents/HBoxContainer" unique_id=369467845]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Contents/HBoxContainer/Container" unique_id=1192831224]
+texture = ExtResource("4_wwo72")
+
+[node name="Label" type="Label" parent="Control/Contents/HBoxContainer/Container" unique_id=1949957815]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-28.38, 33.675)
+text = "Lv: "
+
+[node name="Container2" type="Container" parent="Control/Contents/HBoxContainer" unique_id=763556975]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Contents/HBoxContainer/Container2" unique_id=1912370483]
+texture = ExtResource("4_wwo72")
+
+[node name="Label" type="Label" parent="Control/Contents/HBoxContainer/Container2" unique_id=1805033159]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-28.38, 33.675)
+text = "Lv: "
+
+[node name="Container3" type="Container" parent="Control/Contents/HBoxContainer" unique_id=500081998]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Contents/HBoxContainer/Container3" unique_id=419667460]
+texture = ExtResource("4_wwo72")
+
+[node name="Label" type="Label" parent="Control/Contents/HBoxContainer/Container3" unique_id=549351756]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-28.38, 33.675)
+text = "Lv: "
+
+[node name="Container4" type="Container" parent="Control/Contents/HBoxContainer" unique_id=865322075]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Contents/HBoxContainer/Container4" unique_id=608249018]
+texture = ExtResource("4_wwo72")
+
+[node name="Label" type="Label" parent="Control/Contents/HBoxContainer/Container4" unique_id=845610513]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-28.38, 33.675)
+text = "Lv: "
+
+[node name="Container5" type="Container" parent="Control/Contents/HBoxContainer" unique_id=536137690]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Contents/HBoxContainer/Container5" unique_id=1400700672]
+texture = ExtResource("4_wwo72")
+
+[node name="Label" type="Label" parent="Control/Contents/HBoxContainer/Container5" unique_id=1103280511]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-28.38, 33.675)
+text = "Lv: "
+
+[node name="Container6" type="Container" parent="Control/Contents/HBoxContainer" unique_id=1583527319]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Contents/HBoxContainer/Container6" unique_id=302130423]
+texture = ExtResource("4_wwo72")
+
+[node name="Label" type="Label" parent="Control/Contents/HBoxContainer/Container6" unique_id=46429944]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-28.38, 33.675)
+text = "Lv: "
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2028014784]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 126.0
+offset_right = 631.0
+offset_bottom = 231.0
+texture = ExtResource("5_rcxy4")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15

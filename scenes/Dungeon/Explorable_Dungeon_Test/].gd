@@ -19,7 +19,7 @@ func update_floor_label(new_floor: int, floor_count: int):
 func update_key_values():
 	if GlobalCombatInformation.holding_boss_key > 0:
 		$HBoxContainer3/HBoxContainer.visible = true
-		$HBoxContainer3/HBoxContainer/Label.text = "x" + str(GlobalCombatInformation.holding_boss_key_key)
+		$HBoxContainer3/HBoxContainer/Label.text = "x" + str(GlobalCombatInformation.holding_boss_key)
 	else:
 		$HBoxContainer3/HBoxContainer.visible = false
 		
