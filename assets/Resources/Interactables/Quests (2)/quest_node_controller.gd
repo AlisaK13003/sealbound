@@ -41,7 +41,7 @@ func check_quest_progress():
 			new_label.text = goal.quest_item_drop.item_name + ": "
 			new_label_2.text = str(item_in_inventory if item_in_inventory != null else "0") + " / " + str(what_quest_am_i.completion_requirements[goal])
 
-			if item_in_inventory == null or item_in_inventory < what_quest_am_i.completion_requirements[goal]:
+			if item_in_inventory == null or item_in_inventory.stack < what_quest_am_i.completion_requirements[goal]:
 				can_turn_in_quest = false
 
 			completion_requirements.add_child(new_box)
@@ -103,6 +103,7 @@ func setup_(quest_: quest, i):
 
 func _on_button_pressed():
 	print("ACCEPTED QUEST")
+	StateManager.set_quest_take(what_quest_am_i.tavern_state_to_set)
 	GlobalCombatInformation.add_quest(what_quest_am_i.get_path_custom())
 	on_click.emit()
 	self.queue_free()

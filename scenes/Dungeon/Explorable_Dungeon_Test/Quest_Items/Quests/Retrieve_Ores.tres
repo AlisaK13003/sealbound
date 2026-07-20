@@ -14,6 +14,7 @@ quest_giver = "Blacksmith"
 quest_description = "I neeeeeeeed ores"
 difficult_level = 1
 state_to_set_upon_completion = 14
+tavern_state_to_set = 5
 should_spawn_dungeon_room = true
 required_spawn = true
 special_dungeon = ExtResource("6_d5khg")

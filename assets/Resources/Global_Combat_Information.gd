@@ -437,10 +437,9 @@ func search_for_index_of_thing(desired_thing):
 		if found_index != -1:
 			return found_index
 	elif desired_thing is Items:
-		if all_held_items.find(desired_thing) != -1:
-			var found_index = all_held_items.find_custom(func(item: Items) -> bool: return item.item_name == desired_thing.item_name)
-			if found_index != -1:
-				return found_index
+		var found_index = all_held_items.find_custom(func(item: Items) -> bool: return item.item_name == desired_thing.item_name)
+		if found_index != -1:
+			return found_index
 
 		return -1
 	return -1
@@ -456,6 +455,7 @@ func add_quest(quest_: String, has_special_item: bool = false):
 	check_quest_progress.emit()
 
 func turn_in_all_possible_quests():
+	var turned_in_quest_count: int = 0
 	for active_quest: quest in active_quests:
 		if active_quest.can_be_turned_in_at_tavern_box:
 			if active_quest.special_dungeon != null and active_quest.should_spawn_dungeon_room:
@@ -464,22 +464,44 @@ func turn_in_all_possible_quests():
 			else:
 				var can_complete_quest: bool = true
 				for requirement in active_quest.completion_requirements.keys():
-					var quest_item_: generic_combatants = requirement
-					var item_requirement = active_quest.completion_requirements[requirement]
-					var count_of_item = search_for_item_count(quest_item_.quest_item_drop.item_name)
-					if count_of_item != item_requirement:
+					var quest_item_
+					var item_requirement
+					var count_of_item
+					if requirement is Items:
+						quest_item_ = requirement
+						item_requirement = active_quest.completion_requirements[requirement]
+						count_of_item = search_for_item_count(quest_item_)
+					elif requirement is generic_combatants:
+						quest_item_ = requirement
+						item_requirement = active_quest.completion_requirements[requirement]
+						count_of_item = search_for_item_count(quest_item_.quest_item_drop.item_name)
+					
+					if count_of_item < item_requirement:
 						can_complete_quest = false
 				if can_complete_quest:
 					complete_quest(active_quest.get_path_custom())
-						
+					turned_in_quest_count += 1
+	return turned_in_quest_count
+	
 func complete_quest(quest_path: String):
 	var new_quest = load(quest_path)
-	var temp_copy: quest = new_quest.duplicate()
+	var temp_copy: quest = new_quest.duplicate(true)
 	
 	temp_copy.set_meta("original_path", new_quest.resource_path)
 	
 	var quest_index = active_quests.find_custom(func(stored_quest: quest): return stored_quest.quest_name == temp_copy.quest_name)
 	if quest_index != -1:
+		if temp_copy.does_player_have_special_item:
+			remove_thing(temp_copy.item_to_drop, -1)
+		else:
+			for requirement in temp_copy.completion_requirements.keys():
+				var item_requirement
+				if requirement is Items:
+					item_requirement = temp_copy.completion_requirements[requirement]
+					remove_thing(requirement, item_requirement)
+				elif requirement is generic_combatants:
+					item_requirement = temp_copy.completion_requirements[requirement]
+					remove_thing(requirement.quest_item_drop, item_requirement)
 		completed_quests.append(temp_copy)
 		active_quests.remove_at(quest_index)
 

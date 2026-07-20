@@ -4,6 +4,7 @@ var dungeon_states: Dictionary[int, bool] = {}
 var story_states: Dictionary[int, bool] = {}
 var seal_completion_states: Dictionary[int, bool] = {}
 var party_member_unlocked: Dictionary[int, bool] = {}
+var tavern_quests_taken: Dictionary[int, bool] = {}
 var pseduo_story_time: int = 0
 
 const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
@@ -119,12 +120,22 @@ enum party_member_unlock_lookup {
 	MMC_UNLOCKED = 7
 }
 
+enum tavern_quest_lookup {
+	KILL_EYEBALLS,
+	KILL_SLIMES, 
+	KILL_WOLVES, 
+	KILL_RED_SLIMES,
+	KILL_BLUE_SLIMES,
+	RETRIEVE_ORES,
+}
+
 func export_to_json() -> Dictionary:
 	return {
 		"dungeon_states": dungeon_states,
 		"story_states": story_states,
 		"seal_completion_states": seal_completion_states,
 		"party_member_unlocked": party_member_unlocked,
+		"tavern_quests": tavern_quests_taken,
 		"story_time": str(pseduo_story_time)
 	}
 
@@ -133,6 +144,7 @@ func load_story_states(states: Dictionary) -> void:
 	story_states = _convert_keys_to_int(states.get("story_states", {}))
 	seal_completion_states = _convert_keys_to_int(states.get("seal_completion_states", {}))
 	party_member_unlocked = _convert_keys_to_int(states.get("party_member_unlocked", {}))
+	tavern_quests_taken = _convert_keys_to_int(states.get("tavern_quests", {}))
 	pseduo_story_time = int(states.get("story_time", 0))
 
 func _convert_keys_to_int(raw_dict: Dictionary) -> Dictionary[int, bool]:
@@ -176,6 +188,12 @@ func set_story_state(key: int, value: bool = true) -> void:
 func has_story_state(key: int) -> bool:
 	return story_states.get(key, false)
 
+func set_quest_take(key: int, value: bool = true):
+	tavern_quests_taken[key] = value
+
+func has_quest_been_take(key: int) -> bool:
+	return tavern_quests_taken.get(key, false)
+
 func start_story_beat(beat: int) -> void:
 	set_story_state(beat, true)
 	print("[Story] Beat reached: ", beat)
@@ -183,12 +201,13 @@ func start_story_beat(beat: int) -> void:
 var currently_available_quests = []
 signal new_state
 func add_quests_to_board():
+	currently_available_quests.clear()
 	var quests_to_add = []
-	if check_completion(story_beats_lookup.QUEST_BOARD_UNLOCK, completion_checks.STORY_CHECKS):
+	if check_completion(story_beats_lookup.QUEST_BOARD_UNLOCK, completion_checks.STORY_CHECKS) and not has_quest_been_take(tavern_quest_lookup.RETRIEVE_ORES):
 		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres"))
-	if check_completion(story_beats_lookup.STARTER_FOREST_DUNGEON_UNLOCKED, completion_checks.STORY_CHECKS):
+	if check_completion(story_beats_lookup.STARTER_FOREST_DUNGEON_UNLOCKED, completion_checks.STORY_CHECKS) and not has_quest_been_take(tavern_quest_lookup.KILL_SLIMES):
 		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
-	if check_completion(story_beats_lookup.BLACKSMITH_QUEST_FINISHED, completion_checks.STORY_CHECKS):
+	if check_completion(story_beats_lookup.BLACKSMITH_QUEST_FINISHED, completion_checks.STORY_CHECKS) and not has_quest_been_take(tavern_quest_lookup.KILL_EYEBALLS):
 		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
 
 	for quest_: quest in quests_to_add:
@@ -202,8 +221,6 @@ func add_quest(quest_path):
 	
 	temp_copy.set_meta("original_path", mew_item.resource_path)
 	return temp_copy
-
-	
 
 func start_lyra_axe_quest() -> void:
 	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)

@@ -11,8 +11,8 @@ script = ExtResource("5_ricml")
 quest_name = "Gather Slime"
 quest_giver = "Someone"
 quest_description = "Kill Slimes"
+tavern_state_to_set = 1
 completion_requirements = {
 ExtResource("1_a06yf"): 10
 }
-reward_money = Vector2i(0, 50)
 metadata/_custom_type_script = "uid://npoqdralsply"

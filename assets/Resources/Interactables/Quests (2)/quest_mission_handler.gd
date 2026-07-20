@@ -35,6 +35,5 @@ func _setup():
 	$Panel.current_item = 0
 	$Panel.update_selected_item()
 	
-
 func quest_clicked():
 	_setup()

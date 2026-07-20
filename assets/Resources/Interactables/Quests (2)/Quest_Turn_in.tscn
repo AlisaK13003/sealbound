@@ -14,10 +14,14 @@ size = Vector2(30, 18)
 script = ExtResource("1_e0sfv")
 
 [node name="GenericButton" parent="." unique_id=1034936178 instance=ExtResource("2_mft7d")]
-offset_left = -21.0
-offset_top = -58.0
-offset_right = 44.160004
-offset_bottom = -28.0
+visible = false
+offset_left = -84.0
+offset_top = -48.0
+offset_right = -18.839996
+offset_bottom = -18.0
+button_name = "Turn in all completable quests"
+button_to_active = 4
+text_on_left_of_button = false
 
 [node name="Area2D" type="Area2D" parent="." unique_id=865761355]
 
@@ -33,6 +37,12 @@ texture = ExtResource("3_64q5a")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=764296575]
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_cwxgy")
+
+[node name="Label" type="Label" parent="." unique_id=1594993756]
+offset_left = -52.0
+offset_top = -62.0
+offset_right = 77.0
+offset_bottom = -44.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

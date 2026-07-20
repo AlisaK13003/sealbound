@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://bmyel7npdb8dh"]
 
 [ext_resource type="Script" uid="uid://b8nt2jtdphg81" path="res://assets/Resources/Interactables/Quests (2)/quest_board_controller.gd" id="1_xib73"]
+[ext_resource type="Texture2D" uid="uid://tmud3d4ju4sk" path="res://assets/tile sheets/Mission_Board.png" id="3_k3v2q"]
 [ext_resource type="PackedScene" uid="uid://cumvpqxhdbqn8" path="res://assets/Resources/Interactables/Quests (2)/Quest_UI.tscn" id="4_tm2sl"]
-[ext_resource type="Texture2D" uid="uid://bfmfqtbi4afjp" path="res://assets/Resources/Interactables/Quests (2)/MissionBoard.tres" id="5_h1qg2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ulf6e"]
-size = Vector2(67, 38)
+size = Vector2(76, 42)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t8y7u"]
 radius = 57.004234
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
-size = Vector2(75, 41)
+size = Vector2(75, 32)
 
 [node name="QuestBoard" type="Node2D" unique_id=1065708173]
 z_index = 1
@@ -21,7 +21,7 @@ script = ExtResource("1_xib73")
 [node name="Area2D" type="Area2D" parent="." unique_id=1202505987]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1337692366]
-position = Vector2(1.5, -8)
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_ulf6e")
 
 [node name="Area2D2" type="Area2D" parent="." unique_id=781367688]
@@ -41,15 +41,13 @@ parent = NodePath("../..")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1915404993]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(0, 26.935)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_h1qg2")
-offset = Vector2(0, -79.35)
+texture = ExtResource("3_k3v2q")
+offset = Vector2(0, 3.38)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2038073405]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=232191028]
-position = Vector2(0.5, 19.5)
+position = Vector2(0.5, 24)
 shape = SubResource("RectangleShape2D_7tpxp")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -12,6 +12,7 @@ class_name quest
 
 @export var can_be_turned_in_at_tavern_box: bool = false
 @export var state_to_set_upon_completion: StateManager.story_beats_lookup
+@export var tavern_state_to_set: StateManager.tavern_quest_lookup
 
 @export_category("Spot")
 # If put in enemy and int it will require that enemies quest item to that quantity

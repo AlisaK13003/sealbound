@@ -99,10 +99,12 @@ func hide_gui(show_back_button):
 	selection_area.visible = false
 	base_menu.visible = false
 	$Action_Hint.visible = false
+	bond_attack_button.visible = false
 
 func show_base_gui():
 	base_menu.visible = true
 	selection_area.visible = true
+	bond_attack_button.visible = true
 	update_action_hints()
 
 func new_player_turn():

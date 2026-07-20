@@ -12,6 +12,7 @@ quest_name = "Kill Eyes"
 quest_giver = "Myself"
 quest_description = "Please kill all those creepy eyeballs"
 difficult_level = 1
+can_be_turned_in_at_tavern_box = true
 completion_requirements = {
 ExtResource("1_lsfq2"): 30
 }
