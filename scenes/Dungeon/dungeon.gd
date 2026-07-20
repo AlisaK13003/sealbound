@@ -154,6 +154,10 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 	temp_item_list = GlobalCombatInformation.all_held_items
 	current_bond_points = GlobalCombatInformation.current_BP
 	max_bond_points_ = GlobalCombatInformation.max_BP
+	if GlobalCombatInformation.DEBUG_FILL_BOND_ATTACK_ON_COMBAT_START:
+		current_bond_points = max_bond_points_
+		GlobalCombatInformation.current_BP = current_bond_points
+		GlobalCombatInformation.cur_bond_attack_val = GlobalCombatInformation.max_BP * 2
 
 	for child in floor_tiles.get_children():
 		if child.get_index() == current_dungeon_type.type_of_dungeon:

@@ -85,8 +85,8 @@ func _setup(parent_reference):
 	await tween.finished
 	black_box.visible = false
 
-	bond_bar.value = GlobalCombatInformation.cur_bond_attack_val
 	bond_bar.max_value = GlobalCombatInformation.max_BP * 2
+	set_bond_attack(GlobalCombatInformation.cur_bond_attack_val)
 	has_been_setup = true
 
 func run_button_pressed():
@@ -367,6 +367,7 @@ func update_mana_display(mana_used_or_gained, setup):
 
 func set_bond_attack(value):
 	bond_bar.value = clamp(abs(value), 0, bond_bar.max_value)
+	_on_bond_attack_value_changed(bond_bar.value)
 
 func update_bond_attack(update_value):
 	bond_bar.value += clamp(abs(update_value), 0, bond_bar.max_value)

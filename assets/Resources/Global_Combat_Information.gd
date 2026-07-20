@@ -24,6 +24,9 @@ var max_BP: int = 0
 var bond_attack_fill 
 var cur_bond_attack_val = 0
 
+# Debug helper for testing the party attack cutscene immediately on battle start.
+const DEBUG_FILL_BOND_ATTACK_ON_COMBAT_START: bool = true
+
 enum bonds {STRANGER, ACQAINTED, WARMED, KINDRED, BOUND, TRUEBOND}
 enum dungeon_types_names {CREEPY, FOREST}
 enum difficulty_multiplier {EASY, MEDIUM, DIFFICULT, REALLYHARD}
@@ -89,6 +92,27 @@ func add_active_member(combatant: generic_combatants):
 		if active_party_slots.size() > MAX_PARTY_SIZE:
 			Global.cant_leave_menu = true
 	calculate_BP()
+
+func add_party_member_by_character_index(character_index: int, make_active: bool = false) -> void:
+	if character_index < 0 or character_index >= all_character_information.size():
+		push_warning("GlobalCombatInformation: Invalid party member index %d." % character_index)
+		return
+
+	var combatant_path: String = str(all_character_information[character_index])
+	if not ResourceLoader.exists(combatant_path, ""):
+		push_warning("GlobalCombatInformation: Could not find party member resource: %s" % combatant_path)
+		return
+
+	var loaded_resource: Resource = load(combatant_path)
+	if not loaded_resource is generic_combatants:
+		push_warning("GlobalCombatInformation: Resource is not a combatant: %s" % combatant_path)
+		return
+
+	var combatant: generic_combatants = loaded_resource as generic_combatants
+	add_new_member(combatant)
+	if make_active:
+		add_active_member(combatant)
+	member_added.emit()
 
 signal update_resonance
 func resonate_with_a_member(which_member: generic_combatants, activated):
@@ -641,6 +665,8 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 		
 	if returned_party_slots.size() > 3:
 		current_BP = returned_party_slots[3]
+	if returned_party_slots.size() > 4:
+		cur_bond_attack_val = returned_party_slots[4]
 
 	if did_players_win:
 		should_remove_enemy = true
