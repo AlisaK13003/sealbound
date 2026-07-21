@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_ylh7k"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_b5t36"]
 [ext_resource type="Resource" uid="uid://c2jaij1f2xa7p" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Nomad's Skull.tres" id="3_pstlc"]
-[ext_resource type="Resource" uid="uid://bb57x0jdso0sf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Slime Ball.tres" id="4_kpvl7"]
+[ext_resource type="Resource" uid="uid://byl5nqaf2jfws" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Red Slime Ball.tres" id="4_ylh7k"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="5_ssyx5"]
 [ext_resource type="SpriteFrames" uid="uid://7mqdm7pkasnd" path="res://assets/Enemies/Red_Slime_Framges.tres" id="6_ylh7k"]
 
@@ -55,7 +55,7 @@ should_flip_sprite = true
 drop_table = Dictionary[Resource, float]({
 ExtResource("3_pstlc"): 0.05
 })
-quest_item_drop = ExtResource("4_kpvl7")
+quest_item_drop = ExtResource("4_ylh7k")
 coin_drop_range = Vector2i(1, 15)
 bond_drop_range = Vector2i(0, 5)
 combatant_skills_ = Dictionary[ExtResource("1_ylh7k"), bool]({

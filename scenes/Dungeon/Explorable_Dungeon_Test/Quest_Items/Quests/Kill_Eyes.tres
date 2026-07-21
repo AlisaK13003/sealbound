@@ -18,4 +18,5 @@ can_be_turned_in_at_tavern_box = true
 completion_requirements = {
 ExtResource("1_lsfq2"): 30
 }
+reward_money = 100
 metadata/_custom_type_script = "uid://npoqdralsply"

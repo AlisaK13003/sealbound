@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://byl5nqaf2jfws"]
+
+[ext_resource type="Texture2D" uid="uid://lnu7kt12prwo" path="res://assets/tile sheets/Red_Slime_Ball.png" id="1_7d6y5"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_sfe88"]
+
+[resource]
+script = ExtResource("2_sfe88")
+item_name = "Red Slime Ball"
+item_description = "Icky, someone might want this"
+item_sprite = ExtResource("1_7d6y5")
+what_is_it = 4
+targets_players = false
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

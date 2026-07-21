@@ -129,6 +129,7 @@ enum tavern_quest_lookup {
 	KILL_RED_SLIMES,
 	KILL_BLUE_SLIMES,
 	RETRIEVE_ORES,
+	KILL_MORE_SLIMES,
 }
 
 func export_to_json() -> Dictionary:
@@ -211,6 +212,8 @@ func add_quests_to_board():
 		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Gather Slime.tres"))
 	if check_completion(story_beats_lookup.BLACKSMITH_QUEST_FINISHED, completion_checks.STORY_CHECKS) and not has_quest_been_take(tavern_quest_lookup.KILL_EYEBALLS):
 		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_Eyes.tres"))
+	if check_completion(story_beats_lookup.BLACKSMITH_QUEST_FINISHED, completion_checks.STORY_CHECKS) and not has_quest_been_take(tavern_quest_lookup.KILL_MORE_SLIMES):
+		quests_to_add.append(add_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Kill_More_Slimes.tres"))
 
 	for quest_: quest in quests_to_add:
 		var index = currently_available_quests.find_custom(func(available_quests: quest): return quest_.quest_name == available_quests.quest_name)

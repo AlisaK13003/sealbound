@@ -27,44 +27,11 @@ func check_quest_progress():
 		
 	var can_turn_in_quest: bool = true
 	for goal in what_quest_am_i.completion_requirements.keys():
-		if goal is generic_combatants:
-			var item_in_inventory = GlobalCombatInformation.search_for_item(goal.quest_item_drop)
-			
-			var new_label = Label.new()
-			var new_label_2 = Label.new()
-			var new_box = HBoxContainer.new()
-			new_label.custom_minimum_size = Vector2(100.0, 0.0)
-			new_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			new_box.add_child(new_label)
-			new_box.add_child(new_label_2)
+		var new_node = load("res://assets/Resources/Pause Menu/Quest Menu/Completion_Node.tscn")
+		var new_instance = new_node.instantiate()
+		new_instance._setup(goal, what_quest_am_i.completion_requirements)
+		completion_requirements.add_child(new_instance)
 
-			new_label.text = goal.quest_item_drop.item_name + ": "
-			new_label_2.text = str(item_in_inventory if item_in_inventory != null else "0") + " / " + str(what_quest_am_i.completion_requirements[goal])
-
-			if item_in_inventory == null or item_in_inventory.stack < what_quest_am_i.completion_requirements[goal]:
-				can_turn_in_quest = false
-
-			completion_requirements.add_child(new_box)
-
-		elif goal is Items:
-			var item_in_inventory = GlobalCombatInformation.search_for_item(goal.quest_item_drop)
-			
-			var new_label = Label.new()
-			var new_label_2 = Label.new()
-			var new_box = HBoxContainer.new()
-			new_label.custom_minimum_size = Vector2(100.0, 0.0)
-			new_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			new_box.add_child(new_label)
-			new_box.add_child(new_label_2)
-			
-			new_label.text = what_quest_am_i.completion_requirements.find_key(goal).quest_item_drop.item_name + ": "
-			new_label_2.text = str(item_in_inventory if item_in_inventory != null else "0" ) + " / " + str(what_quest_am_i.completion_requirements[goal])
-			
-			if item_in_inventory == null or item_in_inventory < what_quest_am_i.completion_requirements[goal]:
-				can_turn_in_quest = false
-
-			
-			completion_requirements.add_child(new_box)
 	if what_quest_am_i.should_spawn_dungeon_room and not what_quest_am_i.does_player_have_special_item:
 		can_turn_in_quest = false
 	

@@ -15,4 +15,5 @@ tavern_state_to_set = 1
 completion_requirements = {
 ExtResource("1_a06yf"): 10
 }
+reward_money = 100
 metadata/_custom_type_script = "uid://npoqdralsply"

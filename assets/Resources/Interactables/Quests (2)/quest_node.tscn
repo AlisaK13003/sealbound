@@ -176,10 +176,11 @@ expand_mode = 1
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=2044507280]
 layout_mode = 0
-offset_left = 288.0
-offset_top = 26.875
-offset_right = 328.0
-offset_bottom = 66.87503
+offset_left = 311.0
+offset_top = 18.0
+offset_right = 351.0
+offset_bottom = 58.00003
+theme_override_constants/v_separation = 14
 
 [node name="Button" type="Button" parent="." unique_id=638823841]
 layout_mode = 0

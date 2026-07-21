@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://chcdrjoon4nit"]
+
+[ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="1_38bc3"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_dbwmv"]
+[ext_resource type="Resource" uid="uid://c53bl6mg31nk4" path="res://assets/Enemies/Red_Slime_Creature.tres" id="2_ettrt"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_hnki3"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_3hy2d"]
+[ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://assets/characters/lyra/Lyra_portraits.png" id="3_4n2ro"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_38bc3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfe88"]
+atlas = ExtResource("3_4n2ro")
+region = Rect2(53, 5, 38, 64)
+
+[resource]
+script = ExtResource("4_38bc3")
+quest_name = "Rare Slimes"
+quest_giver = "Lyra"
+quest_giver_sprite = SubResource("AtlasTexture_sfe88")
+quest_description = "Some interesting slimes showed up in the caves near here. I wonder if their slime balls would do anything interesting."
+can_be_turned_in_at_tavern_box = true
+tavern_state_to_set = 6
+ready_to_turn_in_string = "Turn in contents at the box"
+completion_requirements = {
+ExtResource("1_38bc3"): 15,
+ExtResource("2_ettrt"): 15
+}
+item_sprite_pixel_size = 0.0
+reward_money = 100
+metadata/_custom_type_script = "uid://npoqdralsply"

@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://djfkp740jjn43" path="res://assets/Scripts/Resource Scripts/moves.gd" id="1_ux2nj"]
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_grrpo"]
 [ext_resource type="Resource" uid="uid://cs7e37xcnkdur" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Chunk of Gold.tres" id="3_31pkb"]
-[ext_resource type="Resource" uid="uid://bb57x0jdso0sf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Slime Ball.tres" id="4_58tp1"]
 [ext_resource type="Resource" uid="uid://q4akbkqas0vf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Common Mineral.tres" id="4_jvfb4"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="5_jvfb4"]
 [ext_resource type="Resource" uid="uid://cafkoy5lw7ura" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Magical Gem.tres" id="5_sgfvl"]
+[ext_resource type="Resource" uid="uid://cst812n62ma4k" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Blue Slime Ball.tres" id="6_31pkb"]
 [ext_resource type="SpriteFrames" uid="uid://bveqhui5i3ibk" path="res://assets/Enemies/Blue_Slime_Frames.tres" id="6_ux2nj"]
 
 [sub_resource type="Resource" id="Resource_bvd8k"]
@@ -59,7 +59,7 @@ ExtResource("3_31pkb"): 0.02,
 ExtResource("4_jvfb4"): 0.05,
 ExtResource("5_sgfvl"): 0.01
 })
-quest_item_drop = ExtResource("4_58tp1")
+quest_item_drop = ExtResource("6_31pkb")
 coin_drop_range = Vector2i(1, 15)
 bond_drop_range = Vector2i(0, 5)
 combatant_skills_ = Dictionary[ExtResource("1_ux2nj"), bool]({

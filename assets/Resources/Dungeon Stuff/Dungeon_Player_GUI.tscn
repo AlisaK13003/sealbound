@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="11_irdl1"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="12_0ob4l"]
 [ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
-[ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="13_hpcpt"]
+[ext_resource type="Texture2D" uid="uid://hqfkhfu42aif" path="res://assets/tile sheets/Mana Orb.png" id="13_wbipj"]
 [ext_resource type="PackedScene" uid="uid://5hv36dmlb7qq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/GameOver.tscn" id="15_wbipj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12gh"]
@@ -522,8 +522,8 @@ offset_bottom = 34.0
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_hpcpt")
+offset_transform_scale = Vector2(0.725, 0.725)
+texture = ExtResource("13_wbipj")
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="Mana Bar/HBoxContainer" unique_id=628296512]
