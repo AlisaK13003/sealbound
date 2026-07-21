@@ -5,12 +5,12 @@
 [resource]
 script = ExtResource("1_kvgjl")
 move_name = "Crowdbreaker"
-move_description = "Damage all enemies. Enemies targeting allies are redirected toward Lyra next turn. AoE pressure plus soft protection."
+move_description = "Damages all enemies with a chance to apply damage reduction to each."
 attack_power = 1
 mana_cost = 3
 does_status = true
 status_type = 256
 removes_status = 0
-chance_of_status_condition = 1.0
+chance_of_status_condition = 0.7
 lasts_x_turns = 1
 is_skill_aoe = true

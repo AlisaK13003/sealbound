@@ -42,6 +42,7 @@ var active_player_turn: int = 0
 var waiting_for_confirmation : bool = false
 
 const MAX_AMOUNT_OF_ENEMIES = 5
+const MAX_AMOUNT_OF_ENEMIES_IN_BOSS = 4
 
 signal confirmation
 signal action_taken
@@ -144,10 +145,11 @@ func hide():
 	gui.visible = false
 	gui.get_child(0).visible = false
 
+var fighting_boss: bool = false
 func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss: bool):
 	for person in GlobalCombatInformation.active_party_slots:
 		person.gather_actual_stats()
-
+	fighting_boss = is_boss
 	gui.call_deferred("hide_gui", false)
 	Fade.fade_out(0.0)
 	self.current_dungeon_run = current_dungeon_type
@@ -281,7 +283,7 @@ func sort_enemy_actions(enemy_actions: Array[enemy_weighting]) -> Array[enemy_we
 	return enemy_actions
 
 var enemy_scene = "res://assets/Resources/Combat_Template_3D.tscn"
-func setup_encounter(new_encounter: dungeon_wave, is_boss):
+func setup_encounter(new_encounter: dungeon_wave, is_boss, summon: bool = false):
 	var enemy_list = new_encounter.enemies.duplicate()
 	enemy_list.shuffle()
 	var enemy_count_for_current_wave: int = enemy_list.size()
@@ -297,7 +299,7 @@ func setup_encounter(new_encounter: dungeon_wave, is_boss):
 				new_enemy_instance.position = Vector3(0.8 - ((i - 3) * 0.2), 0.0, 0.35 + ((i - 3) * 0.55))
 		else:
 			AudioManager.play_bgm(AudioManager.BOSS_BATTLE_MUSIC)
-			new_enemy_instance.position = Vector3(-0.7, 0.0, 0.75)
+			new_enemy_instance.position = Vector3(0.4, 0.0, 0.75)
 		var new_enemy_stat = enemy_list[i].duplicate(true)
 		new_enemy_stat.raise_level_by_x(current_dungeon_run.average_dungeon_level, current_dungeon_run.allowed_level_differential)
 			
@@ -379,7 +381,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				execute_skills_fixed(slot_3.stored_combatant.passive_skill, slot_3)
 		await get_tree().create_timer(2.0).timeout
 	
-	
+	GlobalCombatInformation.calculate_BP()
 	for i in range(number_of_waves_to_fight):
 		highest_wave_reached += 1
 		turn_count = 0
@@ -544,7 +546,7 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 			
 	for action: moves in attacking_enemy.stored_combatant.combatant_skills_.keys():
 		if action.does_summon:
-			var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, null, false, action)
+			var new_action = enemy_weighting.new(enemy_shit, player_container, attacking_enemy, null, false, action, fighting_boss)
 			possible_enemy_actions.append(new_action)
 			continue
 		else:
@@ -758,11 +760,19 @@ func execute_enemy_skills(action):
 			action_sequence.insert(0, func(): await await_parallel(parallel_tasks))
 			await action_queue(action_sequence)
 	else:
+		
 		var get_position_for_slot = func(idx: int) -> Vector3:
-			if idx < 3:
-				return Vector3(idx * 0.1, idx * -0.15, idx * 0.4)
-			else:
-				return Vector3(0.8 - ((idx - 3) * 0.2), 0.0, 0.35 + ((idx - 3) * 0.55))
+			match idx:
+				0:
+					return Vector3(idx * 0.1, idx * -0.15, idx * 0.4)
+				1:
+					return Vector3(0, 0, 0)
+				2:
+					return Vector3(-0.25, -0.15, 0.4)
+				3:
+					return Vector3(-1, 0, 1.2)
+				_:
+					return Vector3(idx * 0.1, idx * -0.15, idx * 0.4)
 
 		var is_slot_occupied = func(idx: int) -> bool:
 			var target_pos = get_position_for_slot.call(idx)
@@ -777,9 +787,11 @@ func execute_enemy_skills(action):
 			return false
 
 		var random_amount_to_summon = randi_range(skill_used.summon_count_range.x, skill_used.summon_count_range.y)
+		var range = MAX_AMOUNT_OF_ENEMIES if not fighting_boss else MAX_AMOUNT_OF_ENEMIES_IN_BOSS
+		
 		for i in range(0, random_amount_to_summon):
 			var enemy_index: int = -1
-			for slot_idx in range(MAX_AMOUNT_OF_ENEMIES):
+			for slot_idx in range(range):
 				if not is_slot_occupied.call(slot_idx):
 					enemy_index = slot_idx
 					break
@@ -793,7 +805,10 @@ func execute_enemy_skills(action):
 			
 			new_enemy_instance.position = get_position_for_slot.call(enemy_index)
 			
-			new_enemy_instance.setup(skill_used.summons_who.duplicate(), self, enemy_index)
+			var new_thing = skill_used.summons_who.duplicate()
+			new_thing.restore_health()
+			
+			new_enemy_instance.setup(new_thing, self, enemy_index)
 			all_combatants.append(new_enemy_instance)
 		
 		
@@ -827,7 +842,10 @@ func player_defended():
 	var current_player = get_player(active_player_turn)
 	var action_sequence: Array[Callable]
 
+	
+	gui.update_mana_display(1, false)
 	action_sequence.append(func(): await current_player.execute_defend())
+	action_sequence.append(func(): await current_player.restore_BP(1))
 	unselect_all()
 	selecting_entity = false
 	await action_queue(action_sequence)
@@ -1602,7 +1620,7 @@ class enemy_weighting:
 	var person_acting: combat_template
 	# Mana cost, Adding status, Removing Status, Targets Party, Targets Self, Is Aoe, healing
 	
-	func _init(enemy_container, player_container, person_acting: combat_template, target = null, targetting_player = true, skill_type: moves= null, action_weight: int = 1):
+	func _init(enemy_container, player_container, person_acting: combat_template, target = null, targetting_player = true, skill_type: moves= null, action_weight: int = 1, fighting_boss: bool = false):
 		var opp_container
 		var p_container
 		if person_acting.stored_combatant.is_combatant_enemy:
@@ -1690,6 +1708,9 @@ class enemy_weighting:
 									return
 			else:
 				if skill_type.summon_count_range.y + enemy_container.get_child_count() - 1 >= MAX_AMOUNT_OF_ENEMIES:
+					self.action_weight = 0
+					return
+				if skill_type.summon_count_range.y + enemy_container.get_child_count() - 1 >= MAX_AMOUNT_OF_ENEMIES_IN_BOSS and fighting_boss:
 					self.action_weight = 0
 					return
 			action_name = skill_type.move_name

@@ -14,9 +14,6 @@ var trying_to_use_skill: bool = false
 var skill_used: moves
 
 func _ready():
-	if GlobalCombatInformation.in_dungeon:
-		$Panel.visible = false
-		$Button_Background.visible = false
 	menu_tabs._setup(GlobalCombatInformation.all_party_slots, custom_tab_path)
 	for child in range(menu_tabs.get_child_count()):
 		menu_tabs.get_child(child)._setup(GlobalCombatInformation.all_party_slots[child], child, true)
@@ -67,9 +64,6 @@ func _setup():
 func _on_visibility_changed() -> void:
 	if visible:
 		active_skill_instance_id = -1
-		trying_to_use_skill = false
-		skill_used = null
-		$Panel/Label.text = "Use"
 		for child in menu_tabs.get_children():
 			_set_node_mouse_disabled(child, false)
 			
@@ -79,9 +73,6 @@ func _on_visibility_changed() -> void:
 		
 		_tab_changed(0)
 	else:
-		trying_to_use_skill = false
-		skill_used = null
-		$Panel/Label.text = "Use"
 		for child in menu_tabs.get_children():
 			_set_node_mouse_disabled(child, false)
 			
@@ -89,72 +80,6 @@ func _on_visibility_changed() -> void:
 			menu_tabs.cycle_input(null, -1000)
 
 func _tab_changed(tab):
-	if _is_snapping_back:
-		return
-		
-	if trying_to_use_skill:
-		if skill_used.targets_self:
-			if tab != caster_index:
-				_reject_cast_and_restore_visuals()
-				return
-				
-			var target_member = GlobalCombatInformation.all_party_slots[caster_index]
-			if target_member.actual_stats.health >= target_member.actual_stats.max_health:
-				print("User has full health!")
-				_reject_cast_and_restore_visuals()
-				return
-			
-			var heal_amount = 0
-			if skill_used.get_skill_boost() != 999:
-				heal_amount = clamp(target_member.actual_stats.health + (GlobalCombatInformation.all_party_slots[caster_index].actual_stats.magic + skill_used.get_skill_boost()), 0, target_member.actual_stats.max_health)
-			else:
-				heal_amount = target_member.actual_stats.max_health
-				
-			target_member.heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
-			menu_tabs.get_child(caster_index).update_damage_label(heal_amount)
-			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
-			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
-			_revert_to_caster() 
-			return
-			
-		elif skill_used.aoe_heal:
-			if not _is_any_party_member_damaged():
-
-				_reject_cast_and_restore_visuals()
-				return
-			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
-			for person in range(GlobalCombatInformation.all_party_slots.size()):
-				var heal_amount = 0
-				if skill_used.get_skill_boost() != 999:
-					heal_amount = clamp((GlobalCombatInformation.all_party_slots[caster_index].actual_stats.magic + skill_used.get_skill_boost()), 0, GlobalCombatInformation.all_party_slots[person].actual_stats.max_health)
-				else:
-					heal_amount = GlobalCombatInformation.all_party_slots[person].actual_stats.max_health
-				GlobalCombatInformation.all_party_slots[person].heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
-				menu_tabs.get_child(person).update_damage_label(heal_amount)
-			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
-			_revert_to_caster() 
-			return
-			
-		else:
-			var target_member = GlobalCombatInformation.all_party_slots[tab]
-			if target_member.actual_stats.health >= target_member.actual_stats.max_health:
-				_reject_cast_and_restore_visuals()
-				return
-				
-			var heal_amount = 0
-			if skill_used.get_skill_boost() != 999:
-				heal_amount = clamp((GlobalCombatInformation.all_party_slots[caster_index].actual_stats.magic + skill_used.get_skill_boost()), 0, target_member.actual_stats.max_health)
-			else:
-				heal_amount = target_member.actual_stats.max_health
-			AudioManager.play_ui_sound(AudioManager.BATTLE_HEAL)
-			target_member.heal(skill_used, GlobalCombatInformation.all_party_slots[caster_index])
-			menu_tabs.get_child(tab).update_damage_label(heal_amount)
-			
-			GlobalCombatInformation.do_something_with_BP(-1 * skill_used.mana_cost)
-			
-			_revert_to_caster() 
-			return
-		
 	menu_tabs.current_selection = tab
 	for child in skill_card_container.get_children():
 		if child.get_index() == tab:
@@ -163,47 +88,6 @@ func _tab_changed(tab):
 			_trigger_default_skill_selection(child)
 		else:
 			child.visible = false
-
-func _revert_to_caster() -> void:
-	trying_to_use_skill = false
-	skill_used = null
-	$Panel/Label.text = "Use"
-
-	for child in menu_tabs.get_children():
-		child.highlight(child.get_index() == caster_index) 
-		_set_node_mouse_disabled(child, false)
-		
-	_is_snapping_back = true
-	menu_tabs.current_selection = caster_index 
-	if menu_tabs.has_method("cycle_input"):
-		menu_tabs.cycle_input(null, -1000)
-		menu_tabs.cycle_input(null, caster_index)
-	_is_snapping_back = false
-	
-	for child in skill_card_container.get_children():
-		if child.get_index() == caster_index:
-			child.visible = true
-			$Skill_Description/AnimatedSprite2D.sprite_frames = GlobalCombatInformation.all_party_slots[child.get_index()].sprite_frames
-		else:
-			child.visible = false
-			
-	if active_skill_instance_id != -1:
-		update_skill_description(active_skill_instance_id)
-
-func _reject_cast_and_restore_visuals() -> void:
-	_is_snapping_back = true
-	menu_tabs.current_selection = caster_index 
-	if menu_tabs.has_method("cycle_input"):
-		menu_tabs.cycle_input(null, -1000)
-		menu_tabs.cycle_input(null, caster_index) 
-	_is_snapping_back = false
-
-	if skill_used.aoe_heal:
-		for child in menu_tabs.get_children():
-			child.update_highlight(true)
-	else:
-		for child in menu_tabs.get_children():
-			child.update_highlight(child.get_index() == caster_index)
 
 func _trigger_default_skill_selection(card_node: Node) -> void:
 	if card_node.get_child_count() > 0:
@@ -235,17 +119,6 @@ func update_skill_description(pressed_skill):
 	$Skill_Description/Label3.text = str(selected_skill.mana_cost) + " BP"
 	if $Skill_Description/AnimatedSprite2D.sprite_frames.has_animation("On_Attack_" + str(move_index + 1)):
 		$Skill_Description/AnimatedSprite2D.play("On_Attack_" + str(move_index + 1))
-	
-	if selected_skill.does_heal_party:
-		$Panel.visible = true if GlobalCombatInformation.in_dungeon else false
-		$Button_Background.visible = true if GlobalCombatInformation.in_dungeon else false
-		if GlobalCombatInformation.current_BP < selected_skill.mana_cost:
-			$Panel/Label.text = "LOW BP"
-		else:
-			$Panel/Label.text = "Use"
-	else:
-		$Panel.visible = false
-		$Button_Background.visible = false
 
 func _ready_to_use_skill(skill_to_use: moves):
 	if not skill_to_use.does_heal_party:
@@ -284,29 +157,3 @@ func _input(event: InputEvent) -> void:
 	if trying_to_use_skill:
 		if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down"):
 			get_viewport().set_input_as_handled()
-
-func _is_any_party_member_damaged() -> bool:
-	for member in GlobalCombatInformation.all_party_slots:
-		if member.actual_stats.health < member.actual_stats.max_health:
-			return true
-	return false
-
-func _on_panel_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			accept_event() 
-			if not trying_to_use_skill:
-				var selected_skill
-				for child in skill_card_container.get_child(menu_tabs.current_selection).get_child(0).get_children():
-					if child.is_selected:
-						selected_skill = child.stored_move
-						break
-				var skill = selected_skill
-				
-				if GlobalCombatInformation.current_BP < skill.mana_cost:
-					return
-					
-				_ready_to_use_skill(skill)
-				$Panel/Label.text = "Cancel"
-			else:
-				_revert_to_caster()

@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_01umd")
 move_name = "Shielding Strike"
-move_description = "Deal moderate damage to one enemy. Apply Defense reduction to the enemy and give a small protective barrier to the lowest-HP ally."
+move_description = "Deal moderate damage to one enemy, with a change to apply defense reduction."
 attack_power = 1
 does_status = true
 status_type = 512
 removes_status = 0
-chance_of_status_condition = 1.0
+chance_of_status_condition = 0.7

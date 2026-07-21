@@ -5,9 +5,10 @@
 [resource]
 script = ExtResource("1_w63o7")
 move_name = "Corrosive Shot"
-move_description = "Precise single-target attack. Applies Poison and Defense reduction. Basic setup skill."
+move_description = "Precise single-target attack. Applies Poison and Defense reduction. "
 attack_power = 0
 does_status = true
 status_type = 520
 removes_status = 0
 chance_of_status_condition = 1.0
+lasts_x_turns = 2

@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_55ow1")
 move_name = "Heavy Swing"
-move_description = "Strong single-target attack. If enemy HP is below 50%, deals bonus damage. Direct damage tool."
-attack_power = 1
+move_description = "Deal heavy damage to one enemy."
+attack_power = 2
+mana_cost = 3
 status_type = 0
 removes_status = 0

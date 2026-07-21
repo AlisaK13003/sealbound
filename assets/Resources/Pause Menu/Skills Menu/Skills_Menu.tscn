@@ -9,8 +9,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxs0"]
-
 [node name="SkillsMenu" type="Control" unique_id=824969245]
 layout_mode = 3
 anchors_preset = 15
@@ -100,10 +98,10 @@ text = "2 BP"
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("3_atayv")]
 layout_mode = 0
-offset_left = -241.715
-offset_top = -25.65
-offset_right = -241.715
-offset_bottom = -25.65
+offset_left = -241.06
+offset_top = -27.61
+offset_right = -241.06
+offset_bottom = -27.61
 scale = Vector2(1.4, 1.4)
 theme_override_constants/h_separation = 155
 columns = 3
@@ -115,50 +113,3 @@ offset_left = -74.575
 offset_top = 40.295
 offset_right = -34.574974
 offset_bottom = 80.29504
-
-[node name="Button_Background" type="Control" parent="." unique_id=1196341924]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="Button_Background" unique_id=1198019341]
-layout_mode = 0
-offset_left = 295.65216
-offset_top = 336.9565
-offset_right = 393.47824
-offset_bottom = 376.08694
-texture = ExtResource("2_4rhb6")
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Button_Background" unique_id=1809722262]
-layout_mode = 0
-offset_left = 286.95648
-offset_top = 328.26086
-offset_right = 404.34778
-offset_bottom = 384.7826
-texture = ExtResource("3_5ilom")
-patch_margin_left = 15
-patch_margin_top = 15
-patch_margin_right = 15
-patch_margin_bottom = 15
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="Panel" type="Panel" parent="." unique_id=1258957224]
-layout_mode = 0
-offset_left = 295.65216
-offset_top = 336.9565
-offset_right = 393.47824
-offset_bottom = 376.9565
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ekxs0")
-
-[node name="Label" type="Label" parent="Panel" unique_id=30454339]
-layout_mode = 0
-offset_right = 97.82608
-offset_bottom = 41.30435
-text = "Use Skill"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]

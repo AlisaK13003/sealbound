@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_kjti1")
 move_name = "Piercing Rush"
-move_description = "Fast single-target thrust with high Crit Chance. If this skill crits, gain bonus Momentum. Momentum starter."
+move_description = "Fast single-target thrust, change to improve Orion's crit chance."
 attack_power = 0
 does_status = true
 status_type = 524288
 removes_status = 0
-chance_of_status_condition = 1.0
+chance_of_status_condition = 0.5

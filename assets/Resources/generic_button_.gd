@@ -103,7 +103,7 @@ func get_key_name_for_action(action_name: String) -> String:
 	return "Unbound"
 
 func _input(_event):	
-	if AreaStateManager.currently_transitioning:
+	if AreaStateManager.currently_transitioning or Fade.is_fading:
 		return
 	if _is_queued_for_deletion_recursive():
 		return

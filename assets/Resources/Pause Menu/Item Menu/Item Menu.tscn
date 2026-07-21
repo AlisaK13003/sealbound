@@ -112,21 +112,6 @@ text = "Heals 50HP"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Panel" type="Panel" parent="Item Description" unique_id=837449061]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 103.0
-offset_right = 69.0
-offset_bottom = 118.0
-
-[node name="Label" type="Label" parent="Item Description/Panel" unique_id=848122246]
-layout_mode = 0
-offset_right = 61.0
-offset_bottom = 18.0
-text = "Use Item"
-horizontal_alignment = 1
-autowrap_mode = 2
-
 [node name="Label" type="Label" parent="." unique_id=192883700]
 visible = false
 layout_mode = 0
@@ -169,10 +154,10 @@ offset_bottom = 18.0
 
 [node name="MenuTabs2" parent="." unique_id=1039694540 instance=ExtResource("2_wns33")]
 layout_mode = 0
-offset_left = -195.635
-offset_top = -43.14
-offset_right = -195.635
-offset_bottom = -43.14
+offset_left = -191.0
+offset_top = -42.0
+offset_right = -191.0
+offset_bottom = -42.0
 scale = Vector2(0.805, 0.805)
 theme_override_constants/h_separation = 158
 columns = 3

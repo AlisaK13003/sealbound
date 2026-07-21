@@ -17,12 +17,11 @@
 script = ExtResource("2_d3o0m")
 max_health = 26
 health = 26
-attack = 10
+attack = 5
 defense = 7
 magic = 1
 resistance = 2
 crit_chance = 5
-crit_damage = 50.0
 speed = 5
 luck = 3
 evasion = 3

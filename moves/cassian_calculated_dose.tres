@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_4rfpw")
 move_name = "Calculated Dose"
-move_description = "Target one enemy. Deal bonus damage based on status effects on that target. If status consumption is too hard, do not consume statuses."
-attack_power = 2
+move_description = "Target one enemy. "
+attack_power = 1
 mana_cost = 3
 status_type = 0
 removes_status = 0

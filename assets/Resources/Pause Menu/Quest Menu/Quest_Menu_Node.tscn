@@ -59,6 +59,7 @@ theme_override_font_sizes/font_size = 18
 text = "Slime Balls"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1461527388]
 position = Vector2(3, 23)

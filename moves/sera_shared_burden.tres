@@ -5,15 +5,15 @@
 [resource]
 script = ExtResource("1_xwdv3")
 move_name = "Shared Burden"
-move_description = "Distribute incoming damage across the whole team for 1 turn, then heal the team slightly next turn. Prevents one ally from being burst down."
+move_description = "Small heal for whole party. Increases defense and evasion for the whole party for a short period of time."
 attack_power = null
 does_damage = false
 mana_cost = 3
 does_status = true
-status_type = 131072
+status_type = 393216
 removes_status = 0
 chance_of_status_condition = 1.0
-lasts_x_turns = 1
+lasts_x_turns = 2
 targets_party = true
 is_skill_aoe = true
 does_heal_party = true

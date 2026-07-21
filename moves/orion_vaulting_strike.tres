@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource("1_1707d")
 move_name = "Vaulting Strike"
-move_description = "Leaping spear attack against one enemy. If target is weakened, immediately perform a second strike. Burst / finisher pressure."
+move_description = "Deals heavy damage to one enemy. Chance to lower attack and defense."
 attack_power = 2
-mana_cost = 3
-status_type = 0
+mana_cost = 2
+status_type = 768
 removes_status = 0
+chance_of_status_condition = 0.4

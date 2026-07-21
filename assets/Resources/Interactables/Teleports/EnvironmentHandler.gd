@@ -66,7 +66,7 @@ func swap_to_me():
 
 	await get_tree().create_timer(1.0).timeout
 	await Fade.fade_out(0.5)
-
+	Fade.is_fading = false
 	match cutscene_to_start:
 		"lyra_tavern_cutscene":
 			start_lyra_tavern_cutscene()
@@ -187,7 +187,8 @@ func start_sera_quest_board_cutscene() -> void:
 		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(sera_node))
 	var lyra_node = find_child("Lyra_NPC", true, false)
 	if lyra_node != null and lyra_node.has_method("restore_after_cutscene"):
-		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
+		if not runner.finished.is_connected(restore_cutscene_actor):
+			runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
 	runner.play(Global.SERA_QUEST_BOARD_CUTSCENE_PATH)
 
 func play_cutscene_animation(animation_name: String):

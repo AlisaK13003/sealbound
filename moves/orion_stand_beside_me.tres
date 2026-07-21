@@ -5,12 +5,11 @@
 [resource]
 script = ExtResource("1_m8mo3")
 move_name = "Stand Beside Me"
-move_description = "Intercept damage aimed at one ally and immediately counterattack the attacker. Protective instinct without making him a tank."
+move_description = "Applies defense boost to whole party."
 attack_power = 1
 mana_cost = 2
 does_status = true
 status_type = 131072
 removes_status = 0
 chance_of_status_condition = 1.0
-lasts_x_turns = 1
 targets_party = true

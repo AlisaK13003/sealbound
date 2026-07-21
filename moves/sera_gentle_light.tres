@@ -5,9 +5,10 @@
 [resource]
 script = ExtResource("1_htyd6")
 move_name = "Gentle Light"
-move_description = "Restore moderate HP to one ally. Applies Defense+ for 2 turns. Main single-target healing skill."
+move_description = "Restore moderate HP to one ally. Applies Defense+ for 2 turns. "
 attack_power = null
 does_damage = false
+mana_cost = 2
 does_status = true
 status_type = 131072
 removes_status = 0

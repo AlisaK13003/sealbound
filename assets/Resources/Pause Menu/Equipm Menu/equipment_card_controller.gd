@@ -74,6 +74,7 @@ func _setup(combatant: generic_combatants):
 	party_member_sprite.offset = combatant.equip_sprite_offset
 	
 	GlobalCombatInformation.equipment_added.connect(update_stuff)
+	GlobalCombatInformation.check_player_values.connect(update_stuff)
 
 func update_stuff():
 	var index = GlobalCombatInformation.all_party_slots.find_custom(func(stored_person: generic_combatants): return stored_combatant.combatant_name == stored_person.combatant_name)

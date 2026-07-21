@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_bs0uf")
 move_name = "Volatile Mixture"
-move_description = "Infused arrow affecting a small enemy group. Randomly applies Burn, Slow, or Accuracy Reduction. Crowd/status control."
+move_description = "Infused arrow that bursts upon impact, applies burn."
 attack_power = 0
 mana_cost = 2
 does_status = true

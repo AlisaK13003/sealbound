@@ -1,14 +1,11 @@
 extends Control
 
 @onready var currency = $VBoxContainer/Currency
-@onready var cur_bp = $VBoxContainer/BP
 @onready var day = $VBoxContainer/Day
 @onready var playtime = $VBoxContainer/Playtime
 
 func _ready():
 	currency.text = "Money: " + str(GlobalCombatInformation.currency_held)
-	cur_bp.text = "BP: " + str(GlobalCombatInformation.current_BP) + "/" + str(GlobalCombatInformation.max_BP)
-	
 	day.text = "Current Day: " + str(Global.current_day)
 	playtime.text = "Play Time: " + str(Global.play_time_hours) + ":" + str(Global.play_time_minutes)
 	
@@ -19,7 +16,6 @@ func _ready():
 	
 func update_display(old_money_count = 0, currency_change = 0):
 	currency.text = "Money: " + str(GlobalCombatInformation.currency_held)
-	cur_bp.text = "BP: " + str(GlobalCombatInformation.current_BP) + "/" + str(GlobalCombatInformation.max_BP)
-	
+
 	day.text = "Current Day: " + str(Global.current_day)
 	playtime.text = "Play Time: " + str(Global.play_time_hours) + ":" + str(Global.play_time_minutes)

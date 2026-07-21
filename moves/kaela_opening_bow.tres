@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_1wsoy")
 move_name = "Opening Bow"
-move_description = "Lightly heals all allies and grants +20% Defense for 2 turns. Safe opener / team stabilizer."
+move_description = "Small heal to entire part allies and grants Def up for 2 turns. "
 attack_power = null
 does_damage = false
 does_status = true

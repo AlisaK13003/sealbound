@@ -35,7 +35,7 @@
 script = ExtResource("2_7yrul")
 max_health = 22
 health = 22
-attack = 7
+attack = 3
 defense = 5
 magic = 6
 resistance = 5

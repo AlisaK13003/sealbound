@@ -153,7 +153,7 @@ func get_terrain_under_feet() -> int:
 	return -1
 
 func _input(event):
-	if Global.get_input_mapping("Pause") and not Global.cant_leave_menu:
+	if Global.get_input_mapping("Pause") and not Global.cant_leave_menu and not Fade.is_fading:
 		if not pause_menu.visible:
 			if Global.is_in_menu:
 				return

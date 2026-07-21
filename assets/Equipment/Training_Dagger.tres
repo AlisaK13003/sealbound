@@ -10,6 +10,5 @@ weapon_description = "Pointy"
 weapon_texture = ExtResource("2_epsqu")
 weapon_attack = 2
 weapon_crit_chance = 5
-weapon_crit_damage = 10
 attack_accuracy = 10
 metadata/_custom_type_script = "uid://c8pcj6siqledr"

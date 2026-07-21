@@ -13,6 +13,7 @@ max_number_of_floors = 1
 minimum_number_of_floors = 1
 first_time_floor_count = 1
 type_of_dungeon = 1
+dungeon_unlock_type = 2
 does_dungeon_have_boss = true
 boss_encounter = ExtResource("1_8chwe")
 room_size = 2

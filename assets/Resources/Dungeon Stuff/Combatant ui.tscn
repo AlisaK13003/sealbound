@@ -192,6 +192,7 @@ theme_override_constants/h_separation = 25
 theme_override_constants/v_separation = 34
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=400153213]
+z_index = -10
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 0

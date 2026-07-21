@@ -155,8 +155,9 @@ func remove_active_member(combatant: generic_combatants):
 	calculate_BP()
 
 func calculate_BP():
-	current_BP = 5
-	max_BP = 5
+	current_BP = 3
+	max_BP = 3
+	return
 	for member in active_party_slots:
 		if not member.is_MC:
 			current_BP += member.bond_level * 5
@@ -624,10 +625,9 @@ func transition_to_dungeon(selected_dungeon, quest_dungeon = null):
 
 	explorable_dungeon_scene = dungeon_scene
 
-	for party_member in active_party_slots:
-		max_BP += party_member.bond_level * 5
-	bond_attack_fill = 2 * max_BP
-	current_BP = max_BP
+	max_BP = 3
+	bond_attack_fill = 15
+	current_BP = 3
 	AreaStateManager.currently_transitioning = false
 	await dungeon_scene._setup(selected_dungeon, quest_dungeon)
 		

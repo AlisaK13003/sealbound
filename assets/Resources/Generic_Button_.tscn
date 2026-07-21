@@ -13,10 +13,6 @@ offset_bottom = 35.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 script = ExtResource("1_s28mv")
-button_name = null
-disabled_ = null
-button_to_active = null
-text_on_left_of_button = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1419648638]
 layout_mode = 0

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_sfi27")
 move_name = "Sharp Note"
-move_description = "Target one ally. For 3 turns, they gain +15% Crit Chance, +15% Crit Damage, and +15% Speed. Best on DPS characters."
+move_description = "Grants one ally increase attack and crit change for a short period."
 attack_power = null
 does_damage = false
 mana_cost = 2
@@ -13,4 +13,5 @@ does_status = true
 status_type = 589824
 removes_status = 0
 chance_of_status_condition = 1.0
+lasts_x_turns = 2
 targets_party = true

@@ -5,15 +5,12 @@
 [resource]
 script = ExtResource("1_py5mb")
 move_name = "Second Wind"
-move_description = "Restore moderate HP to self. Gain increased Defense and immunity to stagger/interruption for 2 turns."
+move_description = "Restore moderate HP to self. "
 attack_power = null
 does_damage = false
-mana_cost = 2
-does_status = true
-status_type = 196608
+mana_cost = 3
+status_type = 0
 removes_status = 0
-chance_of_status_condition = 1.0
-lasts_x_turns = 2
 targets_party = true
 targets_self = true
 does_heal_party = true

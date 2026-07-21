@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_n0ddo")
 move_name = "Forgebound Resolve"
-move_description = "Restore moderate HP to one ally. Also grants Defense increase and status resistance. Protective support, not main healing."
+move_description = "Restore moderate HP to one ally, grants defense boost. "
 attack_power = null
 does_damage = false
 mana_cost = 2

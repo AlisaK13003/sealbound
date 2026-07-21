@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="4_clbun"]
 [ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="4_fd4qu"]
 [ext_resource type="PackedScene" uid="uid://df7sc8ebc63bp" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Stair_Down_Teleporter.tscn" id="4_xk7v4"]
+[ext_resource type="Texture2D" uid="uid://bhry3lvyonuja" path="res://assets/tile sheets/Stairs_Down_Sprite.png" id="6_fd4qu"]
 
 [node name="StairRoom" type="Node3D" unique_id=1923021298]
 script = ExtResource("1_05thy")
@@ -34,10 +35,10 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 [node name="Forest_Grid_Tile" parent="Floor" unique_id=2097126478 instance=ExtResource("2_xk7v4")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
-[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=768332970]
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=1721274175]
 layers = 4
 
-[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1745636589]
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1779435059]
 collision_layer = 4
 
 [node name="Pillars" type="Node3D" parent="." unique_id=1993852658]
@@ -49,5 +50,11 @@ light_energy = 15.0
 spot_range = 6.0
 spot_angle = 60.0
 spot_angle_attenuation = 5.0
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=831647139]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.33235478, 0)
+pixel_size = 0.05
+texture_filter = 0
+texture = ExtResource("6_fd4qu")
 
 [editable path="Floor/Forest_Grid_Tile"]

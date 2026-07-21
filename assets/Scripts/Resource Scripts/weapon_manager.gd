@@ -9,7 +9,7 @@ class_name weapon
 @export var weapon_magic : int = 0
 
 @export var weapon_crit_chance: int = 0
-@export var weapon_crit_damage: int = 0
+@export var weapon_crit_damage: float = 0
 
 @export var attack_accuracy : int = 0
 

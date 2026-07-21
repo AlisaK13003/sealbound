@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_f23bd")
 move_name = "Quiet Clarity"
-move_description = "Cleanse all debuffs from one ally. That ally takes 50% less damage next turn. Cleanse plus mitigation."
+move_description = "Removes all debuffs and grants a short defend boost."
 attack_power = null
 does_damage = false
 mana_cost = 2
