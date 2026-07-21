@@ -136,10 +136,14 @@ func prepare_lyra_axe_return_cutscene() -> void:
 
 func prepare_sera_quest_board_cutscene() -> void:
 	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
-	var lyra_room_marker := find_child("Tavern_LyraRoom", true, false) as Node2D
+	var tavern_bedroom_exit_marker := get_tavern_bedroom_exit_cutscene_marker()
+	var lyra_room_marker := get_lyra_room_cutscene_marker()
 
-	if player_node != null and bedroom_exit_marker != null:
-		player_node.global_position = bedroom_exit_marker.global_position
+	if player_node != null:
+		if tavern_bedroom_exit_marker != null:
+			player_node.global_position = tavern_bedroom_exit_marker.global_position
+		elif bedroom_exit_marker != null:
+			player_node.global_position = bedroom_exit_marker.global_position
 
 	var sera_node = find_child("Sera_NPC", true, false)
 	if sera_node != null and lyra_room_marker != null and sera_node.has_method("pin_to_global_position_for_cutscene"):
@@ -182,37 +186,34 @@ func start_sera_quest_board_cutscene() -> void:
 	var runner = CUTSCENE_RUNNER_SCRIPT.new()
 	get_tree().current_scene.add_child(runner)
 	runner.finished.connect(runner.queue_free)
-	var sera_node = find_child("Sera_NPC", true, false)
-	if sera_node != null and sera_node.has_method("restore_after_cutscene"):
-		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(sera_node))
-	var lyra_node = find_child("Lyra_NPC", true, false)
-	if lyra_node != null and lyra_node.has_method("restore_after_cutscene"):
-		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
+	runner.finished.connect(restore_sera_quest_board_cutscene_actors)
 	runner.play(Global.SERA_QUEST_BOARD_CUTSCENE_PATH)
+
+func restore_sera_quest_board_cutscene_actors() -> void:
+	restore_cutscene_actor(find_child("Sera_NPC", true, false))
+	restore_cutscene_actor(find_child("Lyra_NPC", true, false))
 
 func play_cutscene_animation(animation_name: String):
 	match animation_name:
+		"sera_walk_from_lyra_room_to_exit":
+			return play_sera_walk_from_lyra_room_to_exit()
+		"sera_walk_from_lyra_exit_to_player":
+			return play_sera_walk_from_lyra_exit_to_player()
 		"sera_walk_from_lyra_room_to_player":
 			return play_sera_walk_from_lyra_room_to_player()
 	return null
 
 func play_sera_walk_from_lyra_room_to_player():
-	var sera_node = find_child("Sera_NPC", true, false)
-	var lyra_room_marker := find_first_cutscene_marker(["Tavern_LyraRoom", "LyraRoom", "lyraroom"])
-	var lyra_exit_marker := find_first_cutscene_marker(["Tavern_LyraExit", "Tavern_OutsideLyraRoom", "LyraExit", "lyraexit", "Tavern_Path6"])
-	var sera_talk_marker := find_first_cutscene_marker(["Tavern_SeraTalkToPlayer", "SeraTalkToPlayer", "Sera_TalkToPlayer", "seratalktoplayer"])
-	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
+	var sera_node := get_sera_cutscene_node()
+	var lyra_room_marker := get_lyra_room_cutscene_marker()
+	var lyra_exit_marker := get_lyra_exit_cutscene_marker()
+	var final_position: Vector2 = get_sera_talk_cutscene_position()
 	if sera_node == null or lyra_room_marker == null or lyra_exit_marker == null:
+		return 0.2
+	if final_position == Vector2.INF:
 		return 0.2
 
 	sera_node.global_position = lyra_room_marker.global_position
-	var final_position: Vector2
-	if sera_talk_marker != null:
-		final_position = sera_talk_marker.global_position
-	elif bedroom_exit_marker != null:
-		final_position = bedroom_exit_marker.global_position + Vector2(-52.0, 10.0)
-	else:
-		return 0.2
 
 	if sera_node.has_method("move_along_global_positions_for_cutscene"):
 		var route_targets: Array[Vector2] = [
@@ -225,12 +226,75 @@ func play_sera_walk_from_lyra_room_to_player():
 		return 0.2
 	return sera_node.move_to_global_position_for_cutscene(final_position, 1.25, &"down")
 
+func play_sera_walk_from_lyra_room_to_exit():
+	var sera_node := get_sera_cutscene_node()
+	var lyra_room_marker := get_lyra_room_cutscene_marker()
+	var lyra_exit_marker := get_lyra_exit_cutscene_marker()
+	if sera_node == null or lyra_room_marker == null or lyra_exit_marker == null:
+		return 0.2
+
+	sera_node.global_position = lyra_room_marker.global_position
+	if sera_node.has_method("move_along_global_positions_for_cutscene"):
+		var path_points: Array[Vector2] = build_axis_locked_cutscene_path(lyra_room_marker.global_position, [lyra_exit_marker.global_position])
+		return sera_node.move_along_global_positions_for_cutscene(path_points, 90.0, &"right")
+	if not sera_node.has_method("move_to_global_position_for_cutscene"):
+		return 0.2
+	return sera_node.move_to_global_position_for_cutscene(lyra_exit_marker.global_position, 0.75, &"right")
+
+func play_sera_walk_from_lyra_exit_to_player():
+	var sera_node := get_sera_cutscene_node()
+	var final_position: Vector2 = get_sera_talk_cutscene_position()
+	if sera_node == null or final_position == Vector2.INF:
+		return 0.2
+
+	if sera_node.has_method("move_along_global_positions_for_cutscene"):
+		var path_points: Array[Vector2] = build_axis_locked_cutscene_path(sera_node.global_position, [final_position])
+		return sera_node.move_along_global_positions_for_cutscene(path_points, 90.0, &"down")
+	if not sera_node.has_method("move_to_global_position_for_cutscene"):
+		return 0.2
+	return sera_node.move_to_global_position_for_cutscene(final_position, 0.9, &"down")
+
+func get_sera_cutscene_node() -> Node2D:
+	return find_child("Sera_NPC", true, false) as Node2D
+
+func get_tavern_bedroom_exit_cutscene_marker() -> Node2D:
+	return find_first_cutscene_marker(["Tavern_BedroomExit", "Tavern_Bedroom_Exit", "Tavern BedroomExit", "Tavern Bedroom Exit", "tavernbedroomexit", "tavern bedroom exit"])
+
+func get_lyra_room_cutscene_marker() -> Node2D:
+	return find_first_cutscene_marker(["Tavern_LyraRoom", "Tavern Lyra Room", "LyraRoom", "Lyra Room", "lyraroom", "lyra room"])
+
+func get_lyra_exit_cutscene_marker() -> Node2D:
+	return find_first_cutscene_marker(["Tavern_LyraExit", "Tavern_LuraExit", "Tavern_OutsideLyraRoom", "LyraExit", "Lyra Exit", "LuraExit", "Lura Exit", "lyraexit", "lyra exit", "luraexit", "lura exit", "Tavern_Path6"])
+
+func get_sera_talk_cutscene_position() -> Vector2:
+	var sera_talk_marker := find_first_cutscene_marker(["Tavern_SeraTalkToPlayer", "Tavern_SeraTalkToPlater", "SeraTalkToPlayer", "Sera_TalkToPlayer", "Sera Talk To Player", "SeraTalkToPlater", "Sera Talk To Plater", "seratalktoplayer", "sera talk to player", "seratalktoplater", "sera talk to plater"])
+	if sera_talk_marker != null:
+		return sera_talk_marker.global_position
+	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
+	if bedroom_exit_marker != null:
+		return bedroom_exit_marker.global_position + Vector2(-52.0, 10.0)
+	return Vector2.INF
+
 func find_first_cutscene_marker(marker_names: Array[String]) -> Node2D:
+	var normalized_names: Dictionary = {}
 	for marker_name in marker_names:
+		normalized_names[normalize_cutscene_marker_name(marker_name)] = true
 		var marker := find_child(marker_name, true, false) as Node2D
 		if marker != null:
 			return marker
+	return find_cutscene_marker_by_normalized_name(self, normalized_names)
+
+func find_cutscene_marker_by_normalized_name(node: Node, normalized_names: Dictionary) -> Node2D:
+	if node is Node2D and normalized_names.has(normalize_cutscene_marker_name(node.name)):
+		return node as Node2D
+	for child in node.get_children():
+		var marker := find_cutscene_marker_by_normalized_name(child, normalized_names)
+		if marker != null:
+			return marker
 	return null
+
+func normalize_cutscene_marker_name(marker_name: String) -> String:
+	return marker_name.to_lower().replace("_", "").replace(" ", "").replace("-", "")
 
 func build_axis_locked_cutscene_path(start_position: Vector2, target_positions: Array[Vector2]) -> Array[Vector2]:
 	var path_points: Array[Vector2] = []

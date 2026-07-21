@@ -3,6 +3,8 @@ extends CanvasLayer
 
 signal finished
 
+const END_TRANSITION_FADE_DURATION: float = 0.28
+
 var beats: Array = []
 var beat_index: int = -1
 var waiting_for_input: bool = false
@@ -21,6 +23,7 @@ var sfx_label: Label
 var sfx_player: AudioStreamPlayer
 var selected_choice_index: int = -1
 var pending_choice_beat: Dictionary = {}
+var previous_time_paused: bool = false
 
 func _ready() -> void:
 	layer = 200
@@ -30,6 +33,8 @@ func _ready() -> void:
 
 func play(cutscene_path: String) -> void:
 	has_finished = false
+	previous_time_paused = Global.time_paused
+	Global.time_paused = true
 	var file = FileAccess.open(cutscene_path, FileAccess.READ)
 	if file == null:
 		push_warning("CutsceneRunner: Could not open %s." % cutscene_path)
@@ -370,25 +375,8 @@ func skip_cutscene() -> void:
 		return
 
 	_apply_remaining_state_beats()
-	has_finished = true
-	waiting_for_input = false
-	waiting_for_name = false
-	pending_choice_beat = {}
-	selected_choice_index = -1
-
-	var dialogue_system = get_dialogue_system()
-	if dialogue_system != null and dialogue_system.has_method("hide_dialog"):
-		dialogue_system.hide_dialog()
-
-	_clear_interactive_controls()
-	panel.visible = false
-	sfx_label.visible = false
-	if sfx_player.playing:
-		sfx_player.stop()
 	Global.set_player_identity(Global.player_name, Global.player_gender)
-	Global.is_in_menu = false
-	visible = false
-	finished.emit()
+	_finish_cutscene()
 
 func _apply_remaining_state_beats() -> void:
 	var start_index = max(beat_index, 0)
@@ -433,10 +421,38 @@ func _run_action(action_name: String) -> void:
 func _end() -> void:
 	if has_finished:
 		return
+	_finish_cutscene()
+
+func _finish_cutscene() -> void:
+	if has_finished:
+		return
+
 	has_finished = true
-	Global.is_in_menu = false
+	waiting_for_input = false
+	waiting_for_name = false
+	pending_choice_beat = {}
+	selected_choice_index = -1
+	Global.is_in_menu = true
+
+	var dialogue_system = get_dialogue_system()
+	if dialogue_system != null and dialogue_system.has_method("hide_dialog"):
+		dialogue_system.hide_dialog()
+
+	_clear_interactive_controls()
+	panel.visible = false
+	sfx_label.visible = false
+	if sfx_player.playing:
+		sfx_player.stop()
+
+	if Fade != null:
+		await Fade.fade_in(END_TRANSITION_FADE_DURATION)
+
 	visible = false
 	finished.emit()
+	if Fade != null:
+		Fade.fade_out(END_TRANSITION_FADE_DURATION)
+	Global.time_paused = previous_time_paused
+	Global.is_in_menu = false
 
 func _clear_interactive_controls() -> void:
 	for child in choice_container.get_children():

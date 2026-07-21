@@ -3,7 +3,7 @@
   "schedules": {
 	"Morning_Work": {
 	  "scene_swap": 0,
-	  "start_scene": "res://scenes/main/Building Insides.tscn",
+	  "start_scene": "res://scenes/main/new_building_insides.res",
 	  "end_scene": "",
 	  "start_time_hour": 6,
 	  "start_time_minute": 0,
@@ -17,7 +17,7 @@
 	},
 	"Leave_For_Lunch": {
 	  "scene_swap": 0,
-	  "start_scene": "res://scenes/main/Building Insides.tscn",
+	  "start_scene": "res://scenes/main/new_building_insides.res",
 	  "end_scene": "",
 	  "start_time_hour": 12,
 	  "start_time_minute": 0,
@@ -61,7 +61,7 @@
 	},
 	"Evening_Work": {
 	  "scene_swap": 0,
-	  "start_scene": "res://scenes/main/Building Insides.tscn",
+	  "start_scene": "res://scenes/main/new_building_insides.res",
 	  "end_scene": "",
 	  "start_time_hour": 16,
 	  "start_time_minute": 40,
@@ -75,7 +75,7 @@
 	},
 	"Go_To_Room": {
 	  "scene_swap": 0,
-	  "start_scene": "res://scenes/main/Building Insides.tscn",
+	  "start_scene": "res://scenes/main/new_building_insides.res",
 	  "end_scene": "",
 	  "start_time_hour": 23,
 	  "start_time_minute": 0,

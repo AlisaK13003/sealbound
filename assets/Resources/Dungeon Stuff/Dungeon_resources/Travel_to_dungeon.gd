@@ -17,6 +17,7 @@ var current_selected_dungeon: int = 0
 #@export var menu_tab_icons: Array[Texture2D]
 
 var dungeon_overview_path = "res://assets/Resources/Dungeon Stuff/Dungeon_resources/Dungeon_Overview.tscn"
+const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
 
 var which_dungeon
 var dungeon_entries
@@ -43,7 +44,7 @@ func _ready():
 			})
 			
 	for quest_ in GlobalCombatInformation.completed_quests:
-		if quest_.required_spawn and quest_.special_dungeon != null:
+		if quest_.required_spawn and quest_.special_dungeon != null and not _is_lyra_axe_quest(quest_):
 			dungeon_entries.append({
 				"dungeon": quest_.special_dungeon,
 				"quest": quest_.duplicate()
@@ -96,6 +97,13 @@ func _is_same_special_dungeon(finished_quest: quest, active_quest: quest) -> boo
 	if finished_quest.special_dungeon == null or active_quest.special_dungeon == null:
 		return false
 	return finished_quest.special_dungeon.dungeon_name == active_quest.special_dungeon.dungeon_name
+
+func _is_lyra_axe_quest(quest_: quest) -> bool:
+	if quest_ == null:
+		return false
+	if quest_.get_path_custom() == LYRA_AXE_QUEST_PATH:
+		return true
+	return quest_.quest_name == "Find Lyra's Axe"
 
 
 func _tab_changed(which_tab):

@@ -22760,7 +22760,7 @@ connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
 "Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
 
 [node name="Tavern_LyraExit" parent="BuildingLocationContainer" unique_id=737568838 instance=ExtResource("3_24omh")]
-position = Vector2(1835, -979)
+position = Vector2(1797, -979)
 scale = Vector2(1, 1.0027484)
 connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
 "Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
@@ -22772,7 +22772,7 @@ connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
 "Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
 
 [node name="Tavern_LyraRoom" parent="BuildingLocationContainer" unique_id=860912794 instance=ExtResource("3_24omh")]
-position = Vector2(1835, -1051)
+position = Vector2(1797, -1051)
 connected_node_names = ["Tavern_Path6"]
 "Connected To" = ["Tavern_Path6"]
 
