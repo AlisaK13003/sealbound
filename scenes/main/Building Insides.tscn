@@ -22754,13 +22754,25 @@ position = Vector2(1822, -516)
 "Connected To" = []
 
 [node name="Tavern_Path6" parent="BuildingLocationContainer" unique_id=583700760 instance=ExtResource("3_24omh")]
-position = Vector2(1778, -965)
+position = Vector2(1795, -966)
+scale = Vector2(1, 1.0027484)
+connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
+"Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
+
+[node name="Tavern_LyraExit" parent="BuildingLocationContainer" unique_id=737568838 instance=ExtResource("3_24omh")]
+position = Vector2(1835, -979)
+scale = Vector2(1, 1.0027484)
+connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
+"Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
+
+[node name="Tavern_SeraTalkToPlayer" parent="BuildingLocationContainer" unique_id=732695470 instance=ExtResource("3_24omh")]
+position = Vector2(1851, -979)
 scale = Vector2(1, 1.0027484)
 connected_node_names = ["Tavern_Path4", "Tavern_LyraRoom"]
 "Connected To" = ["Tavern_Path4", "Tavern_LyraRoom"]
 
 [node name="Tavern_LyraRoom" parent="BuildingLocationContainer" unique_id=860912794 instance=ExtResource("3_24omh")]
-position = Vector2(1795.85, -1051)
+position = Vector2(1835, -1051)
 connected_node_names = ["Tavern_Path6"]
 "Connected To" = ["Tavern_Path6"]
 
@@ -23218,12 +23230,6 @@ position = Vector2(376, -4711)
 position = Vector2(64, 310)
 rotation = -1.5707964
 confirmation_before_teleport = false
-location_data = {
-"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn"],
-"Cliff Side": ["Cliff Entrance"],
-"Forest": ["Apothecary", "Left Side"],
-"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
-}
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Bedroom"
 "Destination Location/Region" = "Buildings_Insides"
@@ -23318,12 +23324,6 @@ position = Vector2(428, -4248)
 position = Vector2(-1, -10)
 rotation = 1.5707964
 confirmation_before_teleport = true
-location_data = {
-"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn"],
-"Cliff Side": ["Cliff Entrance"],
-"Forest": ["Apothecary", "Left Side"],
-"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
-}
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Bedroom_Exit"
 "Destination Location/Region" = "Buildings_Insides"

@@ -462,6 +462,32 @@ func move_to_global_position_for_cutscene(target_position: Vector2, duration: fl
 	)
 	return tween
 
+func move_along_global_positions_for_cutscene(target_positions: Array[Vector2], pixels_per_second: float = 90.0, arrival_facing: StringName = &"down") -> Tween:
+	if not schedule_paused_for_cutscene:
+		pin_to_global_position_for_cutscene(global_position, arrival_facing)
+
+	var tween := create_tween()
+	var segment_start: Vector2 = global_position
+	for target_position in target_positions:
+		var segment_motion: Vector2 = target_position - segment_start
+		if segment_motion.length_squared() < 0.0001:
+			segment_start = target_position
+			continue
+		var segment_duration: float = maxf(0.05, segment_motion.length() / maxf(1.0, pixels_per_second))
+		tween.tween_callback(Callable(self, "set_cutscene_motion_direction").bind(segment_motion))
+		tween.tween_property(self, "global_position", target_position, segment_duration)
+		segment_start = target_position
+	tween.tween_callback(Callable(self, "finish_cutscene_motion").bind(arrival_facing))
+	return tween
+
+func set_cutscene_motion_direction(direction: Vector2) -> void:
+	cutscene_motion_direction = direction
+
+func finish_cutscene_motion(arrival_facing: StringName) -> void:
+	cutscene_motion_direction = Vector2.ZERO
+	animation_driver.face(animated_sprite, arrival_facing)
+	animation_driver.sync(animated_sprite, Vector2.ZERO)
+
 func restore_after_cutscene() -> void:
 	if not schedule_paused_for_cutscene:
 		return

@@ -198,12 +198,49 @@ func play_cutscene_animation(animation_name: String):
 
 func play_sera_walk_from_lyra_room_to_player():
 	var sera_node = find_child("Sera_NPC", true, false)
+	var lyra_room_marker := find_first_cutscene_marker(["Tavern_LyraRoom", "LyraRoom", "lyraroom"])
+	var lyra_exit_marker := find_first_cutscene_marker(["Tavern_LyraExit", "Tavern_OutsideLyraRoom", "LyraExit", "lyraexit", "Tavern_Path6"])
+	var sera_talk_marker := find_first_cutscene_marker(["Tavern_SeraTalkToPlayer", "SeraTalkToPlayer", "Sera_TalkToPlayer", "seratalktoplayer"])
 	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
-	if sera_node == null or bedroom_exit_marker == null:
+	if sera_node == null or lyra_room_marker == null or lyra_exit_marker == null:
 		return 0.2
+
+	sera_node.global_position = lyra_room_marker.global_position
+	var final_position: Vector2
+	if sera_talk_marker != null:
+		final_position = sera_talk_marker.global_position
+	elif bedroom_exit_marker != null:
+		final_position = bedroom_exit_marker.global_position + Vector2(-52.0, 10.0)
+	else:
+		return 0.2
+
+	if sera_node.has_method("move_along_global_positions_for_cutscene"):
+		var route_targets: Array[Vector2] = [
+			lyra_exit_marker.global_position,
+			final_position
+		]
+		var path_points: Array[Vector2] = build_axis_locked_cutscene_path(lyra_room_marker.global_position, route_targets)
+		return sera_node.move_along_global_positions_for_cutscene(path_points, 90.0, &"down")
 	if not sera_node.has_method("move_to_global_position_for_cutscene"):
 		return 0.2
-	return sera_node.move_to_global_position_for_cutscene(bedroom_exit_marker.global_position + Vector2(-52.0, 10.0), 1.25, &"down")
+	return sera_node.move_to_global_position_for_cutscene(final_position, 1.25, &"down")
+
+func find_first_cutscene_marker(marker_names: Array[String]) -> Node2D:
+	for marker_name in marker_names:
+		var marker := find_child(marker_name, true, false) as Node2D
+		if marker != null:
+			return marker
+	return null
+
+func build_axis_locked_cutscene_path(start_position: Vector2, target_positions: Array[Vector2]) -> Array[Vector2]:
+	var path_points: Array[Vector2] = []
+	var current_position := start_position
+	for target_position in target_positions:
+		if not is_equal_approx(current_position.x, target_position.x) and not is_equal_approx(current_position.y, target_position.y):
+			path_points.append(Vector2(target_position.x, current_position.y))
+		path_points.append(target_position)
+		current_position = target_position
+	return path_points
 
 func restore_cutscene_actor(actor: Node) -> void:
 	if is_instance_valid(actor) and actor.has_method("restore_after_cutscene"):

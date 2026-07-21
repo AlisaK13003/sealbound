@@ -566,6 +566,13 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 		return
 
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_MINUS:
+		if is_in_menu or Fade.is_fading or AreaStateManager.currently_transitioning:
+			return
+		StateManager.debug_skip_to_lyra_axe_sleep_setup()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event.is_action_pressed("debug_advance_time"):
 		if event is InputEventKey and event.echo:
 			return

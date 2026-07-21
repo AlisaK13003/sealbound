@@ -51,19 +51,18 @@
     {
       "type": "dialogue",
       "speaker": "Sera",
-      "hide_portrait": true,
+      "portrait_frame": "neutral",
       "text": "Oh... hey. I see you got a room for the night like I suggested."
     },
     {
       "type": "dialogue",
       "speaker": "Sera",
-      "hide_portrait": true,
+      "portrait_frame": "neutral",
       "text": "I hope Lyra's been treating you well?"
     },
     {
       "type": "choice",
       "speaker": "MC",
-      "hide_portrait": true,
       "text": "Um...",
       "options": [
         {
@@ -72,13 +71,13 @@
             {
               "type": "dialogue",
               "speaker": "Sera",
-              "hide_portrait": true,
+              "portrait_frame": "awkward",
               "text": "I was afraid of that."
             },
             {
               "type": "dialogue",
               "speaker": "Sera",
-              "hide_portrait": true,
+              "portrait_frame": "neutral",
               "text": "For what it is worth, she is sorry. In her own very loud way."
             }
           ]
@@ -89,7 +88,7 @@
             {
               "type": "dialogue",
               "speaker": "Sera",
-              "hide_portrait": true,
+              "portrait_frame": "smile",
               "text": "Good. That matters more than you probably think right now."
             }
           ]
@@ -100,13 +99,13 @@
             {
               "type": "dialogue",
               "speaker": "Sera",
-              "hide_portrait": true,
+              "portrait_frame": "awkward",
               "text": "I heard."
             },
             {
               "type": "dialogue",
               "speaker": "Sera",
-              "hide_portrait": true,
+              "portrait_frame": "neutral",
               "text": "She should have asked plainly, but I'm glad you made it back safely."
             }
           ]
@@ -116,25 +115,25 @@
     {
       "type": "dialogue",
       "speaker": "Sera",
-      "hide_portrait": true,
+      "portrait_frame": "neutral",
       "text": "Still, please take it easy for a while. Capable or not, you were badly hurt yesterday."
     },
     {
       "type": "dialogue",
       "speaker": "Sera",
-      "hide_portrait": true,
+      "portrait_frame": "neutral",
       "text": "That said... having a capable adventurer around would be helpful."
     },
     {
       "type": "dialogue",
       "speaker": "Sera",
-      "hide_portrait": true,
+      "portrait_frame": "neutral",
       "text": "There is a quest board outside the tavern. People post requests there, but a lot of them go unfinished."
     },
     {
       "type": "dialogue",
       "speaker": "Sera",
-      "hide_portrait": true,
+      "portrait_frame": "smile",
       "text": "If you ever need more money, or just something to do, you could consider looking at it."
     },
     {

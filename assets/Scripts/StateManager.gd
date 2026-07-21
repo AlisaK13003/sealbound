@@ -351,3 +351,41 @@ func debug_unlock_cave_dungeon() -> void:
 			current_scene.apply_demo_dungeon_locks()
 		if current_scene.has_method("show_selected_dungeon"):
 			current_scene.show_selected_dungeon()
+
+func debug_skip_to_lyra_axe_sleep_setup() -> void:
+	Global.set_calendar_time(0, 0, 22, 0)
+	set_story_state(story_beats_lookup.SEEN_OPENING_CUTSCENE)
+	set_story_state(story_beats_lookup.TALKED_TO_SERA_IN_INFIRMARY)
+	set_story_state(story_beats_lookup.SERA_SENT_TO_LYRA)
+	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
+	set_story_state(story_beats_lookup.READY_TO_TURN_IN_AXE_QUEST)
+	set_dungeon_unlock(dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
+	set_party_member_unlock(party_member_unlock_lookup.LYRA_UNLOCKED)
+	GlobalCombatInformation.add_party_member_by_character_index(party_member_unlock_lookup.LYRA_UNLOCKED, true)
+	complete_speak_to_lyra_quest()
+
+	if not has_story_state(story_beats_lookup.TURNED_IN_LYRA_QUEST):
+		start_lyra_axe_quest()
+		turn_in_lyra_axe_quest()
+	else:
+		set_dungeon_unlock(dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
+
+	story_states.erase(story_beats_lookup.SLEPT_AFTER_LYRA_QUEST)
+	story_states.erase(story_beats_lookup.QUEST_BOARD_UNLOCK)
+
+	GlobalCombatInformation.in_dungeon = false
+	GlobalCombatInformation.is_combat_active = false
+	Global.current_region = "Buildings_Insides"
+	Global.current_location = "Buildings_Insides"
+	Global.current_loading_zone = "Bedroom_Exit"
+	Global.has_pending_player_spawn_position = false
+	Global.pending_cutscene_path = ""
+	Global.is_in_menu = false
+	Global.is_paused = false
+	Global.time_paused = false
+	AreaStateManager.currently_transitioning = false
+
+	if AreaStateManager.building_insides_instance == null or not is_instance_valid(AreaStateManager.building_insides_instance):
+		AreaStateManager._setup(false)
+	AreaStateManager.swap_scene()
+	print("[Debug] Skipped to post-Lyra axe quest, before sleep.")
