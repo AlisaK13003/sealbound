@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("1_k8pn2")
-equipment_name = "Iron Helmet"
+equipment_name = "Plated Helmet"
 equipment_description = "Why'd you kill that golem"
 equipment_sprite = ExtResource("1_v2snt")
 equipment_stats = SubResource("Resource_2rfm5")

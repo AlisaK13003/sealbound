@@ -301,7 +301,7 @@ func setup_encounter(new_encounter: dungeon_wave, is_boss, summon: bool = false)
 			AudioManager.play_bgm(AudioManager.BOSS_BATTLE_MUSIC)
 			new_enemy_instance.position = Vector3(0.4, 0.0, 0.75)
 		var new_enemy_stat = enemy_list[i].duplicate(true)
-		new_enemy_stat.raise_level_by_x(current_dungeon_run.average_dungeon_level, current_dungeon_run.allowed_level_differential)
+		new_enemy_stat.raise_level_by_x(current_dungeon_run.average_dungeon_level if not is_boss else current_dungeon_run.boss_level, current_dungeon_run.allowed_level_differential if not is_boss else 0)
 			
 		new_enemy_instance.setup(new_enemy_stat, self, i)
 		all_combatants.append(new_enemy_instance)

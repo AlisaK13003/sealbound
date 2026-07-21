@@ -1,9 +1,14 @@
 [gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://cyr0hf2ba1s4a"]
 
+[ext_resource type="Resource" uid="uid://bubg0ai1hywne" path="res://assets/Equipment/Silver_Knight_Boots.tres" id="1_8duap"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_eqpjp"]
 [ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="1_vh8sp"]
+[ext_resource type="Resource" uid="uid://dtxu6dw48whxr" path="res://assets/Equipment/Silver_Knight_Chestplate.tres" id="2_iwdwh"]
+[ext_resource type="Resource" uid="uid://rpyg4s5fvask" path="res://assets/Equipment/Silver_Knight_Helmet.tres" id="3_r1r7l"]
 [ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="3_t75kh"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_eqpjp"]
+[ext_resource type="Resource" uid="uid://cj14ygcpiasx4" path="res://assets/Equipment/Soldiers_Falchion.tres" id="4_qpmg7"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="5_rb0oy"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="6_mka7e"]
 [ext_resource type="Resource" uid="uid://bmijxtgtfeyxf" path="res://assets/Enemies/Encounters/Slime_Family.tres" id="6_r5wgs"]
 [ext_resource type="Resource" uid="uid://ds136auw6ifkt" path="res://assets/Enemies/Encounters/Tiny_Wolfs.tres" id="6_vh8sp"]
@@ -19,13 +24,20 @@ script = ExtResource("6_mka7e")
 dungeon_name = "Forest Dungeon"
 dungeon_background = ExtResource("1_vh8sp")
 dungeon_description = "This place is a forest!"
-max_number_of_floors = 7
-minimum_number_of_floors = 4
+max_number_of_floors = 8
+minimum_number_of_floors = 5
 potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), ExtResource("6_vh8sp"), ExtResource("6_r5wgs")])
 dungeon_light_color = Color(1, 0.92156863, 0.8, 1)
 first_time_floor_count = 7
-allowed_level_differential = 1
+average_dungeon_level = 7
 type_of_dungeon = 1
 dungeon_unlock_type = 1
+chest_drops = Dictionary[Array, float]({
+[ExtResource("1_8duap")]: 0.3,
+[ExtResource("2_iwdwh")]: 0.2,
+[ExtResource("3_r1r7l")]: 0.15,
+[ExtResource("4_qpmg7")]: 0.05,
+[ExtResource("5_rb0oy")]: 0.3
+})
 room_size = 1
 metadata/_custom_type_script = "uid://3loyjc4d808j"

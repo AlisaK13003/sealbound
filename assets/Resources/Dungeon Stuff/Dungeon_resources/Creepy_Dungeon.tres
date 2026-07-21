@@ -1,22 +1,19 @@
 [gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://5763agr87acy"]
 
 [ext_resource type="Texture2D" uid="uid://cpwt5olgmynmt" path="res://assets/tile sheets/EyeBall/Idle/Dungeon_Wall.png" id="1_4d527"]
-[ext_resource type="Resource" uid="uid://q4akbkqas0vf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Common Mineral.tres" id="1_x6bt1"]
+[ext_resource type="Resource" uid="uid://cx2euhel26jar" path="res://assets/Equipment/Tempered_Broadsword.tres" id="1_jlcea"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="2_2thd2"]
-[ext_resource type="Resource" uid="uid://cv3e5lnop8jut" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Altho Eh Pinto.tres" id="2_lnthy"]
-[ext_resource type="Resource" uid="uid://dpypuosigpukc" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Broken Bone.tres" id="3_k8luo"]
+[ext_resource type="Resource" uid="uid://dt3e25yxo8a4v" path="res://assets/Equipment/Steel_Chestplate.tres" id="2_moqdr"]
+[ext_resource type="Resource" uid="uid://bmd1dmj2p8mq0" path="res://assets/Equipment/Steel_Boots.tres" id="3_dfnx5"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_7dqhu"]
-[ext_resource type="Resource" uid="uid://cbvm0syhki303" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Moldy Mushroom.tres" id="4_h2vkc"]
-[ext_resource type="Resource" uid="uid://n2siy4mef8wc" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Mishapen Coin.tres" id="5_mh2id"]
-[ext_resource type="Resource" uid="uid://dmw404labrblk" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Fallen Adventurer Blade.tres" id="6_tixdq"]
-[ext_resource type="Resource" uid="uid://c2jaij1f2xa7p" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Nomad's Skull.tres" id="7_71q47"]
+[ext_resource type="Resource" uid="uid://beptf8m8tvdrv" path="res://assets/Equipment/Steel_Helmet.tres" id="4_onnqj"]
+[ext_resource type="Resource" uid="uid://s476ys0iocbb" path="res://assets/Equipment/Studded_Leather_Boots.tres" id="5_dbcgt"]
+[ext_resource type="Resource" uid="uid://bs1i7xbhdc8gf" path="res://assets/Equipment/Studded_Leather_Chestplate.tres" id="6_c75ql"]
+[ext_resource type="Resource" uid="uid://cj14ygcpiasx4" path="res://assets/Equipment/Soldiers_Falchion.tres" id="7_fgdk2"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="7_jlcea"]
-[ext_resource type="Resource" uid="uid://d4ncsf2bs5nw1" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Restorative Herb.tres" id="8_aucqd"]
-[ext_resource type="Resource" uid="uid://dn84u0cbfueny" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Rare Mineral.tres" id="9_8crub"]
-[ext_resource type="Resource" uid="uid://d3a38wan8w2vq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Mini Chest.tres" id="10_0p7lf"]
 [ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="11_6d074"]
-[ext_resource type="Resource" uid="uid://cs7e37xcnkdur" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Chunk of Gold.tres" id="11_kw23h"]
-[ext_resource type="Resource" uid="uid://cafkoy5lw7ura" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Magical Gem.tres" id="12_kpgmo"]
+[ext_resource type="Resource" uid="uid://c53bl6mg31nk4" path="res://assets/Enemies/Red_Slime_Creature.tres" id="13_dfnx5"]
+[ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="14_onnqj"]
 [ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="17_c75ql"]
 
 [sub_resource type="Resource" id="Resource_hc7dq"]
@@ -34,26 +31,44 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 [sub_resource type="Resource" id="Resource_8ysbo"]
 script = ExtResource("2_2thd2")
 encounterable_enemy = ExtResource("11_6d074")
-enemies = Array[ExtResource("4_7dqhu")]([ExtResource("17_c75ql"), ExtResource("11_6d074"), ExtResource("11_6d074"), ExtResource("11_6d074"), ExtResource("11_6d074")])
+enemies = Array[ExtResource("4_7dqhu")]([ExtResource("17_c75ql"), ExtResource("11_6d074"), ExtResource("11_6d074"), ExtResource("13_dfnx5"), ExtResource("13_dfnx5")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_1uxpi"]
+script = ExtResource("2_2thd2")
+encounterable_enemy = ExtResource("14_onnqj")
+enemies = Array[ExtResource("4_7dqhu")]([ExtResource("14_onnqj"), ExtResource("14_onnqj"), ExtResource("17_c75ql")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_87eo0"]
+script = ExtResource("2_2thd2")
+encounterable_enemy = ExtResource("13_dfnx5")
+enemies = Array[ExtResource("4_7dqhu")]([ExtResource("13_dfnx5"), ExtResource("13_dfnx5"), ExtResource("11_6d074")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_jcodd"]
+script = ExtResource("2_2thd2")
+encounterable_enemy = ExtResource("17_c75ql")
+enemies = Array[ExtResource("4_7dqhu")]([ExtResource("17_c75ql"), ExtResource("17_c75ql"), ExtResource("14_onnqj"), ExtResource("11_6d074")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("7_jlcea")
 dungeon_name = "Creepy Crawly Dungeon"
 dungeon_background = ExtResource("1_4d527")
-max_number_of_floors = 1
-minimum_number_of_floors = 1
-potential_encounters = Array[ExtResource("2_2thd2")]([SubResource("Resource_hc7dq"), SubResource("Resource_kk88i"), SubResource("Resource_8ysbo")])
+max_number_of_floors = 7
+minimum_number_of_floors = 4
+potential_encounters = Array[ExtResource("2_2thd2")]([SubResource("Resource_hc7dq"), SubResource("Resource_kk88i"), SubResource("Resource_8ysbo"), SubResource("Resource_1uxpi"), SubResource("Resource_87eo0"), SubResource("Resource_jcodd")])
 dungeon_light_color = Color(0.5176471, 0.5529412, 0.8352941, 1)
-first_time_floor_count = 1
+first_time_floor_count = 7
+average_dungeon_level = 10
 chest_drops = Dictionary[Array, float]({
-[ExtResource("9_8crub")]: 0.08,
-[ExtResource("10_0p7lf")]: 0.06,
-[ExtResource("11_kw23h")]: 0.04,
-[ExtResource("12_kpgmo")]: 0.02,
-[ExtResource("1_x6bt1"), ExtResource("2_lnthy")]: 0.4,
-[ExtResource("6_tixdq"), ExtResource("7_71q47")]: 0.15,
-[ExtResource("8_aucqd"), ExtResource("2_lnthy")]: 0.1,
-[ExtResource("3_k8luo"), ExtResource("4_h2vkc"), ExtResource("5_mh2id")]: 0.25
+[ExtResource("1_jlcea")]: 0.05,
+[ExtResource("2_moqdr")]: 0.2,
+[ExtResource("3_dfnx5")]: 0.1,
+[ExtResource("4_onnqj")]: 0.1,
+[ExtResource("5_dbcgt")]: 0.2,
+[ExtResource("6_c75ql")]: 0.2,
+[ExtResource("7_fgdk2")]: 0.05
 })
 metadata/_custom_type_script = "uid://3loyjc4d808j"

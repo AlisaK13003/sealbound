@@ -8,5 +8,5 @@ script = ExtResource("1_0i2i4")
 weapon_name = "Training Sword"
 weapon_description = "Decent Sword"
 weapon_texture = ExtResource("2_2bbjm")
-weapon_attack = 4
+weapon_attack = 2
 metadata/_custom_type_script = "uid://c8pcj6siqledr"

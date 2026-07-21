@@ -19,6 +19,8 @@ class_name dungeon_type
 @export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 @export var dungeon_unlock_type: StateManager.dungeon_state_lookup
 
+@export var boss_level: int = 20
+
 @export var quest_dungeon: bool = false
 
 var is_this_dungeon_unlocked: bool = false

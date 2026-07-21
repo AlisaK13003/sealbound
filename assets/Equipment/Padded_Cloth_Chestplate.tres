@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://dtsi07k4kyx8t"]
+
+[ext_resource type="Texture2D" uid="uid://cdsbyf87dixwc" path="res://assets/Equipment/Equipment Sprites/Leather Chestplate.png" id="1_6b6a3"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_4kntb"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="3_ui1lr"]
+
+[sub_resource type="Resource" id="Resource_tha0o"]
+script = ExtResource("2_4kntb")
+max_health = 3
+health = 3
+defense = 3
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("3_ui1lr")
+equipment_name = "Leather Chestplate"
+equipment_description = "This ain't minecraft"
+equipment_sprite = ExtResource("1_6b6a3")
+equipment_type = 1
+equipment_stats = SubResource("Resource_tha0o")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

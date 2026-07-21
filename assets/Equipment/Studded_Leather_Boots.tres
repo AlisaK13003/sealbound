@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://s476ys0iocbb"]
+
+[ext_resource type="Texture2D" uid="uid://cbh73kklbygq1" path="res://assets/Equipment/Equipment Sprites/Leather Boots.png" id="1_sp2f6"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_t43bl"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="3_5mmhm"]
+
+[sub_resource type="Resource" id="Resource_5rluu"]
+script = ExtResource("2_t43bl")
+speed = 11
+luck = 2
+evasion = 2
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("3_5mmhm")
+equipment_name = "Leather Boots"
+equipment_description = "Comfy"
+equipment_sprite = ExtResource("1_sp2f6")
+equipment_type = 2
+equipment_stats = SubResource("Resource_5rluu")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

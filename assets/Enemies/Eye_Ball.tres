@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_jx6af"]
 [ext_resource type="Resource" uid="uid://dmw404labrblk" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Fallen Adventurer Blade.tres" id="3_5k1ry"]
 [ext_resource type="Resource" uid="uid://b7g01c5jo4trt" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/The Whole Eye.tres" id="4_5k1ry"]
+[ext_resource type="Resource" uid="uid://dpypuosigpukc" path="res://scenes/Dungeon/Explorable_Dungeon_Test/chest/Chest Drops/Broken Bone.tres" id="4_8ulno"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_tfr1o"]
 [ext_resource type="SpriteFrames" uid="uid://c26tai6jwf34x" path="res://assets/Enemies/Eyeball_Sprite_Frames.tres" id="7_1sfu2"]
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="8_sx8g4"]
@@ -88,7 +89,8 @@ is_combatant_enemy = true
 stored_weapon = SubResource("Resource_otd26")
 stored_equipment = SubResource("Resource_f2dqj")
 drop_table = Dictionary[Resource, float]({
-ExtResource("3_5k1ry"): 0.1
+ExtResource("3_5k1ry"): 0.1,
+ExtResource("4_8ulno"): 0.1
 })
 quest_item_drop = ExtResource("4_5k1ry")
 coin_drop_range = Vector2i(0, 10)

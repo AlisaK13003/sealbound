@@ -643,7 +643,7 @@ func build_rooms(room_storage, boss_floor, size):
 								break
 					
 					# Spawn end room template
-					if chance < 0.2:
+					if chance < 0.05:
 						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
 					else:
 						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "R")

@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("1_euj5k")
-equipment_name = "Iron Chestplate"
+equipment_name = "Plated Chestplate"
 equipment_description = "Better than leather"
 equipment_sprite = ExtResource("1_xevju")
 equipment_type = 1

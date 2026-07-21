@@ -23,9 +23,39 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 		for item in chest_drop:
 			if unique_items.find(item) == -1:
 				unique_items.append(item)
+				
+	for encounter in dungeon_type_.potential_encounters:
+		for enemy: generic_combatants in encounter.enemies:
+			var index = unique_enemies.find_custom(func(encounterable_enemy: generic_combatants): return enemy.combatant_name == encounterable_enemy.combatant_name)
+			if index == -1:
+				unique_enemies.append(enemy)
+				
 	for item in unique_items:
 		var new_label = Label.new()
-		new_label.text = item.item_name
+		var new_box = HBoxContainer.new()
+		var new_texture_rect = TextureRect.new()
+		
+		new_texture_rect.custom_maximum_size = Vector2(32, 32)
+		
+		new_box.add_child(new_texture_rect)
+		new_box.add_child(new_label)
+		
+		
+		if item is weapon:
+			new_label.text = item.weapon_name
+			new_texture_rect.texture = item.weapon_texture
+		elif item is equipment:
+			new_label.text = item.equipment_name
+			new_texture_rect.texture = item.equipment_sprite
+		elif item is Items:
+			new_label.text = item.item_name
+			new_texture_rect.texture = item.item_sprite
+		
+		$GridContainer.add_child(new_box)
+	
+	if unique_items.is_empty():
+		var new_label = Label.new()
+		new_label.text = "No Drops"
 		$GridContainer.add_child(new_label)
 	
 	if dungeon_type_.does_dungeon_have_boss:

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="weapon" format=3 uid="uid://ch62itspxh1dx"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_0brkw"]
+[ext_resource type="Texture2D" uid="uid://cnx3mg38e4mty" path="res://assets/Equipment/Equipment Sprites/Training Dagger.png" id="2_ts5h4"]
+
+[resource]
+script = ExtResource("1_0brkw")
+weapon_name = "Scavengers Tooth"
+weapon_description = "Pointy"
+weapon_texture = ExtResource("2_ts5h4")
+weapon_attack = 3
+weapon_crit_chance = 5
+weapon_crit_damage = 0.1
+attack_accuracy = 10
+metadata/_custom_type_script = "uid://c8pcj6siqledr"

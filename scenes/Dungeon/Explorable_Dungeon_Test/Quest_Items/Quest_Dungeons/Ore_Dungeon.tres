@@ -3,16 +3,41 @@
 [ext_resource type="Texture2D" uid="uid://4kl0710u5cha" path="res://assets/tile sheets/Creepy_dungeon_section_wall.png" id="1_4j6jr"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_hfiyr"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_4j6jr"]
+[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="3_durrd"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_cx3uc"]
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="5_m54ou"]
+[ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="6_3kcs8"]
+
+[sub_resource type="Resource" id="Resource_1hibc"]
+script = ExtResource("1_hfiyr")
+encounterable_enemy = ExtResource("3_durrd")
+enemies = Array[ExtResource("4_cx3uc")]([ExtResource("3_durrd"), ExtResource("5_m54ou"), ExtResource("5_m54ou")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_w3nti"]
+script = ExtResource("1_hfiyr")
+encounterable_enemy = ExtResource("5_m54ou")
+enemies = Array[ExtResource("4_cx3uc")]([ExtResource("5_m54ou"), ExtResource("3_durrd"), ExtResource("6_3kcs8"), ExtResource("3_durrd")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_lbf6d"]
+script = ExtResource("1_hfiyr")
+encounterable_enemy = ExtResource("6_3kcs8")
+enemies = Array[ExtResource("4_cx3uc")]([ExtResource("5_m54ou"), ExtResource("6_3kcs8"), ExtResource("6_3kcs8")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("2_4j6jr")
 dungeon_name = "Ore Deposits"
 dungeon_background = ExtResource("1_4j6jr")
 dungeon_description = "This place is known to house many a rare ore, which is why the local blacksmith uses this place to stock up."
-max_number_of_floors = 1
-minimum_number_of_floors = 1
+max_number_of_floors = 4
+minimum_number_of_floors = 4
+potential_encounters = Array[ExtResource("1_hfiyr")]([SubResource("Resource_1hibc"), SubResource("Resource_w3nti"), SubResource("Resource_lbf6d")])
 dungeon_light_color = Color(0.29954746, 0.29954746, 0.29954743, 1)
-first_time_floor_count = 1
+first_time_floor_count = 4
+average_dungeon_level = 5
+allowed_level_differential = 3
 quest_dungeon = true
 dont_spawn_chests = true
 metadata/_custom_type_script = "uid://3loyjc4d808j"

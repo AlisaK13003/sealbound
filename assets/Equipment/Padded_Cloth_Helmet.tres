@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://dmhws28dcywm6"]
+
+[ext_resource type="Texture2D" uid="uid://caaewv5fnihel" path="res://assets/Equipment/Equipment Sprites/Leather Helmet.png" id="1_3h8sc"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_baki4"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="3_06f4y"]
+
+[sub_resource type="Resource" id="Resource_epsqu"]
+script = ExtResource("2_baki4")
+max_health = 2
+health = 2
+resistance = 1
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("3_06f4y")
+equipment_name = "Leather Helmet"
+equipment_description = "Did you want protection?"
+equipment_sprite = ExtResource("1_3h8sc")
+equipment_stats = SubResource("Resource_epsqu")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

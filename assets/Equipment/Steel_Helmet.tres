@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://beptf8m8tvdrv"]
+
+[ext_resource type="Texture2D" uid="uid://cxeiarb82dn8k" path="res://assets/Equipment/Equipment Sprites/Iron Helmet.png" id="1_dyicn"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_a0b6s"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="3_sixrs"]
+
+[sub_resource type="Resource" id="Resource_2rfm5"]
+script = ExtResource("2_a0b6s")
+max_health = 4
+health = 4
+resistance = 2
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("3_sixrs")
+equipment_name = "Iron Helmet"
+equipment_description = "Why'd you kill that golem"
+equipment_sprite = ExtResource("1_dyicn")
+equipment_stats = SubResource("Resource_2rfm5")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

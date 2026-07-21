@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_b2qww"]
 script = ExtResource("2_b2qww")
-level = 4
 max_health = 65
 health = 65
 attack = 12
@@ -28,7 +27,6 @@ defense = 7
 magic = 2
 resistance = 4
 crit_chance = 8
-crit_damage = 50.0
 speed = 9
 luck = 8
 evasion = 10

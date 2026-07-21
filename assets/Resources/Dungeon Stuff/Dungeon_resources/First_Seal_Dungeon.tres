@@ -4,14 +4,52 @@
 [ext_resource type="Resource" uid="uid://b1miktyc4wfni" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Wolf_Boss.tres" id="1_8chwe"]
 [ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="2_7iqy5"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_7yfg2"]
+[ext_resource type="Resource" uid="uid://bxfbuhkvgd1bg" path="res://assets/Enemies/Tiny_Wolf.tres" id="4_mmrrb"]
+[ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="5_t2sfj"]
+[ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="6_u6kos"]
+[ext_resource type="Resource" uid="uid://c53bl6mg31nk4" path="res://assets/Enemies/Red_Slime_Creature.tres" id="7_gjmog"]
+[ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="8_i31k4"]
+
+[sub_resource type="Resource" id="Resource_a4ahv"]
+script = ExtResource("1_1rkgn")
+encounterable_enemy = ExtResource("4_mmrrb")
+enemies = Array[ExtResource("5_t2sfj")]([ExtResource("4_mmrrb"), ExtResource("4_mmrrb"), ExtResource("4_mmrrb"), ExtResource("4_mmrrb")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_rnc85"]
+script = ExtResource("1_1rkgn")
+encounterable_enemy = ExtResource("4_mmrrb")
+enemies = Array[ExtResource("5_t2sfj")]([ExtResource("4_mmrrb"), ExtResource("4_mmrrb"), ExtResource("4_mmrrb")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_c5kdw"]
+script = ExtResource("1_1rkgn")
+encounterable_enemy = ExtResource("6_u6kos")
+enemies = Array[ExtResource("5_t2sfj")]([ExtResource("7_gjmog"), ExtResource("6_u6kos"), ExtResource("8_i31k4")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_sscs3"]
+script = ExtResource("1_1rkgn")
+encounterable_enemy = ExtResource("8_i31k4")
+enemies = Array[ExtResource("5_t2sfj")]([ExtResource("8_i31k4"), ExtResource("6_u6kos"), ExtResource("7_gjmog")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_qwiyp"]
+script = ExtResource("1_1rkgn")
+encounterable_enemy = ExtResource("7_gjmog")
+enemies = Array[ExtResource("5_t2sfj")]([ExtResource("7_gjmog"), ExtResource("6_u6kos"), ExtResource("8_i31k4")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("2_7yfg2")
 dungeon_name = "Seal Dungeon"
 dungeon_background = ExtResource("2_7iqy5")
-max_number_of_floors = 1
-minimum_number_of_floors = 1
-first_time_floor_count = 1
+max_number_of_floors = 10
+minimum_number_of_floors = 10
+potential_encounters = Array[ExtResource("1_1rkgn")]([SubResource("Resource_a4ahv"), SubResource("Resource_rnc85"), SubResource("Resource_c5kdw"), SubResource("Resource_sscs3"), SubResource("Resource_qwiyp")])
+dungeon_light_color = Color(0.18561739, 0.29396656, 4.813075e-08, 1)
+average_dungeon_level = 15
+allowed_level_differential = 3
 type_of_dungeon = 1
 dungeon_unlock_type = 2
 does_dungeon_have_boss = true

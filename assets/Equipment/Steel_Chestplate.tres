@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="equipment" format=3 uid="uid://dt3e25yxo8a4v"]
+
+[ext_resource type="Texture2D" uid="uid://c2uybmdloqkfq" path="res://assets/Equipment/Equipment Sprites/Iron Chestplate.png" id="1_ikbhv"]
+[ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="2_wr8ob"]
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="3_ulmbt"]
+
+[sub_resource type="Resource" id="Resource_6h407"]
+script = ExtResource("2_wr8ob")
+max_health = 5
+health = 5
+defense = 3
+metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
+
+[resource]
+script = ExtResource("3_ulmbt")
+equipment_name = "Iron Chestplate"
+equipment_description = "Better than leather"
+equipment_sprite = ExtResource("1_ikbhv")
+equipment_type = 1
+equipment_stats = SubResource("Resource_6h407")
+metadata/_custom_type_script = "uid://bgmidaf6aanj7"

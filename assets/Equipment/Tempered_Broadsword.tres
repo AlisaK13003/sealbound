@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="weapon" format=3 uid="uid://cx2euhel26jar"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_55803"]
+[ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="2_rmef2"]
+
+[resource]
+script = ExtResource("1_55803")
+weapon_name = "Tempered Broadsword"
+weapon_description = "Decent Sword"
+weapon_texture = ExtResource("2_rmef2")
+weapon_attack = 4
+metadata/_custom_type_script = "uid://c8pcj6siqledr"

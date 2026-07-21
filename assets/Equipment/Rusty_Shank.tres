@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="weapon" format=3 uid="uid://x5otqq0n0msv"]
+
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="1_2okw2"]
+[ext_resource type="Texture2D" uid="uid://cnx3mg38e4mty" path="res://assets/Equipment/Equipment Sprites/Training Dagger.png" id="2_0gx3u"]
+
+[resource]
+script = ExtResource("1_2okw2")
+weapon_name = "Rusty Shank"
+weapon_description = "Pointy"
+weapon_texture = ExtResource("2_0gx3u")
+weapon_attack = 2
+weapon_crit_chance = 5
+weapon_crit_damage = 0.1
+attack_accuracy = 10
+metadata/_custom_type_script = "uid://c8pcj6siqledr"
