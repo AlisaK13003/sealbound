@@ -228,6 +228,10 @@
 	  "value": true
 	},
 	{
+	  "type": "action",
+	  "name": "start_speak_to_lyra_quest"
+	},
+	{
 	  "type": "fade",
 	  "direction": "in",
 	  "duration": 0.35

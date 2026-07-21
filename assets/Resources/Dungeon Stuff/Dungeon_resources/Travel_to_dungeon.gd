@@ -36,14 +36,14 @@ func _ready():
 		})
 
 	for quest_ in GlobalCombatInformation.active_quests:
-		if quest_.required_spawn and GlobalCombatInformation.completed_quests.find_custom(func(finished_quests: quest): return finished_quests.special_dungeon.dungeon_name == quest_.special_dungeon.dungeon_name) == -1:
+		if quest_.required_spawn and quest_.special_dungeon != null and GlobalCombatInformation.completed_quests.find_custom(func(finished_quests: quest): return _is_same_special_dungeon(finished_quests, quest_)) == -1:
 			dungeon_entries.append({
 				"dungeon": quest_.special_dungeon,
 				"quest": quest_
 			})
 			
 	for quest_ in GlobalCombatInformation.completed_quests:
-		if quest_.required_spawn:
+		if quest_.required_spawn and quest_.special_dungeon != null:
 			dungeon_entries.append({
 				"dungeon": quest_.special_dungeon,
 				"quest": quest_.duplicate()
@@ -89,6 +89,14 @@ func _ready():
 		child.visible = false
 	await Fade.fade_out(0.5)
 	
+
+func _is_same_special_dungeon(finished_quest: quest, active_quest: quest) -> bool:
+	if finished_quest == null or active_quest == null:
+		return false
+	if finished_quest.special_dungeon == null or active_quest.special_dungeon == null:
+		return false
+	return finished_quest.special_dungeon.dungeon_name == active_quest.special_dungeon.dungeon_name
+
 
 func _tab_changed(which_tab):
 	current_selected_dungeon = which_tab

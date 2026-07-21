@@ -1,10 +1,11 @@
 class_name CharacterAnimationDriver
 extends RefCounted
 
-const SIDE_IDLE_POSE_FRAME := 2
+const DEFAULT_SIDE_IDLE_POSE_FRAME := 1
 
 var facing_left: bool = false
 var facing_direction: StringName = &"down"
+var side_idle_pose_frame: int = DEFAULT_SIDE_IDLE_POSE_FRAME
 
 func face(sprite: AnimatedSprite2D, direction: StringName) -> void:
 	match direction:
@@ -58,7 +59,7 @@ func _play_idle_for_facing(sprite: AnimatedSprite2D) -> void:
 		if not sprite.sprite_frames.has_animation(animation_name):
 			continue
 		if String(animation_name).begins_with("walk"):
-			_play_frozen_pose(sprite, animation_name, SIDE_IDLE_POSE_FRAME if facing_direction == &"side" else 0)
+			_play_frozen_pose(sprite, animation_name, side_idle_pose_frame if facing_direction == &"side" else 0)
 		else:
 			_play_if_available(sprite, animation_name)
 		return
@@ -79,6 +80,6 @@ func _play_if_available(sprite: AnimatedSprite2D, animation_name: StringName, fa
 func _play_frozen_pose(sprite: AnimatedSprite2D, animation_name: StringName, pose_frame: int = 0) -> void:
 	if sprite.animation != animation_name or sprite.is_playing():
 		sprite.play(animation_name)
-		sprite.frame = mini(pose_frame, sprite.sprite_frames.get_frame_count(animation_name) - 1)
-		sprite.frame_progress = 0.0
+	sprite.frame = mini(pose_frame, sprite.sprite_frames.get_frame_count(animation_name) - 1)
+	sprite.frame_progress = 0.0
 	sprite.pause()

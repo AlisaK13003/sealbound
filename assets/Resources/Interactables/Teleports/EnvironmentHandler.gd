@@ -1,7 +1,9 @@
 extends Node2D
 
 const CUTSCENE_RUNNER_SCRIPT = preload("res://assets/Scripts/cutscene_runner.gd")
+const RESTING_SCRIPT = preload("res://assets/Resources/Interactables/Resting.gd")
 const BORDER_THICKNESS := 64.0
+const BEDROOM_REST_SPOT_NAME := "BedroomRestSpot"
 
 @export var is_building_insides: bool = false
 
@@ -13,6 +15,8 @@ func swap_to_me():
 	player_node = get_tree().get_first_node_in_group("Overworld_Player")
 	var entry_loading_zone: String = Global.current_loading_zone
 	teleport_player_to_spawn()
+	if is_building_insides:
+		ensure_bed_rest_interactions()
 
 	AudioManager.play_bgm(bgm, true)
 	set_camera_limits()
@@ -30,15 +34,18 @@ func swap_to_me():
 					refresh_player_camera()
 				"turning_in_lyra_axe_cutscene":
 					print("RETURN AXE")
-					StateManager.pseduo_story_time = Global.current_day
-					GlobalCombatInformation.complete_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres")
-					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
-					StateManager.set_story_state(StateManager.story_beats_lookup.TURNED_IN_LYRA_QUEST, true)
+					cutscene_to_start = potential_cutscene
+					prepare_lyra_axe_return_cutscene()
+					refresh_player_camera()
+					await get_tree().process_frame
+					refresh_player_camera()
 				"quest_board_unlock_cutscene":
-					print("COMPLETED LYRA QUEST")
-					StateManager.set_story_state(StateManager.story_beats_lookup.QUEST_BOARD_UNLOCK, true)
-					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.SERA_UNLOCKED)
-					StateManager.set_party_member_unlock(StateManager.party_member_unlock_lookup.LYRA_UNLOCKED)
+					print("QUEST BOARD INTRO")
+					cutscene_to_start = potential_cutscene
+					prepare_sera_quest_board_cutscene()
+					refresh_player_camera()
+					await get_tree().process_frame
+					refresh_player_camera()
 				"give_ore_to_blacksmith":
 					print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
 					StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
@@ -63,6 +70,10 @@ func swap_to_me():
 	match cutscene_to_start:
 		"lyra_tavern_cutscene":
 			start_lyra_tavern_cutscene()
+		"turning_in_lyra_axe_cutscene":
+			start_lyra_axe_return_cutscene()
+		"quest_board_unlock_cutscene":
+			start_sera_quest_board_cutscene()
 	
 func teleport_player_to_spawn():
 	if player_node == null:
@@ -105,6 +116,39 @@ func prepare_lyra_tavern_cutscene() -> void:
 	if lyra_node != null and lyra_node.has_method("pin_to_location_for_cutscene"):
 		lyra_node.pin_to_location_for_cutscene("Tavern_Counter")
 
+func prepare_lyra_axe_return_cutscene() -> void:
+	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
+	if player_node != null:
+		if bedroom_exit_marker != null:
+			player_node.global_position = bedroom_exit_marker.global_position
+		else:
+			var tavern_marker := get_node_or_null("Tavern/LoadingZone/Marker2D") as Node2D
+			if tavern_marker != null:
+				player_node.global_position = tavern_marker.global_position
+
+	var lyra_node = find_child("Lyra_NPC", true, false)
+	if lyra_node == null:
+		return
+	if bedroom_exit_marker != null and lyra_node.has_method("pin_to_global_position_for_cutscene"):
+		lyra_node.pin_to_global_position_for_cutscene(bedroom_exit_marker.global_position + Vector2(72.0, -8.0), &"down")
+	elif lyra_node.has_method("pin_to_location_for_cutscene"):
+		lyra_node.pin_to_location_for_cutscene("Tavern_Path6")
+
+func prepare_sera_quest_board_cutscene() -> void:
+	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
+	var lyra_room_marker := find_child("Tavern_LyraRoom", true, false) as Node2D
+
+	if player_node != null and bedroom_exit_marker != null:
+		player_node.global_position = bedroom_exit_marker.global_position
+
+	var sera_node = find_child("Sera_NPC", true, false)
+	if sera_node != null and lyra_room_marker != null and sera_node.has_method("pin_to_global_position_for_cutscene"):
+		sera_node.pin_to_global_position_for_cutscene(lyra_room_marker.global_position, &"down")
+
+	var lyra_node = find_child("Lyra_NPC", true, false)
+	if lyra_node != null and lyra_room_marker != null and lyra_node.has_method("pin_to_global_position_for_cutscene"):
+		lyra_node.pin_to_global_position_for_cutscene(lyra_room_marker.global_position + Vector2(28.0, 0.0), &"left")
+
 func refresh_player_camera() -> void:
 	if player_node == null:
 		return
@@ -125,9 +169,61 @@ func start_lyra_tavern_cutscene() -> void:
 		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
 	runner.play(Global.LYRA_TAVERN_CUTSCENE_PATH)
 
+func start_lyra_axe_return_cutscene() -> void:
+	var runner = CUTSCENE_RUNNER_SCRIPT.new()
+	get_tree().current_scene.add_child(runner)
+	runner.finished.connect(runner.queue_free)
+	var lyra_node = find_child("Lyra_NPC", true, false)
+	if lyra_node != null and lyra_node.has_method("restore_after_cutscene"):
+		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
+	runner.play(Global.LYRA_AXE_RETURN_CUTSCENE_PATH)
+
+func start_sera_quest_board_cutscene() -> void:
+	var runner = CUTSCENE_RUNNER_SCRIPT.new()
+	get_tree().current_scene.add_child(runner)
+	runner.finished.connect(runner.queue_free)
+	var sera_node = find_child("Sera_NPC", true, false)
+	if sera_node != null and sera_node.has_method("restore_after_cutscene"):
+		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(sera_node))
+	var lyra_node = find_child("Lyra_NPC", true, false)
+	if lyra_node != null and lyra_node.has_method("restore_after_cutscene"):
+		runner.finished.connect(Callable(self, "restore_cutscene_actor").bind(lyra_node))
+	runner.play(Global.SERA_QUEST_BOARD_CUTSCENE_PATH)
+
+func play_cutscene_animation(animation_name: String):
+	match animation_name:
+		"sera_walk_from_lyra_room_to_player":
+			return play_sera_walk_from_lyra_room_to_player()
+	return null
+
+func play_sera_walk_from_lyra_room_to_player():
+	var sera_node = find_child("Sera_NPC", true, false)
+	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
+	if sera_node == null or bedroom_exit_marker == null:
+		return 0.2
+	if not sera_node.has_method("move_to_global_position_for_cutscene"):
+		return 0.2
+	return sera_node.move_to_global_position_for_cutscene(bedroom_exit_marker.global_position + Vector2(-52.0, 10.0), 1.25, &"down")
+
 func restore_cutscene_actor(actor: Node) -> void:
 	if is_instance_valid(actor) and actor.has_method("restore_after_cutscene"):
 		actor.restore_after_cutscene()
+
+func ensure_bed_rest_interactions() -> void:
+	if find_child(BEDROOM_REST_SPOT_NAME, true, false) != null:
+		return
+
+	var wake_marker := find_child("Bedspawn", true, false) as Node2D
+	if wake_marker == null:
+		return
+
+	var rest_spot := Node2D.new()
+	rest_spot.name = BEDROOM_REST_SPOT_NAME
+	rest_spot.set_script(RESTING_SCRIPT)
+	rest_spot.set("wake_marker_name", "Bedspawn")
+	rest_spot.set("trigger_size", Vector2(80.0, 80.0))
+	add_child(rest_spot)
+	rest_spot.global_position = wake_marker.global_position
 
 func build_world_border(top_left: Vector2, bottom_right: Vector2) -> void:
 	if has_node("WorldBorder"):

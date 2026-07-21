@@ -10,6 +10,7 @@ size = Vector2(38, 34)
 script = ExtResource("1_m56pm")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=326838132]
+visible = false
 texture = ExtResource("2_4q26h")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=260905774]

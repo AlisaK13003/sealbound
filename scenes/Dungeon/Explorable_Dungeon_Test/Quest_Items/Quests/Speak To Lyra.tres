@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://baxfb4xov5kpb"]
+
+[ext_resource type="Texture2D" uid="uid://pfuhauy61si8" path="res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png" id="1_sera"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="2_quest"]
+
+[resource]
+script = ExtResource("2_quest")
+quest_name = "Find and Speak with Lyra"
+quest_giver = "Sera"
+quest_giver_sprite = ExtResource("1_sera")
+quest_description = "Find Lyra at the tavern south of the infirmary and ask her about getting a room."
+ready_to_turn_in_string = "Speak with Lyra at the tavern"
+custom_resource_path = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Speak To Lyra.tres"
+metadata/_custom_type_script = "uid://npoqdralsply"
