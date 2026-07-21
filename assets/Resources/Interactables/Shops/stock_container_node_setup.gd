@@ -213,9 +213,9 @@ func await_purchase(item):
 			GlobalCombatInformation.update_currency(-1 * adjusted_price)
 			for i in range(amount_purchased):
 				if item is equipment or item is weapon:
-					GlobalCombatInformation.add_equipment_to_list(item.duplicate(), true if item is weapon else false)
+					GlobalCombatInformation.add_equipment_to_list(item.get_path_custom(), true if item is weapon else false)
 				elif item is Items:
-					GlobalCombatInformation.add_item(item.duplicate())
+					GlobalCombatInformation.add_item(item.get_path_custom())
 			item.stack -= amount_purchased
 		else:
 			var adjusted_price = int(float(item.sell_price) + (float(item.sell_price) * discount)) * amount_purchased
