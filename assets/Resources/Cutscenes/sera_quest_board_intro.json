@@ -45,14 +45,25 @@
     },
     {
       "type": "animation",
-      "name": "sera_walk_from_lyra_room_to_player",
+      "name": "sera_walk_from_lyra_room_to_exit",
       "blocking": true
     },
     {
       "type": "dialogue",
       "speaker": "Sera",
       "portrait_frame": "neutral",
-      "text": "Oh... hey. I see you got a room for the night like I suggested."
+      "text": "Oh... hey."
+    },
+    {
+      "type": "animation",
+      "name": "sera_walk_from_lyra_exit_to_player",
+      "blocking": true
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "portrait_frame": "neutral",
+      "text": "I see you got a room for the night like I suggested."
     },
     {
       "type": "dialogue",
@@ -146,7 +157,7 @@
       "type": "dialogue",
       "speaker": "",
       "hide_portrait": true,
-      "text": "Sera and Lyra can now join you in dungeons."
+      "text": "Sera joined your party!"
     },
     {
       "type": "action",

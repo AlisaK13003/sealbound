@@ -15,6 +15,10 @@ var pending_choice_action: String = ""
 
 var current_location
 const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
+const DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT: float = 36.0
+const LOCATION_ARRIVAL_FACING_OVERRIDES: Dictionary = {
+	"Tavern_Counter": "down"
+}
 var current_destination = null
 
 @onready var clickable_area : Area2D = $NPC_Clickable
@@ -32,7 +36,10 @@ var current_destination = null
 @export var counter_z_index: int = 0
 @export var counter_draw_order_y: float = -720.0
 @export var use_counter_draw_order: bool = false
+@export var auto_match_player_visual_height: bool = true
+@export var overworld_sprite_display_height: float = DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT
 
+var cached_overworld_sprite_frame_height: float = 0.0
 var schedule_info
 var loaded_schedule_day: int = -1
 var traveling_to : int
@@ -44,6 +51,8 @@ var cutscene_motion_direction: Vector2 = Vector2.ZERO
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
+	apply_overworld_sprite_scale()
+	call_deferred("apply_overworld_sprite_scale")
 	if shop_controller != null:
 		shop_controller.shop_closed.connect(close_shop)
 	Global.time_updated.connect(navigate)
@@ -67,6 +76,101 @@ func _ready():
 			dialogue_system.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
 	navigate.call_deferred()
+
+func apply_overworld_sprite_scale() -> void:
+	if not auto_match_player_visual_height:
+		return
+	if animated_sprite == null or animated_sprite.sprite_frames == null:
+		return
+
+	var frame_height := get_cached_overworld_sprite_frame_height()
+	if frame_height <= 0.0:
+		return
+	var inherited_y_scale := absf(global_transform.get_scale().y)
+	if inherited_y_scale <= 0.0:
+		inherited_y_scale = 1.0
+	var target_display_height := get_player_overworld_sprite_display_height()
+	var display_scale := target_display_height / (frame_height * inherited_y_scale)
+	animated_sprite.scale = Vector2(display_scale, display_scale)
+
+func get_cached_overworld_sprite_frame_height() -> float:
+	if cached_overworld_sprite_frame_height <= 0.0 and animated_sprite != null and animated_sprite.sprite_frames != null:
+		cached_overworld_sprite_frame_height = get_first_sprite_frame_height(animated_sprite.sprite_frames)
+	return cached_overworld_sprite_frame_height
+
+func get_player_overworld_sprite_display_height() -> float:
+	if not is_inside_tree():
+		return overworld_sprite_display_height
+	var player_sprite := get_player_animated_sprite()
+	if player_sprite == null or player_sprite.sprite_frames == null:
+		return overworld_sprite_display_height
+	var player_frame_height := get_first_sprite_frame_height(player_sprite.sprite_frames)
+	var player_y_scale := absf(player_sprite.global_transform.get_scale().y)
+	if player_frame_height <= 0.0 or player_y_scale <= 0.0:
+		return overworld_sprite_display_height
+	return player_frame_height * player_y_scale
+
+func get_player_animated_sprite() -> AnimatedSprite2D:
+	if not is_inside_tree():
+		return null
+	var candidates := get_tree().get_nodes_in_group("Overworld_Player")
+	for candidate in candidates:
+		var candidate_node := candidate as Node
+		if candidate_node == null:
+			continue
+		var player_sprite := candidate_node.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+		if player_sprite != null:
+			return player_sprite
+	return null
+
+func get_first_sprite_frame_height(sprite_frames: SpriteFrames) -> float:
+	for animation_name in sprite_frames.get_animation_names():
+		var frame_count := sprite_frames.get_frame_count(animation_name)
+		for frame_index in range(frame_count):
+			var frame_texture := sprite_frames.get_frame_texture(animation_name, frame_index)
+			if frame_texture != null:
+				var visible_height := get_visible_texture_height(frame_texture)
+				if visible_height > 0.0:
+					return visible_height
+				return float(frame_texture.get_height())
+	return 0.0
+
+func get_visible_texture_height(texture: Texture2D) -> float:
+	var image: Image
+	var frame_region := Rect2i(Vector2i.ZERO, Vector2i(texture.get_width(), texture.get_height()))
+
+	if texture is AtlasTexture:
+		var atlas_texture := texture as AtlasTexture
+		if atlas_texture.atlas == null:
+			return 0.0
+		image = atlas_texture.atlas.get_image()
+		var atlas_region := atlas_texture.region
+		frame_region = Rect2i(
+			Vector2i(int(atlas_region.position.x), int(atlas_region.position.y)),
+			Vector2i(int(atlas_region.size.x), int(atlas_region.size.y))
+		)
+	else:
+		image = texture.get_image()
+
+	if image == null:
+		return 0.0
+
+	var start_x := clampi(frame_region.position.x, 0, image.get_width())
+	var start_y := clampi(frame_region.position.y, 0, image.get_height())
+	var end_x := clampi(frame_region.position.x + frame_region.size.x, 0, image.get_width())
+	var end_y := clampi(frame_region.position.y + frame_region.size.y, 0, image.get_height())
+	var min_y := end_y
+	var max_y := start_y - 1
+
+	for y in range(start_y, end_y):
+		for x in range(start_x, end_x):
+			if image.get_pixel(x, y).a > 0.05:
+				min_y = mini(min_y, y)
+				max_y = maxi(max_y, y)
+
+	if max_y < min_y:
+		return 0.0
+	return float(max_y - min_y + 1)
 
 
 # If there is no schedule to execute, or if player is talking, do nothing
@@ -138,10 +242,10 @@ func load_json_file(path: String) -> Dictionary:
 # Is called by a signal in global that emits every time the clock updates
 # Checks if there is a schedule that can be executed, if yes, send them on their merry way
 func navigate():
-	if schedule_paused_for_cutscene:
-		return
 	if not schedule_path.is_empty() and loaded_schedule_day != Global.current_day:
 		load_schedule_info()
+	if schedule_paused_for_cutscene:
+		return
 	if not (schedule_info is Dictionary) or not schedule_info.has("schedules"):
 		return
 	if not is_inside_tree() or get_tree().current_scene == null:
@@ -152,7 +256,7 @@ func navigate():
 	for schedule_name in schedule_info["schedules"]:
 		var details = schedule_info["schedules"][schedule_name]
 		if details["scene_swap"] == 1 and details["2_start_time_hour"] != 0:
-			if details["start_scene"] == path:
+			if is_schedule_scene_match(details["start_scene"], path):
 				if check_time(details["start_time_hour"], details["start_time_minute"], 2):
 					#print("NOT TIME YET")
 					return
@@ -171,14 +275,14 @@ func navigate():
 					if details["should_disappear"] == 1:
 						self.visible = false
 					return
-			elif details["end_scene"] == path and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
+			elif is_schedule_scene_match(details["end_scene"], path) and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
 				leaving_scene = true
 				self.visible = true
 				setup_navigation(details, 1)
 				if details["should_disappear"] == 1:
 					self.visible = false
 				return
-		elif details["start_scene"] == path and check_time(details["start_time_hour"], details["start_time_minute"], 1):
+		elif is_schedule_scene_match(details["start_scene"], path) and check_time(details["start_time_hour"], details["start_time_minute"], 1):
 			last_applied_schedule_key = get_schedule_key(schedule_name, details)
 			self.visible = true
 			setup_navigation(details, 0)
@@ -191,6 +295,10 @@ func navigate():
 func load_schedule_info() -> void:
 	loaded_schedule_day = Global.current_day
 	schedule_info = {}
+	last_applied_schedule_key = ""
+	path_nodes.clear()
+	walking = false
+	leaving_scene = false
 	var file = FileAccess.open(schedule_path, FileAccess.READ)
 	if file == null:
 		push_warning("NPC_Controller: Could not open schedule file %s." % schedule_path)
@@ -236,6 +344,20 @@ func get_current_day_minutes() -> int:
 func get_schedule_key(schedule_name: String, details: Dictionary) -> String:
 	return str(Global.current_year) + ":" + str(Global.current_day) + ":" + schedule_name + ":" + str(details["start_time_hour"]) + ":" + str(details["start_time_minute"])
 
+func is_schedule_scene_match(schedule_scene, current_scene_path: String) -> bool:
+	var schedule_path := str(schedule_scene)
+	if schedule_path == current_scene_path:
+		return true
+	return get_schedule_scene_alias(schedule_path) == get_schedule_scene_alias(current_scene_path)
+
+func get_schedule_scene_alias(scene_path: String) -> String:
+	match scene_path:
+		"res://scenes/main/Hearthwynn.tscn", "res://scenes/main/hearthwynn.res":
+			return "hearthwynn"
+		"res://scenes/main/Building Insides.tscn", "res://scenes/main/new_building_insides.res":
+			return "building_insides"
+	return scene_path.to_lower()
+
 func catch_up_to_scene_schedule(path: String) -> void:
 	if walking or not path_nodes.is_empty():
 		return
@@ -245,7 +367,7 @@ func catch_up_to_scene_schedule(path: String) -> void:
 	var latest_minutes = -1
 	for schedule_name in schedule_info["schedules"]:
 		var details: Dictionary = schedule_info["schedules"][schedule_name]
-		if details["scene_swap"] != 0 or details["start_scene"] != path:
+		if details["scene_swap"] != 0 or not is_schedule_scene_match(details["start_scene"], path):
 			continue
 		var schedule_minutes = get_schedule_minutes(details)
 		if schedule_minutes <= current_minutes and schedule_minutes > latest_minutes:
@@ -362,6 +484,7 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 	path_nodes.clear()
 	if snap_to_start:
 		place_at_location(start_point)
+		current_destination = end_point
 	for vertex_id in path_ids:
 		var target_node = location_container.get_child(vertex_id)
 		var target_pos = target_node.location_position[2] 
@@ -389,9 +512,11 @@ func apply_location_facing(location) -> void:
 	if location_index < 0 or location_index >= location_container.get_child_count():
 		return
 	var target_node = location_container.get_child(location_index)
-	if not target_node.has_method("get_arrival_facing"):
-		return
-	var arrival_facing = str(target_node.get_arrival_facing())
+	var arrival_facing = ""
+	if target_node.has_method("get_arrival_facing"):
+		arrival_facing = str(target_node.get_arrival_facing())
+	if arrival_facing.is_empty() or arrival_facing == "none":
+		arrival_facing = str(LOCATION_ARRIVAL_FACING_OVERRIDES.get(str(location), ""))
 	if arrival_facing.is_empty() or arrival_facing == "none":
 		return
 	animation_driver.face(animated_sprite, StringName(arrival_facing))
@@ -503,7 +628,14 @@ func restore_after_cutscene() -> void:
 	cutscene_restore_state = {}
 	schedule_paused_for_cutscene = false
 	cutscene_motion_direction = Vector2.ZERO
+	if not schedule_path.is_empty():
+		path_nodes.clear()
+		walking = false
+		leaving_scene = false
+		current_destination = null
+		last_applied_schedule_key = ""
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
+	navigate.call_deferred()
 
 # This shouldn't really exist (the cancel operation), only does for testing purposes
 # Currently only makes it so when you press cancel (x) it closes the dialogue box
