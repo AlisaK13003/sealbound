@@ -1,0 +1,157 @@
+{
+  "id": "sera_quest_board_intro",
+  "beats": [
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "Lyra, please tell me you did not charge them two thousand gold for that room."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Lyra",
+      "hide_portrait": true,
+      "text": "I said the room could cost that much. Very different thing."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "Lyra."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Lyra",
+      "hide_portrait": true,
+      "text": "Okay, fine! It usually costs half that."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Lyra",
+      "hide_portrait": true,
+      "text": "But my axe is important to me, and they looked capable! I panicked a little!"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "hide_portrait": true,
+      "text": "[i]Sera sighs.[/i]"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "No use crying over spilled milk. I'm glad it turned out okay."
+    },
+    {
+      "type": "animation",
+      "name": "sera_walk_from_lyra_room_to_player",
+      "blocking": true
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "Oh... hey. I see you got a room for the night like I suggested."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "I hope Lyra's been treating you well?"
+    },
+    {
+      "type": "choice",
+      "speaker": "MC",
+      "hide_portrait": true,
+      "text": "Um...",
+      "options": [
+        {
+          "text": "She swindled me!",
+          "beats": [
+            {
+              "type": "dialogue",
+              "speaker": "Sera",
+              "hide_portrait": true,
+              "text": "I was afraid of that."
+            },
+            {
+              "type": "dialogue",
+              "speaker": "Sera",
+              "hide_portrait": true,
+              "text": "For what it is worth, she is sorry. In her own very loud way."
+            }
+          ]
+        },
+        {
+          "text": "Yeah, I feel well rested.",
+          "beats": [
+            {
+              "type": "dialogue",
+              "speaker": "Sera",
+              "hide_portrait": true,
+              "text": "Good. That matters more than you probably think right now."
+            }
+          ]
+        },
+        {
+          "text": "She made me fetch her axe for it.",
+          "beats": [
+            {
+              "type": "dialogue",
+              "speaker": "Sera",
+              "hide_portrait": true,
+              "text": "I heard."
+            },
+            {
+              "type": "dialogue",
+              "speaker": "Sera",
+              "hide_portrait": true,
+              "text": "She should have asked plainly, but I'm glad you made it back safely."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "Still, please take it easy for a while. Capable or not, you were badly hurt yesterday."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "That said... having a capable adventurer around would be helpful."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "There is a quest board outside the tavern. People post requests there, but a lot of them go unfinished."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "Sera",
+      "hide_portrait": true,
+      "text": "If you ever need more money, or just something to do, you could consider looking at it."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "hide_portrait": true,
+      "text": "The quest board is now available."
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "hide_portrait": true,
+      "text": "Sera and Lyra can now join you in dungeons."
+    },
+    {
+      "type": "action",
+      "name": "unlock_quest_board_and_demo_party"
+    }
+  ]
+}

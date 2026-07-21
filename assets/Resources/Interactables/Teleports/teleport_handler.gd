@@ -109,6 +109,9 @@ var is_disabled: bool = false
 func _on_area_2d_body_entered(body = null):
 	if disable_teleport or AreaStateManager.currently_transitioning:
 		return
+	if should_block_locked_room(body):
+		show_locked_room_message()
+		return
 	if body == null:
 		AreaStateManager.currently_transitioning = true
 		Global.current_loading_zone = _target_spot
@@ -138,5 +141,19 @@ func _on_area_2d_2_body_exited(body):
 	if disable_teleport:
 		return
 	if body.is_in_group("Overworld_Player"):
-		player_in_range = true
+		player_in_range = false
 		$GenericButton.visible = false
+
+func should_block_locked_room(body) -> bool:
+	if body != null and not body.is_in_group("Overworld_Player"):
+		return false
+	if _target_region != "Buildings_Insides":
+		return false
+	if _target_spot != "Bedroom" and _target_spot != "Bedspawn":
+		return false
+	return not StateManager.has_story_state(StateManager.story_beats_lookup.TURNED_IN_LYRA_QUEST)
+
+func show_locked_room_message() -> void:
+	if Global.is_in_menu:
+		return
+	Global.show_mc_thought("It's locked...")

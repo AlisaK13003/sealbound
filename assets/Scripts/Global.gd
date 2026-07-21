@@ -35,6 +35,8 @@ var pending_player_spawn_position: Vector2 = Vector2.ZERO
 
 const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
 const LYRA_TAVERN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_tavern_room_quest.json"
+const LYRA_AXE_RETURN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_axe_return.json"
+const SERA_QUEST_BOARD_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/sera_quest_board_intro.json"
 
 signal player_identity_changed
 
@@ -185,6 +187,16 @@ func player_advanced_day(did_they_pass_out):
 	if did_they_pass_out:
 		spawn_location = null
 	day_passed.emit(did_they_pass_out)
+
+func set_calendar_time(year: int, day: int, hour: int, minute: int) -> void:
+	record_previous_time()
+	current_year = max(0, year)
+	current_day = max(0, day)
+	current_hour = clampi(hour, 0, 23)
+	current_minute = clampi(minute, 0, 59)
+	time_since_last_update = 0
+	seconds_since_day_started = float((current_hour * 60) + current_minute) * 60.0 / float(time_scale)
+	time_updated.emit()
 
 func debug_skip_day() -> void:
 	player_advanced_day(false)

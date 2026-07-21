@@ -1,0 +1,49 @@
+{
+  "id": "lyra_axe_return_scene",
+  "beats": [
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "You're back! And you've got my axe!"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "Thank you. Seriously. I was trying to act brave about it, but I hated the thought of leaving it out there."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "MC",
+	  "text": "You said there was a room?"
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Right! A deal is a deal. The room is yours for as long as you need it."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "smile",
+	  "text": "Get some rest. You look like the forest tried to chew you up and changed its mind."
+	},
+	{
+	  "type": "dialogue",
+	  "speaker": "Lyra",
+	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",
+	  "portrait_frame": "neutral",
+	  "text": "We'll talk more tomorrow. For now, don't make Sera chase me down for letting you overdo it."
+	},
+	{
+	  "type": "action",
+	  "name": "turn_in_lyra_axe_quest"
+	}
+  ]
+}

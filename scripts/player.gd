@@ -190,9 +190,11 @@ func apply_gender_sprite() -> void:
 		return
 	var idle_texture = female_idle_texture
 	var walk_texture = female_walk_texture
+	animation_driver.side_idle_pose_frame = 0
 	if Global.player_gender == "male":
 		idle_texture = male_idle_texture
 		walk_texture = male_walk_texture
+		animation_driver.side_idle_pose_frame = CharacterAnimationDriver.DEFAULT_SIDE_IDLE_POSE_FRAME
 
 	animated_sprite.sprite_frames = _build_overworld_sprite_frames(idle_texture, walk_texture)
 	var display_scale: float = OVERWORLD_SPRITE_DISPLAY_HEIGHT / float(walk_texture.get_height())

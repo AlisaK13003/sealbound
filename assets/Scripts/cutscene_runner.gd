@@ -268,6 +268,8 @@ func _make_choice_dialogue_node(beat: Dictionary) -> Dictionary:
 	return node
 
 func _apply_portrait_data(node: Dictionary, beat: Dictionary) -> void:
+	if beat.has("hide_portrait"):
+		node["hide_portrait"] = bool(beat["hide_portrait"])
 	if beat.has("portrait_sheet"):
 		node["portrait_sheet"] = str(beat["portrait_sheet"])
 	if beat.has("portrait_frame"):
@@ -417,8 +419,16 @@ func _apply_remaining_state_beats() -> void:
 
 func _run_action(action_name: String) -> void:
 	match action_name:
+		"start_speak_to_lyra_quest":
+			StateManager.start_speak_to_lyra_quest()
+		"complete_speak_to_lyra_quest":
+			StateManager.complete_speak_to_lyra_quest()
 		"start_lyra_axe_quest":
 			StateManager.start_lyra_axe_quest()
+		"turn_in_lyra_axe_quest":
+			StateManager.turn_in_lyra_axe_quest()
+		"unlock_quest_board_and_demo_party":
+			StateManager.unlock_quest_board_and_demo_party()
 
 func _end() -> void:
 	if has_finished:

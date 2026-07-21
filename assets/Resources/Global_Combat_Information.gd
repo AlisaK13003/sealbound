@@ -659,6 +659,10 @@ var should_remove_enemy = false
 
 func dungeon_over(passed_out: bool = false):
 	await Fade.fade_in(1.0)
+	var return_loading_zone := get_dungeon_return_loading_zone(passed_out)
+	var should_advance_day := should_advance_day_on_dungeon_return(passed_out, return_loading_zone)
+	if not should_advance_day:
+		Global.set_calendar_time(0, 0, 22, 0)
 	holding_boss_key = 0
 	holding_basic_room_key = 0
 	in_dungeon = false
@@ -670,7 +674,7 @@ func dungeon_over(passed_out: bool = false):
 	if explorable_dungeon_scene != null:
 		explorable_dungeon_scene.queue_free()
 	Global.current_region = "Buildings_Insides"
-	Global.current_loading_zone = "Bedspawn"
+	Global.current_loading_zone = return_loading_zone
 	AreaStateManager._setup(passed_out)
 	AreaStateManager.swap_scene()
 		
@@ -678,12 +682,25 @@ func dungeon_over(passed_out: bool = false):
 	#await get_tree().physics_frame
 	get_tree().current_scene.swap_to_me()
 	await Fade.fade_out(1.0)
-	Global.player_advanced_day(false)
+	if should_advance_day:
+		Global.player_advanced_day(false)
 	
 	#AreaStateManager.swap_scene(null)
 	
 
 	
+
+func get_dungeon_return_loading_zone(passed_out: bool) -> String:
+	if passed_out:
+		return "Bedspawn"
+	if StateManager.has_story_state(StateManager.story_beats_lookup.READY_TO_TURN_IN_AXE_QUEST) and not StateManager.has_story_state(StateManager.story_beats_lookup.TURNED_IN_LYRA_QUEST):
+		return "Bedroom_Exit"
+	return "Bedspawn"
+
+func should_advance_day_on_dungeon_return(passed_out: bool, return_loading_zone: String) -> bool:
+	if passed_out:
+		return true
+	return return_loading_zone != "Bedroom_Exit"
 
 var current_dungeon
 

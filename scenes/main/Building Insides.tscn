@@ -23219,7 +23219,7 @@ position = Vector2(64, 310)
 rotation = -1.5707964
 confirmation_before_teleport = false
 location_data = {
-"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom"],
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn"],
 "Cliff Side": ["Cliff Entrance"],
 "Forest": ["Apothecary", "Left Side"],
 "Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
@@ -23227,7 +23227,7 @@ location_data = {
 "Current Location/Region" = "Buildings_Insides"
 "Current Location/Spot" = "Bedroom"
 "Destination Location/Region" = "Buildings_Insides"
-"Destination Location/Spot" = "Bedroom"
+"Destination Location/Spot" = "Bedroom_Exit"
 
 [node name="CollisionShape2D" parent="Bedroom/LoadingZone/Area2D" parent_id_path=PackedInt32Array(1369680928, 416868945) index="0" unique_id=1179238723]
 scale = Vector2(1, 2.03)
@@ -23319,13 +23319,13 @@ position = Vector2(-1, -10)
 rotation = 1.5707964
 confirmation_before_teleport = true
 location_data = {
-"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom"],
+"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn"],
 "Cliff Side": ["Cliff Entrance"],
 "Forest": ["Apothecary", "Left Side"],
 "Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern"]
 }
 "Current Location/Region" = "Buildings_Insides"
-"Current Location/Spot" = "Bedroom"
+"Current Location/Spot" = "Bedroom_Exit"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Bedroom"
 

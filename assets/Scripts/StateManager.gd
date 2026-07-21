@@ -7,6 +7,7 @@ var party_member_unlocked: Dictionary[int, bool] = {}
 var tavern_quests_taken: Dictionary[int, bool] = {}
 var pseduo_story_time: int = 0
 
+const SPEAK_TO_LYRA_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Speak To Lyra.tres"
 const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
 
 var story_triggers: Dictionary = {
@@ -18,15 +19,15 @@ var story_triggers: Dictionary = {
 	},
 	"turning_in_lyra_axe_cutscene": {
 		"region": "Buildings_Insides",
-		"loading_zone": "Bedspawn",
+		"loading_zone": "Bedroom_Exit",
 		"required": [story_beats_lookup.READY_TO_TURN_IN_AXE_QUEST],
 		"excluded": [story_beats_lookup.TURNED_IN_LYRA_QUEST]
 	},
 	"quest_board_unlock_cutscene": {
 		"region": "Buildings_Insides",
-		"loading_zone": "Bedspawn",
-		"required": [story_beats_lookup.TURNED_IN_LYRA_QUEST], 
-		"excluded": [story_beats_lookup.BLACKSMITH_QUEST_FINISHED, story_beats_lookup.BLACKSMITH_QUEST_UNLOCKED]
+		"loading_zone": "Bedroom_Exit",
+		"required": [story_beats_lookup.TURNED_IN_LYRA_QUEST, story_beats_lookup.SLEPT_AFTER_LYRA_QUEST],
+		"excluded": [story_beats_lookup.QUEST_BOARD_UNLOCK]
 	},
 	"cave_dungeon_entry": {
 		"required": [story_beats_lookup.CAVE_DUNGEON_UNLOCKED]
@@ -102,7 +103,8 @@ enum story_beats_lookup {
 	BLACKSMITH_QUEST_FINISHED = 12,
 	TALKED_TO_SERA_ABOUT_CLEAR = 13,
 	READY_TO_TURN_IN_BLACKSMITH_QUEST = 14,
-	FIRST_SEAL_DUNGEON_BEATEN = 15
+	FIRST_SEAL_DUNGEON_BEATEN = 15,
+	SLEPT_AFTER_LYRA_QUEST = 16
 }
 
 enum seal_dungeon_completion {
@@ -222,6 +224,15 @@ func add_quest(quest_path):
 	temp_copy.set_meta("original_path", mew_item.resource_path)
 	return temp_copy
 
+func start_speak_to_lyra_quest() -> void:
+	_add_story_quest_once(SPEAK_TO_LYRA_QUEST_PATH, "Sera sent you to Lyra")
+
+func complete_speak_to_lyra_quest() -> void:
+	if _has_active_quest(SPEAK_TO_LYRA_QUEST_PATH):
+		GlobalCombatInformation.complete_quest(SPEAK_TO_LYRA_QUEST_PATH)
+		GlobalCombatInformation.check_quest_progress.emit()
+		print("[Story] Completed speak to Lyra quest.")
+
 func start_lyra_axe_quest() -> void:
 	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
 	set_party_member_unlock(party_member_unlock_lookup.LYRA_UNLOCKED)
@@ -240,6 +251,65 @@ func start_lyra_axe_quest() -> void:
 
 	GlobalCombatInformation.add_quest(LYRA_AXE_QUEST_PATH)
 	print("[Story] Started Lyra axe quest.")
+
+func turn_in_lyra_axe_quest() -> void:
+	if has_story_state(story_beats_lookup.TURNED_IN_LYRA_QUEST):
+		return
+	pseduo_story_time = Global.current_day
+	GlobalCombatInformation.complete_quest(LYRA_AXE_QUEST_PATH)
+	GlobalCombatInformation.check_quest_progress.emit()
+	set_dungeon_unlock(dungeon_state_lookup.FOREST_DUNGEON_UNLOCKED, true)
+	set_story_state(story_beats_lookup.TURNED_IN_LYRA_QUEST, true)
+	print("[Story] Turned in Lyra axe quest.")
+
+func mark_slept_after_lyra_quest() -> void:
+	if not has_story_state(story_beats_lookup.TURNED_IN_LYRA_QUEST):
+		return
+	if has_story_state(story_beats_lookup.QUEST_BOARD_UNLOCK):
+		return
+	set_story_state(story_beats_lookup.SLEPT_AFTER_LYRA_QUEST, true)
+	print("[Story] Slept after Lyra axe quest.")
+
+func unlock_quest_board_and_demo_party() -> void:
+	set_story_state(story_beats_lookup.QUEST_BOARD_UNLOCK, true)
+	set_party_member_unlock(party_member_unlock_lookup.SERA_UNLOCKED)
+	set_party_member_unlock(party_member_unlock_lookup.LYRA_UNLOCKED)
+	GlobalCombatInformation.add_party_member_by_character_index(party_member_unlock_lookup.SERA_UNLOCKED, true)
+	GlobalCombatInformation.add_party_member_by_character_index(party_member_unlock_lookup.LYRA_UNLOCKED, true)
+	add_quests_to_board()
+	new_state.emit()
+	print("[Story] Quest board unlocked. Sera and Lyra can join dungeons.")
+
+func _add_story_quest_once(quest_path: String, log_label: String) -> void:
+	if _has_active_quest(quest_path) or _has_completed_quest(quest_path):
+		GlobalCombatInformation.check_quest_progress.emit()
+		return
+
+	var story_quest: quest = load(quest_path)
+	if story_quest == null:
+		push_warning("Global: Could not load story quest: %s" % quest_path)
+		return
+
+	GlobalCombatInformation.add_quest(quest_path)
+	print("[Story] Started quest: ", log_label)
+
+func _has_active_quest(quest_path: String) -> bool:
+	return _has_quest_in_list(GlobalCombatInformation.active_quests, quest_path)
+
+func _has_completed_quest(quest_path: String) -> bool:
+	return _has_quest_in_list(GlobalCombatInformation.completed_quests, quest_path)
+
+func _has_quest_in_list(quests_to_search: Array, quest_path: String) -> bool:
+	var source_quest: quest = load(quest_path)
+	var quest_name := source_quest.quest_name if source_quest != null else ""
+	for existing_quest in quests_to_search:
+		if existing_quest == null:
+			continue
+		if existing_quest.get_path_custom() == quest_path:
+			return true
+		if not quest_name.is_empty() and existing_quest.quest_name == quest_name:
+			return true
+	return false
 
 
 func evaluate_conditions(required_beats: Array = [], excluded_beats: Array = [], target_region: String = "", target_loading_zone: String = "", day_requirement: int = false) -> bool:

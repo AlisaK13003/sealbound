@@ -2,6 +2,10 @@
   "id": "lyra_tavern_room_quest_scene_2",
   "beats": [
 	{
+	  "type": "action",
+	  "name": "complete_speak_to_lyra_quest"
+	},
+	{
 	  "type": "dialogue",
 	  "speaker": "Lyra",
 	  "portrait_sheet": "res://assets/characters/lyra/Lyra_portraits.png",

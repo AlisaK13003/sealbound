@@ -94,7 +94,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_h3tcf")
 }],
 "loop": 1,
-"name": &"walk_down",
+"name": &"walk_up",
 "speed": 5.0
 }, {
 "frames": [{
@@ -145,6 +145,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_blgf7")
 }],
 "loop": 1,
-"name": &"walk_up",
+"name": &"walk_down",
 "speed": 5.0
 }]

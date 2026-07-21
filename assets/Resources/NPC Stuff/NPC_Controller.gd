@@ -40,6 +40,7 @@ var just_swapped_scenes: bool = false
 var last_applied_schedule_key: String = ""
 var schedule_paused_for_cutscene: bool = false
 var cutscene_restore_state: Dictionary = {}
+var cutscene_motion_direction: Vector2 = Vector2.ZERO
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
@@ -74,7 +75,7 @@ func _ready():
 func _process(delta):
 	update_schedule_draw_order()
 	if schedule_paused_for_cutscene:
-		animation_driver.sync(animated_sprite, Vector2.ZERO)
+		animation_driver.sync(animated_sprite, cutscene_motion_direction)
 		return
 	if path_nodes.is_empty():
 		walking = false
@@ -410,6 +411,7 @@ func pin_to_location_for_cutscene(location) -> void:
 		"z_index": z_index
 	}
 	schedule_paused_for_cutscene = true
+	cutscene_motion_direction = Vector2.ZERO
 	path_nodes.clear()
 	walking = false
 	leaving_scene = false
@@ -418,6 +420,47 @@ func pin_to_location_for_cutscene(location) -> void:
 	visible = true
 	place_at_location(location)
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
+
+func pin_to_global_position_for_cutscene(target_position: Vector2, facing: StringName = &"down") -> void:
+	if schedule_paused_for_cutscene:
+		return
+
+	cutscene_restore_state = {
+		"global_position": global_position,
+		"path_nodes": path_nodes.duplicate(),
+		"walking": walking,
+		"leaving_scene": leaving_scene,
+		"visible": visible,
+		"player_just_stopped_talking_to_me": player_just_stopped_talking_to_me,
+		"running_time": running_time,
+		"z_index": z_index
+	}
+	schedule_paused_for_cutscene = true
+	cutscene_motion_direction = Vector2.ZERO
+	path_nodes.clear()
+	walking = false
+	leaving_scene = false
+	player_just_stopped_talking_to_me = false
+	running_time = 0
+	visible = true
+	global_position = target_position
+	current_destination = null
+	animation_driver.face(animated_sprite, facing)
+	animation_driver.sync(animated_sprite, Vector2.ZERO)
+
+func move_to_global_position_for_cutscene(target_position: Vector2, duration: float = 1.0, arrival_facing: StringName = &"down") -> Tween:
+	if not schedule_paused_for_cutscene:
+		pin_to_global_position_for_cutscene(global_position, arrival_facing)
+
+	cutscene_motion_direction = target_position - global_position
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", target_position, duration)
+	tween.finished.connect(func():
+		cutscene_motion_direction = Vector2.ZERO
+		animation_driver.face(animated_sprite, arrival_facing)
+		animation_driver.sync(animated_sprite, Vector2.ZERO)
+	)
+	return tween
 
 func restore_after_cutscene() -> void:
 	if not schedule_paused_for_cutscene:
@@ -433,6 +476,7 @@ func restore_after_cutscene() -> void:
 	z_index = int(cutscene_restore_state.get("z_index", z_index))
 	cutscene_restore_state = {}
 	schedule_paused_for_cutscene = false
+	cutscene_motion_direction = Vector2.ZERO
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
 # This shouldn't really exist (the cancel operation), only does for testing purposes
