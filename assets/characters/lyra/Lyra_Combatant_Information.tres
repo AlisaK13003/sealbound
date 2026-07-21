@@ -69,6 +69,20 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_lyae5")
 frame_2/duration = 1.0
 
+[sub_resource type="Resource" id="Resource_m3koh"]
+script = ExtResource("1_26prq")
+attack_power = null
+does_damage = false
+does_status = true
+status_type = 212992
+removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
+targets_party = true
+targets_self = true
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [resource]
 script = ExtResource("3_n5n1p")
 combatant_name = "Lyra"
@@ -84,6 +98,7 @@ ExtResource("2_m3koh"): true,
 ExtResource("3_5l7vs"): true,
 ExtResource("4_ckux8"): true
 })
+passive_skill = SubResource("Resource_m3koh")
 sprite_frames = ExtResource("4_uwea6")
 idle_speed = 0.5
 death_speed = 0.5

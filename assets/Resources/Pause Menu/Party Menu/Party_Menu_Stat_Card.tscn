@@ -281,6 +281,7 @@ offset_right = 9.5
 offset_bottom = 53.0
 text = "MC"
 horizontal_alignment = 1
+script = ExtResource("1_n7ich")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1382359087]
 z_index = 5
@@ -519,3 +520,4 @@ texture = ExtResource("4_3vndl")
 
 [connection signal="pressed" from="Label/CheckBox" to="." method="_on_check_box_pressed"]
 [connection signal="toggled" from="Label/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="Label2/CheckBox" to="." method="_on_member_resonated"]

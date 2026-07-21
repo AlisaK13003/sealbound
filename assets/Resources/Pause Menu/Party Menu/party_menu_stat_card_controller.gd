@@ -5,9 +5,10 @@ var stored_combatant: generic_combatants = null
 func _ready():
 	GlobalCombatInformation.check_player_values.connect(_setup)
 	GlobalCombatInformation.update_resonance.connect(update_resonance)
-	$GenericButton.activated.connect(_on_member_resonated)
-	
+
 func update_resonance():
+	if stored_combatant == null:
+		return
 	if stored_combatant.resonated_with:
 		$Label2/CheckBox.button_pressed = true
 	else:
@@ -17,6 +18,8 @@ func _setup(combatant: generic_combatants = null):
 	if combatant == null:
 		combatant = stored_combatant
 	stored_combatant = combatant
+	if stored_combatant == null:
+		return
 	$VBoxContainer/GridContainer3/Level.text = "Level: " + str(combatant.actual_stats.level)
 	$GridContainer2/HBoxContainer/Health2.text = str(combatant.actual_stats.health)
 	$GridContainer2/HBoxContainer2/Attack2.text = str(combatant.actual_stats.attack)
@@ -26,6 +29,9 @@ func _setup(combatant: generic_combatants = null):
 	$GridContainer2/HBoxContainer6/Speed2.text = str(combatant.actual_stats.speed)
 	$GridContainer2/HBoxContainer7/Luck2.text = str(combatant.actual_stats.luck)
 	$GridContainer2/HBoxContainer8/Evasion2.text = str(combatant.actual_stats.evasion)
+	
+	if not $GenericButton.activated.is_connected(_on_member_resonated):
+		$GenericButton.activated.connect(_on_member_resonated)
 	
 	$"VBoxContainer/GridContainer3/Total Exp".text = "EXP: " + str(combatant.total_experience_points)
 	$"VBoxContainer/GridContainer3/Exp to next level".text = "next level: " + str(combatant.add_experience(0))
@@ -75,9 +81,18 @@ func _on_check_box_toggled(toggled_on):
 	else:
 		GlobalCombatInformation.remove_active_member(stored_combatant)
 
-func _on_member_resonated():
+func _on_member_resonated(toggled = null):
 	if stored_combatant.is_MC:
 		return
+	if toggled != null:
+		if toggled:
+			GlobalCombatInformation.resonate_with_a_member(stored_combatant, true)
+			$Label2/CheckBox.button_pressed = true
+		else:
+			GlobalCombatInformation.resonate_with_a_member(stored_combatant, false)
+			$Label2/CheckBox.button_pressed = false
+		return
+		
 	if $Label2/CheckBox.button_pressed:
 		GlobalCombatInformation.resonate_with_a_member(stored_combatant, false)
 		$Label2/CheckBox.button_pressed = false

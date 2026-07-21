@@ -353,6 +353,33 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	var highest_wave_reached = 0
 	var did_players_win: bool = false
 	gui.update_mana_display(current_bond_points, true)
+	
+	var resonated_with_active_person: bool = false
+	for person in GlobalCombatInformation.active_party_slots:
+		if person.is_MC:
+			continue
+		if person.resonated_with:
+			resonated_with_active_person = true
+	
+	var aoe_array = []
+	if slot_1 != null and slot_1.stored_combatant != null: aoe_array.append(slot_1)
+	if slot_2 != null and slot_2.stored_combatant != null: aoe_array.append(slot_2)
+	if slot_3 != null and slot_3.stored_combatant != null: aoe_array.append(slot_3)
+	
+	if resonated_with_active_person:
+		if GlobalCombatInformation.active_party_slots.size() > 1 and GlobalCombatInformation.active_party_slots[1].resonated_with:
+			if slot_2.stored_combatant.passive_skill.is_skill_aoe:
+				execute_skills_fixed(slot_2.stored_combatant.passive_skill, aoe_array)
+			else:
+				execute_skills_fixed(slot_2.stored_combatant.passive_skill, slot_2)
+		elif GlobalCombatInformation.active_party_slots.size() > 2 and GlobalCombatInformation.active_party_slots[2].resonated_with:
+			if slot_3.stored_combatant.passive_skill.is_skill_aoe:
+				execute_skills_fixed(slot_3.stored_combatant.passive_skill, aoe_array)
+			else:
+				execute_skills_fixed(slot_3.stored_combatant.passive_skill, slot_3)
+		await get_tree().create_timer(2.0).timeout
+	
+	
 	for i in range(number_of_waves_to_fight):
 		highest_wave_reached += 1
 		turn_count = 0
@@ -926,7 +953,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 
 	if acted_on_who is Array:
 		for entity in acted_on_who:
-			if not is_instance_valid(entity):
+			if not is_instance_valid(entity) or entity == null:
 				continue
 
 			var seq_task: Array[Callable] = []

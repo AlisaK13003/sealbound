@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://3rs4gc4i4ged" path="res://assets/tile sheets/Health_Before.png" id="3_2ttuk"]
 [ext_resource type="FontFile" uid="uid://brotg46f6np38" path="res://assets/yoster.ttf" id="4_2ttuk"]
 [ext_resource type="Texture2D" uid="uid://c0ym1jw7hb06c" path="res://assets/tile sheets/Health_Progress.png" id="4_iqe56"]
-[ext_resource type="Texture2D" uid="uid://dcjptti4pnwbx" path="res://assets/tile sheets/Status box.png" id="5_sjbc2"]
 [ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="6_sjbc2"]
 [ext_resource type="Texture2D" uid="uid://dhnn7xr2a4pfv" path="res://assets/Sprites/BIG X.png" id="7_6j17h"]
 
@@ -183,6 +182,15 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_b2wl4")
 
+[node name="GridContainer" type="GridContainer" parent="." unique_id=999220777]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 127.0
+offset_right = 371.1629
+offset_bottom = 161.72668
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 34
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=400153213]
 texture_filter = 1
 texture_repeat = 1
@@ -211,33 +219,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_fonts/font = ExtResource("4_2ttuk")
 theme_override_font_sizes/font_size = 12
 text = "55"
-
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1792076839]
-visible = false
-layout_mode = 0
-offset_left = 321.0
-offset_top = 320.0
-offset_right = 364.75
-offset_bottom = 357.5
-rotation = 3.1415927
-scale = Vector2(-2, 2)
-texture = ExtResource("5_sjbc2")
-patch_margin_left = 11
-patch_margin_top = 6
-patch_margin_right = 3
-patch_margin_bottom = 6
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="GridContainer" type="GridContainer" parent="NinePatchRect" unique_id=999220777]
-layout_mode = 0
-offset_left = 0.50000155
-offset_top = 39.5
-offset_right = 56.66291
-offset_bottom = 74.226685
-rotation = -1.5707964
-theme_override_constants/h_separation = 25
-theme_override_constants/v_separation = 17
 
 [node name="Health_Differential" type="Label" parent="." unique_id=1728968201]
 z_index = 10

@@ -3,8 +3,7 @@ extends Control
 class_name combatant_ui
 
 @onready var health_bar = $TextureProgressBar
-@onready var status_container = $NinePatchRect/GridContainer
-@onready var status_visible_container = $NinePatchRect
+@onready var status_container = $GridContainer
 @onready var health_differential_label = $Health_Differential
 @onready var status_timer_node = load("res://assets/Resources/Dungeon Stuff/Dungeon_resources/Status_Timer.tscn")
 @onready var current_health_label = $TextureProgressBar/Label
@@ -49,7 +48,7 @@ enum statuses {
 	statuses.CRITCHANCEdown: Color.GREEN,
 	statuses.ACCURACYdown: Color.CADET_BLUE,
 	statuses.MOMENTUM: 5,
-	statuses.REGEN: 5,
+	statuses.REGEN: Color.PALE_GREEN,
 	statuses.STUNIMMUNITY: 5,
 	statuses.ATTACKup: Color.RED,
 	statuses.DEFENSEup: Color.BLUE,
@@ -76,7 +75,6 @@ func remove_active_status(status_to_remove):
 			child.get_parent().remove_child(child)
 			child.queue_free()
 			await get_tree().process_frame
-			update_grid_size()
 
 func update_active_status(status_to_update: status):
 	if status_to_update == null:
@@ -101,18 +99,7 @@ func update_active_status(status_to_update: status):
 			new_child.get_node("Status_Indicator").flip_v = true
 		elif status_to_update.status_type > statuses.STUNIMMUNITY:
 			new_child.get_node("Status_Indicator").flip_v = false
-	update_grid_size()
 
-func update_grid_size():
-	if status_container.get_child_count() >= 1:
-		status_visible_container.visible = true
-	else:
-		status_visible_container.visible = false
-	if status_container.get_child_count() <= 4:
-		status_visible_container.custom_minimum_size = Vector2(15 + (13 * (status_container.get_child_count() - 1)), 29)
-	else:
-		status_visible_container.custom_minimum_size = Vector2(54, 29 + (9 * ((status_container.get_child_count() / 4 if status_container.get_child_count() & 4 == 0 else ceili(float(status_container.get_child_count()) / 4))) - 1))
-	
 func update_damage_label(health_differential, type_of_damage):
 	animation_player.play("Take_Damage")
 	match type_of_damage:

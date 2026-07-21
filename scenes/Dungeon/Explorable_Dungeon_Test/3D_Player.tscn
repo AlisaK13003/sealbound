@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgmr671gy23ej"]
 
 [ext_resource type="Script" uid="uid://3yi8o14hgsf0" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3d_player_controller.gd" id="1_xaj14"]
-[ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MC_Walk.tres" id="2_s64un"]
+[ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MMC_Walk.tres" id="2_s64un"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xaj14"]
 size = Vector3(0.30743408, 0.54174805, 0.048919678)

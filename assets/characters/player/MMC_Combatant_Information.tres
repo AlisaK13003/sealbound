@@ -8,11 +8,29 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_brmf3"]
 [ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_vauhd"]
 [ext_resource type="SpriteFrames" uid="uid://b7aeudu53hdro" path="res://assets/characters/player/MMC_Dungeon_Animations.tres" id="5_07esi"]
+[ext_resource type="Resource" uid="uid://c0fqbwytbhwok" path="res://assets/characters/player/Resonance_Moves/Cassian_Cross_Slash.tres" id="7_2y8rj"]
+[ext_resource type="Resource" uid="uid://clmph8mkn7fgo" path="res://assets/characters/player/Resonance_Moves/Cassian_Deflect.tres" id="8_fh7mn"]
 [ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="8_ujq20"]
+[ext_resource type="Resource" uid="uid://bvncadj8ike22" path="res://assets/characters/player/Resonance_Moves/Cassian_Rising_Edge.tres" id="9_pxk2j"]
 [ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="9_xavbm"]
 [ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="10_td0jh"]
+[ext_resource type="Resource" uid="uid://vu2jlgwp35cl" path="res://assets/characters/player/Resonance_Moves/Kaela_Cross_Slash.tres" id="10_we76d"]
+[ext_resource type="Resource" uid="uid://c6d7qwe4hvva8" path="res://assets/characters/player/Resonance_Moves/Kaela_Deflect.tres" id="11_cg6cg"]
 [ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="12_brmf3"]
+[ext_resource type="Resource" uid="uid://bamge42pf2dkr" path="res://assets/characters/player/Resonance_Moves/Kaela_Rising Edge.tres" id="12_wl850"]
 [ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="13_07esi"]
+[ext_resource type="Resource" uid="uid://fbc7dpwk1hgb" path="res://assets/characters/player/Resonance_Moves/Lyra_Cross_Slash.tres" id="13_8fl13"]
+[ext_resource type="Resource" uid="uid://ddtxaujyg66ai" path="res://assets/characters/player/Resonance_Moves/Lyra_Deflect.tres" id="14_tl2wa"]
+[ext_resource type="Resource" uid="uid://digg2mf5xcbip" path="res://assets/characters/player/Resonance_Moves/Lyra_Rising_Edge.tres" id="15_5y2h0"]
+[ext_resource type="Resource" uid="uid://bueh48vhgkg8d" path="res://assets/characters/player/Resonance_Moves/Orion_Cross_Slash.tres" id="16_h321b"]
+[ext_resource type="Resource" uid="uid://c3kampwvptjjc" path="res://assets/characters/player/Resonance_Moves/Orion_Deflect.tres" id="17_7kgpx"]
+[ext_resource type="Resource" uid="uid://dn5ibegnjllsr" path="res://assets/characters/player/Resonance_Moves/Orion_Rising_Edge.tres" id="18_nwkcg"]
+[ext_resource type="Resource" uid="uid://d1ibbgu4xexxo" path="res://assets/characters/player/Resonance_Moves/Rowan__Cross_Slash.tres" id="19_uw02n"]
+[ext_resource type="Resource" uid="uid://3ytifuhu1an6" path="res://assets/characters/player/Resonance_Moves/Rowan_Deflect.tres" id="20_lulvs"]
+[ext_resource type="Resource" uid="uid://bqn2ipugq0t43" path="res://assets/characters/player/Resonance_Moves/Rowan_Rising_Edge.tres" id="21_fpira"]
+[ext_resource type="Resource" uid="uid://c1pshol7hr85y" path="res://assets/characters/player/Resonance_Moves/Sera_Cross_Slash.tres" id="22_b0c4d"]
+[ext_resource type="Resource" uid="uid://b8alu8cc4ft3r" path="res://assets/characters/player/Resonance_Moves/Sera_Deflect.tres" id="23_3px0b"]
+[ext_resource type="Resource" uid="uid://c0t6hh5gmvhba" path="res://assets/characters/player/Resonance_Moves/Sera_Rising Edge.tres" id="24_8kbmy"]
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("2_xavbm")
@@ -75,6 +93,15 @@ combatant_skills_ = Dictionary[ExtResource("1_v7xaa"), bool]({
 ExtResource("2_brmf3"): true,
 ExtResource("3_07esi"): true,
 ExtResource("4_vauhd"): true
+})
+resonance_skills_ = Dictionary[String, Array]({
+"Base": [ExtResource("2_brmf3"), ExtResource("3_07esi"), ExtResource("4_vauhd")],
+"Cassian": [ExtResource("7_2y8rj"), ExtResource("8_fh7mn"), ExtResource("9_pxk2j")],
+"Kaela": [ExtResource("10_we76d"), ExtResource("11_cg6cg"), ExtResource("12_wl850")],
+"Lyra": [ExtResource("13_8fl13"), ExtResource("14_tl2wa"), ExtResource("15_5y2h0")],
+"Orion": [ExtResource("16_h321b"), ExtResource("17_7kgpx"), ExtResource("18_nwkcg")],
+"Rowan": [ExtResource("19_uw02n"), ExtResource("20_lulvs"), ExtResource("21_fpira")],
+"Sera": [ExtResource("22_b0c4d"), ExtResource("23_3px0b"), ExtResource("24_8kbmy")]
 })
 sprite_frames = ExtResource("5_07esi")
 idle_speed = 1.0

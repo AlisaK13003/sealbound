@@ -119,20 +119,28 @@ func resonate_with_a_member(which_member: generic_combatants, activated):
 	for member in all_party_slots:
 		if member.combatant_name == which_member.combatant_name and activated:
 			member.resonated_with = true
+			active_party_slots[active_party_slots.find_custom(func(stored_member: generic_combatants): return member.combatant_name == stored_member.combatant_name)].resonated_with = true
 		else:
 			member.resonated_with = false
+			var index = active_party_slots.find_custom(func(stored_member: generic_combatants): return member.combatant_name == stored_member.combatant_name)
+			if index != -1:
+				active_party_slots[active_party_slots.find_custom(func(stored_member: generic_combatants): return member.combatant_name == stored_member.combatant_name)].resonated_with = false
 	resonance_updated(which_member.is_MC, activated)
 	
 func resonance_updated(is_mc = false, activated = false):
 	var resonated_with_name
 	if not is_mc and activated:
 		for member in all_party_slots:
+			if member.is_MC:
+				continue
 			if member.resonated_with:
 				resonated_with_name = member.combatant_name
 				break
 	else:
 		resonated_with_name = "Base"
-			
+	if resonated_with_name == null:
+		resonated_with_name = "Base"
+	
 	active_party_slots[0].update_moves(active_party_slots[0].resonance_skills_[resonated_with_name])
 	update_resonance.emit()
 	
@@ -181,6 +189,7 @@ func apply_player_gender_to_combatant() -> void:
 		active_party_slots[active_index] = player_combatant
 
 	calculate_BP()
+	player_combatant.restore_health()
 	check_player_values.emit()
 	member_added.emit()
 
@@ -924,6 +933,7 @@ func load_saved_data(data):
 	calculate_BP()
 	for combatant in all_party_slots:
 		combatant.gather_actual_stats()
+		combatant.restore_health()
 	var dungeons = dungeon_types.duplicate()
 	for dungeon in range(dungeons.size()):
 		if dungeon > amount_of_dungeons:

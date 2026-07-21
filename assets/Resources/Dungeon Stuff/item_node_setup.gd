@@ -16,6 +16,7 @@ var disabled: bool = false
 
 func _setup(item_passed: Items, i_num, parent_ref, should_be_disabled: bool = false):
 	p_ref = parent_ref
+	await get_tree().process_frame
 	item_name.text = item_passed.item_name
 	item_texture.texture = item_passed.item_sprite
 	index_number = i_num

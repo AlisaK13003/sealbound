@@ -26,6 +26,7 @@ var actual_stats: stats
 @export var bond_drop_range: Vector2i
 
 @export var combatant_skills_: Dictionary[moves, bool]
+@export var passive_skill: moves
 
 @export var resonance_skills_: Dictionary[String, Array]
 

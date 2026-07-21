@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dx8j1v8t4mmbl"]
 
-[ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MC_Walk.tres" id="1_4tiff"]
+[ext_resource type="SpriteFrames" uid="uid://myk5sbc3v2ph" path="res://assets/characters/player/MMC_Walk.tres" id="1_4tiff"]
 [ext_resource type="Script" uid="uid://3yi8o14hgsf0" path="res://scenes/Dungeon/Explorable_Dungeon_Test/3d_player_controller.gd" id="1_wh5h5"]
 [ext_resource type="PackedScene" uid="uid://bokuwcjrjfj1j" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Dungeon_Overlay.tscn" id="2_v0fbd"]
 [ext_resource type="Script" uid="uid://cw55w15k1gsud" path="res://scenes/Dungeon/3D_player_camera_script.gd" id="3_3lwvn"]
@@ -61,7 +61,7 @@ pixel_size = 0.002
 billboard = 1
 texture_filter = 0
 sprite_frames = ExtResource("1_4tiff")
-animation = &"walk_up"
+animation = &"idle"
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1045098688]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.17899287, 0.5227717, -0.16641289)

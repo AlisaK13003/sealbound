@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var move_speed : float = 5.0 # (Note: In 3D, 300.0 is extremely fast unless scale is massive)
+@export var move_speed : float = 5.0 
 @onready var animated_sprite: AnimatedSprite3D = $SpritePivot/AnimatedSprite3D
 @export var gravity: float = 20.0
 
@@ -28,6 +28,11 @@ func display_obtained_items(obtained_items):
 func _setup(parent_reference):
 	p_ref = parent_reference
 	entered_new_tile.connect(dungeon_overlay.mini_map._new_room_entered)
+
+	if Global.player_gender == "male":
+		animated_sprite.sprite_frames = load("res://assets/characters/player/MMC_Walk.tres")
+	else:
+		animated_sprite.sprite_frames = load("res://assets/characters/player/FMC_Walk.tres")
 
 	has_been_setup = true
 	dungeon_overlay._setup(parent_reference)
