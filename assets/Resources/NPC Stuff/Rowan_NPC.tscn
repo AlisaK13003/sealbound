@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_q6rq3"]
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="3_1gx6e"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="4_md64o"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_4xdjx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
@@ -128,7 +129,6 @@ radius = 245.58908
 script = ExtResource("1_q6rq3")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/rowan_dialogue.json"
 npc_id = "rowan"
-speed = 75.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/rowan/Weekly.json"
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
@@ -153,6 +153,7 @@ position = Vector2(0, -74.665)
 shape = SubResource("CircleShape2D_ilmyp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1386862115]
+visible = false
 
 [node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 instance=ExtResource("5_4xdjx")]
 visible = false
@@ -166,6 +167,27 @@ offset_bottom = -2.665001
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.5636769, 0.5636769)
+shop_discount = 0.0
+
+[node name="MenuTabs" parent="CanvasLayer" unique_id=1267646118 instance=ExtResource("4_md64o")]
+visible = false
+offset_left = 32.0
+offset_top = 193.0
+offset_right = 32.0
+offset_bottom = 193.0
+be_vertical = true
+override_separation = true
+
+[node name="ShopInterface2" parent="CanvasLayer" unique_id=2100636606 instance=ExtResource("5_4xdjx")]
+unique_name_in_owner = true
+visible = false
+offset_left = 0.0
+offset_top = -27.0
+offset_right = -640.0
+offset_bottom = -387.0
+shop_stock = []
+shop_discount = 0.0
+is_player_selling = true
 
 [connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]
 [connection signal="body_exited" from="NPC_Clickable" to="." method="_on_npc_clickable_body_exited"]

@@ -34,10 +34,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 4.0
-offset_right = 1.0
-offset_bottom = 4.0
+offset_left = 37.0
+offset_top = -24.0
+offset_right = -537.0
+offset_bottom = -334.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -51,6 +51,7 @@ item_types_to_sell = 127
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Background" unique_id=1314562053]
 layout_mode = 0

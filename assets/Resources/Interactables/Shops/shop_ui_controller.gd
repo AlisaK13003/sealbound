@@ -128,9 +128,9 @@ func _setup():
 		for child in menu_tabs.get_children():
 			child.visible = true
 
-		for item in GlobalCombatInformation.all_held_valuables:
-			big_list.append(item)
 		for item in GlobalCombatInformation.all_held_items:
+			if item.what_is_it & 100:
+				continue
 			big_list.append(item)
 		for item in GlobalCombatInformation.all_held_weapons:
 			big_list.append(item)

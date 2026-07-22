@@ -34,16 +34,20 @@ func _setup(thing, discount, is_sell_node_):
 	
 	if not is_sell_node:
 		label_price = str(thing.buy_price)
-		if discount != 0.0:
+		if discount > 0.0:
 			$Discount/Label.text = "-" + str(int(discount * 100)) + "%"
 			$Discount.visible = true
 			label_price = str(int(float(label_price) - (float(label_price) * discount)))
+		else:
+			$Discount.visible = false
 	else:
 		label_price = str(thing.sell_price)
-		if discount != 0.0:
+		if discount > 0.0:
 			$Discount/Label.text = "+" + str(int(discount * 100)) + "%"
 			$Discount.visible = true
 			label_price = str(int(float(label_price) + (float(label_price) * discount)))
+		else:
+			$Discount.visible = false
 	
 	if not is_sell_node:
 		thing_texture = $"Not Selling"/thing_texture

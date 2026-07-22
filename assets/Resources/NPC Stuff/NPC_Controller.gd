@@ -28,6 +28,9 @@ var current_destination = null
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shop_controller: Node = get_node_or_null("CanvasLayer/ShopInterface")
 
+@onready var menu_tab = get_node_or_null("CanvasLayer/MenuTabs")
+
+
 @export_file("*.json") var dialogue_path: String
 @export var npc_id: String = ""
 @export var bond_combatant: generic_combatants
@@ -53,12 +56,21 @@ var cutscene_restore_state: Dictionary = {}
 var cutscene_motion_direction: Vector2 = Vector2.ZERO
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
+func tab_changed(tab):
+	if tab == 0:
+		$%ShopInterface.visible = true
+		$%ShopInterface2.visible = false
+	else:
+		$%ShopInterface.visible = false
+		$%ShopInterface2.visible = true
+
 func _ready():
 	animation_driver.side_idle_pose_frame = side_idle_pose_frame
 	apply_overworld_sprite_scale()
 	call_deferred("apply_overworld_sprite_scale")
 	if shop_controller != null:
 		shop_controller.shop_closed.connect(close_shop)
+		$%ShopInterface2.shop_closed.connect(close_shop)
 	Global.time_updated.connect(navigate)
 	if dialogue_path.is_empty():
 		print("Error: JSON file path is not set in the editor.")
@@ -79,6 +91,11 @@ func _ready():
 		if not dialogue_system.choice_action_requested.is_connected(choice_action_callback):
 			dialogue_system.choice_action_requested.connect(choice_action_callback)
 	just_swapped_scenes = true
+	
+	if menu_tab != null:
+		menu_tab._setup(["Buy", "Sell"])
+		menu_tab.selection_changed.connect(tab_changed)
+	
 	navigate.call_deferred()
 
 func apply_overworld_sprite_scale() -> void:
@@ -885,7 +902,10 @@ func open_shop() -> void:
 	push_warning("NPC_Controller: No ShopController child found to open.")
 
 func show_shop():
+	$CanvasLayer/MenuTabs.cycle_input(null, -1)
 	$CanvasLayer.visible = true
+	$%ShopInterface.visible = true
+	$%ShopInterface2.visible = false
 	Global.is_paused = true
 	Global.is_in_menu = true
 	
@@ -893,6 +913,8 @@ func close_shop():
 	$CanvasLayer.visible = false
 	Global.is_paused = false
 	Global.is_in_menu = false
+	$%ShopInterface.visible = false
+	$%ShopInterface2.visible = false
 
 # Determines if the player is in range to talk with NPC
 func _on_player_in_range_area_entered(area):

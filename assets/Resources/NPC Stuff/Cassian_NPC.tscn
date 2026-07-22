@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_eooly"]
 [ext_resource type="Texture2D" uid="uid://m00wxofcxxj4" path="res://assets/characters/cassian/cassian_idle.png" id="2_gjqij"]
 [ext_resource type="Texture2D" uid="uid://dl7qdnu6wo2lf" path="res://assets/characters/cassian/cassian_walk.png" id="3_cabsr"]
+[ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="4_gjqij"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_cabsr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
@@ -157,13 +158,33 @@ shape = SubResource("CircleShape2D_ilmyp")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=267297766]
 visible = false
 
+[node name="MenuTabs" parent="CanvasLayer" unique_id=1267646118 instance=ExtResource("4_gjqij")]
+offset_left = 470.44
+offset_top = 48.41
+offset_right = 470.44
+offset_bottom = 48.41
+theme_override_constants/v_separation = 5
+be_vertical = true
+
 [node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 instance=ExtResource("5_cabsr")]
 unique_name_in_owner = true
+visible = false
 offset_left = 0.0
 offset_top = -27.0
-offset_right = 0.0
-offset_bottom = -27.0
-shop_discount = 0.4
+offset_right = -640.0
+offset_bottom = -387.0
+shop_discount = 0.0
+
+[node name="ShopInterface2" parent="CanvasLayer" unique_id=24933538 instance=ExtResource("5_cabsr")]
+unique_name_in_owner = true
+visible = false
+offset_left = 0.0
+offset_top = -27.0
+offset_right = -640.0
+offset_bottom = -387.0
+shop_stock = []
+shop_discount = 0.0
+is_player_selling = true
 
 [connection signal="input_event" from="NPC_Clickable" to="." method="_on_npc_clickable_input_event"]
 [connection signal="area_entered" from="Player_In_Range" to="." method="_on_player_in_range_area_entered"]
