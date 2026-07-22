@@ -8,6 +8,6 @@
 
 [resource]
 script = ExtResource("2_xlywj")
-encounterable_enemy = ExtResource("1_02s0e")
-enemies = Array[ExtResource("1_ox0qs")]([ExtResource("1_02s0e"), ExtResource("3_b2m56"), ExtResource("3_b2m56"), ExtResource("4_ol6f5")])
+encounterable_enemy = ExtResource("3_b2m56")
+enemies = Array[ExtResource("1_ox0qs")]([ExtResource("3_b2m56"), ExtResource("3_b2m56"), ExtResource("1_02s0e"), ExtResource("4_ol6f5")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
