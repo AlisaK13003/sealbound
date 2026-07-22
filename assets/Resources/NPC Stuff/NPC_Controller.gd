@@ -17,6 +17,8 @@ var current_location
 const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
 const DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT: float = 36.0
 const LOCATION_ARRIVAL_FACING_OVERRIDES: Dictionary = {
+	"Practice Field": "right",
+	"HerbCollecting": "down",
 	"Tavern_Counter": "down"
 }
 var current_destination = null
@@ -30,7 +32,7 @@ var current_destination = null
 @export var npc_id: String = ""
 @export var bond_combatant: generic_combatants
 @export var location_container: Node2D
-@export var speed: float = 300.0
+@export var speed: float = 75.0
 @export_file("*.json") var schedule_path: String
 @export var default_z_index: int = 0
 @export var counter_z_index: int = 0
@@ -38,6 +40,7 @@ var current_destination = null
 @export var use_counter_draw_order: bool = false
 @export var auto_match_player_visual_height: bool = true
 @export var overworld_sprite_display_height: float = DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT
+@export_range(0, 8, 1) var side_idle_pose_frame: int = CharacterAnimationDriver.DEFAULT_SIDE_IDLE_POSE_FRAME
 
 var cached_overworld_sprite_frame_height: float = 0.0
 var schedule_info
@@ -51,6 +54,7 @@ var cutscene_motion_direction: Vector2 = Vector2.ZERO
 var animation_driver: CharacterAnimationDriver = CharacterAnimationDriver.new()
 
 func _ready():
+	animation_driver.side_idle_pose_frame = side_idle_pose_frame
 	apply_overworld_sprite_scale()
 	call_deferred("apply_overworld_sprite_scale")
 	if shop_controller != null:
@@ -320,16 +324,19 @@ func load_schedule_info() -> void:
 		schedule_info = parsed
 
 func ensure_location_container() -> bool:
-	if location_container != null and location_container.has_method("get_path_between"):
+	if is_valid_location_container(location_container):
 		return true
 	if not is_inside_tree() or get_tree().current_scene == null:
 		return false
-	for container_name in ["VillageLocationContainer", "BuildingLocationContainer"]:
+	for container_name in ["VillageLocationContainer", "BuildingLocationContainer", "ForestLocationContainer"]:
 		var container = get_tree().current_scene.get_node_or_null(NodePath(container_name))
-		if container != null and container.has_method("get_path_between"):
+		if is_valid_location_container(container):
 			location_container = container
 			return true
 	return false
+
+func is_valid_location_container(container: Node) -> bool:
+	return container != null and container is Node2D and container.get_child_count() > 0
 
 func get_weekday_name(day_index: int) -> String:
 	var day_names: Array[String] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -397,7 +404,7 @@ func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
 		return
 	var points: Array[Vector2] = []
 	for vertex_id in path_ids:
-		points.append(location_container.get_child(vertex_id).location_position[2])
+		points.append(get_location_global_position(vertex_id))
 	var total_distance = get_path_distance(points)
 	if total_distance <= 0.0:
 		place_at_location(details["end_location"])
@@ -422,13 +429,13 @@ func place_along_points(points: Array[Vector2], target_distance: float) -> void:
 			var segment_progress = 0.0
 			if segment_length > 0.0:
 				segment_progress = distance_left / segment_length
-			self.position = segment_start.lerp(segment_end, segment_progress)
+			global_position = segment_start.lerp(segment_end, segment_progress)
 			path_nodes.append(segment_end)
 			for remaining_index in range(index + 2, points.size()):
 				path_nodes.append(points[remaining_index])
 			return
 		distance_left -= segment_length
-	self.position = points[points.size() - 1]
+	global_position = points[points.size() - 1]
 
 func check_time(start_time_hour, start_time_minutes, before_equal_after):
 	match before_equal_after:
@@ -477,8 +484,13 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 	if not ensure_location_container():
 		return
 	current_destination = end_point
+	var start_index = get_location_index(start_point)
+	if not location_container.has_method("get_path_between"):
+		var end_index = get_location_index(end_point)
+		if start_index >= 0 and start_index == end_index:
+			set_path_nodes([start_index], start_index, start_point, end_point, snap_to_start)
+		return
 	var path_ids = location_container.get_path_between(start_point, end_point)
-	var start_index = location_container.get_location_index(start_point)
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
 func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_key: String, snap_to_start: bool = false) -> void:
@@ -488,7 +500,7 @@ func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_k
 	var end_point = schedule_info_basic[end_key]
 	current_destination = end_point
 	var path_ids = get_schedule_path_ids(schedule_info_basic, start_key, end_key)
-	var start_index = location_container.get_location_index(start_point)
+	var start_index = get_location_index(start_point)
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
 func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> Array[int]:
@@ -501,7 +513,7 @@ func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, e
 	if explicit_path is Array and not explicit_path.is_empty():
 		var explicit_path_ids: Array[int] = []
 		for location in explicit_path:
-			var location_index = location_container.get_location_index(location)
+			var location_index = get_location_index(location)
 			if location_index < 0 or location_index >= location_container.get_child_count():
 				push_warning("NPC_Controller: Could not resolve explicit schedule path location '%s' in %s." % [str(location), schedule_path])
 				break
@@ -509,7 +521,72 @@ func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, e
 				explicit_path_ids.append(location_index)
 		if explicit_path_ids.size() == explicit_path.size():
 			return explicit_path_ids
-	return location_container.get_path_between(schedule_info_basic[start_key], schedule_info_basic[end_key])
+	var start_location_index = get_location_index(schedule_info_basic[start_key])
+	var end_location_index = get_location_index(schedule_info_basic[end_key])
+	if start_location_index >= 0 and start_location_index == end_location_index:
+		return [start_location_index]
+	if location_container.has_method("get_path_between"):
+		return location_container.get_path_between(schedule_info_basic[start_key], schedule_info_basic[end_key])
+	return []
+
+func get_location_index(location) -> int:
+	if location_container == null:
+		return -1
+	if location_container.has_method("get_location_index"):
+		return int(location_container.get_location_index(location))
+	match typeof(location):
+		TYPE_INT:
+			return location
+		TYPE_FLOAT:
+			return int(location)
+		TYPE_STRING:
+			var location_name = str(location).strip_edges()
+			if location_name.is_empty():
+				return -1
+			var location_node = location_container.get_node_or_null(NodePath(location_name))
+			if location_node != null:
+				return location_node.get_index()
+			var numeric_index: int = -1
+			if location_name.is_valid_int():
+				numeric_index = int(location_name)
+			var normalized_location_name = normalize_location_name(location_name)
+			var normalized_index = get_location_index_by_normalized_name(normalized_location_name)
+			if normalized_index >= 0:
+				return normalized_index
+			var numbered_name_index = get_location_index_by_numeric_suffix(normalized_location_name)
+			if numbered_name_index >= 0:
+				return numbered_name_index
+			if numeric_index >= 0:
+				return numeric_index
+	return -1
+
+func get_location_index_by_normalized_name(normalized_location_name: String) -> int:
+	if location_container == null:
+		return -1
+	for child in location_container.get_children():
+		if normalize_location_name(str(child.name)) == normalized_location_name:
+			return child.get_index()
+	return -1
+
+func get_location_index_by_numeric_suffix(normalized_location_name: String) -> int:
+	if location_container == null or not normalized_location_name.is_valid_int():
+		return -1
+	for child in location_container.get_children():
+		var normalized_child_name = normalize_location_name(str(child.name))
+		var suffix_start = normalized_child_name.length() - normalized_location_name.length()
+		if suffix_start < 0:
+			continue
+		if normalized_child_name.substr(suffix_start) != normalized_location_name:
+			continue
+		if suffix_start == 0:
+			return child.get_index()
+		var previous_character = normalized_child_name.substr(suffix_start - 1, 1)
+		if not previous_character.is_valid_int():
+			return child.get_index()
+	return -1
+
+func normalize_location_name(location_name: String) -> String:
+	return location_name.to_lower().replace(" ", "").replace("_", "").replace("-", "")
 
 func set_path_nodes(path_ids: Array[int], start_index: int, start_point, end_point, snap_to_start: bool = false) -> void:
 	path_nodes.clear()
@@ -521,37 +598,42 @@ func set_path_nodes(path_ids: Array[int], start_index: int, start_point, end_poi
 		place_at_location(start_point)
 		current_destination = end_point
 	for vertex_id in path_ids:
-		var target_node = location_container.get_child(vertex_id)
-		var target_pos = target_node.location_position[2] 
+		var target_pos = get_location_global_position(vertex_id)
 		if vertex_id == start_index and not snap_to_start:
-			self.position = target_pos
+			global_position = target_pos
 		path_nodes.append(target_pos)
 
 func place_at_location(location):
 	if not ensure_location_container():
 		return
-	var location_index = location_container.get_location_index(location)
+	var location_index = get_location_index(location)
 	if location_index < 0 or location_index >= location_container.get_child_count():
 		return
-	var target_node = location_container.get_child(location_index)
-	self.position = target_node.location_position[2]
+	global_position = get_location_global_position(location_index)
 	current_destination = location
 	apply_location_facing(location)
+
+func get_location_global_position(location_index: int) -> Vector2:
+	var target_node := location_container.get_child(location_index) as Node2D
+	if target_node == null:
+		return global_position
+	return target_node.global_position
 
 func apply_location_facing(location) -> void:
 	if location == null or animated_sprite == null:
 		return
 	if not ensure_location_container():
 		return
-	var location_index = location_container.get_location_index(location)
+	var location_index = get_location_index(location)
 	if location_index < 0 or location_index >= location_container.get_child_count():
 		return
 	var target_node = location_container.get_child(location_index)
 	var arrival_facing = ""
 	if target_node.has_method("get_arrival_facing"):
 		arrival_facing = str(target_node.get_arrival_facing())
-	if arrival_facing.is_empty() or arrival_facing == "none":
-		arrival_facing = str(LOCATION_ARRIVAL_FACING_OVERRIDES.get(str(location), ""))
+	var override_arrival_facing = str(LOCATION_ARRIVAL_FACING_OVERRIDES.get(str(location), ""))
+	if not override_arrival_facing.is_empty():
+		arrival_facing = override_arrival_facing
 	if arrival_facing.is_empty() or arrival_facing == "none":
 		return
 	animation_driver.face(animated_sprite, StringName(arrival_facing))

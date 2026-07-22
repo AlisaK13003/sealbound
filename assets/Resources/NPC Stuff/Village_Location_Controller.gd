@@ -78,17 +78,23 @@ func get_location_index(location) -> int:
 			var location_node = get_node_or_null(NodePath(location_name))
 			if location_node != null:
 				return location_node.get_index()
+			var numeric_index: int = -1
 			if location_name.is_valid_int():
-				return int(location_name)
+				numeric_index = int(location_name)
 			var normalized_location_name = normalize_location_name(location_name)
 			var normalized_index = get_location_index_by_normalized_name(normalized_location_name)
 			if normalized_index >= 0:
 				return normalized_index
+			var numbered_name_index = get_location_index_by_numeric_suffix(normalized_location_name)
+			if numbered_name_index >= 0:
+				return numbered_name_index
 			if LOCATION_ALIASES.has(normalized_location_name):
 				for alias in LOCATION_ALIASES[normalized_location_name]:
 					var alias_index = get_location_index_by_normalized_name(normalize_location_name(str(alias)))
 					if alias_index >= 0:
 						return alias_index
+			if numeric_index >= 0:
+				return numeric_index
 
 	push_warning("VillageLocationContainer: Could not find schedule location '%s'." % str(location))
 	return -1
@@ -96,6 +102,23 @@ func get_location_index(location) -> int:
 func get_location_index_by_normalized_name(normalized_location_name: String) -> int:
 	for child in get_children():
 		if normalize_location_name(str(child.name)) == normalized_location_name:
+			return child.get_index()
+	return -1
+
+func get_location_index_by_numeric_suffix(normalized_location_name: String) -> int:
+	if not normalized_location_name.is_valid_int():
+		return -1
+	for child in get_children():
+		var normalized_child_name = normalize_location_name(str(child.name))
+		var suffix_start = normalized_child_name.length() - normalized_location_name.length()
+		if suffix_start < 0:
+			continue
+		if normalized_child_name.substr(suffix_start) != normalized_location_name:
+			continue
+		if suffix_start == 0:
+			return child.get_index()
+		var previous_character = normalized_child_name.substr(suffix_start - 1, 1)
+		if not previous_character.is_valid_int():
 			return child.get_index()
 	return -1
 

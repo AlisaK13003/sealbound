@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dj0n3w27hkd4l" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet-sheet-sheet-sheet.png" id="5_1uopn"]
 [ext_resource type="Texture2D" uid="uid://de3hjxptpnepq" path="res://assets/Potion_Shop (1).png" id="6_rld5i"]
 [ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="7_xsjiv"]
+[ext_resource type="PackedScene" uid="uid://bg1uxu604kh6j" path="res://assets/Resources/NPC Stuff/Cassian_NPC.tscn" id="8_xsjiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rld5i"]
 size = Vector2(83, 28)
@@ -653,7 +654,7 @@ confirmation_before_teleport = false
 position = Vector2(50, -31)
 
 [node name="HerbCollecting" type="Marker2D" parent="ForestLocationContainer" unique_id=1367164251]
-position = Vector2(693, -75)
+position = Vector2(685, -32)
 
 [node name="1" type="Marker2D" parent="ForestLocationContainer" unique_id=94953427]
 position = Vector2(629, -75)
@@ -675,6 +676,9 @@ position = Vector2(1152, -474)
 
 [node name="7" type="Marker2D" parent="ForestLocationContainer" unique_id=948330670]
 position = Vector2(1319, -474)
+
+[node name="8" type="Marker2D" parent="ForestLocationContainer" unique_id=1300353717]
+position = Vector2(1397, -584)
 
 [node name="Apothecary" type="Marker2D" parent="ForestLocationContainer" unique_id=360207248]
 position = Vector2(1398, -647)
@@ -756,5 +760,8 @@ tile_set = SubResource("TileSet_fqaix")
 position = Vector2(-365, 831.1488)
 tile_map_data = PackedByteArray("AAASAAkAAQAOAAgAAAASAAoAAQAMAAkAAAASAAsAAQAMAAkAAAASAAwAAQAMAAkAAAASAA0AAQAOAAgAAGATAAkAAQAMAAkAAFATAA0AAQAMAAkAAGAUAAkAAQAPAAgAAAAUAAoAAQAMAAkAADAUAAsAAQANAAkAAAAUAA0AAQAMAAkAAGAVAAsAAQAMAAkAAFAVAAwAAQANAAkAAFAVAA0AAQAPAAkAAAAWAAsAAQAPAAgAAAAWAAwAAQAPAAkAAAAzAB4AAQAPAAgAAGAzAB8AAQAPAAkAAFA0AB0AAQAOAAgAAAA0AB4AAQANAAkAAGA0AB8AAQANAAkAADA0ACAAAQAOAAkAAAA1ABwAAQAOAAgAAAA1AB0AAQANAAkAAGA1AB4AAQANAAkAAFA1AB8AAQAMAAkAADA1ACAAAQAPAAkAAAA2ABwAAQAMAAkAAFA2AB0AAQANAAkAAFA2AB4AAQAPAAkAAAA3ABsAAQAOAAgAAAA3ABwAAQANAAkAAGA3AB0AAQAMAAkAAGA4ABsAAQAOAAgAAFA4ABwAAQAMAAkAADA4AB0AAQAPAAkAAAA=")
 tile_set = SubResource("TileSet_fqaix")
+
+[node name="Cassian_NPC" parent="." unique_id=823861237 instance=ExtResource("8_xsjiv")]
+position = Vector2(1202, 912)
 
 [editable path="ForestLocationContainer"]

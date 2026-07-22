@@ -130,6 +130,7 @@ dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/orion_dialogue.
 npc_id = "orion"
 speed = 75.0
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/orion/Weekly.json"
+side_idle_pose_frame = 0
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736805]
 
