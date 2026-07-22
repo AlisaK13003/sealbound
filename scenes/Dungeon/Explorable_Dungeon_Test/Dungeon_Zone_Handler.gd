@@ -546,7 +546,8 @@ func return_to_exploring():
 	#in_combat = false
 	await Fade.fade_out(2.0)
 	in_combat = false
-	
+	for i in range(Engine.get_frames_per_second() * 2):
+		await get_tree().physics_frame
 	for enemy in enemy_container.get_children():
 		enemy.enable_player_detection()
 	movement_locked = false

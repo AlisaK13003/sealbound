@@ -6,7 +6,7 @@ class_name room
 #@onready var pillars = $Pillars
 @onready var lights = $SpotLight3D
 
-@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room", "Quest_Room", "Special_Room") var room_classification
+@export_enum("Spawn_Room", "Stair_Room", "Room_Cap", "Corner_Junction", "3-Way_Junction", "4-Way_Junction", "Straight_Room", "T_Chest_Room", "Quest_Room", "Special_Room", "No_Connections") var room_classification
 @export var has_pillars: bool = false
 var has_been_entered = false
 
@@ -41,7 +41,7 @@ func give_player_chest_item():
 		
 	for new_chance in drop_chances_:
 		if chance < new_chance + accumulated_chance:
-			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(new_chance))
+			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(new_chance).get_path_custom())
 			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
 			break
 		accumulated_chance += new_chance

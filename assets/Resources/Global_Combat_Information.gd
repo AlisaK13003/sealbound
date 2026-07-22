@@ -854,8 +854,6 @@ func bring_back_combat(_rewards_scene = null):
 			AudioManager.play_bgm(AudioManager.FOREST_DUNGEON_BGM)
 	get_tree().root.add_child.call_deferred(explorable_dungeon_scene)
 	
-	explorable_dungeon_scene.set_deferred("movement_locked", false)
-	
 	if is_instance_valid(rewards_scene_):
 		rewards_scene_.queue_free()
 	
@@ -879,10 +877,10 @@ func bring_back_combat(_rewards_scene = null):
 		if index != -1:
 			all_party_slots[index] = person.custom_duplicate()
 	check_player_values.emit()
-	
 	is_combat_active = false
 	get_tree().set_deferred("current_scene", explorable_dungeon_scene)
-	explorable_dungeon_scene.return_to_exploring()
+	explorable_dungeon_scene.call_deferred("return_to_exploring")
+	explorable_dungeon_scene.set_deferred("movement_locked", false)
 	AreaStateManager.currently_transitioning = false
 
 func update_stored_combat_information():

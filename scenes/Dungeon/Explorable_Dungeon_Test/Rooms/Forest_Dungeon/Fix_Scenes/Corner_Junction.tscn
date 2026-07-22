@@ -58,7 +58,6 @@ transform = Transform3D(0.24999999, 0, 0, 0, 0.49999997, 0, 0, 0, 0.25, 0.331818
 visible = false
 
 [node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=1024850352]
-visible = false
 
 [node name="Wall_Torch" parent="Clutter/Creepy/Non-template" unique_id=1375627822 instance=ExtResource("6_yyrf0")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.2846346, -1.1308061)
@@ -76,13 +75,13 @@ visible = false
 transform = Transform3D(0.17677669, -0.35355338, 7.727155e-09, 0, -2.1855694e-08, -0.25, 0.17677669, 0.35355338, -7.727155e-09, 0.9044523, 0.6997273, -1.4010589)
 visible = false
 
-[node name="Untitled" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2" index="0" unique_id=1879172578]
+[node name="Untitled" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2" index="0" unique_id=1894644533]
 visible = false
 
-[node name="StaticBody3D" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2/Untitled" index="0" unique_id=1771115128]
+[node name="StaticBody3D" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2/Untitled" index="0" unique_id=580253400]
 visible = false
 
-[node name="CollisionShape3D" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2/Untitled/StaticBody3D" index="0" unique_id=385135132]
+[node name="CollisionShape3D" parent="Clutter/Creepy/Non-template/Creepy_Dungeon_Pillar2/Untitled/StaticBody3D" index="0" unique_id=1199189936]
 visible = false
 
 [node name="Tattered_Banner" parent="Clutter/Creepy/Non-template" unique_id=403087030 instance=ExtResource("8_jb7hi")]

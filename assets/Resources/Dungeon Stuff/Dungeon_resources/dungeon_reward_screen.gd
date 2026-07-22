@@ -60,8 +60,8 @@ func _setup(who_leveled_up, experience_gained: int, items_gained = null):
 			for thing in sorted_item_gained:
 				var new_item_inst = load(path)
 				var new_item_instance = new_item_inst.instantiate()
-				new_item_instance._setup(thing, thing.stack, null, true)
 				$Control/Contents/GridContainer.add_child(new_item_instance)
+				new_item_instance._setup(thing, thing.stack, null, true)
 			
 	
 	experience_gained_label.text = "EXP Gained: " + str(experience_gained)

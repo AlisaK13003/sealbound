@@ -362,22 +362,33 @@ const DIR_VECTORS = {
 
 
 func update_room_visibility(player_grid_pos: Vector2i):
+	if not p_ref.generated_rooms.has(player_grid_pos):
+		return
+
 	var visible_rooms: Array[Vector2i] = []
+	var current_room = p_ref.generated_rooms[player_grid_pos]
+	var current_group = current_room.group_id
 	
-	var queue: Array = [{"pos": player_grid_pos, "depth": 0}]
+	if current_group > 2:
+		for pos in p_ref.generated_rooms.keys():
+			if p_ref.generated_rooms[pos].group_id == current_group:
+				visible_rooms.append(pos)
 	
-	var visited: Dictionary = {player_grid_pos: true}
-	
-	var current_group = p_ref.generated_rooms[player_grid_pos].group_id
-	
-	while queue.size() > 0:
-		var current = queue.pop_front()
-		var current_pos = current["pos"]
-		var current_depth = current["depth"]
+
+	else:
+		var queue: Array = [{"pos": player_grid_pos, "depth": 0}]
+		var visited: Dictionary = {player_grid_pos: true}
 		
-		visible_rooms.append(current_pos)
+		var max_depth: int = 3           
+		var max_corridor_depth: int = 6  
 		
-		if current_depth <= 5:
+		while queue.size() > 0:
+			var current = queue.pop_front()
+			var current_pos: Vector2i = current["pos"]
+			var current_depth: int = current["depth"]
+			
+			visible_rooms.append(current_pos)
+			
 			if p_ref.generated_rooms.has(current_pos):
 				var room_data = p_ref.generated_rooms[current_pos]
 				
@@ -385,34 +396,22 @@ func update_room_visibility(player_grid_pos: Vector2i):
 					var neighbor_pos = current_pos + DIR_VECTORS[dir]
 					
 					if p_ref.generated_rooms.has(neighbor_pos) and not visited.has(neighbor_pos):
-						if p_ref.generated_rooms[neighbor_pos].group_id != -1:
+						var is_aligned_xy = (neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)
+						
+						if current_depth < max_depth:
 							visited[neighbor_pos] = true
 							queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
-						else:
-							if p_ref.generated_rooms[neighbor_pos].group_id == current_group:
-								if current_group == -1 and ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)):
-									visited[neighbor_pos] = true
-									queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
-								elif current_group != -1:
-									visited[neighbor_pos] = true
-									queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
-							elif ((neighbor_pos.x == player_grid_pos.x or neighbor_pos.y == player_grid_pos.y)) and (p_ref.generated_rooms[neighbor_pos].group_id == -1 or p_ref.generated_rooms[neighbor_pos].group_id == -2):
-								visited[neighbor_pos] = true
-								queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
 						
+						elif current_depth < max_corridor_depth and is_aligned_xy:
+							visited[neighbor_pos] = true
+							queue.append({"pos": neighbor_pos, "depth": current_depth + 1})
+
 	for pos in p_ref.generated_rooms.keys():
 		var room_node = p_ref.get_room_node_at(pos) 
 		if room_node != null:
-			if pos in visible_rooms:
-				#room_node.set_room_visible(true, 0.5)
-				room_node.visible = true
-				room_node.is_visible = true
-				# e.g., enable_enemies_in_room(room_node)
-			else:
-				#room_node.set_room_visible(false, 0.5)
-				room_node.visible = false
-				room_node.is_visible = false
-				# e.g., disable_enemies_in_room(room_node)
+			var is_room_visible: bool = pos in visible_rooms
+			room_node.visible = is_room_visible
+			room_node.is_visible = is_room_visible
 
 func get_rotation_degrees_(room_type: String, previous_rotation) -> float:
 	var calculated_rot = 0.0 

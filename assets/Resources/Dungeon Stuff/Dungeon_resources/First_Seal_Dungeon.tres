@@ -54,5 +54,5 @@ type_of_dungeon = 1
 dungeon_unlock_type = 2
 does_dungeon_have_boss = true
 boss_encounter = ExtResource("1_8chwe")
-room_size = 2
+room_size = 3
 metadata/_custom_type_script = "uid://3loyjc4d808j"

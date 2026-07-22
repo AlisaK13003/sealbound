@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://ca6hb0r5sil4w"]
+
+[ext_resource type="Script" uid="uid://bcmtsm2ufqkl5" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Room_Controller.gd" id="1_8w031"]
+[ext_resource type="PackedScene" uid="uid://bsppn151x0keg" path="res://scenes/Dungeon/Explorable_Dungeon_Test/section_1_dungeon_wall.tscn" id="2_8ao2l"]
+[ext_resource type="PackedScene" uid="uid://gtfprkvaivnf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Creepy_Dungeon_Floor_Cap.glb" id="3_6t3uo"]
+[ext_resource type="PackedScene" uid="uid://drkpac80drds6" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Forest_Grid_Tile.glb" id="4_ijlvu"]
+[ext_resource type="PackedScene" uid="uid://ikfgy23we35e" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Clutter/Giant Dirt Pile.glb" id="8_v8e1w"]
+[ext_resource type="PackedScene" uid="uid://btqr1mqs06pw7" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Spinning_Sprite.tscn" id="11_dadn6"]
+[ext_resource type="Texture2D" uid="uid://cl7qpa1h0osw5" path="res://assets/tile sheets/Dungeon_Special_Room_Key.png" id="12_8awp0"]
+
+[node name="RoomCap" type="Node3D" unique_id=596948473]
+script = ExtResource("1_8w031")
+room_classification = 10
+
+[node name="Walls" type="Node3D" parent="." unique_id=1216623296]
+
+[node name="Section_1_Dungeon_Wall4" parent="Walls" unique_id=1488638431 instance=ExtResource("2_8ao2l")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.371325e-07, -0.4, -1.568613)
+
+[node name="Section_1_Dungeon_Wall7" parent="Walls" unique_id=1488707590 instance=ExtResource("2_8ao2l")]
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, -0.25, 0, 0.25, -1.0927847e-08, 1.371325e-07, -0.4, 1.6161432)
+
+[node name="Section_1_Dungeon_Wall5" parent="Walls" unique_id=1680869391 instance=ExtResource("2_8ao2l")]
+transform = Transform3D(-1.0927845e-08, 0.25, -1.0927847e-08, 0, -1.0927847e-08, -0.25, -0.25, -1.0927845e-08, 4.776714e-16, -1.6, -0.4, 0.049)
+what_direction = 1
+
+[node name="Section_1_Dungeon_Wall6" parent="Walls" unique_id=425725578 instance=ExtResource("2_8ao2l")]
+transform = Transform3D(-1.0927847e-08, -0.25, 1.0927847e-08, 0, -1.0927847e-08, -0.25, 0.25, -1.0927847e-08, 4.7767137e-16, 1.6, -0.4, 0.036)
+what_direction = 3
+
+[node name="Floor" type="Node3D" parent="." unique_id=647261417]
+visible = false
+
+[node name="Creepy_Dungeon_Floor_Cap" parent="Floor" unique_id=16557298 instance=ExtResource("3_6t3uo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Forest_Grid_Tile" parent="Floor" unique_id=1358726698 instance=ExtResource("4_ijlvu")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Forest_dungeopn_grid" parent="Floor/Forest_Grid_Tile" index="0" unique_id=1721274175]
+layers = 4
+
+[node name="StaticBody3D" parent="Floor/Forest_Grid_Tile/Forest_dungeopn_grid" index="0" unique_id=1779435059]
+collision_layer = 4
+
+[node name="Pillars" type="Node3D" parent="." unique_id=1639498074]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=391565559]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.788867, 0)
+light_color = Color(1, 0.28627452, 0.10980392, 1)
+light_energy = 15.0
+spot_range = 6.0
+spot_angle = 60.0
+spot_angle_attenuation = 5.0
+
+[node name="Clutter" type="Node3D" parent="." unique_id=1271704707]
+visible = false
+
+[node name="Creepy" type="Node3D" parent="Clutter" unique_id=847074343]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Creepy" unique_id=1826751512]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Creepy" unique_id=287501571]
+visible = false
+
+[node name="Forest" type="Node3D" parent="Clutter" unique_id=2131599522]
+visible = false
+
+[node name="Template" type="Node3D" parent="Clutter/Forest" unique_id=555840887]
+visible = false
+
+[node name="Non-template" type="Node3D" parent="Clutter/Forest" unique_id=2140228803]
+visible = false
+
+[node name="Giant Dirt Pile" parent="Clutter/Forest/Non-template" unique_id=1207094387 instance=ExtResource("8_v8e1w")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.58111036, 0)
+
+[node name="SpinningSprite" parent="." unique_id=884794250 instance=ExtResource("11_dadn6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
+visible = false
+pixel_size = 0.05
+billboard = 1
+texture = ExtResource("12_8awp0")
+
+[editable path="Floor/Forest_Grid_Tile"]

@@ -28,7 +28,8 @@ class dungeon_room:
 		"Hallway_3-Way_Junction": 0.0,
 		"Straight_Room": 90.0,
 		"T_Chest_Room": 180.0,
-		"Special_Room": 180.0
+		"Special_Room": 180.0,
+		"No_Connection": 0.0
 	}
 	
 	const room_symbol_mapping: Dictionary[String, String] = {
@@ -42,6 +43,7 @@ class dungeon_room:
 		"T": "T_Chest_Room",            
 		"Q": "Quest_Room",
 		"P": "Special_Room",
+		"N": "No_Connection",
 
 		# --- Hallways & Corridors ---
 		"H": "Generic_Hallway",      
@@ -66,7 +68,8 @@ class dungeon_room:
 		"Quest_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Quest_Room.tscn",
 		"Special_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Special_Room.tscn",
 		"Stair_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Stair_Room.tscn",
-		"Straight_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/straight_room_.tscn"
+		"Straight_Room": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/straight_room_.tscn",
+		"No_Connection": "res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Center_Room.tscn"
 	}
 	
 	func _init(position_, facing, total_dir_count, room_name, grp_id = -1, is_center_ = false, is_locked_ = false):
@@ -167,12 +170,15 @@ class room_template:
 	
 	var room_size: Vector2i
 	
+	var spawn_weight: float
+	
 	var cur_rotation: int = 0
 	
-	func _init(subrooms_: Array[dungeon_room], room_dim):
+	func _init(subrooms_: Array[dungeon_room], room_dim, weight):
 		room_size = room_dim
 		for room_: dungeon_room in subrooms_:
 			sub_rooms[room_.room_pos] = room_
+		spawn_weight = weight
 		
 	# The connecting direction is still rotated at (0, 0) so it shouldn't do that
 	func clock_wise_rotation():
@@ -197,7 +203,7 @@ class room_template:
 		for room_: dungeon_room in self.sub_rooms.values():
 			room_arr.append(room_.duplicate())
 		
-		var new_template = room_template.new(room_arr, self.room_size)
+		var new_template = room_template.new(room_arr, self.room_size, spawn_weight)
 		return new_template
 
 const DIR_VECTORS = {
@@ -254,16 +260,8 @@ func build_room_templates():
 	var top_left_1 = dungeon_room.new(Vector2i(0, 1), [0, 3], 2, "Corner_Junction", 1)
 	var top_right_1 = dungeon_room.new(Vector2i(1, 1), [0, 1], 3, "3_way_junction", 1)
 	
-	potential_rooms.append(room_template.new([bottom_left_1, bottom_right_1, top_left_1, top_right_1], Vector2i(2,2)))
+	potential_rooms.append(room_template.new([bottom_left_1, bottom_right_1, top_left_1, top_right_1], Vector2i(2,2), 12.0))
 	
-	# TEMPLATE 2: 2x2 with 3 corners and 1 3-way
-	var top_left_2 = dungeon_room.new(Vector2i(0, 0), [3, 0], 2, "Corner_Junction", 2)
-	var top_right_2 = dungeon_room.new(Vector2i(1, 0), [1, 0], 2, "Corner_Junction", 2)
-	var bottom_left_2 = dungeon_room.new(Vector2i(0, 1), [3, 2], 2, "Corner_Junction", 2)
-	var bottom_right_2 = dungeon_room.new(Vector2i(1, 1), [1, 2], 3, "3_way_junction", 2)
-	
-	room_cap_templates.append(room_template.new([top_left_2, top_right_2, bottom_left_2, bottom_right_2], Vector2i(2,2)))
-
 	# Directions
 	# 0:  DOWN
 	# 1:  LEFT
@@ -283,7 +281,21 @@ func build_room_templates():
 	var top_center_3 = dungeon_room.new(Vector2i(0, 2), [0, 1, 3], 4, "4_way_junction", 3)
 	var top_right_3 = dungeon_room.new(Vector2i(1, 2), [0, 1], 2, "Corner_Junction", 3)
 
-	potential_rooms.append(room_template.new([bottom_center_3, bottom_left_3, bottom_right_3, middle_left_3, middle_center_3, middle_right_3, top_left_3, top_center_3, top_right_3], Vector2i(3, 3)))
+	potential_rooms.append(room_template.new([bottom_center_3, bottom_left_3, bottom_right_3, middle_left_3, middle_center_3, middle_right_3, top_left_3, top_center_3, top_right_3], Vector2i(3, 3), 3.0))
+
+	var bottom_left_6 = dungeon_room.new(Vector2i(-1, 0), [2, 3], 2, "Corner_Junction", 5)
+	var bottom_center_6 = dungeon_room.new(Vector2i(0, 0), [1, 2, 3], 4, "4_way_junction", 5)
+	var bottom_right_6 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 5)
+	
+	var middle_left_6 = dungeon_room.new(Vector2i(-1, 1), [0, 2], 2, "|Room", 5)
+	var middle_center_6 = dungeon_room.new(Vector2i(0, 1), [], 4, "No_Connection", 5)
+	var middle_right_6 = dungeon_room.new(Vector2i(1, 1), [0, 1], 2, "|Room", 5)
+	
+	var top_left_6 = dungeon_room.new(Vector2i(-1, 2), [0, 3], 2, "Corner_Junction", 5)
+	var top_center_6 = dungeon_room.new(Vector2i(0, 2), [1, 3], 3, "3_way_junction", 5)
+	var top_right_6 = dungeon_room.new(Vector2i(1, 2), [0, 1], 2, "Corner_Junction", 5)
+
+	potential_rooms.append(room_template.new([bottom_center_6, bottom_left_6, bottom_right_6, middle_left_6, middle_center_6,middle_right_6, top_left_6, top_center_6, top_right_6], Vector2i(3, 3), 3.0))
 
 	# TEMPLATE 4: 2x2 with 4 way as pivot
 	
@@ -292,7 +304,7 @@ func build_room_templates():
 	var top_left_4 = dungeon_room.new(Vector2i(0, 1), [0, 3], 2, "Corner_Junction", 4)
 	var top_right_4 = dungeon_room.new(Vector2i(1, 1), [0, 1], 2, "Corner_Junction", 4)
 
-	potential_rooms.append(room_template.new([bottom_left_4, bottom_right_4, top_left_4, top_right_4], Vector2i(2, 2)))
+	potential_rooms.append(room_template.new([bottom_left_4, bottom_right_4, top_left_4, top_right_4], Vector2i(2, 2), 12.0))
 	
 	# Template 5: 2x2 with 3 way as pivot
 
@@ -301,7 +313,7 @@ func build_room_templates():
 	var top_left_5 = dungeon_room.new(Vector2i(0, 1), [0, 3], 2, "Corner_Junction", 5)
 	var top_right_5 = dungeon_room.new(Vector2i(1, 1), [0, 1], 2, "Corner_Junction", 5)
 
-	potential_rooms.append(room_template.new([bottom_right_5, bottom_left_5, top_left_5, top_right_5], Vector2i(2, 2)))
+	potential_rooms.append(room_template.new([bottom_right_5, bottom_left_5, top_left_5, top_right_5], Vector2i(2, 2), 12.0))
 
 	var boss_bottom_left_1 = dungeon_room.new(Vector2i(-1, 0), [2, 3], 2, "Corner_Junction", 6)
 	var boss_bottom_center_1 = dungeon_room.new(Vector2i(0, 0), [1, 2, 3], 4, "4_way_junction", 6, false, true)
@@ -315,10 +327,46 @@ func build_room_templates():
 	var boss_top_center_1 = dungeon_room.new(Vector2i(0, 2), [0, 1, 3], 3, "3_way_junction", 6)
 	var boss_top_right_1 = dungeon_room.new(Vector2i(1, 2), [0, 1], 2, "Corner_Junction", 6)
 
-	room_cap_templates.append(room_template.new([boss_bottom_center_1, boss_bottom_left_1, boss_bottom_right_1, boss_middle_left_1, boss_middle_center_1, boss_middle_right_1, boss_top_left_1, boss_top_center_1, boss_top_right_1], Vector2i(3, 3)))
+	dungeon_boss_room_template.append(room_template.new([boss_bottom_center_1, boss_bottom_left_1, boss_bottom_right_1, boss_middle_left_1, boss_middle_center_1, boss_middle_right_1, boss_top_left_1, boss_top_center_1, boss_top_right_1], Vector2i(3, 3), 1.0))
+
+	var standard_room_cap = dungeon_room.new(Vector2i(0, 0), [], 1, "R")
+	var treasure_room = dungeon_room.new(Vector2i(0, 0), [], 1, "T", 2)
+	
+	room_cap_templates.append(room_template.new([standard_room_cap], Vector2i(1, 1), 10.0))
+	room_cap_templates.append(room_template.new([treasure_room], Vector2i(1, 1), 1.5))
+	
+	var b_left_1 = dungeon_room.new(Vector2i(0, 0), [2, 3], 3, "3_way_junction", 1)
+	var b_right_1 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 1)
+	var t_left_1 = dungeon_room.new(Vector2i(0, 1), [0, 3], 2, "Corner_Junction", 1)
+	var t_right_1 = dungeon_room.new(Vector2i(1, 1), [0, 1], 2, "Corner_Junction", 1)
+	
+	room_cap_templates.append(room_template.new([b_left_1, b_right_1, t_left_1, t_right_1], Vector2i(2,2), 5.0))
+	
+	var b_left_4 = dungeon_room.new(Vector2i(0, 0), [2, 3], 4, "4_way_junction", 4)
+	var b_right_4 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 4)
+	var t_left_4 = dungeon_room.new(Vector2i(0, 1), [0, 3], 2, "Corner_Junction", 4)
+	var t_right_4 = dungeon_room.new(Vector2i(1, 1), [0, 1], 2, "Corner_Junction", 4)
+
+	room_cap_templates.append(room_template.new([b_left_4, b_right_4, t_left_4, t_right_4], Vector2i(2, 2), 5.0))
+	
+	var b_left_3 = dungeon_room.new(Vector2i(-1, 0), [2, 3], 2, "Corner_Junction", 3)
+	var b_center_3 = dungeon_room.new(Vector2i(0, 0), [1, 2, 3], 4, "4_way_junction", 3)
+	var b_right_3 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 3)
+	
+	var m_left_3 = dungeon_room.new(Vector2i(-1, 1), [0, 2, 3], 3, "3_way_junction", 3)
+	var m_center_3 = dungeon_room.new(Vector2i(0, 1), [0, 1, 2, 3], 4, "4_way_junction", 3, true)
+	var m_right_3 = dungeon_room.new(Vector2i(1, 1), [0, 1, 2], 3, "3_way_junction", 3)
+	
+	var t_left_3 = dungeon_room.new(Vector2i(-1, 2), [0, 3], 2, "Corner_Junction", 3)
+	var t_center_3 = dungeon_room.new(Vector2i(0, 2), [0, 1, 3], 3, "3_way_junction", 3)
+	var t_right_3 = dungeon_room.new(Vector2i(1, 2), [0, 1], 2, "Corner_Junction", 3)
+
+	room_cap_templates.append(room_template.new([b_center_3, b_left_3, b_right_3, m_left_3, m_center_3, m_right_3, t_left_3, t_center_3, t_right_3], Vector2i(3, 3), 1.5))
+	
 
 var potential_rooms: Array[room_template]
 var room_cap_templates: Array[room_template]
+var dungeon_boss_room_template: Array[room_template]
 
 var walk_path: Array[Vector2i]
 
@@ -344,7 +392,6 @@ func build_rooms(room_storage, boss_floor, size):
 	
 	var should_spawn_quest_room: bool = false
 
-	var rng = RandomNumberGenerator.new()
 	randomize()
 	rng.randomize()
 	
@@ -453,7 +500,7 @@ func build_rooms(room_storage, boss_floor, size):
 					room_storage[spawn_location] = spawn_room
 					continue
 					
-				var new_temp: room_template = room_cap_templates[1].duplicate()
+				var new_temp: room_template = dungeon_boss_room_template[0].duplicate()
 				var valid_room_rotations: Array[room_template]
 				
 				# Tries all possible room rotations, centered around pivot point
@@ -642,11 +689,63 @@ func build_rooms(room_storage, boss_floor, size):
 								correct_direction = dir_from_cap_to_adj
 								break
 					
-					# Spawn end room template
-					if chance < 0.05:
-						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
-					else:
-						simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "R")
+					# --- SPAWN END ROOM TEMPLATE ---
+					var cap_placed: bool = false
+					var new_temp: room_template = pick_weighted_room(room_cap_templates).duplicate()
+					var valid_room_rotations: Array[room_template] = []
+					
+					# Tries all possible room rotations, centered around pivot point
+					var found_valid_positioning: bool = false
+					for i in range(4):
+						var is_valid: bool = true
+						if i != 0:
+							new_temp.clock_wise_rotation()
+
+						# Checks if the position is already taken
+						for room_: dungeon_room in new_temp.sub_rooms.values():
+							if (room_.room_pos + end_location) in simulated_storage:
+								is_valid = false
+								break
+						# If the position isn't taken then append this template rotation 
+						if is_valid:
+							found_valid_positioning = true
+							valid_room_rotations.append(new_temp.duplicate())
+
+					# If a valid positioning was found, go ahead and try to place it
+					if found_valid_positioning:
+						var rand_rot: room_template = valid_room_rotations.pick_random()
+						var valid_position_was_found: bool = true
+						
+						for room_: dungeon_room in rand_rot.sub_rooms.values():
+							# If it is the pivot room, make sure that it has the required direction
+							if room_.room_pos == Vector2i(0, 0):
+								room_.add_direction(correct_direction)
+								room_.update_location(room_.room_pos + end_location)
+							else:
+								room_.update_location(room_.room_pos + end_location)
+								if room_.required_directions.size() != room_.total_direction_count:
+									var unused_dirs = [0, 1, 2, 3]
+									for dir__ in room_.required_directions:
+										unused_dirs.erase(dir__)
+										
+									for dir_ in unused_dirs:
+										if simulated_storage.has(room_.room_pos + DIR_VECTORS[dir_]):
+											valid_position_was_found = false
+											break
+									if not valid_position_was_found:
+										break
+							
+						if valid_position_was_found:
+							for room_: dungeon_room in rand_rot.sub_rooms.values():
+								simulated_storage[room_.room_pos] = room_
+							cap_placed = true
+
+					# Fallback: If no multi-room cap template could fit, spawn a single 1x1 cap
+					if not cap_placed:
+						if chance < 0.05:
+							simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "T", -2)
+						else:
+							simulated_storage[end_location] = dungeon_room.new(end_location, [correct_direction], 1, "R")
 
 					room_storage.clear()
 					room_storage.merge(simulated_storage)
@@ -861,7 +960,7 @@ func walker_algorithm(step_limit, start_location, room_storage, is_main_path, ch
 							room_storage[walker_current_location].required_directions.erase(currently_heading_in_x_direction)
 							tried_directions.append(currently_heading_in_x_direction)
 							continue
-						var new_temp: room_template = potential_rooms.pick_random().duplicate()
+						var new_temp: room_template = pick_weighted_room(potential_rooms).duplicate()
 						
 						var valid_room_rotations: Array[room_template]
 						
@@ -1153,7 +1252,6 @@ func place_generic_path(
 	
 	room_storage[next_step_location] = new_room
 	
-	# Package the updated state variables and return them
 	return {
 		"terminated": false,
 		"steps_without_junction": steps_without_junction,
@@ -1161,3 +1259,16 @@ func place_generic_path(
 		"current_3_way": current_3_way,
 		"current_4_way": current_4_way
 	}
+
+var rng = RandomNumberGenerator.new()
+
+func pick_weighted_room(templates: Array) -> room_template:
+	if templates.is_empty():
+		return null
+
+	var weights: PackedFloat32Array = []
+	for template: room_template in templates:
+		weights.append(template.spawn_weight)
+
+	var chosen_index = rng.rand_weighted(weights)
+	return templates[chosen_index]
