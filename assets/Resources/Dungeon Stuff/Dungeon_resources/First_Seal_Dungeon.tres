@@ -42,7 +42,7 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("2_7yfg2")
-dungeon_name = "Seal Dungeon"
+dungeon_name = "Hollow Glade"
 dungeon_background = ExtResource("2_7iqy5")
 max_number_of_floors = 10
 minimum_number_of_floors = 10

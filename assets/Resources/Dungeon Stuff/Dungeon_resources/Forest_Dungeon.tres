@@ -51,7 +51,7 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("6_mka7e")
-dungeon_name = "Forest Dungeon"
+dungeon_name = "Overgrown Forest"
 dungeon_background = ExtResource("1_vh8sp")
 dungeon_description = "This place is a forest!"
 max_number_of_floors = 8

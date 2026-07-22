@@ -431,7 +431,7 @@ func instantiate_rooms(room_storage, boss_floor):
 		var is_locked = room_storage[room_].is_locked
 		
 		var spawn_boss_in_room: bool = false
-		if room_storage[room_].group_id == 6 and room_storage[room_].is_center:
+		if room_storage[room_].group_id == 6 and room_storage[room_].is_center and boss_floor:
 			spawn_boss_in_room = true
 		
 		#if room_storage[room_].room_name_type == "Q":
@@ -547,8 +547,6 @@ func return_to_exploring():
 	await Fade.fade_out(2.0)
 	in_combat = false
 	
-	for i in range(Engine.get_frames_per_second() * 3):
-		await get_tree().process_frame
 	for enemy in enemy_container.get_children():
 		enemy.enable_player_detection()
 	movement_locked = false

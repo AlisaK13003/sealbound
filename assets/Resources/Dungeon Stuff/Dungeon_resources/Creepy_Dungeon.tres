@@ -54,7 +54,7 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("7_jlcea")
-dungeon_name = "Creepy Crawly Dungeon"
+dungeon_name = "Ironwood Cave"
 dungeon_background = ExtResource("1_4d527")
 max_number_of_floors = 7
 minimum_number_of_floors = 4
