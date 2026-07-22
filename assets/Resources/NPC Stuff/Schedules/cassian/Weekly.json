@@ -3,29 +3,29 @@
   "days": {
 	"default": {
 	  "schedules": {
-		"Morning_Apothecary_Run": {
+		"Apothecary_Day": {
 		  "scene_swap": 0,
-		  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
 		  "start_time_hour": 6,
 		  "start_time_minute": 0,
-		  "start_location": "22",
-		  "end_location": "Tavern",
-		  "travel_minutes": 15,
+		  "start_location": "Apothecary",
+		  "end_location": "Apothecary",
+		  "travel_minutes": 1,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
 		  "should_disappear": 0
 		},
-		"Afternoon_Foraging": {
+		"Herb_Collecting": {
 		  "scene_swap": 0,
-		  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
-		  "start_time_hour": 13,
+		  "start_time_hour": 17,
 		  "start_time_minute": 0,
-		  "start_location": "Tavern",
-		  "end_location": "TownSquare",
+		  "start_location": "Apothecary",
+		  "end_location": "Herb Collecting",
 		  "travel_minutes": 35,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
@@ -33,14 +33,14 @@
 		  "2_end_location": "",
 		  "should_disappear": 0
 		},
-		"Evening_Return": {
+		"Return_To_Apothecary": {
 		  "scene_swap": 0,
-		  "start_scene": "res://scenes/main/Hearthwynn.tscn",
+		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
-		  "start_time_hour": 18,
+		  "start_time_hour": 20,
 		  "start_time_minute": 0,
-		  "start_location": "TownSquare",
-		  "end_location": "Tavern",
+		  "start_location": "Herb Collecting",
+		  "end_location": "Apothecary",
 		  "travel_minutes": 35,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,

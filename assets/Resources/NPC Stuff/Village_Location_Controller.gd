@@ -7,6 +7,17 @@ var next_matrix: PackedFloat32Array
 
 @export var player_node : Node2D
 
+const LOCATION_ALIASES: Dictionary = {
+	"southhouse": ["South House", "South_House", "SouthHouse", "Sout House", "Sout_House", "SoutHouse", "Orion House", "Orion_House", "OrionHouse"],
+	"northhouse": ["North House", "North_House", "NorthHouse", "Kaela House", "Kaela_House", "KaelaHouse"],
+	"practicefield": ["Practice Field", "Practice_Field", "PracticeField", "Practice", "Training Field", "Training_Field", "TrainingField"],
+	"pondside": ["Pondside", "Pond Side", "Pond_Side", "PondSide", "Pond"],
+	"taverncliff": ["Tavern Cliff", "Tavern_Cliff", "TavernCliff", "Tavern Cliffside", "Tavern_Cliffside", "TavernCliffside"],
+	"herbcollecting": ["Herb Collecting", "Herb_Collecting", "HerbCollecting", "Herb Field", "Herb_Field", "HerbField"],
+	"well": ["Well", "Well2", "Well Point", "Well_Point", "WellPoint"],
+	"cliffside": ["Cliff Side", "Cliff_Side", "CliffSide"]
+}
+
 func _ready():
 	create_adjacency_matrix()
 	run_floyd_warshall()
@@ -69,9 +80,27 @@ func get_location_index(location) -> int:
 				return location_node.get_index()
 			if location_name.is_valid_int():
 				return int(location_name)
+			var normalized_location_name = normalize_location_name(location_name)
+			var normalized_index = get_location_index_by_normalized_name(normalized_location_name)
+			if normalized_index >= 0:
+				return normalized_index
+			if LOCATION_ALIASES.has(normalized_location_name):
+				for alias in LOCATION_ALIASES[normalized_location_name]:
+					var alias_index = get_location_index_by_normalized_name(normalize_location_name(str(alias)))
+					if alias_index >= 0:
+						return alias_index
 
 	push_warning("VillageLocationContainer: Could not find schedule location '%s'." % str(location))
 	return -1
+
+func get_location_index_by_normalized_name(normalized_location_name: String) -> int:
+	for child in get_children():
+		if normalize_location_name(str(child.name)) == normalized_location_name:
+			return child.get_index()
+	return -1
+
+func normalize_location_name(location_name: String) -> String:
+	return location_name.to_lower().replace(" ", "").replace("_", "").replace("-", "")
 
 func get_path_between(start_spot, end_spot) -> Array[int]:
 	var start_id = get_location_index(start_spot)

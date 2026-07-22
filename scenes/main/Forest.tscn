@@ -642,15 +642,42 @@ y_sort_enabled = true
 script = ExtResource("1_b841q")
 bgm = ExtResource("2_rld5i")
 
-[node name="Left Side" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
+[node name="ForestLocationContainer" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
 z_index = 2
 position = Vector2(-195, 1543)
 confirmation_before_teleport = false
 "Destination Location/Region" = "Village"
 "Destination Location/Spot" = "Spooky Forest"
 
-[node name="Marker2D" parent="Left Side" index="1" unique_id=888315718]
+[node name="Marker2D" parent="ForestLocationContainer" index="1" unique_id=888315718]
 position = Vector2(50, -31)
+
+[node name="HerbCollecting" type="Marker2D" parent="ForestLocationContainer" unique_id=1367164251]
+position = Vector2(693, -75)
+
+[node name="1" type="Marker2D" parent="ForestLocationContainer" unique_id=94953427]
+position = Vector2(629, -75)
+
+[node name="2" type="Marker2D" parent="ForestLocationContainer" unique_id=1073368280]
+position = Vector2(629, -225)
+
+[node name="3" type="Marker2D" parent="ForestLocationContainer" unique_id=260425037]
+position = Vector2(702, -360)
+
+[node name="4" type="Marker2D" parent="ForestLocationContainer" unique_id=1067223232]
+position = Vector2(702, -569)
+
+[node name="5" type="Marker2D" parent="ForestLocationContainer" unique_id=1443901727]
+position = Vector2(1061, -569)
+
+[node name="6" type="Marker2D" parent="ForestLocationContainer" unique_id=1628652403]
+position = Vector2(1152, -474)
+
+[node name="7" type="Marker2D" parent="ForestLocationContainer" unique_id=948330670]
+position = Vector2(1319, -474)
+
+[node name="Apothecary" type="Marker2D" parent="ForestLocationContainer" unique_id=360207248]
+position = Vector2(1398, -647)
 
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 
@@ -730,4 +757,4 @@ position = Vector2(-365, 831.1488)
 tile_map_data = PackedByteArray("AAASAAkAAQAOAAgAAAASAAoAAQAMAAkAAAASAAsAAQAMAAkAAAASAAwAAQAMAAkAAAASAA0AAQAOAAgAAGATAAkAAQAMAAkAAFATAA0AAQAMAAkAAGAUAAkAAQAPAAgAAAAUAAoAAQAMAAkAADAUAAsAAQANAAkAAAAUAA0AAQAMAAkAAGAVAAsAAQAMAAkAAFAVAAwAAQANAAkAAFAVAA0AAQAPAAkAAAAWAAsAAQAPAAgAAAAWAAwAAQAPAAkAAAAzAB4AAQAPAAgAAGAzAB8AAQAPAAkAAFA0AB0AAQAOAAgAAAA0AB4AAQANAAkAAGA0AB8AAQANAAkAADA0ACAAAQAOAAkAAAA1ABwAAQAOAAgAAAA1AB0AAQANAAkAAGA1AB4AAQANAAkAAFA1AB8AAQAMAAkAADA1ACAAAQAPAAkAAAA2ABwAAQAMAAkAAFA2AB0AAQANAAkAAFA2AB4AAQAPAAkAAAA3ABsAAQAOAAgAAAA3ABwAAQANAAkAAGA3AB0AAQAMAAkAAGA4ABsAAQAOAAgAAFA4ABwAAQAMAAkAADA4AB0AAQAPAAkAAAA=")
 tile_set = SubResource("TileSet_fqaix")
 
-[editable path="Left Side"]
+[editable path="ForestLocationContainer"]

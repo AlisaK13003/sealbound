@@ -735,8 +735,8 @@ shape = SubResource("RectangleShape2D_e4jcd")
 [node name="VillageLocationContainer" parent="." unique_id=364046489 instance=ExtResource("9_ehub8")]
 position = Vector2(1497, -1395)
 
-[node name="KeyPointNode14" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("10_ojbj2")]
-position = Vector2(-1442.9368, 1803.707)
+[node name="CliffSide" parent="VillageLocationContainer" unique_id=1976910115 instance=ExtResource("10_ojbj2")]
+position = Vector2(-555, 1965)
 connected_node_names = ["KeyPointNode15"]
 "Connected To" = ["KeyPointNode15"]
 

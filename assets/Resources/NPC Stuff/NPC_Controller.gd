@@ -359,8 +359,6 @@ func get_schedule_scene_alias(scene_path: String) -> String:
 	return scene_path.to_lower()
 
 func catch_up_to_scene_schedule(path: String) -> void:
-	if walking or not path_nodes.is_empty():
-		return
 	var current_minutes = get_current_day_minutes()
 	var latest_schedule_name = ""
 	var latest_details: Dictionary = {}
@@ -391,7 +389,7 @@ func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
 		return
 	current_destination = details["end_location"]
 	var travel_minutes = max(1, int(details.get("travel_minutes", DEFAULT_SCHEDULE_TRAVEL_MINUTES)))
-	var path_ids = location_container.get_path_between(details["start_location"], details["end_location"])
+	var path_ids = get_schedule_path_ids(details, "start_location", "end_location")
 	if path_ids.is_empty():
 		return
 	if elapsed_minutes >= travel_minutes:
@@ -452,9 +450,9 @@ func check_time(start_time_hour, start_time_minutes, before_equal_after):
 func setup_navigation(schedule_info_basic, which_sub_schedule):
 	match which_sub_schedule:
 		0:
-			set_path(schedule_info_basic["start_location"], schedule_info_basic["end_location"], true)
+			set_schedule_path(schedule_info_basic, "start_location", "end_location", true)
 		1:
-			set_path(schedule_info_basic["2_start_location"], schedule_info_basic["2_end_location"], true)
+			set_schedule_path(schedule_info_basic, "2_start_location", "2_end_location", true)
 		# resume schedule
 		2:
 			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
@@ -481,7 +479,44 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 	current_destination = end_point
 	var path_ids = location_container.get_path_between(start_point, end_point)
 	var start_index = location_container.get_location_index(start_point)
+	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
+
+func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_key: String, snap_to_start: bool = false) -> void:
+	if not ensure_location_container():
+		return
+	var start_point = schedule_info_basic[start_key]
+	var end_point = schedule_info_basic[end_key]
+	current_destination = end_point
+	var path_ids = get_schedule_path_ids(schedule_info_basic, start_key, end_key)
+	var start_index = location_container.get_location_index(start_point)
+	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
+
+func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> Array[int]:
+	if not ensure_location_container():
+		return []
+	var path_locations_key := "path_locations"
+	if start_key.begins_with("2_"):
+		path_locations_key = "2_path_locations"
+	var explicit_path = schedule_info_basic.get(path_locations_key, [])
+	if explicit_path is Array and not explicit_path.is_empty():
+		var explicit_path_ids: Array[int] = []
+		for location in explicit_path:
+			var location_index = location_container.get_location_index(location)
+			if location_index < 0 or location_index >= location_container.get_child_count():
+				push_warning("NPC_Controller: Could not resolve explicit schedule path location '%s' in %s." % [str(location), schedule_path])
+				break
+			if explicit_path_ids.is_empty() or explicit_path_ids[explicit_path_ids.size() - 1] != location_index:
+				explicit_path_ids.append(location_index)
+		if explicit_path_ids.size() == explicit_path.size():
+			return explicit_path_ids
+	return location_container.get_path_between(schedule_info_basic[start_key], schedule_info_basic[end_key])
+
+func set_path_nodes(path_ids: Array[int], start_index: int, start_point, end_point, snap_to_start: bool = false) -> void:
 	path_nodes.clear()
+	if path_ids.size() <= 1:
+		place_at_location(end_point if path_ids.size() == 1 else start_point)
+		current_destination = end_point
+		return
 	if snap_to_start:
 		place_at_location(start_point)
 		current_destination = end_point

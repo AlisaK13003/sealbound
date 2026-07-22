@@ -204,7 +204,7 @@ func debug_skip_day() -> void:
 
 func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
 	record_previous_time()
-	current_minute += 60
+	current_minute += minutes
 	while current_minute >= 60:
 		current_minute -= 60
 		current_hour += 1
