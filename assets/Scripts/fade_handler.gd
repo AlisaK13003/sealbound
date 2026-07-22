@@ -67,6 +67,7 @@ func fade_in(duration: float):
 		var tween = create_tween()
 		tween.tween_property(fade_thing_2, "modulate:a", 1.0, duration)
 		await tween.finished
+	await get_tree().create_timer(1.5).timeout
 
 func fade_out(duration: float):
 	if not is_fading:

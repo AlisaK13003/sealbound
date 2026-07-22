@@ -514,6 +514,18 @@ func complete_quest(quest_path: String):
 					remove_thing(requirement.quest_item_drop, item_requirement)
 		completed_quests.append(temp_copy)
 		active_quests.remove_at(quest_index)
+		
+		
+		currency_held += temp_copy.reward_money
+		if not temp_copy.reward_items.is_empty():
+			for item in temp_copy.reward_items:
+				add_item(temp_copy.get_path_custom())
+		if not temp_copy.reward_equipment.is_empty():
+			for equip in temp_copy.reward_equipment:
+				add_equipment_to_list(equip, false)
+		if not temp_copy.reward_weapons.is_empty():
+			for weap in temp_copy.reward_weapons:
+				add_equipment_to_list(weap, false)
 
 func search_for_item_count(item_name):
 	var index = all_held_items.find_custom(func(stored_item: Items): return stored_item.item_name == item_name)

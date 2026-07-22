@@ -29,10 +29,10 @@ texture = ExtResource("1_help6")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer" unique_id=1060233923]
-custom_minimum_size = Vector2(95.785, 0)
+custom_minimum_size = Vector2(125.85, 0)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(-12.195, 1)
+offset_transform_position = Vector2(-19.32, 0)
 text = "10 / 10"
 horizontal_alignment = 2
 
@@ -42,4 +42,4 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, 1)
 text = "Slime Ball: "
-horizontal_alignment = 2
+horizontal_alignment = 1
