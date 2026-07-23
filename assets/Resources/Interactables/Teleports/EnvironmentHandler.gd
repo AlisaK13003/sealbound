@@ -87,10 +87,17 @@ func teleport_player_to_spawn():
 		_apply_pending_player_spawn_position()
 		return
 		
-	var spawn_point = find_loading_zone_spawn(Global.current_loading_zone)
-	spawn_point = spawn_point.find_child("Marker2D")
-	if spawn_point == null:
+	var loading_zone_spawn := find_loading_zone_spawn(Global.current_loading_zone)
+	if loading_zone_spawn == null:
 		push_warning("EnvironmentHandler: Could not find loading zone spawn '%s' in %s." % [Global.current_loading_zone, scene_file_path])
+		_apply_pending_player_spawn_position()
+		return
+
+	var spawn_point := loading_zone_spawn.find_child("Marker2D", true, false) as Node2D
+	if spawn_point == null and loading_zone_spawn is Marker2D:
+		spawn_point = loading_zone_spawn as Marker2D
+	if spawn_point == null:
+		push_warning("EnvironmentHandler: Loading zone spawn '%s' has no Marker2D in %s." % [Global.current_loading_zone, scene_file_path])
 		_apply_pending_player_spawn_position()
 		return
 	
