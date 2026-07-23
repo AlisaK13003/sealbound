@@ -1,6 +1,7 @@
 extends Resource
 
 class_name dungeon_type
+@export_group("Base dungeon info")
 
 @export var dungeon_name : String
 @export var dungeon_background : Texture2D
@@ -19,8 +20,15 @@ class_name dungeon_type
 @export var type_of_dungeon: GlobalCombatInformation.dungeon_types_names
 @export var dungeon_unlock_type: StateManager.dungeon_state_lookup
 
-@export var boss_level: int = 20
+@export_group("Boss Info")
 
+@export var boss_level: int = 20
+@export var does_dungeon_have_boss: bool = false
+@export var boss_encounter: dungeon_wave
+
+@export var boss_state_to_set_on_completion: StateManager.seal_dungeon_completion
+
+@export_group("Other info")
 @export var quest_dungeon: bool = false
 
 var is_this_dungeon_unlocked: bool = false
@@ -28,8 +36,7 @@ var is_this_dungeon_unlocked: bool = false
 @export var dont_spawn_chests: bool = false
 @export var chest_drops: Dictionary[Array, float]
 
-@export var does_dungeon_have_boss: bool = false
-@export var boss_encounter: dungeon_wave
+
 
 @export_enum("Small", "Medium", "Large", "Extra Large") var room_size = 0
 

@@ -9,7 +9,7 @@ extends Node2D
 @onready var spriteNode: Sprite2D = $Sprite2D
 @onready var labelNode: Label = $Label
 
-var connected_node_names: Array[String] = []
+@export_storage var connected_node_names: Array[String] = []
 
 func _ready():
 	spriteNode.texture = template_sprite
@@ -33,9 +33,8 @@ func _set(property, value):
 		connected_node_names.clear()
 		if value is Array:
 			for node_name in value:
-				var cleaned_node_name := str(node_name).strip_edges()
-				if not cleaned_node_name.is_empty():
-					connected_node_names.append(cleaned_node_name)
+				var cleaned_node_name := "" if node_name == null else str(node_name).strip_edges()
+				connected_node_names.append(cleaned_node_name)
 		return true
 	return false
 

@@ -29,10 +29,9 @@ func give_player_chest_item():
 	rng.randomize()
 	
 	var chance: float = rng.randf()
-	var items_gotten: Array
-
-	p_ref.current_dungeon.chest_drops.sort()
+	var selected_drop_items: Array = []
 	var accumulated_chance: float = 0.0
+
 	var drop_chances_: Array[float]
 	for drop_chance in p_ref.current_dungeon.chest_drops.values():
 		drop_chances_.append(drop_chance)
@@ -41,7 +40,7 @@ func give_player_chest_item():
 		
 	for new_chance in drop_chances_:
 		if chance < new_chance + accumulated_chance:
-			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(new_chance).get_path_custom())
+			GlobalCombatInformation.add_assorted_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
 			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
 			break
 		accumulated_chance += new_chance

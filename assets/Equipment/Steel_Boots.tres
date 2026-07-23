@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("3_wyy3s")
-equipment_name = "Plated Boots"
+equipment_name = "Steel Boots"
 equipment_description = "Hi"
 equipment_sprite = ExtResource("1_cumqv")
 equipment_type = 2

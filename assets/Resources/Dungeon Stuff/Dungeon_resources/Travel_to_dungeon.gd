@@ -178,7 +178,7 @@ func travel(set_off_for_dungeon):
 			show_dungeon_locked_message(current_selected_dungeon)
 			return
 		await Fade.fade_in(1)
-		await GlobalCombatInformation.load_items()
+		#await GlobalCombatInformation.load_items()
 		GlobalCombatInformation.transition_to_dungeon(dungeon_type_, $CanvasLayer/Control.get_child(current_selected_dungeon).stored_quest)
 	else:
 		await Fade.fade_in(1)

@@ -29,6 +29,7 @@ offset_bottom = -73.84
 scale = Vector2(0.975, 0.975)
 
 [node name="BondMenu" parent="." unique_id=1832381352 instance=ExtResource("3_7ay8j")]
+visible = false
 z_index = 1
 layout_mode = 0
 anchors_preset = 0
@@ -54,7 +55,7 @@ bypass_global_lock = true
 
 [node name="BasePauseMenu" parent="." unique_id=1114125031 instance=ExtResource("4_qxlb4")]
 layout_mode = 1
-offset_left = -225.0
-offset_top = 138.46155
-offset_right = -225.0
-offset_bottom = 138.46155
+offset_left = -205.76923
+offset_top = 103.84616
+offset_right = -205.76923
+offset_bottom = 103.84616

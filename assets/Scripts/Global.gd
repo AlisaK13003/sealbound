@@ -32,6 +32,7 @@ var current_tutorial_objective: String = ""
 var pending_cutscene_path: String = ""
 var has_pending_player_spawn_position: bool = false
 var pending_player_spawn_position: Vector2 = Vector2.ZERO
+var debug_story_skip_active: bool = false
 
 const LYRA_AXE_QUEST_PATH: String = "res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve Axe.tres"
 const LYRA_TAVERN_CUTSCENE_PATH: String = "res://assets/Resources/Cutscenes/lyra_tavern_room_quest.json"
@@ -281,6 +282,7 @@ func set_player_identity(new_name: String, new_gender: String) -> void:
 
 func start_new_game(new_name: String, new_gender: String) -> void:
 	set_player_identity(new_name, new_gender)
+	debug_story_skip_active = false
 	current_location = "Buildings_Insides"
 	current_region = "Buildings_Insides"
 	current_loading_zone = "Infirmary"
@@ -302,6 +304,19 @@ func start_new_game(new_name: String, new_gender: String) -> void:
 	seconds_since_day_started = 0
 	time_since_last_update = 0
 	time_updated.emit()
+
+func is_debug_story_skip_input(event: InputEvent) -> bool:
+	if not (event is InputEventKey):
+		return false
+	var key_event := event as InputEventKey
+	if not key_event.pressed or key_event.echo:
+		return false
+	return (
+		key_event.keycode == KEY_ASCIITILDE
+		or key_event.physical_keycode == KEY_ASCIITILDE
+		or key_event.unicode == 96
+		or key_event.unicode == 126
+	)
 
 func set_pending_player_spawn_position(spawn_position: Vector2) -> void:
 	pending_player_spawn_position = spawn_position
@@ -562,6 +577,13 @@ signal swapped_to_controller
 const MOUSE_DEADZONE: float = 2.0 
 
 func _input(event):
+	if is_debug_story_skip_input(event):
+		var current_scene := get_tree().current_scene
+		if current_scene != null and current_scene.has_method("debug_skip_intro_to_axe_dungeon"):
+			current_scene.call("debug_skip_intro_to_axe_dungeon")
+			get_viewport().set_input_as_handled()
+			return
+
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_BRACKETLEFT:
 		StateManager.debug_unlock_cave_dungeon()
 		get_viewport().set_input_as_handled()

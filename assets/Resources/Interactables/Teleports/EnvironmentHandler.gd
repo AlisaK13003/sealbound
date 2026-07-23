@@ -22,46 +22,47 @@ func swap_to_me():
 	set_camera_limits()
 	
 	var cutscene_to_start
-	for potential_cutscene in StateManager.story_triggers:
-		if StateManager.should_trigger(potential_cutscene):
-			print("TRIGGERED: ", potential_cutscene)
-			match potential_cutscene:
-				"lyra_tavern_cutscene":
-					cutscene_to_start = potential_cutscene
-					prepare_lyra_tavern_cutscene()
-					refresh_player_camera()
-					await get_tree().process_frame
-					refresh_player_camera()
-				"turning_in_lyra_axe_cutscene":
-					print("RETURN AXE")
-					cutscene_to_start = potential_cutscene
-					prepare_lyra_axe_return_cutscene()
-					refresh_player_camera()
-					await get_tree().process_frame
-					refresh_player_camera()
-				"quest_board_unlock_cutscene":
-					print("QUEST BOARD INTRO")
-					cutscene_to_start = potential_cutscene
-					prepare_sera_quest_board_cutscene()
-					refresh_player_camera()
-					await get_tree().process_frame
-					refresh_player_camera()
-				"give_ore_to_blacksmith":
-					print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
-					StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
-					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED)
-					GlobalCombatInformation.complete_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres")
-					GlobalCombatInformation.add_equipment_to_list("res://assets/Equipment/Training_Dagger.tres", true)
-					StateManager.pseduo_story_time = Global.current_day
-				"think_about_forest_clearing_mc_thought":
-					print("THOUGHT ABOUT RETURNING TO THE CLEARING")
-					StateManager.set_story_state(StateManager.story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING)
-				"talk_to_sera_about_clearing":
-					print("TALKED TO SERA ABOUT CLEARING")
-					StateManager.set_story_state(StateManager.story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR)
-					StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.SEAL_DUNGEON_UNLOCKED)
-				"first_seal_dungeon_cutscene":
-					print("SEAL DUNGEON CUTSCENE")
+	if not Global.debug_story_skip_active:
+		for potential_cutscene in StateManager.story_triggers:
+			if StateManager.should_trigger(potential_cutscene):
+				print("TRIGGERED: ", potential_cutscene)
+				match potential_cutscene:
+					"lyra_tavern_cutscene":
+						cutscene_to_start = potential_cutscene
+						prepare_lyra_tavern_cutscene()
+						refresh_player_camera()
+						await get_tree().process_frame
+						refresh_player_camera()
+					"turning_in_lyra_axe_cutscene":
+						print("RETURN AXE")
+						cutscene_to_start = potential_cutscene
+						prepare_lyra_axe_return_cutscene()
+						refresh_player_camera()
+						await get_tree().process_frame
+						refresh_player_camera()
+					"quest_board_unlock_cutscene":
+						print("QUEST BOARD INTRO")
+						cutscene_to_start = potential_cutscene
+						prepare_sera_quest_board_cutscene()
+						refresh_player_camera()
+						await get_tree().process_frame
+						refresh_player_camera()
+					"give_ore_to_blacksmith":
+						print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
+						StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
+						StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED)
+						GlobalCombatInformation.complete_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres")
+						GlobalCombatInformation.add_equipment_to_list("res://assets/Equipment/Training_Dagger.tres", true)
+						StateManager.pseduo_story_time = Global.current_day
+					"think_about_forest_clearing_mc_thought":
+						print("THOUGHT ABOUT RETURNING TO THE CLEARING")
+						StateManager.set_story_state(StateManager.story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING)
+					"talk_to_sera_about_clearing":
+						print("TALKED TO SERA ABOUT CLEARING")
+						StateManager.set_story_state(StateManager.story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR)
+						StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.SEAL_DUNGEON_UNLOCKED)
+					"first_seal_dungeon_cutscene":
+						print("SEAL DUNGEON CUTSCENE")
 					
 
 	await get_tree().create_timer(1.0).timeout

@@ -30,13 +30,32 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 	if not confirmation_before_teleport:
-		$Area2D2.queue_free()
-		$GenericButton.queue_free()
+		connect_child_signal_if_needed("Area2D", "body_entered", "_on_area_2d_body_entered")
+		var prompt_area: Node = get_node_or_null("Area2D2")
+		if prompt_area != null:
+			prompt_area.queue_free()
+		var generic_button: Node = get_node_or_null("GenericButton")
+		if generic_button != null:
+			generic_button.queue_free()
 	else:
-		$Area2D.queue_free()
-		var generic_button = get_node_or_null("GenericButton")
-		if generic_button != null and generic_button.has_signal("activated"):
-			generic_button.connect("activated", Callable(self, "_on_area_2d_body_entered"))
+		connect_child_signal_if_needed("Area2D2", "body_entered", "_on_area_2d_2_body_entered")
+		connect_child_signal_if_needed("Area2D2", "body_exited", "_on_area_2d_2_body_exited")
+		var direct_area: Node = get_node_or_null("Area2D")
+		if direct_area != null:
+			direct_area.queue_free()
+		var generic_button: Node = get_node_or_null("GenericButton")
+		connect_signal_if_needed(generic_button, "activated", "_on_area_2d_body_entered")
+
+func connect_child_signal_if_needed(child_path: String, signal_name: String, method_name: String) -> void:
+	var child: Node = get_node_or_null(NodePath(child_path))
+	connect_signal_if_needed(child, signal_name, method_name)
+
+func connect_signal_if_needed(source: Object, signal_name: String, method_name: String) -> void:
+	if source == null or not source.has_signal(signal_name):
+		return
+	var callback: Callable = Callable(self, method_name)
+	if not source.is_connected(signal_name, callback):
+		source.connect(signal_name, callback)
 
 func _set(property, value):
 	match property:
@@ -132,6 +151,9 @@ func _on_area_2d_body_entered(body = null):
 
 		await Fade.fade_in(1.0)
 		AreaStateManager.swap_scene()
+
+func _on_area_2d_body_exited(_body = null):
+	pass
 
 var player_in_range: bool = false
 func _on_area_2d_2_body_entered(body):

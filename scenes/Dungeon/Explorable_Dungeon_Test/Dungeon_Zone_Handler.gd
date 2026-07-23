@@ -77,7 +77,7 @@ func _setup(dungeon_type_: dungeon_type, quest_ = null):
 	floor_count = randi_range(dungeon_type_.minimum_number_of_floors, dungeon_type_.max_number_of_floors)
 	current_dungeon = dungeon_type_
 	if dungeon_type_.does_dungeon_have_boss:
-		if not dungeon_type_.has_beaten_boss:
+		if not dungeon_type_.has_beaten_boss and not StateManager.check_seal_state(dungeon_type_.boss_state_to_set_on_completion):
 			floor_count = dungeon_type_.first_time_floor_count
 			
 	await player._setup(self)	
@@ -273,7 +273,7 @@ func generate_dungeon():
 	print("GENERATING DUNGEON")
 	var new_room_generation: dungeon_generation = dungeon_generation.new()
 	var boss_floor = false
-	if current_floor == floor_count and current_dungeon.does_dungeon_have_boss and not current_dungeon.has_beaten_boss:
+	if current_floor == floor_count and current_dungeon.does_dungeon_have_boss and not StateManager.check_seal_state(current_dungeon.boss_state_to_set_on_completion):
 		boss_floor = true
 	
 	new_room_generation.build_dungeon(boss_floor, current_dungeon.room_size)

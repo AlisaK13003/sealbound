@@ -45,7 +45,7 @@ func display_gotten_chest_items(item_got):
 	for item in item_got:
 		var new_node = load(chest_got_node_path)
 		var new_node_instance = new_node.instantiate()
-		new_node_instance._setup(item, 0)
+		new_node_instance._setup(item)
 		chest_drop_parent.add_child(new_node_instance)
 		if not is_inside_tree():
 			break
@@ -54,7 +54,7 @@ func display_gotten_chest_items(item_got):
 	if not is_inside_tree():
 		return
 		
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	for child in chest_drop_parent.get_children():
 		child.queue_free()
 		if not is_inside_tree():

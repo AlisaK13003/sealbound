@@ -20,6 +20,7 @@ const LOCATION_ARRIVAL_FACING_OVERRIDES: Dictionary = {
 	"Practice Field": "right",
 	"HerbCollecting": "down",
 	"Tavern_Counter": "down",
+	"CounterSell": "down",
 	"Bridge": "down",
 	"CliffSide": "right",
 	"Well": "left"
@@ -369,11 +370,63 @@ func ensure_location_container() -> bool:
 		return true
 	if not is_inside_tree() or get_tree().current_scene == null:
 		return false
-	for container_name in ["VillageLocationContainer", "BuildingLocationContainer", "ForestLocationContainer"]:
-		var container = get_tree().current_scene.get_node_or_null(NodePath(container_name))
+	for container in get_location_container_candidates(get_tree().current_scene):
 		if is_valid_location_container(container):
 			location_container = container
 			return true
+	return false
+
+func ensure_location_container_for_locations(start_location, end_location = null) -> bool:
+	if is_location_container_for_schedule(location_container, start_location, end_location):
+		return true
+	if not is_inside_tree() or get_tree().current_scene == null:
+		return false
+	for container in get_location_container_candidates(get_tree().current_scene):
+		if is_location_container_for_schedule(container, start_location, end_location):
+			location_container = container
+			return true
+	return ensure_location_container()
+
+func get_location_container_candidates(root_node: Node) -> Array[Node2D]:
+	var candidates: Array[Node2D] = []
+	collect_location_container_candidates(root_node, candidates)
+	return candidates
+
+func collect_location_container_candidates(node: Node, candidates: Array[Node2D]) -> void:
+	if node is Node2D and is_valid_location_container(node) and (str(node.name).contains("LocationContainer") or node.has_method("get_path_between")):
+		candidates.append(node as Node2D)
+	for child in node.get_children():
+		collect_location_container_candidates(child, candidates)
+
+func is_location_container_for_schedule(container: Node, start_location, end_location = null) -> bool:
+	if not is_valid_location_container(container):
+		return false
+	if not can_container_resolve_location(container, start_location):
+		return false
+	if end_location == null:
+		return true
+	return can_container_resolve_location(container, end_location)
+
+func can_container_resolve_location(container: Node, location) -> bool:
+	match typeof(location):
+		TYPE_INT:
+			return int(location) >= 0 and int(location) < container.get_child_count()
+		TYPE_FLOAT:
+			var location_index := int(location)
+			return location_index >= 0 and location_index < container.get_child_count()
+		TYPE_STRING:
+			var location_name := str(location).strip_edges()
+			if location_name.is_empty():
+				return false
+			if container.get_node_or_null(NodePath(location_name)) != null:
+				return true
+			var normalized_location_name := normalize_location_name(location_name)
+			for child in container.get_children():
+				if normalize_location_name(str(child.name)) == normalized_location_name:
+					return true
+			if location_name.is_valid_int():
+				var numeric_index := int(location_name)
+				return numeric_index >= 0 and numeric_index < container.get_child_count()
 	return false
 
 func is_valid_location_container(container: Node) -> bool:
@@ -526,7 +579,7 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 			
 
 func set_path(start_point, end_point, snap_to_start: bool = false):
-	if not ensure_location_container():
+	if not ensure_location_container_for_locations(start_point, end_point):
 		return
 	current_destination = end_point
 	var start_index = get_location_index(start_point)
@@ -539,7 +592,7 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
 func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_key: String, snap_to_start: bool = false) -> void:
-	if not ensure_location_container():
+	if not ensure_location_container_for_locations(schedule_info_basic[start_key], schedule_info_basic[end_key]):
 		return
 	var start_point = schedule_info_basic[start_key]
 	var end_point = schedule_info_basic[end_key]
@@ -549,7 +602,7 @@ func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_k
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
 func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> Array[int]:
-	if not ensure_location_container():
+	if not ensure_location_container_for_locations(schedule_info_basic[start_key], schedule_info_basic[end_key]):
 		return []
 	var start_location_index = get_location_index(schedule_info_basic[start_key])
 	var end_location_index = get_location_index(schedule_info_basic[end_key])
@@ -658,7 +711,7 @@ func set_path_nodes(path_ids: Array[int], start_index: int, start_point, end_poi
 		path_nodes.append(target_pos)
 
 func place_at_location(location):
-	if not ensure_location_container():
+	if not ensure_location_container_for_locations(location):
 		return
 	var location_index = get_location_index(location)
 	if location_index < 0 or location_index >= location_container.get_child_count():

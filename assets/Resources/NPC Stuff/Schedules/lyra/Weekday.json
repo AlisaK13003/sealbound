@@ -3,7 +3,7 @@
   "days": {
 	"default": {
 	  "schedules": {
-		"Tavern_Morning": {
+		"Tavern_Hidden_Outside_Morning": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
@@ -18,12 +18,58 @@
 		  "2_end_location": "",
 		  "should_disappear": 1
 		},
+		"Tavern_Wake_In_Room": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/new_building_insides.res",
+		  "end_scene": "",
+		  "start_time_hour": 6,
+		  "start_time_minute": 0,
+		  "start_location": "Tavern_LyraRoom",
+		  "end_location": "Tavern_LyraRoom",
+		  "travel_minutes": 1,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 1
+		},
+		"Tavern_Start_Work": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/new_building_insides.res",
+		  "end_scene": "",
+		  "start_time_hour": 7,
+		  "start_time_minute": 0,
+		  "start_location": "Tavern_LyraRoom",
+		  "end_location": "Tavern_Counter",
+		  "travel_minutes": 10,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0
+		},
+		"Tavern_Leave_For_Lunch_Interior": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/new_building_insides.res",
+		  "end_scene": "",
+		  "start_time_hour": 11,
+		  "start_time_minute": 0,
+		  "start_location": "Tavern_Counter",
+		  "end_location": "Tavern_Entrance",
+		  "travel_minutes": 10,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
+		},
 		"Lunch_Break": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
 		  "start_time_hour": 11,
-		  "start_time_minute": 0,
+		  "start_time_minute": 10,
 		  "start_location": "Tavern",
 		  "end_location": "Bridge",
 		  "travel_minutes": 35,
@@ -41,7 +87,7 @@
 		  "start_time_minute": 0,
 		  "start_location": "Bridge",
 		  "end_location": "Tavern",
-		  "travel_minutes": 35,
+		  "travel_minutes": 20,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
@@ -49,12 +95,27 @@
 		  "should_disappear": 0,
 		  "hide_on_arrival": 1
 		},
-		"Tavern_Evening": {
+		"Tavern_Return_To_Work": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/new_building_insides.res",
+		  "end_scene": "",
+		  "start_time_hour": 15,
+		  "start_time_minute": 20,
+		  "start_location": "Tavern_Entrance",
+		  "end_location": "Tavern_Counter",
+		  "travel_minutes": 10,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0
+		},
+		"Tavern_Hidden_Outside_Evening": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
-		  "start_time_hour": 17,
-		  "start_time_minute": 0,
+		  "start_time_hour": 15,
+		  "start_time_minute": 20,
 		  "start_location": "Tavern",
 		  "end_location": "Tavern",
 		  "travel_minutes": 1,
@@ -64,7 +125,23 @@
 		  "2_end_location": "",
 		  "should_disappear": 1
 		},
-		"Go_To_Room": {
+		"Tavern_Go_To_Room": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/new_building_insides.res",
+		  "end_scene": "",
+		  "start_time_hour": 22,
+		  "start_time_minute": 30,
+		  "start_location": "Tavern_Counter",
+		  "end_location": "Tavern_LyraRoom",
+		  "travel_minutes": 10,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
+		},
+		"Tavern_Hidden_Outside_Night": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
