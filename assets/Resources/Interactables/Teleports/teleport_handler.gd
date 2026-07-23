@@ -1,5 +1,5 @@
 @tool
-extends Node
+extends Node2D
 
 @onready var loading_zone_position = self.global_position
 
@@ -27,12 +27,16 @@ func _enter_tree():
 	is_disabled = false
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
 	if not confirmation_before_teleport:
 		$Area2D2.queue_free()
 		$GenericButton.queue_free()
 	else:
 		$Area2D.queue_free()
-		$GenericButton.activated.connect(_on_area_2d_body_entered)
+		var generic_button = get_node_or_null("GenericButton")
+		if generic_button != null and generic_button.has_signal("activated"):
+			generic_button.connect("activated", Callable(self, "_on_area_2d_body_entered"))
 
 func _set(property, value):
 	match property:
@@ -63,8 +67,8 @@ func _get(property):
 		"Destination Location/Spot":   return _target_spot
 	return null
 
-func _get_property_list():
-	var properties = []
+func _get_property_list() -> Array[Dictionary]:
+	var properties: Array[Dictionary] = []
 	var region_list = ",".join(location_data.keys())
 	# Current Location
 	properties.append({

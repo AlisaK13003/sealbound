@@ -3,6 +3,21 @@
   "days": {
 	"default": {
 	  "schedules": {
+		"Blacksmith_Morning": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/hearthwynn.res",
+		  "end_scene": "",
+		  "start_time_hour": 6,
+		  "start_time_minute": 0,
+		  "start_location": "Blacksmith",
+		  "end_location": "Blacksmith",
+		  "travel_minutes": 1,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 1
+		},
 		"Pondside_Morning": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
@@ -11,7 +26,6 @@
 		  "start_time_minute": 0,
 		  "start_location": "Blacksmith",
 		  "end_location": "Pondside",
-		  "path_locations": ["Blacksmith", "36", "37", "38", "Pondside"],
 		  "travel_minutes": 25,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
@@ -27,13 +41,13 @@
 		  "start_time_minute": 0,
 		  "start_location": "Pondside",
 		  "end_location": "Blacksmith",
-		  "path_locations": ["Pondside", "38", "37", "36", "Blacksmith"],
 		  "travel_minutes": 25,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		},
 		"Tavern_Evening": {
 		  "scene_swap": 0,
@@ -43,13 +57,13 @@
 		  "start_time_minute": 0,
 		  "start_location": "Blacksmith",
 		  "end_location": "Tavern",
-		  "path_locations": ["Blacksmith", "36", "37", "38", "3", "34", "39", "40", "33", "27", "28", "29", "7", "30", "31", "32", "Tavern"],
 		  "travel_minutes": 30,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		},
 		"Return_To_Blacksmith": {
 		  "scene_swap": 0,
@@ -59,13 +73,13 @@
 		  "start_time_minute": 30,
 		  "start_location": "Tavern",
 		  "end_location": "Blacksmith",
-		  "path_locations": ["Tavern", "32", "31", "30", "7", "29", "28", "27", "33", "40", "39", "34", "3", "38", "37", "36", "Blacksmith"],
 		  "travel_minutes": 30,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		}
 	  }
 	}

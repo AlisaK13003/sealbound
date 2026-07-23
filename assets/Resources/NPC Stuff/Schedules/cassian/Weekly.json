@@ -3,7 +3,7 @@
   "days": {
 	"default": {
 	  "schedules": {
-		"Apothecary_Day": {
+		"Apothecary_Morning": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/Forest.tscn",
 		  "end_scene": "",
@@ -16,7 +16,86 @@
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 1
+		},
+		"Leave_For_Tavern_Forest": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/Forest.tscn",
+		  "end_scene": "",
+		  "start_time_hour": 7,
+		  "start_time_minute": 0,
+		  "start_location": "Apothecary",
+		  "end_location": "17",
+		  "travel_minutes": 10,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
+		},
+		"Absent_Before_Tavern_Hearthwynn": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/hearthwynn.res",
+		  "end_scene": "",
+		  "start_time_hour": 6,
+		  "start_time_minute": 0,
+		  "start_location": "42",
+		  "end_location": "42",
+		  "travel_minutes": 1,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 1
+		},
+		"Tavern_Morning": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/hearthwynn.res",
+		  "end_scene": "",
+		  "start_time_hour": 7,
+		  "start_time_minute": 20,
+		  "start_location": "42",
+		  "end_location": "Tavern",
+		  "travel_minutes": 35,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
+		},
+		"Return_To_Apothecary_Hearthwynn": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/hearthwynn.res",
+		  "end_scene": "",
+		  "start_time_hour": 9,
+		  "start_time_minute": 0,
+		  "start_location": "Tavern",
+		  "end_location": "42",
+		  "travel_minutes": 40,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
+		},
+		"Return_To_Apothecary_Forest": {
+		  "scene_swap": 0,
+		  "start_scene": "res://scenes/main/Forest.tscn",
+		  "end_scene": "",
+		  "start_time_hour": 9,
+		  "start_time_minute": 40,
+		  "start_location": "17",
+		  "end_location": "Apothecary",
+		  "travel_minutes": 30,
+		  "2_start_time_hour": 0,
+		  "2_start_time_minute": 0,
+		  "2_start_location": "",
+		  "2_end_location": "",
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		},
 		"Herb_Collecting": {
 		  "scene_swap": 0,
@@ -26,7 +105,6 @@
 		  "start_time_minute": 0,
 		  "start_location": "Apothecary",
 		  "end_location": "HerbCollecting",
-		  "path_locations": ["Apothecary", "8", "7", "6", "5", "4", "3", "2", "1", "HerbCollecting"],
 		  "travel_minutes": 35,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
@@ -42,13 +120,13 @@
 		  "start_time_minute": 0,
 		  "start_location": "HerbCollecting",
 		  "end_location": "Apothecary",
-		  "path_locations": ["HerbCollecting", "1", "2", "3", "4", "5", "6", "7", "8", "Apothecary"],
 		  "travel_minutes": 35,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		}
 	  }
 	}

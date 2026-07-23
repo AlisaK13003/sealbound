@@ -90,7 +90,7 @@ var play_time_seconds: int
 var play_time_minutes: int
 var play_time_hours: int
 
-var am_or_pm: bool
+var am_or_pm: bool = false
 var current_day: int = 0
 var current_year: int = 0
 var current_hour: int = 6
@@ -152,11 +152,10 @@ func update_time():
 		if current_minute >= 60:
 			current_minute -= 60
 			current_hour += 1
-			if current_hour % 12 == 1:
-				am_or_pm = true
-			elif am_or_pm and current_hour % 12 == 0:
+			am_or_pm = current_hour >= 12
+			if current_hour >= 24:
 				player_advanced_day(true)
-				am_or_pm = false
+				return
 		time_since_last_update = (seconds_since_day_started * time_scale)
 		time_updated.emit()
 	if play_time_seconds == 60:
@@ -178,6 +177,7 @@ func player_advanced_day(did_they_pass_out):
 	
 	current_hour = 6
 	current_minute = 0
+	am_or_pm = false
 	
 	time_since_last_update = 0
 	seconds_since_day_started = 0
@@ -194,6 +194,7 @@ func set_calendar_time(year: int, day: int, hour: int, minute: int) -> void:
 	current_day = max(0, day)
 	current_hour = clampi(hour, 0, 23)
 	current_minute = clampi(minute, 0, 59)
+	am_or_pm = current_hour >= 12
 	time_since_last_update = 0
 	seconds_since_day_started = float((current_hour * 60) + current_minute) * 60.0 / float(time_scale)
 	time_updated.emit()
@@ -208,11 +209,9 @@ func debug_advance_time(minutes: int = TIME_STEP_MINUTES) -> void:
 	while current_minute >= 60:
 		current_minute -= 60
 		current_hour += 1
-		if current_hour % 12 == 1:
-			am_or_pm = true
-		elif am_or_pm and current_hour % 12 == 0:
+		am_or_pm = current_hour >= 12
+		if current_hour >= 24:
 			player_advanced_day(true)
-			am_or_pm = false
 			return
 	time_updated.emit()
 	print("[Debug] Advanced time to day ", current_day, " ", current_hour, ":", "%02d" % current_minute)
@@ -296,6 +295,7 @@ func start_new_game(new_name: String, new_gender: String) -> void:
 	current_day = 0
 	current_hour = 6
 	current_minute = 0
+	am_or_pm = false
 	play_time_seconds = 0
 	play_time_minutes = 0
 	play_time_hours = 0
@@ -331,6 +331,7 @@ func apply_loaded_player_profile(data: Dictionary) -> void:
 	current_year = int(data.get("current_year", current_year))
 	current_hour = int(data.get("current_hour", current_hour))
 	current_minute = int(data.get("current_minute", current_minute))
+	am_or_pm = current_hour >= 12
 	play_time_hours = int(data.get("play_time_hours", play_time_hours))
 	play_time_minutes = int(data.get("play_time_minutes", play_time_minutes))
 	play_time_seconds = int(data.get("play_time_seconds", play_time_seconds))
