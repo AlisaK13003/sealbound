@@ -903,7 +903,7 @@ func load_saved_data(data):
 		if not ResourceLoader.exists(a_quest["path"], ""):
 			continue
 		var new_quest = a_quest["path"]
-		add_quest(new_quest, a_quest["special_item"])
+		add_quest(new_quest, a_quest.get("special_item", false))
 
 	for com_quest in data["com_quests"].values():
 		if not ResourceLoader.exists(com_quest["path"], ""):

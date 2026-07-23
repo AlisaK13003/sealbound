@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://s36n2g1wrse5"]
+
+[ext_resource type="Script" uid="uid://ct46hlby7a8sm" path="res://assets/Resources/Interactables/Journals/journal_entry.gd" id="1_ghr5o"]
+[ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="2_raaur"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkmk0"]
+size = Vector2(8.25, 9.625)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_raaur"]
+radius = 167.36188
+
+[node name="JournalEntry" type="Node2D" unique_id=10096975]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("1_ghr5o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=869378724]
+position = Vector2(-1.7053026e-13, 0)
+rotation = 1.5707964
+scale = Vector2(0.2617932, 0.45048642)
+texture = ExtResource("2_raaur")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=565782668]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1388514241]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_mkmk0")
+
+[node name="Player_In_Range" type="Area2D" parent="." unique_id=979423806]
+position = Vector2(1, -43)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_In_Range" unique_id=602983040]
+position = Vector2(-10, 82)
+shape = SubResource("CircleShape2D_raaur")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

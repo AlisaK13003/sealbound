@@ -1,0 +1,22 @@
+{
+  "entries": [
+	{
+	  "id": "seal_notice",
+	  "title": "A Weathered Notice",
+	  "category": "Seals",
+	  "pages": [
+		"By order of the Wardens: let no hand break the seals that ring the old wood.",
+        "Should a seal fail, the ground remembers what was buried. Send word to Hearthwynn at once."
+	  ]
+	},
+	{
+	  "id": "hearthwynn_history",
+	  "title": "On the Founding of Hearthwynn",
+	  "category": "Village",
+	  "pages": [
+		"They built here because the road forgot them, and that suited everyone fine.",
+        "A quiet town keeps quiet company. Until it doesn't."
+	  ]
+	}
+  ]
+}

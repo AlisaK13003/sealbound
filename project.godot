@@ -33,6 +33,8 @@ AreaStateManager="*uid://bp2deesr31fop"
 DialogueSystem="*res://GUI/dialogue_system/dialogue_system.tscn"
 AudioManager="*uid://d1p48eva8ookp"
 StateManager="*uid://d00jfygqarybs"
+JournalCodex="*uid://8w1tsw6g58xh"
+JournalReader="*uid://gclmmatxgt6"
 
 [display]
 
