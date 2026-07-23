@@ -21,9 +21,18 @@ var p_ref: explorable_dungeon
 var has_been_setup = false
 
 func display_obtained_items(obtained_items):
-	for item: Items in obtained_items:
-		print(item.item_name)
+	for item in obtained_items:
+		print(get_reward_name(item))
 	dungeon_overlay.display_gotten_chest_items(obtained_items)
+
+func get_reward_name(item) -> String:
+	if item is Items:
+		return item.item_name
+	if item is weapon:
+		return item.weapon_name
+	if item is equipment:
+		return item.equipment_name
+	return "Unknown Reward"
 
 func _setup(parent_reference):
 	p_ref = parent_reference
@@ -73,6 +82,7 @@ func _physics_process(delta: float) -> void:
 	if not has_been_setup:
 		return
 	if p_ref.movement_locked:
+		force_idle_for_dialogue()
 		return
 
 	var input_dir : Vector2 = Vector2.ZERO
@@ -169,3 +179,22 @@ func sync_animation(input_dir: Vector2) -> void:
 	last_animation = anim_name
 	if animated_sprite.animation != anim_name:
 		animated_sprite.play(anim_name)
+
+func set_dialogue_movement_locked(locked: bool) -> void:
+	if p_ref != null:
+		p_ref.movement_locked = locked
+	if locked:
+		force_idle_for_dialogue()
+
+func force_idle_for_dialogue() -> void:
+	velocity.x = 0
+	velocity.z = 0
+	is_moving = false
+	anim_name = "idle"
+	last_animation = "idle"
+	animated_sprite.flip_h = false
+	if animated_sprite.sprite_frames != null and animated_sprite.sprite_frames.has_animation("idle"):
+		if animated_sprite.animation != "idle":
+			animated_sprite.play("idle")
+		animated_sprite.frame = 0
+		animated_sprite.stop()

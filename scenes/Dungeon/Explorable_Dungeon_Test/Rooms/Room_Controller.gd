@@ -29,22 +29,69 @@ func give_player_chest_item():
 	rng.randomize()
 	
 	var chance: float = rng.randf()
-	var items_gotten: Array
-
-	p_ref.current_dungeon.chest_drops.sort()
+	var selected_drop_items: Array = []
 	var accumulated_chance: float = 0.0
-	var drop_chances_: Array[float]
-	for drop_chance in p_ref.current_dungeon.chest_drops.values():
-		drop_chances_.append(drop_chance)
-		
-	drop_chances_.sort_custom(func(a, b): return drop_chances_[a] < drop_chances_[b])
-		
-	for new_chance in drop_chances_:
-		if chance < new_chance + accumulated_chance:
-			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(new_chance).get_path_custom())
-			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
+
+	for drop_items in p_ref.current_dungeon.chest_drops.keys():
+		var drop_chance: float = float(p_ref.current_dungeon.chest_drops[drop_items])
+		if chance < accumulated_chance + drop_chance:
+			selected_drop_items = drop_items
 			break
-		accumulated_chance += new_chance
+		accumulated_chance += drop_chance
+
+	if selected_drop_items.is_empty() and not p_ref.current_dungeon.chest_drops.is_empty():
+		selected_drop_items = p_ref.current_dungeon.chest_drops.keys().back()
+
+	var selected_item_paths: Array[String] = []
+	var selected_equipment_entries: Array[Dictionary] = []
+	collect_drop_rewards(selected_drop_items, selected_item_paths, selected_equipment_entries)
+	if selected_item_paths.is_empty() and selected_equipment_entries.is_empty():
+		return
+
+	if not selected_item_paths.is_empty():
+		GlobalCombatInformation.add_item(selected_item_paths)
+	for equipment_entry in selected_equipment_entries:
+		GlobalCombatInformation.add_equipment_to_list(str(equipment_entry["path"]), bool(equipment_entry["is_weapon"]))
+	p_ref.player.display_obtained_items(selected_drop_items)
+
+func collect_drop_rewards(drop_items: Array, item_paths: Array[String], equipment_entries: Array[Dictionary]) -> void:
+	for item in drop_items:
+		if item == null:
+			continue
+		var loaded_item: Resource = resolve_drop_resource(item)
+		if loaded_item == null:
+			continue
+		var item_path := resolve_drop_path(item, loaded_item)
+		if item_path.is_empty():
+			continue
+		if loaded_item is Items:
+			item_paths.append(item_path)
+		elif loaded_item is weapon:
+			equipment_entries.append({
+				"path": item_path,
+				"is_weapon": true
+			})
+		elif loaded_item is equipment:
+			equipment_entries.append({
+				"path": item_path,
+				"is_weapon": false
+			})
+
+func resolve_drop_resource(item) -> Resource:
+	if item is Resource:
+		return item
+	if item is String:
+		var item_path := str(item)
+		if not item_path.is_empty():
+			return load(item_path)
+	return null
+
+func resolve_drop_path(item, loaded_item: Resource) -> String:
+	if item is String:
+		return str(item)
+	if loaded_item.has_method("get_path_custom"):
+		return str(loaded_item.get_path_custom())
+	return loaded_item.resource_path
 
 func set_key_spawn(boss_key: bool = false):
 	$SpinningSprite._setup(null, true, boss_key)
