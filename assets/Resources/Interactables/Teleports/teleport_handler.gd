@@ -8,10 +8,10 @@ extends Node2D
 @export var confirmation_before_teleport: bool = false
 
 @export var location_data: Dictionary = {
-	"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern", "House_1", "House_2", "House_3"],
+	"Village": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Spooky Forest", "Cliff Side", "Tavern", "House_1", "House_2", "House_3", "Blacksmith2"],
 	"Forest": ["Apothecary", "Left Side"],
 	"Cliff Side": ["Cliff Entrance"],
-	"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn", "House_1", "House_2", "House_3"]
+	"Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith", "Tavern", "Bedroom", "Bedroom_Exit", "Bedspawn", "House_1", "House_2", "House_3", "Blacksmith2"]
 }:
 	set(value):
 		location_data = value
