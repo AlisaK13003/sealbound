@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://mqmloa2k3v3w" path="res://assets/Resources/Interactables/Teleports/EnvironmentHandler.gd" id="1_b841q"]
 [ext_resource type="PackedScene" uid="uid://c3mh2w7joj81k" path="res://assets/Resources/Interactables/Teleports/Loading_Zone.tscn" id="2_f2gc6"]
 [ext_resource type="AudioStream" uid="uid://dphb4jspo44e0" path="res://assets/Audio/BGM/Week 16 - Vacation Day ADVENTURE.ogg" id="2_rld5i"]
+[ext_resource type="Script" uid="uid://563ctmxwes0m" path="res://assets/Resources/NPC Stuff/Village_Location_Controller.gd" id="3_w6l3q"]
 [ext_resource type="Texture2D" uid="uid://dtdnwj17184h" path="res://assets/tile sheets/Darker foliage.png" id="4_1uopn"]
+[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="4_nxhgi"]
 [ext_resource type="Texture2D" uid="uid://dj0n3w27hkd4l" path="res://assets/tile sheets/Main-Tile-Sheet-condensed-Recovered-sheet-sheet-sheet-sheet.png" id="5_1uopn"]
 [ext_resource type="Texture2D" uid="uid://de3hjxptpnepq" path="res://assets/Potion_Shop (1).png" id="6_rld5i"]
 [ext_resource type="PackedScene" uid="uid://bcm4ba1ux2amx" path="res://scenes/main/Universal_Camera.tscn" id="7_xsjiv"]
@@ -643,45 +645,94 @@ y_sort_enabled = true
 script = ExtResource("1_b841q")
 bgm = ExtResource("2_rld5i")
 
-[node name="ForestLocationContainer" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
+[node name="ForestLocationContainer" type="Node2D" parent="." unique_id=2048853670]
+script = ExtResource("3_w6l3q")
+
+[node name="Apothecary" parent="ForestLocationContainer" unique_id=1976910115 instance=ExtResource("4_nxhgi")]
+position = Vector2(1204, 944)
+"Connected To" = ["8"]
+
+[node name="8" parent="ForestLocationContainer" unique_id=932661304 instance=ExtResource("4_nxhgi")]
+position = Vector2(1202, 960)
+"Connected To" = ["Apothecary", "7"]
+
+[node name="7" parent="ForestLocationContainer" unique_id=1605520894 instance=ExtResource("4_nxhgi")]
+position = Vector2(1125, 1070)
+"Connected To" = ["8", "6"]
+
+[node name="6" parent="ForestLocationContainer" unique_id=1127166544 instance=ExtResource("4_nxhgi")]
+position = Vector2(957, 1070)
+"Connected To" = ["7", "5"]
+
+[node name="5" parent="ForestLocationContainer" unique_id=1724848117 instance=ExtResource("4_nxhgi")]
+position = Vector2(866, 975)
+"Connected To" = ["6", "9", "4"]
+
+[node name="9" parent="ForestLocationContainer" unique_id=1173879848 instance=ExtResource("4_nxhgi")]
+position = Vector2(691, 960)
+"Connected To" = ["5", "4"]
+
+[node name="4" parent="ForestLocationContainer" unique_id=1753943701 instance=ExtResource("4_nxhgi")]
+position = Vector2(508, 974)
+"Connected To" = ["9", "10", "5", "3"]
+
+[node name="10" parent="ForestLocationContainer" unique_id=1243893926 instance=ExtResource("4_nxhgi")]
+position = Vector2(390, 932)
+"Connected To" = ["4", "11"]
+
+[node name="11" parent="ForestLocationContainer" unique_id=210017339 instance=ExtResource("4_nxhgi")]
+position = Vector2(281, 981)
+"Connected To" = ["10", "12"]
+
+[node name="12" parent="ForestLocationContainer" unique_id=201824317 instance=ExtResource("4_nxhgi")]
+position = Vector2(226, 1070)
+"Connected To" = ["11", "13"]
+
+[node name="13" parent="ForestLocationContainer" unique_id=845643762 instance=ExtResource("4_nxhgi")]
+position = Vector2(38, 1109)
+"Connected To" = ["12", "14"]
+
+[node name="14" parent="ForestLocationContainer" unique_id=1956745840 instance=ExtResource("4_nxhgi")]
+position = Vector2(-27, 1274)
+"Connected To" = ["13", "15"]
+
+[node name="15" parent="ForestLocationContainer" unique_id=794100641 instance=ExtResource("4_nxhgi")]
+position = Vector2(-106, 1359)
+"Connected To" = ["14", "16"]
+
+[node name="16" parent="ForestLocationContainer" unique_id=1951782436 instance=ExtResource("4_nxhgi")]
+position = Vector2(-145, 1511)
+"Connected To" = ["15", "17"]
+
+[node name="17" parent="ForestLocationContainer" unique_id=566235398 instance=ExtResource("4_nxhgi")]
+position = Vector2(-195, 1545)
+"Connected To" = ["16"]
+
+[node name="3" parent="ForestLocationContainer" unique_id=835543870 instance=ExtResource("4_nxhgi")]
+position = Vector2(507, 1183)
+"Connected To" = ["4", "2"]
+
+[node name="2" parent="ForestLocationContainer" unique_id=533210626 instance=ExtResource("4_nxhgi")]
+position = Vector2(435, 1318)
+"Connected To" = ["3", "1"]
+
+[node name="1" parent="ForestLocationContainer" unique_id=1433964048 instance=ExtResource("4_nxhgi")]
+position = Vector2(435, 1468)
+"Connected To" = ["2", "HerbCollecting"]
+
+[node name="HerbCollecting" parent="ForestLocationContainer" unique_id=1942188354 instance=ExtResource("4_nxhgi")]
+position = Vector2(489, 1511)
+"Connected To" = ["1"]
+
+[node name="Forest" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
 z_index = 2
 position = Vector2(-195, 1543)
 confirmation_before_teleport = false
 "Destination Location/Region" = "Village"
 "Destination Location/Spot" = "Spooky Forest"
 
-[node name="Marker2D" parent="ForestLocationContainer" index="1" unique_id=888315718]
+[node name="Marker2D" parent="Forest" index="1" unique_id=888315718]
 position = Vector2(50, -31)
-
-[node name="HerbCollecting" type="Marker2D" parent="ForestLocationContainer" unique_id=1367164251]
-position = Vector2(685, -32)
-
-[node name="1" type="Marker2D" parent="ForestLocationContainer" unique_id=94953427]
-position = Vector2(629, -75)
-
-[node name="2" type="Marker2D" parent="ForestLocationContainer" unique_id=1073368280]
-position = Vector2(629, -225)
-
-[node name="3" type="Marker2D" parent="ForestLocationContainer" unique_id=260425037]
-position = Vector2(702, -360)
-
-[node name="4" type="Marker2D" parent="ForestLocationContainer" unique_id=1067223232]
-position = Vector2(702, -569)
-
-[node name="5" type="Marker2D" parent="ForestLocationContainer" unique_id=1443901727]
-position = Vector2(1061, -569)
-
-[node name="6" type="Marker2D" parent="ForestLocationContainer" unique_id=1628652403]
-position = Vector2(1152, -474)
-
-[node name="7" type="Marker2D" parent="ForestLocationContainer" unique_id=948330670]
-position = Vector2(1319, -474)
-
-[node name="8" type="Marker2D" parent="ForestLocationContainer" unique_id=1300353717]
-position = Vector2(1397, -584)
-
-[node name="Apothecary" type="Marker2D" parent="ForestLocationContainer" unique_id=360207248]
-position = Vector2(1398, -647)
 
 [node name="Camera Bounds" type="Node2D" parent="." unique_id=741044841]
 
@@ -763,5 +814,6 @@ tile_set = SubResource("TileSet_fqaix")
 
 [node name="Cassian_NPC" parent="." unique_id=823861237 instance=ExtResource("8_xsjiv")]
 position = Vector2(1202, 912)
+speed = 125.0
 
-[editable path="ForestLocationContainer"]
+[editable path="Forest"]

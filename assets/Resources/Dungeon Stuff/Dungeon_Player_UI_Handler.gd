@@ -357,14 +357,15 @@ func get_player_portrait(portrait_to_get: int):
 		print("UGH")
 	return portrait_container.get_child(portrait_to_get)
 
-func update_mana_display(mana_used_or_gained, setup):
+func update_mana_display(mana_used_or_gained, setup, dont_update_display: bool = false):
 	if setup:
 		mana_label.text = str(p_ref.current_bond_points) + "/" + str(p_ref.max_bond_points_)
 		set_bond_attack(GlobalCombatInformation.cur_bond_attack_val)
 		return p_ref.current_bond_points
 	p_ref.current_bond_points = clamp(p_ref.current_bond_points + mana_used_or_gained, 0, p_ref.max_bond_points_)
 	mana_label.text = str(p_ref.current_bond_points) + "/" + str(p_ref.max_bond_points_)
-	update_bond_attack(mana_used_or_gained)
+	if not dont_update_display:
+		update_bond_attack(mana_used_or_gained)
 	return p_ref.current_bond_points
 
 func set_bond_attack(value):

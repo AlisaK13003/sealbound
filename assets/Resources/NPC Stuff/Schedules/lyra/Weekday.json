@@ -16,17 +16,17 @@
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 1
 		},
 		"Lunch_Break": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
-		  "start_time_hour": 12,
+		  "start_time_hour": 11,
 		  "start_time_minute": 0,
 		  "start_location": "Tavern",
-		  "end_location": "TownSquare",
-		  "travel_minutes": 30,
+		  "end_location": "Bridge",
+		  "travel_minutes": 35,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
@@ -37,16 +37,17 @@
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/hearthwynn.res",
 		  "end_scene": "",
-		  "start_time_hour": 16,
-		  "start_time_minute": 30,
-		  "start_location": "TownSquare",
+		  "start_time_hour": 15,
+		  "start_time_minute": 0,
+		  "start_location": "Bridge",
 		  "end_location": "Tavern",
-		  "travel_minutes": 30,
+		  "travel_minutes": 35,
 		  "2_start_time_hour": 0,
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		},
 		"Tavern_Evening": {
 		  "scene_swap": 0,
@@ -61,7 +62,7 @@
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 1
 		},
 		"Go_To_Room": {
 		  "scene_swap": 0,

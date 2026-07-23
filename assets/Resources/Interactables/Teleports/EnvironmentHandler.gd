@@ -328,10 +328,10 @@ func ensure_bed_rest_interactions() -> void:
 
 func build_world_border(top_left: Vector2, bottom_right: Vector2) -> void:
 	if has_node("WorldBorder"):
-		return  # scene instances are reused; build once per session
+		return  
 	var border := StaticBody2D.new()
 	border.name = "WorldBorder"
-	border.top_level = true  # use global coords, ignore any root rotation (Cliff has one)
+	border.top_level = true 
 	add_child(border)
 
 	var w := bottom_right.x - top_left.x
@@ -340,12 +340,11 @@ func build_world_border(top_left: Vector2, bottom_right: Vector2) -> void:
 	var cy := (top_left.y + bottom_right.y) * 0.5
 	var t := BORDER_THICKNESS
 
-	# [center, size] per edge; top/bottom overhang by 2t to seal the corners
 	var edges := [
-		[Vector2(cx, top_left.y - t * 0.5), Vector2(w + t * 2.0, t)],      # top
-		[Vector2(cx, bottom_right.y + t * 0.5), Vector2(w + t * 2.0, t)],  # bottom
-		[Vector2(top_left.x - t * 0.5, cy), Vector2(t, h)],                # left
-		[Vector2(bottom_right.x + t * 0.5, cy), Vector2(t, h)],           # right
+		[Vector2(cx, top_left.y - t * 0.5), Vector2(w + t * 2.0, t)],      
+		[Vector2(cx, bottom_right.y + t * 0.5), Vector2(w + t * 2.0, t)],  
+		[Vector2(top_left.x - t * 0.5, cy), Vector2(t, h)],                
+		[Vector2(bottom_right.x + t * 0.5, cy), Vector2(t, h)],          
 	]
 	for edge in edges:
 		var shape := RectangleShape2D.new()
@@ -416,6 +415,8 @@ func get_camera_bounds_node() -> Node2D:
 		room_name = "Tavern"
 	if room_name == "Bedspawn":
 		room_name = "Bedroom"
+	if room_name == "Blacksmith2":
+		room_name = "Blacksmith"
 	if room_name == "":
 		push_warning("EnvironmentHandler: Cannot set building camera bounds without a current loading zone.")
 		return null

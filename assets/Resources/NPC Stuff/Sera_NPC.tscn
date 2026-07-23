@@ -129,6 +129,7 @@ script = ExtResource("1_78c4y")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/sera_dialogue.json"
 npc_id = "sera"
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/sera/Weekly.json"
+side_idle_pose_frame = 0
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
 position = Vector2(1, -43)

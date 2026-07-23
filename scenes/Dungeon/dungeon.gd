@@ -842,8 +842,7 @@ func player_defended():
 	var current_player = get_player(active_player_turn)
 	var action_sequence: Array[Callable]
 
-	
-	gui.update_mana_display(1, false)
+	gui.update_mana_display(1, false, true)
 	action_sequence.append(func(): await current_player.execute_defend())
 	action_sequence.append(func(): await current_player.restore_BP(1))
 	unselect_all()

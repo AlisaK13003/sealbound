@@ -4,17 +4,12 @@ extends Node2D
 @export var location_name: Global.locations
 @onready var location_position: Transform2D = Transform2D(0.0, global_position)
 @onready var matrix_index: int = self.get_index()
-@export var connected_to_places: Array[int]
 @export var template_sprite: Texture2D
 @export_enum("none", "down", "up", "left", "right") var arrival_facing: String = "none"
 @onready var spriteNode: Sprite2D = $Sprite2D
 @onready var labelNode: Label = $Label
 
-@export var connected_node_names: Array = []
-@export var run_my_function: bool = false:
-	set(value):
-		if value: # Only trigger when clicked (set to true)
-			notify_property_list_changed() 
+var connected_node_names: Array[String] = []
 
 func _ready():
 	spriteNode.texture = template_sprite
@@ -35,7 +30,12 @@ var location_list
 
 func _set(property, value):
 	if property == "Connected To":
-		connected_node_names = value
+		connected_node_names.clear()
+		if value is Array:
+			for node_name in value:
+				var cleaned_node_name := str(node_name).strip_edges()
+				if not cleaned_node_name.is_empty():
+					connected_node_names.append(cleaned_node_name)
 		return true
 	return false
 
@@ -44,8 +44,8 @@ func _get(property):
 		return connected_node_names
 	return null
 
-func _get_property_list():
-	var properties = []
+func _get_property_list() -> Array[Dictionary]:
+	var properties: Array[Dictionary] = []
 	var options = get_sibling_names_string()
 
 	properties.append({

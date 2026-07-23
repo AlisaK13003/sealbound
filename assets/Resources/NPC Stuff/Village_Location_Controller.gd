@@ -3,7 +3,7 @@ extends Node2D
 var dist_matrix : PackedFloat32Array
 var next_matrix: PackedFloat32Array
 
-@onready var node_count = get_child_count()
+var node_count: int = 0
 
 @export var player_node : Node2D
 
@@ -19,15 +19,30 @@ const LOCATION_ALIASES: Dictionary = {
 }
 
 func _ready():
+	rebuild_navigation_graph()
+
+func rebuild_navigation_graph() -> void:
+	node_count = get_child_count()
 	create_adjacency_matrix()
 	run_floyd_warshall()
+
+func ensure_navigation_graph() -> void:
+	if node_count != get_child_count() or dist_matrix.size() != node_count * node_count or next_matrix.size() != node_count * node_count:
+		rebuild_navigation_graph()
 
 func convert_to_int(child):
 	var new_thing : Array[int]
 	for thing in child.connected_node_names:
 		if thing == null:
 			break
-		new_thing.append(self.get_node(thing).get_index())
+		var node_name := str(thing).strip_edges()
+		if node_name.is_empty():
+			continue
+		var connected_node := get_node_or_null(NodePath(node_name))
+		if connected_node == null:
+			push_warning("VillageLocationContainer: '%s' is connected to missing node '%s'." % [str(child.name), node_name])
+			continue
+		new_thing.append(connected_node.get_index())
 	return new_thing
 
 func create_adjacency_matrix():
@@ -75,8 +90,6 @@ func get_location_index(location) -> int:
 			var location_name = str(location).strip_edges()
 			if location_name.is_empty():
 				return -1
-			if location == "Library":
-				return 17
 			
 			var location_node = get_node_or_null(NodePath(location_name))
 			if location_node != null:
@@ -129,6 +142,7 @@ func normalize_location_name(location_name: String) -> String:
 	return location_name.to_lower().replace(" ", "").replace("_", "").replace("-", "")
 
 func get_path_between(start_spot, end_spot) -> Array[int]:
+	ensure_navigation_graph()
 	var start_id = get_location_index(start_spot)
 	var end_id = get_location_index(end_spot)
 	if start_id < 0 or end_id < 0 or start_id >= node_count or end_id >= node_count:
@@ -140,7 +154,7 @@ func get_path_between(start_spot, end_spot) -> Array[int]:
 	
 	var path: Array[int] = [start_id]
 	while start_id != end_id:
-		start_id = next_matrix[start_id * node_count + end_id]
+		start_id = int(next_matrix[start_id * node_count + end_id])
 		path.append(start_id)
 	return path
 

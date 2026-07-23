@@ -19,7 +19,10 @@ const DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT: float = 36.0
 const LOCATION_ARRIVAL_FACING_OVERRIDES: Dictionary = {
 	"Practice Field": "right",
 	"HerbCollecting": "down",
-	"Tavern_Counter": "down"
+	"Tavern_Counter": "down",
+	"Bridge": "down",
+	"CliffSide": "right",
+	"Well": "left"
 }
 var current_destination = null
 
@@ -207,7 +210,7 @@ func _process(delta):
 		apply_location_facing(current_destination)
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		if leaving_scene:
-			self.visible = false
+			set_schedule_presence(false)
 		return 
 	if player_is_speaking_to_me:
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
@@ -222,7 +225,8 @@ func _process(delta):
 		animation_driver.sync(animated_sprite, Vector2.ZERO)
 		return
 	walking = true
-	self.visible = true
+	if not visible:
+		set_schedule_presence(true)
 	var current_target = path_nodes[0]
 	just_swapped_scenes = false
 	var motion: Vector2 = current_target - global_position
@@ -242,6 +246,26 @@ func update_schedule_draw_order() -> void:
 		z_index = counter_z_index
 	else:
 		z_index = default_z_index
+
+func set_schedule_presence(is_present: bool) -> void:
+	visible = is_present
+	set_interaction_area_enabled(clickable_area, is_present)
+	set_interaction_area_enabled(check_player_in_range, is_present)
+	if not is_present:
+		player_in_range = false
+		player_is_speaking_to_me = false
+		player_just_stopped_talking_to_me = false
+		pending_choice_action = ""
+
+func set_interaction_area_enabled(area: Area2D, is_enabled: bool) -> void:
+	if area == null:
+		return
+	area.monitoring = is_enabled
+	area.monitorable = is_enabled
+	area.input_pickable = is_enabled
+	for child in area.get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.set_deferred("disabled", not is_enabled)
 
 # Loads the NPCs dialogue "tree" into memory
 func load_json_file(path: String) -> Dictionary:
@@ -282,34 +306,34 @@ func navigate():
 					#print("NOT TIME YET")
 					return
 				elif check_time(details["start_time_hour"], details["start_time_minute"], 1):
-					self.visible = true
+					set_schedule_presence(true)
 					setup_navigation(details, 0)
 					leaving_scene = true
 					if details["should_disappear"] == 1:
-						self.visible = false
+						set_schedule_presence(false)
 					return
 				elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
 					print("TRYING AGAIN")
-					self.visible = true
+					set_schedule_presence(true)
 					setup_navigation(details, 2)
 					leaving_scene = true
 					if details["should_disappear"] == 1:
-						self.visible = false
+						set_schedule_presence(false)
 					return
 			elif is_schedule_scene_match(details["end_scene"], path) and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
 				leaving_scene = true
-				self.visible = true
+				set_schedule_presence(true)
 				setup_navigation(details, 1)
 				if details["should_disappear"] == 1:
-					self.visible = false
+					set_schedule_presence(false)
 				return
 		elif is_schedule_scene_match(details["start_scene"], path) and check_time(details["start_time_hour"], details["start_time_minute"], 1):
 			last_applied_schedule_key = get_schedule_key(schedule_name, details)
-			self.visible = true
+			set_schedule_presence(true)
 			setup_navigation(details, 0)
-			leaving_scene = false
+			leaving_scene = int(details.get("hide_on_arrival", 0)) == 1
 			if details["should_disappear"] == 1:
-				self.visible = false
+				set_schedule_presence(false)
 			return
 	catch_up_to_scene_schedule(path)
 
@@ -404,8 +428,8 @@ func catch_up_to_scene_schedule(path: String) -> void:
 	last_applied_schedule_key = schedule_key
 	path_nodes.clear()
 	walking = false
-	leaving_scene = false
-	self.visible = latest_details["should_disappear"] != 1
+	leaving_scene = int(latest_details.get("hide_on_arrival", 0)) == 1
+	set_schedule_presence(int(latest_details.get("should_disappear", 0)) != 1)
 	catch_up_along_path(latest_details, current_minutes - latest_minutes)
 
 func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
@@ -418,6 +442,8 @@ func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
 		return
 	if elapsed_minutes >= travel_minutes:
 		place_at_location(details["end_location"])
+		if int(details.get("hide_on_arrival", 0)) == 1:
+			set_schedule_presence(false)
 		return
 	var points: Array[Vector2] = []
 	for vertex_id in path_ids:
@@ -425,6 +451,8 @@ func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
 	var total_distance = get_path_distance(points)
 	if total_distance <= 0.0:
 		place_at_location(details["end_location"])
+		if int(details.get("hide_on_arrival", 0)) == 1:
+			set_schedule_presence(false)
 		return
 	var target_distance = total_distance * (float(elapsed_minutes) / float(travel_minutes))
 	place_along_points(points, target_distance)
@@ -523,27 +551,36 @@ func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_k
 func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> Array[int]:
 	if not ensure_location_container():
 		return []
+	var start_location_index = get_location_index(schedule_info_basic[start_key])
+	var end_location_index = get_location_index(schedule_info_basic[end_key])
+	if start_location_index >= 0 and start_location_index == end_location_index:
+		return [start_location_index]
+	var tried_graph := false
+	if location_container.has_method("get_path_between"):
+		tried_graph = true
+		var graph_path: Array[int] = location_container.get_path_between(schedule_info_basic[start_key], schedule_info_basic[end_key])
+		if not graph_path.is_empty():
+			return graph_path
+
 	var path_locations_key := "path_locations"
 	if start_key.begins_with("2_"):
 		path_locations_key = "2_path_locations"
 	var explicit_path = schedule_info_basic.get(path_locations_key, [])
 	if explicit_path is Array and not explicit_path.is_empty():
 		var explicit_path_ids: Array[int] = []
+		var resolved_all_locations := true
 		for location in explicit_path:
 			var location_index = get_location_index(location)
 			if location_index < 0 or location_index >= location_container.get_child_count():
 				push_warning("NPC_Controller: Could not resolve explicit schedule path location '%s' in %s." % [str(location), schedule_path])
+				resolved_all_locations = false
 				break
 			if explicit_path_ids.is_empty() or explicit_path_ids[explicit_path_ids.size() - 1] != location_index:
 				explicit_path_ids.append(location_index)
-		if explicit_path_ids.size() == explicit_path.size():
+		if resolved_all_locations and not explicit_path_ids.is_empty():
+			if tried_graph:
+				push_warning("NPC_Controller: Using explicit fallback route for '%s' -> '%s' in %s because no graph route was available." % [str(schedule_info_basic[start_key]), str(schedule_info_basic[end_key]), schedule_path])
 			return explicit_path_ids
-	var start_location_index = get_location_index(schedule_info_basic[start_key])
-	var end_location_index = get_location_index(schedule_info_basic[end_key])
-	if start_location_index >= 0 and start_location_index == end_location_index:
-		return [start_location_index]
-	if location_container.has_method("get_path_between"):
-		return location_container.get_path_between(schedule_info_basic[start_key], schedule_info_basic[end_key])
 	return []
 
 func get_location_index(location) -> int:
@@ -676,7 +713,7 @@ func pin_to_location_for_cutscene(location) -> void:
 	leaving_scene = false
 	player_just_stopped_talking_to_me = false
 	running_time = 0
-	visible = true
+	set_schedule_presence(true)
 	place_at_location(location)
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
@@ -701,7 +738,7 @@ func pin_to_global_position_for_cutscene(target_position: Vector2, facing: Strin
 	leaving_scene = false
 	player_just_stopped_talking_to_me = false
 	running_time = 0
-	visible = true
+	set_schedule_presence(true)
 	global_position = target_position
 	current_destination = null
 	animation_driver.face(animated_sprite, facing)
@@ -755,7 +792,7 @@ func restore_after_cutscene() -> void:
 	path_nodes = cutscene_restore_state.get("path_nodes", []).duplicate()
 	walking = bool(cutscene_restore_state.get("walking", false))
 	leaving_scene = bool(cutscene_restore_state.get("leaving_scene", false))
-	visible = bool(cutscene_restore_state.get("visible", visible))
+	set_schedule_presence(bool(cutscene_restore_state.get("visible", visible)))
 	player_just_stopped_talking_to_me = bool(cutscene_restore_state.get("player_just_stopped_talking_to_me", false))
 	running_time = float(cutscene_restore_state.get("running_time", 0.0))
 	z_index = int(cutscene_restore_state.get("z_index", z_index))
