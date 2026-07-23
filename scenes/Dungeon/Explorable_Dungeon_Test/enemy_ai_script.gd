@@ -107,13 +107,16 @@ func _physics_process(delta: float) -> void:
 
 		State.CHASE:
 			if target_player:
-				var room_class = p_ref.get_room_node_at(p_ref.player.current_grid_pos).room_classification
-				if room_class in [0, 1]:
+				var room_node = p_ref.get_room_node_at(p_ref.player.current_grid_pos)
+				if room_node == null:	
+					print("no room at ", p_ref.player.current_grid_pos)
+					pass
+				elif room_node.room_classification in [0, 1]:
 					current_state = State.PATROL
-					nav_agent.target_position = global_position 
+					nav_agent.target_position = global_position
 					wait_timer = 0.0
 					return
-				
+					
 				if _has_line_of_sight():
 					last_known_player_position = target_player.global_position
 					
@@ -145,11 +148,12 @@ func _check_for_new_tile() -> void:
 	if calculated_pos != current_grid_pos:
 		current_grid_pos = calculated_pos
 		
-	if not p_ref.get_room_node_at(current_grid_pos).is_visible:
-		self.visible = false
-		#disable_monitoring = true
-	else:
-		self.visible = true
+	var room_node = p_ref.get_room_node_at(current_grid_pos)
+	if room_node == null:
+		return
+		self.visible = room_node.is_visible
+	#else:
+		#self.visible = true
 		#disable_monitoring = false
 
 
