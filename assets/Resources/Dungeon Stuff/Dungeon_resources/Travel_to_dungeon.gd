@@ -184,7 +184,7 @@ func travel(set_off_for_dungeon):
 		await Fade.fade_in(1)
 		Global.current_region = "Village"
 		Global.current_location = "Village"
-		Global.current_loading_zone = "Spooky Forest"
+		Global.current_loading_zone = "DungeonExit"
 		GlobalCombatInformation.in_dungeon = false
 		AreaStateManager._setup(false)
 		AreaStateManager.swap_scene(self)

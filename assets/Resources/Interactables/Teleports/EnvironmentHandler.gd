@@ -14,12 +14,13 @@ var player_node
 func swap_to_me():
 	player_node = get_tree().get_first_node_in_group("Overworld_Player")
 	var entry_loading_zone: String = Global.current_loading_zone
-	teleport_player_to_spawn()
+	set_camera_limits()
+	await teleport_player_to_spawn()
 	if is_building_insides:
 		ensure_bed_rest_interactions()
 
 	AudioManager.play_bgm(bgm, true)
-	set_camera_limits()
+	
 	
 	var cutscene_to_start
 	if not Global.debug_story_skip_active:
@@ -65,7 +66,10 @@ func swap_to_me():
 						print("SEAL DUNGEON CUTSCENE")
 					
 
-	await get_tree().create_timer(1.0).timeout
+	if Global.current_loading_zone == "DungeonExit":
+		await get_tree().create_timer(2.0).timeout
+	else:
+		await get_tree().create_timer(0.5).timeout
 	await Fade.fade_out(0.5)
 	Fade.is_fading = false
 	match cutscene_to_start:
