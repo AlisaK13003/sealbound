@@ -364,6 +364,36 @@ func debug_unlock_cave_dungeon() -> void:
 		if current_scene.has_method("show_selected_dungeon"):
 			current_scene.show_selected_dungeon()
 
+func debug_skip_intro_to_axe_dungeon() -> void:
+	Global.debug_story_skip_active = true
+	Global.pending_cutscene_path = ""
+	Global.has_pending_player_spawn_position = false
+	Global.current_tutorial_objective = ""
+	Global.set_calendar_time(0, 0, 10, 0)
+
+	set_story_state(story_beats_lookup.SEEN_OPENING_CUTSCENE)
+	set_story_state(story_beats_lookup.TALKED_TO_SERA_IN_INFIRMARY)
+	set_story_state(story_beats_lookup.SERA_SENT_TO_LYRA)
+	set_story_state(story_beats_lookup.ACCEPTED_QUEST_FOR_LYRA_AXE)
+
+	start_lyra_axe_quest()
+	complete_speak_to_lyra_quest()
+
+	GlobalCombatInformation.in_dungeon = false
+	GlobalCombatInformation.is_combat_active = false
+	Global.current_region = "Buildings_Insides"
+	Global.current_location = "Buildings_Insides"
+	Global.current_loading_zone = "Tavern"
+	Global.is_in_menu = false
+	Global.is_paused = false
+	Global.time_paused = false
+	AreaStateManager.currently_transitioning = false
+	AudioManager.stop_bgm()
+
+	AreaStateManager._setup(false)
+	AreaStateManager.swap_scene(get_tree().current_scene)
+	print("[Debug] Intro skipped. Spawned in tavern with Lyra's axe quest active.")
+
 func debug_skip_to_lyra_axe_sleep_setup() -> void:
 	Global.set_calendar_time(0, 0, 22, 0)
 	set_story_state(story_beats_lookup.SEEN_OPENING_CUTSCENE)
