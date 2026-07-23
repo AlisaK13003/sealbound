@@ -23,6 +23,8 @@ var shadow_marker_offset := Vector2.ZERO
 var sera_marker_offset := Vector2.ZERO
 var lantern_flicker_time := 0.0
 var lantern_base_energy := 0.85
+var cutscene_runner: CutsceneRunner
+var debug_story_skip_requested := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -35,6 +37,11 @@ func _process(delta: float) -> void:
 		return
 	lantern_flicker_time += delta * 8.0
 	lantern_light.energy = lantern_base_energy + sin(lantern_flicker_time) * 0.05 + sin(lantern_flicker_time * 2.1) * 0.025
+
+func _input(event: InputEvent) -> void:
+	if Global.is_debug_story_skip_input(event):
+		debug_skip_intro_to_axe_dungeon()
+		get_viewport().set_input_as_handled()
 
 func play_cutscene_animation(animation_name: String):
 	var clip_name = _animation_clip_name(animation_name)
@@ -97,13 +104,29 @@ func _apply_initial_actor_state() -> void:
 	lantern_light.energy = 0.0
 
 func _start_cutscene() -> void:
-	var cutscene_runner = CUTSCENE_RUNNER_SCRIPT.new()
+	cutscene_runner = CUTSCENE_RUNNER_SCRIPT.new()
 	cutscene_runner.finished.connect(_on_opening_cutscene_finished)
 	cutscene_runner.finished.connect(cutscene_runner.queue_free)
 	add_child(cutscene_runner)
 	cutscene_runner.play(OPENING_CUTSCENE_PATH)
 
+func debug_skip_intro_to_axe_dungeon() -> void:
+	if debug_story_skip_requested:
+		return
+	debug_story_skip_requested = true
+	if is_instance_valid(cutscene_runner):
+		var finish_callback := Callable(self, "_on_opening_cutscene_finished")
+		if cutscene_runner.finished.is_connected(finish_callback):
+			cutscene_runner.finished.disconnect(finish_callback)
+		cutscene_runner.queue_free()
+	var dialogue_system := get_node_or_null("/root/DialogueSystem")
+	if dialogue_system != null and dialogue_system.has_method("hide_dialog"):
+		dialogue_system.hide_dialog()
+	StateManager.debug_skip_intro_to_axe_dungeon()
+
 func _on_opening_cutscene_finished() -> void:
+	if debug_story_skip_requested:
+		return
 	Global.pending_cutscene_path = INFIRMARY_WAKEUP_CUTSCENE_PATH
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Infirmary"
