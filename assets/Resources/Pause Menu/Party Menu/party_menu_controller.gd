@@ -92,8 +92,10 @@ func tab_changed(which_tab):
 			stat_pages.get_child(child).visible = true
 			if child != 0:
 				bond_page.visible = true
+				$BasePauseMenu.visible = false
 				bond_page._setup(GlobalCombatInformation.all_party_slots[child].combatant_name.to_lower())
 			else:
+				$BasePauseMenu.visible = true
 				bond_page.visible = false
 		else:
 			stat_pages.get_child(child).visible = false

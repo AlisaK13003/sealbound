@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://du14pb03fwoo1" path="res://assets/Resources/Pause Menu/Party Menu/party_menu_controller.gd" id="1_eoipl"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="1_lp15h"]
 [ext_resource type="PackedScene" uid="uid://bueo7m313ndrv" path="res://assets/Resources/Pause Menu/Bond Menu/Bond_Menu.tscn" id="3_7ay8j"]
+[ext_resource type="PackedScene" uid="uid://drqam5q2oh81m" path="res://assets/Resources/Pause Menu/Base_Pause_Menu.tscn" id="4_qxlb4"]
 
 [node name="PartyMenu" type="Control" unique_id=1517258258]
 layout_mode = 3
@@ -50,3 +51,10 @@ scale = Vector2(1.15, 1.15)
 theme_override_constants/h_separation = 76
 columns = 6
 bypass_global_lock = true
+
+[node name="BasePauseMenu" parent="." unique_id=1114125031 instance=ExtResource("4_qxlb4")]
+layout_mode = 1
+offset_left = -225.0
+offset_top = 138.46155
+offset_right = -225.0
+offset_bottom = 138.46155
