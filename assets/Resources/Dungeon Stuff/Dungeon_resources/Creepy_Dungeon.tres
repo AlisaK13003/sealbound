@@ -56,6 +56,7 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 script = ExtResource("7_jlcea")
 dungeon_name = "Ironwood Cave"
 dungeon_background = ExtResource("1_4d527")
+dungeon_description = "A dark network of rocky tunnels rich with iron and other valuable minerals. Narrow passages, unstable terrain, and hostile creatures make the cave difficult to navigate."
 max_number_of_floors = 7
 minimum_number_of_floors = 4
 potential_encounters = Array[ExtResource("2_2thd2")]([SubResource("Resource_hc7dq"), SubResource("Resource_kk88i"), SubResource("Resource_8ysbo"), SubResource("Resource_1uxpi"), SubResource("Resource_87eo0"), SubResource("Resource_jcodd")])

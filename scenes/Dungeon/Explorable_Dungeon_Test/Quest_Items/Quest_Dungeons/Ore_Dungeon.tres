@@ -28,9 +28,9 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
 script = ExtResource("2_4j6jr")
-dungeon_name = "Ore Deposits"
+dungeon_name = "Frostvein Cavern"
 dungeon_background = ExtResource("1_4j6jr")
-dungeon_description = "This place is known to house many a rare ore, which is why the local blacksmith uses this place to stock up."
+dungeon_description = "A small cavern illuminated by pale blue crystals and glowing mineral veins. Its rare ores make it valuable to local blacksmiths, despite the creatures hiding within its cold, dimly lit tunnels."
 max_number_of_floors = 4
 minimum_number_of_floors = 4
 potential_encounters = Array[ExtResource("1_hfiyr")]([SubResource("Resource_1hibc"), SubResource("Resource_w3nti"), SubResource("Resource_lbf6d")])

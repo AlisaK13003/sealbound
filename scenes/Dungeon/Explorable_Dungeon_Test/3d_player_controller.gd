@@ -21,8 +21,6 @@ var p_ref: explorable_dungeon
 var has_been_setup = false
 
 func display_obtained_items(obtained_items):
-	for item: Items in obtained_items:
-		print(item.item_name)
 	dungeon_overlay.display_gotten_chest_items(obtained_items)
 
 func _setup(parent_reference):

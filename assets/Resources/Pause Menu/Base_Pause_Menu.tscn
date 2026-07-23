@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://drqam5q2oh81m"]
 
 [ext_resource type="Script" uid="uid://c7vdto05an1xb" path="res://assets/Resources/Pause Menu/base_pause_menu.gd" id="1_qgvow"]
+[ext_resource type="Texture2D" uid="uid://dggadw7mbuiqp" path="res://assets/Resources/Interactables/Quests (2)/Gold.png" id="2_hqpe0"]
+[ext_resource type="Texture2D" uid="uid://crg5n88kvt8kc" path="res://assets/tile sheets/New_Background_Panel.png" id="2_nqr5i"]
+[ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="3_bciyy"]
+[ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="5_cq7md"]
 
 [node name="BasePauseMenu" type="Control" unique_id=1114125031]
 layout_mode = 3
@@ -11,19 +15,126 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qgvow")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1657292641]
+texture_filter = 1
+layout_mode = 0
+offset_left = -29.0
+offset_top = 18.0
+offset_right = 459.0
+offset_bottom = 136.0
+texture = ExtResource("2_nqr5i")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=133384147]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -20.0
+offset_top = 25.0
+offset_right = 43.0
+offset_bottom = 105.0
+theme_override_constants/separation = 14
 
-[node name="Currency" type="Label" parent="VBoxContainer" unique_id=1333799227]
+[node name="Container" type="Container" parent="VBoxContainer" unique_id=2120578946]
+custom_minimum_size = Vector2(0, 26.65)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Container" unique_id=1680379865]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Container/HBoxContainer" unique_id=359835865]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_hqpe0")
+stretch_mode = 2
+
+[node name="Currency" type="Label" parent="VBoxContainer/Container/HBoxContainer" unique_id=1333799227]
 layout_mode = 2
 text = "Monies: 200"
 
-[node name="Day" type="Label" parent="VBoxContainer" unique_id=1842868765]
+[node name="Container2" type="Container" parent="VBoxContainer" unique_id=1842826408]
+custom_minimum_size = Vector2(0, 26.65)
 layout_mode = 2
-text = "Current Day"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Container2" unique_id=1458778145]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Container2/HBoxContainer" unique_id=269789273]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_bciyy")
+stretch_mode = 2
+
+[node name="Resonate" type="Label" parent="VBoxContainer/Container2/HBoxContainer" unique_id=2034765037]
+layout_mode = 2
+offset_transform_position = Vector2(36.04, 0)
+text = "Resonated With: "
 
 [node name="Playtime" type="Label" parent="VBoxContainer" unique_id=385926117]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(36.04, 0)
 text = "Playtime: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=862483645]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 34.0
+offset_right = 440.0
+offset_bottom = 119.0
+theme_override_constants/separation = 14
+
+[node name="Panel" type="Panel" parent="HBoxContainer" unique_id=373110563]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+clip_contents = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Panel" unique_id=269721096]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 18.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Panel" unique_id=1071615974]
+layout_mode = 0
+offset_left = -52.0
+offset_top = -2.0
+offset_right = 41.0
+offset_bottom = 93.0
+texture = ExtResource("5_cq7md")
+expand_mode = 1
+
+[node name="Panel2" type="Panel" parent="HBoxContainer" unique_id=1558048874]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="HBoxContainer" unique_id=21789125]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+
+[node name="Panel4" type="Panel" parent="HBoxContainer" unique_id=1288677044]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+
+[node name="Panel5" type="Panel" parent="HBoxContainer" unique_id=1323492923]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+
+[node name="Panel6" type="Panel" parent="HBoxContainer" unique_id=1535947845]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+
+[node name="Panel7" type="Panel" parent="HBoxContainer" unique_id=1688811186]
+visible = false
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2

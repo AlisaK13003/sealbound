@@ -44,6 +44,7 @@ metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 script = ExtResource("2_7yfg2")
 dungeon_name = "Hollow Glade"
 dungeon_background = ExtResource("2_7iqy5")
+dungeon_description = "A secluded clearing hidden deep within the forest. An unnatural stillness hangs over the glade, and the surrounding plants and wildlife have begun to behave in strange, unsettling ways."
 max_number_of_floors = 10
 minimum_number_of_floors = 10
 potential_encounters = Array[ExtResource("1_1rkgn")]([SubResource("Resource_a4ahv"), SubResource("Resource_rnc85"), SubResource("Resource_c5kdw"), SubResource("Resource_sscs3"), SubResource("Resource_qwiyp")])

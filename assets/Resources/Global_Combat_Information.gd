@@ -127,6 +127,7 @@ func resonate_with_a_member(which_member: generic_combatants, activated):
 				active_party_slots[active_party_slots.find_custom(func(stored_member: generic_combatants): return member.combatant_name == stored_member.combatant_name)].resonated_with = false
 	resonance_updated(which_member.is_MC, activated)
 	
+var resonated_name: String
 func resonance_updated(is_mc = false, activated = false):
 	var resonated_with_name
 	if not is_mc and activated:
@@ -135,12 +136,13 @@ func resonance_updated(is_mc = false, activated = false):
 				continue
 			if member.resonated_with:
 				resonated_with_name = member.combatant_name
+				
 				break
 	else:
 		resonated_with_name = "Base"
 	if resonated_with_name == null:
 		resonated_with_name = "Base"
-	
+	resonated_name = resonated_with_name
 	active_party_slots[0].update_moves(active_party_slots[0].resonance_skills_[resonated_with_name])
 	update_resonance.emit()
 	
@@ -274,9 +276,18 @@ func load_items():
 		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
 		add_item("res://assets/Sprites/Items/BP_Potion.tres")
 
+func add_assorted_items(arr_of_stuff):
+	for thing in arr_of_stuff:
+		if thing is Items:
+			add_item(thing.get_path_custom())
+		elif thing is equipment or thing is weapon:
+			add_equipment_to_list(thing.get_path_custom(), true if thing is weapon else false)
+
 func add_item(item_to_add):
 	if item_to_add is Array:
 		for item in item_to_add:
+			if item is Items:
+				item = item.get_path_custom()
 			if item == null or item == "":
 				continue
 			var mew_item = load(item)
@@ -827,6 +838,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 		stuff_gained += quest_items_gained
 
 	if is_boss:
+		StateManager.set_seal_state(selected_dungeon_.boss_state_to_set_on_completion, StateManager.completion_checks.SEAL_CHECKS)
 		dungeon_over()
 		return
 

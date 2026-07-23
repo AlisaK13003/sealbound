@@ -185,11 +185,20 @@ func set_party_member_unlock(key: int, value: bool = true):
 func set_dungeon_unlock(key: int, value: bool = true):
 	dungeon_states[key] = value
 
+signal state_set
 func set_story_state(key: int, value: bool = true) -> void:
 	story_states[key] = value
+	state_set.emit()
 
 func has_story_state(key: int) -> bool:
 	return story_states.get(key, false)
+
+func set_seal_state(key: int, value: bool = true):
+	seal_completion_states[key] = value
+	state_set.emit()
+
+func check_seal_state(key: int) -> bool:
+	return seal_completion_states.get(key, false)
 
 func set_quest_take(key: int, value: bool = true):
 	tavern_quests_taken[key] = value

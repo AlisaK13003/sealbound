@@ -41,7 +41,7 @@ func give_player_chest_item():
 		
 	for new_chance in drop_chances_:
 		if chance < new_chance + accumulated_chance:
-			GlobalCombatInformation.add_item(p_ref.current_dungeon.chest_drops.find_key(new_chance).get_path_custom())
+			GlobalCombatInformation.add_assorted_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
 			p_ref.player.display_obtained_items(p_ref.current_dungeon.chest_drops.find_key(new_chance))
 			break
 		accumulated_chance += new_chance
