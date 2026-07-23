@@ -29,10 +29,9 @@ func give_player_chest_item():
 	rng.randomize()
 	
 	var chance: float = rng.randf()
-	var items_gotten: Array
-
-	p_ref.current_dungeon.chest_drops.sort()
+	var selected_drop_items: Array = []
 	var accumulated_chance: float = 0.0
+
 	var drop_chances_: Array[float]
 	for drop_chance in p_ref.current_dungeon.chest_drops.values():
 		drop_chances_.append(drop_chance)
