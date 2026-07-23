@@ -4,10 +4,15 @@
 [ext_resource type="Resource" uid="uid://dyu5ef6l15p2q" path="res://assets/Resources/Interactables/Shops/Shop Items/Damage_Potion.tres" id="1_cx3uc"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_hfiyr"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_4j6jr"]
+[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="2_nurh3"]
 [ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="3_durrd"]
+[ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="3_rpnko"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_cx3uc"]
+[ext_resource type="Resource" uid="uid://yn5ljp73dfed" path="res://assets/Equipment/Iron_Helmet.tres" id="4_mxpal"]
 [ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="5_m54ou"]
+[ext_resource type="Resource" uid="uid://c1r18jklwj3m8" path="res://assets/Resources/Interactables/Shops/Shop Items/Health_Potion.tres" id="5_sv8wv"]
 [ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="6_3kcs8"]
+[ext_resource type="Resource" uid="uid://x5otqq0n0msv" path="res://assets/Equipment/Rusty_Shank.tres" id="6_ungim"]
 
 [sub_resource type="Resource" id="Resource_1hibc"]
 script = ExtResource("1_hfiyr")
@@ -42,6 +47,11 @@ allowed_level_differential = 3
 quest_dungeon = true
 dont_spawn_chests = true
 chest_drops = Dictionary[Array, float]({
+[ExtResource("2_nurh3")]: 0.0,
+[ExtResource("3_rpnko")]: 0.0,
+[ExtResource("4_mxpal")]: 0.0,
+[ExtResource("5_sv8wv")]: 0.0,
+[ExtResource("6_ungim")]: 0.0,
 [ExtResource("1_cx3uc"), ExtResource("1_cx3uc"), ExtResource("1_cx3uc")]: 0.0
 })
 metadata/_custom_type_script = "uid://3loyjc4d808j"

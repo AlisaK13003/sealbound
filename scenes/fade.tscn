@@ -16,6 +16,7 @@ script = ExtResource("1_nukjo")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1644776843]
 visible = false
+top_level = true
 offset_right = 1951.0
 offset_bottom = 1099.0
 mouse_filter = 2

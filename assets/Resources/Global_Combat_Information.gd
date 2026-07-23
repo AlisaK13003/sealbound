@@ -628,7 +628,7 @@ func transition_to_dungeon(selected_dungeon, quest_dungeon = null):
 	AudioManager.stop_bgm()
 	selected_dungeon_ = selected_dungeon.type_of_dungeon
 	current_dungeon = selected_dungeon
-	
+	await get_tree().create_timer(1.0).timeout
 	in_dungeon = true
 	is_combat_active = false
 	previous_enemy_encountered = -1

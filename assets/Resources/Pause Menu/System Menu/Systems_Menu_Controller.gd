@@ -15,11 +15,6 @@ func _ready():
 	tab_changed(0)
 	visibility_changed.connect(_reset)
 
-	if not check_if_config_exists():
-		update_config_file()
-	else:
-		load_from_config()
-
 	var saved_fps = Engine.max_fps
 	match saved_fps:
 		30:
@@ -69,7 +64,6 @@ func _ready():
 
 	last_screen_id = DisplayServer.window_get_current_screen()
 	
-
 func swap_between_controller(index):
 	if index == 0:
 		$"Settings_Windows/Key Config/Keybinds/GridContainer".visible = true
@@ -95,74 +89,19 @@ func check_if_config_exists():
 	else:
 		return false
 
-func update_config_file():
-	var config = ConfigFile.new()
-	var error = config.load(SAVE_PATH)
-	if error == OK:
-		#fps, resolution, screenmode, desired monitor, vsync toggle
-		# master volume, sfx volume, bgm slider
-		# key binds
-		
-		config.set_value("display", "fps", Engine.max_fps)
-		if selected_resolution == null:
-			selected_resolution = DisplayServer.window_get_size()
-		config.set_value("display", "resolution", selected_resolution)
-		var current_mode = DisplayServer.window_get_mode()
-		var mode_string = "Windowed"
-		if current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-			mode_string = "Fullscreen"
-		elif current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
-			if DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS):
-				mode_string = "Borderless Fullscreen"
-			else:
-				mode_string = "Windowed"
-		config.set_value("display", "screen_mode", mode_string)
-		config.set_value("display", "desired_monitor", DisplayServer.window_get_current_screen())
-		config.set_value("display", "vsync", "On" if DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED else "Off")
-		
-		config.set_value("audio", "master_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))))
-		config.set_value("audio", "sfx_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))))
-		config.set_value("audio", "music_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("BGM"))))
-		config.set_value("audio", "tile_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("TILE"))))
-	config.save(SAVE_PATH)
+
 	
 func load_from_config():
 	var config = ConfigFile.new()
 	var error = config.load(SAVE_PATH)
 	if error == OK:
-		var res = config.get_value("display", "resolution", Vector2i(640, 360))
-		apply_resolution([res], 0)
-		
-		var screen_mode = config.get_value("display", "screen_mode", "Windowed")
-		_screen_mode_changed([screen_mode], 0)
-		
-		var monitor = config.get_value("display", "desired_monitor", 0)
-		change_monitor([monitor], 0)
-		
-		var fps = config.get_value("display", "fps", 60)
-		_fps_updated([fps], 0)
-		
-		var vsync_state = config.get_value("display", "vscyn", "Off")
-		_vsync_changed([vsync_state], 0)
-
-		_change_volume(config.get_value("audio", "master_vol", 0.7), "Master")
 		$"Settings_Windows/Sound Settings/GridContainer/Master_Slider".value = config.get_value("audio", "master_vol", 0.7)
-		_change_volume(config.get_value("audio", "sfx_vol", 0.7), "SFX")
 		$"Settings_Windows/Sound Settings/GridContainer/SFX_Slider".value = config.get_value("audio", "sfx_vol", 0.7)
-		_change_volume(config.get_value("audio", "music_vol", 0.7), "BGM")
 		$"Settings_Windows/Sound Settings/GridContainer/BGM_Slider".value = config.get_value("audio", "music_vol", 0.7)
-		_change_volume(config.get_value("audio", "tile_vol", 0.7), "TILE")
 		$"Settings_Windows/Sound Settings/GridContainer/Tile_Slider".value = config.get_value("audio", "tile_vol", 0.7)
 		
 		
-		rebind_keyboard_only("up", config.get_value("binds", "up", KEY_W))
-		rebind_keyboard_only("down", config.get_value("binds", "down", KEY_S))
-		rebind_keyboard_only("left", config.get_value("binds", "left", KEY_A))
-		rebind_keyboard_only("right", config.get_value("binds", "right", KEY_D))
-		rebind_keyboard_only("confirm", config.get_value("binds", "confirm", KEY_C))
-		rebind_keyboard_only("cancel", config.get_value("binds", "cancel", KEY_X))
-		rebind_keyboard_only("Dungeon_Item", config.get_value("binds", "Dungeon_Item", KEY_I))
-		rebind_keyboard_only("Dungeon_Skill", config.get_value("binds", "Dungeon_Skill", KEY_L))
+
 
 		
 func rebind_keyboard_only(action_name: String, new_keycode: int):
@@ -220,11 +159,11 @@ func _change_volume(value, bus_name):
 	var bus_index = AudioServer.get_bus_index(bus_name)
 	var db_volume = linear_to_db(value)
 	AudioServer.set_bus_volume_db(bus_index, db_volume)
-	update_config_file()
+	SettingsManager.update_config_file()
 
 func _fps_updated(options, current_selection):
 	Engine.max_fps = int(options[current_selection])
-	update_config_file()
+	SettingsManager.update_config_file()
 
 func _vsync_changed(options, current_selection):
 	match options[current_selection]:
@@ -232,7 +171,7 @@ func _vsync_changed(options, current_selection):
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 		"Off":
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-	update_config_file()
+	SettingsManager.update_config_file()
 
 
 func change_monitor(options, current_selection, bypass = false) -> void:
@@ -256,7 +195,7 @@ func change_monitor(options, current_selection, bypass = false) -> void:
 	
 	if current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
 		center_window_on_current_screen()
-	update_config_file()
+	SettingsManager.update_config_file()
 
 func center_window_on_current_screen() -> void:
 	var screen_id = DisplayServer.window_get_current_screen()
@@ -290,7 +229,7 @@ func _screen_mode_changed(options, current_selection):
 
 		"Fullscreen":
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	update_config_file()
+	SettingsManager.update_config_file()
 
 
 const BASE_RESOLUTION = Vector2i(640, 360)
@@ -327,4 +266,4 @@ func apply_resolution(options, current_selection) -> void:
 	
 	var new_pos = screen_pos + (screen_size / 2) - (selected_resolution / 2)
 	DisplayServer.window_set_position(new_pos)
-	update_config_file()
+	SettingsManager.update_config_file()
