@@ -87,17 +87,10 @@ func teleport_player_to_spawn():
 		_apply_pending_player_spawn_position()
 		return
 		
-	var loading_zone_spawn := find_loading_zone_spawn(Global.current_loading_zone)
-	if loading_zone_spawn == null:
-		push_warning("EnvironmentHandler: Could not find loading zone spawn '%s' in %s." % [Global.current_loading_zone, scene_file_path])
-		_apply_pending_player_spawn_position()
-		return
-
-	var spawn_point := loading_zone_spawn.find_child("Marker2D", true, false) as Node2D
-	if spawn_point == null and loading_zone_spawn is Marker2D:
-		spawn_point = loading_zone_spawn as Marker2D
+	var spawn_point = find_loading_zone_spawn(Global.current_loading_zone)
+	spawn_point = spawn_point.find_child("Marker2D")
 	if spawn_point == null:
-		push_warning("EnvironmentHandler: Loading zone spawn '%s' has no Marker2D in %s." % [Global.current_loading_zone, scene_file_path])
+		push_warning("EnvironmentHandler: Could not find loading zone spawn '%s' in %s." % [Global.current_loading_zone, scene_file_path])
 		_apply_pending_player_spawn_position()
 		return
 	
@@ -124,11 +117,10 @@ func prepare_lyra_tavern_cutscene() -> void:
 		lyra_node.pin_to_location_for_cutscene("Tavern_Counter")
 
 func prepare_lyra_axe_return_cutscene() -> void:
-	var tavern_order_marker := get_tavern_order_cutscene_marker()
-	var tavern_counter_marker := get_tavern_counter_cutscene_marker()
+	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
 	if player_node != null:
-		if tavern_order_marker != null:
-			player_node.global_position = tavern_order_marker.global_position
+		if bedroom_exit_marker != null:
+			player_node.global_position = bedroom_exit_marker.global_position
 		else:
 			var tavern_marker := get_node_or_null("Tavern/LoadingZone/Marker2D") as Node2D
 			if tavern_marker != null:
@@ -137,10 +129,10 @@ func prepare_lyra_axe_return_cutscene() -> void:
 	var lyra_node = find_child("Lyra_NPC", true, false)
 	if lyra_node == null:
 		return
-	if lyra_node.has_method("pin_to_location_for_cutscene"):
-		lyra_node.pin_to_location_for_cutscene("Tavern_Counter")
-	elif tavern_counter_marker != null and lyra_node.has_method("pin_to_global_position_for_cutscene"):
-		lyra_node.pin_to_global_position_for_cutscene(tavern_counter_marker.global_position, &"down")
+	if bedroom_exit_marker != null and lyra_node.has_method("pin_to_global_position_for_cutscene"):
+		lyra_node.pin_to_global_position_for_cutscene(bedroom_exit_marker.global_position + Vector2(72.0, -8.0), &"down")
+	elif lyra_node.has_method("pin_to_location_for_cutscene"):
+		lyra_node.pin_to_location_for_cutscene("Tavern_Path6")
 
 func prepare_sera_quest_board_cutscene() -> void:
 	var bedroom_exit_marker := get_node_or_null("Bedroom_Exit/LoadingZone/Marker2D") as Node2D
@@ -273,12 +265,6 @@ func get_lyra_room_cutscene_marker() -> Node2D:
 
 func get_lyra_exit_cutscene_marker() -> Node2D:
 	return find_first_cutscene_marker(["Tavern_LyraExit", "Tavern_LuraExit", "Tavern_OutsideLyraRoom", "LyraExit", "Lyra Exit", "LuraExit", "Lura Exit", "lyraexit", "lyra exit", "luraexit", "lura exit", "Tavern_Path6"])
-
-func get_tavern_order_cutscene_marker() -> Node2D:
-	return find_first_cutscene_marker(["Tavern_Order", "Tavern Order", "tavernorder"])
-
-func get_tavern_counter_cutscene_marker() -> Node2D:
-	return find_first_cutscene_marker(["Tavern_Counter", "Tavern Counter", "taverncounter"])
 
 func get_sera_talk_cutscene_position() -> Vector2:
 	var sera_talk_marker := find_first_cutscene_marker(["Tavern_SeraTalkToPlayer", "Tavern_SeraTalkToPlater", "SeraTalkToPlayer", "Sera_TalkToPlayer", "Sera Talk To Player", "SeraTalkToPlater", "Sera Talk To Plater", "seratalktoplayer", "sera talk to player", "seratalktoplater", "sera talk to plater"])

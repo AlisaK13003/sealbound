@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://dyu5ef6l15p2q"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_0m3pl"]
+[ext_resource type="Texture2D" uid="uid://dq02hyroa7b00" path="res://assets/tile sheets/Fire_Potion.png" id="1_padgf"]
+
+[resource]
+script = ExtResource("1_0m3pl")
+item_name = "Potion of Damage"
+item_description = "Deals 20 damage"
+item_sprite = ExtResource("1_padgf")
+does_what = 1
+what_is_it = 1
+targets_players = false
+amount_to_heal_or_deal = 20
+removes_status = null
+give_status = null
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

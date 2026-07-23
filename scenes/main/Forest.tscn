@@ -650,78 +650,97 @@ script = ExtResource("3_w6l3q")
 
 [node name="Apothecary" parent="ForestLocationContainer" unique_id=1976910115 instance=ExtResource("4_nxhgi")]
 position = Vector2(1204, 944)
+connected_node_names = Array[String](["8"])
 "Connected To" = Array[String](["8"])
 
 [node name="8" parent="ForestLocationContainer" unique_id=932661304 instance=ExtResource("4_nxhgi")]
 position = Vector2(1202, 960)
+connected_node_names = Array[String](["Apothecary", "7"])
 "Connected To" = Array[String](["Apothecary", "7"])
 
 [node name="7" parent="ForestLocationContainer" unique_id=1605520894 instance=ExtResource("4_nxhgi")]
 position = Vector2(1125, 1070)
+connected_node_names = Array[String](["8", "6"])
 "Connected To" = Array[String](["8", "6"])
 
 [node name="6" parent="ForestLocationContainer" unique_id=1127166544 instance=ExtResource("4_nxhgi")]
 position = Vector2(957, 1070)
+connected_node_names = Array[String](["7", "5"])
 "Connected To" = Array[String](["7", "5"])
 
 [node name="5" parent="ForestLocationContainer" unique_id=1724848117 instance=ExtResource("4_nxhgi")]
 position = Vector2(866, 975)
+connected_node_names = Array[String](["6", "9", "4"])
 "Connected To" = Array[String](["6", "9", "4"])
 
 [node name="9" parent="ForestLocationContainer" unique_id=1173879848 instance=ExtResource("4_nxhgi")]
 position = Vector2(691, 960)
+connected_node_names = Array[String](["5", "4"])
 "Connected To" = Array[String](["5", "4"])
 
 [node name="4" parent="ForestLocationContainer" unique_id=1753943701 instance=ExtResource("4_nxhgi")]
 position = Vector2(508, 974)
+connected_node_names = Array[String](["9", "10", "5", "3"])
 "Connected To" = Array[String](["9", "10", "5", "3"])
 
 [node name="10" parent="ForestLocationContainer" unique_id=1243893926 instance=ExtResource("4_nxhgi")]
 position = Vector2(390, 932)
+connected_node_names = Array[String](["4", "11"])
 "Connected To" = Array[String](["4", "11"])
 
 [node name="11" parent="ForestLocationContainer" unique_id=210017339 instance=ExtResource("4_nxhgi")]
 position = Vector2(281, 981)
+connected_node_names = Array[String](["10", "12"])
 "Connected To" = Array[String](["10", "12"])
 
 [node name="12" parent="ForestLocationContainer" unique_id=201824317 instance=ExtResource("4_nxhgi")]
 position = Vector2(226, 1070)
+connected_node_names = Array[String](["11", "13"])
 "Connected To" = Array[String](["11", "13"])
 
 [node name="13" parent="ForestLocationContainer" unique_id=845643762 instance=ExtResource("4_nxhgi")]
 position = Vector2(38, 1109)
+connected_node_names = Array[String](["12", "14"])
 "Connected To" = Array[String](["12", "14"])
 
 [node name="14" parent="ForestLocationContainer" unique_id=1956745840 instance=ExtResource("4_nxhgi")]
 position = Vector2(-27, 1274)
+connected_node_names = Array[String](["13", "15"])
 "Connected To" = Array[String](["13", "15"])
 
 [node name="15" parent="ForestLocationContainer" unique_id=794100641 instance=ExtResource("4_nxhgi")]
 position = Vector2(-106, 1359)
+connected_node_names = Array[String](["14", "16"])
 "Connected To" = Array[String](["14", "16"])
 
 [node name="16" parent="ForestLocationContainer" unique_id=1951782436 instance=ExtResource("4_nxhgi")]
 position = Vector2(-145, 1511)
+connected_node_names = Array[String](["15", "17"])
 "Connected To" = Array[String](["15", "17"])
 
 [node name="17" parent="ForestLocationContainer" unique_id=566235398 instance=ExtResource("4_nxhgi")]
 position = Vector2(-195, 1545)
+connected_node_names = Array[String](["16"])
 "Connected To" = Array[String](["16"])
 
 [node name="3" parent="ForestLocationContainer" unique_id=835543870 instance=ExtResource("4_nxhgi")]
 position = Vector2(507, 1183)
+connected_node_names = Array[String](["4", "2"])
 "Connected To" = Array[String](["4", "2"])
 
 [node name="2" parent="ForestLocationContainer" unique_id=533210626 instance=ExtResource("4_nxhgi")]
 position = Vector2(435, 1318)
+connected_node_names = Array[String](["3", "1"])
 "Connected To" = Array[String](["3", "1"])
 
 [node name="1" parent="ForestLocationContainer" unique_id=1433964048 instance=ExtResource("4_nxhgi")]
 position = Vector2(435, 1468)
+connected_node_names = Array[String](["2", "HerbCollecting"])
 "Connected To" = Array[String](["2", "HerbCollecting"])
 
 [node name="HerbCollecting" parent="ForestLocationContainer" unique_id=1942188354 instance=ExtResource("4_nxhgi")]
 position = Vector2(489, 1511)
+connected_node_names = Array[String](["1"])
 "Connected To" = Array[String](["1"])
 
 [node name="Forest" parent="." unique_id=1216423571 instance=ExtResource("2_f2gc6")]
