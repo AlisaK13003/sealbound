@@ -14,8 +14,9 @@ var player_node
 func swap_to_me():
 	player_node = get_tree().get_first_node_in_group("Overworld_Player")
 	var entry_loading_zone: String = Global.current_loading_zone
+	
+	teleport_player_to_spawn()
 	set_camera_limits()
-	await teleport_player_to_spawn()
 	if is_building_insides:
 		ensure_bed_rest_interactions()
 
@@ -104,7 +105,7 @@ func teleport_player_to_spawn():
 	#else:
 	#	spawn_point = spawn_point.get_child(0)
 	
-	await get_tree().physics_frame
+	#await get_tree().physics_frame
 	player_node.global_position = spawn_point.global_position
 	#_apply_pending_player_spawn_position()
 

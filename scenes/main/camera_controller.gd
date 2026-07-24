@@ -1,6 +1,11 @@
 extends Camera2D
 
-@export var target: Node2D
+@export var target: Node2D:
+	set(value):
+		target = value
+		if is_node_ready() and target:
+			snap_to_target()
+
 @export_range(0.0, 1.0) var lerp_weight: float = 0.1
 @export var overshoot: Vector2 = Vector2(2.0, 2.0)
 
@@ -8,8 +13,7 @@ var cam_pos: Vector2
 
 func _ready() -> void:
 	if target:
-		cam_pos = target.global_position
-		global_position = cam_pos
+		snap_to_target()
 
 func _physics_process(delta: float) -> void:
 	if not target:
@@ -19,6 +23,17 @@ func _physics_process(delta: float) -> void:
 	cam_pos = lerp_overshoot_v(cam_pos, target.global_position, weight, overshoot)
 	
 	global_position = cam_pos.round()
+
+func snap_to_target() -> void:
+	if target:
+		cam_pos = target.global_position
+		global_position = cam_pos.round()
+
+func reset_smoothing_over() -> void:
+	snap_to_target()
+
+func force_update_scroll_over() -> void:
+	snap_to_target()
 
 
 static func lerp_overshoot(from: float, to: float, weight: float, overshoot_val: float) -> float:
