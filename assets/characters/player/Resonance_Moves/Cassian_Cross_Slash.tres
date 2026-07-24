@@ -4,10 +4,11 @@
 
 [resource]
 script = ExtResource("1_gop5h")
-move_name = "Infusion Cross Slash"
-move_description = "Deals moderate damage to one enemy. "
-attack_power = 1
-mana_cost = 2
+move_name = "Catalyst Heavy Strike"
+move_description = "Deals burst damage"
+attack_power = 2
+mana_cost = 3
 status_type = null
 removes_status = null
+is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"

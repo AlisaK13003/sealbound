@@ -104,7 +104,7 @@ func hide_gui(show_back_button):
 func show_base_gui():
 	base_menu.visible = true
 	selection_area.visible = true
-	bond_attack_button.visible = true
+	bond_attack_button.visible = true if bond_bar.value == bond_bar.max_value else false
 	update_action_hints()
 
 func new_player_turn():
@@ -170,10 +170,12 @@ func options_menu_option():
 		options_menu.visible = true
 		base_menu.visible = false
 		back_button_.visible = true
+		bond_attack_button.visible = false
 	update_action_hints()
 		
 func confirmation_button_(confirm_or_deny):
 	if confirm_or_deny:
+		$Confirmation.visible = false
 		defended.emit()
 	else:
 		$Confirmation.visible = false
@@ -189,18 +191,21 @@ func _back_button_pressed():
 		p_ref.confirmation.emit(false)
 		executing_item = false
 		selection_area.visible = false
+		bond_attack_button.visible = false
 		update_action_hints()
 	elif executing_skill:
 		skill_menu.visible = true
 		p_ref.confirmation.emit(false)
 		executing_skill = false
 		selection_area.visible = false
+		bond_attack_button.visible = false
 		update_action_hints()
 	elif skill_menu.visible or item_menu.visible or options_menu.visible:
 		item_menu.visible = false
+		bond_attack_button.visible = false
 		skill_menu.visible = false
 		options_menu.visible = false
-		back_button_.visible = false
+		back_button_.visible = true
 		base_menu.visible = true
 		p_ref.select_individual(false, 0)
 		p_ref.make_enemies_selectable()
@@ -210,20 +215,25 @@ func _back_button_pressed():
 func _confirm_button_pressed():
 	if item_menu.visible:
 		item_menu.node_selected()
+		bond_attack_button.visible = false
 		update_action_hints()
 	elif skill_menu.visible:
 		skill_menu.node_selected()
+		bond_attack_button.visible = false
 		update_action_hints()
 	elif options_menu.visible:
 		options_menu.node_selected()
+		bond_attack_button.visible = false
 		update_action_hints()
 	else:
 		if executing_item:
 			execute_item()
 			selection_area.visible = false
+			bond_attack_button.visible = false
 		elif executing_skill:
 			execute_skill()
 			selection_area.visible = false
+			bond_attack_button.visible = false
 	
 
 signal confirmation_given
@@ -244,6 +254,7 @@ func _skill_menu_pressed():
 		skill_menu.visible = true
 		base_menu.visible = false
 		back_button_.visible = true
+		bond_attack_button.visible = false
 	update_action_hints()
 	
 func _item_menu_pressed():
@@ -253,6 +264,7 @@ func _item_menu_pressed():
 		item_menu.visible = true
 		base_menu.visible = false
 		back_button_.visible = true
+		bond_attack_button.visible = false
 	update_action_hints()
 	
 signal display_enemies

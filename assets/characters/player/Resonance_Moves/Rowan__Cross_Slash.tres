@@ -4,10 +4,11 @@
 
 [resource]
 script = ExtResource("1_1v5aj")
-move_name = "Bulwark Cross Slash"
-move_description = "Deals moderate damage to one enemy. "
+move_name = "Bulwark Strike"
+move_description = "Deals damage and reduces target enemy's defense"
 attack_power = 1
-mana_cost = 2
-status_type = null
+does_status = true
+status_type = 512
 removes_status = null
+chance_of_status_condition = 0.7
 metadata/_custom_type_script = "uid://djfkp740jjn43"

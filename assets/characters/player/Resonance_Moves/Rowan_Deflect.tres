@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_trsuu")
-move_name = "Bulwark Deflect"
-move_description = "Increases defense for one turn"
+move_name = "Counter Stance"
+move_description = "Increases defense for a turn"
 attack_power = null
 does_damage = false
 does_status = true

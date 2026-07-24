@@ -19,11 +19,9 @@ func _setup(skill_item):
 			$Options.queue_free()
 			thing_name = $Skills/HBoxContainer/Label2
 			thing_bp_cost = $Skills/HBoxContainer/Label
-			thing_texture = $Skills/HBoxContainer/TextureRect
 		
 			thing_name.text = skill_item.move_name
 			thing_bp_cost.text = str(skill_item.mana_cost) + " BP"
-			thing_texture.texture = skill_item.move_sprite
 		elif skill_item is Items:
 			$Items.visible = true
 			$Skills.queue_free()
@@ -54,4 +52,7 @@ func _on_gui_input(event):
 	just_hovered.emit(get_index())
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if stored_thing is moves:
+				if stored_thing.mana_cost > GlobalCombatInformation.current_BP:
+					return
 			did_a_thing.emit(stored_thing, get_index())

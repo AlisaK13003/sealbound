@@ -54,18 +54,19 @@ max_number_of_floors = 8
 minimum_number_of_floors = 5
 potential_encounters = Array[ExtResource("1_1rkgn")]([SubResource("Resource_a4ahv"), SubResource("Resource_rnc85"), SubResource("Resource_c5kdw"), SubResource("Resource_sscs3"), SubResource("Resource_qwiyp")])
 dungeon_light_color = Color(0.18561739, 0.29396656, 4.813075e-08, 1)
-average_dungeon_level = 10
+average_dungeon_level = 8
+allowed_level_differential = 3
 type_of_dungeon = 1
 dungeon_unlock_type = 2
 boss_level = 12
 does_dungeon_have_boss = true
 boss_encounter = ExtResource("1_8chwe")
 chest_drops = Dictionary[Array, float]({
-[ExtResource("2_x27nh")]: 0.0,
-[ExtResource("3_2dpc1")]: 0.0,
-[ExtResource("4_6lgq3")]: 0.0,
-[ExtResource("5_ypci5")]: 0.0,
-[ExtResource("6_xdqsq")]: 0.0
+[ExtResource("2_x27nh")]: 0.15,
+[ExtResource("3_2dpc1")]: 0.15,
+[ExtResource("4_6lgq3")]: 0.15,
+[ExtResource("5_ypci5")]: 0.3,
+[ExtResource("6_xdqsq")]: 0.15
 })
 room_size = 3
 metadata/_custom_type_script = "uid://3loyjc4d808j"

@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_orn4c")
-move_name = "Furt Cross Slash"
-move_description = "Deals moderate damage to one enemy. "
-attack_power = 1
+move_name = "Reckless Heavy Strike"
+move_description = "Unleashes a heavy attack against the enemy"
+attack_power = 2
 mana_cost = 2
 status_type = null
 removes_status = null

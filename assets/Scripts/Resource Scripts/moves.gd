@@ -15,12 +15,19 @@ class_name moves
 @export var does_damage: bool = true
 @export_range(1,3) var mana_cost : int = 1
 
+@export var do_something_to_both_enemies_an_party: bool = false
+
+@export var target_weakest_party_member: bool = false
+@export var target_random_party_member: bool = false
+@export var target_every_party_member: bool = false
+
 @export_group("Summoning")
 @export var does_summon: bool = false
 @export var summons_who: generic_combatants
 @export var summon_count_range: Vector2i = Vector2i(1, 2)
 
 @export_group("Status")
+@export var status_on_player: bool = false
 @export var does_status: bool
 @export var does_remove_status: bool
 @export_flags(

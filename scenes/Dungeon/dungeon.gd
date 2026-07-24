@@ -864,9 +864,86 @@ func skill_used(skill_used: moves, skill_index):
 	action_sequence.append(func(): await current_player.attack_animation(skill_index + 1))
 	action_sequence.append(func(): await gui.update_bond_attack(skill_used.mana_cost))
 	action_sequence.append(func(): await execute_skills_fixed(skill_used, action_on_who))
+	
+	if skill_used.do_something_to_both_enemies_an_party:
+		action_sequence.append(func(): await secondary_skill_action_on_players(skill_used))
+	
 	await action_queue(action_sequence)
 	turn_ended.emit()
 	
+func secondary_skill_action_on_players(skill_used: moves):
+	if not skill_used.do_something_to_both_enemies_an_party:
+		return
+		
+	var act_on_people: Array = []
+
+	if skill_used.target_weakest_party_member:
+		var weakest_link: combat_template = null
+		for person in player_container.get_children():
+			if not is_instance_valid(person):
+				continue
+			if weakest_link == null:
+				weakest_link = person
+			elif person.stored_combatant.actual_stats.health < weakest_link.stored_combatant.actual_stats.health:
+				weakest_link = person
+		if weakest_link != null:
+			act_on_people.append(weakest_link)
+
+	elif skill_used.target_random_party_member:
+		var children = player_container.get_children()
+		if children.size() > 0:
+			act_on_people.append(children.pick_random())
+
+	elif skill_used.target_every_party_member:
+		act_on_people.append_array(player_container.get_children())
+	
+	var current_player = get_player(active_player_turn)
+	var action_sequence: Array[Callable] = []
+	var parallel_tasks: Array[Callable] = []
+
+	for person in act_on_people:		
+		if not is_instance_valid(person):
+			continue
+
+		var seq_task: Array[Callable] = []
+		var par_task: Array[Callable] = []
+
+		if skill_used.does_heal_party and not person.stored_combatant.is_combatant_enemy:
+			if get_skill_boost(skill_used) != 999:
+				par_task.append(func(e=person): 
+					if is_instance_valid(e): 
+						await e.update_health(-1 * (current_player.obtain_stat(current_player.stats.MAGIC) + get_skill_boost(skill_used)) * rng.randf_range(0.95, 1.05), "HEAL")
+				)
+			else:
+				par_task.append(func(e=person): 
+					if is_instance_valid(e):
+						await e.update_health(-1 * e.stored_combatant.actual_stats.max_health, "HEAL")
+				)
+
+		if skill_used.does_status:
+			var chance = rng.randf_range(0, 1)
+			if chance <= skill_used.chance_of_status_condition:
+				par_task.append(func(e=person): 
+					if is_instance_valid(e):
+						await e.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
+				)
+
+		if skill_used.removes_status:
+			var chance = rng.randf_range(0, 1)
+			if chance <= skill_used.chance_of_status_condition:
+				par_task.append(func(e=person): 
+					if is_instance_valid(e):
+						await e.remove_status(skill_used.removes_status)
+				)
+
+		if par_task.size() > 0:
+			seq_task.append(func(): await await_parallel(par_task))
+			parallel_tasks.append(func(): await action_queue(seq_task))
+
+	if parallel_tasks.size() > 0:
+		action_sequence.append(func(): await await_parallel(parallel_tasks))
+		await action_queue(action_sequence)
+
 	
 func item_used(item_used: Items, item_index):
 	gui.action_hint_area.visible = false
@@ -969,7 +1046,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 	var parallel_tasks : Array[Callable] = []
 
 	if acted_on_who is Array:
-		for entity in acted_on_who:
+		for entity: combat_template in acted_on_who:
 			if not is_instance_valid(entity) or entity == null:
 				continue
 
@@ -980,7 +1057,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 			seq_task.append(func(): await get_tree().create_timer(wait_time).timeout)
 
 			var chance
-			if skill_used.does_heal_party:
+			if skill_used.does_heal_party and not entity.stored_combatant.is_combatant_enemy:
 				if get_skill_boost(skill_used) != 999:
 					par_task.append(func(e=entity): 
 						if is_instance_valid(e): 
@@ -991,14 +1068,14 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 						if is_instance_valid(e):
 							await e.update_health(-1 * e.stored_combatant.actual_stats.max_health, "HEAL")
 					)
-			if skill_used.does_status:
+			if skill_used.does_status and not skill_used.status_on_player:
 				chance = rng.randf_range(0, 1)
 				if chance <= skill_used.chance_of_status_condition:
 					par_task.append(func(e=entity): 
 						if is_instance_valid(e):
 							await e.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 					)
-			if skill_used.removes_status:
+			if skill_used.removes_status and not skill_used.status_on_player:
 				chance = rng.randf_range(0, 1)
 				if chance <= skill_used.chance_of_status_condition:
 					par_task.append(func(e=entity): 
@@ -1034,7 +1111,7 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 			action_sequence.append(func(): await get_tree().create_timer(wait_time).timeout)
 
 			var chance
-			if skill_used.does_heal_party:
+			if skill_used.does_heal_party and not acted_on_who.stored_combatant.is_combatant_enemy:
 				if get_skill_boost(skill_used) != 999:
 					parallel_tasks.append(func(): 
 						if is_instance_valid(acted_on_who):
@@ -1045,14 +1122,14 @@ func execute_skills_fixed(skill_used: moves, acted_on_who):
 						if is_instance_valid(acted_on_who):
 							await acted_on_who.update_health(-1 * acted_on_who.stored_combatant.actual_stats.max_health, "HEAL")
 					)
-			if skill_used.does_status:
+			if skill_used.does_status and not skill_used.status_on_player:
 				chance = rng.randf_range(0, 1)
 				if chance <= skill_used.chance_of_status_condition:
 					parallel_tasks.append(func(): 
 						if is_instance_valid(acted_on_who):
 							await acted_on_who.handle_status(skill_used.status_type, skill_used.lasts_x_turns)
 					)
-			if skill_used.removes_status:
+			if skill_used.removes_status and not skill_used.status_on_player:
 				chance = rng.randf_range(0, 1)
 				if chance <= skill_used.chance_of_status_condition:
 					parallel_tasks.append(func(): 

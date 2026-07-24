@@ -4,10 +4,15 @@
 
 [resource]
 script = ExtResource("1_7jqjm")
-move_name = "Mercy Cross Slash"
-move_description = "Deals moderate damage to one enemy. "
-attack_power = 1
+move_name = "Aura Heavy Strike"
+move_description = "Deals heavy damage and applies regen to all allies"
+attack_power = 2
 mana_cost = 2
-status_type = null
+do_something_to_both_enemies_an_party = true
+target_every_party_member = true
+status_on_player = true
+does_status = true
+status_type = 16384
 removes_status = null
+chance_of_status_condition = 1.0
 metadata/_custom_type_script = "uid://djfkp740jjn43"

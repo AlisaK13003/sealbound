@@ -80,18 +80,16 @@ func _calculate_enemy_exp(enemy) -> int:
 	
 	var base_exp: float = 0.0
 	match enemy.experience_mult:
-		0: base_exp = 24.0   
-		1: base_exp = 30.0   
+		0: base_exp = 8.0   
+		1: base_exp = 16.0   
 		2: base_exp = 36.0   
-		3: base_exp = 150.0  
+		3: base_exp = 100.0  
 		
 	var level_scaled_exp = base_exp * pow(1.2, enemy_level - 1)
 	
 	var final_exp = level_scaled_exp * randf_range(0.9, 1.1)
 	
 	return max(1, ceili(final_exp))
-
-
 
 func raise_level_by_x(amount_to_raise_by, differential: int = 0):
 	var dif = []

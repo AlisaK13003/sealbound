@@ -93,9 +93,14 @@ func node_hovered(at_what_index):
 
 signal thing_selected
 func node_selected(what_thing = null, index = 0):
+	
 	if what_thing == null:
 		what_thing = container.get_child($Panel.current_item).stored_thing
 		index = $Panel.current_item
+	if what_thing is moves:
+		if what_thing.mana_cost > GlobalCombatInformation.current_BP:
+			return
+		
 	print("SELECTGED")
 	selected_item = what_thing
 	selected_item_index = index

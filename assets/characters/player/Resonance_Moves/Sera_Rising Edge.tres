@@ -4,9 +4,12 @@
 
 [resource]
 script = ExtResource("1_r782d")
-move_name = "Mercy Rising Edge"
-move_description = "Deals heavy damage"
-attack_power = 2
+move_name = "Mercy Strike"
+move_description = "Deals damage to an enemy whilst healing the weakest ally."
+attack_power = 1
+do_something_to_both_enemies_an_party = true
+target_weakest_party_member = true
 status_type = null
 removes_status = null
+does_heal_party = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"

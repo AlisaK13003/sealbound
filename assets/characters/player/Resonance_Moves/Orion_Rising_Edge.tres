@@ -4,9 +4,13 @@
 
 [resource]
 script = ExtResource("1_mwd55")
-move_name = "Duelist Rising Edge"
-move_description = "Deals heavy damage"
-attack_power = 2
-status_type = null
+move_name = "Cross Slash"
+move_description = "Deals damage and grants a crit chance boost"
+attack_power = 1
+do_something_to_both_enemies_an_party = true
+target_random_party_member = true
+status_on_player = true
+does_status = true
+status_type = 524288
 removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"

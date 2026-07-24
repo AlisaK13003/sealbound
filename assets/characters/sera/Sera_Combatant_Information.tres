@@ -60,6 +60,17 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_htf56")
 frame_2/duration = 1.0
 
+[sub_resource type="Resource" id="Resource_wbipj"]
+script = ExtResource("1_1dutr")
+attack_power = null
+does_damage = false
+status_type = null
+removes_status = null
+targets_party = true
+is_skill_aoe = true
+does_heal_party = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [resource]
 script = ExtResource("6_k5dor")
 combatant_name = "Sera"
@@ -75,6 +86,7 @@ ExtResource("2_ilu6r"): true,
 ExtResource("3_k7ld7"): true,
 ExtResource("4_uxf71"): true
 })
+passive_skill = SubResource("Resource_wbipj")
 resonance_skills_ = Dictionary[String, Array]({
 "Cassian": [],
 "Kaela": [],

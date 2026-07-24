@@ -4,9 +4,12 @@
 
 [resource]
 script = ExtResource("1_6rtei")
-move_name = "Furt Rising Edge"
-move_description = "Deals heavy damage"
-attack_power = 2
+move_name = "Reckless Slash"
+move_description = "Deals moderate damage to an enemy and heals weakest member"
+attack_power = 1
+do_something_to_both_enemies_an_party = true
+target_weakest_party_member = true
 status_type = null
 removes_status = null
+does_heal_party = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"

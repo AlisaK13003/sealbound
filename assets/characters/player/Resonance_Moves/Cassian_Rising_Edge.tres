@@ -4,9 +4,12 @@
 
 [resource]
 script = ExtResource("1_0gi8p")
-move_name = "Infusion Rising Edge"
-move_description = "Deals heavy damage"
-attack_power = 2
-status_type = null
+move_name = "Alchemical Slash"
+move_description = "Deals damage and infuses the target with poison"
+attack_power = 1
+does_status = true
+status_type = 8
 removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
 metadata/_custom_type_script = "uid://djfkp740jjn43"

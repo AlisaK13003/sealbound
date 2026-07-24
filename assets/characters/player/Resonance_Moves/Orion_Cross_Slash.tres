@@ -4,9 +4,12 @@
 
 [resource]
 script = ExtResource("1_hoe5c")
-move_name = "Duelist Cross Slash"
-move_description = "Deals moderate damage to one enemy. "
+move_name = "Flurry Heavy Strike"
+move_description = "Executes a rapid multi-hit combo"
 attack_power = 1
+multi_hit = true
+guaranteed_hit_count = 2
+max_hit_count = 2
 mana_cost = 2
 status_type = null
 removes_status = null

@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource("1_hisld")
-move_name = "Cadence Deflect"
-move_description = "Increases defense for one turn"
+move_name = "Tempo Guard"
+move_description = "Reduces damage taken and boosts crit chance"
 attack_power = null
 does_damage = false
 does_status = true
-status_type = 393216
+status_type = 917504
 removes_status = null
 chance_of_status_condition = 1.0
 lasts_x_turns = 2

@@ -4,9 +4,15 @@
 
 [resource]
 script = ExtResource("1_pxewu")
-move_name = "Cadence Rising Edge"
-move_description = "Deals heavy damage"
-attack_power = 2
-status_type = null
+move_name = "Cadence Strike"
+move_description = "Deals damage to an enemy and boosts a random ally's evasion"
+attack_power = 1
+do_something_to_both_enemies_an_party = true
+target_random_party_member = true
+status_on_player = true
+does_status = true
+status_type = 262144
 removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
 metadata/_custom_type_script = "uid://djfkp740jjn43"

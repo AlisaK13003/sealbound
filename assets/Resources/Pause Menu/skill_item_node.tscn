@@ -23,6 +23,7 @@ mouse_filter = 1
 texture = ExtResource("2_jc2l0")
 
 [node name="Items" type="Control" parent="." unique_id=603768657]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -68,7 +69,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "99"
 
 [node name="Skills" type="Control" parent="." unique_id=1532196743]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -78,18 +78,11 @@ mouse_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 34
-
-[node name="TextureRect" type="TextureRect" parent="Skills/HBoxContainer" unique_id=1518558764]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("3_jc2l0")
-stretch_mode = 3
+theme_override_constants/separation = 28
 
 [node name="Label2" type="Label" parent="Skills/HBoxContainer" unique_id=1159200437]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(160.475, 0)
 layout_mode = 2
-offset_transform_enabled = true
 offset_transform_position = Vector2(-30.475, 0)
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.34407577, 0.34407574, 0.34407574, 1)
@@ -98,12 +91,12 @@ text = "Cr owdbreker"
 
 [node name="Label" type="Label" parent="Skills/HBoxContainer" unique_id=1370604641]
 layout_mode = 2
-offset_transform_enabled = true
 offset_transform_position = Vector2(-7.285, 0)
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.34407577, 0.34407574, 0.34407574, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "5 BP"
+horizontal_alignment = 2
 
 [node name="Options" type="Control" parent="." unique_id=2082961757]
 visible = false

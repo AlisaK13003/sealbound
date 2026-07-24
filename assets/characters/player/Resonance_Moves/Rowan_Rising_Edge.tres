@@ -4,9 +4,16 @@
 
 [resource]
 script = ExtResource("1_k02j5")
-move_name = "Bulwark Rising Edge"
-move_description = "Deals heavy damage"
+move_name = "Shielding Heavy Strike"
+move_description = "Deal heavy damage and grants a defense buff to all allies"
 attack_power = 2
-status_type = null
+mana_cost = 2
+do_something_to_both_enemies_an_party = true
+target_every_party_member = true
+status_on_player = true
+does_status = true
+status_type = 131072
 removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
 metadata/_custom_type_script = "uid://djfkp740jjn43"
