@@ -90,7 +90,10 @@ func _perform_swap_scene(scene_to_remove = null):
 	player_instance.move_speed = get_player_speed_for_region(Global.current_region)
 	player_instance.scale = Vector2(1.0, 1.0)
 		
-	scene_to_swap_to.swap_to_me()
+	if scene_to_swap_to.has_method("swap_to_me"):
+		scene_to_swap_to.swap_to_me()
+	else:
+		push_error("AreaStateManager: Scene '%s' is missing swap_to_me()." % scene_to_swap_to.scene_file_path)
 
 	await get_tree().physics_frame
 	await get_tree().physics_frame

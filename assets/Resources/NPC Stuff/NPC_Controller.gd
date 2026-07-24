@@ -41,7 +41,7 @@ var current_destination = null
 @export var location_container: Node2D
 @export var speed: float = 75.0
 @export_file("*.json") var schedule_path: String
-@export var default_z_index: int = 0
+@export var default_z_index: int = 1
 @export var counter_z_index: int = 0
 @export var counter_draw_order_y: float = -720.0
 @export var use_counter_draw_order: bool = false
@@ -69,6 +69,7 @@ func tab_changed(tab):
 		$%ShopInterface2.visible = true
 
 func _ready():
+	apply_default_draw_order()
 	animation_driver.side_idle_pose_frame = side_idle_pose_frame
 	apply_overworld_sprite_scale()
 	call_deferred("apply_overworld_sprite_scale")
@@ -101,6 +102,10 @@ func _ready():
 		menu_tab.selection_changed.connect(tab_changed)
 	
 	navigate.call_deferred()
+
+func apply_default_draw_order() -> void:
+	z_index = default_z_index
+	y_sort_enabled = true
 
 func apply_overworld_sprite_scale() -> void:
 	if not auto_match_player_visual_height:
@@ -387,6 +392,22 @@ func ensure_location_container_for_locations(start_location, end_location = null
 			return true
 	return ensure_location_container()
 
+func ensure_schedule_location_container(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> bool:
+	var container_path_key := "location_container_path"
+	if start_key.begins_with("2_") and schedule_info_basic.has("2_location_container_path"):
+		container_path_key = "2_location_container_path"
+	var explicit_container_path := str(schedule_info_basic.get(container_path_key, "")).strip_edges()
+	if explicit_container_path.is_empty():
+		return ensure_location_container_for_locations(schedule_info_basic[start_key], schedule_info_basic[end_key])
+	if not is_inside_tree() or get_tree().current_scene == null:
+		return false
+	var explicit_container := get_tree().current_scene.get_node_or_null(NodePath(explicit_container_path))
+	if is_location_container_for_schedule(explicit_container, schedule_info_basic[start_key], schedule_info_basic[end_key]):
+		location_container = explicit_container as Node2D
+		return true
+	push_warning("NPC_Controller: Could not use schedule location container '%s' in %s." % [explicit_container_path, schedule_path])
+	return false
+
 func get_location_container_candidates(root_node: Node) -> Array[Node2D]:
 	var candidates: Array[Node2D] = []
 	collect_location_container_candidates(root_node, candidates)
@@ -592,7 +613,7 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
 func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_key: String, snap_to_start: bool = false) -> void:
-	if not ensure_location_container_for_locations(schedule_info_basic[start_key], schedule_info_basic[end_key]):
+	if not ensure_schedule_location_container(schedule_info_basic, start_key, end_key):
 		return
 	var start_point = schedule_info_basic[start_key]
 	var end_point = schedule_info_basic[end_key]
@@ -602,7 +623,7 @@ func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_k
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
 func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> Array[int]:
-	if not ensure_location_container_for_locations(schedule_info_basic[start_key], schedule_info_basic[end_key]):
+	if not ensure_schedule_location_container(schedule_info_basic, start_key, end_key):
 		return []
 	var start_location_index = get_location_index(schedule_info_basic[start_key])
 	var end_location_index = get_location_index(schedule_info_basic[end_key])
