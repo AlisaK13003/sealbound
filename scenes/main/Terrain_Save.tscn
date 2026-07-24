@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://cet1qfg0rlw8i"]
+
+[ext_resource type="Script" uid="uid://563ctmxwes0m" path="res://assets/Resources/NPC Stuff/Village_Location_Controller.gd" id="1_ja4kh"]
+[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="2_44v4w"]
+
+[node name="TerrainSave" type="Node2D" unique_id=1376311598]
+
+[node name="TavernLocationContainer" type="Node2D" parent="." unique_id=272104145]
+position = Vector2(1454, -1047)
+script = ExtResource("1_ja4kh")
+
+[node name="Tavern_Entrance" parent="TavernLocationContainer" unique_id=1976910115 instance=ExtResource("2_44v4w")]
+position = Vector2(271, 560)
+connected_node_names = Array[String](["Tavern_Path1", "Tavern_Path0"])
+"Connected To" = Array[String](["Tavern_Path1", "Tavern_Path0"])
+
+[node name="Tavern_Path1" parent="TavernLocationContainer" unique_id=1800951652 instance=ExtResource("2_44v4w")]
+position = Vector2(271, 366)
+connected_node_names = Array[String](["Tavern_Entrance", "Tavern_Path2"])
+"Connected To" = Array[String](["Tavern_Entrance", "Tavern_Path2"])
+
+[node name="Tavern_Path0" parent="TavernLocationContainer" unique_id=1453758899 instance=ExtResource("2_44v4w")]
+position = Vector2(271, 640)
+connected_node_names = Array[String](["Tavern_Entrance"])
+"Connected To" = Array[String](["Tavern_Entrance"])
+
+[node name="Tavern_Path9" parent="TavernLocationContainer" unique_id=1130672179 instance=ExtResource("2_44v4w")]
+position = Vector2(342, 366)
+connected_node_names = Array[String](["Tavern_Path10", "Tavern_Path1"])
+"Connected To" = Array[String](["Tavern_Path10", "Tavern_Path1"])
+
+[node name="Tavern_Path10" parent="TavernLocationContainer" unique_id=1323918673 instance=ExtResource("2_44v4w")]
+position = Vector2(342, 402)
+connected_node_names = Array[String](["Tavern_OrionSeat", "Tavern_Path9"])
+"Connected To" = Array[String](["Tavern_OrionSeat", "Tavern_Path9"])
+
+[node name="Tavern_Order" parent="TavernLocationContainer" unique_id=814120557 instance=ExtResource("2_44v4w")]
+position = Vector2(277, 345)
+connected_node_names = Array[String](["Tavern_Path1"])
+"Connected To" = Array[String](["Tavern_Path1"])
+
+[node name="Tavern_Path7" parent="TavernLocationContainer" unique_id=1184454182 instance=ExtResource("2_44v4w")]
+position = Vector2(178, 366)
+connected_node_names = Array[String](["Tavern_Entrance", "Tavern_Path2"])
+"Connected To" = Array[String](["Tavern_Entrance", "Tavern_Path2"])
+
+[node name="Tavern_Path8" parent="TavernLocationContainer" unique_id=1037832259 instance=ExtResource("2_44v4w")]
+position = Vector2(177, 419)
+connected_node_names = Array[String](["Tavern_Entrance", "Tavern_Path2"])
+"Connected To" = Array[String](["Tavern_Entrance", "Tavern_Path2"])
+
+[node name="Tavern_Path2" parent="TavernLocationContainer" unique_id=1820948065 instance=ExtResource("2_44v4w")]
+position = Vector2(99, 366)
+connected_node_names = Array[String](["Tavern_Path1", "Tavern_Path3"])
+"Connected To" = Array[String](["Tavern_Path1", "Tavern_Path3"])
+
+[node name="Tavern_Path3" parent="TavernLocationContainer" unique_id=506606797 instance=ExtResource("2_44v4w")]
+position = Vector2(99, 81)
+connected_node_names = Array[String](["Tavern_Path4", "Tavern_Path2"])
+"Connected To" = Array[String](["Tavern_Path4", "Tavern_Path2"])
+
+[node name="Tavern_Path4" parent="TavernLocationContainer" unique_id=1264527720 instance=ExtResource("2_44v4w")]
+position = Vector2(241, 81)
+connected_node_names = Array[String](["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"])
+
+[node name="Tavern_Path5" parent="TavernLocationContainer" unique_id=1678483253 instance=ExtResource("2_44v4w")]
+position = Vector2(241, 303)
+connected_node_names = Array[String](["Tavern_Counter", "Tavern_Path4"])
+"Connected To" = Array[String](["Tavern_Counter", "Tavern_Path4"])
+
+[node name="Tavern_Counter" parent="TavernLocationContainer" unique_id=76549188 instance=ExtResource("2_44v4w")]
+position = Vector2(276, 303)
+arrival_facing = "down"
+connected_node_names = Array[String](["Tavern_Path5"])
+"Connected To" = Array[String](["Tavern_Path5"])
+
+[node name="Tavern_OrionSeat" parent="TavernLocationContainer" unique_id=263276309 instance=ExtResource("2_44v4w")]
+position = Vector2(368, 403)
+arrival_facing = "up"
+"Connected To" = Array[String]([])
+
+[node name="Tavern_CassianSeat" parent="TavernLocationContainer" unique_id=599704874 instance=ExtResource("2_44v4w")]
+position = Vector2(368, 531)
+"Connected To" = Array[String]([])
+
+[node name="Tavern_RowanSeat" parent="TavernLocationContainer" unique_id=1034425869 instance=ExtResource("2_44v4w")]
+position = Vector2(177, 403)
+"Connected To" = Array[String]([])
+
+[node name="Tavern_SeraSeat" parent="TavernLocationContainer" unique_id=971071508 instance=ExtResource("2_44v4w")]
+position = Vector2(144, 419)
+"Connected To" = Array[String]([])
+
+[node name="Tavern_Path6" parent="TavernLocationContainer" unique_id=1173711645 instance=ExtResource("2_44v4w")]
+position = Vector2(342, 82)
+scale = Vector2(1, 1.0027484)
+connected_node_names = Array[String](["Tavern_Path4", "Tavern_LyraRoom"])
+"Connected To" = Array[String](["Tavern_Path4", "Tavern_LyraRoom"])
+
+[node name="Tavern_LyraRoom" parent="TavernLocationContainer" unique_id=1811443147 instance=ExtResource("2_44v4w")]
+position = Vector2(341.84998, -4)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="Tavern_LyraExit" parent="TavernLocationContainer" unique_id=900556289 instance=ExtResource("2_44v4w")]
+position = Vector2(342, 81)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="Tavern_BedroomExit" parent="TavernLocationContainer" unique_id=573001391 instance=ExtResource("2_44v4w")]
+position = Vector2(420, 86)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="Tavern_SeraTalkToPlayer" parent="TavernLocationContainer" unique_id=459545602 instance=ExtResource("2_44v4w")]
+position = Vector2(398, 81)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="House1LocationContainer" type="Node2D" parent="." unique_id=460306422]
+script = ExtResource("1_ja4kh")
+
+[node name="entrance" parent="House1LocationContainer" unique_id=632947549 instance=ExtResource("2_44v4w")]
+position = Vector2(6, -20)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="House1LocationContainer" unique_id=1762928863 instance=ExtResource("2_44v4w")]
+position = Vector2(6, -218)
+connected_node_names = Array[String](["entrance", "2"])
+"Connected To" = Array[String](["entrance", "2"])
+
+[node name="2" parent="House1LocationContainer" unique_id=582460826 instance=ExtResource("2_44v4w")]
+position = Vector2(127, -218)
+connected_node_names = Array[String](["1", "3"])
+"Connected To" = Array[String](["1", "3"])
+
+[node name="3" parent="House1LocationContainer" unique_id=199473498 instance=ExtResource("2_44v4w")]
+position = Vector2(127, -400)
+connected_node_names = Array[String](["4", "2"])
+"Connected To" = Array[String](["4", "2"])
+
+[node name="4" parent="House1LocationContainer" unique_id=302075793 instance=ExtResource("2_44v4w")]
+position = Vector2(-63, -400)
+connected_node_names = Array[String](["3", "bed"])
+"Connected To" = Array[String](["3", "bed"])
+
+[node name="bed" parent="House1LocationContainer" unique_id=8723924 instance=ExtResource("2_44v4w")]
+position = Vector2(-63, -443)
+arrival_facing = "left"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
+
+[node name="House2LocationContainer" type="Node2D" parent="." unique_id=2082314036]
+position = Vector2(-2, 5)
+script = ExtResource("1_ja4kh")
+
+[node name="entrance" parent="House2LocationContainer" unique_id=1119922789 instance=ExtResource("2_44v4w")]
+position = Vector2(6, -58)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="House2LocationContainer" unique_id=943105098 instance=ExtResource("2_44v4w")]
+position = Vector2(6, -218)
+connected_node_names = Array[String](["entrance", "2"])
+"Connected To" = Array[String](["entrance", "2"])
+
+[node name="2" parent="House2LocationContainer" unique_id=2032649840 instance=ExtResource("2_44v4w")]
+position = Vector2(127, -218)
+connected_node_names = Array[String](["1", "3"])
+"Connected To" = Array[String](["1", "3"])
+
+[node name="3" parent="House2LocationContainer" unique_id=1907834322 instance=ExtResource("2_44v4w")]
+position = Vector2(127, -409)
+connected_node_names = Array[String](["4", "2"])
+"Connected To" = Array[String](["4", "2"])
+
+[node name="4" parent="House2LocationContainer" unique_id=837274130 instance=ExtResource("2_44v4w")]
+position = Vector2(-63, -409)
+connected_node_names = Array[String](["3", "bed"])
+"Connected To" = Array[String](["3", "bed"])
+
+[node name="bed" parent="House2LocationContainer" unique_id=304046807 instance=ExtResource("2_44v4w")]
+position = Vector2(-63, -443)
+arrival_facing = "left"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
