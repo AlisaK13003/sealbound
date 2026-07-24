@@ -152,7 +152,7 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 	fighting_boss = is_boss
 	gui.call_deferred("hide_gui", false)
 	Fade.fade_out(0.0)
-	self.current_dungeon_run = current_dungeon_type
+	self.current_dungeon_run = GlobalCombatInformation.current_dungeon
 	temp_item_list = GlobalCombatInformation.all_held_items
 	current_bond_points = GlobalCombatInformation.current_BP
 	max_bond_points_ = GlobalCombatInformation.max_BP

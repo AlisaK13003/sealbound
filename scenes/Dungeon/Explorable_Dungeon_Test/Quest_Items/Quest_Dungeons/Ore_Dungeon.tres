@@ -42,16 +42,16 @@ minimum_number_of_floors = 4
 potential_encounters = Array[ExtResource("1_hfiyr")]([SubResource("Resource_1hibc"), SubResource("Resource_w3nti"), SubResource("Resource_lbf6d")])
 dungeon_light_color = Color(0, 0.8980392, 1, 1)
 first_time_floor_count = 4
-average_dungeon_level = 5
-allowed_level_differential = 3
+average_dungeon_level = 4
+allowed_level_differential = 1
 quest_dungeon = true
 dont_spawn_chests = true
 chest_drops = Dictionary[Array, float]({
-[ExtResource("2_nurh3")]: 0.0,
-[ExtResource("3_rpnko")]: 0.0,
-[ExtResource("4_mxpal")]: 0.0,
-[ExtResource("5_sv8wv")]: 0.0,
-[ExtResource("6_ungim")]: 0.0,
-[ExtResource("1_cx3uc"), ExtResource("1_cx3uc"), ExtResource("1_cx3uc")]: 0.0
+[ExtResource("2_nurh3")]: 0.2,
+[ExtResource("3_rpnko")]: 0.2,
+[ExtResource("4_mxpal")]: 0.2,
+[ExtResource("5_sv8wv")]: 0.15,
+[ExtResource("6_ungim")]: 0.05,
+[ExtResource("1_cx3uc"), ExtResource("1_cx3uc"), ExtResource("1_cx3uc")]: 0.1
 })
 metadata/_custom_type_script = "uid://3loyjc4d808j"

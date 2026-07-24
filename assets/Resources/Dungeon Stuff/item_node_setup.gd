@@ -21,8 +21,11 @@ func _setup(item_passed: Items, i_num, parent_ref, should_be_disabled: bool = fa
 	item_texture.texture = item_passed.item_sprite
 	index_number = i_num
 	held_item = item_passed
-	item_count = "x" + str(item_passed.stack)
+	item_count.text = "x" + str(item_passed.stack)
 	disabled = should_be_disabled
+	if disabled:
+		item_name.custom_minimum_size = Vector2i(120, 0)
+		item_count.custom_minimum_size = Vector2i(50, 0)
 	
 func highlight(should_highlight):
 	if should_highlight:

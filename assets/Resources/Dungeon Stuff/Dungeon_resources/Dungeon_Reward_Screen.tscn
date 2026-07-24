@@ -90,11 +90,15 @@ theme_override_font_sizes/font_size = 57
 text = "Results:"
 
 [node name="GridContainer" type="GridContainer" parent="Control/Contents" unique_id=485513407]
+z_index = 1
 layout_mode = 0
-offset_left = 64.0
-offset_top = 253.0
-offset_right = 106.0
-offset_bottom = 293.0
+offset_left = 6.0
+offset_top = 260.0
+offset_right = 48.0
+offset_bottom = 300.0
+theme_override_constants/h_separation = 71
+theme_override_constants/v_separation = -12
+columns = 10
 
 [node name="Label3" type="Label" parent="Control/Contents" unique_id=1748063056]
 layout_mode = 0

@@ -7,21 +7,21 @@
 [ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="2_ockvm"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="3_2oxxr"]
 [ext_resource type="Resource" uid="uid://dmhws28dcywm6" path="res://assets/Equipment/Padded_Cloth_Helmet.tres" id="3_dfl6q"]
-[ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="4_lb3be"]
 [ext_resource type="Resource" uid="uid://x5otqq0n0msv" path="res://assets/Equipment/Rusty_Shank.tres" id="4_t5ktd"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="5_im58p"]
 [ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="5_y2w8m"]
+[ext_resource type="Resource" uid="uid://bxfbuhkvgd1bg" path="res://assets/Enemies/Tiny_Wolf.tres" id="10_u2jlo"]
 
 [sub_resource type="Resource" id="Resource_5x85t"]
 script = ExtResource("1_83cff")
 encounterable_enemy = ExtResource("2_ockvm")
-enemies = Array[ExtResource("3_2oxxr")]([ExtResource("2_ockvm")])
+enemies = Array[ExtResource("3_2oxxr")]([ExtResource("2_ockvm"), ExtResource("10_u2jlo")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [sub_resource type="Resource" id="Resource_hg5wu"]
 script = ExtResource("1_83cff")
-encounterable_enemy = ExtResource("4_lb3be")
-enemies = Array[ExtResource("3_2oxxr")]([ExtResource("4_lb3be")])
+encounterable_enemy = ExtResource("10_u2jlo")
+enemies = Array[ExtResource("3_2oxxr")]([ExtResource("10_u2jlo"), ExtResource("10_u2jlo")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
