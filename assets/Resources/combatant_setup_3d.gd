@@ -301,44 +301,44 @@ func handle_status(incoming_statuses, turn_limit):
 		var opposite = conflicts[key]
 		if (incoming_statuses & key) and (all_active_effects & opposite):
 			combatant_ui_.remove_active_status(opposite)
-			parent_reference.gui.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
+			if not stored_combatant.is_combatant_enemy:
+				parent_reference.gui.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
 			_remove_active_status(opposite)
 			incoming_statuses &= ~key
+
 	for key in status_map:
 		if incoming_statuses & key:
-			if key <= statuses.AGRO and already_inflicted_with_major_status:
-				for _status in active_statuses:
-					if _status.status_type & key:
-						_status.remaining_turns = turn_limit
-						AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
-						break
+			var existing_status = null
+			for st in active_statuses:
+				if st.status_type == key:
+					existing_status = st
+					break
+
+			if existing_status != null:
+				existing_status.remaining_turns = turn_limit
+				combatant_ui_.update_active_status(existing_status)
+				AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
 			else:
-				if (all_active_effects != 0) and (all_active_effects & key) == key:
-					for _status in active_statuses:
-						if _status.status_type & (incoming_statuses & key):
-							if _status.status_type < statuses.ATTACKdown:
-								parent_reference.gui.update_bond_attack(0.5)
-							_status.remaining_turns += turn_limit
-							AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
-							break
-				else:
-					var add_status = status.new()
-					AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
-					add_status.status_type = key
+				if key <= statuses.AGRO and already_inflicted_with_major_status:
+					continue
+
+				var add_status = status.new()
+				AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
+				add_status.status_type = key
+				add_status.setup(turn_limit)
+
+				if key <= statuses.AGRO:
 					already_inflicted_with_major_status = true
-					add_status.setup(turn_limit)
-					if add_status.status_type < statuses.ATTACKdown:
-						if stored_combatant.is_combatant_enemy:
-							parent_reference.gui.update_bond_attack(0.5)
-						animated_sprite.modulate = status_color_chart[key]
-					if add_status.status_type >= statuses.ATTACKdown:
-						pass
-					combatant_ui_.update_active_status(add_status)
-					active_statuses.append(add_status)
-					if all_active_effects == 0:
-						all_active_effects = key
-					else:
-						all_active_effects |= key
+
+				if add_status.status_type < statuses.ATTACKdown:
+					if stored_combatant.is_combatant_enemy:
+						parent_reference.gui.update_bond_attack(0.5)
+					animated_sprite.modulate = status_color_chart[key]
+
+				combatant_ui_.update_active_status(add_status)
+				active_statuses.append(add_status)
+				all_active_effects |= key
+
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.gui.get_player_portrait(child_number).update_statuses(parent_reference.get_player(child_number))
 
@@ -353,35 +353,42 @@ func _remove_active_status(type_to_remove: int):
 		if active_statuses[i].status_type == type_to_remove:
 			active_statuses.remove_at(i)
 			break
+	if type_to_remove == statuses.POISON or type_to_remove == statuses.BURN:
+		animated_sprite.modulate = Color.WHITE
 
 func take_turn(player_portrait: player_portraits = null):
 	if stored_combatant.is_combatant_enemy:
 		current_mana += 1
 	is_defending = false
-	if all_active_effects != null:
+
+	if all_active_effects != 0:
 		for key in status_map:
 			if all_active_effects & key:
 				status_map[key].call()
+
 	if active_statuses != null:
-		for _status in range(active_statuses.size() - 1, -1, -1):
-			active_statuses[_status].remaining_turns -= 1
-			combatant_ui_.update_active_status(active_statuses[_status])
-			if active_statuses[_status].status_type == statuses.POISON:
+		for i in range(active_statuses.size() - 1, -1, -1):
+			var st = active_statuses[i]
+			st.remaining_turns -= 1
+			combatant_ui_.update_active_status(st)
+
+			if st.status_type == statuses.POISON:
 				AudioManager.play_ui_sound(AudioManager.STATUS_SOUND)
-			elif active_statuses[_status].status_type == statuses.DEFENSEup:
+			elif st.status_type == statuses.DEFENSEup:
 				AudioManager.play_ui_sound(AudioManager.BATTLE_DEF_UP)
-			elif active_statuses[_status].status_type == statuses.ATTACKup:
+			elif st.status_type == statuses.ATTACKup:
 				AudioManager.play_ui_sound(AudioManager.BATTLE_ATK_UP)
 			else:
 				AudioManager.play_ui_sound(AudioManager.BATTLE_GENERIC_STAT)
-				
-			if active_statuses[_status].remaining_turns == 0:
-				if active_statuses[_status].status_type <= statuses.AGRO:
+
+			# Remove status if expired
+			if st.remaining_turns <= 0:
+				if st.status_type <= statuses.AGRO:
 					already_inflicted_with_major_status = false
-				combatant_ui_.remove_active_status(active_statuses[_status].status_type)
-				_remove_active_status(active_statuses[_status].status_type)
-				
-	if not stored_combatant.is_combatant_enemy:
+				combatant_ui_.remove_active_status(st.status_type)
+				_remove_active_status(st.status_type)
+
+	if not stored_combatant.is_combatant_enemy and player_portrait != null:
 		await player_portrait.update_statuses(self)
 
 # Functions that run if status is active

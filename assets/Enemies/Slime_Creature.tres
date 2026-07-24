@@ -7,18 +7,13 @@
 [ext_resource type="Resource" uid="uid://bb57x0jdso0sf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Slime Ball.tres" id="4_33e0x"]
 [ext_resource type="SpriteFrames" uid="uid://dwqx7akwnnm6c" path="res://assets/Enemies/Slime_Sprite_Frames.tres" id="4_ftsl5"]
 
-[sub_resource type="Resource" id="Resource_bvd8k"]
+[sub_resource type="Resource" id="Resource_7mydf"]
 script = ExtResource("1_1rk34")
-move_name = "Slimer"
-attack_power = 1
-accuracy = 85
-guaranteed_hit_count = 1
-max_hit_count = 1
-is_magic_skill = true
+attack_power = 0
 does_status = true
 status_type = 8
 removes_status = null
-chance_of_status_condition = 0.5
+chance_of_status_condition = 0.7
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ftsl5"]
@@ -57,7 +52,7 @@ quest_item_drop = ExtResource("4_33e0x")
 coin_drop_range = Vector2i(1, 15)
 bond_drop_range = Vector2i(0, 5)
 combatant_skills_ = Dictionary[ExtResource("1_1rk34"), bool]({
-SubResource("Resource_bvd8k"): true
+SubResource("Resource_7mydf"): true
 })
 sprite_frames = ExtResource("4_ftsl5")
 idle_speed = 1.0

@@ -13,5 +13,6 @@ status_type = 393216
 removes_status = null
 chance_of_status_condition = 1.0
 lasts_x_turns = 2
+targets_party = true
 targets_self = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"

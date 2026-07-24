@@ -443,6 +443,8 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				
 			# Enemy Turn
 			if current_actor.stored_combatant.is_combatant_enemy:
+				hide_enemy_ui(true)
+				
 				while someone_is_dying:
 					await get_tree().process_frame
 				someone_is_dying = false
@@ -465,16 +467,22 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				if training:
 					await execute_player_auto_turn(current_actor.stored_combatant, turn_count, training)
 				else:
+					hide_enemy_ui(false)
 					#var thing = await handle_player_move_selection(current_combatant.stored_combatant)
 					selecting_entity = false
 					if get_player(active_player_turn).stored_combatant == null or get_player(active_player_turn).is_dead:
 						advance_turn(current_actor)
 						continue
+					if current_actor.stored_combatant.is_MC:
+						gui.update_mana_display(1, false, true)
+						current_actor.restore_BP(1)
+						
 					current_actor.animated_sprite.play("Idle")
 					await gui.new_player_turn()
 					make_enemies_selectable()
 					select_individual(false, 0)
 					await turn_ended
+					hide_enemy_ui(true)
 					while someone_is_dying:
 						await get_tree().process_frame
 					number_of_alive_enemies = 0
@@ -506,6 +514,14 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	print(current_bond_points)
 	return [killed_enemies, did_players_win, ret_val]
 	#return [number_of_killed_players, number_of_killed_enemies, player_container, highest_wave_reached, number_of_waves_to_fight, cum_player_health, skills_enemies_have_used]
+
+func hide_enemy_ui(hide_):
+	if hide_:
+		for enemy in enemy_shit.get_children():
+			enemy.combatant_ui_.visible = false
+	else:
+		for enemy in enemy_shit.get_children():
+			enemy.combatant_ui_.visible = true
 
 func someone_died():
 	if current_actor.stored_combatant.is_combatant_enemy:
