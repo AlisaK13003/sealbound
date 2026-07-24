@@ -313,7 +313,7 @@ func navigate():
 					return
 				elif check_time(details["start_time_hour"], details["start_time_minute"], 1):
 					set_schedule_presence(true)
-					setup_navigation(details, 0)
+					setup_navigation(details, 0, schedule_name)
 					leaving_scene = true
 					if details["should_disappear"] == 1:
 						set_schedule_presence(false)
@@ -321,7 +321,7 @@ func navigate():
 				elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
 					print("TRYING AGAIN")
 					set_schedule_presence(true)
-					setup_navigation(details, 2)
+					setup_navigation(details, 2, schedule_name)
 					leaving_scene = true
 					if details["should_disappear"] == 1:
 						set_schedule_presence(false)
@@ -329,14 +329,14 @@ func navigate():
 			elif is_schedule_scene_match(details["end_scene"], path) and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
 				leaving_scene = true
 				set_schedule_presence(true)
-				setup_navigation(details, 1)
+				setup_navigation(details, 1, schedule_name)
 				if details["should_disappear"] == 1:
 					set_schedule_presence(false)
 				return
 		elif is_schedule_scene_match(details["start_scene"], path) and check_time(details["start_time_hour"], details["start_time_minute"], 1):
 			last_applied_schedule_key = get_schedule_key(schedule_name, details)
 			set_schedule_presence(true)
-			setup_navigation(details, 0)
+			setup_navigation(details, 0, schedule_name)
 			leaving_scene = int(details.get("hide_on_arrival", 0)) == 1
 			if details["should_disappear"] == 1:
 				set_schedule_presence(false)
@@ -392,12 +392,20 @@ func ensure_location_container_for_locations(start_location, end_location = null
 			return true
 	return ensure_location_container()
 
-func ensure_schedule_location_container(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> bool:
+func ensure_schedule_location_container(schedule_info_basic: Dictionary, start_key: String, end_key: String, schedule_name: String = "") -> bool:
 	var container_path_key := "location_container_path"
 	if start_key.begins_with("2_") and schedule_info_basic.has("2_location_container_path"):
 		container_path_key = "2_location_container_path"
 	var explicit_container_path := str(schedule_info_basic.get(container_path_key, "")).strip_edges()
 	if explicit_container_path.is_empty():
+		var context_hint := get_schedule_location_context_hint(schedule_name, schedule_info_basic, start_key, end_key)
+		if not context_hint.is_empty() and is_inside_tree() and get_tree().current_scene != null:
+			if is_location_container_context_match(location_container, context_hint) and is_location_container_for_schedule(location_container, schedule_info_basic[start_key], schedule_info_basic[end_key]):
+				return true
+			for container in get_location_container_candidates(get_tree().current_scene):
+				if is_location_container_context_match(container, context_hint) and is_location_container_for_schedule(container, schedule_info_basic[start_key], schedule_info_basic[end_key]):
+					location_container = container
+					return true
 		return ensure_location_container_for_locations(schedule_info_basic[start_key], schedule_info_basic[end_key])
 	if not is_inside_tree() or get_tree().current_scene == null:
 		return false
@@ -427,6 +435,51 @@ func is_location_container_for_schedule(container: Node, start_location, end_loc
 	if end_location == null:
 		return true
 	return can_container_resolve_location(container, end_location)
+
+func get_schedule_location_context_hint(schedule_name: String, schedule_info_basic: Dictionary, start_key: String, end_key: String) -> String:
+	var schedule_text := normalize_location_name(schedule_name + " " + str(schedule_info_basic.get(start_key, "")) + " " + str(schedule_info_basic.get(end_key, "")))
+	if schedule_text.contains("easthouse") or schedule_text.contains("serahouse") or schedule_text.contains("house3"):
+		return "house3"
+	if schedule_text.contains("southhouse") or schedule_text.contains("orionhouse") or schedule_text.contains("house2"):
+		return "house2"
+	if schedule_text.contains("northhouse") or schedule_text.contains("kaelahouse") or schedule_text.contains("house1"):
+		return "house1"
+	if schedule_text.contains("blacksmith"):
+		return "blacksmith"
+	if schedule_text.contains("apothecary") or schedule_text.contains("potionshop") or schedule_text.contains("potion"):
+		return "apothecary"
+	if schedule_text.contains("library"):
+		return "library"
+	if schedule_text.contains("infirmary"):
+		return "infirmary"
+	if schedule_text.contains("tavern"):
+		return "tavern"
+	if schedule_text.contains("sera"):
+		return "infirmary"
+	return ""
+
+func is_location_container_context_match(container: Node, context_hint: String) -> bool:
+	if container == null:
+		return false
+	var aliases := get_location_context_aliases(context_hint)
+	var node := container
+	while node != null:
+		var normalized_node_name := normalize_location_name(str(node.name))
+		for alias in aliases:
+			if normalized_node_name == alias or normalized_node_name.contains(alias):
+				return true
+		node = node.get_parent()
+	return false
+
+func get_location_context_aliases(context_hint: String) -> Array:
+	match normalize_location_name(context_hint):
+		"house1":
+			return ["house1", "northhouse", "kaelahouse"]
+		"house2":
+			return ["house2", "southhouse", "orionhouse"]
+		"house3":
+			return ["house3", "easthouse", "serahouse"]
+	return [normalize_location_name(context_hint)]
 
 func can_container_resolve_location(container: Node, location) -> bool:
 	match typeof(location):
@@ -485,17 +538,36 @@ func catch_up_to_scene_schedule(path: String) -> void:
 	var latest_schedule_name = ""
 	var latest_details: Dictionary = {}
 	var latest_minutes = -1
+	var latest_order = -1
+	var schedule_order = 0
+	var elapsed_scene_schedules: Array[Dictionary] = []
 	for schedule_name in schedule_info["schedules"]:
 		var details: Dictionary = schedule_info["schedules"][schedule_name]
 		if details["scene_swap"] != 0 or not is_schedule_scene_match(details["start_scene"], path):
+			schedule_order += 1
 			continue
 		var schedule_minutes = get_schedule_minutes(details)
-		if schedule_minutes <= current_minutes and schedule_minutes > latest_minutes:
+		if schedule_minutes <= current_minutes:
+			elapsed_scene_schedules.append({
+				"name": schedule_name,
+				"details": details,
+				"minutes": schedule_minutes,
+				"order": schedule_order
+			})
+		if schedule_minutes <= current_minutes and (schedule_minutes > latest_minutes or (schedule_minutes == latest_minutes and schedule_order > latest_order)):
 			latest_schedule_name = schedule_name
 			latest_details = details
 			latest_minutes = schedule_minutes
+			latest_order = schedule_order
+		schedule_order += 1
 	if latest_details.is_empty():
 		return
+	elapsed_scene_schedules.sort_custom(sort_schedule_entries_by_time)
+	for schedule_entry in elapsed_scene_schedules:
+		var entry_details: Dictionary = schedule_entry["details"]
+		ensure_schedule_location_container(entry_details, "start_location", "end_location", str(schedule_entry["name"]))
+		if str(schedule_entry["name"]) == latest_schedule_name and int(schedule_entry["order"]) == latest_order:
+			break
 	var schedule_key = get_schedule_key(latest_schedule_name, latest_details)
 	if schedule_key == last_applied_schedule_key:
 		return
@@ -504,14 +576,21 @@ func catch_up_to_scene_schedule(path: String) -> void:
 	walking = false
 	leaving_scene = int(latest_details.get("hide_on_arrival", 0)) == 1
 	set_schedule_presence(int(latest_details.get("should_disappear", 0)) != 1)
-	catch_up_along_path(latest_details, current_minutes - latest_minutes)
+	catch_up_along_path(latest_details, current_minutes - latest_minutes, latest_schedule_name)
 
-func catch_up_along_path(details: Dictionary, elapsed_minutes: int) -> void:
-	if not ensure_location_container():
+func sort_schedule_entries_by_time(a: Dictionary, b: Dictionary) -> bool:
+	var a_minutes := int(a.get("minutes", 0))
+	var b_minutes := int(b.get("minutes", 0))
+	if a_minutes == b_minutes:
+		return int(a.get("order", 0)) < int(b.get("order", 0))
+	return a_minutes < b_minutes
+
+func catch_up_along_path(details: Dictionary, elapsed_minutes: int, schedule_name: String = "") -> void:
+	if not ensure_schedule_location_container(details, "start_location", "end_location", schedule_name):
 		return
 	current_destination = details["end_location"]
 	var travel_minutes = max(1, int(details.get("travel_minutes", DEFAULT_SCHEDULE_TRAVEL_MINUTES)))
-	var path_ids = get_schedule_path_ids(details, "start_location", "end_location")
+	var path_ids = get_schedule_path_ids(details, "start_location", "end_location", schedule_name)
 	if path_ids.is_empty():
 		return
 	if elapsed_minutes >= travel_minutes:
@@ -573,14 +652,16 @@ func check_time(start_time_hour, start_time_minutes, before_equal_after):
 	return false
 
 # Given the start and end location specified in the schedule, return the path of points needed to traverse to get there
-func setup_navigation(schedule_info_basic, which_sub_schedule):
+func setup_navigation(schedule_info_basic, which_sub_schedule, schedule_name: String = ""):
 	match which_sub_schedule:
 		0:
-			set_schedule_path(schedule_info_basic, "start_location", "end_location", true)
+			set_schedule_path(schedule_info_basic, "start_location", "end_location", true, schedule_name)
 		1:
-			set_schedule_path(schedule_info_basic, "2_start_location", "2_end_location", true)
+			set_schedule_path(schedule_info_basic, "2_start_location", "2_end_location", true, schedule_name)
 		# resume schedule
 		2:
+			if not ensure_schedule_location_container(schedule_info_basic, "start_location", "end_location", schedule_name):
+				return
 			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
 			var time_diff = ((schedule_info_basic["2_start_time_hour"] - Global.current_hour) * 60) - (schedule_info_basic["2_start_time_minute"] - Global.current_minute)
 			var start_diff = (( schedule_info_basic["2_start_time_hour"] - schedule_info_basic["start_time_hour"]) * 60) - (schedule_info_basic["2_start_time_minute"] - schedule_info_basic["2_start_time_minute"])
@@ -590,6 +671,8 @@ func setup_navigation(schedule_info_basic, which_sub_schedule):
 				path_start -= 1
 			set_path(floor(path_start), schedule_info_basic["end_location"], true)
 		3:
+			if not ensure_schedule_location_container(schedule_info_basic, "start_location", "end_location", schedule_name):
+				return
 			var temp_path = location_container.get_path_between(schedule_info_basic["start_location"], schedule_info_basic["end_location"])
 			var time_diff = ((schedule_info_basic["end_time_hour"] - Global.current_hour) * 60) - (Global.current_minute)
 			var start_diff = ((schedule_info_basic["end_time_hour"] - schedule_info_basic["start_time_hour"]) * 60) - schedule_info_basic["start_time_minute"] + schedule_info_basic["end_time_minute"]
@@ -612,18 +695,18 @@ func set_path(start_point, end_point, snap_to_start: bool = false):
 	var path_ids = location_container.get_path_between(start_point, end_point)
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
-func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_key: String, snap_to_start: bool = false) -> void:
-	if not ensure_schedule_location_container(schedule_info_basic, start_key, end_key):
+func set_schedule_path(schedule_info_basic: Dictionary, start_key: String, end_key: String, snap_to_start: bool = false, schedule_name: String = "") -> void:
+	if not ensure_schedule_location_container(schedule_info_basic, start_key, end_key, schedule_name):
 		return
 	var start_point = schedule_info_basic[start_key]
 	var end_point = schedule_info_basic[end_key]
 	current_destination = end_point
-	var path_ids = get_schedule_path_ids(schedule_info_basic, start_key, end_key)
+	var path_ids = get_schedule_path_ids(schedule_info_basic, start_key, end_key, schedule_name)
 	var start_index = get_location_index(start_point)
 	set_path_nodes(path_ids, start_index, start_point, end_point, snap_to_start)
 
-func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String) -> Array[int]:
-	if not ensure_schedule_location_container(schedule_info_basic, start_key, end_key):
+func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, end_key: String, schedule_name: String = "") -> Array[int]:
+	if not ensure_schedule_location_container(schedule_info_basic, start_key, end_key, schedule_name):
 		return []
 	var start_location_index = get_location_index(schedule_info_basic[start_key])
 	var end_location_index = get_location_index(schedule_info_basic[end_key])
@@ -635,6 +718,10 @@ func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, e
 		var graph_path: Array[int] = location_container.get_path_between(schedule_info_basic[start_key], schedule_info_basic[end_key])
 		if not graph_path.is_empty():
 			return graph_path
+
+	var connected_graph_path := get_connected_node_path_ids(start_location_index, end_location_index)
+	if not connected_graph_path.is_empty():
+		return connected_graph_path
 
 	var path_locations_key := "path_locations"
 	if start_key.begins_with("2_"):
@@ -656,6 +743,86 @@ func get_schedule_path_ids(schedule_info_basic: Dictionary, start_key: String, e
 				push_warning("NPC_Controller: Using explicit fallback route for '%s' -> '%s' in %s because no graph route was available." % [str(schedule_info_basic[start_key]), str(schedule_info_basic[end_key]), schedule_path])
 			return explicit_path_ids
 	return []
+
+func get_connected_node_path_ids(start_location_index: int, end_location_index: int) -> Array[int]:
+	if location_container == null:
+		return []
+	var child_count := location_container.get_child_count()
+	if start_location_index < 0 or end_location_index < 0 or start_location_index >= child_count or end_location_index >= child_count:
+		return []
+	if start_location_index == end_location_index:
+		return [start_location_index]
+
+	var adjacency: Array = []
+	for _i in range(child_count):
+		adjacency.append([])
+	for child_index in range(child_count):
+		var child := location_container.get_child(child_index)
+		for connected_location in get_connected_location_names(child):
+			var connected_index := get_location_index(connected_location)
+			if connected_index < 0 or connected_index >= child_count:
+				continue
+			append_unique_int(adjacency[child_index], connected_index)
+			append_unique_int(adjacency[connected_index], child_index)
+
+	var distances: Array[float] = []
+	var previous: Array[int] = []
+	var visited: Array[bool] = []
+	for _i in range(child_count):
+		distances.append(INF)
+		previous.append(-1)
+		visited.append(false)
+	distances[start_location_index] = 0.0
+
+	for _step in range(child_count):
+		var current_index := -1
+		var best_distance := INF
+		for child_index in range(child_count):
+			if visited[child_index]:
+				continue
+			if distances[child_index] < best_distance:
+				best_distance = distances[child_index]
+				current_index = child_index
+		if current_index == -1:
+			break
+		if current_index == end_location_index:
+			break
+		visited[current_index] = true
+		var current_position := get_location_global_position(current_index)
+		for neighbor in adjacency[current_index]:
+			var neighbor_index := int(neighbor)
+			if visited[neighbor_index]:
+				continue
+			var neighbor_position := get_location_global_position(neighbor_index)
+			var new_distance := distances[current_index] + current_position.distance_to(neighbor_position)
+			if new_distance < distances[neighbor_index]:
+				distances[neighbor_index] = new_distance
+				previous[neighbor_index] = current_index
+
+	if previous[end_location_index] == -1:
+		return []
+	var path: Array[int] = []
+	var cursor := end_location_index
+	while cursor != -1:
+		path.push_front(cursor)
+		if cursor == start_location_index:
+			break
+		cursor = previous[cursor]
+	if path.is_empty() or path[0] != start_location_index:
+		return []
+	return path
+
+func get_connected_location_names(location_node: Node) -> Array:
+	var connected_locations = location_node.get("connected_node_names")
+	if not (connected_locations is Array) or connected_locations.is_empty():
+		connected_locations = location_node.get("Connected To")
+	if connected_locations is Array:
+		return connected_locations
+	return []
+
+func append_unique_int(values: Array, value: int) -> void:
+	if not values.has(value):
+		values.append(value)
 
 func get_location_index(location) -> int:
 	if location_container == null:

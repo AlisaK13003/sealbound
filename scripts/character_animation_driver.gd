@@ -21,6 +21,8 @@ func face(sprite: AnimatedSprite2D, direction: StringName) -> void:
 			facing_left = false
 		_:
 			return
+	if sprite == null or sprite.sprite_frames == null:
+		return
 	_play_idle_for_facing(sprite)
 
 func sync(sprite: AnimatedSprite2D, motion: Vector2) -> void:

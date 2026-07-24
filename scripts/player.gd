@@ -182,8 +182,21 @@ func _play_pending_cutscene() -> void:
 	Global.pending_cutscene_path = ""
 	var runner = CUTSCENE_RUNNER_SCRIPT.new()
 	get_tree().current_scene.add_child(runner)
+	runner.finished.connect(_restore_pending_cutscene_actors)
 	runner.finished.connect(runner.queue_free)
 	runner.play(cutscene_path)
+
+func _restore_pending_cutscene_actors() -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	_restore_cutscene_actors_in_tree(scene)
+
+func _restore_cutscene_actors_in_tree(node: Node) -> void:
+	if node.has_method("restore_after_cutscene"):
+		node.restore_after_cutscene()
+	for child in node.get_children():
+		_restore_cutscene_actors_in_tree(child)
 
 func apply_gender_sprite() -> void:
 	if animated_sprite == null:

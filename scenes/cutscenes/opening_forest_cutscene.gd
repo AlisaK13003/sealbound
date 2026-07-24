@@ -158,7 +158,11 @@ func _prepare_infirmary_wakeup_positions() -> void:
 		push_warning("Scene1 Sera NPC not found in Building Insides scene.")
 		return
 
-	sera_node.global_position = sera_marker.global_position
+	if sera_node.has_method("pin_to_global_position_for_cutscene"):
+		sera_node.pin_to_global_position_for_cutscene(sera_marker.global_position, &"down")
+	else:
+		sera_node.visible = true
+		sera_node.global_position = sera_marker.global_position
 
 
 func _find_marker_by_names(root: Node, marker_names: Array) -> Marker2D:
