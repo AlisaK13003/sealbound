@@ -10,6 +10,7 @@ var node_count: int = 0
 const LOCATION_ALIASES: Dictionary = {
 	"southhouse": ["South House", "South_House", "SouthHouse", "Sout House", "Sout_House", "SoutHouse", "Orion House", "Orion_House", "OrionHouse"],
 	"northhouse": ["North House", "North_House", "NorthHouse", "Kaela House", "Kaela_House", "KaelaHouse"],
+	"easthouse": ["East House", "East_House", "EastHouse", "House 3", "House_3", "House3", "Sera House", "Sera_House", "SeraHouse"],
 	"practicefield": ["Practice Field", "Practice_Field", "PracticeField", "Practice", "Training Field", "Training_Field", "TrainingField"],
 	"pondside": ["Pondside", "Pond Side", "Pond_Side", "PondSide", "Pond"],
 	"taverncliff": ["Tavern Cliff", "Tavern_Cliff", "TavernCliff", "Tavern Cliffside", "Tavern_Cliffside", "TavernCliffside"],
