@@ -750,6 +750,9 @@ confirmation_before_teleport = false
 "Destination Location/Region" = "Village"
 "Destination Location/Spot" = "Spooky Forest"
 
+[node name="CollisionShape2D" parent="Forest/Area2D" parent_id_path=PackedInt32Array(1216423571, 416868945) index="0" unique_id=1179238723]
+scale = Vector2(2.275, 2.275)
+
 [node name="Marker2D" parent="Forest" index="1" unique_id=888315718]
 position = Vector2(50, -31)
 
@@ -778,8 +781,8 @@ shape = SubResource("RectangleShape2D_rld5i")
 
 [node name="Apothecary" parent="." unique_id=1937347105 instance=ExtResource("2_f2gc6")]
 z_index = 2
-position = Vector2(1203, 943)
-confirmation_before_teleport = false
+position = Vector2(1201, 925)
+confirmation_before_teleport = true
 location_data = {
 "Buildings_Insides": ["Apothecary", "Infirmary", "Library", "Blacksmith"],
 "Cliff Side": ["Cliff Entrance"],
@@ -789,6 +792,9 @@ location_data = {
 "Current Location/Spot" = "Apothecary"
 "Destination Location/Region" = "Buildings_Insides"
 "Destination Location/Spot" = "Apothecary"
+
+[node name="Marker2D" parent="Apothecary" index="1" unique_id=888315718]
+position = Vector2(-10, 38)
 
 [node name="UniversalCamera" parent="." unique_id=1015878525 instance=ExtResource("7_xsjiv")]
 
@@ -836,3 +842,4 @@ position = Vector2(1202, 912)
 speed = 125.0
 
 [editable path="Forest"]
+[editable path="Apothecary"]
