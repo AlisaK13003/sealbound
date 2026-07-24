@@ -127,6 +127,9 @@ func debug_skip_intro_to_axe_dungeon() -> void:
 func _on_opening_cutscene_finished() -> void:
 	if debug_story_skip_requested:
 		return
+
+	Global.set_calendar_time(0, 0, 10, 0)
+
 	Global.pending_cutscene_path = INFIRMARY_WAKEUP_CUTSCENE_PATH
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Infirmary"
