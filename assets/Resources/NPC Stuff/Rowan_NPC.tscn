@@ -156,6 +156,7 @@ shape = SubResource("CircleShape2D_ilmyp")
 visible = false
 
 [node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 instance=ExtResource("5_4xdjx")]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 0
 anchor_right = 0.0
