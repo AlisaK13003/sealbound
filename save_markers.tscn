@@ -1,0 +1,613 @@
+[gd_scene format=3 uid="uid://vpnmadacmce"]
+
+[ext_resource type="PackedScene" uid="uid://duovfa16f56cl" path="res://assets/Resources/NPC Stuff/Key_Point_Node.tscn" id="1_ctxo4"]
+[ext_resource type="Script" uid="uid://563ctmxwes0m" path="res://assets/Resources/NPC Stuff/Village_Location_Controller.gd" id="2_w3wca"]
+[ext_resource type="PackedScene" uid="uid://qdtw7wxshme7" path="res://assets/Resources/NPC Stuff/Village_Location_Container.tscn" id="3_jc0ks"]
+
+[node name="SaveMarkers" type="Node2D" unique_id=787423184]
+
+[node name="BlacksmithLocationContainer" type="Node2D" parent="." unique_id=2136703947]
+
+[node name="entrance" parent="BlacksmithLocationContainer" unique_id=1976910115 instance=ExtResource("1_ctxo4")]
+position = Vector2(10, 27)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="BlacksmithLocationContainer" unique_id=545829896 instance=ExtResource("1_ctxo4")]
+position = Vector2(10, -49)
+connected_node_names = Array[String](["entrance", "2"])
+"Connected To" = Array[String](["entrance", "2"])
+
+[node name="2" parent="BlacksmithLocationContainer" unique_id=1304891804 instance=ExtResource("1_ctxo4")]
+position = Vector2(158, -49)
+connected_node_names = Array[String](["4", "1"])
+"Connected To" = Array[String](["4", "1"])
+
+[node name="5" parent="BlacksmithLocationContainer" unique_id=831849194 instance=ExtResource("1_ctxo4")]
+position = Vector2(416, -49)
+connected_node_names = Array[String](["2", "6"])
+"Connected To" = Array[String](["2", "6"])
+
+[node name="6" parent="BlacksmithLocationContainer" unique_id=1068686000 instance=ExtResource("1_ctxo4")]
+position = Vector2(416, -165)
+connected_node_names = Array[String](["forge", "workstation", "8"])
+"Connected To" = Array[String](["forge", "workstation", "8"])
+
+[node name="8" parent="BlacksmithLocationContainer" unique_id=329042654 instance=ExtResource("1_ctxo4")]
+position = Vector2(539, -165)
+connected_node_names = Array[String](["6", "3"])
+"Connected To" = Array[String](["6", "3"])
+
+[node name="3" parent="BlacksmithLocationContainer" unique_id=180176500 instance=ExtResource("1_ctxo4")]
+position = Vector2(539, -225)
+connected_node_names = Array[String](["bed", "8"])
+"Connected To" = Array[String](["bed", "8"])
+
+[node name="bed" parent="BlacksmithLocationContainer" unique_id=1121836539 instance=ExtResource("1_ctxo4")]
+position = Vector2(559, -225)
+connected_node_names = Array[String](["3"])
+"Connected To" = Array[String](["3"])
+
+[node name="forge" parent="BlacksmithLocationContainer" unique_id=1850320839 instance=ExtResource("1_ctxo4")]
+position = Vector2(429, -180)
+arrival_facing = "up"
+connected_node_names = Array[String](["7", "6"])
+"Connected To" = Array[String](["7", "6"])
+
+[node name="7" parent="BlacksmithLocationContainer" unique_id=47872160 instance=ExtResource("1_ctxo4")]
+position = Vector2(370, -180)
+connected_node_names = Array[String](["forge", "anvil"])
+"Connected To" = Array[String](["forge", "anvil"])
+
+[node name="anvil" parent="BlacksmithLocationContainer" unique_id=1425348644 instance=ExtResource("1_ctxo4")]
+position = Vector2(370, -189)
+arrival_facing = "up"
+connected_node_names = Array[String](["7"])
+"Connected To" = Array[String](["7"])
+
+[node name="workstation" parent="BlacksmithLocationContainer" unique_id=2094051290 instance=ExtResource("1_ctxo4")]
+position = Vector2(345, -165)
+arrival_facing = "left"
+connected_node_names = Array[String](["6"])
+"Connected To" = Array[String](["6"])
+
+[node name="4" parent="BlacksmithLocationContainer" unique_id=1530134731 instance=ExtResource("1_ctxo4")]
+position = Vector2(158, -148)
+connected_node_names = Array[String](["2", "counter"])
+"Connected To" = Array[String](["2", "counter"])
+
+[node name="counter" parent="BlacksmithLocationContainer" unique_id=1351886587 instance=ExtResource("1_ctxo4")]
+position = Vector2(10, -148)
+arrival_facing = "down"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
+
+[node name="ApothecaryLocationContainer" type="Node2D" parent="." unique_id=541383980]
+script = ExtResource("2_w3wca")
+
+[node name="Exit" parent="ApothecaryLocationContainer" unique_id=1486924903 instance=ExtResource("1_ctxo4")]
+position = Vector2(103, 216)
+connected_node_names = Array[String](["CounterBuy"])
+"Connected To" = Array[String](["CounterBuy"])
+
+[node name="CounterBuy" parent="ApothecaryLocationContainer" unique_id=649651842 instance=ExtResource("1_ctxo4")]
+position = Vector2(107, 0)
+arrival_facing = "up"
+connected_node_names = Array[String](["Exit", "counterEntrance"])
+"Connected To" = Array[String](["Exit", "counterEntrance"])
+
+[node name="counterEntrance" parent="ApothecaryLocationContainer" unique_id=262475311 instance=ExtResource("1_ctxo4")]
+position = Vector2(41, 0)
+connected_node_names = Array[String](["toRestocking", "counterEntrance2", "CounterBuy"])
+"Connected To" = Array[String](["toRestocking", "counterEntrance2", "CounterBuy"])
+
+[node name="counterEntrance2" parent="ApothecaryLocationContainer" unique_id=1044740211 instance=ExtResource("1_ctxo4")]
+position = Vector2(41, -45)
+connected_node_names = Array[String](["counterEntrance", "counterToBooks", ""])
+"Connected To" = Array[String](["counterEntrance", "counterToBooks", ""])
+
+[node name="CounterSell" parent="ApothecaryLocationContainer" unique_id=316147329 instance=ExtResource("1_ctxo4")]
+position = Vector2(111, -45)
+arrival_facing = "down"
+connected_node_names = Array[String](["counterToChair", "counterEntrance2", "counterToBooks"])
+"Connected To" = Array[String](["counterToChair", "counterEntrance2", "counterToBooks"])
+
+[node name="restocking" parent="ApothecaryLocationContainer" unique_id=848100819 instance=ExtResource("1_ctxo4")]
+position = Vector2(-204, 79)
+arrival_facing = "down"
+connected_node_names = Array[String](["toRestocking3"])
+"Connected To" = Array[String](["toRestocking3"])
+
+[node name="restocking2" parent="ApothecaryLocationContainer" unique_id=444658019 instance=ExtResource("1_ctxo4")]
+position = Vector2(-154, -34)
+arrival_facing = "up"
+connected_node_names = Array[String](["toRestocking2"])
+"Connected To" = Array[String](["toRestocking2"])
+
+[node name="toRestocking2" parent="ApothecaryLocationContainer" unique_id=1007084365 instance=ExtResource("1_ctxo4")]
+position = Vector2(-45, -34)
+arrival_facing = "down"
+connected_node_names = Array[String](["toRestocking3", "restocking2"])
+"Connected To" = Array[String](["toRestocking3", "restocking2"])
+
+[node name="toRestocking3" parent="ApothecaryLocationContainer" unique_id=689734365 instance=ExtResource("1_ctxo4")]
+position = Vector2(-45, 79)
+arrival_facing = "down"
+connected_node_names = Array[String](["toRestocking2", "restocking", "toRestocking"])
+"Connected To" = Array[String](["toRestocking2", "restocking", "toRestocking"])
+
+[node name="toRestocking" parent="ApothecaryLocationContainer" unique_id=672588455 instance=ExtResource("1_ctxo4")]
+position = Vector2(41, 79)
+arrival_facing = "down"
+connected_node_names = Array[String](["toRestocking3", "counterEntrance"])
+"Connected To" = Array[String](["toRestocking3", "counterEntrance"])
+
+[node name="middle" parent="ApothecaryLocationContainer" unique_id=1047028227 instance=ExtResource("1_ctxo4")]
+position = Vector2(107, 79)
+arrival_facing = "down"
+connected_node_names = Array[String](["toRestocking", "CounterBuy", "Exit", "counterEntrance"])
+"Connected To" = Array[String](["toRestocking", "CounterBuy", "Exit", "counterEntrance"])
+
+[node name="counterToBooks" parent="ApothecaryLocationContainer" unique_id=584992498 instance=ExtResource("1_ctxo4")]
+position = Vector2(68, -113)
+arrival_facing = "down"
+connected_node_names = Array[String](["CounterSell", "books"])
+"Connected To" = Array[String](["CounterSell", "books"])
+
+[node name="chair" parent="ApothecaryLocationContainer" unique_id=1177558182 instance=ExtResource("1_ctxo4")]
+position = Vector2(205, -176)
+arrival_facing = "left"
+connected_node_names = Array[String](["chairToBooks", "counterToChair"])
+"Connected To" = Array[String](["chairToBooks", "counterToChair"])
+
+[node name="chairToBooks" parent="ApothecaryLocationContainer" unique_id=1238781358 instance=ExtResource("1_ctxo4")]
+position = Vector2(205, -217)
+arrival_facing = "left"
+connected_node_names = Array[String](["chair", "books"])
+"Connected To" = Array[String](["chair", "books"])
+
+[node name="Bed" parent="ApothecaryLocationContainer" unique_id=1596624768 instance=ExtResource("1_ctxo4")]
+position = Vector2(205, -327)
+arrival_facing = "right"
+connected_node_names = Array[String](["toBed3"])
+"Connected To" = Array[String](["toBed3"])
+
+[node name="toBed3" parent="ApothecaryLocationContainer" unique_id=2105737682 instance=ExtResource("1_ctxo4")]
+position = Vector2(42, -301)
+connected_node_names = Array[String](["toBed2", "Bed"])
+"Connected To" = Array[String](["toBed2", "Bed"])
+
+[node name="toBed2" parent="ApothecaryLocationContainer" unique_id=78273149 instance=ExtResource("1_ctxo4")]
+position = Vector2(15, -293)
+connected_node_names = Array[String](["toBed3", "toBed1"])
+"Connected To" = Array[String](["toBed3", "toBed1"])
+
+[node name="toBed1" parent="ApothecaryLocationContainer" unique_id=916415771 instance=ExtResource("1_ctxo4")]
+position = Vector2(15, -220)
+connected_node_names = Array[String](["toBed2", "counterToBooks", "workEntrance"])
+"Connected To" = Array[String](["toBed2", "counterToBooks", "workEntrance"])
+
+[node name="books" parent="ApothecaryLocationContainer" unique_id=482034172 instance=ExtResource("1_ctxo4")]
+position = Vector2(64, -220)
+arrival_facing = "up"
+connected_node_names = Array[String](["workEntrance", "chairToBooks", "counterToBooks"])
+"Connected To" = Array[String](["workEntrance", "chairToBooks", "counterToBooks"])
+
+[node name="workEntrance" parent="ApothecaryLocationContainer" unique_id=1987947179 instance=ExtResource("1_ctxo4")]
+position = Vector2(2, -217)
+connected_node_names = Array[String](["workEntrance2", "counterToBooks", "toBed1"])
+"Connected To" = Array[String](["workEntrance2", "counterToBooks", "toBed1"])
+
+[node name="workEntrance2" parent="ApothecaryLocationContainer" unique_id=2113988715 instance=ExtResource("1_ctxo4")]
+position = Vector2(-72, -217)
+connected_node_names = Array[String](["workEntrance3", "workEntrance"])
+"Connected To" = Array[String](["workEntrance3", "workEntrance"])
+
+[node name="workEntrance3" parent="ApothecaryLocationContainer" unique_id=1753398689 instance=ExtResource("1_ctxo4")]
+position = Vector2(-72, -281)
+connected_node_names = Array[String](["potionStation", "cauldron"])
+"Connected To" = Array[String](["potionStation", "cauldron"])
+
+[node name="cauldron" parent="ApothecaryLocationContainer" unique_id=1602789912 instance=ExtResource("1_ctxo4")]
+position = Vector2(-124, -281)
+arrival_facing = "down"
+connected_node_names = Array[String](["potionStationWalk", "workEntrance3"])
+"Connected To" = Array[String](["potionStationWalk", "workEntrance3"])
+
+[node name="potionStation" parent="ApothecaryLocationContainer" unique_id=1669744202 instance=ExtResource("1_ctxo4")]
+position = Vector2(-67, -304)
+arrival_facing = "up"
+connected_node_names = Array[String](["workEntrance3"])
+"Connected To" = Array[String](["workEntrance3"])
+
+[node name="potionStation2" parent="ApothecaryLocationContainer" unique_id=1279205183 instance=ExtResource("1_ctxo4")]
+position = Vector2(-225, -304)
+arrival_facing = "up"
+connected_node_names = Array[String](["potionStationWalk"])
+"Connected To" = Array[String](["potionStationWalk"])
+
+[node name="potionStationWalk" parent="ApothecaryLocationContainer" unique_id=1464262236 instance=ExtResource("1_ctxo4")]
+position = Vector2(-225, -282)
+arrival_facing = "up"
+connected_node_names = Array[String](["cauldron", "potionStation2"])
+"Connected To" = Array[String](["cauldron", "potionStation2"])
+
+[node name="counterToChair" parent="ApothecaryLocationContainer" unique_id=209380778 instance=ExtResource("1_ctxo4")]
+position = Vector2(186, -90)
+connected_node_names = Array[String](["chair", "CounterSell"])
+"Connected To" = Array[String](["chair", "CounterSell"])
+
+[node name="LibraryLocationContainer" type="Node2D" parent="." unique_id=1838760372]
+position = Vector2(135, 357)
+script = ExtResource("2_w3wca")
+
+[node name="entrance" parent="LibraryLocationContainer" unique_id=288560793 instance=ExtResource("1_ctxo4")]
+position = Vector2(0, -82)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="LibraryLocationContainer" unique_id=896821481 instance=ExtResource("1_ctxo4")]
+position = Vector2(0, -145)
+connected_node_names = Array[String](["bookcase1", "entrance", "2"])
+"Connected To" = Array[String](["bookcase1", "entrance", "2"])
+
+[node name="2" parent="LibraryLocationContainer" unique_id=525057051 instance=ExtResource("1_ctxo4")]
+position = Vector2(0, -307)
+connected_node_names = Array[String](["bookshelf3", "1", "3"])
+"Connected To" = Array[String](["bookshelf3", "1", "3"])
+
+[node name="3" parent="LibraryLocationContainer" unique_id=976667852 instance=ExtResource("1_ctxo4")]
+position = Vector2(0, -390)
+connected_node_names = Array[String](["2", "4", "6"])
+"Connected To" = Array[String](["2", "4", "6"])
+
+[node name="6" parent="LibraryLocationContainer" unique_id=526768835 instance=ExtResource("1_ctxo4")]
+position = Vector2(202, -390)
+connected_node_names = Array[String](["bookcase3", "3", "9"])
+"Connected To" = Array[String](["bookcase3", "3", "9"])
+
+[node name="7" parent="LibraryLocationContainer" unique_id=897936459 instance=ExtResource("1_ctxo4")]
+position = Vector2(202, -168)
+connected_node_names = Array[String](["reading", "9"])
+"Connected To" = Array[String](["reading", "9"])
+
+[node name="9" parent="LibraryLocationContainer" unique_id=2002629477 instance=ExtResource("1_ctxo4")]
+position = Vector2(202, -313)
+connected_node_names = Array[String](["7", "6", "10"])
+"Connected To" = Array[String](["7", "6", "10"])
+
+[node name="10" parent="LibraryLocationContainer" unique_id=328461215 instance=ExtResource("1_ctxo4")]
+position = Vector2(331, -313)
+connected_node_names = Array[String](["counter", "9"])
+"Connected To" = Array[String](["counter", "9"])
+
+[node name="counter" parent="LibraryLocationContainer" unique_id=507758454 instance=ExtResource("1_ctxo4")]
+position = Vector2(331, -285)
+connected_node_names = Array[String](["10"])
+"Connected To" = Array[String](["10"])
+
+[node name="reading" parent="LibraryLocationContainer" unique_id=1252949606 instance=ExtResource("1_ctxo4")]
+position = Vector2(311, -168)
+connected_node_names = Array[String](["7"])
+"Connected To" = Array[String](["7"])
+
+[node name="bookcase3" parent="LibraryLocationContainer" unique_id=494903964 instance=ExtResource("1_ctxo4")]
+position = Vector2(202, -462)
+arrival_facing = "left"
+connected_node_names = Array[String](["6"])
+"Connected To" = Array[String](["6"])
+
+[node name="4" parent="LibraryLocationContainer" unique_id=154235644 instance=ExtResource("1_ctxo4")]
+position = Vector2(-91, -390)
+connected_node_names = Array[String](["3", "5"])
+"Connected To" = Array[String](["3", "5"])
+
+[node name="bookcase1" parent="LibraryLocationContainer" unique_id=1157132026 instance=ExtResource("1_ctxo4")]
+position = Vector2(-91, -441)
+arrival_facing = "left"
+connected_node_names = Array[String](["5", "4"])
+"Connected To" = Array[String](["5", "4"])
+
+[node name="5" parent="LibraryLocationContainer" unique_id=601466909 instance=ExtResource("1_ctxo4")]
+position = Vector2(-91, -503)
+connected_node_names = Array[String](["bookcase1", "bookcase2"])
+"Connected To" = Array[String](["bookcase1", "bookcase2"])
+
+[node name="bookcase2" parent="LibraryLocationContainer" unique_id=767060006 instance=ExtResource("1_ctxo4")]
+position = Vector2(-105, -503)
+arrival_facing = "up"
+connected_node_names = Array[String](["5"])
+"Connected To" = Array[String](["5"])
+
+[node name="bookshelf3" parent="LibraryLocationContainer" unique_id=108616561 instance=ExtResource("1_ctxo4")]
+position = Vector2(158, -307)
+arrival_facing = "up"
+connected_node_names = Array[String](["2"])
+"Connected To" = Array[String](["2"])
+
+[node name="bookshelf1" parent="LibraryLocationContainer" unique_id=1368656623 instance=ExtResource("1_ctxo4")]
+position = Vector2(-224, -145)
+arrival_facing = "up"
+connected_node_names = Array[String](["bookshelf2"])
+"Connected To" = Array[String](["bookshelf2"])
+
+[node name="bookshelf2" parent="LibraryLocationContainer" unique_id=1942261449 instance=ExtResource("1_ctxo4")]
+position = Vector2(-158, -145)
+arrival_facing = "up"
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="InfirmaryLocationContainer" type="Node2D" parent="." unique_id=797106207]
+
+[node name="entrance" parent="InfirmaryLocationContainer" unique_id=36129933 instance=ExtResource("1_ctxo4")]
+position = Vector2(217, 61)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="InfirmaryLocationContainer" unique_id=832906227 instance=ExtResource("1_ctxo4")]
+position = Vector2(217, -52)
+connected_node_names = Array[String](["entrance", "counterBuy", "2"])
+"Connected To" = Array[String](["entrance", "counterBuy", "2"])
+
+[node name="counterBuy" parent="InfirmaryLocationContainer" unique_id=493415430 instance=ExtResource("1_ctxo4")]
+position = Vector2(239, -97)
+arrival_facing = "up"
+"Connected To" = Array[String]([])
+
+[node name="2" parent="InfirmaryLocationContainer" unique_id=49417399 instance=ExtResource("1_ctxo4")]
+position = Vector2(109, -52)
+connected_node_names = Array[String](["1", "3"])
+"Connected To" = Array[String](["1", "3"])
+
+[node name="3" parent="InfirmaryLocationContainer" unique_id=190161360 instance=ExtResource("1_ctxo4")]
+position = Vector2(109, -160)
+connected_node_names = Array[String](["2", "4"])
+"Connected To" = Array[String](["2", "4"])
+
+[node name="4" parent="InfirmaryLocationContainer" unique_id=1618418333 instance=ExtResource("1_ctxo4")]
+position = Vector2(239, -160)
+connected_node_names = Array[String](["counter", "3"])
+"Connected To" = Array[String](["counter", "3"])
+
+[node name="counter" parent="InfirmaryLocationContainer" unique_id=199873536 instance=ExtResource("1_ctxo4")]
+position = Vector2(239, -132)
+arrival_facing = "down"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
+
+[node name="BuildingLocationContainer" parent="." unique_id=364046489 instance=ExtResource("3_jc0ks")]
+position = Vector2(1454, -1052)
+
+[node name="Tavern_Entrance" parent="BuildingLocationContainer" unique_id=1162737241 instance=ExtResource("1_ctxo4")]
+position = Vector2(271, 560)
+connected_node_names = Array[String](["Tavern_Path1"])
+"Connected To" = Array[String](["Tavern_Path1"])
+
+[node name="Tavern_Path1" parent="BuildingLocationContainer" unique_id=1591478458 instance=ExtResource("1_ctxo4")]
+position = Vector2(271, 366)
+connected_node_names = Array[String](["Tavern_Entrance", "Tavern_Path2", "Tavern_Order", "Tavern_Path7"])
+"Connected To" = Array[String](["Tavern_Entrance", "Tavern_Path2", "Tavern_Order", "Tavern_Path7"])
+
+[node name="Tavern_Path9" parent="BuildingLocationContainer" unique_id=1852033518 instance=ExtResource("1_ctxo4")]
+position = Vector2(342, 366)
+connected_node_names = Array[String](["Tavern_Path10", "Tavern_Path1"])
+"Connected To" = Array[String](["Tavern_Path10", "Tavern_Path1"])
+
+[node name="Tavern_Path10" parent="BuildingLocationContainer" unique_id=172228445 instance=ExtResource("1_ctxo4")]
+position = Vector2(342, 402)
+connected_node_names = Array[String](["Tavern_OrionSeat", "Tavern_Path9", "Tavern_Path11"])
+"Connected To" = Array[String](["Tavern_OrionSeat", "Tavern_Path9", "Tavern_Path11"])
+
+[node name="Tavern_Path11" parent="BuildingLocationContainer" unique_id=2105938515 instance=ExtResource("1_ctxo4")]
+position = Vector2(342, 531)
+connected_node_names = Array[String](["Tavern_Path10", "Tavern_CassianSeat"])
+"Connected To" = Array[String](["Tavern_Path10", "Tavern_CassianSeat"])
+
+[node name="Tavern_Order" parent="BuildingLocationContainer" unique_id=109421767 instance=ExtResource("1_ctxo4")]
+position = Vector2(277, 345)
+connected_node_names = Array[String](["Tavern_Path1"])
+"Connected To" = Array[String](["Tavern_Path1"])
+
+[node name="Tavern_Path7" parent="BuildingLocationContainer" unique_id=1098162968 instance=ExtResource("1_ctxo4")]
+position = Vector2(178, 366)
+connected_node_names = Array[String](["Tavern_RowanSeat", "Tavern_Path1", "Tavern_Path2"])
+"Connected To" = Array[String](["Tavern_RowanSeat", "Tavern_Path1", "Tavern_Path2"])
+
+[node name="Tavern_Path8" parent="BuildingLocationContainer" unique_id=1159658446 instance=ExtResource("1_ctxo4")]
+position = Vector2(177, 419)
+connected_node_names = Array[String](["Tavern_RowanSeat", "Tavern_SeraSeat"])
+"Connected To" = Array[String](["Tavern_RowanSeat", "Tavern_SeraSeat"])
+
+[node name="Tavern_Path2" parent="BuildingLocationContainer" unique_id=1132850449 instance=ExtResource("1_ctxo4")]
+position = Vector2(99, 366)
+connected_node_names = Array[String](["Tavern_Path1", "Tavern_Path3"])
+"Connected To" = Array[String](["Tavern_Path1", "Tavern_Path3"])
+
+[node name="Tavern_Path3" parent="BuildingLocationContainer" unique_id=56983115 instance=ExtResource("1_ctxo4")]
+position = Vector2(99, 81)
+connected_node_names = Array[String](["Tavern_Path4", "Tavern_Path2"])
+"Connected To" = Array[String](["Tavern_Path4", "Tavern_Path2"])
+
+[node name="Tavern_Path4" parent="BuildingLocationContainer" unique_id=2061650565 instance=ExtResource("1_ctxo4")]
+position = Vector2(241, 81)
+connected_node_names = Array[String](["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path5", "Tavern_Path3", "Tavern_Path6"])
+
+[node name="Tavern_Path5" parent="BuildingLocationContainer" unique_id=1685553728 instance=ExtResource("1_ctxo4")]
+position = Vector2(241, 303)
+connected_node_names = Array[String](["Tavern_Counter", "Tavern_Path4"])
+"Connected To" = Array[String](["Tavern_Counter", "Tavern_Path4"])
+
+[node name="Tavern_Counter" parent="BuildingLocationContainer" unique_id=1624725603 instance=ExtResource("1_ctxo4")]
+position = Vector2(276, 303)
+arrival_facing = "down"
+connected_node_names = Array[String](["Tavern_Path5"])
+"Connected To" = Array[String](["Tavern_Path5"])
+
+[node name="Tavern_OrionSeat" parent="BuildingLocationContainer" unique_id=505367542 instance=ExtResource("1_ctxo4")]
+position = Vector2(368, 403)
+arrival_facing = "up"
+"Connected To" = Array[String]([])
+
+[node name="Tavern_CassianSeat" parent="BuildingLocationContainer" unique_id=925624624 instance=ExtResource("1_ctxo4")]
+position = Vector2(368, 531)
+arrival_facing = "down"
+"Connected To" = Array[String]([])
+
+[node name="Tavern_RowanSeat" parent="BuildingLocationContainer" unique_id=313549615 instance=ExtResource("1_ctxo4")]
+position = Vector2(177, 403)
+arrival_facing = "left"
+connected_node_names = Array[String](["Tavern_Path7", "Tavern_Path8"])
+"Connected To" = Array[String](["Tavern_Path7", "Tavern_Path8"])
+
+[node name="Tavern_SeraSeat" parent="BuildingLocationContainer" unique_id=200640040 instance=ExtResource("1_ctxo4")]
+position = Vector2(144, 419)
+arrival_facing = "down"
+connected_node_names = Array[String](["Tavern_Path8"])
+"Connected To" = Array[String](["Tavern_Path8"])
+
+[node name="Tavern_Path6" parent="BuildingLocationContainer" unique_id=23586292 instance=ExtResource("1_ctxo4")]
+position = Vector2(342, 82)
+scale = Vector2(1, 1.0027484)
+connected_node_names = Array[String](["Tavern_Path4", "Tavern_LyraRoom"])
+"Connected To" = Array[String](["Tavern_Path4", "Tavern_LyraRoom"])
+
+[node name="Tavern_LyraRoom" parent="BuildingLocationContainer" unique_id=76818285 instance=ExtResource("1_ctxo4")]
+position = Vector2(342, 68)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="Tavern_LyraExit" parent="BuildingLocationContainer" unique_id=1594392436 instance=ExtResource("1_ctxo4")]
+position = Vector2(342, 81)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="Tavern_BedroomExit" parent="BuildingLocationContainer" unique_id=1839580030 instance=ExtResource("1_ctxo4")]
+position = Vector2(420, 86)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="Tavern_SeraTalkToPlayer" parent="BuildingLocationContainer" unique_id=1926420964 instance=ExtResource("1_ctxo4")]
+position = Vector2(398, 81)
+connected_node_names = Array[String](["Tavern_Path6"])
+"Connected To" = Array[String](["Tavern_Path6"])
+
+[node name="House1LocationContainer" type="Node2D" parent="." unique_id=1481881612]
+script = ExtResource("2_w3wca")
+
+[node name="entrance" parent="House1LocationContainer" unique_id=867886650 instance=ExtResource("1_ctxo4")]
+position = Vector2(6, -20)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="House1LocationContainer" unique_id=1181753963 instance=ExtResource("1_ctxo4")]
+position = Vector2(6, -218)
+connected_node_names = Array[String](["entrance", "2"])
+"Connected To" = Array[String](["entrance", "2"])
+
+[node name="5" parent="House1LocationContainer" unique_id=603061309 instance=ExtResource("1_ctxo4")]
+position = Vector2(-68, -218)
+connected_node_names = Array[String](["chair", "1"])
+"Connected To" = Array[String](["chair", "1"])
+
+[node name="chair" parent="House1LocationContainer" unique_id=923397142 instance=ExtResource("1_ctxo4")]
+position = Vector2(-68, -227)
+arrival_facing = "right"
+connected_node_names = Array[String](["5"])
+"Connected To" = Array[String](["5"])
+
+[node name="bookshelf" parent="House1LocationContainer" unique_id=518331173 instance=ExtResource("1_ctxo4")]
+position = Vector2(28, -233)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="2" parent="House1LocationContainer" unique_id=450281824 instance=ExtResource("1_ctxo4")]
+position = Vector2(127, -218)
+connected_node_names = Array[String](["1", "3"])
+"Connected To" = Array[String](["1", "3"])
+
+[node name="3" parent="House1LocationContainer" unique_id=947839846 instance=ExtResource("1_ctxo4")]
+position = Vector2(127, -400)
+connected_node_names = Array[String](["4", "2"])
+"Connected To" = Array[String](["4", "2"])
+
+[node name="4" parent="House1LocationContainer" unique_id=945513116 instance=ExtResource("1_ctxo4")]
+position = Vector2(-63, -400)
+connected_node_names = Array[String](["3", "bed"])
+"Connected To" = Array[String](["3", "bed"])
+
+[node name="bed" parent="House1LocationContainer" unique_id=1254083170 instance=ExtResource("1_ctxo4")]
+position = Vector2(-63, -443)
+arrival_facing = "left"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
+
+[node name="House2LocationContainer" type="Node2D" parent="." unique_id=811275401]
+position = Vector2(-2, 5)
+script = ExtResource("2_w3wca")
+
+[node name="entrance" parent="House2LocationContainer" unique_id=404646678 instance=ExtResource("1_ctxo4")]
+position = Vector2(6, -58)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="House2LocationContainer" unique_id=670236599 instance=ExtResource("1_ctxo4")]
+position = Vector2(6, -218)
+connected_node_names = Array[String](["entrance", "2"])
+"Connected To" = Array[String](["entrance", "2"])
+
+[node name="2" parent="House2LocationContainer" unique_id=2005851919 instance=ExtResource("1_ctxo4")]
+position = Vector2(127, -218)
+connected_node_names = Array[String](["1", "3"])
+"Connected To" = Array[String](["1", "3"])
+
+[node name="3" parent="House2LocationContainer" unique_id=1176532889 instance=ExtResource("1_ctxo4")]
+position = Vector2(127, -409)
+connected_node_names = Array[String](["4", "2"])
+"Connected To" = Array[String](["4", "2"])
+
+[node name="4" parent="House2LocationContainer" unique_id=1822671139 instance=ExtResource("1_ctxo4")]
+position = Vector2(-63, -409)
+connected_node_names = Array[String](["3", "bed"])
+"Connected To" = Array[String](["3", "bed"])
+
+[node name="bed" parent="House2LocationContainer" unique_id=954605679 instance=ExtResource("1_ctxo4")]
+position = Vector2(-63, -443)
+arrival_facing = "left"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
+
+[node name="House3LocationContainer" type="Node2D" parent="." unique_id=1445848639]
+position = Vector2(-2, 5)
+script = ExtResource("2_w3wca")
+
+[node name="entrance" parent="House3LocationContainer" unique_id=1958588721 instance=ExtResource("1_ctxo4")]
+position = Vector2(6, -58)
+connected_node_names = Array[String](["1"])
+"Connected To" = Array[String](["1"])
+
+[node name="1" parent="House3LocationContainer" unique_id=998930211 instance=ExtResource("1_ctxo4")]
+position = Vector2(6, -218)
+connected_node_names = Array[String](["entrance", "2"])
+"Connected To" = Array[String](["entrance", "2"])
+
+[node name="2" parent="House3LocationContainer" unique_id=937592814 instance=ExtResource("1_ctxo4")]
+position = Vector2(127, -218)
+connected_node_names = Array[String](["1", "3"])
+"Connected To" = Array[String](["1", "3"])
+
+[node name="3" parent="House3LocationContainer" unique_id=1459953254 instance=ExtResource("1_ctxo4")]
+position = Vector2(127, -409)
+connected_node_names = Array[String](["4", "2"])
+"Connected To" = Array[String](["4", "2"])
+
+[node name="4" parent="House3LocationContainer" unique_id=227583477 instance=ExtResource("1_ctxo4")]
+position = Vector2(-63, -409)
+connected_node_names = Array[String](["3", "bed"])
+"Connected To" = Array[String](["3", "bed"])
+
+[node name="bed" parent="House3LocationContainer" unique_id=1299145535 instance=ExtResource("1_ctxo4")]
+position = Vector2(-63, -443)
+arrival_facing = "left"
+connected_node_names = Array[String](["4"])
+"Connected To" = Array[String](["4"])
