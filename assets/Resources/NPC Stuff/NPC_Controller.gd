@@ -68,6 +68,12 @@ func tab_changed(tab):
 		$%ShopInterface.visible = false
 		$%ShopInterface2.visible = true
 
+func _enter_tree() -> void:
+	# AreaStateManager keeps scene instances alive and removes/re-adds them.
+	# _ready() only runs the first time, so refresh again on later scene entries.
+	if is_node_ready():
+		refresh_schedule_now.call_deferred()
+
 func _ready():
 	apply_default_draw_order()
 	animation_driver.side_idle_pose_frame = side_idle_pose_frame
@@ -101,7 +107,7 @@ func _ready():
 		menu_tab._setup(["Buy", "Sell"])
 		menu_tab.selection_changed.connect(tab_changed)
 	
-	navigate.call_deferred()
+	refresh_schedule_now.call_deferred()
 
 func apply_default_draw_order() -> void:
 	z_index = default_z_index
@@ -292,6 +298,18 @@ func load_json_file(path: String) -> Dictionary:
 
 # Is called by a signal in global that emits every time the clock updates
 # Checks if there is a schedule that can be executed, if yes, send them on their merry way
+func refresh_schedule_now() -> void:
+	if schedule_paused_for_cutscene or not is_inside_tree():
+		return
+	# The same scene instance is reused, so the previous schedule key and path
+	# may still describe where the NPC was when the player left.
+	last_applied_schedule_key = ""
+	path_nodes.clear()
+	walking = false
+	leaving_scene = false
+	navigate()
+
+# Is called by Global.time_updated and whenever this persistent scene is re-entered.
 func navigate():
 	if not schedule_path.is_empty() and loaded_schedule_day != Global.current_day:
 		load_schedule_info()
@@ -303,45 +321,52 @@ func navigate():
 		return
 	if not ensure_location_container():
 		return
+
 	var path = get_tree().current_scene.scene_file_path
+
+	# Standard schedules can contain many already-elapsed entries for one scene.
+	# Always use the newest one instead of returning on whichever Dictionary entry
+	# happens to be encountered first.
+	var has_standard_schedule_for_scene := false
 	for schedule_name in schedule_info["schedules"]:
-		var details = schedule_info["schedules"][schedule_name]
-		if details["scene_swap"] == 1 and details["2_start_time_hour"] != 0:
-			if is_schedule_scene_match(details["start_scene"], path):
-				if check_time(details["start_time_hour"], details["start_time_minute"], 2):
-					#print("NOT TIME YET")
-					return
-				elif check_time(details["start_time_hour"], details["start_time_minute"], 1):
-					set_schedule_presence(true)
-					setup_navigation(details, 0, schedule_name)
-					leaving_scene = true
-					if details["should_disappear"] == 1:
-						set_schedule_presence(false)
-					return
-				elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
-					print("TRYING AGAIN")
-					set_schedule_presence(true)
-					setup_navigation(details, 2, schedule_name)
-					leaving_scene = true
-					if details["should_disappear"] == 1:
-						set_schedule_presence(false)
-					return
-			elif is_schedule_scene_match(details["end_scene"], path) and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
-				leaving_scene = true
+		var details: Dictionary = schedule_info["schedules"][schedule_name]
+		if int(details.get("scene_swap", 0)) == 0 and is_schedule_scene_match(details.get("start_scene", ""), path):
+			has_standard_schedule_for_scene = true
+			break
+
+	if has_standard_schedule_for_scene:
+		catch_up_to_scene_schedule(path)
+		return
+
+	# Keep support for the older two-part scene-swap schedule format.
+	for schedule_name in schedule_info["schedules"]:
+		var details: Dictionary = schedule_info["schedules"][schedule_name]
+		if int(details.get("scene_swap", 0)) != 1 or int(details.get("2_start_time_hour", 0)) == 0:
+			continue
+		if is_schedule_scene_match(details.get("start_scene", ""), path):
+			if check_time(details["start_time_hour"], details["start_time_minute"], 2):
+				return
+			elif check_time(details["start_time_hour"], details["start_time_minute"], 1):
 				set_schedule_presence(true)
-				setup_navigation(details, 1, schedule_name)
-				if details["should_disappear"] == 1:
+				setup_navigation(details, 0, schedule_name)
+				leaving_scene = true
+				if int(details.get("should_disappear", 0)) == 1:
 					set_schedule_presence(false)
 				return
-		elif is_schedule_scene_match(details["start_scene"], path) and check_time(details["start_time_hour"], details["start_time_minute"], 1):
-			last_applied_schedule_key = get_schedule_key(schedule_name, details)
+			elif check_time(details["2_start_time_hour"], details["2_start_time_minute"], 2) and just_swapped_scenes:
+				set_schedule_presence(true)
+				setup_navigation(details, 2, schedule_name)
+				leaving_scene = true
+				if int(details.get("should_disappear", 0)) == 1:
+					set_schedule_presence(false)
+				return
+		elif is_schedule_scene_match(details.get("end_scene", ""), path) and check_time(details["2_start_time_hour"], details["2_start_time_minute"], 1):
+			leaving_scene = true
 			set_schedule_presence(true)
-			setup_navigation(details, 0, schedule_name)
-			leaving_scene = int(details.get("hide_on_arrival", 0)) == 1
-			if details["should_disappear"] == 1:
+			setup_navigation(details, 1, schedule_name)
+			if int(details.get("should_disappear", 0)) == 1:
 				set_schedule_presence(false)
 			return
-	catch_up_to_scene_schedule(path)
 
 func load_schedule_info() -> void:
 	loaded_schedule_day = Global.current_day
