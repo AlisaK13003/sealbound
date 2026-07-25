@@ -47,7 +47,7 @@ var current_destination = null
 @export var use_counter_draw_order: bool = false
 @export var auto_match_player_visual_height: bool = true
 @export var overworld_sprite_display_height: float = DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT
-@export_range(0, 8, 1) var side_idle_pose_frame: int = CharacterAnimationDriver.DEFAULT_SIDE_IDLE_POSE_FRAME
+@export_range(0, 8, 1) var side_idle_pose_frame: int = 0
 
 var cached_overworld_sprite_frame_height: float = 0.0
 var schedule_info
