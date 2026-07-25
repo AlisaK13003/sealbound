@@ -3,21 +3,6 @@
   "days": {
 	"default": {
 	  "schedules": {
-		"Tavern_Hidden_Outside_Morning": {
-		  "scene_swap": 0,
-		  "start_scene": "res://scenes/main/hearthwynn.res",
-		  "end_scene": "",
-		  "start_time_hour": 6,
-		  "start_time_minute": 0,
-		  "start_location": "Tavern",
-		  "end_location": "Tavern",
-		  "travel_minutes": 1,
-		  "2_start_time_hour": 0,
-		  "2_start_time_minute": 0,
-		  "2_start_location": "",
-		  "2_end_location": "",
-		  "should_disappear": 1
-		},
 		"Tavern_Wake_In_Room": {
 		  "scene_swap": 0,
 		  "start_scene": "res://scenes/main/new_building_insides.res",
@@ -31,7 +16,8 @@
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		},
 		"Tavern_Start_Work": {
 		  "scene_swap": 0,
@@ -138,7 +124,8 @@
 		  "2_start_time_minute": 0,
 		  "2_start_location": "",
 		  "2_end_location": "",
-		  "should_disappear": 0
+		  "should_disappear": 0,
+		  "hide_on_arrival": 1
 		},
 		"Tavern_Hidden_Outside_Night": {
 		  "scene_swap": 0,
