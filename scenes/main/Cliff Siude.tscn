@@ -719,7 +719,6 @@ z_index = 3
 position = Vector2(-79, 414)
 location_container = NodePath("../VillageLocationContainer")
 speed = 125.0
-side_idle_pose_frame = 2
 
 [node name="Cliff Entrance" parent="." unique_id=1216423571 instance=ExtResource("7_0brsi")]
 z_index = 2
