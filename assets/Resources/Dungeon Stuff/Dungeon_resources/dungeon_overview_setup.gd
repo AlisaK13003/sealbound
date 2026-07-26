@@ -36,6 +36,7 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 		var new_texture_rect = TextureRect.new()
 		
 		new_texture_rect.custom_maximum_size = Vector2(32, 32)
+		new_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.5))
 		
 		new_box.add_child(new_texture_rect)
 		new_box.add_child(new_label)

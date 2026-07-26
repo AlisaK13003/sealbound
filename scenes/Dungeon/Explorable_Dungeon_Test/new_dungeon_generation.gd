@@ -287,12 +287,12 @@ func build_room_templates():
 	var bottom_center_6 = dungeon_room.new(Vector2i(0, 0), [1, 2, 3], 4, "4_way_junction", 5)
 	var bottom_right_6 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 5)
 	
-	var middle_left_6 = dungeon_room.new(Vector2i(-1, 1), [0, 2], 2, "|Room", 5)
+	var middle_left_6 = dungeon_room.new(Vector2i(-1, 1), [0, 2, 3], 3, "3_way_junction", 5)
 	var middle_center_6 = dungeon_room.new(Vector2i(0, 1), [], 4, "No_Connection", 5)
-	var middle_right_6 = dungeon_room.new(Vector2i(1, 1), [0, 1], 2, "|Room", 5)
+	var middle_right_6 = dungeon_room.new(Vector2i(1, 1), [0, 1, 2], 3, "3_way_junction", 5)
 	
 	var top_left_6 = dungeon_room.new(Vector2i(-1, 2), [0, 3], 2, "Corner_Junction", 5)
-	var top_center_6 = dungeon_room.new(Vector2i(0, 2), [1, 3], 3, "3_way_junction", 5)
+	var top_center_6 = dungeon_room.new(Vector2i(0, 2), [0, 1, 3], 4, "4_way_junction", 5)
 	var top_right_6 = dungeon_room.new(Vector2i(1, 2), [0, 1], 2, "Corner_Junction", 5)
 
 	potential_rooms.append(room_template.new([bottom_center_6, bottom_left_6, bottom_right_6, middle_left_6, middle_center_6,middle_right_6, top_left_6, top_center_6, top_right_6], Vector2i(3, 3), 3.0))

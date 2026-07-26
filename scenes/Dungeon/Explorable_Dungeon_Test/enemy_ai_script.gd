@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-enum State { PATROL, CHASE, RETURN }
+enum State { PATROL, CHASE, RETURN, FLEE }
 var current_state: State = State.PATROL
 
 @export var speed: float = 5.0
@@ -9,7 +9,7 @@ var current_state: State = State.PATROL
 @export var gravity: float = 20.0 
 
 @export var enemy_detection_range: float = 2.0 
-@export var enemy_check_interval: float = 3  
+@export var enemy_check_interval: float = 1.0  
 var enemy_check_timer: float = 0.0
 
 @export var stuck_time_limit: float = 5.0
@@ -58,6 +58,7 @@ func _setup(parent_reference, enemy_that_I_am: generic_combatants) -> void:
 
 var wait_timer = 0.0
 var disabled_timer = 0.0
+
 func _physics_process(delta: float) -> void:
 	if still_setting_up:
 		return
@@ -75,12 +76,18 @@ func _physics_process(delta: float) -> void:
 	if p_ref.movement_locked:
 		return
 		
-	
+	# Sprite flipping
 	if velocity.x >= 0:
 		animator.flip_h = true if not stored_enemy.should_flip_sprite else false
 	else:
 		animator.flip_h = false if not stored_enemy.should_flip_sprite else true
 	
+	# Check for nearby enemies to flee from
+	enemy_check_timer += delta
+	if enemy_check_timer >= enemy_check_interval:
+		enemy_check_timer = 0.0
+		_check_nearby_enemies()
+
 	if not nav_agent.is_navigation_finished():
 		_check_if_stuck(delta)	
 	else:
@@ -107,11 +114,9 @@ func _physics_process(delta: float) -> void:
 
 		State.CHASE:
 			if target_player:
-				var room_class = p_ref.get_room_node_at(p_ref.player.current_grid_pos).room_classification
-				if room_class in [0, 1]:
-					current_state = State.PATROL
-					nav_agent.target_position = global_position 
-					wait_timer = 0.0
+				var room_node = p_ref.get_room_node_at(p_ref.player.current_grid_pos)
+				if room_node and room_node.room_classification in [0, 1]:
+					_go_to_last_known_position()
 					return
 				
 				if _has_line_of_sight():
@@ -122,12 +127,35 @@ func _physics_process(delta: float) -> void:
 						nav_agent.target_position = target_player.global_position
 					
 					_move_along_path(speed) 
-				
 				else:
-					current_state = State.PATROL
+					_go_to_last_known_position()
+			else:
+				_go_to_last_known_position()
+
+		State.RETURN:
+			# Walk to last known player position
+			if target_player and _has_line_of_sight():
+				current_state = State.CHASE
+				return
+
+			if nav_agent.is_navigation_finished():
+				wait_timer += delta
+				if wait_timer >= time_to_wait_after_completing_path:
 					wait_timer = 0.0
-					
-					nav_agent.target_position = last_known_player_position # Walk to last known spot first
+					current_state = State.PATROL
+					_pick_new_patrol_point()
+				return
+			_move_along_path(speed)
+
+		State.FLEE:
+			if nav_agent.is_navigation_finished():
+				wait_timer += delta
+				if wait_timer >= time_to_wait_after_completing_path:
+					wait_timer = 0.0
+					current_state = State.PATROL
+					_pick_new_patrol_point()
+				return
+			_move_along_path(return_speed)
 
 var current_grid_pos: Vector2i
 
@@ -145,13 +173,17 @@ func _check_for_new_tile() -> void:
 	if calculated_pos != current_grid_pos:
 		current_grid_pos = calculated_pos
 		
-	if not p_ref.get_room_node_at(current_grid_pos).is_visible:
-		self.visible = false
-		#disable_monitoring = true
-	else:
-		self.visible = true
-		#disable_monitoring = false
+	var room_node = p_ref.get_room_node_at(current_grid_pos)
+	if room_node:
+		self.visible = room_node.is_visible
 
+func _go_to_last_known_position() -> void:
+	current_state = State.RETURN
+	wait_timer = 0.0
+	if last_known_player_position != Vector3.ZERO:
+		nav_agent.target_position = last_known_player_position
+	else:
+		nav_agent.target_position = global_position
 
 func _move_along_path(current_speed: float) -> void:
 	var next_path_pos = nav_agent.get_next_path_position()
@@ -187,7 +219,6 @@ func _check_if_stuck(delta: float) -> void:
 
 func _handle_stuck_recovery() -> void:
 	stuck_timer = 0.0
-	
 	target_player = null
 	current_state = State.PATROL
 		
@@ -227,10 +258,10 @@ func _auto_tune_navigation_agent() -> void:
 	nav_agent.path_height_offset = h_phys / 2.0
 
 func _pick_new_patrol_point() -> void:
-	var patrol_radius = (2 * p_ref.tile_size)
+	var current_patrol_radius = (2.0 * p_ref.tile_size)
 	
-	var random_angle = randf() * TAU # TAU is 2 * PI
-	var random_distance = randf_range(0.0, patrol_radius)
+	var random_angle = randf() * TAU
+	var random_distance = randf_range(0.0, current_patrol_radius)
 	
 	var offset = Vector3(
 		cos(random_angle) * random_distance,
@@ -264,11 +295,21 @@ func _on_player_detected(body: Node3D) -> void:
 		if _has_line_of_sight():
 			current_state = State.CHASE
 
+func _on_player_exited(body: Node3D) -> void:
+	if body == target_player:
+		target_player = null
+		if current_state == State.CHASE:
+			_go_to_last_known_position()
+
 func _check_nearby_enemies() -> void:
+	# Don't interrupt fleeing if already fleeing
+	if current_state == State.FLEE:
+		return
+
 	var active_enemies = get_tree().get_nodes_in_group("enemies")
 	
 	for other_enemy in active_enemies:
-		if other_enemy == self:
+		if other_enemy == self or not is_instance_valid(other_enemy):
 			continue 
 		
 		var distance_to_other = global_position.distance_to(other_enemy.global_position)
@@ -277,26 +318,23 @@ func _check_nearby_enemies() -> void:
 			_flee_from_enemy(other_enemy)
 			break 
 
-func _on_player_exited(body: Node3D) -> void:
-	if body == target_player:
-		target_player = null
-		if current_state == State.CHASE or current_state == State.RETURN:
-			current_state = State.PATROL
-			_pick_new_patrol_point()
-
 func _flee_from_enemy(other_enemy: Node3D) -> void:
-	var away_dir = (global_position - other_enemy.global_position).normalized()
+	var away_dir = (global_position - other_enemy.global_position)
 	away_dir.y = 0.0 
-	away_dir = away_dir.normalized()
+	
+	if away_dir.length_squared() < 0.001:
+		var rand_angle = randf() * TAU
+		away_dir = Vector3(cos(rand_angle), 0, sin(rand_angle))
+	else:
+		away_dir = away_dir.normalized()
 	
 	var flee_point = global_position + (away_dir * 5.0)
 	
 	var map = get_world_3d().navigation_map
 	nav_agent.target_position = NavigationServer3D.map_get_closest_point(map, flee_point)
 	
-	if current_state == State.CHASE:
-		target_player = null
-		current_state = State.PATROL
+	current_state = State.FLEE
+	wait_timer = 0.0
 
 func _on_area_3d_2_body_entered(body):
 	if disable_monitoring:

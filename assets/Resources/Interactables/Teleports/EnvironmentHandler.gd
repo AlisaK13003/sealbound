@@ -49,20 +49,21 @@ func swap_to_me():
 						refresh_player_camera()
 						await get_tree().process_frame
 						refresh_player_camera()
-						Global.show_mc_thought("Okay, Ore Placed in a box, should be good to go now")
-
 					"give_ore_to_blacksmith":
 						print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
 						StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)
 						StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.CREEPY_DUNGEON_UNLOCKED)
 						GlobalCombatInformation.complete_quest("res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Retrieve_Ores.tres")
 						GlobalCombatInformation.add_equipment_to_list("res://assets/Equipment/Training_Dagger.tres", true)
+						Global.show_mc_thought("Okay, I have the ore he wanted. Let me just put it in a box somewhere, should be good to go now")
 						StateManager.pseduo_story_time = Global.current_day
 					"think_about_forest_clearing_mc_thought":
 						print("THOUGHT ABOUT RETURNING TO THE CLEARING")
 						StateManager.set_story_state(StateManager.story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING)
+						Global.show_mc_thought("You know what, I should probably go see Sera. She might be able to help me get back to where I was found.")
 					"talk_to_sera_about_clearing":
 						print("TALKED TO SERA ABOUT CLEARING")
+						Global.show_mc_thought("Okay, I think I know where to go know.")
 						StateManager.set_story_state(StateManager.story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR)
 						StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.SEAL_DUNGEON_UNLOCKED)
 					"first_seal_dungeon_cutscene":

@@ -7,6 +7,7 @@ script = ExtResource("1_dm38m")
 move_name = "Rising Edge"
 move_description = "Deals heavy damage"
 attack_power = 2
+mana_cost = 2
 status_type = null
 removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"

@@ -61,13 +61,6 @@ func display_gotten_chest_items(item_got):
 			break
 		await get_tree().create_timer(1.5).timeout
 	
-func _on_check_box_toggled(toggled_on):
-	for enemy in p_ref.enemy_container.get_children():
-		if toggled_on:
-			enemy.disable_player_detection()
-		else:
-			enemy.enable_player_detection()
-
 func _input(event):
 	if Global.get_input_mapping("Pause"):
 		if not pause_menu.visible:

@@ -18,4 +18,6 @@ equipment_description = "A gleaming golden wristband."
 equipment_sprite = ExtResource("1_ayi4r")
 equipment_type = 3
 equipment_stats = SubResource("Resource_tb8uc")
+buy_price = 300
+sell_price = 100
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

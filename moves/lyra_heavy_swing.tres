@@ -7,6 +7,6 @@ script = ExtResource("1_55ow1")
 move_name = "Heavy Swing"
 move_description = "Deal heavy damage to one enemy."
 attack_power = 2
-mana_cost = 3
+mana_cost = 2
 status_type = 0
 removes_status = 0

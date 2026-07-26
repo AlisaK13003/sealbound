@@ -19,4 +19,6 @@ equipment_description = "Heavy steel sabatons."
 equipment_sprite = ExtResource("1_cumqv")
 equipment_type = 2
 equipment_stats = SubResource("Resource_w1mpj")
+buy_price = 280
+sell_price = 93
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

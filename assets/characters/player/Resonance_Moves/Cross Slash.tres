@@ -7,7 +7,6 @@ script = ExtResource("1_7l60n")
 move_name = "Cross Slash"
 move_description = "Deals moderate damage to one enemy. "
 attack_power = 1
-mana_cost = 2
 status_type = null
 removes_status = null
 metadata/_custom_type_script = "uid://djfkp740jjn43"

@@ -1,17 +1,25 @@
 [gd_resource type="Resource" script_class="dungeon_type" format=3 uid="uid://cyr0hf2ba1s4a"]
 
-[ext_resource type="Resource" uid="uid://bubg0ai1hywne" path="res://assets/Equipment/Silver_Knight_Boots.tres" id="1_8duap"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_eqpjp"]
 [ext_resource type="Texture2D" uid="uid://d0s74krhne5ke" path="res://assets/tile sheets/EyeBall/Dungeon_Backgrounds/Forest_Background_Dungeon.png" id="1_vh8sp"]
-[ext_resource type="Resource" uid="uid://dtxu6dw48whxr" path="res://assets/Equipment/Silver_Knight_Chestplate.tres" id="2_iwdwh"]
-[ext_resource type="Resource" uid="uid://rpyg4s5fvask" path="res://assets/Equipment/Silver_Knight_Helmet.tres" id="3_r1r7l"]
+[ext_resource type="Resource" uid="uid://dyu5ef6l15p2q" path="res://assets/Resources/Interactables/Shops/Shop Items/Damage_Potion.tres" id="2_7l441"]
+[ext_resource type="Resource" uid="uid://cy1rchqc05mk7" path="res://assets/Resources/Interactables/Shops/Shop Items/Attack_Up_Potion.tres" id="3_rbh1u"]
+[ext_resource type="Resource" uid="uid://bjgryfbqns8uc" path="res://assets/Resources/Interactables/Shops/Shop Items/Defense_Potion.tres" id="4_7j7ai"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_eqpjp"]
 [ext_resource type="Resource" uid="uid://cj14ygcpiasx4" path="res://assets/Equipment/Soldiers_Falchion.tres" id="4_qpmg7"]
 [ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Interactables/Shops/Shop Items/Health Potion.tres" id="5_rb0oy"]
+[ext_resource type="Resource" uid="uid://6nl25g31shre" path="res://assets/Resources/Interactables/Shops/Shop Items/Poison_Potion.tres" id="5_xmelb"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="6_j3wj4"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="6_mka7e"]
-[ext_resource type="Resource" uid="uid://ds136auw6ifkt" path="res://assets/Enemies/Encounters/Tiny_Wolfs.tres" id="6_vh8sp"]
+[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="7_6boc2"]
+[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="8_3edxu"]
 [ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="8_iwdwh"]
+[ext_resource type="Resource" uid="uid://ch62itspxh1dx" path="res://assets/Equipment/Scavengers_Tooth.tres" id="10_0kqt6"]
+[ext_resource type="Resource" uid="uid://s476ys0iocbb" path="res://assets/Equipment/Studded_Leather_Boots.tres" id="11_v54ei"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="12_2dnpk"]
 [ext_resource type="Resource" uid="uid://bxfbuhkvgd1bg" path="res://assets/Enemies/Tiny_Wolf.tres" id="12_r1r7l"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="13_5xy2u"]
+[ext_resource type="Resource" uid="uid://x5otqq0n0msv" path="res://assets/Equipment/Rusty_Shank.tres" id="14_vtnas"]
 
 [sub_resource type="Resource" id="Resource_vh8sp"]
 script = ExtResource("1_eqpjp")
@@ -19,31 +27,13 @@ encounterable_enemy = ExtResource("8_iwdwh")
 enemies = Array[ExtResource("4_eqpjp")]([ExtResource("8_iwdwh"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
-[sub_resource type="Resource" id="Resource_gvkg3"]
-script = ExtResource("1_eqpjp")
-encounterable_enemy = ExtResource("8_iwdwh")
-enemies = Array[ExtResource("4_eqpjp")]([ExtResource("12_r1r7l"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="Resource" id="Resource_wr6k1"]
+[sub_resource type="Resource" id="Resource_hoijl"]
 script = ExtResource("1_eqpjp")
 encounterable_enemy = ExtResource("12_r1r7l")
-enemies = Array[ExtResource("4_eqpjp")]([ExtResource("12_r1r7l"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh")])
+enemies = Array[ExtResource("4_eqpjp")]([ExtResource("12_r1r7l"), ExtResource("12_r1r7l"), ExtResource("12_r1r7l")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
-[sub_resource type="Resource" id="Resource_qsitq"]
-script = ExtResource("1_eqpjp")
-encounterable_enemy = ExtResource("12_r1r7l")
-enemies = Array[ExtResource("4_eqpjp")]([ExtResource("12_r1r7l"), ExtResource("12_r1r7l"), ExtResource("12_r1r7l"), ExtResource("12_r1r7l"), ExtResource("12_r1r7l")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="Resource" id="Resource_fycl5"]
-script = ExtResource("1_eqpjp")
-encounterable_enemy = ExtResource("8_iwdwh")
-enemies = Array[ExtResource("4_eqpjp")]([ExtResource("8_iwdwh"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="Resource" id="Resource_qpmg7"]
+[sub_resource type="Resource" id="Resource_7l441"]
 script = ExtResource("1_eqpjp")
 encounterable_enemy = ExtResource("12_r1r7l")
 enemies = Array[ExtResource("4_eqpjp")]([ExtResource("12_r1r7l"), ExtResource("12_r1r7l"), ExtResource("8_iwdwh"), ExtResource("8_iwdwh")])
@@ -56,19 +46,28 @@ dungeon_background = ExtResource("1_vh8sp")
 dungeon_description = "A dense forest overtaken by tangled vines, thick roots, and aggressive wildlife. The deeper paths have become increasingly dangerous as the surrounding nature grows more wild and unnatural."
 max_number_of_floors = 8
 minimum_number_of_floors = 5
-potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), ExtResource("6_vh8sp"), SubResource("Resource_gvkg3"), SubResource("Resource_wr6k1"), SubResource("Resource_qsitq"), SubResource("Resource_fycl5"), SubResource("Resource_qpmg7")])
+potential_encounters = Array[ExtResource("1_eqpjp")]([SubResource("Resource_vh8sp"), SubResource("Resource_hoijl"), SubResource("Resource_7l441")])
 dungeon_light_color = Color(1, 0.7019608, 0.2784314, 1)
 first_time_floor_count = 7
-average_dungeon_level = 3
+average_dungeon_level = 2
 allowed_level_differential = 1
 type_of_dungeon = 1
 dungeon_unlock_type = 1
 chest_drops = Dictionary[Array, float]({
-[ExtResource("1_8duap")]: 0.3,
-[ExtResource("2_iwdwh")]: 0.2,
-[ExtResource("3_r1r7l")]: 0.15,
-[ExtResource("4_qpmg7")]: 0.05,
-[ExtResource("5_rb0oy")]: 0.3
+[ExtResource("5_rb0oy")]: 0.2,
+[ExtResource("2_7l441")]: 0.1,
+[ExtResource("3_rbh1u")]: 0.1,
+[ExtResource("4_7j7ai")]: 0.1,
+[ExtResource("5_xmelb")]: 0.1,
+[ExtResource("6_j3wj4")]: 0.07,
+[ExtResource("7_6boc2")]: 0.07,
+[ExtResource("8_3edxu")]: 0.05,
+[ExtResource("4_qpmg7")]: 0.04,
+[ExtResource("10_0kqt6")]: 0.04,
+[ExtResource("11_v54ei")]: 0.04,
+[ExtResource("12_2dnpk")]: 0.03,
+[ExtResource("13_5xy2u")]: 0.03,
+[ExtResource("14_vtnas")]: 0.03
 })
 room_size = 1
 metadata/_custom_type_script = "uid://3loyjc4d808j"

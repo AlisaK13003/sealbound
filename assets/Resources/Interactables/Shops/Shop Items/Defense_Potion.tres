@@ -9,6 +9,7 @@ item_name = "Defense Potion"
 item_description = "Briefly increases defense"
 buy_price = 50
 item_sprite = ExtResource("1_tkwm1")
+does_what = 2
 what_is_it = 1
 removes_status = null
 give_status = 393216

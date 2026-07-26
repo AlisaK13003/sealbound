@@ -248,6 +248,27 @@ func add_npc_bond_exp(npc_id: String, amount: int, reason: String = "") -> Dicti
 	bond_data["exp"] = new_exp
 	var info = get_npc_bond_info(npc_id)
 	print("[Bond] ", npc_id, " ", reason, " ", amount, " exp: ", old_exp, " -> ", new_exp, " tier: ", info["tier_name"])
+	
+	if info["tier_name"] != "Stranger" and StateManager.story_beats_lookup.CAN_UNLOCK_REST_OF_VILLAGERS:
+		var identifier
+		match npc_id:
+			"Sera":
+				identifier = StateManager.party_member_unlock_lookup.SERA_UNLOCKED
+			"Lyra":
+				identifier = StateManager.party_member_unlock_lookup.LYRA_UNLOCKED
+			"Cassian":
+				identifier = StateManager.party_member_unlock_lookup.CASSIAN_UNLOCKED
+			"Orion":
+				identifier = StateManager.party_member_unlock_lookup.ORION_UNLOCKED
+			"Rowan":
+				identifier = StateManager.party_member_unlock_lookup.ROWAN_UNLOCKED
+			"Kaela":
+				identifier = StateManager.party_member_unlock_lookup.KAELA_UNLOCKED
+			_:
+				""
+		if identifier != "":
+			StateManager.set_party_member_unlock(identifier, true)
+	
 	return info
 
 func add_daily_talk_bond(npc_id: String) -> Dictionary:

@@ -152,6 +152,7 @@ func setup(combatant : generic_combatants, parent_ref, child_num):
 	stored_combatant = combatant
 	if stored_combatant.is_combatant_enemy:
 		stored_combatant.gather_actual_stats()
+		$Sprite3D.queue_free()
 	combatant_ui_.setup(parent_ref, stored_combatant, all_active_effects)
 
 	time_until_turn = 10000.0 / obtain_stat(stats.SPEED)

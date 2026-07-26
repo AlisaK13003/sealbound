@@ -19,4 +19,6 @@ equipment_description = "Finely crafted silver sabatons providing great stabilit
 equipment_sprite = ExtResource("1_r254m")
 equipment_type = 2
 equipment_stats = SubResource("Resource_w1mpj")
+buy_price = 600
+sell_price = 200
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

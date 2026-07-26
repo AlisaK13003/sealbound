@@ -70,7 +70,7 @@ func _setup(who_leveled_up, experience_gained: int, items_gained = null):
 		if child.get_index() >= GlobalCombatInformation.all_party_slots.size():
 			child.queue_free()
 		else:
-			var level_up = "YAY" if who_leveled_up[child.get_index()] else "BOO"
+			var level_up = "UP" if who_leveled_up[child.get_index()] else ""
 			child.get_node("Sprite2D").texture = GlobalCombatInformation.all_party_slots[child.get_index()].party_member_portrait
 			child.get_node("Label").text = "Lv: " + str(GlobalCombatInformation.all_party_slots[child.get_index()].combatant_stats.level) + " " + level_up
 	

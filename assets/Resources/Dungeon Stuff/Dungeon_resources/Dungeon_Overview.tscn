@@ -40,7 +40,7 @@ layout_mode = 0
 offset_left = 120.0
 offset_top = 51.0
 offset_right = 368.87
-offset_bottom = 174.0
+offset_bottom = 199.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -53,8 +53,8 @@ axis_stretch_vertical = 1
 layout_mode = 0
 offset_left = 111.0
 offset_top = 43.0
-offset_right = 379.87
-offset_bottom = 183.0
+offset_right = 378.87
+offset_bottom = 208.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -69,7 +69,7 @@ layout_mode = 0
 offset_left = 383.87
 offset_top = 51.0
 offset_right = 572.0
-offset_bottom = 317.0
+offset_bottom = 199.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -83,7 +83,7 @@ layout_mode = 0
 offset_left = 373.87
 offset_top = 43.0
 offset_right = 582.0
-offset_bottom = 326.0
+offset_bottom = 208.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
 patch_margin_top = 15
@@ -96,8 +96,8 @@ axis_stretch_vertical = 1
 modulate = Color(0.7539839, 0.75398386, 0.75398386, 1)
 layout_mode = 0
 offset_left = 119.869995
-offset_top = 188.0
-offset_right = 372.87
+offset_top = 229.0
+offset_right = 572.87
 offset_bottom = 316.0
 texture = ExtResource("3_8e04e")
 patch_margin_left = 15
@@ -110,8 +110,8 @@ axis_stretch_vertical = 1
 [node name="NinePatchRect7" type="NinePatchRect" parent="Background" unique_id=898409631]
 layout_mode = 0
 offset_left = 109.869995
-offset_top = 178.0
-offset_right = 379.87
+offset_top = 222.0
+offset_right = 581.87
 offset_bottom = 326.0
 texture = ExtResource("4_5x85t")
 patch_margin_left = 15
@@ -135,70 +135,52 @@ horizontal_alignment = 1
 [node name="Found_Enemies" type="GridContainer" parent="." unique_id=1494444648]
 z_index = 130
 layout_mode = 0
-offset_left = 130.0
-offset_top = 199.0
-offset_right = 517.00006
-offset_bottom = 237.0
+offset_left = 366.0
+offset_top = 57.0
+offset_right = 753.00006
+offset_bottom = 95.0
 theme_override_constants/h_separation = 54
 theme_override_constants/v_separation = 10
-columns = 3
-
-[node name="Found_Enemies2" type="GridContainer" parent="." unique_id=2034173669]
-z_index = 130
-layout_mode = 0
-offset_left = 130.0
-offset_top = 199.0
-offset_right = 517.00006
-offset_bottom = 237.0
-theme_override_constants/h_separation = 54
-theme_override_constants/v_separation = 10
-columns = 3
-
-[node name="Found_Enemies3" type="GridContainer" parent="." unique_id=1455392675]
-z_index = 130
-layout_mode = 0
-offset_left = 130.0
-offset_top = 199.0
-offset_right = 517.00006
-offset_bottom = 237.0
-theme_override_constants/h_separation = 54
-theme_override_constants/v_separation = 10
-columns = 3
+columns = 2
 
 [node name="Label" type="Label" parent="." unique_id=508205470]
 layout_mode = 0
-offset_left = 367.0
-offset_top = 56.0
-offset_right = 474.0
-offset_bottom = 74.0
+offset_left = 101.0
+offset_top = 211.0
+offset_right = 208.0
+offset_bottom = 229.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 text = "Potential Drops:"
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1057383779]
 layout_mode = 0
-offset_left = 367.0
-offset_top = 76.0
-offset_right = 585.0
-offset_bottom = 115.99997
-theme_override_constants/v_separation = -3
+offset_left = 102.00001
+offset_top = 231.0
+offset_right = 320.0
+offset_bottom = 270.99997
+scale = Vector2(0.6, 0.6)
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 3
+columns = 4
 
 [node name="GridContainer2" type="GridContainer" parent="." unique_id=1250785938]
 layout_mode = 0
-offset_left = 105.0
-offset_top = 145.0
-offset_right = 406.0
-offset_bottom = 207.0
+offset_left = 104.0
+offset_top = 170.0
+offset_right = 405.0
+offset_bottom = 232.0
 
 [node name="Floor_Count" type="Label" parent="GridContainer2" unique_id=1396000570]
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_font_sizes/font_size = 10
 text = "Expect 4-5 Floors"
 
 [node name="Average_Level" type="Label" parent="GridContainer2" unique_id=1623705055]
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_font_sizes/font_size = 10
 text = "Level 5"
 
@@ -207,7 +189,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(93.63, -14.64)
 mouse_filter = 1
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_font_sizes/font_size = 10
 text = "Seal Guardian: Great Wolf"
 
@@ -217,7 +199,7 @@ offset_left = 104.0
 offset_top = 56.0
 offset_right = 349.0
 offset_bottom = 125.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_font_sizes/font_size = 12
 text = "asdfasdfasdasdf asdfasd asdfasd asdf asdf asdfa sdf asdf"
 autowrap_mode = 2

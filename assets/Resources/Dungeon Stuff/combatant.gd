@@ -121,7 +121,10 @@ func export_to_JSON():
 		"name": combatant_name,
 		"combatant_stats": combatant_stats.export_to_JSON(),
 		"actual_combatant_stats": actual_stats.export_to_JSON(),
-		"stored_equipment": stored_equipment.export_to_JSON(),
+		"stored_helmet": stored_equipment.export_to_JSON() if stored_equipment != null else "",
+		"stored_chestplate": stored_chestplate.export_to_JSON() if stored_chestplate != null else "",
+		"stored_boots": stored_boots.export_to_JSON() if stored_boots != null else "",
+		"stored_charm": stored_charm.export_to_JSON() if stored_charm != null else "",
 		"stored_weapon": stored_weapon.export_to_JSON(),
 		"current_stored_slot": current_stored_slot,
 		"total_experience_points": total_experience_points,
@@ -138,8 +141,14 @@ func load_save(save_info):
 	total_experience_points = save_info["total_experience_points"]
 	if save_info["stored_weapon"] != null:
 		stored_weapon = load(save_info["stored_weapon"]["path"])
-	if save_info["stored_equipment"] != null:
-		stored_equipment = load(save_info["stored_equipment"]["path"])
+	if save_info["stored_helmet"] != null or save_info["stored_helmet"] != "":
+		stored_equipment = load(save_info["stored_helmet"]["path"])
+	if save_info["stored_chestplate"] != null or save_info["stored_chestplate"] != "":
+		stored_chestplate = load(save_info["stored_chestplate"]["path"])
+	if save_info["stored_boots"] != null or save_info["stored_boots"] != "":
+		stored_boots = load(save_info["stored_boots"]["path"])
+	if save_info["stored_charm"] != null or save_info["stored_charm"] != "":
+		stored_charm = load(save_info["stored_charm"]["path"])
 	is_MC = save_info.get("is_mc", is_MC)
 	combatant_stats.load_information(save_info["combatant_stats"])
 	gather_actual_stats()

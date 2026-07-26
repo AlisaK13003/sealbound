@@ -18,4 +18,6 @@ equipment_name = "Steel Helmet"
 equipment_description = "A well-forged steel helm."
 equipment_sprite = ExtResource("1_dyicn")
 equipment_stats = SubResource("Resource_2rfm5")
+buy_price = 750
+sell_price = 250
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

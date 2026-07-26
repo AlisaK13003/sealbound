@@ -3,33 +3,43 @@
 [ext_resource type="Texture2D" uid="uid://4kl0710u5cha" path="res://assets/tile sheets/Creepy_dungeon_section_wall.png" id="1_4j6jr"]
 [ext_resource type="Resource" uid="uid://dyu5ef6l15p2q" path="res://assets/Resources/Interactables/Shops/Shop Items/Damage_Potion.tres" id="1_cx3uc"]
 [ext_resource type="Script" uid="uid://bavg0a8nb6nab" path="res://assets/Resources/Dungeon Stuff/dungeon_wave.gd" id="1_hfiyr"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Interactables/Shops/Shop Items/Health Potion.tres" id="1_i6gjq"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="2_4j6jr"]
+[ext_resource type="Resource" uid="uid://cy1rchqc05mk7" path="res://assets/Resources/Interactables/Shops/Shop Items/Attack_Up_Potion.tres" id="2_i3rtw"]
 [ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="2_nurh3"]
+[ext_resource type="Resource" uid="uid://bjgryfbqns8uc" path="res://assets/Resources/Interactables/Shops/Shop Items/Defense_Potion.tres" id="3_1ynvx"]
 [ext_resource type="Resource" uid="uid://cicgt1fthbow0" path="res://assets/Enemies/Eye_Ball.tres" id="3_durrd"]
 [ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="3_rpnko"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_cx3uc"]
 [ext_resource type="Resource" uid="uid://yn5ljp73dfed" path="res://assets/Equipment/Iron_Helmet.tres" id="4_mxpal"]
+[ext_resource type="Resource" uid="uid://6nl25g31shre" path="res://assets/Resources/Interactables/Shops/Shop Items/Poison_Potion.tres" id="5_lq8ml"]
 [ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="5_m54ou"]
-[ext_resource type="Resource" uid="uid://c1r18jklwj3m8" path="res://assets/Resources/Interactables/Shops/Shop Items/Health_Potion.tres" id="5_sv8wv"]
+[ext_resource type="Resource" uid="uid://cj14ygcpiasx4" path="res://assets/Equipment/Soldiers_Falchion.tres" id="6_1ka30"]
 [ext_resource type="Resource" uid="uid://pdelwnygqoqn" path="res://assets/Enemies/Blue_Slime_Creature.tres" id="6_3kcs8"]
-[ext_resource type="Resource" uid="uid://x5otqq0n0msv" path="res://assets/Equipment/Rusty_Shank.tres" id="6_ungim"]
+[ext_resource type="Resource" uid="uid://dw8iw4qhr8bgx" path="res://assets/Equipment/Studded_Leather_Helm.tres" id="7_fwmr1"]
+[ext_resource type="Resource" uid="uid://s476ys0iocbb" path="res://assets/Equipment/Studded_Leather_Boots.tres" id="8_2v68n"]
+[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="9_k4f1j"]
+[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="10_tfi2r"]
+[ext_resource type="Resource" uid="uid://bs1i7xbhdc8gf" path="res://assets/Equipment/Studded_Leather_Chestplate.tres" id="13_4cxha"]
+[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="14_vshyj"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="15_851ms"]
 
-[sub_resource type="Resource" id="Resource_1hibc"]
-script = ExtResource("1_hfiyr")
-encounterable_enemy = ExtResource("3_durrd")
-enemies = Array[ExtResource("4_cx3uc")]([ExtResource("3_durrd"), ExtResource("5_m54ou"), ExtResource("5_m54ou")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="Resource" id="Resource_w3nti"]
-script = ExtResource("1_hfiyr")
-encounterable_enemy = ExtResource("5_m54ou")
-enemies = Array[ExtResource("4_cx3uc")]([ExtResource("5_m54ou"), ExtResource("3_durrd"), ExtResource("6_3kcs8"), ExtResource("3_durrd")])
-metadata/_custom_type_script = "uid://bavg0a8nb6nab"
-
-[sub_resource type="Resource" id="Resource_lbf6d"]
+[sub_resource type="Resource" id="Resource_i6gjq"]
 script = ExtResource("1_hfiyr")
 encounterable_enemy = ExtResource("6_3kcs8")
-enemies = Array[ExtResource("4_cx3uc")]([ExtResource("5_m54ou"), ExtResource("6_3kcs8"), ExtResource("6_3kcs8")])
+enemies = Array[ExtResource("4_cx3uc")]([ExtResource("6_3kcs8"), ExtResource("6_3kcs8"), ExtResource("5_m54ou")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_i3rtw"]
+script = ExtResource("1_hfiyr")
+encounterable_enemy = ExtResource("3_durrd")
+enemies = Array[ExtResource("4_cx3uc")]([ExtResource("3_durrd"), ExtResource("3_durrd"), ExtResource("6_3kcs8")])
+metadata/_custom_type_script = "uid://bavg0a8nb6nab"
+
+[sub_resource type="Resource" id="Resource_1ynvx"]
+script = ExtResource("1_hfiyr")
+encounterable_enemy = ExtResource("5_m54ou")
+enemies = Array[ExtResource("4_cx3uc")]([ExtResource("5_m54ou"), ExtResource("5_m54ou"), ExtResource("6_3kcs8"), ExtResource("3_durrd")])
 metadata/_custom_type_script = "uid://bavg0a8nb6nab"
 
 [resource]
@@ -37,21 +47,31 @@ script = ExtResource("2_4j6jr")
 dungeon_name = "Frostvein Cavern"
 dungeon_background = ExtResource("1_4j6jr")
 dungeon_description = "A small cavern illuminated by pale blue crystals and glowing mineral veins. Its rare ores make it valuable to local blacksmiths, despite the creatures hiding within its cold, dimly lit tunnels."
-max_number_of_floors = 4
-minimum_number_of_floors = 4
-potential_encounters = Array[ExtResource("1_hfiyr")]([SubResource("Resource_1hibc"), SubResource("Resource_w3nti"), SubResource("Resource_lbf6d")])
+max_number_of_floors = 6
+minimum_number_of_floors = 6
+potential_encounters = Array[ExtResource("1_hfiyr")]([SubResource("Resource_i6gjq"), SubResource("Resource_i3rtw"), SubResource("Resource_1ynvx")])
 dungeon_light_color = Color(0, 0.8980392, 1, 1)
 first_time_floor_count = 4
-average_dungeon_level = 4
+average_dungeon_level = 3
 allowed_level_differential = 1
 quest_dungeon = true
 dont_spawn_chests = true
 chest_drops = Dictionary[Array, float]({
-[ExtResource("2_nurh3")]: 0.2,
-[ExtResource("3_rpnko")]: 0.2,
-[ExtResource("4_mxpal")]: 0.2,
-[ExtResource("5_sv8wv")]: 0.15,
-[ExtResource("6_ungim")]: 0.05,
-[ExtResource("1_cx3uc"), ExtResource("1_cx3uc"), ExtResource("1_cx3uc")]: 0.1
+[ExtResource("1_i6gjq")]: 0.18,
+[ExtResource("2_i3rtw")]: 0.1,
+[ExtResource("3_1ynvx")]: 0.1,
+[ExtResource("1_cx3uc")]: 0.1,
+[ExtResource("5_lq8ml")]: 0.08,
+[ExtResource("6_1ka30")]: 0.07,
+[ExtResource("7_fwmr1")]: 0.05,
+[ExtResource("8_2v68n")]: 0.05,
+[ExtResource("9_k4f1j")]: 0.04,
+[ExtResource("10_tfi2r")]: 0.04,
+[ExtResource("4_mxpal")]: 0.04,
+[ExtResource("2_nurh3")]: 0.04,
+[ExtResource("13_4cxha")]: 0.03,
+[ExtResource("14_vshyj")]: 0.03,
+[ExtResource("15_851ms")]: 0.03,
+[ExtResource("3_rpnko")]: 0.02
 })
 metadata/_custom_type_script = "uid://3loyjc4d808j"

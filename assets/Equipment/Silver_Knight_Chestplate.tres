@@ -19,4 +19,6 @@ equipment_description = "Polished plate armor that shines like a mirror."
 equipment_sprite = ExtResource("1_mtdlx")
 equipment_type = 1
 equipment_stats = SubResource("Resource_6h407")
+buy_price = 1600
+sell_price = 530
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

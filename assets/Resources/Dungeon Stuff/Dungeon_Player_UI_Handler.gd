@@ -86,7 +86,7 @@ func _setup(parent_reference):
 	black_box.visible = false
 
 	bond_bar.max_value = GlobalCombatInformation.max_BP * 2
-	set_bond_attack(GlobalCombatInformation.cur_bond_attack_val)
+	#set_bond_attack(GlobalCombatInformation.cur_bond_attack_val)
 	has_been_setup = true
 
 func run_button_pressed():
@@ -105,6 +105,7 @@ func show_base_gui():
 	base_menu.visible = true
 	selection_area.visible = true
 	bond_attack_button.visible = true if bond_bar.value == bond_bar.max_value else false
+	is_aoe = false
 	update_action_hints()
 
 func new_player_turn():
@@ -386,9 +387,6 @@ func set_bond_attack(value):
 
 func update_bond_attack(update_value):
 	bond_bar.value += clamp(abs(update_value), 0, bond_bar.max_value)
-
-func _on_button_pressed():
-	bond_bar.value += 1
 
 func _on_bond_attack_value_changed(value):
 	if bond_bar.value == bond_bar.max_value:

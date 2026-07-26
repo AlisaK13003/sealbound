@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dwqtccqf753ff" path="res://assets/Resources/Dungeon Stuff/Party_Portrait.tscn" id="10_bvf2b"]
 [ext_resource type="Texture2D" uid="uid://1enir586jb3" path="res://assets/tile sheets/Scroll_Menu.png" id="11_irdl1"]
 [ext_resource type="PackedScene" uid="uid://cf76f4x0lvyrw" path="res://assets/Resources/Generic_Button_.tscn" id="12_0ob4l"]
-[ext_resource type="Texture2D" uid="uid://dw4dpe6thlkek" path="res://assets/tile sheets/Menu_Border.png" id="12_m12gh"]
 [ext_resource type="Texture2D" uid="uid://hqfkhfu42aif" path="res://assets/tile sheets/Mana Orb.png" id="13_wbipj"]
 [ext_resource type="PackedScene" uid="uid://5hv36dmlb7qq" path="res://scenes/Dungeon/Explorable_Dungeon_Test/GameOver.tscn" id="15_wbipj"]
 
@@ -21,15 +20,6 @@ bg_color = Color(0.43897805, 0.6789561, 0.24209201, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ob4l"]
 bg_color = Color(0.99999994, 0.28730667, 0.22523719, 1)
-
-[sub_resource type="Gradient" id="Gradient_04tce"]
-offsets = PackedFloat32Array(0.34984985, 1)
-colors = PackedColorArray(0.93333334, 0.7647059, 0.6039216, 1, 0.8833299, 0.66252404, 0.44418237, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m12gh"]
-gradient = SubResource("Gradient_04tce")
-fill = 1
-fill_to = Vector2(1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
@@ -404,12 +394,12 @@ color = Color(0, 0, 0, 1)
 [node name="Confirmation" type="NinePatchRect" parent="." unique_id=1020214608]
 visible = false
 layout_mode = 0
-offset_left = 5.0
-offset_top = 68.0
-offset_right = 194.0
+offset_left = 209.0
+offset_top = 89.0
+offset_right = 398.0
 offset_bottom = 145.0
 mouse_filter = 1
-texture = ExtResource("12_m12gh")
+texture = ExtResource("7_m12gh")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
@@ -421,10 +411,10 @@ axis_stretch_vertical = 2
 z_index = 5
 texture_filter = 1
 layout_mode = 0
-offset_left = 5.0
-offset_top = 18.0
-offset_right = 182.0
-offset_bottom = 71.0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 181.0
+offset_bottom = 61.0
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("9_4wwtq")
 theme_override_font_sizes/font_size = 12
@@ -434,50 +424,58 @@ horizontal_alignment = 1
 [node name="GenericButton" parent="Confirmation" unique_id=1500670421 instance=ExtResource("12_0ob4l")]
 z_index = 2
 layout_mode = 0
-offset_left = 132.0
-offset_top = 50.0
-offset_right = 197.16
-offset_bottom = 68.32001
+offset_left = 131.0
+offset_top = 40.0
+offset_right = 196.16
+offset_bottom = 58.320007
 button_name = "Yes"
 button_to_active = 4
 
 [node name="Panel" type="Panel" parent="Confirmation/GenericButton" unique_id=877147368]
+visible = false
 z_index = -1
 layout_mode = 0
+offset_left = -14.0
 offset_top = -10.0
-offset_right = 76.0
-offset_bottom = 34.0
+offset_right = 90.0
+offset_bottom = 28.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_m12gh")
 
 [node name="GenericButton2" parent="Confirmation" unique_id=333780499 instance=ExtResource("12_0ob4l")]
 z_index = 2
 layout_mode = 0
-offset_left = 16.0
-offset_top = 49.0
-offset_right = 81.16
-offset_bottom = 67.32001
+offset_left = 15.0
+offset_top = 39.0
+offset_right = 80.16
+offset_bottom = 57.320007
 button_name = "No"
 button_to_active = 5
 
 [node name="Panel" type="Panel" parent="Confirmation/GenericButton2" unique_id=360244146]
+visible = false
 z_index = -1
 layout_mode = 0
-offset_top = -5.0
-offset_right = 78.0
-offset_bottom = 33.0
+offset_left = -12.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 26.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ob4l")
 
-[node name="TextureRect" type="TextureRect" parent="Confirmation" unique_id=868937168]
-z_index = -1
+[node name="NinePatchRect" type="NinePatchRect" parent="Confirmation" unique_id=1743813730]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 3.0
-offset_right = 184.0
-offset_bottom = 72.0
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_m12gh")
+offset_left = -9.0
+offset_top = -10.0
+offset_right = 196.0
+offset_bottom = 65.0
+texture = ExtResource("6_irdl1")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Mana Bar" type="Panel" parent="." unique_id=514502635]
 z_index = 5
@@ -563,13 +561,6 @@ texture_filter = 1
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Button" type="Button" parent="." unique_id=841942967]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 49.0
-offset_right = 113.0
-offset_bottom = 69.0
-
 [node name="Bond_Attack_Button" type="Control" parent="." unique_id=1548042993]
 visible = false
 anchors_preset = 0
@@ -612,11 +603,8 @@ button_to_active = 8
 [node name="GameOver" parent="." unique_id=1060670807 instance=ExtResource("15_wbipj")]
 z_index = 68
 layout_mode = 1
-offset_left = 4.0
 offset_top = -47.0
-offset_right = 4.0
 offset_bottom = -47.0
 mouse_filter = 2
 
 [connection signal="value_changed" from="Bond_Attack" to="." method="_on_bond_attack_value_changed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

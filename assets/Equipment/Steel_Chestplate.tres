@@ -19,4 +19,6 @@ equipment_description = "A solid plate of tempered steel."
 equipment_sprite = ExtResource("1_ikbhv")
 equipment_type = 1
 equipment_stats = SubResource("Resource_6h407")
+buy_price = 380
+sell_price = 125
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

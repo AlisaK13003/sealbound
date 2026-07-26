@@ -18,4 +18,6 @@ equipment_name = "Silver Knight's Helmet"
 equipment_description = "An ornate, gleaming helmet worn by high-ranking knights."
 equipment_sprite = ExtResource("1_67cwc")
 equipment_stats = SubResource("Resource_2rfm5")
+buy_price = 850
+sell_price = 280
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

@@ -6,7 +6,7 @@
 script = ExtResource("1_kvgjl")
 move_name = "Crowdbreaker"
 move_description = "Damages all enemies with a chance to apply damage reduction to each."
-attack_power = 1
+attack_power = 0
 mana_cost = 3
 does_status = true
 status_type = 256

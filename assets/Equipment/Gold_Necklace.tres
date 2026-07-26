@@ -18,4 +18,6 @@ equipment_description = "An elegantly crafted chain of pure gold."
 equipment_sprite = ExtResource("1_2kywf")
 equipment_type = 3
 equipment_stats = SubResource("Resource_tb8uc")
+buy_price = 500
+sell_price = 165
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

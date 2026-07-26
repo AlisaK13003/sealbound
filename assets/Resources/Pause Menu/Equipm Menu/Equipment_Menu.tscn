@@ -63,6 +63,7 @@ offset_left = 168.487
 offset_top = -120.988
 offset_right = 429.23206
 offset_bottom = 275.012
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_font_sizes/font_size = 32
 text = "Chestplates"
 horizontal_alignment = 1
@@ -97,6 +98,7 @@ offset_top = 7.407
 offset_right = 118.75
 offset_bottom = 25.407
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 text = "Training Sword"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -104,10 +106,12 @@ autowrap_mode = 2
 [node name="Label2" type="Label" parent="TextureRect" unique_id=1910409845]
 z_index = 1
 layout_mode = 0
+offset_left = 6.1025696
 offset_top = 103.704
-offset_right = 118.903
+offset_right = 114.74457
 offset_bottom = 163.70401
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 theme_override_font_sizes/font_size = 13
 text = "Better than Leather"
 horizontal_alignment = 1
@@ -129,6 +133,7 @@ offset_top = 9.876556
 offset_right = 54.81485
 offset_bottom = 27.876556
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 text = "EQUIP"
 
 [node name="VScrollBar" type="VScrollBar" parent="." unique_id=643714644]
