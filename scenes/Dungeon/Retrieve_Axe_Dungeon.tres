@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://dmhws28dcywm6" path="res://assets/Equipment/Padded_Cloth_Helmet.tres" id="3_dfl6q"]
 [ext_resource type="Resource" uid="uid://x5otqq0n0msv" path="res://assets/Equipment/Rusty_Shank.tres" id="4_t5ktd"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="5_im58p"]
-[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="5_y2w8m"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Interactables/Shops/Shop Items/Health Potion.tres" id="5_y2w8m"]
 [ext_resource type="Resource" uid="uid://bxfbuhkvgd1bg" path="res://assets/Enemies/Tiny_Wolf.tres" id="10_u2jlo"]
 
 [sub_resource type="Resource" id="Resource_5x85t"]

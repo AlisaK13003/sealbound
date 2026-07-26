@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://6nl25g31shre"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_kmvf2"]
+[ext_resource type="Texture2D" uid="uid://dbt5xpurgmmi8" path="res://assets/tile sheets/Magic_Potion.png" id="1_x8bw0"]
+
+[resource]
+script = ExtResource("1_kmvf2")
+item_name = "Poison Potion"
+item_description = "Inflicts enemies with poison"
+buy_price = 30
+sell_price = 12
+item_sprite = ExtResource("1_x8bw0")
+what_is_it = 1
+targets_players = false
+removes_status = null
+give_status = 8
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

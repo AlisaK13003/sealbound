@@ -7,6 +7,7 @@
 script = ExtResource("1_0m3pl")
 item_name = "Potion of Damage"
 item_description = "Deals 20 damage"
+buy_price = 30
 item_sprite = ExtResource("1_padgf")
 does_what = 1
 what_is_it = 1

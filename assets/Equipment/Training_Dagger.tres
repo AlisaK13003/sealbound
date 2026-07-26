@@ -6,10 +6,11 @@
 [resource]
 script = ExtResource("1_qhfb7")
 weapon_name = "Training Dagger"
-weapon_description = "Pointy"
+weapon_description = "A blunted practice blade designed for novices."
 weapon_texture = ExtResource("2_epsqu")
 weapon_attack = 1
-weapon_crit_chance = 5
-weapon_crit_damage = 0.1
+weapon_crit_chance = 3
 attack_accuracy = 10
+buy_price = 28
+sell_price = 8
 metadata/_custom_type_script = "uid://c8pcj6siqledr"

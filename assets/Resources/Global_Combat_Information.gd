@@ -274,7 +274,6 @@ func check_if_member_is_active(combatant: generic_combatants):
 func load_items():
 	for i in range(15):
 		add_item("res://assets/Resources/Dungeon Stuff/temp_item.tres")
-		add_item("res://assets/Sprites/Items/BP_Potion.tres")
 
 func add_assorted_items(arr_of_stuff):
 	for thing in arr_of_stuff:

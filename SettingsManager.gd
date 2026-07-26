@@ -71,14 +71,14 @@ func load_from_config():
 		_change_volume(config.get_value("audio", "music_vol", 0.7), "BGM")
 		_change_volume(config.get_value("audio", "tile_vol", 0.7), "TILE")
 		
-		rebind_keyboard_only("up", config.get_value("binds", "up", KEY_W))
-		rebind_keyboard_only("down", config.get_value("binds", "down", KEY_S))
-		rebind_keyboard_only("left", config.get_value("binds", "left", KEY_A))
-		rebind_keyboard_only("right", config.get_value("binds", "right", KEY_D))
-		rebind_keyboard_only("confirm", config.get_value("binds", "confirm", KEY_C))
-		rebind_keyboard_only("cancel", config.get_value("binds", "cancel", KEY_X))
-		rebind_keyboard_only("Dungeon_Item", config.get_value("binds", "Dungeon_Item", KEY_I))
-		rebind_keyboard_only("Dungeon_Skill", config.get_value("binds", "Dungeon_Skill", KEY_L))
+		rebind_keyboard_only("up", config.get_value("binds", "up", KEY_NONE))
+		rebind_keyboard_only("down", config.get_value("binds", "down", KEY_NONE))
+		rebind_keyboard_only("left", config.get_value("binds", "left", KEY_NONE))
+		rebind_keyboard_only("right", config.get_value("binds", "right", KEY_NONE))
+		rebind_keyboard_only("confirm", config.get_value("binds", "confirm", KEY_NONE))
+		rebind_keyboard_only("cancel", config.get_value("binds", "cancel", KEY_NONE))
+		rebind_keyboard_only("Dungeon_Item", config.get_value("binds", "Dungeon_Item", KEY_NONE))
+		rebind_keyboard_only("Dungeon_Skill", config.get_value("binds", "Dungeon_Skill", KEY_NONE))
 		
 		
 const BASE_RESOLUTION = Vector2i(640, 360)
@@ -197,6 +197,68 @@ func rebind_keyboard_only(action_name: String, new_keycode: int):
 		if event is InputEventKey:
 			InputMap.action_erase_event(action_name, event)
 	
-	var new_event = InputEventKey.new()
-	new_event.physical_keycode = new_keycode
-	InputMap.action_add_event(action_name, new_event)
+	if new_keycode != KEY_NONE and new_keycode != 0:
+		var new_event = InputEventKey.new()
+		new_event.physical_keycode = new_keycode
+		InputMap.action_add_event(action_name, new_event)
+
+func save_key_to_config(event: InputEvent, is_keyboard: bool, action_name: String):
+	var config = ConfigFile.new()
+	config.load(SAVE_PATH)
+	
+	if is_keyboard:
+		if event == null:
+			config.set_value("binds_keyboard", action_name, KEY_NONE)
+			
+		elif event is InputEventKey:
+			var key_code = event.physical_keycode if event.physical_keycode != KEY_NONE else event.keycode
+			if key_code != KEY_NONE:
+				config.set_value("binds_keyboard", action_name, key_code)
+			else:
+				config.set_value("binds_keyboard", action_name, KEY_NONE)
+	else:
+		if event == null:
+			config.set_value("binds_controller", action_name, {})
+			
+		elif event is InputEventJoypadButton:
+			config.set_value("binds_controller", action_name, {
+				"type": "button",
+				"index": event.button_index
+			})
+		elif event is InputEventJoypadMotion:
+			config.set_value("binds_controller", action_name, {
+				"type": "motion",
+				"axis": event.axis,
+				"value": event.axis_value
+			})
+			
+	config.save(SAVE_PATH)
+
+func update_input_map(new_event: InputEvent, is_keyboard, input_action):
+	for action in InputMap.get_actions():
+		if action.begins_with("ui_"): continue 
+		
+		var events = InputMap.action_get_events(action)
+		for e in events:
+			if is_keyboard and e is InputEventKey and new_event is InputEventKey:
+				if e.physical_keycode == new_event.physical_keycode:
+					InputMap.action_erase_event(action, e)
+					
+			elif not is_keyboard and is_same_controller_input(e, new_event):
+				InputMap.action_erase_event(action, e)
+	
+	var current_events = InputMap.action_get_events(input_action)
+	for e in current_events:
+		if is_keyboard and e is InputEventKey:
+			InputMap.action_erase_event(input_action, e)
+		elif not is_keyboard and (e is InputEventJoypadButton or e is InputEventJoypadMotion):
+			InputMap.action_erase_event(input_action, e)
+	
+	InputMap.action_add_event(input_action, new_event)
+
+func is_same_controller_input(e1: InputEvent, e2: InputEvent) -> bool:
+	if e1 is InputEventJoypadButton and e2 is InputEventJoypadButton:
+		return e1.button_index == e2.button_index
+	if e1 is InputEventJoypadMotion and e2 is InputEventJoypadMotion:
+		return e1.axis == e2.axis and sign(e1.axis_value) == sign(e2.axis_value)
+	return false

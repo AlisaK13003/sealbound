@@ -58,6 +58,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-19.005, -5.48)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "Training Sword0000000"
 vertical_alignment = 1
 
@@ -67,6 +68,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-31.715, -6.16)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "9999"
 horizontal_alignment = 2
 
@@ -76,6 +78,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-35.485, -6.16)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "999900"
 horizontal_alignment = 2
 
@@ -85,6 +88,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-51.25, -6.16)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "50"
 horizontal_alignment = 2
 
@@ -111,6 +115,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-40.905, -6.895)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "Training Sword0000000"
 vertical_alignment = 1
 
@@ -120,6 +125,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-16.92, -6.16)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "999900"
 horizontal_alignment = 2
 
@@ -129,6 +135,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-51.25, -6.16)
 mouse_filter = 1
+theme_override_font_sizes/font_size = 13
 text = "50"
 horizontal_alignment = 2
 

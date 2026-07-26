@@ -6,10 +6,12 @@
 [resource]
 script = ExtResource("1_2okw2")
 weapon_name = "Rusty Shank"
-weapon_description = "Pointy"
+weapon_description = "A pitted piece of weathered scrap metal. Primitive and brittle."
 weapon_texture = ExtResource("2_0gx3u")
-weapon_attack = 2
-weapon_crit_chance = 5
-weapon_crit_damage = 0.1
+weapon_attack = 1
+weapon_crit_chance = 1
+weapon_crit_damage = 0.05
 attack_accuracy = 10
+buy_price = 15
+sell_price = 5
 metadata/_custom_type_script = "uid://c8pcj6siqledr"

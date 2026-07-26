@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://bjgryfbqns8uc"]
+
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_8edqa"]
+[ext_resource type="Texture2D" uid="uid://du51updt1g8ud" path="res://assets/tile sheets/Defense_Potion.png" id="1_tkwm1"]
+
+[resource]
+script = ExtResource("1_8edqa")
+item_name = "Defense Potion"
+item_description = "Briefly increases defense"
+buy_price = 50
+item_sprite = ExtResource("1_tkwm1")
+what_is_it = 1
+removes_status = null
+give_status = 393216
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

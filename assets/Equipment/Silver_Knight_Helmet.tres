@@ -6,15 +6,16 @@
 
 [sub_resource type="Resource" id="Resource_2rfm5"]
 script = ExtResource("2_56kfp")
-max_health = 4
-health = 4
-resistance = 2
+max_health = 25
+health = 25
+resistance = 16
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("3_ohmv6")
-equipment_name = "Plated Helmet"
-equipment_description = "Why'd you kill that golem"
+equipment_name = "Silver Knight's Helmet"
+equipment_description = "An ornate, gleaming helmet worn by high-ranking knights."
 equipment_sprite = ExtResource("1_67cwc")
 equipment_stats = SubResource("Resource_2rfm5")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

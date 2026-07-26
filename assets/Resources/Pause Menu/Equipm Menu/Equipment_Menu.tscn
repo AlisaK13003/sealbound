@@ -115,10 +115,10 @@ autowrap_mode = 2
 [node name="Panel" type="Panel" parent="." unique_id=1101006947]
 z_index = 1
 layout_mode = 0
-offset_left = -335.8025
-offset_top = 145.67903
-offset_right = -266.6667
-offset_bottom = 185.67903
+offset_left = -335.80246
+offset_top = 177.77777
+offset_right = -266.66666
+offset_bottom = 217.77777
 
 [node name="Label3" type="Label" parent="Panel" unique_id=861029930]
 z_index = 1

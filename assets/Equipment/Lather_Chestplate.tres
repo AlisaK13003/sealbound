@@ -9,13 +9,16 @@ script = ExtResource("2_idada")
 max_health = 3
 health = 3
 defense = 3
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("1_1qoeg")
 equipment_name = "Leather Chestplate"
-equipment_description = "This ain't minecraft"
+equipment_description = "Flexible, cured leather armor."
 equipment_sprite = ExtResource("1_v8pdy")
 equipment_type = 1
 equipment_stats = SubResource("Resource_tha0o")
+buy_price = 150
+sell_price = 50
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

@@ -57,10 +57,10 @@ func _setup(combatant: generic_combatants):
 	chestplate_slot = $GridContainer2/Chestplate_Slot
 	
 	weapon_slot.get_child(0).texture = weapon_info["texture"] if weapon_info != null else null
-	chestplate_slot.get_child(0).texture = chestplate_info["texture"] if weapon_info != null else null
-	boots_slot.get_child(0).texture = boot_info["texture"] if weapon_info != null else null
-	helmet_slot.get_child(0).texture = helmet_info["texture"] if weapon_info != null else null
-	charm_slot.get_child(0).texture = charm_info["texture"] if weapon_info != null else null
+	chestplate_slot.get_child(0).texture = chestplate_info["texture"] if chestplate_info != null else null
+	boots_slot.get_child(0).texture = boot_info["texture"] if boot_info != null else null
+	helmet_slot.get_child(0).texture = helmet_info["texture"] if helmet_info != null else null
+	charm_slot.get_child(0).texture = charm_info["texture"] if charm_info != null else null
 
 	weapon_slot.gui_input.connect(_on_equip_slot_gui_input.bind(0))
 	chestplate_slot.gui_input.connect(_on_equip_slot_gui_input.bind(4))

@@ -5,6 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://dl7qdnu6wo2lf" path="res://assets/characters/cassian/cassian_walk.png" id="3_cabsr"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="4_gjqij"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_cabsr"]
+[ext_resource type="Texture2D" uid="uid://bci72r7y43t48" path="res://assets/characters/cassian/cassian_portraits.png" id="6_cabsr"]
+[ext_resource type="Resource" uid="uid://6nl25g31shre" path="res://assets/Resources/Interactables/Shops/Shop Items/Poison_Potion.tres" id="6_f7jk0"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Interactables/Shops/Shop Items/Health Potion.tres" id="7_5455o"]
+[ext_resource type="Resource" uid="uid://dyu5ef6l15p2q" path="res://assets/Resources/Interactables/Shops/Shop Items/Damage_Potion.tres" id="8_leaap"]
+[ext_resource type="Resource" uid="uid://cy1rchqc05mk7" path="res://assets/Resources/Interactables/Shops/Shop Items/Attack_Up_Potion.tres" id="9_vcmje"]
+[ext_resource type="Resource" uid="uid://bjgryfbqns8uc" path="res://assets/Resources/Interactables/Shops/Shop Items/Defense_Potion.tres" id="10_edq0w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(27, 54)
@@ -126,12 +132,19 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
 radius = 123.146255
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iteo"]
+atlas = ExtResource("6_cabsr")
+region = Rect2(52, 8, 41, 61)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqqgu"]
+atlas = ExtResource("6_cabsr")
+region = Rect2(52, 8, 41, 61)
+
 [node name="NpcTemplate2" type="Node2D" unique_id=823861237]
 script = ExtResource("1_eooly")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/cassian_dialogue.json"
 npc_id = "cassian"
 schedule_path = "res://assets/Resources/NPC Stuff/Schedules/cassian/Weekly.json"
-side_idle_pose_frame = 0
 
 [node name="NPC_Clickable" type="Area2D" parent="." unique_id=1083736803]
 position = Vector2(0, -26.595997)
@@ -168,12 +181,14 @@ be_vertical = true
 
 [node name="ShopInterface" parent="CanvasLayer" unique_id=1487542661 instance=ExtResource("5_cabsr")]
 unique_name_in_owner = true
-visible = false
 offset_left = 0.0
 offset_top = -27.0
 offset_right = -640.0
 offset_bottom = -387.0
+shop_stock = [ExtResource("6_f7jk0"), ExtResource("6_f7jk0"), ExtResource("7_5455o"), ExtResource("7_5455o"), ExtResource("8_leaap"), ExtResource("8_leaap"), ExtResource("9_vcmje"), ExtResource("9_vcmje"), ExtResource("10_edq0w"), ExtResource("10_edq0w")]
 shop_discount = 0.0
+shope_portrait = SubResource("AtlasTexture_0iteo")
+item_types_to_sell = 2
 
 [node name="ShopInterface2" parent="CanvasLayer" unique_id=24933538 instance=ExtResource("5_cabsr")]
 unique_name_in_owner = true
@@ -184,6 +199,7 @@ offset_right = -640.0
 offset_bottom = -387.0
 shop_stock = []
 shop_discount = 0.0
+shope_portrait = SubResource("AtlasTexture_xqqgu")
 is_player_selling = true
 
 [connection signal="input_event" from="NPC_Clickable" to="." method="_on_npc_clickable_input_event"]

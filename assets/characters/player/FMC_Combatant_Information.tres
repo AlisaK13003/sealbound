@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://b1m45dwoackkb" path="res://assets/characters/player/Resonance_Moves/Rising Edge.tres" id="4_vafx3"]
 [ext_resource type="Resource" uid="uid://c0fqbwytbhwok" path="res://assets/characters/player/Resonance_Moves/Cassian_Cross_Slash.tres" id="6_cj6en"]
 [ext_resource type="Resource" uid="uid://clmph8mkn7fgo" path="res://assets/characters/player/Resonance_Moves/Cassian_Deflect.tres" id="7_5vlnk"]
-[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="7_p13j7"]
 [ext_resource type="Resource" uid="uid://bvncadj8ike22" path="res://assets/characters/player/Resonance_Moves/Cassian_Rising_Edge.tres" id="8_cil30"]
 [ext_resource type="Resource" uid="uid://vu2jlgwp35cl" path="res://assets/characters/player/Resonance_Moves/Kaela_Cross_Slash.tres" id="9_7oyne"]
 [ext_resource type="Resource" uid="uid://c6d7qwe4hvva8" path="res://assets/characters/player/Resonance_Moves/Kaela_Deflect.tres" id="10_sjxuq"]
@@ -26,9 +25,6 @@
 [ext_resource type="Resource" uid="uid://c1pshol7hr85y" path="res://assets/characters/player/Resonance_Moves/Sera_Cross_Slash.tres" id="21_ddtuc"]
 [ext_resource type="Resource" uid="uid://b8alu8cc4ft3r" path="res://assets/characters/player/Resonance_Moves/Sera_Deflect.tres" id="22_37v5x"]
 [ext_resource type="Resource" uid="uid://c0t6hh5gmvhba" path="res://assets/characters/player/Resonance_Moves/Sera_Rising Edge.tres" id="23_78wwr"]
-[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="26_hjaik"]
-[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="27_qtf4g"]
-[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="29_cj6en"]
 [ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="30_5vlnk"]
 
 [sub_resource type="Resource" id="Resource_hjaik"]
@@ -92,10 +88,6 @@ combatant_name = "MC"
 party_member_portrait = SubResource("AnimatedTexture_bufki")
 combatant_stats = SubResource("Resource_hjaik")
 stored_weapon = ExtResource("30_5vlnk")
-stored_equipment = ExtResource("29_cj6en")
-stored_charm = ExtResource("27_qtf4g")
-stored_boots = ExtResource("26_hjaik")
-stored_chestplate = ExtResource("7_p13j7")
 combatant_skills_ = Dictionary[ExtResource("1_ugwqx"), bool]({
 ExtResource("2_lln6l"): true,
 ExtResource("3_56mnt"): true,

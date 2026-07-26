@@ -1205,6 +1205,7 @@ func open_shop() -> void:
 	push_warning("NPC_Controller: No ShopController child found to open.")
 
 func show_shop():
+	Global.time_paused = true
 	$CanvasLayer/MenuTabs.cycle_input(null, -1)
 	$CanvasLayer.visible = true
 	$%ShopInterface.visible = true
@@ -1213,6 +1214,7 @@ func show_shop():
 	Global.is_in_menu = true
 	
 func close_shop():
+	Global.time_paused = false
 	$CanvasLayer.visible = false
 	Global.is_paused = false
 	Global.is_in_menu = false

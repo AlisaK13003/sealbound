@@ -6,9 +6,10 @@
 
 [sub_resource type="Resource" id="Resource_2rfm5"]
 script = ExtResource("2_swd1x")
-max_health = 4
-health = 4
-resistance = 2
+max_health = 8
+health = 8
+resistance = 5
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
@@ -17,4 +18,6 @@ equipment_name = "Plated Helmet"
 equipment_description = "Why'd you kill that golem"
 equipment_sprite = ExtResource("1_v2snt")
 equipment_stats = SubResource("Resource_2rfm5")
+buy_price = 240
+sell_price = 80
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

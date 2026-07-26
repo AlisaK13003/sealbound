@@ -6,16 +6,19 @@
 
 [sub_resource type="Resource" id="Resource_tha0o"]
 script = ExtResource("2_4kntb")
-max_health = 3
-health = 3
-defense = 3
+max_health = 2
+health = 2
+defense = 1
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("3_ui1lr")
-equipment_name = "Leather Chestplate"
-equipment_description = "This ain't minecraft"
+equipment_name = "Padded Cloth Chestplate"
+equipment_description = "Layers of heavy linen sewn together."
 equipment_sprite = ExtResource("1_6b6a3")
 equipment_type = 1
 equipment_stats = SubResource("Resource_tha0o")
+buy_price = 70
+sell_price = 23
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

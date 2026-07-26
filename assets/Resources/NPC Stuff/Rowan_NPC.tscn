@@ -2,8 +2,27 @@
 
 [ext_resource type="Script" uid="uid://cxvwurop5uwe5" path="res://assets/Resources/NPC Stuff/NPC_Controller.gd" id="1_q6rq3"]
 [ext_resource type="Texture2D" uid="uid://dr45mrxvsgl7y" path="res://assets/characters/rowan/rowan_walk.png" id="3_1gx6e"]
+[ext_resource type="Texture2D" uid="uid://bxrpa8qa2ixug" path="res://assets/tile sheets/Weapon_Shop_tab.png" id="4_apm1j"]
+[ext_resource type="Resource" uid="uid://dw8iw4qhr8bgx" path="res://assets/Equipment/Studded_Leather_Helm.tres" id="4_i5kla"]
 [ext_resource type="PackedScene" uid="uid://c65mfys71hvrm" path="res://assets/Resources/Pause Menu/Menu-Tabs.tscn" id="4_md64o"]
+[ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="4_q6rq3"]
+[ext_resource type="Resource" uid="uid://bs1i7xbhdc8gf" path="res://assets/Equipment/Studded_Leather_Chestplate.tres" id="5_3kk26"]
 [ext_resource type="PackedScene" uid="uid://b8ftp6nfs07fk" path="res://assets/Resources/Shop_Interface.tscn" id="5_4xdjx"]
+[ext_resource type="Texture2D" uid="uid://cwb7hif8vfdq7" path="res://assets/tile sheets/Helmet_Shop_Tab.png" id="5_fv8oj"]
+[ext_resource type="Resource" uid="uid://s476ys0iocbb" path="res://assets/Equipment/Studded_Leather_Boots.tres" id="6_1e436"]
+[ext_resource type="Texture2D" uid="uid://ndlyctcxruyr" path="res://assets/tile sheets/Chestplate_Shop_tab.png" id="6_wbtwx"]
+[ext_resource type="Resource" uid="uid://cx2euhel26jar" path="res://assets/Equipment/Tempered_Broadsword.tres" id="7_06hir"]
+[ext_resource type="Texture2D" uid="uid://dc51ux868mr3w" path="res://assets/tile sheets/Boots_Shop_tab.png" id="7_675pu"]
+[ext_resource type="Texture2D" uid="uid://cuuwqswhaf5dr" path="res://assets/tile sheets/Charm_Shop_tab.png" id="8_15jfo"]
+[ext_resource type="Resource" uid="uid://beptf8m8tvdrv" path="res://assets/Equipment/Steel_Helmet.tres" id="8_sgwh4"]
+[ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="9_3yl1q"]
+[ext_resource type="Resource" uid="uid://dt3e25yxo8a4v" path="res://assets/Equipment/Steel_Chestplate.tres" id="9_lm47h"]
+[ext_resource type="Texture2D" uid="uid://6yu8ew63khu7" path="res://assets/tile sheets/Gold_Icon.png" id="10_5qfhu"]
+[ext_resource type="Resource" uid="uid://bmd1dmj2p8mq0" path="res://assets/Equipment/Steel_Boots.tres" id="10_8ell1"]
+[ext_resource type="Resource" uid="uid://cj14ygcpiasx4" path="res://assets/Equipment/Soldiers_Falchion.tres" id="11_apm1j"]
+[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="12_fv8oj"]
+[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="13_wbtwx"]
+[ext_resource type="Resource" uid="uid://bqhicmijewpe8" path="res://assets/Equipment/Gold_Necklace.tres" id="14_675pu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u671"]
 size = Vector2(71, 132)
@@ -125,6 +144,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilmyp"]
 radius = 245.58908
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7117b"]
+atlas = ExtResource("4_q6rq3")
+region = Rect2(52, 8, 41, 61)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8h6my"]
+atlas = ExtResource("4_q6rq3")
+region = Rect2(52, 8, 41, 61)
+
 [node name="NpcTemplate" type="Node2D" unique_id=823861237]
 script = ExtResource("1_q6rq3")
 dialogue_path = "res://assets/Resources/NPC Stuff/Dialogue Stuff/rowan_dialogue.json"
@@ -166,7 +193,10 @@ offset_right = 0.0
 offset_bottom = -26.77
 grow_horizontal = 1
 grow_vertical = 1
+tab_icons = Array[Texture2D]([ExtResource("4_apm1j"), ExtResource("5_fv8oj"), ExtResource("6_wbtwx"), ExtResource("7_675pu"), ExtResource("8_15jfo"), ExtResource("9_3yl1q"), ExtResource("10_5qfhu")])
+shop_stock = [ExtResource("4_i5kla"), ExtResource("5_3kk26"), ExtResource("6_1e436"), ExtResource("4_i5kla"), ExtResource("5_3kk26"), ExtResource("6_1e436"), ExtResource("7_06hir"), ExtResource("7_06hir"), ExtResource("8_sgwh4"), ExtResource("8_sgwh4"), ExtResource("9_lm47h"), ExtResource("9_lm47h"), ExtResource("10_8ell1"), ExtResource("10_8ell1"), ExtResource("11_apm1j"), ExtResource("11_apm1j"), ExtResource("12_fv8oj"), ExtResource("12_fv8oj"), ExtResource("13_wbtwx"), ExtResource("13_wbtwx"), ExtResource("14_675pu"), ExtResource("14_675pu")]
 shop_discount = 0.0
+shope_portrait = SubResource("AtlasTexture_7117b")
 
 [node name="MenuTabs" parent="CanvasLayer" unique_id=1267646118 instance=ExtResource("4_md64o")]
 offset_left = 468.65
@@ -186,6 +216,7 @@ offset_right = -640.0
 offset_bottom = -387.0
 shop_stock = []
 shop_discount = 0.0
+shope_portrait = SubResource("AtlasTexture_8h6my")
 is_player_selling = true
 
 [connection signal="body_entered" from="NPC_Clickable" to="." method="_on_npc_clickable_body_entered"]

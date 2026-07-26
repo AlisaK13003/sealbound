@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://nk6i5cglwjh6" path="res://assets/tile sheets/Items_Shop_Tab.png" id="7_1qi33"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="8_u5occ"]
 [ext_resource type="Texture2D" uid="uid://sioib2sxuyyo" path="res://assets/Equipment/Equipment Sprites/Training Sword.png" id="9_baboj"]
-[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="9_eqlyk"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Interactables/Shops/Shop Items/Health Potion.tres" id="9_eqlyk"]
 [ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="11_baboj"]
 [ext_resource type="Resource" uid="uid://yn5ljp73dfed" path="res://assets/Equipment/Iron_Helmet.tres" id="12_2mefq"]
 [ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="13_pjh6y"]

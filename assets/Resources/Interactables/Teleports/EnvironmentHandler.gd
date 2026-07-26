@@ -49,6 +49,8 @@ func swap_to_me():
 						refresh_player_camera()
 						await get_tree().process_frame
 						refresh_player_camera()
+						Global.show_mc_thought("Okay, Ore Placed in a box, should be good to go now")
+
 					"give_ore_to_blacksmith":
 						print("GAVE ORE TO BLACKSMITH, TURNED IN THE QUEST")
 						StateManager.set_story_state(StateManager.story_beats_lookup.BLACKSMITH_QUEST_FINISHED)

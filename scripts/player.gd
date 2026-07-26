@@ -161,12 +161,14 @@ func _input(event):
 			AudioManager.stop_bgm()
 			Global.menu_opened.emit()
 			Global.is_paused = true
+			Global.time_paused = true
 			pause_menu.visible = true
 			get_tree().paused = true
 			in_menu = true
 			get_viewport().set_input_as_handled()
 			pause_menu._reset()
 		else:
+			Global.time_paused = false
 			AudioManager.play_ui_sound(AudioManager.MENU_CLOSE)
 			AudioManager.restart_bgm()
 			Global.menu_closed.emit()

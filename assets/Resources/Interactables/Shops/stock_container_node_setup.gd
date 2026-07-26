@@ -121,22 +121,12 @@ func _update_stock():
 	
 var count = 0
 func _add_node(node_to_add):
-	var already_exists: int = -1
 	for node in stock_container.get_children():
 		if node.stored_item != null:
-			if node.stored_item is Items and node.stored_item.item_name == node_to_add.item_name:
-				already_exists = node.get_index()
-				break
-			elif node.stored_item is equipment and node.stored_item.equipment_name == node_to_add.equipment_name:
-				already_exists = node.get_index()
-				break
-			elif node.stored_item is weapon and node.stored_item.weapon_name == node_to_add.weapon_name:
-				already_exists = node.get_index()
-				break
-	if already_exists != -1:
-		stock_container.get_child(already_exists).stored_item.stack += 1
-		stock_container.get_child(already_exists).update_stock_count()
-		return
+			if _matches_item(node.stored_item, node_to_add):
+				node.update_stock_count()
+				_evaluate_node_disabled_state(node, node_to_add)
+				return
 	
 	var new_node = load(stock_node_path)
 	var new_node_instance = new_node.instantiate()
@@ -146,10 +136,22 @@ func _add_node(node_to_add):
 	new_node_instance.node_pressed.connect(node_pressed)
 	stock_container.add_child(new_node_instance)
 	
-	var adjusted_price = int((node_to_add.buy_price) - (float(node_to_add.buy_price) * discount))
-	
-	if adjusted_price > GlobalCombatInformation.currency_held or node_to_add.stack == 0:
-		new_node_instance.disable()
+	_evaluate_node_disabled_state(new_node_instance, node_to_add)
+
+func _evaluate_node_disabled_state(node_instance, item_data):
+	if not currently_selling:
+		var adjusted_price = int((item_data.buy_price) - (float(item_data.buy_price) * discount))
+		if adjusted_price > GlobalCombatInformation.currency_held or item_data.stack <= 0:
+			node_instance.disable()
+		else:
+			if node_instance.has_method("enable"):
+				node_instance.enable()
+	else:
+		if item_data.stack <= 0:
+			node_instance.disable()
+		else:
+			if node_instance.has_method("enable"):
+				node_instance.enable()
 
 var current_options
 func node_pressed(item_index):
@@ -251,3 +253,12 @@ func thing_hovered(which_thing, child_num):
 	$Scroll.update_selected_item()
 	
 	update_item_description.emit(which_thing)
+
+func _matches_item(item1, item2) -> bool:
+	if item1 is Items and item2 is Items:
+		return item1.item_name == item2.item_name
+	elif item1 is equipment and item2 is equipment:
+		return item1.equipment_name == item2.equipment_name
+	elif item1 is weapon and item2 is weapon:
+		return item1.weapon_name == item2.weapon_name
+	return false

@@ -8,11 +8,6 @@
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_rdyxu"]
 [ext_resource type="SpriteFrames" uid="uid://1emwp73mwnfq" path="res://assets/characters/kaela/Kaela_Dungeon_Animations.tres" id="5_wldd5"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_c3yhw"]
-[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="8_4eqew"]
-[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="9_qno0m"]
-[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="10_e4p10"]
-[ext_resource type="Texture2D" uid="uid://bxyjgy50f11se" path="res://assets/Equipment/Equipment Sprites/Hat.png" id="11_uawy5"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="12_koqxi"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="13_060cn"]
 [ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="14_r4lew"]
 
@@ -47,18 +42,6 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 atlas = ExtResource("3_o0krs")
 region = Rect2(50, 6, 44, 67)
 
-[sub_resource type="Resource" id="Resource_7q5rk"]
-script = ExtResource("5_rdyxu")
-defense = 30
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_onp7b"]
-script = ExtResource("12_koqxi")
-equipment_name = "Beanie"
-equipment_sprite = ExtResource("11_uawy5")
-equipment_stats = SubResource("Resource_7q5rk")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
 [sub_resource type="Resource" id="Resource_8byxm"]
 script = ExtResource("13_060cn")
 weapon_name = "Lucifer's Blade"
@@ -73,10 +56,6 @@ combatant_name = "Kaela"
 party_member_portrait = SubResource("AtlasTexture_r2tkb")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = SubResource("Resource_8byxm")
-stored_equipment = SubResource("Resource_onp7b")
-stored_charm = ExtResource("9_qno0m")
-stored_boots = ExtResource("8_4eqew")
-stored_chestplate = ExtResource("10_e4p10")
 combatant_skills_ = Dictionary[ExtResource("1_hw41m"), bool]({
 ExtResource("2_wyusy"): true,
 ExtResource("3_cxk3i"): true,

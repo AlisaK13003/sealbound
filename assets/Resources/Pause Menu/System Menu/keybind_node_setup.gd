@@ -24,6 +24,7 @@ func _ready():
 	load_key_from_config()
 	update_ui_from_inputmap()
 	visibility_changed.connect(_reset_to_held)
+	_reset_to_held()
 
 func update_ui_from_inputmap():
 	held_event = null
@@ -61,15 +62,29 @@ func _new_key_selected(event):
 
 func update_unmapped_status(is_unmapped: bool) -> void:
 	unmapped_label.visible = is_unmapped
+	if is_unmapped:
+		unmapped_label.text = "Unbound"
+		held_event = null
+		clear_action_from_inputmap()
 	
 	if is_keyboard:
 		$"Keyboard Icons".visible = not is_unmapped
 	else:
 		$"Controller Icons".visible = not is_unmapped
 
+func clear_action_from_inputmap():
+	var current_events = InputMap.action_get_events(input_action)
+	for e in current_events:
+		if is_keyboard and e is InputEventKey:
+			InputMap.action_erase_event(input_action, e)
+		elif not is_keyboard and (e is InputEventJoypadButton or e is InputEventJoypadMotion):
+			InputMap.action_erase_event(input_action, e)
+
+
 func load_key_from_config():
 	var config = ConfigFile.new()
 	if config.load(SAVE_PATH) != OK:
+		update_ui_from_inputmap()
 		return
 		
 	if is_keyboard:
@@ -78,6 +93,9 @@ func load_key_from_config():
 			var new_event = InputEventKey.new()
 			new_event.physical_keycode = keycode
 			update_input_map(new_event)
+		else:
+			# Key is unbound in config: remove default key from InputMap
+			clear_action_from_inputmap()
 	else:
 		var bind = config.get_value("binds_controller", input_action, {})
 		if bind.keys().size() > 0:
@@ -92,6 +110,8 @@ func load_key_from_config():
 			
 			if new_event:
 				update_input_map(new_event)
+		else:
+			clear_action_from_inputmap()
 				
 	update_ui_from_inputmap()
 
@@ -114,7 +134,7 @@ func _unhandled_input(event):
 	if is_keyboard:
 		if event is InputEventKey and event.pressed and not event.is_echo():
 			is_valid_input = true
-			
+			held_event = event
 	else:
 		if event is InputEventJoypadButton and event.pressed:
 			is_valid_input = true
@@ -134,8 +154,8 @@ func _unhandled_input(event):
 		get_viewport().set_input_as_handled()
 		awaiting_new_key = false
 		
-		save_key_to_config(held_event)
-		update_input_map(held_event)
+		SettingsManager.save_key_to_config(held_event, is_keyboard, input_action)
+		SettingsManager.update_input_map(held_event, is_keyboard, input_action)
 		
 		if is_keyboard:
 			$"Keyboard Icons".frame = Global.key_sprite_map.get(held_event.physical_keycode, 87)
@@ -202,6 +222,8 @@ func is_same_controller_input(e1: InputEvent, e2: InputEvent) -> bool:
 
 func _on_global_key_update():
 	update_ui_from_inputmap()
+	if held_event == null:
+		SettingsManager.save_key_to_config(null, is_keyboard, input_action)
 
 func save_key_to_config(event: InputEvent):
 	var config = ConfigFile.new()

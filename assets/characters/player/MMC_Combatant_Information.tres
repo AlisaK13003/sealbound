@@ -10,13 +10,9 @@
 [ext_resource type="SpriteFrames" uid="uid://b7aeudu53hdro" path="res://assets/characters/player/MMC_Dungeon_Animations.tres" id="5_07esi"]
 [ext_resource type="Resource" uid="uid://c0fqbwytbhwok" path="res://assets/characters/player/Resonance_Moves/Cassian_Cross_Slash.tres" id="7_2y8rj"]
 [ext_resource type="Resource" uid="uid://clmph8mkn7fgo" path="res://assets/characters/player/Resonance_Moves/Cassian_Deflect.tres" id="8_fh7mn"]
-[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="8_ujq20"]
 [ext_resource type="Resource" uid="uid://bvncadj8ike22" path="res://assets/characters/player/Resonance_Moves/Cassian_Rising_Edge.tres" id="9_pxk2j"]
-[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="9_xavbm"]
-[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="10_td0jh"]
 [ext_resource type="Resource" uid="uid://vu2jlgwp35cl" path="res://assets/characters/player/Resonance_Moves/Kaela_Cross_Slash.tres" id="10_we76d"]
 [ext_resource type="Resource" uid="uid://c6d7qwe4hvva8" path="res://assets/characters/player/Resonance_Moves/Kaela_Deflect.tres" id="11_cg6cg"]
-[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="12_brmf3"]
 [ext_resource type="Resource" uid="uid://bamge42pf2dkr" path="res://assets/characters/player/Resonance_Moves/Kaela_Rising Edge.tres" id="12_wl850"]
 [ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="13_07esi"]
 [ext_resource type="Resource" uid="uid://fbc7dpwk1hgb" path="res://assets/characters/player/Resonance_Moves/Lyra_Cross_Slash.tres" id="13_8fl13"]
@@ -84,10 +80,6 @@ combatant_name = "MC"
 party_member_portrait = SubResource("AnimatedTexture_mmc_portrait")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = ExtResource("13_07esi")
-stored_equipment = ExtResource("12_brmf3")
-stored_charm = ExtResource("10_td0jh")
-stored_boots = ExtResource("9_xavbm")
-stored_chestplate = ExtResource("8_ujq20")
 combatant_skills_ = Dictionary[ExtResource("1_v7xaa"), bool]({
 ExtResource("2_brmf3"): true,
 ExtResource("3_07esi"): true,

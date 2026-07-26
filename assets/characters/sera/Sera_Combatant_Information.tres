@@ -8,10 +8,6 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_k5dor"]
 [ext_resource type="Texture2D" uid="uid://dt28ffm0cjyop" path="res://assets/characters/sera/Sera_portraits.png" id="6_uxf71"]
 [ext_resource type="SpriteFrames" uid="uid://quv3sxqeys4b" path="res://assets/characters/sera/Sera_Dungeon_Animations.tres" id="8_mvb5o"]
-[ext_resource type="Resource" uid="uid://b8gikmp7l64w0" path="res://assets/Equipment/Leather_Boots.tres" id="9_ilu6r"]
-[ext_resource type="Resource" uid="uid://b0vnqhsws2d6e" path="res://assets/Equipment/Lather_Chestplate.tres" id="10_ab1v6"]
-[ext_resource type="Resource" uid="uid://8qkw77ujasd7" path="res://assets/Equipment/Ruby Necklace.tres" id="10_k7ld7"]
-[ext_resource type="Resource" uid="uid://cgici7h4i007m" path="res://assets/Equipment/Leather_Helmet.tres" id="12_uxf71"]
 [ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="13_mvb5o"]
 
 [sub_resource type="Resource" id="Resource_ms118"]
@@ -77,10 +73,6 @@ combatant_name = "Sera"
 party_member_portrait = SubResource("AnimatedTexture_swmp1")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = ExtResource("13_mvb5o")
-stored_equipment = ExtResource("12_uxf71")
-stored_charm = ExtResource("10_k7ld7")
-stored_boots = ExtResource("9_ilu6r")
-stored_chestplate = ExtResource("10_ab1v6")
 combatant_skills_ = Dictionary[ExtResource("1_1dutr"), bool]({
 ExtResource("2_ilu6r"): true,
 ExtResource("3_k7ld7"): true,

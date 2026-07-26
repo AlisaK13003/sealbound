@@ -6,15 +6,16 @@
 
 [sub_resource type="Resource" id="Resource_6h407"]
 script = ExtResource("2_4lsro")
-max_health = 5
-health = 5
-defense = 3
+max_health = 40
+health = 40
+defense = 35
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("3_emskw")
-equipment_name = "Plated Chestplate"
-equipment_description = "Better than leather"
+equipment_name = "Silver Knight's Chestplate"
+equipment_description = "Polished plate armor that shines like a mirror."
 equipment_sprite = ExtResource("1_mtdlx")
 equipment_type = 1
 equipment_stats = SubResource("Resource_6h407")

@@ -226,11 +226,13 @@ func add_quests_to_board():
 
 	for quest_: quest in quests_to_add:
 		var index = currently_available_quests.find_custom(func(available_quests: quest): return quest_.quest_name == available_quests.quest_name)
-		if index == -1:
+		if index == -1 and quest_ != null:
 			currently_available_quests.append(quest_.duplicate())
 
 func add_quest(quest_path):
 	var mew_item = load(quest_path)
+	if mew_item == null:
+		return
 	var temp_copy = mew_item.duplicate()
 	
 	temp_copy.set_meta("original_path", mew_item.resource_path)

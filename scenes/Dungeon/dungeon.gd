@@ -597,6 +597,8 @@ func execute_enemy_turn(enemy_to_attack, _turn_number, testing):
 		for action in finalized_enemy_actions:
 			var scale = 0.75
 			var exaggerated_weight = exp(max(0.0, action.action_weight) * scale)
+			if action.targetting_player and action.targetting_who.stored_combatant.is_MC:
+				exaggerated_weight = exaggerated_weight / 3
 			weights.append(exaggerated_weight)
 		
 		var selected_index = rng.rand_weighted(weights)

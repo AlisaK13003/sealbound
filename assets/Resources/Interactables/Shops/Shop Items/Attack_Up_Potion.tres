@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Items" format=3 uid="uid://cy1rchqc05mk7"]
+
+[ext_resource type="Texture2D" uid="uid://bd2vfntcsx0t4" path="res://assets/tile sheets/Damage_Potion.png" id="1_greo4"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="1_o7ioo"]
+
+[resource]
+script = ExtResource("1_o7ioo")
+item_name = "Attack Up Potion"
+item_description = "Increases Attack for a short period"
+buy_price = 25
+item_sprite = ExtResource("1_greo4")
+what_is_it = 1
+removes_status = null
+give_status = 65536
+metadata/_custom_type_script = "uid://qecrevyq2xlu"

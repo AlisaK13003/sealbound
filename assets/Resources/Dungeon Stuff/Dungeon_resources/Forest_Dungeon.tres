@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://rpyg4s5fvask" path="res://assets/Equipment/Silver_Knight_Helmet.tres" id="3_r1r7l"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="4_eqpjp"]
 [ext_resource type="Resource" uid="uid://cj14ygcpiasx4" path="res://assets/Equipment/Soldiers_Falchion.tres" id="4_qpmg7"]
-[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Dungeon Stuff/Dungeon_resources/Health Potion.tres" id="5_rb0oy"]
+[ext_resource type="Resource" uid="uid://u5sgund2vvpb" path="res://assets/Resources/Interactables/Shops/Shop Items/Health Potion.tres" id="5_rb0oy"]
 [ext_resource type="Script" uid="uid://3loyjc4d808j" path="res://assets/Resources/Dungeon Stuff/dungeon_encounter.gd" id="6_mka7e"]
 [ext_resource type="Resource" uid="uid://ds136auw6ifkt" path="res://assets/Enemies/Encounters/Tiny_Wolfs.tres" id="6_vh8sp"]
 [ext_resource type="Resource" uid="uid://dyxb3w4ehxlon" path="res://assets/Enemies/Slime_Creature.tres" id="8_iwdwh"]

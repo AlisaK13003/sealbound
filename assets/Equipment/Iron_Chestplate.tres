@@ -6,9 +6,10 @@
 
 [sub_resource type="Resource" id="Resource_6h407"]
 script = ExtResource("2_lgety")
-max_health = 5
-health = 5
-defense = 3
+max_health = 14
+health = 14
+defense = 12
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
@@ -18,4 +19,6 @@ equipment_description = "Better than leather"
 equipment_sprite = ExtResource("1_xevju")
 equipment_type = 1
 equipment_stats = SubResource("Resource_6h407")
+buy_price = 450
+sell_price = 150
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

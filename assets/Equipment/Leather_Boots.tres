@@ -6,7 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_5rluu"]
 script = ExtResource("1_hb4bh")
-speed = 11
+crit_damage = 0.0
+speed = 2
 luck = 2
 evasion = 2
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
@@ -14,8 +15,10 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 [resource]
 script = ExtResource("1_cbalh")
 equipment_name = "Leather Boots"
-equipment_description = "Comfy"
+equipment_description = "Supple boots made of light leather."
 equipment_sprite = ExtResource("1_nmlh2")
 equipment_type = 2
 equipment_stats = SubResource("Resource_5rluu")
+buy_price = 50
+sell_price = 16
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

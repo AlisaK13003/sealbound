@@ -6,7 +6,11 @@
 [resource]
 script = ExtResource("1_ge825")
 weapon_name = "Soldier's Fachion"
-weapon_description = "Decent Sword"
+weapon_description = "A heavy, single-edged curved sword."
 weapon_texture = ExtResource("2_swyk6")
-weapon_attack = 6
+weapon_attack = 7
+weapon_crit_chance = 5
+weapon_crit_damage = 0.1
+buy_price = 180
+sell_price = 60
 metadata/_custom_type_script = "uid://c8pcj6siqledr"

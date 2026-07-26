@@ -9,12 +9,15 @@ script = ExtResource("2_gjbw3")
 max_health = 2
 health = 2
 resistance = 1
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("1_4d8si")
 equipment_name = "Leather Helmet"
-equipment_description = "Did you want protection?"
+equipment_description = "A simple headpiece crafted from tanned hide."
 equipment_sprite = ExtResource("1_3eio3")
 equipment_stats = SubResource("Resource_epsqu")
+buy_price = 75
+sell_price = 25
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

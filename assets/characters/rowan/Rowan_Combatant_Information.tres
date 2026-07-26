@@ -7,11 +7,7 @@
 [ext_resource type="Resource" uid="uid://c48odeckn63k2" path="res://moves/rowan_hold_fast.tres" id="3_uihge"]
 [ext_resource type="Resource" uid="uid://dvgg6ndjxu1p0" path="res://moves/rowan_forgebound_resolve.tres" id="4_md48j"]
 [ext_resource type="SpriteFrames" uid="uid://lfd6d0e3grfw" path="res://assets/characters/rowan/Rowan_Dungeon_Animations.tres" id="4_r1wuo"]
-[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="5_ah6m3"]
-[ext_resource type="Resource" uid="uid://dpg13wl812k62" path="res://assets/Equipment/Iron_Chestplate.tres" id="5_g6mva"]
-[ext_resource type="Resource" uid="uid://k2jl3750h52u" path="res://assets/Equipment/Plated_Boots.tres" id="5_tb8uc"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="6_5rluu"]
-[ext_resource type="Resource" uid="uid://d1n4h27bsp3i6" path="res://assets/Equipment/Gold_Bracelet.tres" id="6_ah6m3"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="8_6h407"]
 
 [sub_resource type="Resource" id="Resource_uwim3"]
 script = ExtResource("2_g6mva")
@@ -68,34 +64,12 @@ frame_1/duration = 1.0
 frame_2/texture = SubResource("AtlasTexture_pnqad")
 frame_2/duration = 1.0
 
-[sub_resource type="Resource" id="Resource_ddp3r"]
-script = ExtResource("2_g6mva")
-defense = 30
-metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
-
-[sub_resource type="Resource" id="Resource_t1vk1"]
-script = ExtResource("5_ah6m3")
-equipment_name = "Soul of Athena"
-equipment_stats = SubResource("Resource_ddp3r")
-metadata/_custom_type_script = "uid://bgmidaf6aanj7"
-
-[sub_resource type="Resource" id="Resource_248ax"]
-script = ExtResource("6_5rluu")
-weapon_name = "Quintessence"
-weapon_attack = 30
-attack_accuracy = 90
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
 [resource]
 script = ExtResource("3_6h407")
 combatant_name = "Rowan"
 party_member_portrait = SubResource("AnimatedTexture_r86sb")
 combatant_stats = SubResource("Resource_uwim3")
-stored_weapon = SubResource("Resource_248ax")
-stored_equipment = SubResource("Resource_t1vk1")
-stored_charm = ExtResource("6_ah6m3")
-stored_boots = ExtResource("5_tb8uc")
-stored_chestplate = ExtResource("5_g6mva")
+stored_weapon = ExtResource("8_6h407")
 combatant_skills_ = Dictionary[ExtResource("1_r1wuo"), bool]({
 ExtResource("2_5cqgb"): true,
 ExtResource("3_uihge"): true,

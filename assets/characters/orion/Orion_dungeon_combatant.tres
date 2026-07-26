@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dq7e7hoovpoj8" path="res://moves/orion_stand_beside_me.tres" id="3_rdllg"]
 [ext_resource type="Resource" uid="uid://bnwgky2bkyad6" path="res://moves/orion_piercing_rush.tres" id="4_dy8dd"]
 [ext_resource type="SpriteFrames" uid="uid://crp2e8l3va520" path="res://assets/characters/orion/Orion_Dungeon_Animations.tres" id="5_8fhlr"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="9_rdllg"]
 
 [sub_resource type="Resource" id="Resource_53ph1"]
 script = ExtResource("2_yrwr2")
@@ -45,6 +46,7 @@ script = ExtResource("2_6ldo4")
 combatant_name = "Orion"
 party_member_portrait = SubResource("AtlasTexture_ccs0m")
 combatant_stats = SubResource("Resource_53ph1")
+stored_weapon = ExtResource("9_rdllg")
 combatant_skills_ = Dictionary[ExtResource("1_j7qan"), bool]({
 ExtResource("2_wc3kr"): true,
 ExtResource("3_rdllg"): true,

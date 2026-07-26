@@ -6,15 +6,16 @@
 
 [sub_resource type="Resource" id="Resource_2rfm5"]
 script = ExtResource("2_a0b6s")
-max_health = 4
-health = 4
-resistance = 2
+max_health = 14
+health = 14
+resistance = 9
+crit_damage = 0.0
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("3_sixrs")
 equipment_name = "Steel Helmet"
-equipment_description = "Why'd you kill that golem"
+equipment_description = "A well-forged steel helm."
 equipment_sprite = ExtResource("1_dyicn")
 equipment_stats = SubResource("Resource_2rfm5")
 metadata/_custom_type_script = "uid://bgmidaf6aanj7"

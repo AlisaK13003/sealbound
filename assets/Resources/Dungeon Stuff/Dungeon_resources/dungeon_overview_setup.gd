@@ -51,6 +51,8 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 			new_label.text = item.item_name
 			new_texture_rect.texture = item.item_sprite
 		
+		new_label.add_theme_font_size_override("size", 112)
+		
 		$GridContainer.add_child(new_box)
 	
 	if unique_items.is_empty():

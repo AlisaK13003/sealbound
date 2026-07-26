@@ -6,7 +6,9 @@
 [resource]
 script = ExtResource("1_0i2i4")
 weapon_name = "Training Sword"
-weapon_description = "Decent Sword"
+weapon_description = "A dull, lightweight sword used for training with minimal risk to self."
 weapon_texture = ExtResource("2_2bbjm")
 weapon_attack = 2
+buy_price = 40
+sell_price = 13
 metadata/_custom_type_script = "uid://c8pcj6siqledr"
