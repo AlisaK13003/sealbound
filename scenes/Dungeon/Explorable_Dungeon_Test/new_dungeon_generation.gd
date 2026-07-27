@@ -415,7 +415,7 @@ func build_rooms(room_storage, boss_floor, size):
 		var t_way_chance = rng.randf_range(template_chance, 0.25)
 		var four_way_chance = rng.randf_range(t_way_chance, 0.3)
 		var main_walker_setps: int = 0
-		main_walker_lifetime= rng.randi_range(15, 40)
+		#main_walker_lifetime= rng.randi_range(15, 40)
 
 		var max_three_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 5), 2, 6)
 
@@ -430,11 +430,11 @@ func build_rooms(room_storage, boss_floor, size):
 			four_way_chance = rng.randf_range(t_way_chance, 0.3)
 			main_walker_lifetime = rng.randi_range(55, 70)
 			main_walker_setps = 0
-			max_three_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 5), 3, 6)
+			max_three_way_count = rng.randi_range(4, 8) * clamp(int(main_walker_lifetime / 5), 3, 6)
 
-			max_four_way_count = rng.randi_range(2, 5) * clamp(int(main_walker_lifetime / 4), 3, 6)
+			max_four_way_count = rng.randi_range(4, 6) * clamp(int(main_walker_lifetime / 4), 3, 6)
 
-			max_room_count = rng.randi_range(2, 6) * clamp(int(main_walker_lifetime / 4), 2, 4)
+			max_room_count = rng.randi_range(3, 6) * clamp(int(main_walker_lifetime / 4), 2, 4)
 
 		var chances = [template_chance, t_way_chance, four_way_chance, max_three_way_count, max_four_way_count, max_room_count]
 		# Iterates until all steps have found a valid position

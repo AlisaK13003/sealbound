@@ -71,6 +71,8 @@ func _setup(combatant: generic_combatants, index: int, show_hp: bool = false):
 	now_an_active_member()
 	
 func highlight(highlight):
+	if selection_arrow == null:
+		return
 	if highlight:
 		selection_arrow.play("default")
 		selection_arrow.visible = true

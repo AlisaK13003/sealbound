@@ -58,6 +58,7 @@ max_number_of_floors = 8
 minimum_number_of_floors = 5
 potential_encounters = Array[ExtResource("1_1rkgn")]([SubResource("Resource_a4ahv"), SubResource("Resource_rnc85"), SubResource("Resource_c5kdw"), SubResource("Resource_sscs3")])
 dungeon_light_color = Color(0.18561739, 0.29396656, 4.813075e-08, 1)
+first_time_floor_count = 8
 average_dungeon_level = 7
 allowed_level_differential = 3
 type_of_dungeon = 1

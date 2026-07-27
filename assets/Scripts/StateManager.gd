@@ -41,12 +41,14 @@ var story_triggers: Dictionary = {
 		"region": "Buildings_Insides",
 		"loading_zone": "Bedspawn",
 		"required": [story_beats_lookup.BLACKSMITH_QUEST_FINISHED],
-		"day_requirement": 5
+		"day_requirement": 5,
+		"excluded": [story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR]
 	},
 	"talk_to_sera_about_clearing": {
 		"region": "Buildings_Insides",
 		"loading_zone": "Infirmary",
-		"required": [story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING]
+		"required": [story_beats_lookup.CUTSCENE_TELLING_YOU_GO_BACK_TO_CLEARING],
+		"excluded": [story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR]
 	},
 	"first_seal_dungeon_cutscene": {
 		"region": "Buildings_Insides",

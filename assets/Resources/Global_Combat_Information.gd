@@ -849,7 +849,7 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 		stuff_gained += quest_items_gained
 
 	if is_boss:
-		StateManager.set_seal_state(selected_dungeon_.boss_state_to_set_on_completion, StateManager.completion_checks.SEAL_CHECKS)
+		StateManager.set_seal_state(current_dungeon.boss_state_to_set_on_completion, StateManager.completion_checks.SEAL_CHECKS)
 		dungeon_over()
 		return
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://dwfrcl30w3yj6"]
+
+[ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_3yn31"]
+[ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_43oj2"]
+[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_2bjdy"]
+[ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_iea3u"]
+
+[resource]
+script = ExtResource("4_iea3u")
+quest_name = "Talk to Sera"
+quest_giver = "- self"
+quest_description = "I should talk to sera to learn about where I was found."
+dungeon_location = 1
+ready_to_turn_in_string = "Done"
+metadata/_custom_type_script = "uid://npoqdralsply"

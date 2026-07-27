@@ -454,6 +454,8 @@ func instantiate_rooms(room_storage, boss_floor):
 			for room_ in active_room_nodes.values():
 				if room_.room_classification == 2:
 					room_caps.append(room_)
+			if room_caps.size() <= 0:
+				return false
 			while not spawned_key:
 				var room_to_have_key = room_caps.pick_random()
 				if not room_to_have_key.is_locked and not room_to_have_key.has_key:
@@ -468,19 +470,22 @@ func instantiate_rooms(room_storage, boss_floor):
 				if room_.room_classification == 7:
 					chest_rooms.append(room_)
 			
-			if not room_caps.is_empty() and not chest_rooms.is_empty():
-				var room_to_be_locked = chest_rooms.pick_random()
-				var room_to_have_key = room_caps.pick_random()
-				
-				if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
-					room_to_be_locked.lock_room(false)
-					room_to_have_key.set_key_spawn()
+			if room_caps.size() > 0 and chest_rooms.size() > 0:
+				if not room_caps.is_empty() and not chest_rooms.is_empty():
+					var room_to_be_locked = chest_rooms.pick_random()
+					var room_to_have_key = room_caps.pick_random()
+					
+					if not room_to_be_locked.is_locked and not room_to_be_locked.has_key and not room_to_have_key.is_locked and not room_to_have_key.has_key:
+						room_to_be_locked.lock_room(false)
+						room_to_have_key.set_key_spawn()
 	elif current_floor == current_dungeon.max_number_of_floors and current_quest_dungeon != null and not current_quest_dungeon.does_player_have_special_item:
 		var room_to_make_thing = []
 		for room_ in active_room_nodes.values():
 			if room_.room_classification == 2:
 				room_to_make_thing.append(room_)
-				
+		
+		if room_to_make_thing <= 0:
+			return false
 		var room_to_do_thing: room = room_to_make_thing.pick_random()
 		
 		var room_to_load = load("res://scenes/Dungeon/Explorable_Dungeon_Test/Rooms/Forest_Dungeon/Fix_Scenes/Quest_Room.tscn")

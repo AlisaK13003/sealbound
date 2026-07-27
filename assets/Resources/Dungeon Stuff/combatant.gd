@@ -164,6 +164,9 @@ func gather_actual_stats():
 
 func custom_duplicate():
 	var copy = self.duplicate(true)
+	if self.actual_stats == null:
+		gather_actual_stats()
+	
 	copy.actual_stats = actual_stats.duplicate(true)
 	copy.set_meta("original_path", self.get_path_custom())
 	return copy

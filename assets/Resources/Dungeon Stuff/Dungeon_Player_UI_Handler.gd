@@ -78,7 +78,7 @@ func _setup(parent_reference):
 	self.visible = true
 	p_ref = parent_reference
 
-	is_boss = p_ref.current_dungeon_run.does_dungeon_have_boss
+	is_boss = p_ref.fighting_boss
 
 	var tween = create_tween()
 	tween.tween_property(black_box, "modulate:a", 0.0, 1)

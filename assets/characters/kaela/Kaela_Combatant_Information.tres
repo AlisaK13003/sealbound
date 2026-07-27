@@ -36,9 +36,25 @@ growth_rates = {
 }
 metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r2tkb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sofiq"]
 atlas = ExtResource("3_o0krs")
 region = Rect2(50, 6, 44, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr081"]
+atlas = ExtResource("3_o0krs")
+region = Rect2(98, 6, 44, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8e1h"]
+atlas = ExtResource("3_o0krs")
+region = Rect2(146, 6, 44, 67)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_4ala6"]
+frames = 3
+frame_0/texture = SubResource("AtlasTexture_sofiq")
+frame_1/texture = SubResource("AtlasTexture_vr081")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_k8e1h")
+frame_2/duration = 1.0
 
 [sub_resource type="Resource" id="Resource_yvf05"]
 script = ExtResource("1_hw41m")
@@ -56,7 +72,7 @@ metadata/_custom_type_script = "uid://djfkp740jjn43"
 [resource]
 script = ExtResource("6_c3yhw")
 combatant_name = "Kaela"
-party_member_portrait = SubResource("AtlasTexture_r2tkb")
+party_member_portrait = SubResource("AnimatedTexture_4ala6")
 combatant_stats = SubResource("Resource_ms118")
 stored_weapon = ExtResource("9_gfk6f")
 combatant_skills_ = Dictionary[ExtResource("1_hw41m"), bool]({

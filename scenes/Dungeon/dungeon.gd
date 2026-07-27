@@ -833,7 +833,8 @@ func execute_enemy_skills(action):
 			
 			new_enemy_instance.position = get_position_for_slot.call(enemy_index)
 			
-			var new_thing = skill_used.summons_who.duplicate()
+			var new_thing: generic_combatants = skill_used.summons_who.custom_duplicate()
+			new_thing.gather_actual_stats()
 			new_thing.restore_health()
 			
 			new_enemy_instance.setup(new_thing, self, enemy_index)
