@@ -74,4 +74,5 @@ chest_drops = Dictionary[Array, float]({
 [ExtResource("15_851ms")]: 0.03,
 [ExtResource("3_rpnko")]: 0.02
 })
+room_size = 1
 metadata/_custom_type_script = "uid://3loyjc4d808j"
