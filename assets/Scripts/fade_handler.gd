@@ -43,6 +43,22 @@ func reset_to_clear() -> void:
 		fade_thing_2.modulate.a = 0.0
 		fade_thing_2.visible = false
 
+func reset_to_black() -> void:
+	is_fading = true
+	if use_gradient:
+		fade_thing.texture = fade_thing.texture.duplicate()
+		grad_tex = fade_thing.texture
+		grad_tex.fill_from = Vector2(1.0, 0.0)
+		grad_tex.fill_to = Vector2(2.0, 0.0)
+		fade_thing.visible = true
+		if fade_thing_2 != null:
+			fade_thing_2.visible = false
+	else:
+		if fade_thing != null:
+			fade_thing.visible = false
+		fade_thing_2.modulate.a = 1.0
+		fade_thing_2.visible = true
+
 
 func fade_in(duration: float):
 	if is_fading:
