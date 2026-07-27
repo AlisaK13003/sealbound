@@ -784,6 +784,7 @@ func _begin_new_game() -> void:
 		load_panel.visible = false
 	if settings_panel != null:
 		settings_panel.visible = false
+	await Fade.fade_in(1.0)
 	await Fade.change_scene(OPENING_FOREST_CUTSCENE_SCENE)
 
 func _start_game_without_cutscene() -> void:

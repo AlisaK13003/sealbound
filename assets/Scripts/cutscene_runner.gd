@@ -417,6 +417,9 @@ func _run_action(action_name: String) -> void:
 			StateManager.turn_in_lyra_axe_quest()
 		"unlock_quest_board_and_demo_party":
 			StateManager.unlock_quest_board_and_demo_party()
+		"clear_global_fade":
+			if Fade != null:
+				Fade.reset_to_clear()
 
 func _end() -> void:
 	if has_finished:

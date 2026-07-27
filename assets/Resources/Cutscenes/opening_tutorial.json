@@ -7,6 +7,10 @@
 	  "duration": 0.0
 	},
 	{
+	  "type": "wait",
+	  "duration": 2.0
+	},
+	{
 	  "type": "dialogue",
 	  "speaker": "MC",
 	  "portrait_frame": "neutral",
@@ -21,6 +25,10 @@
 	{
 	  "type": "animation",
 	  "name": "intro_scene_0"
+	},
+	{
+	  "type": "action",
+	  "name": "clear_global_fade"
 	},
 	{
 	  "type": "fade",
