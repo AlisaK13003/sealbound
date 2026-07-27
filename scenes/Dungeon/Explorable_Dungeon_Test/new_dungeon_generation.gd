@@ -379,6 +379,10 @@ signal down_has_been_placed
 func build_rooms(room_storage, boss_floor, size):
 	print("BUILDING ROOMS")
 
+	current_four_way_count = 0
+	current_three_way_count = 0
+	current_room_count = 0
+
 	# Sets up spawn location
 	var spawn_location: Vector2i = Vector2i(0, 0)
 
