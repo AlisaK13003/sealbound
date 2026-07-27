@@ -147,14 +147,18 @@ func load_save(save_info):
 	total_experience_points = save_info["total_experience_points"]
 	if save_info["stored_weapon"] != null:
 		stored_weapon = load(save_info["stored_weapon"]["path"])
-	if save_info["stored_helmet"] != null and save_info["stored_helmet"] != "":
-		stored_equipment = load(save_info["stored_helmet"]["path"])
-	if save_info["stored_chestplate"] != null and save_info["stored_chestplate"] != "":
-		stored_chestplate = load(save_info["stored_chestplate"]["path"])
-	if save_info["stored_boots"] != null and save_info["stored_boots"] != "":
-		stored_boots = load(save_info["stored_boots"]["path"])
-	if save_info["stored_charm"] != null and save_info["stored_charm"] != "":
-		stored_charm = load(save_info["stored_charm"]["path"])
+	if save_info["stored_helmet"] != null and not save_info["stored_helmet"] is String:
+		if save_info["stored_helmet"]["path"] != "":
+			stored_equipment = load(save_info["stored_helmet"]["path"])
+	if save_info["stored_chestplate"] != null and not save_info["stored_chestplate"] is String:
+		if save_info["stored_chestplate"]["path"] != "":
+			stored_chestplate = load(save_info["stored_chestplate"]["path"])
+	if save_info["stored_boots"] != null and not save_info["stored_boots"] is String:
+		if save_info["stored_boots"]["path"] != "":
+			stored_boots = load(save_info["stored_boots"]["path"])
+	if save_info["stored_charm"] != null and not save_info["stored_charm"] is String:
+		if save_info["stored_charm"]["path"] != "":
+			stored_charm = load(save_info["stored_charm"]["path"])
 	is_MC = save_info.get("is_mc", is_MC)
 	combatant_stats.load_information(save_info["combatant_stats"])
 	gather_actual_stats()
