@@ -958,7 +958,7 @@ func apply_location_facing(location) -> void:
 		return
 	animation_driver.face(animated_sprite, StringName(arrival_facing))
 
-func pin_to_location_for_cutscene(location) -> void:
+func pin_to_location_for_cutscene(location, make_visible: bool = true) -> void:
 	if schedule_paused_for_cutscene:
 		return
 
@@ -979,11 +979,11 @@ func pin_to_location_for_cutscene(location) -> void:
 	leaving_scene = false
 	player_just_stopped_talking_to_me = false
 	running_time = 0
-	set_schedule_presence(true)
+	set_schedule_presence(make_visible)
 	place_at_location(location)
 	animation_driver.sync(animated_sprite, Vector2.ZERO)
 
-func pin_to_global_position_for_cutscene(target_position: Vector2, facing: StringName = &"down") -> void:
+func pin_to_global_position_for_cutscene(target_position: Vector2, facing: StringName = &"down", make_visible: bool = true) -> void:
 	if schedule_paused_for_cutscene:
 		return
 
@@ -1004,7 +1004,7 @@ func pin_to_global_position_for_cutscene(target_position: Vector2, facing: Strin
 	leaving_scene = false
 	player_just_stopped_talking_to_me = false
 	running_time = 0
-	set_schedule_presence(true)
+	set_schedule_presence(make_visible)
 	global_position = target_position
 	current_destination = null
 	animation_driver.face(animated_sprite, facing)

@@ -181,11 +181,11 @@ func prepare_sera_quest_board_cutscene() -> void:
 
 	var sera_node = find_child("Sera_NPC", true, false)
 	if sera_node != null and lyra_room_marker != null and sera_node.has_method("pin_to_global_position_for_cutscene"):
-		sera_node.pin_to_global_position_for_cutscene(lyra_room_marker.global_position, &"down")
+		sera_node.pin_to_global_position_for_cutscene(lyra_room_marker.global_position, &"down", false)
 
 	var lyra_node = find_child("Lyra_NPC", true, false)
 	if lyra_node != null and lyra_room_marker != null and lyra_node.has_method("pin_to_global_position_for_cutscene"):
-		lyra_node.pin_to_global_position_for_cutscene(lyra_room_marker.global_position + Vector2(28.0, 0.0), &"left")
+		lyra_node.pin_to_global_position_for_cutscene(lyra_room_marker.global_position + Vector2(28.0, 0.0), &"left", false)
 
 func refresh_player_camera() -> void:
 	if player_node == null:
@@ -247,6 +247,7 @@ func play_sera_walk_from_lyra_room_to_player():
 	if final_position == Vector2.INF:
 		return 0.2
 
+	sera_node.set_schedule_presence(true)
 	sera_node.global_position = lyra_room_marker.global_position
 
 	if sera_node.has_method("move_along_global_positions_for_cutscene"):
@@ -267,6 +268,7 @@ func play_sera_walk_from_lyra_room_to_exit():
 	if sera_node == null or lyra_room_marker == null or lyra_exit_marker == null:
 		return 0.2
 
+	sera_node.set_schedule_presence(true)
 	sera_node.global_position = lyra_room_marker.global_position
 	if sera_node.has_method("move_along_global_positions_for_cutscene"):
 		var path_points: Array[Vector2] = build_axis_locked_cutscene_path(lyra_room_marker.global_position, [lyra_exit_marker.global_position])
