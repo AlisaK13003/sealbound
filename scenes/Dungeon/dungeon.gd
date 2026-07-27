@@ -57,7 +57,7 @@ var remove_status_weight: float = 37.6523693203926
 var give_self_status_weight: float = 33.7605845928192
 var remove_players_status_weight: float = 25.3082177639008
 var give_player_status_weight: float = 0
-var skill_importance: float = 50.0
+var skill_importance: float = 19.1546
 var summon_importance: float = 50.0
 
 
@@ -156,10 +156,10 @@ func setup(current_dungeon_type: dungeon_type, encounter: dungeon_wave, is_boss:
 	temp_item_list = GlobalCombatInformation.all_held_items
 	current_bond_points = GlobalCombatInformation.current_BP
 	max_bond_points_ = GlobalCombatInformation.max_BP
-	if GlobalCombatInformation.DEBUG_FILL_BOND_ATTACK_ON_COMBAT_START:
-		current_bond_points = max_bond_points_
-		GlobalCombatInformation.current_BP = current_bond_points
-		GlobalCombatInformation.cur_bond_attack_val = GlobalCombatInformation.max_BP * 2
+	#if GlobalCombatInformation.DEBUG_FILL_BOND_ATTACK_ON_COMBAT_START:
+	#	current_bond_points = max_bond_points_
+	#	GlobalCombatInformation.current_BP = current_bond_points
+	#	GlobalCombatInformation.cur_bond_attack_val = GlobalCombatInformation.max_BP * 2
 
 	for child in floor_tiles.get_children():
 		if child.get_index() == current_dungeon_type.type_of_dungeon:
@@ -379,7 +379,7 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 				execute_skills_fixed(slot_3.stored_combatant.passive_skill, aoe_array)
 			else:
 				execute_skills_fixed(slot_3.stored_combatant.passive_skill, slot_3)
-		await get_tree().create_timer(2.0).timeout
+		await get_tree().create_timer(0.5).timeout
 	
 	GlobalCombatInformation.calculate_BP()
 	for i in range(number_of_waves_to_fight):

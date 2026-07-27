@@ -5,28 +5,34 @@
 [ext_resource type="PackedScene" uid="uid://cumvpqxhdbqn8" path="res://assets/Resources/Interactables/Quests (2)/Quest_UI.tscn" id="4_tm2sl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ulf6e"]
-size = Vector2(76, 42)
+size = Vector2(76, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t8y7u"]
 radius = 57.004234
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tpxp"]
-size = Vector2(75, 32)
+size = Vector2(75, 15)
 
 [node name="QuestBoard" type="Node2D" unique_id=1065708173]
-z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_xib73")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1202505987]
+z_index = 1
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1337692366]
-position = Vector2(0, 6)
+z_index = 1
+y_sort_enabled = true
 shape = SubResource("RectangleShape2D_ulf6e")
 
 [node name="Area2D2" type="Area2D" parent="." unique_id=781367688]
+z_index = 1
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=406557706]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(0, 19.305)
 shape = SubResource("CircleShape2D_t8y7u")
 
@@ -37,6 +43,7 @@ offset_top = 2.0
 offset_right = -0.00012207031
 offset_bottom = 1.9999695
 parent = NodePath("../..")
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1915404993]
 z_index = 1
@@ -45,9 +52,13 @@ texture = ExtResource("3_k3v2q")
 offset = Vector2(0, 3.38)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2038073405]
+z_index = 1
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=232191028]
-position = Vector2(0.5, 24)
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0.5, 15.5)
 shape = SubResource("RectangleShape2D_7tpxp")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

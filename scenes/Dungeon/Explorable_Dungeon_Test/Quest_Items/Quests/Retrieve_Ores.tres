@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgmidaf6aanj7" path="res://assets/Scripts/Resource Scripts/equipment_manager.gd" id="1_kd4lq"]
 [ext_resource type="Resource" uid="uid://ut1qhtuxq51b" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Quests/Ore.tres" id="1_swmp1"]
+[ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="2_d5khg"]
 [ext_resource type="Script" uid="uid://qecrevyq2xlu" path="res://assets/Scripts/Resource Scripts/items.gd" id="2_th5uh"]
 [ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="3_swmp1"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_d5khg"]
@@ -11,10 +12,14 @@
 script = ExtResource("4_d5khg")
 quest_name = "Ores Needed"
 quest_giver = "Blacksmith"
-quest_description = "I neeeeeeeed ores"
+quest_giver_sprite = ExtResource("2_d5khg")
+quest_description = "I was ambushed by some slimes during my last cave run and lost my entire haul of ores. I would be ever so grateful if someone could get me some more."
 difficult_level = 1
 state_to_set_upon_completion = 14
 tavern_state_to_set = 5
+completion_requirements = {
+ExtResource("1_swmp1"): 1
+}
 should_spawn_dungeon_room = true
 required_spawn = true
 special_dungeon = ExtResource("6_d5khg")

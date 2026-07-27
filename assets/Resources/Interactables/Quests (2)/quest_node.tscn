@@ -155,6 +155,7 @@ scale = Vector2(0.84, 0.84)
 
 [node name="QuestName" type="Label" parent="VBoxContainer" unique_id=1949900024]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
 text = "I need herbs!"
 
 [node name="QuestLocation" type="Label" parent="VBoxContainer" unique_id=1447489564]
@@ -162,6 +163,8 @@ custom_minimum_size = Vector2(261.495, 73.84)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(10.525, 0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_font_sizes/font_size = 13
 text = "Forest Dungeon"
 autowrap_mode = 3
 

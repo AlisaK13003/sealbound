@@ -115,9 +115,15 @@ func heal(skill_used: moves, person_who_used_skill: generic_combatants):
 func take_damage(amount):
 	actual_stats.health += int(amount)
 
+func get_path_custom():
+	if resource_path != null or resource_path != "":
+		return resource_path
+	else:
+		return self.get_meta("original_path", "")
+
 func export_to_JSON():
 	return {
-		"path": resource_path,
+		"path": get_path_custom(),
 		"name": combatant_name,
 		"combatant_stats": combatant_stats.export_to_JSON(),
 		"actual_combatant_stats": actual_stats.export_to_JSON(),

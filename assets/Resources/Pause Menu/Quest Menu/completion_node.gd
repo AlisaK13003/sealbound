@@ -15,7 +15,7 @@ func _setup(goal, completion_requirements = null):
 			label_2.text = str(item_in_inventory if item_in_inventory != null else "0") + " / " + str(completion_requirements[goal])
 
 		elif goal is Items:
-			texture_re = goal.item_sprite
+			texture_re.texture = goal.item_sprite
 			label.text = goal.item_name + ": "
 			
 			var item_in_inventory = GlobalCombatInformation.search_for_item_count(goal.item_name)

@@ -56,7 +56,7 @@ texture = ExtResource("2_n4h0v")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer" unique_id=1109611626]
-custom_minimum_size = Vector2(147.77, 0)
+custom_minimum_size = Vector2(160.785, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(1.25, 0)

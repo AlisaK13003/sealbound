@@ -66,15 +66,17 @@ func _physics_process(delta: float) -> void:
 
 	if disable_monitoring:
 		return
-	
+		
+	if p_ref.movement_locked:
+		return
+		
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
 
-	if p_ref.movement_locked:
-		return
+
 		
 	# Sprite flipping
 	if velocity.x >= 0:

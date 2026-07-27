@@ -132,7 +132,7 @@ var time_paused: bool = false
 
 # Updates the current time
 func _physics_process(delta):	
-	if AreaStateManager.currently_transitioning or GlobalCombatInformation.in_dungeon:
+	if AreaStateManager.currently_transitioning:
 		return
 	
 	if time_paused:
@@ -147,7 +147,7 @@ func update_time():
 	play_time_seconds += 1
 	seconds_since_day_started += 1
 	
-	if (seconds_since_day_started * time_scale) - time_since_last_update >= TIME_STEP_SECONDS:
+	if (seconds_since_day_started * time_scale) - time_since_last_update >= TIME_STEP_SECONDS and not GlobalCombatInformation.in_dungeon:
 		record_previous_time()
 		current_minute += TIME_STEP_MINUTES
 		if current_minute >= 60:

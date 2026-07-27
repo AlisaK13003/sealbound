@@ -29,9 +29,9 @@ func check_quest_progress():
 	for goal in what_quest_am_i.completion_requirements.keys():
 		var new_node = load("res://assets/Resources/Pause Menu/Quest Menu/Completion_Node.tscn")
 		var new_instance = new_node.instantiate()
-		new_instance._setup(goal, what_quest_am_i.completion_requirements)
 		completion_requirements.add_child(new_instance)
-
+		new_instance._setup(goal, what_quest_am_i.completion_requirements)
+		
 	if what_quest_am_i.should_spawn_dungeon_room and not what_quest_am_i.does_player_have_special_item:
 		can_turn_in_quest = false
 	
@@ -60,6 +60,8 @@ func was_hovered():
 func setup_(quest_: quest, i):
 	quest_name_label.text = quest_.quest_name + " -" + quest_.quest_giver
 	quest_location_label.text = quest_.quest_description
+	
+	$TextureRect.texture = quest_.quest_giver_sprite
 	
 	what_quest_am_i = quest_
 	index = i

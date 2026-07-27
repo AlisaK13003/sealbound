@@ -203,6 +203,7 @@ func _load_player_combatant_for_gender() -> generic_combatants:
 		combatant_path = MALE_MC_COMBATANT_PATH
 	var loaded_combatant = load(combatant_path)
 	if loaded_combatant is generic_combatants:
+		loaded_combatant.set_meta("original_path", combatant_path)
 		return loaded_combatant
 	push_warning("Could not load player combatant at %s" % combatant_path)
 	return null
@@ -648,7 +649,7 @@ func transition_to_dungeon(selected_dungeon, quest_dungeon = null):
 	explorable_dungeon_scene = dungeon_scene
 
 	max_BP = 3
-	bond_attack_fill = 15
+	#bond_attack_fill = 15
 	current_BP = 3
 	AreaStateManager.currently_transitioning = false
 	await dungeon_scene._setup(selected_dungeon, quest_dungeon)
@@ -736,8 +737,13 @@ func initiate_combat(encounter, node_id, is_boss: bool = false):
 	is_combat_active = true
 	previous_enemy_encountered = node_id
 	await Fade.fade_in(0.5)
+	#explorable_dungeon_scene.visible = false
+	explorable_dungeon_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().root.call_deferred("remove_child", explorable_dungeon_scene)
 	get_tree().root.call_deferred("add_child", dungeon_loop_scene)
+	
+	#get_tree().current_scene = dungeon_loop_scene
+	
 	#get_tree().current_scene = dungeon_loop_scene
 	await get_tree().process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -864,6 +870,10 @@ func bring_back_combat(_rewards_scene = null):
 		1:
 			AudioManager.play_bgm(AudioManager.FOREST_DUNGEON_BGM)
 	get_tree().root.add_child.call_deferred(explorable_dungeon_scene)
+	#explorable_dungeon_scene.visible = true
+	explorable_dungeon_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	
+	#get_tree().current_scene = explorable_dungeon_scene
 	
 	if is_instance_valid(rewards_scene_):
 		rewards_scene_.queue_free()
@@ -915,7 +925,6 @@ func load_saved_data(data):
 			new_party_member.load_save(party_member)
 			new_party_member.gather_actual_stats()
 			all_party_slots[index] = new_party_member.custom_duplicate()
-			print("ASDASD")
 		else:
 			new_party_member.load_save(party_member)
 			new_party_member.gather_actual_stats()

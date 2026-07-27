@@ -135,11 +135,11 @@ horizontal_alignment = 1
 [node name="Found_Enemies" type="GridContainer" parent="." unique_id=1494444648]
 z_index = 130
 layout_mode = 0
-offset_left = 366.0
+offset_left = 388.745
 offset_top = 57.0
-offset_right = 753.00006
+offset_right = 775.7449
 offset_bottom = 95.0
-theme_override_constants/h_separation = 54
+theme_override_constants/h_separation = 69
 theme_override_constants/v_separation = 10
 columns = 2
 
@@ -154,13 +154,13 @@ text = "Potential Drops:"
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1057383779]
 layout_mode = 0
-offset_left = 102.00001
+offset_left = 103.785
 offset_top = 231.0
-offset_right = 320.0
-offset_bottom = 270.99997
-scale = Vector2(0.6, 0.6)
+offset_right = 328.78473
+offset_bottom = 271.0
+scale = Vector2(0.46, 0.46)
 theme_override_constants/h_separation = 15
-theme_override_constants/v_separation = 3
+theme_override_constants/v_separation = 17
 columns = 4
 
 [node name="GridContainer2" type="GridContainer" parent="." unique_id=1250785938]

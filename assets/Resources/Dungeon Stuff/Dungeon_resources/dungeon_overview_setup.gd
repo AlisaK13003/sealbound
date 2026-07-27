@@ -37,7 +37,7 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 		
 		new_texture_rect.custom_maximum_size = Vector2(32, 32)
 		new_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.5))
-		
+		new_label.custom_minimum_size = Vector2(200, 0)
 		new_box.add_child(new_texture_rect)
 		new_box.add_child(new_label)
 		
@@ -52,7 +52,7 @@ func _setup(dungeon_type_: dungeon_type, quest_dungeon: quest = null):
 			new_label.text = item.item_name
 			new_texture_rect.texture = item.item_sprite
 		
-		new_label.add_theme_font_size_override("size", 112)
+		new_label.add_theme_font_size_override("size", 12)
 		
 		$GridContainer.add_child(new_box)
 	
