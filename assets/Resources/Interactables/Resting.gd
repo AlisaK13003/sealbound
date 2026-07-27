@@ -147,6 +147,8 @@ func sleep_until_next_morning() -> void:
 	await get_tree().process_frame
 	await Fade.fade_out(1.0)
 
+	Global.trigger_sleep_state_check.emit()
+
 	Global.is_paused = false
 	Global.is_in_menu = false
 	sleep_in_progress = false

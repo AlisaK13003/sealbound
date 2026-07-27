@@ -11,5 +11,5 @@ quest_name = "Talk to Sera"
 quest_giver = "- self"
 quest_description = "I should talk to sera to learn about where I was found."
 dungeon_location = 1
-ready_to_turn_in_string = "Done"
+ready_to_turn_in_string = "Talk to her"
 metadata/_custom_type_script = "uid://npoqdralsply"
