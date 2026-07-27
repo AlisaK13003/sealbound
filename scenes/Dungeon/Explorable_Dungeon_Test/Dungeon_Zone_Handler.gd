@@ -484,7 +484,7 @@ func instantiate_rooms(room_storage, boss_floor):
 			if room_.room_classification == 2:
 				room_to_make_thing.append(room_)
 		
-		if room_to_make_thing <= 0:
+		if room_to_make_thing.size() <= 0:
 			return false
 		var room_to_do_thing: room = room_to_make_thing.pick_random()
 		
