@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://bmbv0ryp34aq5" path="res://assets/Scripts/Resource Scripts/stats.gd" id="5_rdyxu"]
 [ext_resource type="SpriteFrames" uid="uid://1emwp73mwnfq" path="res://assets/characters/kaela/Kaela_Dungeon_Animations.tres" id="5_wldd5"]
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_c3yhw"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="13_060cn"]
-[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="14_r4lew"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="9_gfk6f"]
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("5_rdyxu")
@@ -20,7 +19,6 @@ defense = 2
 magic = 7
 resistance = 6
 crit_chance = 3
-crit_damage = 50.0
 speed = 9
 luck = 6
 evasion = 10
@@ -54,20 +52,12 @@ targets_party = true
 is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
-[sub_resource type="Resource" id="Resource_8byxm"]
-script = ExtResource("13_060cn")
-weapon_name = "Lucifer's Blade"
-weapon_texture = ExtResource("14_r4lew")
-weapon_attack = 30
-attack_accuracy = 90
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
-
 [resource]
 script = ExtResource("6_c3yhw")
 combatant_name = "Kaela"
 party_member_portrait = SubResource("AtlasTexture_r2tkb")
 combatant_stats = SubResource("Resource_ms118")
-stored_weapon = SubResource("Resource_8byxm")
+stored_weapon = ExtResource("9_gfk6f")
 combatant_skills_ = Dictionary[ExtResource("1_hw41m"), bool]({
 ExtResource("2_wyusy"): true,
 ExtResource("3_cxk3i"): true,

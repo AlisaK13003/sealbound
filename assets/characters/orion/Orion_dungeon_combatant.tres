@@ -19,7 +19,6 @@ defense = 5
 magic = 2
 resistance = 3
 crit_chance = 10
-crit_damage = 50.0
 speed = 10
 luck = 5
 evasion = 8
