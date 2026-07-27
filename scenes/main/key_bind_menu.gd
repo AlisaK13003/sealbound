@@ -13,9 +13,11 @@ var actions_to_change = ["up", "down", "left", "right", "Interact", "Pause", "Co
 
 func _ready():
 	for child in range(button_container.get_child_count()):
-		var event_to_check = InputMap.action_get_events(actions_to_change[child])[0]
-		var incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
-		button_container.get_child(child).text = OS.get_keycode_string(incoming_key)
+		var event_to_check := get_keyboard_event_for_action(actions_to_change[child])
+		if event_to_check == null:
+			button_container.get_child(child).text = ""
+			continue
+		button_container.get_child(child).text = OS.get_keycode_string(get_keycode_from_event(event_to_check))
 
 func _input(event):
 	if event is InputEventKey and waiting_for_input:
@@ -50,18 +52,21 @@ func setup_key_bind_swap(child_num, what_action_event):
 			confliction_screen.visible = false
 			var spot_to_delete
 			for event in range(actions_to_change.size()):
-				var event_to_check = InputMap.action_get_events(actions_to_change[event])[0]
-				var outgoing_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
+				var event_to_check := get_keyboard_event_for_action(actions_to_change[event])
+				if event_to_check == null:
+					continue
+				var outgoing_key = get_keycode_from_event(event_to_check)
 				
-				if event_to_check is InputEventKey:
-					if outgoing_key == ret_val:
-						spot_to_delete = event
-						break
+				if outgoing_key == ret_val:
+					spot_to_delete = event
+					break
 			var incoming_key = key_just_pressed.keycode if key_just_pressed.keycode != 0 else key_just_pressed.physical_keycode
 			button_container.get_child(child_num).text = OS.get_keycode_string(incoming_key) 
-			button_container.get_child(spot_to_delete).text = ""
+			if spot_to_delete != null:
+				button_container.get_child(spot_to_delete).text = ""
 			InputMap.action_erase_events(what_action_event)
-			InputMap.action_erase_events(actions_to_change[spot_to_delete])
+			if spot_to_delete != null:
+				InputMap.action_erase_events(actions_to_change[spot_to_delete])
 			var new_key = key_just_pressed.duplicate()
 			new_key.pressed = false
 			awaiting_key_press_screen.visible = false
@@ -72,17 +77,25 @@ func setup_key_bind_swap(child_num, what_action_event):
 			confliction_screen.visible = false
 
 func check_if_key_is_already_used(what_action_event, key_event):
-	var incoming_key = key_event.keycode if key_event.keycode != 0 else key_event.physical_keycode
+	var incoming_key = get_keycode_from_event(key_event)
 	for event in range(actions_to_change.size()):
 		if actions_to_change[event] == what_action_event:
 			continue
-		elif InputMap.action_get_events(actions_to_change[event]).size() == 0:
-			return true
 		
-		var event_to_check = InputMap.action_get_events(actions_to_change[event])[0]
-		var outgoing_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
+		var event_to_check := get_keyboard_event_for_action(actions_to_change[event])
+		if event_to_check == null:
+			continue
+		var outgoing_key = get_keycode_from_event(event_to_check)
 		
-		if event_to_check is InputEventKey:
-			if outgoing_key == incoming_key:
-				return outgoing_key
+		if outgoing_key == incoming_key:
+			return outgoing_key
 	return true
+
+func get_keyboard_event_for_action(action_name: String) -> InputEventKey:
+	for event in InputMap.action_get_events(action_name):
+		if event is InputEventKey:
+			return event
+	return null
+
+func get_keycode_from_event(event: InputEventKey) -> int:
+	return event.keycode if event.keycode != 0 else event.physical_keycode

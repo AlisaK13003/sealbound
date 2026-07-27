@@ -21,9 +21,6 @@ func _ready():
 		return
 	button_name_text.text = button_name
 
-	var event_to_check = InputMap.action_get_events(Global.keyboard_mouse_icon_mapping.keys()[button_to_active])[0]
-	var _incoming_key = event_to_check.keycode if event_to_check.keycode != 0 else event_to_check.physical_keycode
-
 	Global.swapped_to_controller.connect(swap_to_controller_icons)
 	swap_to_controller_icons(Global.using_controller)
 	
@@ -56,7 +53,8 @@ func update_name(new_name: String):
 func swap_to_controller_icons(do_it):
 	if not do_it:
 		var kb_event = get_input_for_action(Global.keyboard_mouse_icon_mapping.keys()[button_to_active], true)
-		var position_to_get = Global.key_sprite_map[kb_event.physical_keycode]
+		var keycode := _get_keycode_from_event(kb_event)
+		var position_to_get = Global.key_sprite_map.get(keycode, 99)
 		
 		button_icon.hframes = 10
 		button_icon.vframes = 10
@@ -95,12 +93,17 @@ func get_input_for_action(action_name: String, check_keyboard: bool) -> InputEve
 	return null
 
 func get_key_name_for_action(action_name: String) -> String:
-	var keycode = get_input_for_action(action_name, true)
+	var keycode := _get_keycode_from_event(get_input_for_action(action_name, true))
 	
 	if keycode != KEY_NONE:
 		return OS.get_keycode_string(keycode)
 		
 	return "Unbound"
+
+func _get_keycode_from_event(event: InputEvent) -> int:
+	if event is InputEventKey:
+		return event.keycode if event.keycode != 0 else event.physical_keycode
+	return KEY_NONE
 
 func _input(_event):	
 	if AreaStateManager.currently_transitioning or Fade.is_fading:
