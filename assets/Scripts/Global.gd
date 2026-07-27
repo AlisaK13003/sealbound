@@ -339,6 +339,8 @@ func is_debug_story_skip_input(event: InputEvent) -> bool:
 		or key_event.unicode == 126
 	)
 
+signal trigger_sleep_state_check
+
 func set_pending_player_spawn_position(spawn_position: Vector2) -> void:
 	pending_player_spawn_position = spawn_position
 	has_pending_player_spawn_position = true

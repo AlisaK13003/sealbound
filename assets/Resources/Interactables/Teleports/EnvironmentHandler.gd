@@ -11,18 +11,10 @@ const BEDROOM_REST_SPOT_NAME := "BedroomRestSpot"
 
 var player_node
 
-func swap_to_me():
-	player_node = get_tree().get_first_node_in_group("Overworld_Player")
-	var entry_loading_zone: String = Global.current_loading_zone
-	
-	teleport_player_to_spawn()
-	set_camera_limits()
-	if is_building_insides:
-		ensure_bed_rest_interactions()
+func _ready():
+	Global.trigger_sleep_state_check.connect(check_states)
 
-	AudioManager.play_bgm(bgm, true)
-	
-	
+func check_states():
 	var cutscene_to_start
 	if not Global.debug_story_skip_active:
 		for potential_cutscene in StateManager.story_triggers:
@@ -98,6 +90,19 @@ func swap_to_me():
 			start_lyra_axe_return_cutscene()
 		"quest_board_unlock_cutscene":
 			start_sera_quest_board_cutscene()
+
+func swap_to_me():
+	player_node = get_tree().get_first_node_in_group("Overworld_Player")
+	var entry_loading_zone: String = Global.current_loading_zone
+	
+	teleport_player_to_spawn()
+	set_camera_limits()
+	if is_building_insides:
+		ensure_bed_rest_interactions()
+
+	AudioManager.play_bgm(bgm, true)
+	
+	check_states()
 	
 func teleport_player_to_spawn():
 	if player_node == null:
