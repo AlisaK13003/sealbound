@@ -49,6 +49,7 @@ const PORTRAIT_EMOTION_FRAMES: Dictionary = {
 	_find_choice_button(1),
 	_find_choice_button(2),
 	_find_choice_button(3),
+	_find_choice_button(4),
 ]
 
 func _find_choice_button(index: int) -> Button:

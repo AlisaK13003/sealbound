@@ -188,3 +188,18 @@ text_overrun_behavior = 3
 autowrap_mode = 3
 clip_text = true
 vertical_icon_alignment = 0
+
+[node name="PanelContainer4" type="PanelContainer" parent="DialogueUI/ChoicesContainer" unique_id=1409488833]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nnx0c")
+
+[node name="Choice4" type="Button" parent="DialogueUI/ChoicesContainer/PanelContainer4" unique_id=1797239005]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38039216, 0.28235295, 0.10980392, 1)
+text = "Choice"
+flat = true
+alignment = 0
+text_overrun_behavior = 3
+autowrap_mode = 3
+clip_text = true
+vertical_icon_alignment = 0

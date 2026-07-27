@@ -47,6 +47,14 @@ var all_character_information = [
 	FEMALE_MC_COMBATANT_PATH,
 	MALE_MC_COMBATANT_PATH
 ]
+const NPC_ID_TO_CHARACTER_INDEX: Dictionary = {
+	"sera": 0,
+	"lyra": 1,
+	"rowan": 2,
+	"kaela": 3,
+	"cassian": 4,
+	"orion": 5,
+}
 
 signal finished
 
@@ -115,6 +123,16 @@ func add_party_member_by_character_index(character_index: int, make_active: bool
 	member_added.emit()
 
 signal update_resonance
+# Returns true if the villager was newly recruited (or already recruited).
+func recruit_villager_by_npc_id(npc_id: String, make_active: bool = false) -> bool:
+	if not NPC_ID_TO_CHARACTER_INDEX.has(npc_id):
+		push_warning("GlobalCombatInformation: no character index for npc_id '%s'." % npc_id)
+		return false
+	var index: int = int(NPC_ID_TO_CHARACTER_INDEX[npc_id])
+	StateManager.set_party_member_unlock(index)          # persists flag + emits -> new_members_available (dedup)
+	if make_active:
+		add_party_member_by_character_index(index, true)
+	return true
 func resonate_with_a_member(which_member: generic_combatants, activated):
 	for member in all_party_slots:
 		if member.combatant_name == which_member.combatant_name and activated:

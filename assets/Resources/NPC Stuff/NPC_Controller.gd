@@ -15,6 +15,7 @@ var pending_choice_action: String = ""
 
 var current_location
 const DEFAULT_SCHEDULE_TRAVEL_MINUTES: int = 30
+const RECRUIT_MIN_TIER_INDEX: int = 0
 const DEFAULT_OVERWORLD_SPRITE_DISPLAY_HEIGHT: float = 36.0
 const LOCATION_ARRIVAL_FACING_OVERRIDES: Dictionary = {
 	"Practice Field": "right",
@@ -949,7 +950,16 @@ func end_dialogue() -> void:
 		dialogue_system.hide_dialog()
 	else:
 		_on_dialogue_system_dialogue_closed()
-
+func try_recruit_from_bond() -> void:
+	if npc_id.is_empty():
+		return
+	var bond_info = Global.get_npc_bond_info(npc_id)
+	if int(bond_info["tier_index"]) < RECRUIT_MIN_TIER_INDEX:
+		print("[Recruit] %s not recruitable yet (tier %s)." % [npc_id, bond_info["tier_name"]])
+		return
+	if GlobalCombatInformation.recruit_villager_by_npc_id(npc_id):
+		print("[Recruit] %s joined the party roster." % npc_id)
+		
 func debug_skip_dialogue() -> void:
 	end_dialogue()
 
@@ -972,7 +982,8 @@ func _on_dialogue_system_choice_action_requested(action: String, choice_data: Di
 
 	if action == "start_lyra_axe_quest":
 		Global.start_lyra_axe_quest()
-
+	if action == "recruit":
+		try_recruit_from_bond()
 	if not npc_id.is_empty():
 		if bool(choice_data.get("daily_talk_bond", false)):
 			Global.add_daily_talk_bond(npc_id)

@@ -142,6 +142,10 @@
 		{
 		  "text": "Gift (WIP)",
 		  "next": "gift_wip"
+		},
+		{ 
+		  "text": "Would you fight alongside me?", 
+		  "action": "recruit", "next": "recruit_accept" 
 		}
 	  ]
 	},

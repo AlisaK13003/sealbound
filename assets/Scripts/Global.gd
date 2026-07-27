@@ -49,7 +49,7 @@ const BOND_TIER_NAMES: Array[String] = [
 	"Bound",
 	"True Bond"
 ]
-const BOND_TIER_SIZE: int = 15
+const BOND_TIER_SIZE: int = 25
 const DAILY_TALK_BOND_EXP: int = 5
 const LYRA_TAVERN_PLAYER_POSITION: Vector2 = Vector2(-2536.0, -3077.0)
 const LYRA_FIRST_OBJECTIVE_TEXT: String = "Sera mentioned I should talk to Lyra. I can find her at the tavern."
