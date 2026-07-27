@@ -18,10 +18,10 @@ var active_scene
 
 var currently_transitioning: bool = false
 
-@export var building_insides_player_speed: float = 250.0
-@export var hearthwynn_player_speed: float = 250.0
-@export var cliff_side_player_speed: float = 325.0
-@export var forest_player_speed: float = 325.0
+@export var building_insides_player_speed: float = 200.0
+@export var hearthwynn_player_speed: float = 90.0
+@export var cliff_side_player_speed: float = 150.0
+@export var forest_player_speed: float = 150.0
 
 
 func _setup(transition = true):

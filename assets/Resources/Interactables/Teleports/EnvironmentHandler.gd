@@ -77,10 +77,11 @@ func check_states():
 						await get_tree().create_timer(2.0).timeout
 						Global.show_mc_thought("END OF DEMO!")
 
-	if Global.current_loading_zone == "DungeonExit":
-		await get_tree().create_timer(2.0).timeout
-	else:
-		await get_tree().create_timer(0.5).timeout
+	if get_tree() != null:
+		if Global.current_loading_zone == "DungeonExit":
+			await get_tree().create_timer(2.0).timeout
+		else:
+			await get_tree().create_timer(0.5).timeout
 	await Fade.fade_out(0.5)
 	Fade.is_fading = false
 	match cutscene_to_start:
