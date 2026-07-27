@@ -71,6 +71,7 @@ status_on_player = true
 does_status = true
 status_type = 393216
 removes_status = null
+chance_of_status_condition = 1.0
 lasts_x_turns = 5
 targets_party = true
 is_skill_aoe = true

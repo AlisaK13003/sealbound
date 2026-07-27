@@ -48,6 +48,7 @@ status_on_player = true
 does_status = true
 status_type = null
 removes_status = 278528
+chance_of_status_condition = 1.0
 targets_party = true
 is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"

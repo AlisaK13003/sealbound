@@ -234,7 +234,8 @@ func advance_turn(actor):
 	if _is_living_combatant(completed_actor):
 		all_combatants.append(completed_actor)
 	else:
-		completed_actor.queue_free()
+		if completed_actor.stored_combatant.is_combatant_enemy:
+			completed_actor.queue_free()
 		
 	var living_combatants: Array[combat_template] = []
 	for entity in all_combatants:
@@ -476,6 +477,9 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 					hide_enemy_ui(false)
 					#var thing = await handle_player_move_selection(current_combatant.stored_combatant)
 					selecting_entity = false
+					if get_player(active_player_turn) == null:
+						advance_turn(current_actor)
+						continue
 					if get_player(active_player_turn).stored_combatant == null or get_player(active_player_turn).is_dead:
 						advance_turn(current_actor)
 						continue
@@ -1044,12 +1048,12 @@ func player_did_bond_attack():
 	if attacking is Array:
 		var par_task: Array[Callable] = []
 		for entity in attacking:
-			var base_damage = calculate_damage(get_player(active_player_turn), 1.0, entity, false, false)
+			var base_damage = calculate_damage(get_player(0), 1.0, entity, false, false)
 			var actual_damage = base_damage[0] + (base_damage[0] * (0.2 * alive_player_count))
 			par_task.append(func(): await entity.update_health(actual_damage))
 		action_sequence.append(func(): await await_parallel(par_task))
 	else:
-		var base_damage = calculate_damage(get_player(active_player_turn), 3.0, attacking, false, false)
+		var base_damage = calculate_damage(get_player(0), 3.0, attacking, false, false)
 		print(base_damage)
 		var actual_damage = base_damage[0] + (base_damage[0] * (0.2 * alive_player_count))
 		action_sequence.append(func(): await attacking.update_health(actual_damage))

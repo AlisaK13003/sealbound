@@ -65,6 +65,8 @@ removes_status = null
 targets_party = true
 is_skill_aoe = true
 does_heal_party = true
+amount_healed = 1
+aoe_heal = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [resource]

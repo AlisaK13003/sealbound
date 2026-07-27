@@ -691,6 +691,12 @@ func dungeon_over(passed_out: bool = false):
 	in_dungeon = false
 	for member in all_party_slots:
 		member.restore_health()
+	
+	for member in active_party_slots:
+		if member.is_MC:
+			continue
+		Global.add_npc_bond_exp(member.combatant_name.to_lower(), 25, "Beating Dungeon")
+		
 	check_player_values.emit()
 	if dungeon_loop_scene != null:
 		dungeon_loop_scene.queue_free()
