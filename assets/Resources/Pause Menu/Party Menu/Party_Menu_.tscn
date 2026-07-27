@@ -44,13 +44,12 @@ grow_vertical = 1
 
 [node name="MenuTabs" parent="." unique_id=1267646118 instance=ExtResource("1_lp15h")]
 layout_mode = 0
-offset_left = -279.09
+offset_left = -281.435
 offset_top = -116.95
-offset_right = -279.09
+offset_right = -281.435
 offset_bottom = -52.949997
-scale = Vector2(1.15, 1.15)
-theme_override_constants/h_separation = 76
-columns = 6
+theme_override_constants/h_separation = 82
+columns = 7
 bypass_global_lock = true
 
 [node name="BasePauseMenu" parent="." unique_id=1114125031 instance=ExtResource("4_qxlb4")]

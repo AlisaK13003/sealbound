@@ -276,8 +276,7 @@ func on_death():
 			await get_tree().create_timer(1.0).timeout
 	if not stored_combatant.is_combatant_enemy:
 		parent_reference.gui.get_player_portrait(child_number).update_statuses(self)
-	else:
-		parent_reference.gui.update_bond_attack(0.5)
+
 		
 	parent_reference.finished_dying.emit()
 	parent_reference.someone_is_dying = false

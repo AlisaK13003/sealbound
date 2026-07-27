@@ -42,10 +42,10 @@ offset_left = -373.375
 offset_top = -268.22
 offset_right = -373.375
 offset_bottom = -268.22
-scale = Vector2(1.75, 1.75)
+scale = Vector2(1.455, 1.455)
 mouse_filter = 0
-theme_override_constants/h_separation = 76
-columns = 6
+theme_override_constants/h_separation = 82
+columns = 7
 
 [node name="Card_Container" type="Control" parent="." unique_id=666930549]
 anchors_preset = 0

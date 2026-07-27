@@ -61,7 +61,7 @@ func setup_(quest_: quest, i):
 	quest_name_label.text = quest_.quest_name + " -" + quest_.quest_giver
 	quest_location_label.text = quest_.quest_description
 	
-	$TextureRect.texture = quest_.quest_giver_sprite
+	$Sprite2D.texture = quest_.quest_giver_sprite
 	
 	what_quest_am_i = quest_
 	index = i

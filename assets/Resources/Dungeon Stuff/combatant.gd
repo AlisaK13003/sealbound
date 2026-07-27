@@ -116,7 +116,7 @@ func take_damage(amount):
 	actual_stats.health += int(amount)
 
 func get_path_custom():
-	if resource_path != null or resource_path != "":
+	if resource_path != null and resource_path != "":
 		return resource_path
 	else:
 		return self.get_meta("original_path", "")
@@ -147,13 +147,13 @@ func load_save(save_info):
 	total_experience_points = save_info["total_experience_points"]
 	if save_info["stored_weapon"] != null:
 		stored_weapon = load(save_info["stored_weapon"]["path"])
-	if save_info["stored_helmet"] != null or save_info["stored_helmet"] != "":
+	if save_info["stored_helmet"] != null and save_info["stored_helmet"] != "":
 		stored_equipment = load(save_info["stored_helmet"]["path"])
-	if save_info["stored_chestplate"] != null or save_info["stored_chestplate"] != "":
+	if save_info["stored_chestplate"] != null and save_info["stored_chestplate"] != "":
 		stored_chestplate = load(save_info["stored_chestplate"]["path"])
-	if save_info["stored_boots"] != null or save_info["stored_boots"] != "":
+	if save_info["stored_boots"] != null and save_info["stored_boots"] != "":
 		stored_boots = load(save_info["stored_boots"]["path"])
-	if save_info["stored_charm"] != null or save_info["stored_charm"] != "":
+	if save_info["stored_charm"] != null and save_info["stored_charm"] != "":
 		stored_charm = load(save_info["stored_charm"]["path"])
 	is_MC = save_info.get("is_mc", is_MC)
 	combatant_stats.load_information(save_info["combatant_stats"])
@@ -165,6 +165,7 @@ func gather_actual_stats():
 func custom_duplicate():
 	var copy = self.duplicate(true)
 	copy.actual_stats = actual_stats.duplicate(true)
+	copy.set_meta("original_path", self.get_path_custom())
 	return copy
 
 func add_up_stats() -> stats:

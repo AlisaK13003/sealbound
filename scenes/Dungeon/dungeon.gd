@@ -371,12 +371,18 @@ func battle_loop(encounter, is_boss, training_weight = null, p_weights = null):
 	if resonated_with_active_person:
 		if GlobalCombatInformation.active_party_slots.size() > 1 and GlobalCombatInformation.active_party_slots[1].resonated_with:
 			if slot_2.stored_combatant.passive_skill.is_skill_aoe:
-				execute_skills_fixed(slot_2.stored_combatant.passive_skill, aoe_array)
+				if slot_2.stored_combatant.passive_skill.targets_party:
+					execute_skills_fixed(slot_2.stored_combatant.passive_skill, aoe_array)
+				else:
+					execute_skills_fixed(slot_2.stored_combatant.passive_skill, enemy_shit.get_children())
 			else:
 				execute_skills_fixed(slot_2.stored_combatant.passive_skill, slot_2)
 		elif GlobalCombatInformation.active_party_slots.size() > 2 and GlobalCombatInformation.active_party_slots[2].resonated_with:
 			if slot_3.stored_combatant.passive_skill.is_skill_aoe:
-				execute_skills_fixed(slot_3.stored_combatant.passive_skill, aoe_array)
+				if slot_3.stored_combatant.passive_skill.targets_party:
+					execute_skills_fixed(slot_3.stored_combatant.passive_skill, aoe_array)
+				else:
+					execute_skills_fixed(slot_3.stored_combatant.passive_skill, enemy_shit.get_children())
 			else:
 				execute_skills_fixed(slot_3.stored_combatant.passive_skill, slot_3)
 		await get_tree().create_timer(0.5).timeout
@@ -921,6 +927,9 @@ func secondary_skill_action_on_players(skill_used: moves):
 
 	for person in act_on_people:		
 		if not is_instance_valid(person):
+			continue
+
+		if person.is_dead:
 			continue
 
 		var seq_task: Array[Callable] = []

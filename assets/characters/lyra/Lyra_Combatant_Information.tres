@@ -69,13 +69,12 @@ script = ExtResource("1_26prq")
 attack_power = null
 does_damage = false
 does_status = true
-status_type = 212992
+status_type = 851968
 removes_status = null
 chance_of_status_condition = 1.0
 lasts_x_turns = 2
 targets_party = true
 targets_self = true
-is_skill_aoe = true
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [resource]

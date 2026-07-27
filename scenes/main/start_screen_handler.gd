@@ -767,6 +767,8 @@ func _save_title_setting(section: String, key: String, value) -> void:
 
 func _begin_new_game() -> void:
 	StateManager.clear()
+	GlobalCombatInformation.active_party_slots.clear()
+	GlobalCombatInformation.all_party_slots.clear()
 	var gender = selected_gender
 	if gender.is_empty() and gender_options != null:
 		gender = "male" if gender_options.selected == 1 else "female"

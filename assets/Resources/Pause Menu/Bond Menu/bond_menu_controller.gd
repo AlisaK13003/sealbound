@@ -15,5 +15,5 @@ func _setup(character_name):
 	bond_bar.value = bond_info["exp"]
 	
 	$"GridContainer/Current Bond Exp".text = "Current Bond Exp: " + str(bond_bar.value)
-	$"GridContainer/Days since last talked".text = "Days since last talked: " + str(bond_info["last_talk_day"])
+	$"GridContainer/Days since last talked".text = "Last talked on day: " + str(Global.current_day - bond_info["last_talk_day"])
 	$"GridContainer/Current Tier".text = "Current Bond Tier: " + bond_info["tier_name"]

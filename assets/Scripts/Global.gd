@@ -252,21 +252,21 @@ func add_npc_bond_exp(npc_id: String, amount: int, reason: String = "") -> Dicti
 	if info["tier_name"] != "Stranger" and StateManager.story_beats_lookup.CAN_UNLOCK_REST_OF_VILLAGERS:
 		var identifier
 		match npc_id:
-			"Sera":
+			"sera":
 				identifier = StateManager.party_member_unlock_lookup.SERA_UNLOCKED
-			"Lyra":
+			"lyra":
 				identifier = StateManager.party_member_unlock_lookup.LYRA_UNLOCKED
-			"Cassian":
+			"cassian":
 				identifier = StateManager.party_member_unlock_lookup.CASSIAN_UNLOCKED
-			"Orion":
+			"orion":
 				identifier = StateManager.party_member_unlock_lookup.ORION_UNLOCKED
-			"Rowan":
+			"rowan":
 				identifier = StateManager.party_member_unlock_lookup.ROWAN_UNLOCKED
-			"Kaela":
+			"kaela":
 				identifier = StateManager.party_member_unlock_lookup.KAELA_UNLOCKED
 			_:
-				""
-		if identifier != "":
+				identifier = -1
+		if identifier != null or identifier != -1:
 			StateManager.set_party_member_unlock(identifier, true)
 	
 	return info

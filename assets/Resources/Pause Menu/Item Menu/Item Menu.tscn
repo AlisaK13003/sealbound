@@ -108,6 +108,7 @@ stretch_mode = 2
 
 [node name="Label2" type="Label" parent="Item Description/VBoxContainer" unique_id=688222389]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Heals 50HP"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -159,9 +160,10 @@ offset_left = -191.0
 offset_top = -42.0
 offset_right = -191.0
 offset_bottom = -42.0
-scale = Vector2(0.805, 0.805)
+scale = Vector2(0.59, 0.59)
 theme_override_constants/h_separation = 158
-columns = 3
+theme_override_constants/v_separation = 39
+columns = 4
 disable_selection = true
 
 [node name="Item_Container" type="Control" parent="." unique_id=120232604]

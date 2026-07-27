@@ -7,13 +7,12 @@
 [ext_resource type="Resource" uid="uid://bb57x0jdso0sf" path="res://scenes/Dungeon/Explorable_Dungeon_Test/Quest_Items/Slime Ball.tres" id="4_33e0x"]
 [ext_resource type="SpriteFrames" uid="uid://dwqx7akwnnm6c" path="res://assets/Enemies/Slime_Sprite_Frames.tres" id="4_ftsl5"]
 
-[sub_resource type="Resource" id="Resource_7mydf"]
+[sub_resource type="Resource" id="Resource_w0eus"]
 script = ExtResource("1_1rk34")
-attack_power = 0
-does_status = true
-status_type = 8
+attack_power = 1
+mana_cost = 2
+status_type = null
 removes_status = null
-chance_of_status_condition = 0.7
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ftsl5"]
@@ -41,7 +40,7 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 
 [resource]
 script = ExtResource("2_lfjh6")
-combatant_name = "Slime-Creature"
+combatant_name = "Green Slime"
 combatant_stats = SubResource("Resource_ftsl5")
 is_combatant_enemy = true
 should_flip_sprite = true
@@ -52,7 +51,7 @@ quest_item_drop = ExtResource("4_33e0x")
 coin_drop_range = Vector2i(1, 15)
 bond_drop_range = Vector2i(0, 5)
 combatant_skills_ = Dictionary[ExtResource("1_1rk34"), bool]({
-SubResource("Resource_7mydf"): true
+SubResource("Resource_w0eus"): true
 })
 sprite_frames = ExtResource("4_ftsl5")
 idle_speed = 1.0

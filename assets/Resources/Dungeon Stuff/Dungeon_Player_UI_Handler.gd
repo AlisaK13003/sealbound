@@ -85,7 +85,7 @@ func _setup(parent_reference):
 	await tween.finished
 	black_box.visible = false
 
-	bond_bar.max_value = GlobalCombatInformation.max_BP * 2
+	bond_bar.max_value = GlobalCombatInformation.max_BP * 5
 	#set_bond_attack(GlobalCombatInformation.cur_bond_attack_val)
 	has_been_setup = true
 

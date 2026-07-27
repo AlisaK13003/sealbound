@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="6_nmpqa"]
 [ext_resource type="Texture2D" uid="uid://bci72r7y43t48" path="res://assets/characters/cassian/cassian_portraits.png" id="6_yjsed"]
 [ext_resource type="SpriteFrames" uid="uid://dipb7dgwtec41" path="res://assets/characters/cassian/Cassian_Dungeon_Animations.tres" id="8_emvvf"]
-[ext_resource type="Script" uid="uid://c8pcj6siqledr" path="res://assets/Scripts/Resource Scripts/weapon_manager.gd" id="13_1wdq7"]
-[ext_resource type="Texture2D" uid="uid://c4xn8k77upbpx" path="res://assets/Equipment/Equipment Sprites/Rusty Sword.png" id="14_crnm6"]
+[ext_resource type="Resource" uid="uid://cxw3lp8qjgxac" path="res://assets/Equipment/Training_Sword.tres" id="9_nr1wp"]
 
 [sub_resource type="Resource" id="Resource_ms118"]
 script = ExtResource("5_4nyv2")
@@ -20,7 +19,6 @@ defense = 3
 magic = 5
 resistance = 4
 crit_chance = 8
-crit_damage = 50.0
 speed = 9
 luck = 7
 evasion = 9
@@ -42,25 +40,30 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 atlas = ExtResource("6_yjsed")
 region = Rect2(52, 8, 41, 61)
 
-[sub_resource type="Resource" id="Resource_8byxm"]
-script = ExtResource("13_1wdq7")
-weapon_name = "Lucifer's Blade"
-weapon_texture = ExtResource("14_crnm6")
-weapon_attack = 30
-attack_accuracy = 90
-metadata/_custom_type_script = "uid://c8pcj6siqledr"
+[sub_resource type="Resource" id="Resource_38qru"]
+script = ExtResource("1_bms7a")
+attack_power = null
+does_damage = false
+does_status = true
+status_type = 8
+removes_status = null
+chance_of_status_condition = 1.0
+lasts_x_turns = 2
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [resource]
 script = ExtResource("6_nmpqa")
 combatant_name = "Cassian"
 party_member_portrait = SubResource("AtlasTexture_ouqog")
 combatant_stats = SubResource("Resource_ms118")
-stored_weapon = SubResource("Resource_8byxm")
+stored_weapon = ExtResource("9_nr1wp")
 combatant_skills_ = Dictionary[ExtResource("1_bms7a"), bool]({
 ExtResource("2_ouqog"): true,
 ExtResource("3_r2tkb"): true,
 ExtResource("4_ccs0m"): true
 })
+passive_skill = SubResource("Resource_38qru")
 sprite_frames = ExtResource("8_emvvf")
 idle_speed = 1.0
 death_speed = 1.0

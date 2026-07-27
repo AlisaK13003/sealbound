@@ -7,18 +7,27 @@
 [ext_resource type="Script" uid="uid://125iickqse23" path="res://assets/Resources/Dungeon Stuff/combatant.gd" id="5_ssyx5"]
 [ext_resource type="SpriteFrames" uid="uid://7mqdm7pkasnd" path="res://assets/Enemies/Red_Slime_Framges.tres" id="6_ylh7k"]
 
-[sub_resource type="Resource" id="Resource_bvd8k"]
+[sub_resource type="Resource" id="Resource_cil30"]
 script = ExtResource("1_ylh7k")
-move_name = "Slimer"
-attack_power = 1
-accuracy = 85
-guaranteed_hit_count = 1
-max_hit_count = 1
-is_magic_skill = true
+attack_power = null
+does_damage = false
+mana_cost = 2
 does_status = true
-status_type = 8
+status_type = 65536
 removes_status = null
-chance_of_status_condition = 0.5
+chance_of_status_condition = 1.0
+targets_self = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
+[sub_resource type="Resource" id="Resource_7oyne"]
+script = ExtResource("1_ylh7k")
+attack_power = null
+does_damage = false
+mana_cost = 2
+does_status = true
+status_type = 256
+removes_status = null
+chance_of_status_condition = 1.0
 metadata/_custom_type_script = "uid://djfkp740jjn43"
 
 [sub_resource type="Resource" id="Resource_ftsl5"]
@@ -59,7 +68,8 @@ quest_item_drop = ExtResource("4_ylh7k")
 coin_drop_range = Vector2i(1, 15)
 bond_drop_range = Vector2i(0, 5)
 combatant_skills_ = Dictionary[ExtResource("1_ylh7k"), bool]({
-SubResource("Resource_bvd8k"): true
+SubResource("Resource_cil30"): true,
+SubResource("Resource_7oyne"): true
 })
 sprite_frames = ExtResource("6_ylh7k")
 idle_speed = 1.0

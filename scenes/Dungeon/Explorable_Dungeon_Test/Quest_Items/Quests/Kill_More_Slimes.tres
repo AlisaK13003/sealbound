@@ -8,15 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://dx2nwbbwer6we" path="res://assets/characters/lyra/Lyra_portraits.png" id="3_4n2ro"]
 [ext_resource type="Script" uid="uid://npoqdralsply" path="res://assets/Resources/Interactables/Quests (2)/quest_controller.gd" id="4_38bc3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sfe88"]
-atlas = ExtResource("3_4n2ro")
-region = Rect2(53, 5, 38, 64)
-
 [resource]
 script = ExtResource("4_38bc3")
 quest_name = "Rare Slimes"
 quest_giver = "Lyra"
-quest_giver_sprite = SubResource("AtlasTexture_sfe88")
+quest_giver_sprite = ExtResource("3_4n2ro")
 quest_description = "Some interesting slimes showed up in the caves near here. I wonder if their slime balls would do anything interesting."
 can_be_turned_in_at_tavern_box = true
 tavern_state_to_set = 6

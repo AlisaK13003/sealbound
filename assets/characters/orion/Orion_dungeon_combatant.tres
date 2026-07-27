@@ -41,6 +41,18 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 atlas = ExtResource("3_7bwxd")
 region = Rect2(52, 8, 41, 61)
 
+[sub_resource type="Resource" id="Resource_42ipl"]
+script = ExtResource("1_j7qan")
+attack_power = null
+status_on_player = true
+does_status = true
+status_type = 786432
+removes_status = null
+chance_of_status_condition = 1.0
+targets_party = true
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [resource]
 script = ExtResource("2_6ldo4")
 combatant_name = "Orion"
@@ -52,6 +64,7 @@ ExtResource("2_wc3kr"): true,
 ExtResource("3_rdllg"): true,
 ExtResource("4_dy8dd"): true
 })
+passive_skill = SubResource("Resource_42ipl")
 sprite_frames = ExtResource("5_8fhlr")
 idle_speed = 1.0
 death_speed = 1.0

@@ -64,12 +64,22 @@ func swap_to_me():
 						Global.show_mc_thought("You know what, I should probably go see Sera. She might be able to help me get back to where I was found.")
 					"talk_to_sera_about_clearing":
 						print("TALKED TO SERA ABOUT CLEARING")
-						Global.show_mc_thought("Okay, I think I know where to go know.")
+						Global.show_mc_thought("Okay, I think I know where to go now.")
+						await get_tree().create_timer(3.0).timeout
+						Global.show_mc_thought("I should probably be prepared before going there. Don't know what could be waiting.")
+						await get_tree().create_timer(6.0).timeout
+						Global.show_mc_thought("Might be smart to get to know some of the villagers. Could be helpful in my endeavors.")
 						StateManager.set_story_state(StateManager.story_beats_lookup.TALKED_TO_SERA_ABOUT_CLEAR)
 						StateManager.set_dungeon_unlock(StateManager.dungeon_state_lookup.SEAL_DUNGEON_UNLOCKED)
 					"first_seal_dungeon_cutscene":
 						print("SEAL DUNGEON CUTSCENE")
-					
+						Global.show_mc_thought("Wheh, that was rough.")
+						await get_tree().create_timer(3.0).timeout
+						Global.show_mc_thought("Don't know what that wolf has to do with head injury or the seal.")
+						await get_tree().create_timer(6.0).timeout
+						Global.show_mc_thought("END OF CHAPTER 1")
+						await get_tree().create_timer(2.0).timeout
+						Global.show_mc_thought("END OF DEMO!")
 
 	if Global.current_loading_zone == "DungeonExit":
 		await get_tree().create_timer(2.0).timeout

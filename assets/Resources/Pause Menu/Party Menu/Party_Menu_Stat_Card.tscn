@@ -279,8 +279,10 @@ offset_left = -36.5
 offset_top = 35.0
 offset_right = 9.5
 offset_bottom = 53.0
+theme_override_font_sizes/font_size = 12
 text = "MC"
 horizontal_alignment = 1
+vertical_alignment = 2
 script = ExtResource("1_n7ich")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1382359087]
@@ -398,7 +400,6 @@ offset_left = -13.0
 offset_top = 173.0
 offset_right = 52.160004
 offset_bottom = 203.0
-button_name = ""
 button_to_active = 7
 text_on_left_of_button = true
 

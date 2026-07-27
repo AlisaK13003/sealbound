@@ -333,7 +333,7 @@ func build_room_templates():
 	var treasure_room = dungeon_room.new(Vector2i(0, 0), [], 1, "T", 2)
 	
 	room_cap_templates.append(room_template.new([standard_room_cap], Vector2i(1, 1), 10.0))
-	room_cap_templates.append(room_template.new([treasure_room], Vector2i(1, 1), 1.5))
+	room_cap_templates.append(room_template.new([treasure_room], Vector2i(1, 1), 3.0))
 	
 	var b_left_1 = dungeon_room.new(Vector2i(0, 0), [2, 3], 3, "3_way_junction", 1)
 	var b_right_1 = dungeon_room.new(Vector2i(1, 0), [1, 2], 2, "Corner_Junction", 1)

@@ -42,6 +42,18 @@ metadata/_custom_type_script = "uid://bmbv0ryp34aq5"
 atlas = ExtResource("3_o0krs")
 region = Rect2(50, 6, 44, 67)
 
+[sub_resource type="Resource" id="Resource_yvf05"]
+script = ExtResource("1_hw41m")
+attack_power = null
+does_damage = false
+status_on_player = true
+does_status = true
+status_type = null
+removes_status = 278528
+targets_party = true
+is_skill_aoe = true
+metadata/_custom_type_script = "uid://djfkp740jjn43"
+
 [sub_resource type="Resource" id="Resource_8byxm"]
 script = ExtResource("13_060cn")
 weapon_name = "Lucifer's Blade"
@@ -61,6 +73,7 @@ ExtResource("2_wyusy"): true,
 ExtResource("3_cxk3i"): true,
 ExtResource("4_xr8vv"): true
 })
+passive_skill = SubResource("Resource_yvf05")
 sprite_frames = ExtResource("5_wldd5")
 idle_speed = 1.0
 walk_speed = 0.7

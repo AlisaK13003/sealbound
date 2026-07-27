@@ -102,9 +102,9 @@ offset_left = -241.06
 offset_top = -27.61
 offset_right = -241.06
 offset_bottom = -27.61
-scale = Vector2(1.4, 1.4)
-theme_override_constants/h_separation = 155
-columns = 3
+theme_override_constants/h_separation = 164
+theme_override_constants/v_separation = 42
+columns = 4
 override_separation = true
 
 [node name="Control" type="Control" parent="." unique_id=70404854]

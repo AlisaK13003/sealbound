@@ -6,14 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://c6pd57up1oubh" path="res://assets/tile sheets/Foreground_Border.png" id="3_88qrk"]
 [ext_resource type="Texture2D" uid="uid://b4mx71qgegni6" path="res://assets/Resources/Interactables/Quests (2)/Heart.png" id="3_j5gla"]
 [ext_resource type="Texture2D" uid="uid://leduhibk3lah" path="res://assets/tile sheets/Background_Panel-Color.png" id="4_yvf05"]
-[ext_resource type="Texture2D" uid="uid://pfuhauy61si8" path="res://GUI/dialogue_system/sprites/portraits/Sera_portraits.png" id="6_n4f55"]
+[ext_resource type="Texture2D" uid="uid://bdrtiprqkglms" path="res://assets/characters/rowan/rowan_portraits.png" id="7_88qrk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_umtdc"]
 size = Vector2(444, 60)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7tpxp"]
-atlas = ExtResource("6_n4f55")
-region = Rect2(50, 4, 41, 67)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7tpxp"]
 
@@ -168,15 +164,6 @@ theme_override_font_sizes/font_size = 13
 text = "Forest Dungeon"
 autowrap_mode = 3
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1304115724]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 9.0
-offset_right = 39.0
-offset_bottom = 54.756096
-texture = SubResource("AtlasTexture_7tpxp")
-expand_mode = 1
-
 [node name="GridContainer" type="GridContainer" parent="." unique_id=2044507280]
 layout_mode = 0
 offset_left = 311.0
@@ -197,6 +184,11 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_7ued3")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_goyxb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_brthv")
 text = "Accept Quest"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=675473034]
+position = Vector2(29, 42)
+texture = ExtResource("7_88qrk")
+hframes = 4
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

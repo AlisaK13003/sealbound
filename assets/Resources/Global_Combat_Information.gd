@@ -917,9 +917,27 @@ func load_saved_data(data):
 	completed_quests.clear()
 
 	for party_member in data["player_slots"].values():
-		if not ResourceLoader.exists(party_member["path"], ""):
-			continue
-		var new_party_member: generic_combatants = load(party_member["path"])
+		var new_party_member: generic_combatants
+		if ResourceLoader.exists(party_member["path"], ""):
+			new_party_member = load(party_member["path"])
+		elif party_member["name"] != null and party_member["name"] != "":
+			match party_member["name"]:
+				"Lyra":
+					new_party_member = load("res://assets/characters/lyra/Lyra_Combatant_Information.tres")
+				"Sera":
+					new_party_member = load("res://assets/characters/sera/Sera_Combatant_Information.tres")
+				"Rowan":
+					new_party_member = load("res://assets/characters/rowan/Rowan_Combatant_Information.tres")
+				"Orion":
+					new_party_member = load("res://assets/characters/orion/Orion_dungeon_combatant.tres")
+				"Cassian":
+					new_party_member = load("res://assets/characters/cassian/Cassian_Combatant_Information.tres")
+				"Kaela":
+					new_party_member = load("res://assets/characters/kaela/Kaela_Combatant_Information.tres")
+				_:
+					new_party_member = null
+			if new_party_member == null:
+				continue
 		var index = all_party_slots.find_custom(func(member: generic_combatants): return new_party_member.combatant_name == member.combatant_name)
 		if index != -1:
 			new_party_member.load_save(party_member)
