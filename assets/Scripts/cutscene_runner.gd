@@ -24,6 +24,7 @@ var sfx_player: AudioStreamPlayer
 var selected_choice_index: int = -1
 var pending_choice_beat: Dictionary = {}
 var previous_time_paused: bool = false
+var hold_global_fade_on_finish: bool = false
 
 func _ready() -> void:
 	layer = 200
@@ -452,7 +453,7 @@ func _finish_cutscene() -> void:
 
 	visible = false
 	finished.emit()
-	if Fade != null:
+	if Fade != null and not hold_global_fade_on_finish:
 		Fade.fade_out(END_TRANSITION_FADE_DURATION)
 	Global.time_paused = previous_time_paused
 	Global.is_in_menu = false

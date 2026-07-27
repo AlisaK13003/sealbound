@@ -7,6 +7,10 @@
 	  "duration": 0.0
 	},
 	{
+	  "type": "action",
+	  "name": "clear_global_fade"
+	},
+	{
 	  "type": "wait",
 	  "duration": 0.2
 	},

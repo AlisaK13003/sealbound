@@ -24,9 +24,12 @@ var currently_transitioning: bool = false
 @export var forest_player_speed: float = 325.0
 
 
-func _setup(transition = true):
+func _setup(transition = true, keep_fade_covered: bool = false):
 	currently_transitioning = transition
-	Fade.fade_out(0.0)
+	if keep_fade_covered and Fade != null and Fade.has_method("reset_to_black"):
+		Fade.reset_to_black()
+	else:
+		Fade.fade_out(0.0)
 	var hearthwynn = load(hearthwynn_hub_scene)
 	var cliff_side = load(cliff_side_scene)
 	var spooky_forest = load(spooky_forest_scene)

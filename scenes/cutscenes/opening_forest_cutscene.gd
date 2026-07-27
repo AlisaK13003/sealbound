@@ -105,6 +105,7 @@ func _apply_initial_actor_state() -> void:
 
 func _start_cutscene() -> void:
 	cutscene_runner = CUTSCENE_RUNNER_SCRIPT.new()
+	cutscene_runner.hold_global_fade_on_finish = true
 	cutscene_runner.finished.connect(_on_opening_cutscene_finished)
 	cutscene_runner.finished.connect(cutscene_runner.queue_free)
 	add_child(cutscene_runner)
@@ -133,7 +134,7 @@ func _on_opening_cutscene_finished() -> void:
 	Global.pending_cutscene_path = INFIRMARY_WAKEUP_CUTSCENE_PATH
 	Global.current_region = "Buildings_Insides"
 	Global.current_loading_zone = "Infirmary"
-	AreaStateManager._setup()
+	AreaStateManager._setup(true, true)
 	_prepare_infirmary_wakeup_positions()
 	AreaStateManager.swap_scene(self)
 
