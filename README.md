@@ -6,8 +6,11 @@
 
 ## Media
 
-<!-- Add a gameplay screenshot or GIF here. -->
-<!-- Example: ![Sealbound gameplay](docs/media/sealbound-gameplay.gif) -->
+![Sealbound title screen](docs/media/sealbound-title.png)
+
+| Overworld exploration | Party-based combat |
+| --- | --- |
+| ![Sealbound overworld exploration](docs/media/sealbound-overworld.png) | ![Sealbound party-based combat](docs/media/sealbound-combat.png) |
 
 ## Overview
 
