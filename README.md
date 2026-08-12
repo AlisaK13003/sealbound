@@ -23,14 +23,15 @@ Players can:
 
 ## My Contributions
 
-My work focused on gameplay systems, UI flow, and making the project easier for a team to build on:
+My work focused on extending core RPG systems, narrative tooling, and keeping the team scoped and organized:
 
-- Implemented configurable keyboard/controller bindings with saved settings and default bindings for exported builds.
-- Built settings flows for video, audio, and key configuration from the title screen and in-game menus.
-- Worked on player movement, pause/menu behavior, and input mapping across keyboard and controller.
-- Developed RPG systems around NPC bonds, party progression, quests, and dungeon entry flow.
-- Integrated story/cutscene support with dialogue, NPC state restoration, and scene transitions.
-- Helped maintain the Git workflow, Git LFS asset setup, and repo structure for a multi-person Godot project.
+- Built and iterated on the dialogue system, including dialogue UI, portraits, branching choices, typewriter behavior, punctuation pauses, and story-gated dialogue flow.
+- Added the NPC bond dialogue layer, connecting bond values, daily talk rewards, relationship tiers, and dialogue context to NPC interactions.
+- Built on the existing NPC schedule system by adding schedule data, route/path support, interior schedules, and fixes for characters like Lyra, Sera, Orion, Rowan, Kaela, and Cassian.
+- Expanded shop and menu flows, including apothecary setup, shop modal behavior, owner details, pause/load menu integration, and title-screen settings/menu polish.
+- Polished story and demo flow through cutscenes, scene transitions, quest-board setup, Lyra axe quest progression, debug skips, and NPC restoration after cutscenes.
+- Implemented and maintained input/keybind work, including exported-build default key configs so players can move and interact without manual setup.
+- Supported project management for the five-person team by managing scope, organizing priorities, and delegating tasks across systems, content, and polish work.
 
 ## Technical Highlights
 
