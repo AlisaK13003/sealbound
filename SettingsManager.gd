@@ -3,6 +3,28 @@ extends Node
 var SAVE_PATH = "user://settings.cfg"
 
 var selected_resolution
+const KEYBOARD_BIND_ACTIONS: Array[String] = [
+	"up",
+	"down",
+	"left",
+	"right",
+	"confirm",
+	"cancel",
+	"Dungeon_Item",
+	"Dungeon_Skill",
+	"Pause",
+]
+const CONTROLLER_BIND_ACTIONS: Array[String] = [
+	"Controller_Up",
+	"Controller_Down",
+	"Controller_Left",
+	"Controller_Right",
+	"Controller_Confirm",
+	"Controller_Cancel",
+	"Controller_Dungeon_Item",
+	"Controller_Dungeon_Skill",
+	"Controller_Pause",
+]
 
 func _ready():
 	if not check_if_config_exists():
@@ -18,33 +40,38 @@ func check_if_config_exists():
 
 func update_config_file():
 	var config = ConfigFile.new()
-	var error = config.load(SAVE_PATH)
-	if error == OK:
-		#fps, resolution, screenmode, desired monitor, vsync toggle
-		# master volume, sfx volume, bgm slider
-		# key binds
-		
-		config.set_value("display", "fps", Engine.max_fps)
-		if selected_resolution == null:
-			selected_resolution = DisplayServer.window_get_size()
-		config.set_value("display", "resolution", selected_resolution)
-		var current_mode = DisplayServer.window_get_mode()
-		var mode_string = "Windowed"
-		if current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-			mode_string = "Fullscreen"
-		elif current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
-			if DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS):
-				mode_string = "Borderless Fullscreen"
-			else:
-				mode_string = "Windowed"
-		config.set_value("display", "screen_mode", mode_string)
-		config.set_value("display", "desired_monitor", DisplayServer.window_get_current_screen())
-		config.set_value("display", "vsync", "On" if DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED else "Off")
-		
-		config.set_value("audio", "master_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))))
-		config.set_value("audio", "sfx_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))))
-		config.set_value("audio", "music_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("BGM"))))
-		config.set_value("audio", "tile_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("TILE"))))
+	config.load(SAVE_PATH)
+	#fps, resolution, screenmode, desired monitor, vsync toggle
+	# master volume, sfx volume, bgm slider
+	# key binds
+
+	config.set_value("display", "fps", Engine.max_fps)
+	if selected_resolution == null:
+		selected_resolution = DisplayServer.window_get_size()
+	config.set_value("display", "resolution", selected_resolution)
+	var current_mode = DisplayServer.window_get_mode()
+	var mode_string = "Windowed"
+	if current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+		mode_string = "Fullscreen"
+	elif current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
+		if DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS):
+			mode_string = "Borderless Fullscreen"
+		else:
+			mode_string = "Windowed"
+	config.set_value("display", "screen_mode", mode_string)
+	config.set_value("display", "desired_monitor", DisplayServer.window_get_current_screen())
+	config.set_value("display", "vsync", "On" if DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED else "Off")
+
+	config.set_value("audio", "master_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))))
+	config.set_value("audio", "sfx_vol", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))))
+	config.set_value("audio", "music_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("BGM"))))
+	config.set_value("audio", "tile_vol",db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("TILE"))))
+	for action_name in KEYBOARD_BIND_ACTIONS:
+		if not config.has_section_key("binds_keyboard", action_name):
+			config.set_value("binds_keyboard", action_name, get_saved_keyboard_keycode(config, action_name))
+	for action_name in CONTROLLER_BIND_ACTIONS:
+		if not config.has_section_key("binds_controller", action_name):
+			config.set_value("binds_controller", action_name, get_first_controller_bind(action_name))
 	config.save(SAVE_PATH)
 
 func load_from_config():
@@ -71,14 +98,11 @@ func load_from_config():
 		_change_volume(config.get_value("audio", "music_vol", 0.7), "BGM")
 		_change_volume(config.get_value("audio", "tile_vol", 0.7), "TILE")
 		
-		rebind_keyboard_only("up", config.get_value("binds", "up", KEY_NONE))
-		rebind_keyboard_only("down", config.get_value("binds", "down", KEY_NONE))
-		rebind_keyboard_only("left", config.get_value("binds", "left", KEY_NONE))
-		rebind_keyboard_only("right", config.get_value("binds", "right", KEY_NONE))
-		rebind_keyboard_only("confirm", config.get_value("binds", "confirm", KEY_NONE))
-		rebind_keyboard_only("cancel", config.get_value("binds", "cancel", KEY_NONE))
-		rebind_keyboard_only("Dungeon_Item", config.get_value("binds", "Dungeon_Item", KEY_NONE))
-		rebind_keyboard_only("Dungeon_Skill", config.get_value("binds", "Dungeon_Skill", KEY_NONE))
+		for action_name in KEYBOARD_BIND_ACTIONS:
+			if config.has_section_key("binds_keyboard", action_name) or config.has_section_key("binds", action_name):
+				rebind_keyboard_only(action_name, get_saved_keyboard_keycode(config, action_name))
+
+		update_config_file()
 		
 		
 const BASE_RESOLUTION = Vector2i(640, 360)
@@ -201,6 +225,34 @@ func rebind_keyboard_only(action_name: String, new_keycode: int):
 		var new_event = InputEventKey.new()
 		new_event.physical_keycode = new_keycode
 		InputMap.action_add_event(action_name, new_event)
+
+func get_first_keyboard_keycode(action_name: String) -> int:
+	for event in InputMap.action_get_events(action_name):
+		if event is InputEventKey:
+			return event.physical_keycode if event.physical_keycode != KEY_NONE else event.keycode
+	return KEY_NONE
+
+func get_saved_keyboard_keycode(config: ConfigFile, action_name: String) -> int:
+	if config.has_section_key("binds_keyboard", action_name):
+		return config.get_value("binds_keyboard", action_name, KEY_NONE)
+	if config.has_section_key("binds", action_name):
+		return config.get_value("binds", action_name, KEY_NONE)
+	return get_first_keyboard_keycode(action_name)
+
+func get_first_controller_bind(action_name: String) -> Dictionary:
+	for event in InputMap.action_get_events(action_name):
+		if event is InputEventJoypadButton:
+			return {
+				"type": "button",
+				"index": event.button_index
+			}
+		if event is InputEventJoypadMotion:
+			return {
+				"type": "motion",
+				"axis": event.axis,
+				"value": event.axis_value
+			}
+	return {}
 
 func save_key_to_config(event: InputEvent, is_keyboard: bool, action_name: String):
 	var config = ConfigFile.new()
