@@ -1,40 +1,21 @@
-# Sealbound — Getting Started (Godot 4.6 + Git LFS + Workflow)
+# Sealbound
 
-Repo: `https://github.com/AlisaK13003/sealbound.git`
-Godot version: **Godot 4.6 (stable)** ([Godot Engine][1])
+Sealbound is a Godot fantasy RPG project with overworld exploration, party-based combat, dungeon content, NPC bonds, quests, and story cutscenes.
 
-Assumptions:
+## Current Engine
 
-* You already have **Git** available on your machine.
-* This project uses **Git LFS** (required for contributors).
-* `.gitignore` and `.gitattributes` are already set up in the repo.
+- Godot 4.7 stable
+- Git LFS is required for assets
 
----
+## Getting Started
 
-## 1) Download Godot 4.6
-
-Get Godot 4.6 (stable) here: **[Godot 4.6 (stable) download](https://godotengine.org/download/archive/4.6-stable/)** ([Godot Engine][1])
-
-Basic run notes:
-
-* **Windows**: download → unzip → run `Godot_v4.6-stable_*.exe`
-* **Linux**: download → extract → run the `Godot_v4.6-stable_*` binary (you may need `chmod +x <file>`)
-
----
-
-## 2) One-time setup: enable Git LFS (required)
-
-Run this once on your machine (any OS):
+Install Git LFS once on your machine:
 
 ```bash
 git lfs install
 ```
 
----
-
-## 3) Download the project
-
-### Linux (Terminal)
+Clone the project and pull large assets:
 
 ```bash
 git clone https://github.com/AlisaK13003/sealbound.git
@@ -42,35 +23,27 @@ cd sealbound
 git lfs pull
 ```
 
-### Windows (PowerShell)
+Open the project in Godot:
 
-```powershell
-git clone https://github.com/AlisaK13003/sealbound.git
-cd sealbound
-git lfs pull
-```
+1. Launch Godot 4.7.
+2. Import the cloned `sealbound` folder.
+3. Open the project.
+4. Press `F5` to run.
 
-Recommended on Windows (helps avoid noisy line-ending diffs):
+## Default Controls
 
-```powershell
-git config --global core.autocrlf input
-```
+- Move: `WASD` or arrow keys
+- Confirm / interact: `C` or Enter
+- Cancel: `X`
+- Pause: Escape
+- Dungeon item: `P`
+- Dungeon skill: `O`
 
----
+Keybinds can be changed in the in-game settings menu. Fresh installs ship with default bindings, so players should not need to configure controls before playing.
 
-## 4) Open the project in Godot
+## Development Workflow
 
-1. Launch **Godot 4.6**
-2. In Project Manager: **Import** the cloned `sealbound/` folder
-3. Open the project and run it (F5)
-
----
-
-## 5) Development workflow (everyone can push branches)
-
-### A) Start from an updated `main`
-
-Do this before starting new work:
+Start new work from an updated `main`:
 
 ```bash
 git checkout main
@@ -78,86 +51,36 @@ git pull --rebase
 git lfs pull
 ```
 
-### B) Create a branch for your task
-
-Branch naming:
-
-* `feature/<short-name>` (new feature)
-* `fix/<short-name>` (bug fix)
-* `chore/<short-name>` (cleanup/tooling)
+Create a task branch:
 
 ```bash
 git checkout -b feature/my-change
 ```
 
-### C) Work → commit
-
-Check what changed:
+Before committing:
 
 ```bash
 git status
 git diff
 ```
 
-Commit:
+Commit and push:
 
 ```bash
-git add -A
-git commit -m "Add <short description>"
-```
-
-### D) Push your branch
-
-```bash
-git push -u origin feature/my-change
-```
-
-### E) Open a Pull Request (recommended)
-
-Even though everyone can push branches, PRs keep `main` stable and make reviews easy:
-
-* PR from `feature/my-change` → `main`
-* Include:
-
-  * what changed
-  * how to test it
-  * screenshots/video if visuals changed
-
----
-
-## 6) Keep your branch up to date
-
-If `main` changes while you’re working:
-
-```bash
-git fetch origin
-git rebase origin/main
-git lfs pull
-```
-
-Then push your rebased branch:
-
-```bash
-git push --force-with-lease
-```
-
----
-
-## 7) Quick start (copy/paste)
-
-```bash
-git lfs install
-git clone https://github.com/AlisaK13003/sealbound.git
-cd sealbound
-git lfs pull
-
-git checkout main
-git pull --rebase
-git checkout -b feature/my-change
-# make changes...
 git add -A
 git commit -m "Add my change"
 git push -u origin feature/my-change
 ```
 
----
+Use pull requests for changes that touch gameplay systems, scenes, assets, or shared resources.
+
+## Repo Hygiene
+
+Do not commit:
+
+- `.godot/`
+- OS files like `.DS_Store`
+- temporary `*.tmp` or `*.TMP` files
+- editor lock/backup files beginning with `~`
+
+Keep generated exports outside the repository unless they are intentionally being published as release artifacts.
